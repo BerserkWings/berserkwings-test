@@ -9,8 +9,7 @@
     </a>
     <nav class="main-nav">
       {{ range .Site.Menus.main }}
-        {{ $menuURL := .URL | strings.TrimPrefix "/" | relURL }}
-        <a href="{{ $menuURL }}" {{ if eq $.RelPermalink .URL }}class="is-active"{{ end }}>{{ .Name }}</a>
+        <a href="{{ .URL }}" {{ if eq $.RelPermalink .URL }}class="is-active"{{ end }}>{{ .Name }}</a>
       {{ end }}
     </nav>
   </div>
