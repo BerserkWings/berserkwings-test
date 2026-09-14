@@ -1,0 +1,16 @@
+/public/
+/resources/_gen/
+.hugo_build.lock
+.DS_Store
+
+# Python (scripts/migrate_posts.py)
+__pycache__/
+*.pyc
+
+# Herramientas de uso personal -- útiles para ti, pero no hace falta
+# publicarlas junto con el sitio.
+/scripts/
+README.md
+
+# Por si algún día agregas variables de entorno locales
+.env
