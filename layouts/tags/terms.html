@@ -5,6 +5,13 @@
   <h1>Etiquetas</h1>
   <p class="post-meta">Ordenadas de la más usada a la menos usada.</p>
 
+  {{/* Recalculamos el conteo de cada etiqueta contando solo posts NO
+       embargados. .Count de Hugo cuenta TODO, incluyendo posts con
+       unlock_date futuro -- sin esto, una etiqueta nueva que solo use
+       un writeup bloqueado aparecería aquí como pista, aunque esa
+       misma etiqueta esté oculta en la tarjeta del post. Si una
+       etiqueta se queda en 0 (todas sus apariciones son de posts
+       embargados), se omite por completo. */}}
   {{ $recounted := slice }}
   {{ range .Data.Terms.Alphabetical }}
     {{ $termPage := .Page }}

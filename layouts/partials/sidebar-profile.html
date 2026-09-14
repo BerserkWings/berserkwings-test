@@ -4,7 +4,7 @@
 {{ range $i, $p := $allPosts }}{{ if eq $p.Permalink $.Permalink }}{{ $idx = $i }}{{ end }}{{ end }}
 
 <aside class="side-profile">
-  <img class="side-avatar" src="{{ .Site.Params.avatar | absURL }}" alt="{{ .Site.Params.nickname }}">
+  <img class="side-avatar" src="{{ .Site.Params.avatar | strings.TrimPrefix "/" | absURL }}" alt="{{ .Site.Params.nickname }}">
   <div class="side-name">{{ .Site.Params.nickname }}</div>
   <div class="side-tagline">{{ .Site.Params.tagline }}</div>
 
@@ -50,7 +50,7 @@
 
   {{ if and (or (eq .Kind "section") (eq .Kind "term") (eq .Kind "taxonomy")) (ne .Section "tags") }}
   <div class="side-posts">
-    <a class="side-cta-button" href="/writeups/todos/">📚 Mostrar todos los writeups</a>
+    <a class="side-cta-button" href="{{ "writeups/todos/" | relURL }}">📚 Mostrar todos los writeups</a>
   </div>
   {{ end }}
 

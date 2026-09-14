@@ -1,5 +1,5 @@
 {{- $items := slice -}}
- 
+
 {{- $posts := where .Site.RegularPages "Type" "posts" -}}
 {{- range $posts -}}
   {{- $unlockDate := "" -}}
@@ -23,7 +23,7 @@
         "categories" (.Params.categories | default (slice))
       ) -}}
 {{- end -}}
- 
+
 {{- range $term, $weightedPages := .Site.Taxonomies.categories -}}
   {{- $items = $items | append (dict
         "type" "category"
@@ -32,7 +32,7 @@
         "count" (len $weightedPages)
       ) -}}
 {{- end -}}
- 
+
 {{- range $term, $weightedPages := .Site.Taxonomies.tags -}}
   {{- $items = $items | append (dict
         "type" "tag"
@@ -41,5 +41,5 @@
         "count" (len $weightedPages)
       ) -}}
 {{- end -}}
- 
+
 {{- $items | jsonify -}}

@@ -3,9 +3,21 @@
 <article class="post" id="top">
   {{ partial "sidebar-profile.html" . }}
 
+  {{/* EMBARGO: usa un campo NUEVO y separado (unlock_date) en vez de
+       date -- date sigue siendo la fecha real de publicación (para
+       que el post aparezca en su lugar cronológico correcto), y
+       unlock_date es opcional: solo si existe y es futura se activa
+       el candado, usando ESA fecha para el mensaje. Si no la pones,
+       el post nunca se bloquea, igual que antes. */}}
   {{ $unlockDate := "" }}
   {{ with .Params.unlock_date }}{{ $unlockDate = time.AsTime . }}{{ end }}
   {{ if and $unlockDate (gt $unlockDate now) }}
+  {{/* La fecha de desbloqueo todavía no llega. En vez de mostrar el
+       writeup completo (que revelaría detalles de una máquina que la
+       plataforma aún no retira), simulamos que el comando para leerlo
+       falló con "Permission denied" -- pero seguimos exponiendo el
+       título, la imagen y la fecha, ya que eso no revela nada
+       sensible del contenido en sí. */}}
   <header class="post-header">
     <h1>{{ .Title }}</h1>
   </header>
@@ -23,7 +35,7 @@
       <div class="post-embargo-lock{{ if $teaser }} has-poster{{ end }}">
         {{ with $teaser }}
         <div class="post-embargo-poster">
-          <img class="post-embargo-poster-img" src="{{ . | absURL }}" alt="{{ $.Title }}">
+          <img class="post-embargo-poster-img" src="{{ . | strings.TrimPrefix "/" | absURL }}" alt="{{ $.Title }}">
           <svg class="post-embargo-icon post-embargo-icon-overlay" viewBox="0 0 24 24" aria-hidden="true">
             <rect x="4" y="11" width="16" height="10" rx="2.2"></rect>
             <path d="M7.5 11V7.5a4.5 4.5 0 0 1 9 0V11"></path>
@@ -46,7 +58,7 @@
             se me hace una reverenda estupidez.
           </p>
           <p class="post-embargo-date">Disponible a partir del {{ $unlockDate.Format "2 January 2006" }}.</p>
-          <a class="post-embargo-back" href="/posts/">← Volver a Writeups</a>
+          <a class="post-embargo-back" href="{{ "posts/" | relURL }}">← Volver a Writeups</a>
         </div>
       </div>
     </div>
@@ -62,9 +74,14 @@
   </header>
 
   {{ with .Params.header.teaser }}
-  <img class="post-cover" src="{{ . | absURL }}" alt="{{ $.Title }}">
+  <img class="post-cover" src="{{ . | strings.TrimPrefix "/" | absURL }}" alt="{{ $.Title }}">
   {{ end }}
 
+  {{/* Respaldo para posts migrados que dependían del auto-excerpt de
+       Jekyll (excerpt_separator) en vez de tener excerpt: explícito en
+       el front matter -- sin esto, a esos posts les faltaría este
+       párrafo de introducción. .Summary es el resumen automático que
+       Hugo ya genera solo del contenido, igual que hacía Jekyll. */}}
   {{ with (.Params.excerpt | default .Summary) }}
   <p class="post-lead">{{ . }}</p>
   {{ end }}

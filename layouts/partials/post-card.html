@@ -19,7 +19,7 @@
   </div>
   {{ with .Params.header.teaser }}
   <span class="post-card-thumb-wrap">
-    <img class="post-card-thumb" src="{{ . | absURL }}" alt="{{ $.Title }}" loading="lazy">
+    <img class="post-card-thumb" src="{{ . | strings.TrimPrefix "/" | absURL }}" alt="{{ $.Title }}" loading="lazy">
   </span>
   {{ end }}
 </a>

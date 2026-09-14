@@ -8,7 +8,7 @@
   <div class="about-ascii-wrap">
     <div class="ascii-avatar about-ascii-avatar" data-char-width="2" role="img" aria-label="{{ .Site.Params.nickname }}">
       <pre class="ascii-output about-ascii" aria-hidden="true"></pre>
-      <img class="ascii-source about-avatar" src="{{ .Params.photo | absURL }}" alt="{{ .Site.Params.nickname }}">
+      <img class="ascii-source about-avatar" src="{{ .Params.photo | strings.TrimPrefix "/" | absURL }}" alt="{{ .Site.Params.nickname }}">
     </div>
   </div>
 
@@ -21,7 +21,7 @@
     <div class="cert-track">
       {{ range $i, $c := . }}
       <div class="cert-slide{{ if eq $i 0 }} is-active{{ end }}">
-        <img src="{{ $c.image | absURL }}" alt="{{ $c.name }}" loading="lazy">
+        <img src="{{ $c.image | strings.TrimPrefix "/" | absURL }}" alt="{{ $c.name }}" loading="lazy">
         <div class="cert-slide-name">{{ $c.name }}</div>
       </div>
       {{ end }}

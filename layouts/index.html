@@ -15,7 +15,7 @@
         <div class="hero-stats-row">
           {{ if .Site.Params.htb_username }}
           <div class="hero-stat-badge hero-stat-badge--htb">
-            {{ with .Site.Params.htb_logo }}<img class="hero-stat-logo" src="{{ . | absURL }}" alt="HackTheBox" width="90" height="80">{{ end }}
+            {{ with .Site.Params.htb_logo }}<img class="hero-stat-logo" src="{{ . | strings.TrimPrefix "/" | absURL }}" alt="HackTheBox" width="90" height="80">{{ end }}
             <span class="hero-stat-label">HackTheBox</span>
             <span class="hero-stat-value">{{ .Site.Params.htb_username }}</span>
           </div>
@@ -24,13 +24,13 @@
           <div class="hero-ascii-frame">
             <div class="ascii-avatar hero-ascii-avatar" data-char-width="2" role="img" aria-label="{{ .Site.Params.nickname }}">
               <pre class="ascii-output hero-ascii" aria-hidden="true"></pre>
-              <img class="ascii-source hero-avatar" src="{{ .Site.Params.avatar | absURL }}" alt="{{ .Site.Params.nickname }}">
+              <img class="ascii-source hero-avatar" src="{{ .Site.Params.avatar | strings.TrimPrefix "/" | absURL }}" alt="{{ .Site.Params.nickname }}">
             </div>
           </div>
 
           {{ if .Site.Params.thl_username }}
           <div class="hero-stat-badge hero-stat-badge--thl">
-            {{ with .Site.Params.thl_logo }}<img class="hero-stat-logo" src="{{ . | absURL }}" alt="TheHackerLabs" width="90" height="80">{{ end }}
+            {{ with .Site.Params.thl_logo }}<img class="hero-stat-logo" src="{{ . | strings.TrimPrefix "/" | absURL }}" alt="TheHackerLabs" width="90" height="80">{{ end }}
             <span class="hero-stat-label">TheHackerLabs</span>
             <span class="hero-stat-value">{{ .Site.Params.thl_username }}</span>
           </div>
@@ -41,11 +41,11 @@
       <p class="terminal-welcome">{{ .Site.Params.welcome | safeHTML }}</p>
       <p class="terminal-sub">Siéntete libre de navegar por el blog:</p>
       <div class="terminal-links">
-        <a href="/posts/">→ ./writeups</a>
-        <a href="/categories/">→ ./categorías</a>
-        <a href="/tags/">→ ./etiquetas</a>
-        <a href="/buscador/">→ ./buscador</a>
-        <a href="/acerca-de-mi/">→ ./acerca-de-mi</a>
+        <a href="{{ "posts/" | relURL }}">→ ./writeups</a>
+        <a href="{{ "categories/" | relURL }}">→ ./categorías</a>
+        <a href="{{ "tags/" | relURL }}">→ ./etiquetas</a>
+        <a href="{{ "buscador/" | relURL }}">→ ./buscador</a>
+        <a href="{{ "acerca-de-mi/" | relURL }}">→ ./acerca-de-mi</a>
       </div>
     </div>
   </div>
@@ -58,6 +58,8 @@
   <div class="post-carousel" id="postCarousel">
     <div class="post-carousel-viewport">
       <div class="post-carousel-track" id="postCarouselTrack">
+        {{/* Se repite dos veces a propósito: es lo que permite que el
+             scroll continuo se vea infinito y sin cortes (marquesina). */}}
         {{ range $i := (slice 1 2) }}
         {{ range $recent }}
         <div class="post-carousel-slide">
@@ -81,7 +83,7 @@
             </div>
             {{ with .Params.header.teaser }}
             <span class="post-card-thumb-wrap">
-              <img class="post-card-thumb" src="{{ . | absURL }}" alt="{{ $.Title }}" loading="lazy">
+              <img class="post-card-thumb" src="{{ . | strings.TrimPrefix "/" | absURL }}" alt="{{ $.Title }}" loading="lazy">
             </span>
             {{ end }}
           </a>
@@ -92,6 +94,6 @@
     </div>
   </div>
 
-  <p style="margin-top:2rem;"><a href="/posts/">Ver todos los writeups →</a></p>
+  <p style="margin-top:2rem;"><a href="{{ "posts/" | relURL }}">Ver todos los writeups →</a></p>
 </div>
 {{ end }}

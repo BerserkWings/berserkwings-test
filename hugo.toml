@@ -1,16 +1,39 @@
 baseURL = "https://berserkwings.github.io/"
 locale = "es-MX"
+# Tu blog viejo en Jekyll usaba esta misma zona horaria (_config.yml:
+# timezone: America/Mexico_City). La igualamos para que las fechas de
+# los posts migrados, el orden cronológico y el "candado" de posts
+# embargados (buildFuture) se comporten exactamente igual que antes.
 timeZone = "America/Mexico_City"
-title = "BerserkWings - Hacking Ético"
+title = "BerserkWings // Hacking Ético"
 paginate = 8
 enableRobotsTXT = true
 summarylength = 40
 
+# CRÍTICO para no romper URLs ya compartidas con TheHackersLabs: por
+# defecto Hugo pone TODAS las rutas generadas en minúsculas. Tu blog
+# viejo en Jekyll (con el permalink `:title`) SÍ respetaba mayúsculas
+# (ej. /THL-writeup-scapeRoom/ tal cual, no /thl-writeup-scaperoom/).
+# Sin esto, cualquier writeup con mayúsculas en el nombre cambiaría de
+# URL al migrar, aunque el slug esté técnicamente bien.
 disablePathToLower = true
 
+# El "candado" para writeups embargados (ej. máquinas de HTB que aún no
+# retiran) usa un campo de front matter APARTE llamado `unlock_date:`,
+# distinto de `date:`. `date:` sigue siendo la fecha real en que subes
+# el writeup (controla su lugar cronológico en Inicio, Writeups,
+# Categorías, etc., como cualquier post normal); `unlock_date:` es
+# opcional y solo activa el candado en single.html si es una fecha
+# futura. Ver ese archivo para el detalle. buildFuture ya no es
+# necesario para este mecanismo (el post embargado tiene una `date:`
+# normal, no futura), pero se deja en true como red de seguridad por si
+# algún día programas un post con `date:` genuinamente futura.
 buildFuture = true
 
 # --- Índice de búsqueda propio (JSON generado por Hugo) ---
+# En vez de depender de Pagefind (que solo indexa DESPUÉS de compilar
+# para producción), Hugo genera este JSON solo, en `hugo server` y en
+# producción por igual, con todos los writeups, categorías y etiquetas.
 [outputs]
   home = ["HTML", "RSS", "SearchIndex"]
 
@@ -50,14 +73,24 @@ buildFuture = true
   description    = "Writeups de ciberseguridad, CTFs, Active Directory y certificaciones."
   location       = "México"
   avatar         = "/assets/images/avatar.png"
-  # Logo del header (junto al nombre). 
+  # Logo del header (junto al nombre). Ajusta el nombre de archivo al tuyo
+  # real una vez que copies tu carpeta assets/images — en tu blog viejo
+  # el _config.yml apuntaba a "/assets/images/masthead.png". Déjalo vacío
+  # si no quieres logo, y solo se mostrará el texto.
   logo           = "/assets/images/masthead.png"
   github         = "https://github.com/BerserkWings"
   htb_username   = "BerserkWings"
+  # Descárgalo de https://www.hackthebox.com/newsroom (sección Brand
+  # Guidelines) para usar la versión y el uso permitido correctos.
+  # Usa la carpeta "Online" > SVG (no Print) para que se vea nítido en pantalla.
   htb_logo       = "/assets/images/htb_logo.svg"
   thl_username   = "BerserkWings"
+  # Ajusta esta ruta/nombre al logo real de TheHackerLabs que tengas.
   thl_logo       = "/assets/images/thehackerlabs.jpeg"
   # --- Donaciones ---
+  # Deja vacío mientras no tengas cuenta. En cuanto crees tu usuario de
+  # Buy Me a Coffee, ponlo aquí (solo el nombre de usuario, sin la URL completa)
+  # y el botón se activa solo en todo el sitio.
   buymeacoffee_username = ""
   # --- Analítica (opcional, GA4 en vez de la Universal Analytics vieja) ---
   ga4_id = ""

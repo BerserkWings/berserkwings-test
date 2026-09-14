@@ -3,7 +3,7 @@
 {{ partial "sidebar-profile.html" . }}
 <div class="wrap" style="margin-top:2.5rem;">
   <h1>{{ .Title }}</h1>
-  <p class="post-meta"><a href="/posts/">← Ver por páginas</a></p>
+  <p class="post-meta"><a href="{{ "posts/" | relURL }}">← Ver por páginas</a></p>
 
   <div style="margin-top:1.5rem;">
     {{ $posts := where .Site.RegularPages "Type" "posts" }}
