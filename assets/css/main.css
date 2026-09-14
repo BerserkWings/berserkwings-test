@@ -19,9 +19,6 @@
   --ok:      #39FF7A;
   --warn:    #FFC857;
   --danger:  #FF5C5C;
-  /* Tomado directo de masthead.png (el logo "BERSERKWINGS" del header)
-     para que cualquier acento amarillo del sitio combine exacto con el
-     logo real, en vez de inventar un tono parecido. */
   --accent-yellow: #D6C261;
 
   --font-display: "Chakra Petch", "Segoe UI", sans-serif;
@@ -33,8 +30,6 @@
 }
 
 @media (prefers-color-scheme: light){
-  /* El sitio se diseñó para tema oscuro; se mantiene fijo a propósito
-     porque es parte de la identidad del blog (terminal / hacking). */
 }
 
 *{ box-sizing: border-box; }
@@ -84,9 +79,6 @@ pre{
   padding: 1rem 1.1rem;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
-  /* Rompe un poco fuera de la columna de texto para que los comandos
-     largos (nmap, escaneos, salidas de terminal) respiren más, sin
-     llegar a ocupar todo el ancho de la pantalla. */
   margin-left: max(-3.5rem, calc(50% - 50vw + 1.25rem));
   margin-right: max(-3.5rem, calc(50% - 50vw + 1.25rem));
 }
@@ -155,31 +147,6 @@ nav.main-nav a.is-active{ color: var(--accent-cyan); }
   margin: 3rem auto 3.5rem;
   padding: 0 1.25rem;
 }
-/* Canvas decorativo de "lluvia" estilo Matrix. Vive en Inicio,
-   Writeups, Categorías, Etiquetas, Buscador y Acerca de mí -- a
-   propósito NO se pone en la página de cada writeup individual (leer
-   20 minutos con algo moviéndose de fondo cansa la vista y gasta
-   batería sin necesidad). Ver main.js para el límite de fps, la pausa
-   cuando la pestaña no está visible, y el respeto a
-   prefers-reduced-motion. Como siempre queda con z-index por debajo de
-   TODO el contenido (que tiene su propio fondo sólido encima), nunca
-   se ve "a través" del texto ni de las imágenes -- solo en los huecos
-   vacíos alrededor de las cajas. */
-/* Canvas decorativo de "lluvia" estilo Matrix. Vive en Inicio,
-   Writeups, Categorías, Etiquetas, Buscador y Acerca de mí -- a
-   propósito NO se pone en la página de cada writeup individual (leer
-   20 minutos con algo moviéndose de fondo cansa la vista y gasta
-   batería sin necesidad). Ver main.js para el límite de fps, la pausa
-   cuando la pestaña no está visible, y el respeto a
-   prefers-reduced-motion.
-
-   Aunque siempre queda con z-index por debajo de TODO el contenido,
-   varias cajas del sitio (tag-pill, badges, etc.) usan fondos
-   semitransparentes a propósito -- eso dejaba que el efecto se
-   alcanzara a colar levemente por debajo y se viera raro alrededor de
-   botones y etiquetas. La máscara lo oculta por completo en la franja
-   central (donde vive casi todo el contenido real) y lo deja visible
-   solo en los márgenes laterales, sin importar el ancho de la ventana. */
 .hero-matrix-bg{
   position: fixed;
   inset: 0;
@@ -191,10 +158,6 @@ nav.main-nav a.is-active{ color: var(--accent-cyan); }
   -webkit-mask-image: linear-gradient(to right, black 0%, black 22%, transparent 38%, transparent 62%, black 78%, black 100%);
   mask-image: linear-gradient(to right, black 0%, black 22%, transparent 38%, transparent 62%, black 78%, black 100%);
 }
-/* Solo en la página de cada writeup individual: es la única parte del
-   sitio donde alguien pasa varios minutos leyendo de corrido, así que
-   aquí se ve bastante más tenue que en el resto del blog para no
-   distraer durante la lectura. */
 .hero-matrix-bg--dim{ opacity: 0.16; }
 .terminal{
   position: relative;
@@ -261,15 +224,6 @@ nav.main-nav a.is-active{ color: var(--accent-cyan); }
   box-sizing: border-box;
 }
 .hero-ascii-avatar{
-  /* AJUSTA ESTE NÚMERO para cambiar el tamaño del avatar de la página
-     principal. Es un ancho fijo y literal a propósito — nada de
-     porcentajes, fr, ni flex-basis con encogimiento — para que el
-     navegador no tenga que "adivinar" el tamaño y siempre mida
-     exactamente esto en pantallas de escritorio. El padding extra del
-     marco vive en .hero-ascii-frame (afuera), NUNCA aquí -- si el
-     padding estuviera en este mismo div, cambiaría el ancho que mide
-     el JS (container.clientWidth) para generar el ASCII, encogiendo
-     el resultado sin querer. */
   width: 450px;
   flex: 0 0 auto;
   max-width: 100%;
@@ -298,8 +252,6 @@ nav.main-nav a.is-active{ color: var(--accent-cyan); }
   color: var(--text);
   transition: border-color .2s ease, background .2s ease, box-shadow .2s ease;
 }
-/* Cada plataforma toma el color de su propio logo, para que se
-   distinga de un vistazo sin desentonar con el resto del sitio. */
 .hero-stat-badge--htb{
   border-color: rgba(159, 239, 0, 0.35);
   background: rgba(159, 239, 0, 0.08);
@@ -424,8 +376,6 @@ nav.main-nav a.is-active{ color: var(--accent-cyan); }
 .post-carousel-viewport{
   overflow: hidden;
   max-height: 620px;
-  /* Un poco de aire para que el acento de esquina cian/magenta de
-     .post-card:hover no se recorte contra el borde del viewport. */
   padding: 6px 6px 0;
   margin: -6px -6px 0;
   -webkit-mask-image: linear-gradient(to bottom, transparent, black 5%, black 95%, transparent);
@@ -546,9 +496,6 @@ nav.main-nav a.is-active{ color: var(--accent-cyan); }
   .post-card-thumb-wrap{ width: 100%; height: auto; max-height: 200px; order: -1; }
 }
 
-/* Carrusel horizontal de etiquetas por tarjeta: si caben todas sin
-   scroll, se quedan quietas; si no, JS las duplica y las hace rotar
-   solas para no verse amontonadas. */
 .tag-marquee{
   overflow: hidden;
   margin-top: 0.6rem;
@@ -573,12 +520,6 @@ nav.main-nav a.is-active{ color: var(--accent-cyan); }
   .tag-marquee-track.is-marquee{ animation: none; }
 }
 
-/* Al pasar el mouse: en vez de solo pausar el scroll a media vuelta
-   (podía quedar cortado justo a media etiqueta), mostramos TODAS las
-   etiquetas reales de un jalón, en varias líneas si hace falta, y
-   escondemos la copia duplicada que solo existe para el loop. La
-   tarjeta crece para acomodarlas -- es justo lo que se pidió, para no
-   tener que esperar a que termine de pasar el carrusel. */
 .post-card:hover .tag-marquee{
   overflow: visible;
   -webkit-mask-image: none;
@@ -639,10 +580,6 @@ nav.main-nav a.is-active{ color: var(--accent-cyan); }
   padding: 0.15rem 0.5rem;
   border-radius: 999px;
 }
-/* Indicador de "+N más" en el carrusel de la página principal, donde
-   mostramos pocas etiquetas para no amontonar -- distinto del resto
-   (amarillo, sin relleno) para que se note que es un contador, no una
-   etiqueta real más. */
 .tag-pill-more{
   color: var(--accent-yellow);
   border-color: var(--accent-yellow);
@@ -658,13 +595,6 @@ nav.main-nav a.is-active{ color: var(--accent-cyan); }
 .post-header h1{ font-size: 2rem; margin: 0.4rem 0; }
 .post-meta{ font-family: var(--font-mono); font-size: 0.82rem; color: var(--text-muted); }
 
-/* Pantalla de "candado" para posts embargados (date: en el futuro),
-   ahora dentro de una ventana de terminal simulando que el comando
-   `cat` para leer el writeup falló con "Permission denied". Sin
-   imagen: caja simple centrada. Con imagen (.has-poster): la foto de
-   portada se ve nítida y grande arriba, con el candado como una
-   insignia grande superpuesta en su centro, y el mensaje/fecha/botón
-   debajo en su propia franja. */
 .post-embargo-terminal .terminal-body{ padding-top: 1.4rem; }
 .post-embargo-error{
   font-family: var(--font-mono);
@@ -704,11 +634,6 @@ nav.main-nav a.is-active{ color: var(--accent-cyan); }
   filter: drop-shadow(0 0 14px rgba(214, 194, 97, 0.55));
 }
 .post-embargo-icon-dot{ fill: var(--accent-yellow); stroke: none; }
-/* Va DESPUÉS de .post-embargo-icon a propósito: como las dos clases
-   conviven en el mismo <svg> (ver single.html) y tienen la misma
-   especificidad, la que esté más abajo en el archivo gana -- por eso
-   antes el candado se veía chiquito, .post-embargo-icon (72px) le
-   ganaba a esta regla (220px) por venir después. */
 .post-embargo-icon-overlay{
   position: absolute;
   top: 50%;
@@ -886,8 +811,6 @@ details.toc a::before{
   text-justify: inter-word;
   hyphens: auto;
 }
-/* El header es sticky (~64px); sin esto, saltar a un ancla lo deja
-   escondido detrás del header y el texto parece "empezar más abajo". */
 .post-content h2, .post-content h3, .post-content h4,
 .post-content [id]{
   scroll-margin-top: 5.5rem;
@@ -903,8 +826,6 @@ details.toc a::before{
   -webkit-overflow-scrolling: touch;
 }
 @media (max-width: 640px){
-  /* En pantallas angostas, el "breakout" empujaría scroll horizontal
-     de toda la página — ahí la tabla se queda dentro de la columna. */
   .post-content pre, .post-content table{
     margin-left: 0;
     margin-right: 0;
@@ -930,7 +851,6 @@ details.toc a::before{
   background: var(--bg-panel);
 }
 
-/* Back-to-top flotante, ahora es un solo partial en vez de copiarlo en cada post */
 .back-to-top{
   position: fixed;
   right: 1.4rem;
@@ -1410,10 +1330,6 @@ details.toc a::before{
   margin: 0 0 2rem;
 }
 .about-ascii-avatar{
-  /* AJUSTA ESTE NÚMERO para cambiar el tamaño del avatar de "Acerca de
-     mí" (mismo criterio que el de la página principal: ancho fijo en
-     px, nada de porcentajes, para que el navegador no tenga que
-     adivinar el tamaño). */
   width: 600px;
   max-width: 100%;
   margin: 0 auto;

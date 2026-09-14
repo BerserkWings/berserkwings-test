@@ -58,8 +58,6 @@
   <div class="post-carousel" id="postCarousel">
     <div class="post-carousel-viewport">
       <div class="post-carousel-track" id="postCarouselTrack">
-        {{/* Se repite dos veces a propósito: es lo que permite que el
-             scroll continuo se vea infinito y sin cortes (marquesina). */}}
         {{ range $i := (slice 1 2) }}
         {{ range $recent }}
         <div class="post-carousel-slide">

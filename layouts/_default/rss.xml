@@ -1,9 +1,3 @@
-{{- /* Plantilla RSS propia -- Hugo trae una por defecto que NO sabíamos
-     que existía, y esa versión mete el resumen REAL de cada post
-     (incluidos los embargados) en el feed. Esta la reemplaza para que
-     un post con unlock_date futuro muestre el mismo mensaje de
-     "Próximamente" que ya se ve en el resto del sitio, en vez de
-     filtrar el contenido real por esta vía. */ -}}
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>

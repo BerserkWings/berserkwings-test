@@ -3,45 +3,6 @@
 <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} · {{ .Site.Title }}{{ end }}</title>
 <meta name="description" content="{{ if .Description }}{{ .Description }}{{ else }}{{ .Site.Params.description }}{{ end }}">
 
-<!-- =========================================================
-     OWASP / cabeceras de seguridad — notas honestas
-     =========================================================
-     GitHub Pages no permite mandar cabeceras HTTP reales, solo lo que
-     se puede meter en el HTML. Eso divide las protecciones típicas en
-     dos grupos MUY distintos:
-
-     SÍ funcionan puestas aquí como <meta>:
-       - Content-Security-Policy (con excepciones, ver abajo)
-       - <meta name="referrer"> (Referrer-Policy)
-
-     NO funcionan puestas aquí, aunque se vean bien escritas (los
-     navegadores las ignoran por completo si no llegan como cabecera
-     HTTP real — está confirmado en la documentación de MDN y OWASP):
-       - X-Content-Type-Options
-       - X-Frame-Options
-       - la directiva frame-ancestors DENTRO del CSP (aunque el resto
-         del mismo CSP sí funciona)
-       - Strict-Transport-Security (HSTS)
-     Por eso NO las ponemos aquí: un meta tag roto que aparenta
-     protección es peor que no ponerlo, porque engaña a quien audite
-     el sitio (incluido tú) a pensar que hay una protección que no
-     existe. Si en algún momento quieres esas protecciones de verdad,
-     la opción es poner Cloudflare (gratis) delante de tu dominio y
-     usar sus "Transform Rules" para inyectar cabeceras HTTP reales, o
-     migrar el hosting a algo que sí las soporte (Cloudflare Pages,
-     Netlify). GitHub Pages sí manda HSTS automáticamente en el propio
-     dominio *.github.io, así que esa en particular no hace falta
-     simularla.
-
-     Como respaldo mientras tanto, contra clickjacking usamos también
-     un "frame buster" en JavaScript (ver assets/js/main.js) — no es
-     tan robusto como una cabecera real, pero es mejor que nada.
-
-     img-src está cerrado a 'self' porque hoy TODAS tus imágenes están
-     hosteadas en el propio sitio (revisé los 149 posts, ninguno carga
-     una imagen de un dominio externo de verdad). Si algún día agregas
-     una insignia externa (ej. un badge de shields.io) vas a necesitar
-     agregar ese dominio aquí explícitamente, o el navegador la bloqueará. -->
 <meta http-equiv="Content-Security-Policy"
       content="default-src 'self';
                img-src 'self';
