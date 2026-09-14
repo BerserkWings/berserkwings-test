@@ -1,0 +1,60 @@
+name: Build y despliegue del blog (Hugo -> GitHub Pages)
+ 
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+  schedule:
+    - cron: "0 13 * * *"
+ 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+ 
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+ 
+env:
+  HUGO_VERSION: 0.165.0
+ 
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+ 
+      - name: Instalar Hugo (versión fija + checksum verificado)
+        run: |
+          set -euo pipefail
+          HUGO_DEB="hugo_extended_${HUGO_VERSION}_linux-amd64.deb"
+          curl -sSLo "$HUGO_DEB" "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/${HUGO_DEB}"
+          curl -sSLo checksums.txt "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_${HUGO_VERSION}_checksums.txt"
+          grep " ${HUGO_DEB}\$" checksums.txt | sha256sum -c -
+          sudo apt-get install -y "./${HUGO_DEB}"
+ 
+      - name: Configurar GitHub Pages
+        uses: actions/configure-pages@v5
+ 
+      - name: Build del sitio
+        run: hugo --minify --gc
+ 
+      - name: Subir artefacto
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./public
+ 
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    timeout-minutes: 5
+    steps:
+      - name: Desplegar a GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
