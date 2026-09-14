@@ -1,0 +1,25 @@
+<a class="post-card post-card-with-image" href="{{ .Permalink }}">
+  <div class="post-card-body">
+    <div class="post-card-meta">{{ .Date.Format "2 January 2006" }}{{ with .Params.categories }} · {{ delimit . ", " }}{{ end }}</div>
+    <h2>{{ .Title }}</h2>
+    {{ $unlockDate := "" }}
+    {{ with .Params.unlock_date }}{{ $unlockDate = time.AsTime . }}{{ end }}
+    {{ if and $unlockDate (gt $unlockDate now) }}
+    <p class="post-card-embargo">🔒 Próximamente. Se desbloquea el {{ $unlockDate.Format "2 January 2006" }}.</p>
+    {{ else }}
+    <p>{{ .Params.excerpt | default .Summary | plainify | truncate 200 }}</p>
+    {{ with .Params.tags }}
+    <div class="tag-marquee">
+      <div class="tag-marquee-track">
+        {{ range . }}<span class="tag-pill">{{ . }}</span>{{ end }}
+      </div>
+    </div>
+    {{ end }}
+    {{ end }}
+  </div>
+  {{ with .Params.header.teaser }}
+  <span class="post-card-thumb-wrap">
+    <img class="post-card-thumb" src="{{ . | absURL }}" alt="{{ $.Title }}" loading="lazy">
+  </span>
+  {{ end }}
+</a>

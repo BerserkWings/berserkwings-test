@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reseña - Certificación eJPTv2 · BerserkWings - Hacking Ético</title>
+<meta name="description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'self';
+               img-src 'self';
+               style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+               font-src 'self' https://fonts.gstatic.com;
+               script-src 'self' ;
+               connect-src 'self' ;
+               object-src 'none';
+               base-uri 'self';
+               form-action 'self';
+               upgrade-insecure-requests;">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+<link rel="canonical" href="http://localhost:1313/resenia-eJTP/">
+<link rel="icon" href="/assets/images/favicon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/main.min.b51fce260bd224cda026ea0223adf133e0ce779edbb6c14d513c3f101c33a9ff.css" integrity="sha256-tR/OJgvSJM2gJuoCI63xM&#43;DOd57btsFNUTw/EBwzqf8=">
+
+
+<meta property="og:title" content="Reseña - Certificación eJPTv2">
+<meta property="og:description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="http://localhost:1313/assets/images/resenia-ejpt/ejpt_logo2.png">
+
+
+
+</head>
+<body>
+  <header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      
+      <img class="brand-logo" src="http://localhost:1313/assets/images/masthead.png" alt="BerserkWings">
+      
+    </a>
+    <nav class="main-nav">
+      
+        <a href="/" >Inicio</a>
+      
+        <a href="/posts/" >Writeups</a>
+      
+        <a href="/categories/" >Categorías</a>
+      
+        <a href="/tags/" >Etiquetas</a>
+      
+        <a href="/buscador/" >Buscador</a>
+      
+        <a href="/acerca-de-mi/" >Acerca de mí</a>
+      
+    </nav>
+  </div>
+</header>
+
+  <main>
+    
+<canvas class="hero-matrix-bg hero-matrix-bg--dim" id="heroMatrixBg" aria-hidden="true"></canvas>
+<article class="post" id="top">
+  
+
+
+
+
+<aside class="side-profile">
+  <img class="side-avatar" src="http://localhost:1313/assets/images/avatar.png" alt="BerserkWings">
+  <div class="side-name">BerserkWings</div>
+  <div class="side-tagline">Aspirante a Pentester · CTF Player</div>
+
+  
+  <div class="side-platforms">
+    <span class="side-platform-badge">HTB: BerserkWings</span>
+    <span class="side-platform-badge">THL: BerserkWings</span>
+  </div>
+  
+
+  <div class="side-contact">
+    <span class="side-meta">📍 México</span>
+    
+    <a class="side-meta-link" href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">🔗 GitHub</a>
+    
+  </div>
+
+  
+  <div class="side-posts">
+    <div class="side-post-cards">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/htb-write-up-support/">
+          <span class="side-post-card-title">Support</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/otw-writeup-bandit/">
+          <span class="side-post-card-title">Bandit</span>
+          <span class="side-post-card-platform">Over The Wire</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <div class="side-post-card is-current">
+          <span class="side-post-card-title">Reseña</span>
+          <span class="side-post-card-platform">Certificación eJPTv2</span>
+        </div>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/WiFi-Notes4/">
+          <span class="side-post-card-title">Hacking WiFi</span>
+          <span class="side-post-card-platform">Análisis de Paquetes</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/htb-writeup-driver/">
+          <span class="side-post-card-title">Driver</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </a>
+        
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  
+
+  
+
+  
+
+
+</aside>
+
+
+  
+  
+  
+
+  <header class="post-header">
+    
+    <div class="post-meta">Certifications</div>
+    
+    <h1>Reseña - Certificación eJPTv2</h1>
+    <div class="post-meta">10 November 2023 · 9 min de lectura</div>
+  </header>
+
+  
+  <img class="post-cover" src="http://localhost:1313/assets/images/resenia-ejpt/ejpt_logo2.png" alt="Reseña - Certificación eJPTv2">
+  
+
+  
+  <p class="post-lead">Esta es una reseña sobre la certificación eJPTv2, explicaré un poco (sin dar spoilers) sobre el examen y más que nada del curso al que tienes acceso solo si lo compras junto a la certificación en paquete. Además compartiré algunos consejos y links que te pueden servir a la hora que presentes el examen. Si vas a aplicar el examen, ¡mucha suerte y éxito!.</p>
+  
+
+  
+
+  
+  <details class="toc" id="indice" open>
+    <summary>📑 Índice</summary>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#EJPT">¿Qué es la Certificación eJPT?</a></li>
+    <li><a href="#Curso">Reseña del Curso</a></li>
+    <li><a href="#Examen">Reseña del Examen</a></li>
+    <li><a href="#Consejos">Algunos Consejos y Links de Apoyo</a></li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </details>
+  <aside class="side-toc">
+    <div class="side-toc-header">📑 Índice</div>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#EJPT">¿Qué es la Certificación eJPT?</a></li>
+    <li><a href="#Curso">Reseña del Curso</a></li>
+    <li><a href="#Examen">Reseña del Examen</a></li>
+    <li><a href="#Consejos">Algunos Consejos y Links de Apoyo</a></li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </aside>
+  
+
+  <div class="post-content">
+    <h2 id="EJPT">¿Qué es la Certificación eJPT?</h2>
+<p>Primero y antes que nada, ¿qué es la <strong>certificación eJPTv2</strong>?</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Certificación eJPT</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>eJPT es una certificación práctica de nivel básico del Red Team que simula las habilidades utilizadas durante enfrentamientos del mundo real. El eJPT de INE Security es para penetration testers de nivel básico y valida que el individuo tiene el conocimiento, las habilidades y las capacidades necesarias para desempeñar un papel como penetration tester junior.</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>Como bien lo dice, esta certificación válida que tienes los conocimientos básicos sobre pruebas de penetración, lo que te convierte en un <strong>Pentester Jr</strong>.</p>
+<p>Es una de las certificaciones básicas que, a mi parecer, todo pentester debería de tener o incluso cualquiera que le llame la atención esta área del pentesting, ya que el curso que se imparte para tomar el examen, te adentra muy bien en esta bonita área.</p>
+<p>Aquí puedes ver más información del examen de la certificación:</p>
+<ul>
+<li><a href="https://security.ine.com/certifications/ejpt-certification/" target="_blank">eJPT Certification - Información de la Certificación</a></li>
+</ul>
+<h2 id="Curso">Reseña del Curso</h2>
+<p>El curso que se imparte para prepararte a la certificación es muy bueno y completo, son videos grabados que te van explicando distintos temas y claramente no necesitas mucha experiencia previa para que los puedas ver porque comienza desde 0.</p>
+<p>Son alrededor de <strong>149 horas de curso</strong>, que se puede extender o disminuir el tiempo dependiendo de cuánto te tardes en realizar los laboratorios.</p>
+<p>Son dos profesores los que imparten este curso pregrabado, aunque a mi parecer uno de ellos, el profesor <strong>Alexis Ahmed</strong>, es quien se explica mejor y quien tiene otros recursos que son útiles tanto para el examen como para la práctica del día a día.</p>
+<p>El curso cubre los siguientes temas, <strong>divididos en 4 secciones</strong>:</p>
+<p><strong>Sección 1: Assessment Methodologies (Metodologías de Evaluación)</strong></p>
+<ul>
+<li><em>Information Gathering (Recopilación de Información)</em></li>
+<li><em>Footprinting and Scanning (Huella digital y Escaneos)</em></li>
+<li><em>Enumeration (Enumeración de Servicios)</em></li>
+<li><em>Vulnerability Assessment (Evaluación de Vulnerabilidades)</em></li>
+</ul>
+<p>En esta sección vemos sobre la <strong>recopilación de información activa y pasiva</strong>, <strong>enumeración de servicios (SSH, SMB, FTP, etc.)</strong> y <strong>búsqueda de vulnerabilidades</strong>. También qué herramientas son útiles para esto como <strong>nmap, dnsenum, fping, dnsrecon, arp-scan, netdiscover, searchsploit, zenmap, etc</strong>.</p>
+<p><strong>Sección 2: Host &amp; Networking Auditing (Auditoría de Host y Redes)</strong></p>
+<ul>
+<li><em>Auditing Fundamentals (Fundamentos de Auditoria)</em></li>
+</ul>
+<p>Básicamente, te explica cómo es una auditoria, <strong>conceptos de ciberseguridad</strong>, qué <strong>frameworks son usados en auditorias (ISO27000, CIS, NIST, COBIT, CMMC, etc.)</strong>, <strong>regulaciones (PCI DSS, OSX, etc.)</strong>.</p>
+<p><strong>Sección 3: Host &amp; Network Penetration Testing (Pruebas de Penetración de Red y Host)</strong></p>
+<ul>
+<li><em>System/Host Based Attacks (Pruebas de Penetración - Ataques Basados en Sistemas y Hosts)</em></li>
+<li><em>Network-Based Attacks (Ataques Basados en la Red)</em></li>
+<li><em>The Metasploit Framework (Metasploit Framework)</em></li>
+<li><em>Exploitation (Explotación)</em></li>
+<li><em>Post Exploitation (Post Explotación)</em></li>
+<li><em>Social Engineering (Ingenieria Social)</em></li>
+</ul>
+<p>De lo mejor del curso, acá empezamos a aplicar las <strong>pruebas de penetración</strong> como la metodología, un poco sobre <strong>pruebas de penetración en redes</strong>, aprendemos a usar <strong>metasploit framework</strong>, explotamos vulnerabilidades que encontramos en distintos sistemas (<strong>Windows y Linux</strong>) y servicios, aprenderemos sobre <strong>ofuscación, shells</strong>, etc., aprendemos a <strong>escalar privilegios (post explotación)</strong> en los sistemas vulnerados y buscamos información importante <strong>(enumeración, obtención de credenciales, persistencia, pivoting, etc.)</strong> y nos enseñan un poco sobre <strong>ingeniería social (en específico phishing)</strong>.</p>
+<p><strong>Sección 4: Web Application Penetration Testing (Pruebas de Penetración de Aplicaciones Web)</strong></p>
+<ul>
+<li><em>Web Application Penetration Testing: Introduction to the Web &amp; HTTP Protocol (Introducción a la Web y el Protocolo HTTP)</em></li>
+</ul>
+<p>Vemos un poco sobre vulnerabilidades en la web cómo las <strong>inyecciones SQL, ataques XSS, como usar BurpSuite, ataque de fuerza bruta a logins de HTTP</strong>, etc.</p>
+<p>Cada una de estas secciones, cubre bastante información sobre temas de <strong>pentesting</strong>, tienen muchos PDF que puedes descargar (cosa que te recomiendo que hagas), en donde su contenido son las diapositivas que estarás viendo en cada video de su respectiva sección y tema.</p>
+<p>La mayoría de temás cuentan con preguntas sobre lo que se vio en el video y también laboratorios de práctica. En estos laboratorios, practicarás lo que hayas visto en los videos de su respectivo tema.</p>
+<p>Los laboratorios son desplegados en la web, por lo que no tienes que tener conectado el Kali para resolverlos. Además, cada laboratorio cuenta con documentación sobre cómo resolverlo, siendo que esta resolución la vemos en los videos correspondientes al laboratorio. Te aconsejo que descargues estas guías para que las puedas analizar en el futuro o cuando tengas tiempo libre.</p>
+<p>Aprovecha bien cada uno de estos recursos, ya que el examen es prácticamente lo mismo que verás aquí.</p>
+<h2 id="Examen">Reseña del Examen</h2>
+<p>Una vez que obtienes el voucher de la certificación, cuentas con <strong>180 días</strong> para poder presentarlo, es decir, más o menos <strong>6 meses</strong>. Por lo que si compraste también el curso, tienes tiempo suficiente para hacer el curso y para practicar.</p>
+<p>El examen consta de <strong>35 preguntas</strong> que deberás responder mientras haces tus <strong>pruebas de penetración</strong>, además <strong>el examen dura 48 horas</strong> para que lo puedas resolver y <strong>tienes 2 chances para resolverlo</strong>, ósea que si fallas 1 vez, puedes volver a presentar el examen.</p>
+<p>El examen cubre las siguientes secciones:</p>
+<p align="center">
+<img src="/assets/images/resenia-ejpt/secciones_ejpt.png">
+</p>
+<p>Para aprobar el examen, <strong>debes sacar un 70% en TODAS las secciones</strong> que cubre el examen. <strong>Si fallas en tan solo una de las secciones sacando menos del 70%, repruebas el examen</strong>.</p>
+<p>Antes de comenzar el examen, vienen algunas recomendaciones que puedes tomar, por ejemplo ver y estudiar la guía de estudio del examen (que es el curso que puedes comprar), completar los laboratorios de la guía, ver los documentos que incluye el examen (un documento que incluye el alcance, objetivos y consejos del examen, y una guía del laboratorio web que se te proporcionara en el examen), consejos sobre el ambiente ideal en donde tomar el examen y lo más importante, asegurarte de que tu nombre de usuario sea correcto, ya que será el que este impreso en tu certificado cuando apruebes el examen.</p>
+<p>Acá te las dejo:</p>
+<p align="center">
+<img src="/assets/images/resenia-ejpt/examen_ejpt.png">
+</p>
+<p>Como lo he mencionado antes, el examen es sencillo, pero no te dejes engañar.</p>
+<p><strong>Este examen NO es como una CTF</strong>, es preparado como un ambiente real, es decir, no tiene ninguna pista que puedas seguir para vulnerar los objetivos como en una <strong>CTF</strong> o puede que no tenga algún servicio expuesto, por lo que tendrás que ingeniártelas y recordar o repasar lo aprendido para cumplir los objetivos del examen.</p>
+<p>Si no tienes cuidado, puedes bloquear servicios del algún sistema objetivo que estés auditando y perder tiempo en lo que reinicias el laboratorio (siempre confirma si puedes reiniciar el laboratorio del examen en caso de fallas).</p>
+<p>Consta de una <strong>DMZ</strong> a la que ya tienes acceso mediante la red. Desde ese momento, tú debes aplicar los conocimientos que adquiriste en el curso, como recolectar información, enumerar los sistemas encontrados, probar vulnerabilidades, etc.</p>
+<p>Con 48 horas, tienes tiempo más que suficiente para poder resolverlo.</p>
+<h2 id="Consejos">Algunos Consejos y Links de Apoyo</h2>
+<p>Para explicarme mejor, voy a listar los consejos que te puedo dar para que tomes el examen con calma y te sientas seguro de tus conocimientos.</p>
+<ul>
+<li>
+<p><strong>Consejo 1</strong>: Te recomiendo tomar primero el curso. Es muy bueno este curso que se imparte y créeme que te ayudará bastante para responder el examen.</p>
+</li>
+<li>
+<p><strong>Consejo 2</strong>: Realiza algunas máquinas en <strong>HTB</strong> para que te sientas bien preparado. Puedes visitar la página de máquinas resueltas del maestro <strong>S4vitar</strong> y escribir <strong>eJPTv2</strong> en el buscador para ver qué máquinas puedes realizar que te sirvan de práctica para el examen. Acá te la dejo: <a href="https://infosecmachines.io/" target="_blank">S4vitar Machine&rsquo;s Resolutions</a></p>
+</li>
+<li>
+<p><strong>Consejo 3</strong>: Lee muy bien el documento del alcance, objetivos del examen y reglas del examen, además de entender bien cómo funciona el laboratorio de Kali que se te dará. Es importante que entiendas bien cómo estará estructurado el laboratorio al que harás las pruebas de penetración. En estos documentos te dan algunos consejos para el examen.</p>
+</li>
+<li>
+<p><strong>Consejo 4</strong>: Toma nota de todo lo que vas haciendo durante el examen, por ejemplo, anota los objetivos que ya encontraste, qué ataques sirvieron en cada uno, si encontraste contraseñas (anótalas obviamente), qué objetivo ya está vulnerado o cuál se está complicando de vulnerar, etc. Esto te sirve mucho para no repetir algunas acciones que ya hayas realizado, lo que evita mucho tiempo perdido.</p>
+</li>
+<li>
+<p><strong>Consejo 5</strong>: Planea y toma descansos. El tomar descansos cada cierto tiempo va a evitar que te agobies y es bueno distraerte unos momentos cuando estás atascado. Puede que cuando regreses del descanso veas la solución que necesitas.</p>
+</li>
+<li>
+<p><strong>Consejo 6</strong>: Toma todo el tiempo si es necesario, puede que termines un poco antes, pero siempre revisa tus respuestas 5 veces si es necesario y, no dejes al aire nada. Prueba todo lo que puedas y creas necesario durante el examen, claro con las debidas precauciones.</p>
+</li>
+<li>
+<p><strong>Consejo 7</strong>: Si es que puedes, realiza el examen entre semana, ya que si llegas a tener un problema con tu laboratorio, puedes mandar correo para pedir una solución pronta a tu problema, caso que no podrás hacer si lo haces el fin de semana, ya que el sistema de soporte NO labora los fines de semana.</p>
+</li>
+<li>
+<p><strong>Consejo 8</strong>: Contesta las preguntas en el orden que quieras, incluso varias de estas preguntas te darán pistas que te servirán en tus pruebas de penetración.</p>
+</li>
+<li>
+<p><strong>Consejo 9</strong>: Practica bastante el pivoting, la fuerza bruta, la recopilación de información y la enumeración</p>
+</li>
+<li>
+<p><strong>Consejo 10</strong>: NO es necesario que vulneres todos los objetivos que encuentres; el objetivo principal es responder las preguntas del examen.</p>
+</li>
+</ul>
+<p>Acá también te dejo unos consejos sobre el curso:</p>
+<ul>
+<li>
+<p><strong>Consejo 1</strong>: Te recomiendo las siguientes aplicaciones para tomar tus notas: <strong>Obsidian y Notion</strong>. Yo personalmente uso <strong>Obsidian</strong> para tomar notas, pero puedes usar cualquiera con el que te sientas cómodo.</p>
+</li>
+<li>
+<p><strong>Consejo 2</strong>: Ve por completo los videos del curso y siempre toma nota de los comandos que va usando el maestro, puede que algunos de estos o alguna información que este dando <strong>NO</strong> se encuentre en las diapositivas.</p>
+</li>
+<li>
+<p><strong>Consejo 3</strong>: Descarga todos los documentos que veas en el curso, todos tienen que ver con los laboratorios o con las diapositivas de la sección que esté viendo.</p>
+</li>
+<li>
+<p><strong>Consejo 4</strong>: Si puedes, traduce las diapositivas de cada sección y las preguntas de cada tema, esto para que entiendas mejor lo que se está explicando.</p>
+</li>
+</ul>
+<p align="center">
+<img src="/assets/images/resenia-ejpt/mis-notas-ejpt.png">
+</p>
+<p>Y por último, te dejo algunos links que me sirvieron durante el examen:</p>
+<ul>
+<li>
+<p><a href="https://blog.syselement.com/ine/courses/ejpt/ejpt-cheatsheet" target="_blank">eJPT Cheat Sheet</a></p>
+</li>
+<li>
+<p><a href="https://github.com/JasonTurley/eJPT/blob/main/cheat-sheet.md" target="_blank">Repositorio de JasonTurley: eJPT Cheat Sheet</a></p>
+</li>
+<li>
+<p><a href="https://www.youtube.com/watch?v=l6tHH2qQmQ8&t=6263s" target="_blank">Simulación de Examen CEH o EJPTv2 - Laboratorio de Máquinas Virtuales</a></p>
+</li>
+</ul>
+<p>¡MUCHA SUERTE Y ÉXITO EN TU EXAMEN!</p>
+<p align="center">
+<img src="/assets/images/resenia-ejpt/mi_certificacionEJPT.png">
+</p>
+
+
+    
+    <h2 id="links-de-investigacion">Links de investigación</h2>
+    <ul>
+      <li><a href="https://security.ine.com/certifications/ejpt-certification/" target="_blank" rel="noopener noreferrer">https://security.ine.com/certifications/ejpt-certification/</a></li><li><a href="https://blog.syselement.com/ine/courses/ejpt/ejpt-cheatsheet" target="_blank" rel="noopener noreferrer">https://blog.syselement.com/ine/courses/ejpt/ejpt-cheatsheet</a></li><li><a href="https://github.com/JasonTurley/eJPT/blob/main/cheat-sheet.md" target="_blank" rel="noopener noreferrer">https://github.com/JasonTurley/eJPT/blob/main/cheat-sheet.md</a></li><li><a href="https://www.youtube.com/watch?v=l6tHH2qQmQ8&amp;t=6263s" target="_blank" rel="noopener noreferrer">https://www.youtube.com/watch?v=l6tHH2qQmQ8&amp;t=6263s</a></li>
+    </ul>
+    
+  </div>
+
+  
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  
+  <a class="post-nav-link post-nav-prev" href="http://localhost:1313/WiFi-Notes4/">
+    <span class="post-nav-label">← Anterior</span>
+    <span class="post-nav-title">Hacking WiFi - Análisis de Paquetes</span>
+  </a>
+  
+  
+  <a class="post-nav-link post-nav-next" href="http://localhost:1313/otw-writeup-bandit/">
+    <span class="post-nav-label">Siguiente →</span>
+    <span class="post-nav-title">Bandit - Over The Wire</span>
+  </a>
+  
+</nav>
+
+
+
+</article>
+
+  </main>
+  <footer class="site-footer">
+  <div class="wrap">
+    <p>&copy; 2026 BerserkWings · México
+       · <a href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </p>
+  </div>
+</footer>
+
+  
+
+
+<a href="#indice" class="back-to-top" id="backToTop" aria-label="Volver al índice">&uarr;</a>
+
+
+<script src="/js/main.min.15ff80349759f71df793ae28568ef0a6a9c3eb6efe99c9e96bad1d9236a26c31.js" integrity="sha256-Ff&#43;ANJdZ9x33k64oVo7wpqnD627&#43;mcnpa60dkjaibDE=" defer></script>
+
+</body>
+</html>

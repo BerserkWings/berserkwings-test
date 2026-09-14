@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Virtual Hosting · BerserkWings - Hacking Ético</title>
+<meta name="description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'self';
+               img-src 'self';
+               style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+               font-src 'self' https://fonts.gstatic.com;
+               script-src 'self' ;
+               connect-src 'self' ;
+               object-src 'none';
+               base-uri 'self';
+               form-action 'self';
+               upgrade-insecure-requests;">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+<link rel="canonical" href="http://localhost:1313/tags/Virtual-Hosting/">
+<link rel="icon" href="/assets/images/favicon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/main.min.b51fce260bd224cda026ea0223adf133e0ce779edbb6c14d513c3f101c33a9ff.css" integrity="sha256-tR/OJgvSJM2gJuoCI63xM&#43;DOd57btsFNUTw/EBwzqf8=">
+
+
+<meta property="og:title" content="Virtual Hosting">
+<meta property="og:description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+<meta property="og:type" content="website">
+
+
+
+
+</head>
+<body>
+  <header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      
+      <img class="brand-logo" src="http://localhost:1313/assets/images/masthead.png" alt="BerserkWings">
+      
+    </a>
+    <nav class="main-nav">
+      
+        <a href="/" >Inicio</a>
+      
+        <a href="/posts/" >Writeups</a>
+      
+        <a href="/categories/" >Categorías</a>
+      
+        <a href="/tags/" >Etiquetas</a>
+      
+        <a href="/buscador/" >Buscador</a>
+      
+        <a href="/acerca-de-mi/" >Acerca de mí</a>
+      
+    </nav>
+  </div>
+</header>
+
+  <main>
+    
+<canvas class="hero-matrix-bg" id="heroMatrixBg" aria-hidden="true"></canvas>
+
+
+
+
+
+<aside class="side-profile">
+  <img class="side-avatar" src="http://localhost:1313/assets/images/avatar.png" alt="BerserkWings">
+  <div class="side-name">BerserkWings</div>
+  <div class="side-tagline">Aspirante a Pentester · CTF Player</div>
+
+  
+  <div class="side-platforms">
+    <span class="side-platform-badge">HTB: BerserkWings</span>
+    <span class="side-platform-badge">THL: BerserkWings</span>
+  </div>
+  
+
+  <div class="side-contact">
+    <span class="side-meta">📍 México</span>
+    
+    <a class="side-meta-link" href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">🔗 GitHub</a>
+    
+  </div>
+
+  
+
+  
+
+  
+
+
+</aside>
+
+<div class="wrap" style="margin-top:2.5rem;">
+  <h1>Virtual Hosting</h1>
+  
+
+  <div style="margin-top:1.5rem;">
+    
+    
+    
+    <a class="post-card post-card-with-image" href="http://localhost:1313/THL-writeup-debugsec/">
+  <div class="post-card-body">
+    <div class="post-card-meta">22 July 2025 · TheHackerLabs, Medium Machine</div>
+    <h2>Debugsec - TheHackerLabs</h2>
+    
+    
+    
+    <p>Esta fue una máquina un poco complicada. Después de analizar los escaneos, descubrimos que la página web activa del puerto 80, está utilizando Virtual Hosting, por lo que agregamos la IP y el dominio …</p>
+    
+    <div class="tag-marquee">
+      <div class="tag-marquee-track">
+        <span class="tag-pill">Linux</span><span class="tag-pill">SSH</span><span class="tag-pill">WordPress</span><span class="tag-pill">Gmic Binary</span><span class="tag-pill">Virtual Hosting</span><span class="tag-pill">Web Enumeration</span><span class="tag-pill">Fuzzing</span><span class="tag-pill">WordPress Enumeration</span><span class="tag-pill">Plugin notificationX Exploitation (CVE-2024-1698)</span><span class="tag-pill">Unauthenticated Blind SQL Injection</span><span class="tag-pill">CVE-2024-1698</span><span class="tag-pill">WordPress Theme Editor Abuse (RCE)</span><span class="tag-pill">Cracking Hash</span><span class="tag-pill">Cracking SSH Private Key</span><span class="tag-pill">Abusing Sudoers Privileges</span><span class="tag-pill">Privesc - Abusing Sudoers Privileges</span><span class="tag-pill">OSCP Style</span>
+      </div>
+    </div>
+    
+    
+  </div>
+  
+  <span class="post-card-thumb-wrap">
+    <img class="post-card-thumb" src="http://localhost:1313/assets/images/THL-writeup-debugsec/debugsec.png" alt="Debugsec - TheHackerLabs" loading="lazy">
+  </span>
+  
+</a>
+
+    
+    <a class="post-card post-card-with-image" href="http://localhost:1313/THL-writeup-canYouHackMe/">
+  <div class="post-card-body">
+    <div class="post-card-meta">18 June 2025 · TheHackerLabs, Easy Machine</div>
+    <h2>Can You Hack Me? - TheHackerLabs</h2>
+    
+    
+    
+    <p>Esta fue una máquina sencilla. Después de descubrir que se aplicaba Virtual Hosting y de registrar el dominio en el /etc/hosts, logramos entrar a la página web activa, pero al no encontrar nada, …</p>
+    
+    <div class="tag-marquee">
+      <div class="tag-marquee-track">
+        <span class="tag-pill">Linux</span><span class="tag-pill">SSH</span><span class="tag-pill">Virtual Hosting</span><span class="tag-pill">Brute Force Attack</span><span class="tag-pill">Abusing Docker Group</span><span class="tag-pill">Privesc - Abusing Docker Group</span><span class="tag-pill">OSCP Style</span>
+      </div>
+    </div>
+    
+    
+  </div>
+  
+  <span class="post-card-thumb-wrap">
+    <img class="post-card-thumb" src="http://localhost:1313/assets/images/THL-writeup-canYouHackMe/canYouHackMe.jpg" alt="Can You Hack Me? - TheHackerLabs" loading="lazy">
+  </span>
+  
+</a>
+
+    
+    <a class="post-card post-card-with-image" href="http://localhost:1313/THL-writeup-statue/">
+  <div class="post-card-body">
+    <div class="post-card-meta">11 June 2025 · TheHackerLabs, Easy Machine</div>
+    <h2>Statue - TheHackerLabs</h2>
+    
+    
+    
+    <p>Esta fue una máquina sencilla, pero que necesita bastante trabajo el resolverla. Después de descubrir que se aplica Virtual Hosting, registramos un posible dominio, con el que podemos ver la página …</p>
+    
+    <div class="tag-marquee">
+      <div class="tag-marquee-track">
+        <span class="tag-pill">Linux</span><span class="tag-pill">Virtual Hosting</span><span class="tag-pill">CMS Pluck</span><span class="tag-pill">Web Enumeration</span><span class="tag-pill">Fuzzing</span><span class="tag-pill">Base64 Decoding</span><span class="tag-pill">Remote Code Execution (Authenticated)</span><span class="tag-pill">Playfair Cipher</span><span class="tag-pill">User Pivoting</span><span class="tag-pill">Binary Analisys</span><span class="tag-pill">Abusing Sudoers Privileges</span><span class="tag-pill">Abusing SUID Binary</span><span class="tag-pill">Privesc - Abusing Sudoers Privileges</span><span class="tag-pill">Privesc - Abusing SUID Binary</span><span class="tag-pill">OSCP Style</span>
+      </div>
+    </div>
+    
+    
+  </div>
+  
+  <span class="post-card-thumb-wrap">
+    <img class="post-card-thumb" src="http://localhost:1313/assets/images/THL-writeup-statue/statue.jpg" alt="Statue - TheHackerLabs" loading="lazy">
+  </span>
+  
+</a>
+
+    
+    <a class="post-card post-card-with-image" href="http://localhost:1313/THL-writeup-papaya/">
+  <div class="post-card-body">
+    <div class="post-card-meta">6 May 2025 · TheHackerLabs, Easy Machine</div>
+    <h2>Papaya - TheHackerLabs</h2>
+    
+    
+    
+    <p>Esta fue una máquina sencilla, pero que necesitas comprender bien el Exploit. Después de analizar los escaneos y de caer en un engaño de un archivo de texto con una cadena en ROT13, analizamos la …</p>
+    
+    <div class="tag-marquee">
+      <div class="tag-marquee-track">
+        <span class="tag-pill">Linux</span><span class="tag-pill">ElkArte Forum</span><span class="tag-pill">FTP</span><span class="tag-pill">Virtual Hosting</span><span class="tag-pill">FTP Enumeration</span><span class="tag-pill">ROT13 Decodification</span><span class="tag-pill">Default Credentials</span><span class="tag-pill">Remote Code Execution (RCE) (Authenticated)</span><span class="tag-pill">Cracking Hash</span><span class="tag-pill">Cracking ZIP</span><span class="tag-pill">Abusing Sudoers Privileges</span><span class="tag-pill">Privesc - Abusing Sudoers Privileges</span><span class="tag-pill">OSCP Style</span>
+      </div>
+    </div>
+    
+    
+  </div>
+  
+  <span class="post-card-thumb-wrap">
+    <img class="post-card-thumb" src="http://localhost:1313/assets/images/THL-writeup-papaya/papaya.jpg" alt="Papaya - TheHackerLabs" loading="lazy">
+  </span>
+  
+</a>
+
+    
+    <a class="post-card post-card-with-image" href="http://localhost:1313/vulnhub-writeup-aragog/">
+  <div class="post-card-body">
+    <div class="post-card-meta">6 November 2024 · VulnHub, Easy Machine</div>
+    <h2>Aragog - VulnHub</h2>
+    
+    
+    
+    <p>Una máquina bastante sencilla, que puede ser útil para practicar el reconocimiento y explotación de vulnerabilidades de WordPress, pues para ganar acceso a la máquina, tenemos que explotar una …</p>
+    
+    <div class="tag-marquee">
+      <div class="tag-marquee-track">
+        <span class="tag-pill">Linux</span><span class="tag-pill">WordPress</span><span class="tag-pill">SSH</span><span class="tag-pill">MySQL</span><span class="tag-pill">Web Enumeration</span><span class="tag-pill">Fuzzing</span><span class="tag-pill">Virtual Hosting</span><span class="tag-pill">WordPress Enumeration</span><span class="tag-pill">Unauthenticated Arbitrary File Upload (RCE)</span><span class="tag-pill">CVE-2020-25213 (RCE)</span><span class="tag-pill">System Recognition (Linux)</span><span class="tag-pill">BurpSuite</span><span class="tag-pill">MySQL Enumeration</span><span class="tag-pill">Cracking Hash</span><span class="tag-pill">Abusing CRON Jobs</span><span class="tag-pill">Privesc - Abusing CRON Jobs</span><span class="tag-pill">Brute Force</span><span class="tag-pill">OSCP Style</span><span class="tag-pill">Metasploit Framework</span>
+      </div>
+    </div>
+    
+    
+  </div>
+  
+  <span class="post-card-thumb-wrap">
+    <img class="post-card-thumb" src="http://localhost:1313/assets/images/vulnhub-writeup-aragog/aragog2.jpg" alt="Aragog - VulnHub" loading="lazy">
+  </span>
+  
+</a>
+
+    
+    <a class="post-card post-card-with-image" href="http://localhost:1313/htb-writeup-delivery/">
+  <div class="post-card-body">
+    <div class="post-card-meta">5 May 2023 · HackTheBox, Easy Machine</div>
+    <h2>Delivery - Hack The Box</h2>
+    
+    
+    
+    <p>Esta fue una máquina bastante interesante, lo que hicimos fue analizar el servicio HTTP para descubrir que tienen un sistema de tickets y un servidor, a su vez usan Virtual Hosting por lo que …</p>
+    
+    <div class="tag-marquee">
+      <div class="tag-marquee-track">
+        <span class="tag-pill">Linux</span><span class="tag-pill">OS Ticket</span><span class="tag-pill">Mattermost</span><span class="tag-pill">Virtual Hosting</span><span class="tag-pill">Abussing Support Ticket System</span><span class="tag-pill">Information Leakage</span><span class="tag-pill">MySQL Enumeration</span><span class="tag-pill">Cracking Hash</span><span class="tag-pill">Privesc - Cracking Root Password Hash</span><span class="tag-pill">OSCP Style</span>
+      </div>
+    </div>
+    
+    
+  </div>
+  
+  <span class="post-card-thumb-wrap">
+    <img class="post-card-thumb" src="http://localhost:1313/assets/images/htb-writeup-delivery/delivery_logo.png" alt="Delivery - Hack The Box" loading="lazy">
+  </span>
+  
+</a>
+
+    
+    <a class="post-card post-card-with-image" href="http://localhost:1313/htb-writeup-metatwo/">
+  <div class="post-card-body">
+    <div class="post-card-meta">14 April 2023 · HackTheBox, Easy Machine</div>
+    <h2>MetaTwo - Hack The Box</h2>
+    
+    
+    
+    <p>Una máquina bastante complicada, otra que debería ser nivel medio, más no fácil. Usaremos el servicio HTTP para poder encontrar una forma de ganar acceso a la máquina, siendo que el código fuente nos …</p>
+    
+    <div class="tag-marquee">
+      <div class="tag-marquee-track">
+        <span class="tag-pill">Linux</span><span class="tag-pill">Virtual Hosting</span><span class="tag-pill">Web Enumeration</span><span class="tag-pill">Bookingpress</span><span class="tag-pill">Fuzzing</span><span class="tag-pill">Unauthenticated SQL Injection (USI)</span><span class="tag-pill">CVE-2022-0739 (USI)</span><span class="tag-pill">Cracking Hash</span><span class="tag-pill">WordPress</span><span class="tag-pill">Authenticated XXE</span><span class="tag-pill">CVE-2021-29447 (Authenticated XXE)</span><span class="tag-pill">FTP Enumeration</span><span class="tag-pill">SSH Enumeration</span><span class="tag-pill">Passpie</span><span class="tag-pill">Cracking SSH Key</span><span class="tag-pill">Privesc - Abusing Passpie Credentials</span><span class="tag-pill">OSCP Style</span><span class="tag-pill">Metasploit Framework</span>
+      </div>
+    </div>
+    
+    
+  </div>
+  
+  <span class="post-card-thumb-wrap">
+    <img class="post-card-thumb" src="http://localhost:1313/assets/images/htb-writeup-metatwo/metatwo_logo.png" alt="MetaTwo - Hack The Box" loading="lazy">
+  </span>
+  
+</a>
+
+    
+    <a class="post-card post-card-with-image" href="http://localhost:1313/htb-writeup-soccer/">
+  <div class="post-card-body">
+    <div class="post-card-meta">12 April 2023 · HackTheBox, Easy Machine</div>
+    <h2>Soccer - Hack The Box</h2>
+    
+    
+    
+    <p>Una máquina que debería ser de dificultad media porque fácil no fue, lo que hicimos fue registrar la página del servicio HTTP en el /etc/hosts, luego vamos a utilizar Fuzzing para descubrir un login, …</p>
+    
+    <div class="tag-marquee">
+      <div class="tag-marquee-track">
+        <span class="tag-pill">Linux</span><span class="tag-pill">Virtual Hosting</span><span class="tag-pill">Fuzzing</span><span class="tag-pill">Tiny File Manager</span><span class="tag-pill">Reverse Shell</span><span class="tag-pill">Nginx</span><span class="tag-pill">Web Socket Exploit</span><span class="tag-pill">Blind SQL Injection</span><span class="tag-pill">System Recognition (Linux)</span><span class="tag-pill">Privesc - Doas.conf Privilege Escalation</span><span class="tag-pill">OSCP Style</span>
+      </div>
+    </div>
+    
+    
+  </div>
+  
+  <span class="post-card-thumb-wrap">
+    <img class="post-card-thumb" src="http://localhost:1313/assets/images/htb-writeup-soccer/soccer_logo.png" alt="Soccer - Hack The Box" loading="lazy">
+  </span>
+  
+</a>
+
+    
+    <a class="post-card post-card-with-image" href="http://localhost:1313/htb-writeup-blocky/">
+  <div class="post-card-body">
+    <div class="post-card-meta">20 February 2023 · HackTheBox, Easy Machine</div>
+    <h2>Blocky - Hack The Box</h2>
+    
+    
+    
+    <p>Esta es una máquina bastante sencilla, en donde haremos un Fuzzing y gracias a este descubriremos archivos de Java, que al descompilar uno de ellos contendrá información critica que nos ayudará a …</p>
+    
+    <div class="tag-marquee">
+      <div class="tag-marquee-track">
+        <span class="tag-pill">Linux</span><span class="tag-pill">Virtual Hosting</span><span class="tag-pill">Fuzzing</span><span class="tag-pill">PHP</span><span class="tag-pill">Wordpress</span><span class="tag-pill">Information Leakage</span><span class="tag-pill">Java Decompiler</span><span class="tag-pill">Wordpress Enumeration</span><span class="tag-pill">Abusing Wordpress Template</span><span class="tag-pill">Reverse Shell</span><span class="tag-pill">SSH Username Enumeration</span><span class="tag-pill">CVE-2018-15473</span><span class="tag-pill">Privesc - Abusing Sudoers Privileges</span><span class="tag-pill">OSCP Style</span>
+      </div>
+    </div>
+    
+    
+  </div>
+  
+  <span class="post-card-thumb-wrap">
+    <img class="post-card-thumb" src="http://localhost:1313/assets/images/htb-writeup-blocky/blocky_logo.png" alt="Blocky - Hack The Box" loading="lazy">
+  </span>
+  
+</a>
+
+    
+    <a class="post-card post-card-with-image" href="http://localhost:1313/htb-writeup-bank/">
+  <div class="post-card-body">
+    <div class="post-card-meta">19 February 2023 · HackTheBox, Easy Machine</div>
+    <h2>Bank - Hack The Box</h2>
+    
+    
+    
+    <p>Esta máquina fue algo difícil porque no pude escalar privilegios usando un Exploit sino que se usa un binario que automáticamente te convierte en Root, además de que tuve que investigar bastante sobre …</p>
+    
+    <div class="tag-marquee">
+      <div class="tag-marquee-track">
+        <span class="tag-pill">Linux</span><span class="tag-pill">Apache httpd 2.4.7</span><span class="tag-pill">Domain Zone Transfer Zone Attack (AXFR)</span><span class="tag-pill">Virtual Hosting</span><span class="tag-pill">Fuzzing</span><span class="tag-pill">Information Leakage</span><span class="tag-pill">Remote Command Execution (RCE)</span><span class="tag-pill">Reverse Shell</span><span class="tag-pill">Local Privilege Escalation (LPE)</span><span class="tag-pill">Privesc - Abusing SUID Binary (LPE)</span><span class="tag-pill">OSCP Style</span><span class="tag-pill">Metasploit Framework</span>
+      </div>
+    </div>
+    
+    
+  </div>
+  
+  <span class="post-card-thumb-wrap">
+    <img class="post-card-thumb" src="http://localhost:1313/assets/images/htb-writeup-bank/bank_logo.png" alt="Bank - Hack The Box" loading="lazy">
+  </span>
+  
+</a>
+
+    
+  </div>
+
+  
+<nav class="pagination" aria-label="Paginación">
+  
+  <a class="pagination-link" href="/tags/Virtual-Hosting/">‹ Anterior</a>
+  
+
+  <div class="pagination-numbers">
+    
+      
+      <a class="pagination-number" href="/tags/Virtual-Hosting/">1</a>
+      
+    
+      
+      <span class="pagination-number is-current">2</span>
+      
+    
+  </div>
+
+  
+  <span class="pagination-link is-disabled">Siguiente ›</span>
+  
+</nav>
+
+
+</div>
+
+  </main>
+  <footer class="site-footer">
+  <div class="wrap">
+    <p>&copy; 2026 BerserkWings · México
+       · <a href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </p>
+  </div>
+</footer>
+
+  
+
+<script src="/js/main.min.15ff80349759f71df793ae28568ef0a6a9c3eb6efe99c9e96bad1d9236a26c31.js" integrity="sha256-Ff&#43;ANJdZ9x33k64oVo7wpqnD627&#43;mcnpa60dkjaibDE=" defer></script>
+
+</body>
+</html>

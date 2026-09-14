@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cracking Hash · BerserkWings - Hacking Ético</title>
+<meta name="description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'self';
+               img-src 'self';
+               style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+               font-src 'self' https://fonts.gstatic.com;
+               script-src 'self' ;
+               connect-src 'self' ;
+               object-src 'none';
+               base-uri 'self';
+               form-action 'self';
+               upgrade-insecure-requests;">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+<link rel="canonical" href="http://localhost:1313/tags/Cracking-Hash/">
+<link rel="icon" href="/assets/images/favicon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/main.min.b51fce260bd224cda026ea0223adf133e0ce779edbb6c14d513c3f101c33a9ff.css" integrity="sha256-tR/OJgvSJM2gJuoCI63xM&#43;DOd57btsFNUTw/EBwzqf8=">
+
+
+<meta property="og:title" content="Cracking Hash">
+<meta property="og:description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+<meta property="og:type" content="website">
+
+
+
+
+</head>
+<body>
+  <header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      
+      <img class="brand-logo" src="http://localhost:1313/assets/images/masthead.png" alt="BerserkWings">
+      
+    </a>
+    <nav class="main-nav">
+      
+        <a href="/" >Inicio</a>
+      
+        <a href="/posts/" >Writeups</a>
+      
+        <a href="/categories/" >Categorías</a>
+      
+        <a href="/tags/" >Etiquetas</a>
+      
+        <a href="/buscador/" >Buscador</a>
+      
+        <a href="/acerca-de-mi/" >Acerca de mí</a>
+      
+    </nav>
+  </div>
+</header>
+
+  <main>
+    
+<canvas class="hero-matrix-bg" id="heroMatrixBg" aria-hidden="true"></canvas>
+
+
+
+
+
+<aside class="side-profile">
+  <img class="side-avatar" src="http://localhost:1313/assets/images/avatar.png" alt="BerserkWings">
+  <div class="side-name">BerserkWings</div>
+  <div class="side-tagline">Aspirante a Pentester · CTF Player</div>
+
+  
+  <div class="side-platforms">
+    <span class="side-platform-badge">HTB: BerserkWings</span>
+    <span class="side-platform-badge">THL: BerserkWings</span>
+  </div>
+  
+
+  <div class="side-contact">
+    <span class="side-meta">📍 México</span>
+    
+    <a class="side-meta-link" href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">🔗 GitHub</a>
+    
+  </div>
+
+  
+
+  
+
+  
+
+
+</aside>
+
+<div class="wrap" style="margin-top:2.5rem;">
+  <h1>Cracking Hash</h1>
+  
+
+  <div style="margin-top:1.5rem;">
+    
+    
+    
+    <a class="post-card post-card-with-image" href="http://localhost:1313/htb-writeup-reactor/">
+  <div class="post-card-body">
+    <div class="post-card-meta">25 May 2026 · HackTheBox, Easy Machine</div>
+    <h2>Reactor - Hack The Box</h2>
+    
+    
+    
+    <p>Esta fue una máquina un poco complicada. Después de analizar los escaneos, decidimos analizar a fondo la página web activa en el puerto 3000, ya que aplicando Fuzzing no encontramos nada. Al no …</p>
+    
+    <div class="tag-marquee">
+      <div class="tag-marquee-track">
+        <span class="tag-pill">Linux</span><span class="tag-pill">SSH</span><span class="tag-pill">Next Js</span><span class="tag-pill">React</span><span class="tag-pill">Node Js</span><span class="tag-pill">SQLite3</span><span class="tag-pill">BurpSuite</span><span class="tag-pill">React2Shell</span><span class="tag-pill">CVE-2025-66478 and CVE-2025-55182</span><span class="tag-pill">SQLite3 Enumeration</span><span class="tag-pill">Cracking Hash</span><span class="tag-pill">Cracking MD5 Hash</span><span class="tag-pill">Port Forwarding</span><span class="tag-pill">Abusing Node Js Debugger</span><span class="tag-pill">Privesc - Abusing Node Js Debugger</span><span class="tag-pill">OSCP Style</span>
+      </div>
+    </div>
+    
+    
+  </div>
+  
+  <span class="post-card-thumb-wrap">
+    <img class="post-card-thumb" src="http://localhost:1313/assets/images/htb-writeup-reactor/reactor.png" alt="Reactor - Hack The Box" loading="lazy">
+  </span>
+  
+</a>
+
+    
+    <a class="post-card post-card-with-image" href="http://localhost:1313/THL-writeup-scapeRoom/">
+  <div class="post-card-body">
+    <div class="post-card-meta">7 May 2026 · TheHackerLabs, Medium Machine</div>
+    <h2>ScapeRoom - TheHackerLabs</h2>
+    
+    
+    
+    <p>Esta fue una máquina algo complicada. Después de analizar los servicios de ambas interfaces y de ver que en ambas está lo mismo, elegimos una para aplicar las pruebas. Iniciamos analizando la página …</p>
+    
+    <div class="tag-marquee">
+      <div class="tag-marquee-track">
+        <span class="tag-pill">Linux</span><span class="tag-pill">SSH</span><span class="tag-pill">MySQL</span><span class="tag-pill">Web Enumeration</span><span class="tag-pill">Fuzzing</span><span class="tag-pill">Base64 Decoding</span><span class="tag-pill">Analysing Metadata in Image</span><span class="tag-pill">MySQL Enumeration</span><span class="tag-pill">MySQL Decrypting Password</span><span class="tag-pill">Cracking Hash</span><span class="tag-pill">Cracking GPG File</span><span class="tag-pill">Bash History Analysis</span><span class="tag-pill">Shared Object Binary Analysis</span><span class="tag-pill">Privesc - Bash History Analysis</span><span class="tag-pill">Privesc - Shared Object Binary Analysis</span><span class="tag-pill">OSCP Style</span>
+      </div>
+    </div>
+    
+    
+  </div>
+  
+  <span class="post-card-thumb-wrap">
+    <img class="post-card-thumb" src="http://localhost:1313/assets/images/THL-writeup-scapeRoom/scaperoom.png" alt="ScapeRoom - TheHackerLabs" loading="lazy">
+  </span>
+  
+</a>
+
+    
+    <a class="post-card post-card-with-image" href="http://localhost:1313/THL-writeup-zapp/">
+  <div class="post-card-body">
+    <div class="post-card-meta">5 May 2026 · TheHackerLabs, Easy Machine</div>
+    <h2>ZAPP - TheHackerLabs</h2>
+    
+    
+    
+    <p>Esta fue una máquina sencilla. Después de analizar los servicios activos, comenzamos enumerando el servicio FTP, donde encontramos 2 archivos de texto con posibles pistas para ganar acceso a la …</p>
+    
+    <div class="tag-marquee">
+      <div class="tag-marquee-track">
+        <span class="tag-pill">Linux</span><span class="tag-pill">FTP</span><span class="tag-pill">SSH</span><span class="tag-pill">FTP Enumeration</span><span class="tag-pill">Web Enumeration</span><span class="tag-pill">Fuzzing</span><span class="tag-pill">Source Code Analysis</span><span class="tag-pill">Base64 Decoding</span><span class="tag-pill">Cracking Hash</span><span class="tag-pill">Cracking RAR File</span><span class="tag-pill">Abusing Sudoers Privilege On zsh Binary</span><span class="tag-pill">Privesc - Abusing Sudoers Privilege On zsh Binary</span><span class="tag-pill">OSCP Style</span>
+      </div>
+    </div>
+    
+    
+  </div>
+  
+  <span class="post-card-thumb-wrap">
+    <img class="post-card-thumb" src="http://localhost:1313/assets/images/THL-writeup-zapp/ZAPP.png" alt="ZAPP - TheHackerLabs" loading="lazy">
+  </span>
+  
+</a>
+
+    
+    <a class="post-card post-card-with-image" href="http://localhost:1313/THL-writeup-phantom/">
+  <div class="post-card-body">
+    <div class="post-card-meta">29 April 2026 · TheHackerLabs, Medium Machine</div>
+    <h2>Phantom Robotics - TheHackerLabs</h2>
+    
+    
+    
+    <p>Esta fue una máquina algo complicada. Después de analizar los escaneos, nos dirigimos a enumerar el servicio SMB, pero al no encontrar nada, utilizamos las credenciales dadas para aplicar un RYD …</p>
+    
+    <div class="tag-marquee">
+      <div class="tag-marquee-track">
+        <span class="tag-pill">Windows</span><span class="tag-pill">Active Directory</span><span class="tag-pill">SMB</span><span class="tag-pill">RPC</span><span class="tag-pill">Kerberos</span><span class="tag-pill">WinRM</span><span class="tag-pill">SMB Enumeration</span><span class="tag-pill">RYD Cycling Attack</span><span class="tag-pill">RPC Enumeration</span><span class="tag-pill">BloodHound-Python and BloodHound Enumeration</span><span class="tag-pill">AD Chain Attack</span><span class="tag-pill">Abusing AD-DACL WriteOwner</span><span class="tag-pill">Abusing AD-DACL AddSelf</span><span class="tag-pill">Abusing AD-DACL WriteDacl</span><span class="tag-pill">Abusing AD-DACL ForceChangePassword</span><span class="tag-pill">LLMNR Poisoning</span><span class="tag-pill">Cracking Hash</span><span class="tag-pill">Cracking NTLMv2 Hash</span><span class="tag-pill">Tombstone AD Enumeration</span><span class="tag-pill">Password Spraying</span><span class="tag-pill">System Recognition (Windows)</span><span class="tag-pill">ESC3 Attack (ADCS ESC3 - Enrollment Agent Template)</span><span class="tag-pill">Privesc - ESC3 Attack (ADCS ESC3 - Enrollment Agent Template)</span><span class="tag-pill">Metasploit Module - CVE-2024-30085 (Cloud Files)</span><span class="tag-pill">Privesc - Metasploit Module - CVE-2024-30085 (Cloud Files)</span><span class="tag-pill">OSCP Style</span><span class="tag-pill">Metasploit Framework</span>
+      </div>
+    </div>
+    
+    
+  </div>
+  
+  <span class="post-card-thumb-wrap">
+    <img class="post-card-thumb" src="http://localhost:1313/assets/images/THL-writeup-phantom/Phantom.png" alt="Phantom Robotics - TheHackerLabs" loading="lazy">
+  </span>
+  
+</a>
+
+    
+    <a class="post-card post-card-with-image" href="http://localhost:1313/THL-writeup-folclore/">
+  <div class="post-card-body">
+    <div class="post-card-meta">30 March 2026 · TheHackerLabs, Medium Machine</div>
+    <h2>Folclore - TheHackerLabs</h2>
+    
+    
+    
+    <p>Esta fue una máquina algo complicada. Después de analizar los escaneos, nos enfocamos en el servicio SMB, ya que después de aplicar RID Cycling attack y de aplicar fuerza bruta a un usuario, logramos …</p>
+    
+    <div class="tag-marquee">
+      <div class="tag-marquee-track">
+        <span class="tag-pill">Windows</span><span class="tag-pill">SMB</span><span class="tag-pill">SMB Enumeration</span><span class="tag-pill">RID Cycling Attack</span><span class="tag-pill">Brute Force Attack</span><span class="tag-pill">Metadata Analysis</span><span class="tag-pill">Steganography</span><span class="tag-pill">Password Spraying</span><span class="tag-pill">Cracking Hash</span><span class="tag-pill">Cracking ZIP File</span><span class="tag-pill">Abusing Local PowerShell Functionality</span><span class="tag-pill">Privilege Escalation via Exposed Administrator Credentials in Plaintext File</span><span class="tag-pill">Privesc - Privilege Escalation via Exposed Administrator Credentials in Plaintext File</span><span class="tag-pill">OSCP Style</span>
+      </div>
+    </div>
+    
+    
+  </div>
+  
+  <span class="post-card-thumb-wrap">
+    <img class="post-card-thumb" src="http://localhost:1313/assets/images/THL-writeup-folclore/folclore.png" alt="Folclore - TheHackerLabs" loading="lazy">
+  </span>
+  
+</a>
+
+    
+    <a class="post-card post-card-with-image" href="http://localhost:1313/THL-writeup-microchip/">
+  <div class="post-card-body">
+    <div class="post-card-meta">9 February 2026 · TheHackerLabs, Medium Machine</div>
+    <h2>Microchip - TheHackerLabs</h2>
+    
+    
+    
+    <p>Esta fue una máquina algo complicada. Después de analizar los escaneos, nos dirigimos a la página web activa en el puerto 80, siendo que después de analizarla y de aplicarle Fuzzing, descubrimos que …</p>
+    
+    <div class="tag-marquee">
+      <div class="tag-marquee-track">
+        <span class="tag-pill">Linux</span><span class="tag-pill">SSH</span><span class="tag-pill">Docker</span><span class="tag-pill">Portainer.io</span><span class="tag-pill">CMS PrestaShop</span><span class="tag-pill">Web Enumeration</span><span class="tag-pill">Fuzzing</span><span class="tag-pill">Server Side Template Injection (SSTI)</span><span class="tag-pill">Twig - SSTI (PHP)</span><span class="tag-pill">Automating SSTI (SSTImap)</span><span class="tag-pill">Abusing Sudoers Privilege On iptables and iptables-save Binaries</span><span class="tag-pill">Unauthorized Root Password Modification Via /etc/passwd</span><span class="tag-pill">Privesc - Abusing Sudoers Privilege On iptables and iptables-save Binaries</span><span class="tag-pill">Privesc - Unauthorized Root Password Modification Via /etc/passwd</span><span class="tag-pill">Cracking Hash</span><span class="tag-pill">Cracking SHA-512 Hash</span><span class="tag-pill">Password Reuse</span><span class="tag-pill">Abusing Portainer Portal to Mounting The Host Root Filesystem</span><span class="tag-pill">Privesc - Abusing Portainer Portal to Mounting The Host Root Filesystem</span><span class="tag-pill">OSCP Style</span>
+      </div>
+    </div>
+    
+    
+  </div>
+  
+  <span class="post-card-thumb-wrap">
+    <img class="post-card-thumb" src="http://localhost:1313/assets/images/THL-writeup-microchip/microchip.png" alt="Microchip - TheHackerLabs" loading="lazy">
+  </span>
+  
+</a>
+
+    
+    <a class="post-card post-card-with-image" href="http://localhost:1313/htb-writeup-monitorsFour/">
+  <div class="post-card-body">
+    <div class="post-card-meta">12 December 2025 · HackTheBox, Easy Machine</div>
+    <h2>MonitorsFour - Hack The Box</h2>
+    
+    
+    
+    <p>Esta fue una máquina algo complicada. Después de analizar los escaneos, nos dirigimos directamente a la página web activa del puerto 80, siendo ahí donde descubrimos un login y el uso de PHP versión …</p>
+    
+    <div class="tag-marquee">
+      <div class="tag-marquee-track">
+        <span class="tag-pill">Windows</span><span class="tag-pill">Docker</span><span class="tag-pill">API Docker</span><span class="tag-pill">Web Enumeration</span><span class="tag-pill">Fuzzing</span><span class="tag-pill">Information Leakage</span><span class="tag-pill">Subdomain Fuzzing</span><span class="tag-pill">Cacti Network Management</span><span class="tag-pill">Parameter Fuzzing</span><span class="tag-pill">PHP Type Juggling</span><span class="tag-pill">Magic Hashes Bypass</span><span class="tag-pill">API Broken Authentication</span><span class="tag-pill">Cracking Hash</span><span class="tag-pill">Cracking MD5 Hash</span><span class="tag-pill">Cacti Authenticated Graph Template RCE</span><span class="tag-pill">CVE-2025-24367</span><span class="tag-pill">Privesc - Docker Remote API Escape</span><span class="tag-pill">Privesc - CVE-2025-9074</span><span class="tag-pill">OSCP Style</span>
+      </div>
+    </div>
+    
+    
+  </div>
+  
+  <span class="post-card-thumb-wrap">
+    <img class="post-card-thumb" src="http://localhost:1313/assets/images/htb-writeup-monitorsFour/monitorsFour.png" alt="MonitorsFour - Hack The Box" loading="lazy">
+  </span>
+  
+</a>
+
+    
+    <a class="post-card post-card-with-image" href="http://localhost:1313/htb-writeup-gavel/">
+  <div class="post-card-body">
+    <div class="post-card-meta">2 December 2025 · HackTheBox, Medium Machine</div>
+    <h2>Gavel - Hack The Box</h2>
+    
+    
+    
+    <p>Esta fue una máquina complicada. Después de analizar los escaneos, nos dirigimos a analizar la página web activa en el puerto 80, siendo una página de subasta de objetos mágicos. Aplicando Fuzzing, …</p>
+    
+    <div class="tag-marquee">
+      <div class="tag-marquee-track">
+        <span class="tag-pill">Linux</span><span class="tag-pill">YAML</span><span class="tag-pill">MySQL</span><span class="tag-pill">PHP Sandbox</span><span class="tag-pill">Git Repository</span><span class="tag-pill">Web Enumeration</span><span class="tag-pill">Fuzzing</span><span class="tag-pill">BurpSuite</span><span class="tag-pill">Dumping Git Repository</span><span class="tag-pill">Code Analysis</span><span class="tag-pill">PDO SQL Injections</span><span class="tag-pill">Cracking Hash</span><span class="tag-pill">Cracking Bcrypt Hash</span><span class="tag-pill">Command Injection (CI)</span><span class="tag-pill">Password Reuse</span><span class="tag-pill">YAML Deserialization</span><span class="tag-pill">YAML Injection</span><span class="tag-pill">Bypassing PHP Sandbox</span><span class="tag-pill">Privesc - YAML Deserialization</span><span class="tag-pill">Privesc - YAML Injection</span><span class="tag-pill">Privesc - Bypassing PHP Sandbox</span><span class="tag-pill">OSCP Style</span>
+      </div>
+    </div>
+    
+    
+  </div>
+  
+  <span class="post-card-thumb-wrap">
+    <img class="post-card-thumb" src="http://localhost:1313/assets/images/htb-writeup-gavel/gavel.png" alt="Gavel - Hack The Box" loading="lazy">
+  </span>
+  
+</a>
+
+    
+    <a class="post-card post-card-with-image" href="http://localhost:1313/htb-writeup-eighteen/">
+  <div class="post-card-body">
+    <div class="post-card-meta">30 November 2025 · HackTheBox, Easy Machine</div>
+    <h2>Eighteen - Hack The Box</h2>
+    
+    
+    
+    <p>Esta fue una máquina sencilla al principio y al final se vuelve bastante complicada. Después de analizar los escaneos, vamos directamente a revisar la página web, pero al no encontrar algo útil, nos …</p>
+    
+    <div class="tag-marquee">
+      <div class="tag-marquee-track">
+        <span class="tag-pill">Windows</span><span class="tag-pill">Active Directory</span><span class="tag-pill">MSSQL</span><span class="tag-pill">WinRM</span><span class="tag-pill">Web Enumeration</span><span class="tag-pill">Fuzzing</span><span class="tag-pill">MSSQL Enumeration</span><span class="tag-pill">Cracking Hash</span><span class="tag-pill">Cracking PBKDF2 Hash</span><span class="tag-pill">Password Spraying</span><span class="tag-pill">RIDs Brute Force</span><span class="tag-pill">Tunneling SOCKS5</span><span class="tag-pill">BadSuccessor Attack</span><span class="tag-pill">Privesc - BadSuccessor Attack</span><span class="tag-pill">OSCP Style</span>
+      </div>
+    </div>
+    
+    
+  </div>
+  
+  <span class="post-card-thumb-wrap">
+    <img class="post-card-thumb" src="http://localhost:1313/assets/images/htb-writeup-eighteen/eighteen.png" alt="Eighteen - Hack The Box" loading="lazy">
+  </span>
+  
+</a>
+
+    
+    <a class="post-card post-card-with-image" href="http://localhost:1313/htb-writeup-nanocorp/">
+  <div class="post-card-body">
+    <div class="post-card-meta">14 November 2025 · HackTheBox, Hard Machine</div>
+    <h2>NanoCorp - Hack The Box</h2>
+    
+    
+    
+    <p>Esta fue una máquina un poco complicada. Después de analizar los escaneos, nos dirigimos a analizar la página web activa en el puerto 80, en donde encontramos una página que nos lleva a un subdominio …</p>
+    
+    <div class="tag-marquee">
+      <div class="tag-marquee-track">
+        <span class="tag-pill">Windows</span><span class="tag-pill">Active Directory</span><span class="tag-pill">Web Enumeration</span><span class="tag-pill">Fuzzing</span><span class="tag-pill">Fuzzing Subdomains</span><span class="tag-pill">NTLM Hash Disclosure (Spoofing)</span><span class="tag-pill">CVE-2025-24054</span><span class="tag-pill">CVE-2025-24071</span><span class="tag-pill">Cracking Hash</span><span class="tag-pill">Cracking NTLMv2 Hash</span><span class="tag-pill">BloodHound and Python-BloodHound Enumeration</span><span class="tag-pill">Abusing AddSelf Permission</span><span class="tag-pill">Abusing ForceChangePassword Permission</span><span class="tag-pill">Privesc - Abusing Check_MK Windows Agent (versión 2.1.0p10)</span><span class="tag-pill">Privesc - CVE-2024-0670</span><span class="tag-pill">OSCP Style</span>
+      </div>
+    </div>
+    
+    
+  </div>
+  
+  <span class="post-card-thumb-wrap">
+    <img class="post-card-thumb" src="http://localhost:1313/assets/images/htb-writeup-nanocorp/nanocorp.png" alt="NanoCorp - Hack The Box" loading="lazy">
+  </span>
+  
+</a>
+
+    
+  </div>
+
+  
+<nav class="pagination" aria-label="Paginación">
+  
+  <span class="pagination-link is-disabled">‹ Anterior</span>
+  
+
+  <div class="pagination-numbers">
+    
+      
+      <span class="pagination-number is-current">1</span>
+      
+    
+      
+      <a class="pagination-number" href="/tags/Cracking-Hash/page/2/">2</a>
+      
+    
+      
+      <a class="pagination-number" href="/tags/Cracking-Hash/page/3/">3</a>
+      
+    
+      
+      <a class="pagination-number" href="/tags/Cracking-Hash/page/4/">4</a>
+      
+    
+      
+      <a class="pagination-number" href="/tags/Cracking-Hash/page/5/">5</a>
+      
+    
+      
+      <a class="pagination-number" href="/tags/Cracking-Hash/page/6/">6</a>
+      
+    
+  </div>
+
+  
+  <a class="pagination-link" href="/tags/Cracking-Hash/page/2/">Siguiente ›</a>
+  
+</nav>
+
+
+</div>
+
+  </main>
+  <footer class="site-footer">
+  <div class="wrap">
+    <p>&copy; 2026 BerserkWings · México
+       · <a href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </p>
+  </div>
+</footer>
+
+  
+
+<script src="/js/main.min.15ff80349759f71df793ae28568ef0a6a9c3eb6efe99c9e96bad1d9236a26c31.js" integrity="sha256-Ff&#43;ANJdZ9x33k64oVo7wpqnD627&#43;mcnpa60dkjaibDE=" defer></script>
+
+</body>
+</html>

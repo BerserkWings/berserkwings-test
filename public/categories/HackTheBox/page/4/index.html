@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HackTheBox · BerserkWings - Hacking Ético</title>
+<meta name="description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'self';
+               img-src 'self';
+               style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+               font-src 'self' https://fonts.gstatic.com;
+               script-src 'self' ;
+               connect-src 'self' ;
+               object-src 'none';
+               base-uri 'self';
+               form-action 'self';
+               upgrade-insecure-requests;">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+<link rel="canonical" href="http://localhost:1313/categories/HackTheBox/">
+<link rel="icon" href="/assets/images/favicon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/main.min.b51fce260bd224cda026ea0223adf133e0ce779edbb6c14d513c3f101c33a9ff.css" integrity="sha256-tR/OJgvSJM2gJuoCI63xM&#43;DOd57btsFNUTw/EBwzqf8=">
+
+
+<meta property="og:title" content="HackTheBox">
+<meta property="og:description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+<meta property="og:type" content="website">
+
+
+
+
+</head>
+<body>
+  <header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      
+      <img class="brand-logo" src="http://localhost:1313/assets/images/masthead.png" alt="BerserkWings">
+      
+    </a>
+    <nav class="main-nav">
+      
+        <a href="/" >Inicio</a>
+      
+        <a href="/posts/" >Writeups</a>
+      
+        <a href="/categories/" >Categorías</a>
+      
+        <a href="/tags/" >Etiquetas</a>
+      
+        <a href="/buscador/" >Buscador</a>
+      
+        <a href="/acerca-de-mi/" >Acerca de mí</a>
+      
+    </nav>
+  </div>
+</header>
+
+  <main>
+    
+<canvas class="hero-matrix-bg" id="heroMatrixBg" aria-hidden="true"></canvas>
+
+
+
+
+
+<aside class="side-profile">
+  <img class="side-avatar" src="http://localhost:1313/assets/images/avatar.png" alt="BerserkWings">
+  <div class="side-name">BerserkWings</div>
+  <div class="side-tagline">Aspirante a Pentester · CTF Player</div>
+
+  
+  <div class="side-platforms">
+    <span class="side-platform-badge">HTB: BerserkWings</span>
+    <span class="side-platform-badge">THL: BerserkWings</span>
+  </div>
+  
+
+  <div class="side-contact">
+    <span class="side-meta">📍 México</span>
+    
+    <a class="side-meta-link" href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">🔗 GitHub</a>
+    
+  </div>
+
+  
+
+  
+  <div class="side-posts">
+    <a class="side-cta-button" href="/writeups/todos/">📚 Mostrar todos los writeups</a>
+  </div>
+  
+
+  
+
+
+</aside>
+
+<div class="wrap" style="margin-top:2.5rem;">
+  <h1>HackTheBox</h1>
+  
+
+  <div style="margin-top:1.5rem;">
+    
+    
+    
+    <a class="post-card post-card-with-image" href="http://localhost:1313/htb-writeup-delivery/">
+  <div class="post-card-body">
+    <div class="post-card-meta">5 May 2023 · HackTheBox, Easy Machine</div>
+    <h2>Delivery - Hack The Box</h2>
+    
+    
+    
+    <p>Esta fue una máquina bastante interesante, lo que hicimos fue analizar el servicio HTTP para descubrir que tienen un sistema de tickets y un servidor, a su vez usan Virtual Hosting por lo que …</p>
+    
+    <div class="tag-marquee">
+      <div class="tag-marquee-track">
+        <span class="tag-pill">Linux</span><span class="tag-pill">OS Ticket</span><span class="tag-pill">Mattermost</span><span class="tag-pill">Virtual Hosting</span><span class="tag-pill">Abussing Support Ticket System</span><span class="tag-pill">Information Leakage</span><span class="tag-pill">MySQL Enumeration</span><span class="tag-pill">Cracking Hash</span><span class="tag-pill">Privesc - Cracking Root Password Hash</span><span class="tag-pill">OSCP Style</span>
+      </div>
+    </div>
+    
+    
+  </div>
+  
+  <span class="post-card-thumb-wrap">
+    <img class="post-card-thumb" src="http://localhost:1313/assets/images/htb-writeup-delivery/delivery_logo.png" alt="Delivery - Hack The Box" loading="lazy">
+  </span>
+  
+</a>
+
+    
+    <a class="post-card post-card-with-image" href="http://localhost:1313/htb-writeup-active/">
+  <div class="post-card-body">
+    <div class="post-card-meta">2 May 2023 · HackTheBox, Easy Machine</div>
+    <h2>Active - Hack The Box</h2>
+    
+    
+    
+    <p>Esta máquina fue algo complicada para mí, porque se trató de un ejercicio de Active Directory. Tuve que investigar mucho sobre Active Directory, gracias a la herramienta smbclient y smbmap, se pudo …</p>
+    
+    <div class="tag-marquee">
+      <div class="tag-marquee-track">
+        <span class="tag-pill">Windows</span><span class="tag-pill">SMB</span><span class="tag-pill">Active Directory</span><span class="tag-pill">SMB Enumeration</span><span class="tag-pill">SYSVOL Mining</span><span class="tag-pill">Exploiting GPP SYSVOL</span><span class="tag-pill">Cracking Hash</span><span class="tag-pill">Privesc - Kerberoasting Attack</span><span class="tag-pill">OSCP Style</span>
+      </div>
+    </div>
+    
+    
+  </div>
+  
+  <span class="post-card-thumb-wrap">
+    <img class="post-card-thumb" src="http://localhost:1313/assets/images/htb-writeup-active/active_logo.png" alt="Active - Hack The Box" loading="lazy">
+  </span>
+  
+</a>
+
+    
+    <a class="post-card post-card-with-image" href="http://localhost:1313/htb-writeup-bounty/">
+  <div class="post-card-body">
+    <div class="post-card-meta">24 April 2023 · HackTheBox, Easy Machine</div>
+    <h2>Bounty - Hack The Box</h2>
+    
+    
+    
+    <p>Esta es una máquina algo sencilla, vamos a usar Fuzzing a la página web que está activa en el puerto HTTP, como no descubrimos nada, buscaremos por archivos ASP, pues usa el servicio IIS y …</p>
+    
+    <div class="tag-marquee">
+      <div class="tag-marquee-track">
+        <span class="tag-pill">Windows</span><span class="tag-pill">Microsoft IIS</span><span class="tag-pill">Fuzzing</span><span class="tag-pill">BurpSuite</span><span class="tag-pill">Sniper Attack</span><span class="tag-pill">Malicious web.config File</span><span class="tag-pill">ASP/ASPX Payload</span><span class="tag-pill">Privesc - Juicy Potato</span><span class="tag-pill">OSCP Style</span>
+      </div>
+    </div>
+    
+    
+  </div>
+  
+  <span class="post-card-thumb-wrap">
+    <img class="post-card-thumb" src="http://localhost:1313/assets/images/htb-writeup-bounty/bounty_logo.png" alt="Bounty - Hack The Box" loading="lazy">
+  </span>
+  
+</a>
+
+    
+    <a class="post-card post-card-with-image" href="http://localhost:1313/htb-writeup-valentine/">
+  <div class="post-card-body">
+    <div class="post-card-meta">21 April 2023 · HackTheBox, Easy Machine</div>
+    <h2>Valentine - Hack The Box</h2>
+    
+    
+    
+    <p>Esta fue una máquina relativamente sencilla, investigaremos el puerto HTTP que con la ayuda de nmap y haciendo Fuzzing, encontramos una página que nos dara información valiosa como una llave privada …</p>
+    
+    <div class="tag-marquee">
+      <div class="tag-marquee-track">
+        <span class="tag-pill">Linux</span><span class="tag-pill">Fuzzing</span><span class="tag-pill">Information Leakage</span><span class="tag-pill">Cracking SSH Key</span><span class="tag-pill">SSL Heartbleed Exploitation</span><span class="tag-pill">SSH User Enumeration</span><span class="tag-pill">CVE-2018-15473 (SSH User Enumeration)</span><span class="tag-pill">Tmux</span><span class="tag-pill">Privesc - CVE-2011-1496</span><span class="tag-pill">OSCP Style</span><span class="tag-pill">Metasploit Framework</span>
+      </div>
+    </div>
+    
+    
+  </div>
+  
+  <span class="post-card-thumb-wrap">
+    <img class="post-card-thumb" src="http://localhost:1313/assets/images/htb-writeup-valentine/valentine_logo.png" alt="Valentine - Hack The Box" loading="lazy">
+  </span>
+  
+</a>
+
+    
+    <a class="post-card post-card-with-image" href="http://localhost:1313/htb-writeup-nibbles/">
+  <div class="post-card-body">
+    <div class="post-card-meta">19 April 2023 · HackTheBox, Easy Machine</div>
+    <h2>Nibbles - Hack The Box</h2>
+    
+    
+    
+    <p>Esta fue una máquina bastante sencilla, en la que vamos a analizar el código fuente de la página web que está activa en el servicio HTTP para poder entrar en una subpágina que utiliza el servicio …</p>
+    
+    <div class="tag-marquee">
+      <div class="tag-marquee-track">
+        <span class="tag-pill">Linux</span><span class="tag-pill">Fuzzing</span><span class="tag-pill">Nibbleblog</span><span class="tag-pill">Information Leakage</span><span class="tag-pill">Arbitrary File Upload (AFU)</span><span class="tag-pill">CVE-2015-6967 (AFU)</span><span class="tag-pill">Reverse Shell</span><span class="tag-pill">Privesc - Abusing Sudoers Privileges</span><span class="tag-pill">OSCP Style</span><span class="tag-pill">Metasploit Framework</span>
+      </div>
+    </div>
+    
+    
+  </div>
+  
+  <span class="post-card-thumb-wrap">
+    <img class="post-card-thumb" src="http://localhost:1313/assets/images/htb-writeup-nibbles/nibbles_logo.png" alt="Nibbles - Hack The Box" loading="lazy">
+  </span>
+  
+</a>
+
+    
+    <a class="post-card post-card-with-image" href="http://localhost:1313/htb-writeup-bashed/">
+  <div class="post-card-body">
+    <div class="post-card-meta">17 April 2023 · HackTheBox, Easy Machine</div>
+    <h2>Bashed - Hack The Box</h2>
+    
+    
+    
+    <p>Una máquina realmente sencilla. Vamos a aprovecharnos de una subpágina que es una shell de bash como web, la cual vamos a usar para conectarnos de manera remota y en la cual, usaremos el usuario …</p>
+    
+    <div class="tag-marquee">
+      <div class="tag-marquee-track">
+        <span class="tag-pill">Linux</span><span class="tag-pill">Fuzzing</span><span class="tag-pill">PHP</span><span class="tag-pill">Abusing PHP WebShell</span><span class="tag-pill">Reverse Shell</span><span class="tag-pill">CronJob Exploitation</span><span class="tag-pill">Privesc - Abusing Sudoers Privileges</span><span class="tag-pill">OSCP Style</span>
+      </div>
+    </div>
+    
+    
+  </div>
+  
+  <span class="post-card-thumb-wrap">
+    <img class="post-card-thumb" src="http://localhost:1313/assets/images/htb-writeup-bashed/bashed_logo.png" alt="Bashed - Hack The Box" loading="lazy">
+  </span>
+  
+</a>
+
+    
+    <a class="post-card post-card-with-image" href="http://localhost:1313/htb-writeup-metatwo/">
+  <div class="post-card-body">
+    <div class="post-card-meta">14 April 2023 · HackTheBox, Easy Machine</div>
+    <h2>MetaTwo - Hack The Box</h2>
+    
+    
+    
+    <p>Una máquina bastante complicada, otra que debería ser nivel medio, más no fácil. Usaremos el servicio HTTP para poder encontrar una forma de ganar acceso a la máquina, siendo que el código fuente nos …</p>
+    
+    <div class="tag-marquee">
+      <div class="tag-marquee-track">
+        <span class="tag-pill">Linux</span><span class="tag-pill">Virtual Hosting</span><span class="tag-pill">Web Enumeration</span><span class="tag-pill">Bookingpress</span><span class="tag-pill">Fuzzing</span><span class="tag-pill">Unauthenticated SQL Injection (USI)</span><span class="tag-pill">CVE-2022-0739 (USI)</span><span class="tag-pill">Cracking Hash</span><span class="tag-pill">WordPress</span><span class="tag-pill">Authenticated XXE</span><span class="tag-pill">CVE-2021-29447 (Authenticated XXE)</span><span class="tag-pill">FTP Enumeration</span><span class="tag-pill">SSH Enumeration</span><span class="tag-pill">Passpie</span><span class="tag-pill">Cracking SSH Key</span><span class="tag-pill">Privesc - Abusing Passpie Credentials</span><span class="tag-pill">OSCP Style</span><span class="tag-pill">Metasploit Framework</span>
+      </div>
+    </div>
+    
+    
+  </div>
+  
+  <span class="post-card-thumb-wrap">
+    <img class="post-card-thumb" src="http://localhost:1313/assets/images/htb-writeup-metatwo/metatwo_logo.png" alt="MetaTwo - Hack The Box" loading="lazy">
+  </span>
+  
+</a>
+
+    
+    <a class="post-card post-card-with-image" href="http://localhost:1313/htb-writeup-soccer/">
+  <div class="post-card-body">
+    <div class="post-card-meta">12 April 2023 · HackTheBox, Easy Machine</div>
+    <h2>Soccer - Hack The Box</h2>
+    
+    
+    
+    <p>Una máquina que debería ser de dificultad media porque fácil no fue, lo que hicimos fue registrar la página del servicio HTTP en el /etc/hosts, luego vamos a utilizar Fuzzing para descubrir un login, …</p>
+    
+    <div class="tag-marquee">
+      <div class="tag-marquee-track">
+        <span class="tag-pill">Linux</span><span class="tag-pill">Virtual Hosting</span><span class="tag-pill">Fuzzing</span><span class="tag-pill">Tiny File Manager</span><span class="tag-pill">Reverse Shell</span><span class="tag-pill">Nginx</span><span class="tag-pill">Web Socket Exploit</span><span class="tag-pill">Blind SQL Injection</span><span class="tag-pill">System Recognition (Linux)</span><span class="tag-pill">Privesc - Doas.conf Privilege Escalation</span><span class="tag-pill">OSCP Style</span>
+      </div>
+    </div>
+    
+    
+  </div>
+  
+  <span class="post-card-thumb-wrap">
+    <img class="post-card-thumb" src="http://localhost:1313/assets/images/htb-writeup-soccer/soccer_logo.png" alt="Soccer - Hack The Box" loading="lazy">
+  </span>
+  
+</a>
+
+    
+    <a class="post-card post-card-with-image" href="http://localhost:1313/htb-writeup-precious/">
+  <div class="post-card-body">
+    <div class="post-card-meta">10 April 2023 · HackTheBox, Easy Machine</div>
+    <h2>Precious - Hack The Box</h2>
+    
+    
+    
+    <p>Esta fue una máquina algo difícil, porque no sabía bien como acceder como usuario, trate de cargar un Payload, pero no funciono, estudie el ataque Smuggling para tratar de obtener credenciales, pero …</p>
+    
+    <div class="tag-marquee">
+      <div class="tag-marquee-track">
+        <span class="tag-pill">Linux</span><span class="tag-pill">pdfkit</span><span class="tag-pill">Extracting Metadata</span><span class="tag-pill">Fuzzing</span><span class="tag-pill">Command Injection (CI)</span><span class="tag-pill">CVE-2022-25765 (CI)</span><span class="tag-pill">Ruby Enumeration</span><span class="tag-pill">Information Leakage</span><span class="tag-pill">Privesc - Abusing Sudoers Privileges</span><span class="tag-pill">Privesc - YAML Deserialization Attack</span><span class="tag-pill">OSCP Style</span>
+      </div>
+    </div>
+    
+    
+  </div>
+  
+  <span class="post-card-thumb-wrap">
+    <img class="post-card-thumb" src="http://localhost:1313/assets/images/htb-writeup-precious/precious_logo.png" alt="Precious - Hack The Box" loading="lazy">
+  </span>
+  
+</a>
+
+    
+    <a class="post-card post-card-with-image" href="http://localhost:1313/htb-writeup-sense/">
+  <div class="post-card-body">
+    <div class="post-card-meta">8 March 2023 · HackTheBox, Easy Machine</div>
+    <h2>Sense - Hack The Box</h2>
+    
+    
+    
+    <p>Esta fue una máquina que jugó un poco con mi paciencia porque utilicé Fuzzing para listar archivos en la página web para encontrar algo útil, que si encontré, pero se tardó bastante, mucho más que en …</p>
+    
+    <div class="tag-marquee">
+      <div class="tag-marquee-track">
+        <span class="tag-pill">Linux</span><span class="tag-pill">pfSense</span><span class="tag-pill">Fuzzing</span><span class="tag-pill">Information Leakage</span><span class="tag-pill">Command Injection (CI)</span><span class="tag-pill">CVE-2014-4688 (CI)</span><span class="tag-pill">BurpSuite</span><span class="tag-pill">OSCP Style</span><span class="tag-pill">Metasploit Framework</span>
+      </div>
+    </div>
+    
+    
+  </div>
+  
+  <span class="post-card-thumb-wrap">
+    <img class="post-card-thumb" src="http://localhost:1313/assets/images/htb-writeup-sense/sense_logo.png" alt="Sense - Hack The Box" loading="lazy">
+  </span>
+  
+</a>
+
+    
+  </div>
+
+  
+<nav class="pagination" aria-label="Paginación">
+  
+  <a class="pagination-link" href="/categories/HackTheBox/page/3/">‹ Anterior</a>
+  
+
+  <div class="pagination-numbers">
+    
+      
+      <a class="pagination-number" href="/categories/HackTheBox/">1</a>
+      
+    
+      
+      <a class="pagination-number" href="/categories/HackTheBox/page/2/">2</a>
+      
+    
+      
+      <a class="pagination-number" href="/categories/HackTheBox/page/3/">3</a>
+      
+    
+      
+      <span class="pagination-number is-current">4</span>
+      
+    
+      
+      <a class="pagination-number" href="/categories/HackTheBox/page/5/">5</a>
+      
+    
+      
+      <a class="pagination-number" href="/categories/HackTheBox/page/6/">6</a>
+      
+    
+  </div>
+
+  
+  <a class="pagination-link" href="/categories/HackTheBox/page/5/">Siguiente ›</a>
+  
+</nav>
+
+
+</div>
+
+  </main>
+  <footer class="site-footer">
+  <div class="wrap">
+    <p>&copy; 2026 BerserkWings · México
+       · <a href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </p>
+  </div>
+</footer>
+
+  
+
+<script src="/js/main.min.15ff80349759f71df793ae28568ef0a6a9c3eb6efe99c9e96bad1d9236a26c31.js" integrity="sha256-Ff&#43;ANJdZ9x33k64oVo7wpqnD627&#43;mcnpa60dkjaibDE=" defer></script>
+
+</body>
+</html>

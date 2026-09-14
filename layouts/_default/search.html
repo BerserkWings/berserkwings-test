@@ -1,0 +1,22 @@
+{{ define "main" }}
+<canvas class="hero-matrix-bg" id="heroMatrixBg" aria-hidden="true"></canvas>
+{{ partial "sidebar-profile.html" . }}
+<div class="wrap" style="margin-top:2.5rem;">
+  <h1>{{ .Title }}</h1>
+  <p class="post-meta">Busca writeups, categorías o etiquetas por nombre o contenido.</p>
+
+  <div class="search-box">
+    <span class="search-prompt">$</span>
+    <input
+      type="text"
+      id="searchInput"
+      class="search-input"
+      placeholder="buscar..."
+      autocomplete="off"
+      spellcheck="false"
+      maxlength="80">
+  </div>
+
+  <div id="searchResults" class="search-results"></div>
+</div>
+{{ end }}

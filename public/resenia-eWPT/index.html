@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reseña - Certificación eWPTv2 · BerserkWings - Hacking Ético</title>
+<meta name="description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'self';
+               img-src 'self';
+               style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+               font-src 'self' https://fonts.gstatic.com;
+               script-src 'self' ;
+               connect-src 'self' ;
+               object-src 'none';
+               base-uri 'self';
+               form-action 'self';
+               upgrade-insecure-requests;">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+<link rel="canonical" href="http://localhost:1313/resenia-eWPT/">
+<link rel="icon" href="/assets/images/favicon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/main.min.b51fce260bd224cda026ea0223adf133e0ce779edbb6c14d513c3f101c33a9ff.css" integrity="sha256-tR/OJgvSJM2gJuoCI63xM&#43;DOd57btsFNUTw/EBwzqf8=">
+
+
+<meta property="og:title" content="Reseña - Certificación eWPTv2">
+<meta property="og:description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="http://localhost:1313/assets/images/resenia-ewpt/ewpt3.png">
+
+
+
+</head>
+<body>
+  <header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      
+      <img class="brand-logo" src="http://localhost:1313/assets/images/masthead.png" alt="BerserkWings">
+      
+    </a>
+    <nav class="main-nav">
+      
+        <a href="/" >Inicio</a>
+      
+        <a href="/posts/" >Writeups</a>
+      
+        <a href="/categories/" >Categorías</a>
+      
+        <a href="/tags/" >Etiquetas</a>
+      
+        <a href="/buscador/" >Buscador</a>
+      
+        <a href="/acerca-de-mi/" >Acerca de mí</a>
+      
+    </nav>
+  </div>
+</header>
+
+  <main>
+    
+<canvas class="hero-matrix-bg hero-matrix-bg--dim" id="heroMatrixBg" aria-hidden="true"></canvas>
+<article class="post" id="top">
+  
+
+
+
+
+<aside class="side-profile">
+  <img class="side-avatar" src="http://localhost:1313/assets/images/avatar.png" alt="BerserkWings">
+  <div class="side-name">BerserkWings</div>
+  <div class="side-tagline">Aspirante a Pentester · CTF Player</div>
+
+  
+  <div class="side-platforms">
+    <span class="side-platform-badge">HTB: BerserkWings</span>
+    <span class="side-platform-badge">THL: BerserkWings</span>
+  </div>
+  
+
+  <div class="side-contact">
+    <span class="side-meta">📍 México</span>
+    
+    <a class="side-meta-link" href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">🔗 GitHub</a>
+    
+  </div>
+
+  
+  <div class="side-posts">
+    <div class="side-post-cards">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-sedition/">
+          <span class="side-post-card-title">Sedition</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-buda/">
+          <span class="side-post-card-title">Buda</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <div class="side-post-card is-current">
+          <span class="side-post-card-title">Reseña</span>
+          <span class="side-post-card-platform">Certificación eWPTv2</span>
+        </div>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-watchstore/">
+          <span class="side-post-card-title">WatchStore</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-base/">
+          <span class="side-post-card-title">Base</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  
+
+  
+
+  
+
+
+</aside>
+
+
+  
+  
+  
+
+  <header class="post-header">
+    
+    <div class="post-meta">Certifications</div>
+    
+    <h1>Reseña - Certificación eWPTv2</h1>
+    <div class="post-meta">5 September 2025 · 14 min de lectura</div>
+  </header>
+
+  
+  <img class="post-cover" src="http://localhost:1313/assets/images/resenia-ewpt/ewpt3.png" alt="Reseña - Certificación eWPTv2">
+  
+
+  
+  <p class="post-lead">Esta es una reseña (sin muchos spoilers) sobre el examen para la certificación eWPTv2. Explicaré un poco de qué trata la certificación, cómo fue el curso de preparación que imparte INE Security junto a mi opinión sobre este, y una reseña del examen que me toco realizar. Además, añadiré algunos tips y consejos que te pueden ser útiles para realizar el examen. Si vas a aplicar el examen, ¡mucha suerte y éxito!.</p>
+  
+
+  
+
+  
+  <details class="toc" id="indice" open>
+    <summary>📑 Índice</summary>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#eWPTv2">¿Qué es la Certificación eWPTv2?</a></li>
+    <li><a href="#Curso">Reseña del Curso de Preparación</a></li>
+    <li><a href="#Examen">Reseña del Examen</a></li>
+    <li><a href="#Consejos">Algunos Consejos y Links de Apoyo</a></li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </details>
+  <aside class="side-toc">
+    <div class="side-toc-header">📑 Índice</div>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#eWPTv2">¿Qué es la Certificación eWPTv2?</a></li>
+    <li><a href="#Curso">Reseña del Curso de Preparación</a></li>
+    <li><a href="#Examen">Reseña del Examen</a></li>
+    <li><a href="#Consejos">Algunos Consejos y Links de Apoyo</a></li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </aside>
+  
+
+  <div class="post-content">
+    <h2 id="eWPTv2">¿Qué es la Certificación eWPTv2?</h2>
+<p>Primero que nada, ¿Qué es la <strong>certificación eWPT</strong>?</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Certificación eLearnSecurity Web Application Penetration Tester (eWPT)</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>La certificación eWPT de INE Security está dirigida a pentesters de nivel profesional y valida que la persona cuenta con los conocimientos, habilidades y capacidades necesarios para desempeñar el papel de pentester de aplicaciones web. Este examen está diseñado para ser una certificación importante para alguien con experiencia básica en pruebas de penetración de aplicaciones web, simulando las habilidades utilizadas durante una intervención en el mundo real. Este examen demuestra realmente que el candidato tiene lo que se necesita para formar parte de un equipo de pruebas de penetración de alto rendimiento.</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>La versión actual, que es la <strong>versión 2</strong>, consta de responder un cuestionario de 50 preguntas con un límite de 10 horas. Dichas preguntas, obtendrás la respuesta mientras aplicas pruebas de penetración web a las máquinas que te toquen en tu examen.</p>
+<p>La <strong>versión 1</strong> de esta certificación, constaba de vulnerar un laboratorio aplicando pruebas de penetración web, con tiempo límite de 7 días, y luego, tenías que realizar un reporte sobre el laboratorio asignado, con tiempo límite de 7 días, dando un total de 14 días de duración de esta certificación.</p>
+<p>Cambió muchísimo al igual que la <strong>certificación eCPPTv3</strong>, pasando de realizar un reporte a responder un cuestionario.</p>
+<p>Aquí puedes encontrar más información sobre la <strong>certificación eWPTv2</strong>:</p>
+<ul>
+<li><a href="https://ine.com/security/certifications/ewpt-certification" target="_blank">INE Security - eWPT Certification</a></li>
+</ul>
+<h2 id="Curso">Reseña del Curso de Preparación</h2>
+<p>Quien imparte el curso, es el master <strong>Alexis Ahmed</strong>, por lo que tendrás una buena experiencia a través del curso.</p>
+<p>El curso de preparación consta de 10 sección (12 si incluimos la introducción y conclusión, pero no las incluire):</p>
+<p><strong>Sección 1: Introduction to Web App Security Testing (Introducción a las pruebas de seguridad de aplicaciones web)</strong></p>
+<ul>
+<li><em>Introduction To Web Application Security (Introducción a Seguridad en Aplicaciones Web)</em></li>
+<li><em>Web Application Security Testing (Pruebas de Seguridad de Aplicaciones Web)</em></li>
+<li><em>Common Web Application Threats &amp; Risks (Amenazas y Riesgos Comunes de las Aplicaciones Web)</em></li>
+<li><em>Web Application Architecture (Arquitectura de Aplicaciones Web)</em></li>
+<li><em>Web Application Technologies (Tecnologías de Aplicaciones Web)</em></li>
+<li><em>Introduction To HTTP (Introducción a HTTP)</em></li>
+<li><em>HTTP Requests (Peticiones HTTP)</em></li>
+<li><em>HTTP Responses (Respuestas HTTP)</em></li>
+<li><em>HTTP Basics Lab (Laboratorio Básico de HTTP)</em></li>
+<li><em>HTTPS</em></li>
+<li><em>Web App Pentesting Methodology (Metodología para Pentesting en Web Apps)</em></li>
+<li><em>OWASP Top 10</em></li>
+<li><em>OWASP Web Security Testing Guide (WSTG)</em></li>
+<li><em>Pre-Engagement Phase (Fase Previa al Compromiso)</em></li>
+<li><em>Documenting &amp; Communicating Findings (Documentación y Comunicando Hallazgos)</em></li>
+</ul>
+<p>En general, se trata de una introducción a aplicaciones web. La parte más importante es cuando explica el framework <strong>OWASP Top 10</strong>, que es clave cuando aplicamos pentest web.</p>
+<p><strong>Sección 2: Web Enumeration &amp; Information Gathering (Recopilación de Información y Enumeración Web)</strong></p>
+<ul>
+<li><em>Introduction To Web Enumeration &amp; Information Gathering (Introducción a la Enumeración Web y Recopilación de Información)</em></li>
+<li><em>OWASP Web Security Testing Guide</em></li>
+<li><em>WHOIS</em></li>
+<li><em>Website Fingerprinting With Netcraft (Huellas Digitales de Sitios Web con Netcraft)</em></li>
+<li><em>Passive DNS Enumeration (Enumeración DNS Pasiva)</em></li>
+<li><em>Reviewing Webserver Metafiles (Revisión de los Metaficheros del Servidor Web)</em></li>
+<li><em>Google Dorks</em></li>
+<li><em>Web App Technology Fingerprinting (Huella Digital en Tecnologías de Aplicaciones Web)</em></li>
+<li><em>WAF Detection (Detección de WAF)</em></li>
+<li><em>Copying A Website With HTTRack (Copiando un Sitio Web con HTTRack)</em></li>
+<li><em>Website Screenshots With EyeWitness (Capturas de Pantalla de Sitios Web con EyeWitness)</em></li>
+<li><em>Passive Crawling &amp; Spidering With Burp Suite &amp; OWASP ZAP (Rastreo Pasivo y Spidering con Burp Suite y OWASP ZAP)</em></li>
+<li><em>Web Server Fingerprinting (Huella Digital del Servidor Web)</em></li>
+<li><em>DNS Zone Transfers (Transferencia de Zona en DNS)</em></li>
+<li><em>Subdomain Enumeration (Enumeración de Subdominios)</em></li>
+<li><em>Web Server Scanning With Nikto (Escaneo de Servidores Web con Nikto)</em></li>
+<li><em>File &amp; Directory Brute-Force (Fuerza Bruta a Archivos y Directorios Web)</em></li>
+<li><em>Automated Web Recon With OWASP Amass (Reconocimiento Web Automatizado con OWASP Amass)</em></li>
+</ul>
+<p>Esta sección tiene contenido similar al <strong>curso del eCPPTv3</strong>. Bastante buena en cuanto a enseñar cómo puedes ir recopilando información de aplicaciones web, utilizando herramientas variadas o de forma manual. De igual forma, explica muy bien cómo aplicar enumeración web, siendo lo más destacado el cómo puedes aplicar <strong>Fuzzing</strong> para descubrir archivos y directorios ocultos o subdominios.</p>
+<p><strong>Sección 3: WAPT: Web Proxies and Web Information Gathering (Web Proxies y Recopilación de Información)</strong></p>
+<ul>
+<li><em>Introduction To Web Proxies (Introducción a los Web Proxies)</em></li>
+<li><em>Introduction To Burp Suite (Introducción a Burp Suite)</em></li>
+<li><em>Configuring The Burp Proxy (Configurando Burp Proxy)</em></li>
+<li><em>Burp Suite Dashboard &amp; UI</em></li>
+<li><em>Burp Suite Target &amp; Scope (Objetivo y Alcance en Burp Suite)</em></li>
+<li><em>Passive Crawling With Burp Suite (Rastreo Pasivo con Burp Suite)</em></li>
+<li><em>Burp Suite Intruder</em></li>
+<li><em>Attacking Basic Auth With Intruder &amp; Encoder (Ataque a la Autenticación básica con Intruder y Encoder)</em></li>
+<li><em>Burp Suite Repeater</em></li>
+<li><em>Introduction To OWASP ZAP (Introducción a OWASP ZAP)</em></li>
+<li><em>OWASP ZAP Dashboard &amp; UI</em></li>
+<li><em>Configuring The OWASP ZAP Proxy (Configuración del Proxy OWASP ZAP)</em></li>
+<li><em>OWASP ZAP Context &amp; Scope (Contexto y Alcance de OWASP ZAP)</em></li>
+<li><em>Directory Enumeration With OWASP ZAP (Enumeración de Directorios con OWASP ZAP)</em></li>
+<li><em>Web App Scanning With OWASP ZAP (Análisis de Aplicaciones Web con OWASP ZAP)</em></li>
+<li><em>Spidering With OWASP ZAP (Spidering con OWASP ZAP)</em></li>
+<li><em>Attacking HTTP Login Forms With OWASP ZAP (Atacar Formularios de Inicio de Sesión HTTP con OWASP ZAP)</em></li>
+</ul>
+<p>De lo mejor del curso porque te enseña cómo usar <strong>BurpSuite</strong> y <strong>OWASP ZAP</strong> desde cero. Además, es un poco más completo en comparación con los cursos de <strong>eCPPTv3</strong> y <strong>eJPTv2</strong>.</p>
+<p><strong>Sección 4: XSS Attacks (Ataques XSS)</strong></p>
+<ul>
+<li><em>Introduction To Cross-Site Scripting (XSS) (Introducción a Cross-Site Scripting (XSS))</em></li>
+<li><em>Javascript Primer</em></li>
+<li><em>Anatomy Of A Cross-Site Scripting Attack (Anatomía de un Ataque Cross-Site Scripting (XSS)</em></li>
+<li><em>Introduction To Reflected XSS (Introducción a Reflected XSS)</em></li>
+<li><em>Exploiting Reflected XSS Vulnerabilities in WordPress (Explotación de Vulnerabilidades Reflected XSS en WordPress)</em></li>
+<li><em>Cookie Stealing Via Reflected XSS (Robo de Cookies Via Reflected XSS)</em></li>
+<li><em>Introduction To Stored XSS (Introducción a Stored XSS)</em></li>
+<li><em>Exploiting Stored XSS Vulnerabilities in MyBB Forum (Explotación de Vulnerabilidades Stored XSS en MyBB Forum)</em></li>
+<li><em>Introduction To DOM-Based XSS (Introducción a DOM-Based XSS)</em></li>
+<li><em>Exploiting DOM-Based XSS Vulnerabilities (Explotación de Vulnerabilidades DOM-Based XSS)</em></li>
+<li><em>Identifying &amp; Exploiting XSS Vulnerabilities with XSSer (Identificación y Explotación de Vulnerabilidades XSS con XSSer)</em></li>
+</ul>
+<p>Bien explicado y simple para que puedas practicarlo en los laboratorios que te dan.</p>
+<p><strong>Sección 5: SQL Injection Attacks (Ataques SQL Injection)</strong></p>
+<ul>
+<li><em>Introduction To SQL Injection (Introducción a las SQL Injection)</em></li>
+<li><em>Anatomy of an SQL Injection Attack (Anatomía de un Ataque de SQL Injection)</em></li>
+<li><em>Types of SQL Injection Vulnerabilities (Tipos de Vulnerabilidades SQL Injection)</em></li>
+<li><em>Introduction To Databases &amp; DBMS (Introducción a Bases de Datos y DBMS)</em></li>
+<li><em>Relational Databases vs NoSQL Databases (Bases de Datos Relacionales vs Bases de Datos NoSQL)</em></li>
+<li><em>Introduction To SQL (Introducción a SQL)</em></li>
+<li><em>SQL Fundamentals (Fundamentos de SQL)</em></li>
+<li><em>Hunting For SQL Injection Vulnerabilities (Cazando Vulnerabilidades SQL Injection)</em></li>
+<li><em>Finding SQL Injection Vulnerabilities Manually (Encontrando Vulnerabilidades SQL Injection Manualmente)</em></li>
+<li><em>Finding SQL Injection Vulnerabilities With OWASP ZAP (Encontrando Vulnerabilidades SQL Injection con OWASP ZAP)</em></li>
+<li><em>Exploiting Error-Based SQL Injection Vulnerabilities (Explotación de Vulnerabilidades de Inyección SQL Basadas en Errores)</em></li>
+<li><em>Exploiting Union-Based SQL Injection Vulnerabilities (Explotación de Vulnerabilidades de Inyección SQL Basadas en Union)</em></li>
+<li><em>Introduction To Boolean-Based SQL Injection Vulnerabilities (Introducción a las Vulnerabilidades Boolean-Based SQL Injection)</em></li>
+<li><em>Exploiting Boolean-Based SQL Injection Vulnerabilities (Explotación de Vulnerabilidades Boolean-Based SQL Injection)</em></li>
+<li><em>Exploiting Time-Based SQL Injection Vulnerabilities (Explotación de Vulnerabilidades Time-Based SQL Injection)</em></li>
+<li><em>NoSQL Fundamentals (Fundamentos de NoSQL)</em></li>
+<li><em>MongoDB NoSQL Injection (NoSQL Injection en MongoDB)</em></li>
+</ul>
+<p>En esta parte del curso, tengo una opinión dividida. Como tal, se enseña que es una <strong>SQL Injection</strong>, sus tipos y cómo aplicarlos, pero el problema es que en algunos videos el master <strong>Alex Ahmed</strong> parece tener algunos problemas para explicar y aplicar las <strong>SQLi</strong>, por lo que llega a confundir que es lo que está haciendo. Te recomiendo complementar este tema, con la academia de <strong>PortSwigger</strong> y con el módulo de <strong>SQL Injections Fundamentals</strong> de <strong>HTB</strong>.</p>
+<p><strong>Sección 6: Testing For Common Attacks (Probando Ataques Comunes)</strong></p>
+<ul>
+<li><em>HTTP Method Tampering (Manipulación de Método HTTP)</em></li>
+<li><em>Attacking Basic HTTP Authentication (Atacando Autenticación Básica de HTTP)</em></li>
+<li><em>Attacking HTTP Digest Authentication (Atacando la Autenticación Implícita (Digest) de HTTP)</em></li>
+<li><em>Sensitive Data Exposure Vulnerabilities (Vulnerabilidades de Exposición de Datos Confidenciales)</em></li>
+<li><em>Attacking Login Forms With Burp Suite (Atacando Formularios de Login con BurpSuite)</em></li>
+<li><em>Attacking Login Forms With OTP Security (Atacando Formularios de Login con OTP Security)</em></li>
+<li><em>Introduction To Session Management (Introducción a la Gestión de Sesiones)</em></li>
+<li><em>Session IDs &amp; Cookies (IDs de Sesión y Cookies)</em></li>
+<li><em>Session Hijacking &amp; Session Fixation (Secuestro de Sesión (Session Hijacking) y Fijación de la Sesión)</em></li>
+<li><em>Session Hijacking Via Cookie Tampering (Secuestro de Sesión Mediante Manipulación de Cookies)</em></li>
+<li><em>Introduction To Cross-Site Request Forgery (CSRF) (Introducción a Cross-Site Request Forgery (CSRF))</em></li>
+<li><em>Advanced Electron Forum CSRF (Foro de Electrónica Avanzada CSRF)</em></li>
+<li><em>Command Injection (Inyección de Comandos)</em></li>
+<li><em>PHP Code Injection (Inyección de Código PHP)</em></li>
+<li><em>RCE Via MySQL</em></li>
+</ul>
+<p>Otra sección que me gusto mucho del curso, pues la mayoria de los ataques se explican muy bien y los laboratorios son sencillos para que comprendas bien cada ataque.</p>
+<p><strong>Sección 7: File &amp; Resource Attacks (Ataques a Archivos y Recursos)</strong></p>
+<ul>
+<li><em>Introduction To Arbitrary File Upload Vulnerabilities (Introducción a las Vulnerabilidades de Carga Arbitraria de Archivos)</em></li>
+<li><em>Exploiting Basic File Upload Vulnerabilities (Explotando Vulnerabilidades Básicas de Carga de Archivos)</em></li>
+<li><em>Bypassing File Upload Extension Filters (Eludiendo (Bypassing) Filtros de Extensión de Carga de Archivos)</em></li>
+<li><em>Bypassing PHPx Blacklists (Eludiendo (Bypassing) Listas Negras de PHPx)</em></li>
+<li><em>WordPress wpStoreCart File Upload (Carga de Archivos en WordPress wpStoreCart)</em></li>
+<li><em>Introduction To Directory Traversal (Introducción a Directory Traversal)</em></li>
+<li><em>Directory Traversal Basics (Básicos de Directory Traversal)</em></li>
+<li><em>OpenEMR Directory Traversal (Directory Traversal en OpenEMR)</em></li>
+<li><em>Introduction To Local File Inclusion (LFI) (Introducción a Local File Inclusion (LFI))</em></li>
+<li><em>Local File Inclusion Basics (Básicos de Local File Inclusion)</em></li>
+<li><em>WordPress IMDb Widget LFI (Aplicando LFI en Widget IMDb de WordPress)</em></li>
+<li><em>Introduction To Remote File Inclusion (RFI) (Introducción a Remote File Inclusion (RFI))</em></li>
+<li><em>Remote File Inclusion Basics (Básicos de Remote File Inclusion)</em></li>
+</ul>
+<p>Muy buena sección, al igual que la sección anterior, aunque me hubiera gustado que metieran más ejemplos de práctica.</p>
+<p><strong>Sección 8: Web Service Security Testing (Pruebas de Seguridad de Servicios Web)</strong></p>
+<ul>
+<li><em>Introduction To Web Services (Introducción a los Servicios Web)</em></li>
+<li><em>Web Services Vs APIs (Servicios Web vs APIs)</em></li>
+<li><em>Web Service Implementations (Implementación de Servicios Web)</em></li>
+<li><em>WSDL Language Fundamentals (Fundamentos del Lenguaje WSDL)</em></li>
+<li><em>Web Service Security Testing (Pruebas de Seguridad de Servicios Web)</em></li>
+<li><em>WSDL Disclosure &amp; Method Enumeration (Divulgación de WSDL y Enumeración de Métodos)</em></li>
+<li><em>Invoking Hidden Methods (Invocación de Métodos Ocultos)</em></li>
+<li><em>Testing For SQL Injection (Probando Inyecciones SQL)</em></li>
+<li><em>Testing For Command Injection (Probando Inyección de Comandos)</em></li>
+</ul>
+<p>Aquí siento que falto bastante práctica y profundizar más en pentest a <strong>APIs</strong>, pues es mucha teoría y no hay muchos laboratorios. Tendrás que profundizar en esta parte con el módulo <strong>Web Service &amp; API Attacks y API Attacks</strong> de <strong>HackTheBox</strong></p>
+<p><strong>Sección 9: CMS Security Testing (Pruebas de Seguridad de CMS)</strong></p>
+<ul>
+<li><em>Introduction To CMS Security Testing (Introducción a Pruebas de Seguridad de CMS)</em></li>
+<li><em>Introduction To WordPress Security Testing (Introducción a Pruebas de Seguridad a WordPress)</em></li>
+<li><em>WordPress Version Enumeration (Enumeración de la Versión de WordPress)</em></li>
+<li><em>Enumerating WordPress Users, Plugins &amp; Themes (Enumeración de Usuarios, Plugins y Temas de WordPress)</em></li>
+<li><em>Enumerating Hidden Files &amp; Sensitive Information (Enumeración de Archivos Ocultos e Información Sensible de WordPress)</em></li>
+<li><em>WordPress Enumeration With Nmap NSE Scripts (Enumeración de WordPress con Scripts NSE de Nmap)</em></li>
+<li><em>WordPress Vulnerability Scan With WPScan (Escaneo de Vulnerabilidades de WordPress con WPScan)</em></li>
+<li><em>WordPress Brute-Force Attacks (Ataques de Fuerza Bruta a WordPress)</em></li>
+<li><em>WP Plugin - Arbitrary File Upload Vulnerability</em></li>
+<li><em>WP Plugin - Stored XSS Vulnerability (CVE-2020-9371)</em></li>
+<li><em>WordPress Black-Box Pentest</em></li>
+</ul>
+<p>En este caso, la sección se enfoca completamente en el <strong>CMS WordPress</strong>, que no está nada mal, pero debieron incluir otros <strong>CMS</strong> como <strong>Joomla, Drupal</strong>, etc y no solo enfocarse en <strong>WordPress</strong>. Aun así, esta sección es muy buena y completa en cuanto a aplicar un pentest a <strong>WordPress</strong>.</p>
+<p>Te recomiendo el siguiente módulo de <strong>HackTheBox</strong>: <strong>Attacking Common Applications y Hacking WordPress</strong>.</p>
+<p><strong>Sección 10: Encoding, Filtering &amp; Evasion Basics (Fundamentos de Codificación, Filtrado y Evasión)</strong></p>
+<ul>
+<li><em>Introduction To Encoding (Introducción a la Codificación)</em></li>
+<li><em>HTML Encoding (Codificación en HTML)</em></li>
+<li><em>URL Encoding (Codificación de URL)</em></li>
+<li><em>Base64 Encoding (Codificación de Base64)</em></li>
+<li><em>Introduction To Input Filtering (Introducción al Filtrado de Entrada)</em></li>
+<li><em>Bypassing Client-Side Filters (Bypassing Filtros del Lado del Cliente)</em></li>
+<li><em>Bypassing Server-Side Filters (Bypassing Filtros del Lado del Servidor)</em></li>
+<li><em>Bypassing XSS Filters In Chamilo LMS (Bypassing Filtros XSS en Chamilo LMS)</em></li>
+<li><em>Introduction To Evasion (Introducción a la Evasión)</em></li>
+<li><em>Bypassing Squid Proxy - Browser Based Restrictions (Bypassing Squid Proxy - Restricciones del Navegador)</em></li>
+</ul>
+<p>Bastante buena esta sección que enseña la codificación desde cero y cómo es posible aplicar algunos bypasses. Ni más ni menos, muy general.</p>
+<p>El curso en sí es bastante completo, pero falla en algunos puntos como incluir más laboratorios de práctica, profundizar más en algunos temas e incluir algunos faltantes.</p>
+<p>Es por eso que te recomiendo prepararte con recursos externos, aparte de este curso.</p>
+<p>Más adelante, te proporciono los recursos que yo utilicé.</p>
+<h2 id="Examen">Reseña del Examen</h2>
+<p>Una vez que obtienes el váucher de la certificación, cuentas con <strong>180 días</strong> para poder presentarlo, es decir, más o menos <strong>6 meses</strong>. Por lo que si compraste también el curso, que depende si usaste una promo y te dio 3 meses, tienes tiempo suficiente para hacer el curso y para practicar antes de presentar el examen.</p>
+<p>El examen consta de <strong>50 preguntas</strong> (5 preguntas más que en el <strong>eCPPTv3</strong>) que deberás responder mientras haces tus pruebas de penetración web.</p>
+<p>Esta vez, el examen dura solamente <strong>10 horas</strong> para que lo puedas resolver y tienes 2 chances para resolverlo, ósea, que si fallas 1 vez, puedes volver a presentar el examen.</p>
+<p>Para aprobar el examen, debemos obtener el <strong>70% dentro de todo el examen</strong>, ya no es necesario que en todas las secciones tengas al menos el <strong>70%</strong> como antes.</p>
+<p>El examen cubre los siguientes temas:</p>
+<p align="center">
+<img src="/assets/images/resenia-ewpt/Captura1.png">
+</p>
+<p>De igual forma que en el <strong>examen del eJPT y eCPPT</strong>, te dan algunos consejos que puedes tomar para aprobar el examen:</p>
+<p align="center">
+<img src="/assets/images/resenia-ewpt/Captura2.png">
+</p>
+<p>Con esto cubierto, vayamos a lo bueno.</p>
+<p>A diferencia de otros exámenes, tienes muy poco tiempo para completarlo, por lo que tendrás que ser bastante rápido para hacer las pruebas necesarias, pero te lo digo que es el tiempo más que suficiente.</p>
+<p>Lo malo es que tienes que usar forzosamente el laboratorio que te da <strong>INE Security</strong>, es decir, <strong>NO</strong> puedes usar tu propia máquina para resolver el examen.</p>
+<p>Este laboratorio tiene muchos problemas de conexión, es bastante lento y las rutas de wordlists pueden variar a cómo lo tengas en tu máquina, por lo que ubicar las rutas correctas, te puede hacer perder un poco de tiempo.</p>
+<p>Recuerda que no es un <strong>CTF</strong>, así que debes tener cuidado con los escaneos que realices, pues puedes tumbar alguna máquina.</p>
+<p>Si eso pasa, te recomiendo reiniciar el laboratorio porque la máquina tumbada puede tardar en reiniciarse sola o, de plano, se quedará tumbada.</p>
+<p>Eso sí, recuerda guardar todo tu avance y, si te piden obtener alguna flag de otra máquina, obtenla antes de reiniciar el laboratorio.</p>
+<h2 id="Consejos">Algunos Consejos y Links de Apoyo</h2>
+<p>Te recomiendo encarecidamente que realices los siguientes cursos:</p>
+<p><strong>Path de Bug Bounty Hunter de HackTheBox</strong></p>
+<p>Aquí te dejo el link de la página:</p>
+<ul>
+<li><a href="https://academy.hackthebox.com/path/preview/bug-bounty-hunter" target="_blank">HackTheBox Academy: Bug Bounty Hunter</a></li>
+</ul>
+<p align="center">
+<img src="/assets/images/resenia-ewpt/Captura3.png">
+</p>
+<p>Este path se reparte en varios módulos con distintos costos de cubos de la <strong>academia de HackTheBox</strong>. Si tienes la oportunidad de comprar todos los módulos, aprovéchala y te ayudará también si es que en el futuro quieres hacer la <strong>certificación CBBH</strong> (ahora conocida como <strong>CWES</strong>) de <strong>HackTheBox</strong>.</p>
+<p><strong>Academia de PortSwigger</strong></p>
+<p>Aquí te dejo el link de la página:</p>
+<ul>
+<li><a href="https://portswigger.net/web-security/learning-paths" target="_blank">PortSwigger: Learning Paths</a></li>
+</ul>
+<p align="center">
+<img src="/assets/images/resenia-ewpt/Captura4.png">
+</p>
+<p>Super academia que incluso cubre más que el <strong>Path de Bug Bounty Hunter de HackTheBox</strong> y es totalmente gratis.</p>
+<p><strong>Máquinas CTF de TheHackersLabs</strong></p>
+<p>Aquí te dejo el link de la página:</p>
+<ul>
+<li><a href="https://thehackerslabs.com/" target="_blank">TheHackersLabs</a></li>
+</ul>
+<p align="center">
+<img src="/assets/images/resenia-ewpt/Captura5.png">
+</p>
+<p>Podrás encontrar muchas máquinas gratis que puedes descargar e instalar en <strong>VirtualBox</strong> o <strong>VMware</strong> para que puedas practicar.</p>
+<p>Cada máquina tiene un write up hecho por su comunidad que puede serte de ayuda.</p>
+<p>Por último, te doy algunos consejos para tu examen:</p>
+<ul>
+<li>
+<p><strong>Consejo 1</strong>: Por lo que sé, todos los exámenes son distintos, ninguno es igual, por lo que debes ir preparado por si te tocan distintas vulnerabilidades que estén o no dentro del alcance del examen. Pequeño spoiler, a mí no me tocó (o no identifiqué) ninguna <strong>Inyección SQL</strong>.</p>
+</li>
+<li>
+<p><strong>Consejo 2</strong>: Las mismas preguntas, te pueden dar una pista sobre qué vulnerabilidades puedes aplicar en cada página/servidor web.</p>
+</li>
+<li>
+<p><strong>Consejo 3</strong>: Lee muy bien la carta del examen donde se te dan el alcance del pentest, pues puede que te toque alguna pregunta relacionada con esta carta.</p>
+</li>
+<li>
+<p><strong>Consejo 4</strong>: Ten preparado la guía de aplicación de <strong>OWASP Top 10</strong>, pues te pueden tocar algunas preguntas relacionadas con esto.</p>
+</li>
+<li>
+<p><strong>Consejo 5</strong>: Te recomiendo mucho usar herramientas que automatizan la recopilación de información como <strong>Nikto</strong> o para identificar/explotar vulnerabilidades como <strong>SQLMAP</strong>, <strong>Metasploit Framework</strong>, etc. Más que nada por el corto tiempo que tienes.</p>
+</li>
+<li>
+<p><strong>Consejo 6</strong>: Si conoces alguna herramienta que no esté dentro del laboratorio, puedes copiar y pegar su código para ejecutarla desde el laboratorio, solo verifica que no necesite algún paquete necesario que deba ser instalado para su uso, pues recuerda que no tendrás acceso a internet.</p>
+</li>
+<li>
+<p><strong>Consejo 7</strong>: Anota todos los descubrimientos que hagas, ya sean rutas, credenciales de acceso, qué vulnerabilidades aplicaste, etc. Esto es para que tengas un orden de todo y no te pierdas durante tu examen.</p>
+</li>
+<li>
+<p><strong>Consejo 8</strong>: Tómate todo el tiempo del examen si es necesario, recuerda que cada quien lleva su ritmo. Yo terminé el examen en <strong>9:30 horas</strong>.</p>
+</li>
+<li>
+<p><strong>Consejo 9</strong>: Enfócate en responder las preguntas, no es necesario que llegues a escalar privilegios dentro de una máquina vulnerada.</p>
+</li>
+</ul>
+<p>Eso es todo lo que puedo decir.</p>
+<p>¡MUCHA SUERTE Y ÉXITO EN TU EXAMEN!</p>
+<p align="center">
+<img src="/assets/images/resenia-ewpt/CertificacionEWPT.png">
+</p>
+
+
+    
+    <h2 id="links-de-investigacion">Links de investigación</h2>
+    <ul>
+      <li><a href="https://ine.com/security/certifications/ewpt-certification" target="_blank" rel="noopener noreferrer">https://ine.com/security/certifications/ewpt-certification</a></li><li><a href="https://academy.hackthebox.com/path/preview/bug-bounty-hunter" target="_blank" rel="noopener noreferrer">https://academy.hackthebox.com/path/preview/bug-bounty-hunter</a></li><li><a href="https://portswigger.net/web-security/learning-paths" target="_blank" rel="noopener noreferrer">https://portswigger.net/web-security/learning-paths</a></li><li><a href="https://thehackerslabs.com/" target="_blank" rel="noopener noreferrer">https://thehackerslabs.com/</a></li>
+    </ul>
+    
+  </div>
+
+  
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  
+  <a class="post-nav-link post-nav-prev" href="http://localhost:1313/THL-writeup-watchstore/">
+    <span class="post-nav-label">← Anterior</span>
+    <span class="post-nav-title">WatchStore - TheHackerLabs</span>
+  </a>
+  
+  
+  <a class="post-nav-link post-nav-next" href="http://localhost:1313/THL-writeup-buda/">
+    <span class="post-nav-label">Siguiente →</span>
+    <span class="post-nav-title">Buda - TheHackerLabs</span>
+  </a>
+  
+</nav>
+
+
+
+</article>
+
+  </main>
+  <footer class="site-footer">
+  <div class="wrap">
+    <p>&copy; 2026 BerserkWings · México
+       · <a href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </p>
+  </div>
+</footer>
+
+  
+
+
+<a href="#indice" class="back-to-top" id="backToTop" aria-label="Volver al índice">&uarr;</a>
+
+
+<script src="/js/main.min.15ff80349759f71df793ae28568ef0a6a9c3eb6efe99c9e96bad1d9236a26c31.js" integrity="sha256-Ff&#43;ANJdZ9x33k64oVo7wpqnD627&#43;mcnpa60dkjaibDE=" defer></script>
+
+</body>
+</html>

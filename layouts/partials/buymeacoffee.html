@@ -1,0 +1,9 @@
+{{ $user := .Site.Params.buymeacoffee_username }}
+{{ if $user }}
+<div class="bmac-box">
+  <p>¿Te sirvió este writeup? Puedes invitarme un café para que siga haciendo prácticas y publicando.</p>
+  <a class="bmac-btn" href="https://www.buymeacoffee.com/{{ $user }}" target="_blank" rel="noopener noreferrer">
+    ☕ Invitar un café
+  </a>
+</div>
+{{ end }}

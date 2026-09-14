@@ -1,0 +1,7 @@
+{{ if .IsPage }}
+{{ $target := "#top" }}
+{{ if .Params.showtoc }}{{ $target = "#indice" }}{{ end }}
+<a href="{{ $target }}" class="back-to-top" id="backToTop" aria-label="Volver al índice">&uarr;</a>
+{{ end }}
+{{ $js := resources.Get "js/main.js" | resources.Minify | resources.Fingerprint }}
+<script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>

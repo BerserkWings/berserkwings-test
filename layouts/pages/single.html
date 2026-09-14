@@ -1,0 +1,7 @@
+{{ define "main" }}
+{{ partial "sidebar-profile.html" . }}
+<div class="wrap post-content" id="top" style="margin-top:2.5rem; max-width: 46rem;">
+  <h1>{{ .Title }}</h1>
+  {{ .Content }}
+</div>
+{{ end }}

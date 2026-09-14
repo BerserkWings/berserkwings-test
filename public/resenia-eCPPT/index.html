@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reseña - Certificación eCPPTv3 · BerserkWings - Hacking Ético</title>
+<meta name="description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'self';
+               img-src 'self';
+               style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+               font-src 'self' https://fonts.gstatic.com;
+               script-src 'self' ;
+               connect-src 'self' ;
+               object-src 'none';
+               base-uri 'self';
+               form-action 'self';
+               upgrade-insecure-requests;">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+<link rel="canonical" href="http://localhost:1313/resenia-eCPPT/">
+<link rel="icon" href="/assets/images/favicon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/main.min.b51fce260bd224cda026ea0223adf133e0ce779edbb6c14d513c3f101c33a9ff.css" integrity="sha256-tR/OJgvSJM2gJuoCI63xM&#43;DOd57btsFNUTw/EBwzqf8=">
+
+
+<meta property="og:title" content="Reseña - Certificación eCPPTv3">
+<meta property="og:description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="http://localhost:1313/assets/images/resenia-ecppt/ecppt.png">
+
+
+
+</head>
+<body>
+  <header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      
+      <img class="brand-logo" src="http://localhost:1313/assets/images/masthead.png" alt="BerserkWings">
+      
+    </a>
+    <nav class="main-nav">
+      
+        <a href="/" >Inicio</a>
+      
+        <a href="/posts/" >Writeups</a>
+      
+        <a href="/categories/" >Categorías</a>
+      
+        <a href="/tags/" >Etiquetas</a>
+      
+        <a href="/buscador/" >Buscador</a>
+      
+        <a href="/acerca-de-mi/" >Acerca de mí</a>
+      
+    </nav>
+  </div>
+</header>
+
+  <main>
+    
+<canvas class="hero-matrix-bg hero-matrix-bg--dim" id="heroMatrixBg" aria-hidden="true"></canvas>
+<article class="post" id="top">
+  
+
+
+
+
+<aside class="side-profile">
+  <img class="side-avatar" src="http://localhost:1313/assets/images/avatar.png" alt="BerserkWings">
+  <div class="side-name">BerserkWings</div>
+  <div class="side-tagline">Aspirante a Pentester · CTF Player</div>
+
+  
+  <div class="side-platforms">
+    <span class="side-platform-badge">HTB: BerserkWings</span>
+    <span class="side-platform-badge">THL: BerserkWings</span>
+  </div>
+  
+
+  <div class="side-contact">
+    <span class="side-meta">📍 México</span>
+    
+    <a class="side-meta-link" href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">🔗 GitHub</a>
+    
+  </div>
+
+  
+  <div class="side-posts">
+    <div class="side-post-cards">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/vulnhub-writeup-nagini/">
+          <span class="side-post-card-title">Nagini</span>
+          <span class="side-post-card-platform">VulnHub</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/vulnhub-writeup-aragog/">
+          <span class="side-post-card-title">Aragog</span>
+          <span class="side-post-card-platform">VulnHub</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <div class="side-post-card is-current">
+          <span class="side-post-card-title">Reseña</span>
+          <span class="side-post-card-platform">Certificación eCPPTv3</span>
+        </div>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/htb-writeup-sauna/">
+          <span class="side-post-card-title">Sauna</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/htb-writeup-goodgames/">
+          <span class="side-post-card-title">GoodGames</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </a>
+        
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  
+
+  
+
+  
+
+
+</aside>
+
+
+  
+  
+  
+
+  <header class="post-header">
+    
+    <div class="post-meta">Certifications</div>
+    
+    <h1>Reseña - Certificación eCPPTv3</h1>
+    <div class="post-meta">1 November 2024 · 10 min de lectura</div>
+  </header>
+
+  
+  <img class="post-cover" src="http://localhost:1313/assets/images/resenia-ecppt/ecppt.png" alt="Reseña - Certificación eCPPTv3">
+  
+
+  
+  <p class="post-lead">Esta es una reseña (sin muchos spoilers) sobre el examen para la certificación eCPPTv3. Explicaré un poco de qué trata la certificación, cómo fue el curso de preparación que imparte INE Security y mi opinión sobre este, y una reseña del examen que me toco realizar. Además, añadiré algunos tips y consejos que te pueden ser útiles para realizar el examen.Si vas a aplicar el examen, ¡mucha suerte y éxito!.</p>
+  
+
+  
+
+  
+  <details class="toc" id="indice" open>
+    <summary>📑 Índice</summary>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#eCPPTv3">¿Qué es la Certificación eCPPTv3?</a></li>
+    <li><a href="#Curso">Reseña del Curso de Preparación</a></li>
+    <li><a href="#Examen">Reseña del Examen</a></li>
+    <li><a href="#Consejos">Algunos Consejos y Links de Apoyo</a></li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </details>
+  <aside class="side-toc">
+    <div class="side-toc-header">📑 Índice</div>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#eCPPTv3">¿Qué es la Certificación eCPPTv3?</a></li>
+    <li><a href="#Curso">Reseña del Curso de Preparación</a></li>
+    <li><a href="#Examen">Reseña del Examen</a></li>
+    <li><a href="#Consejos">Algunos Consejos y Links de Apoyo</a></li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </aside>
+  
+
+  <div class="post-content">
+    <h2 id="eCPPTv3">¿Qué es la Certificación eCPPTv3?</h2>
+<p>Primero y antes que nada, ¿qué es la <strong>certificación eCPPTv3</strong>?</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Certificación eCPPT</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>El eCPPT (eLearnSecurity Certified Professional Penetration Tester) es una certificación de ciberseguridad que ofrece eLearnSecurity, enfocada en las habilidades prácticas de pruebas de penetración (pentesting). A diferencia de otras certificaciones teóricas, el eCPPT se basa en un examen práctico, donde los candidatos deben realizar una prueba de penetración en un entorno realista y redactar un informe profesional con los resultados y las recomendaciones.</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>El obtener la <strong>certificación eCPPT</strong>, indica que tienes los conocimientos suficientes para considerarte un pentester profesional.</p>
+<p>La <strong>certificación eCPPT</strong> tiene varias versiones.</p>
+<p>Actualmente, está activa la <strong>versión 3</strong>, que se enfoca más en <strong>Active Directory (AD)</strong> implementado en entornos empresariales, siendo muy similar a la <strong>certificación OSCP</strong> actual.</p>
+<p>La versión anterior (<strong>versión 2</strong>), aún sigue siendo utilizada este año (2024), ya que se actualizó recientemente a su nueva versión, pero sí compras la certificación en estas fechas, te darán la <strong>versión 3</strong>.</p>
+<p>Esta <strong>versión 3</strong>, viene con cambios muy significativos, ya que en la versión anterior tenías alrededor de 7 días para resolver el laboratorio del examen y otros 7 días para crear un reporte que sería calificado. Dependiendo de los hallazgos y el cómo realizaste tu reporte, te indicarían si aprobaste o no la certificación. Ahora, solamente tienes 1 día para resolver el examen y no tienes que entregar un reporte, siendo esto último, algo que no me gustó mucho, ya que crear reportes es algo vital que debemos de conocer y saber hacer los pentesters.</p>
+<p>Aquí puedes encontrar más información sobre la certificación:</p>
+<ul>
+<li><a href="https://security.ine.com/certifications/ecppt-certification/" target="_blank">eCPPT Certification</a></li>
+</ul>
+<h2 id="Curso">Reseña del Curso de Preparación</h2>
+<p>De una vez lo menciono, el curso que se imparte para prepararte ante esta certificación es bueno, pero <strong>NO ES SUFICIENTE</strong>, ya que a mi parecer, falta enfocarse mucho en la parte del <strong>Active Directory</strong>, pues a mi parecer, solamente te enseñan una pequeña parte de lo que es <strong>AD</strong> y como lo puedes explotar desde adentro más no desde afuera.</p>
+<p>Además, hay una que otra sección que está un poco de más dentro del curso, aunque se aprecia mucho que cubran otras secciones como lo son <strong>Buffer Overflow</strong> y <strong>lenguaje ensamblador</strong>, creo que es necesario mejorar mucho la sección de AD.</p>
+<p>Actualmente, <strong>el curso consta de 107 horas</strong> (a menos que las quejas de que falta más contenido haga que actualicen de nuevo el curso), que se puede extender o disminuir, dependiendo del tiempo que te tome resolver los laboratorios.</p>
+<p>Quien imparte el curso, es el master <strong>Alexis Ahmed</strong>, por lo que tendrás una buena experiencia a través del curso.</p>
+<p>El curso se divide en 6 secciones:</p>
+<p><strong>Sección 1: Resource Development &amp; Initial Access (Desarrollo de recursos y acceso inicial)</strong></p>
+<ul>
+<li><em>PowerShell for Pentesters (PowerShell para Pentesters)</em></li>
+<li><em>Client-Side Attacks (Ataques del Lado del Cliente</em></li>
+</ul>
+<p>Bastante buena esta parte, ya que tocamos bastante el uso de <strong>PowerShell</strong> desde cero, como podemos usarlo para creación de scripts, para evasión de AV, ofuscación, etc. Además, me quedé picado con los ataques del lado del cliente, ya que nos enseñan a crear macros que se pueden usar para muchas cosas, en especial maliciosas (me encantó esta parte y la estudiaré muy a fondo, quizá muestre algo por aquí algún día).</p>
+<p><strong>Sección 2: Web Application Attacks (Ataques a aplicaciones web)</strong></p>
+<ul>
+<li><em>Web Application Penetration Testing (Pruebas de Penetración en Aplicaciones Web)</em></li>
+</ul>
+<p>Es buena esta sección, aunque siento que tocamos los mismos temas que en el <strong>curso del eJPT</strong> (esto será algo recurrente), pero no está demás una refrescada sobre cómo recopilar información pasiva de la web, cómo aplicar fuerza bruta en directorios web, cómo aplicar <strong>SQLi y XSS</strong>, etc.</p>
+<p><strong>Sección 3: Security (Seguridad)</strong></p>
+<ul>
+<li><em>Network Penetration Testing (Pruebas de Penetración en la Red)</em></li>
+</ul>
+<p>Lo mismo que el anterior, se repiten temas que vimos en el <strong>curso del eJPT</strong>, aunque nos dan un poco más de información sobre el uso de <strong>Wireshark y tcpdump</strong>, el cómo analizar los paquetes se van capturando y distintas técnicas para evadir AV o IDS para descubrir hosts, bastante útil el uso de estas herramientas y técnicas.</p>
+<p><strong>Sección 4: Exploit Development (Desarrollo de Exploits)</strong></p>
+<ul>
+<li><em>System Security &amp; x86 Assembly Fundamentals (Seguridad del Sistema y Fundamentos del Ensamblador x86)</em></li>
+<li><em>Exploit Development: Buffer Overflows</em></li>
+</ul>
+<p>Muy buena sección donde aprendemos los fundamentos básicos sobre la arquitectura de un CPU, el lenguaje ensamblador, los fundamentos básicos del <strong>Buffer Overflow</strong> y el cómo encontrarlos y explotarlos.</p>
+<p><strong>Sección 5: Post-Exploitation (Post-Explotación)</strong></p>
+<ul>
+<li><em>Privilege Escalation (Escalada de Privilegios)</em></li>
+<li><em>Lateral Movement &amp; Pivoting (Movimientos Laterales y Pivoting)</em></li>
+</ul>
+<p>Una excelente sección para entender como escalar privilegios en <strong>Windows</strong> y <strong>Linux</strong>, desde como utilizar <strong>PowerUp y PrivescCheck</strong> (muy útiles para <strong>AD</strong>), hasta como podemos usar un <strong>DLL</strong> para escalar privilegios y en el caso de <strong>Linux</strong>, el cómo podemos aprovechar los privilegios de un usuario para escalar privilegios, permisos en archivos o scripts, etc. Además, se repite un poco lo que se ve en el <strong>curso del eJPT</strong>, pero para el caso de los movimientos laterales y el pivoting, se ven cosillas bastante buenas como el uso de <strong>Evil-WinRM</strong>, <strong>crackmapexec</strong>, <strong>metasploit</strong>, varias formas de aplicar pivoting como con <strong>socks proxy</strong>, etc.</p>
+<p><strong>Sección 6: Red Teaming</strong></p>
+<ul>
+<li><em>Active Directory Penetration Testing (Pruebas de Penetración en Directorio Activo)</em></li>
+<li><em>Command and Control (C2/C&amp;C)</em></li>
+</ul>
+<p>Una excelente sección para aprender (aunque muy poco a mi parecer) sobre <strong>AD</strong>, como los fundamentos básicos de <strong>AD</strong>, como explotarlo desde adentro, como moverte lateralmente, algunas herramientas útiles para esta clase de pruebas de penetración como <strong>PowerUp, PowerView, BloodHound</strong>, etc., distintas técnicas para escalar privilegios y persistencia. También me gustó bastante el uso de algunos frameworks que nos pueden ayudar en nuestras pruebas de penetración como <strong>PowerShell Empire, StarKiller</strong>, etc.</p>
+<p>En general, es bueno el curso, tiene bastantes temas que nos serán útiles en nuestro examen, pero lo vuelvo a mencionar, no es suficiente con esto.</p>
+<p>Aprovecha bastante los laboratorios de <strong>AD</strong>, más que nada para practicar la obtención de información, ya sea para encontrar la forma de escalar privilegios usando <strong>BloodHound o PrivescCheck</strong> o para obtener información de X usuario o X grupo usando <strong>PowerView</strong>.</p>
+<p><strong>Los PDF e instrucciones para resolver los laboratorios</strong>, contienen información extra que no se llega a comentar o cubrir del todo, así que échales un ojo.</p>
+<h2 id="Examen">Reseña del Examen</h2>
+<p>Una vez que obtienes el baucher de la certificación, cuentas con <strong>180 días</strong> para poder presentarlo, es decir, más o menos <strong>6 meses</strong>. Por lo que si compraste también el curso, tienes tiempo suficiente para hacer el curso y para practicar.</p>
+<p>El examen consta de <strong>45 preguntas</strong> (10 preguntas más que en el <strong>eJTP</strong>) que deberás responder mientras haces tus pruebas de penetración.</p>
+<p>Esta vez, el examen dura solamente <strong>24 horas</strong> para que lo puedas resolver y tienes 2 chances para resolverlo, ósea, que si fallas 1 vez, puedes volver a presentar el examen.</p>
+<p>Para aprobar el examen, debemos obtener el <strong>70% dentro de todo el examen</strong>, ya no es necesario que en todas las secciones tengas al menos el <strong>70%</strong> como en el <strong>eJTP</strong>.</p>
+<p>El examen cubre los siguientes temas:</p>
+<p align="center">
+<img src="/assets/images/resenia-ecppt/Captura1.png">
+</p>
+<p>De igual forma que en el <strong>examen del eJPT</strong>, te dan algunos consejos que puedes tomar para aprobar el examen:</p>
+<p align="center">
+<img src="/assets/images/resenia-ecppt/Captura2.png">
+</p>
+<p>Con esto cubierto, vayamos a lo bueno.</p>
+<p>Hay varias cosas que tengo que decir del examen, pero lo principal es: se siente incompleto.</p>
+<p>Quizá fue el laboratorio que me tocó o quizás no, la verdad no lo sé, pues hubo partes en las que se da a entender que debía encontrar algo que no estuvo presente en mi laboratorio, por ejemplo, un archivo o una contraseña.</p>
+<p>Por si fuera poco, algunas herramientas no me funcionaron para nada y que son cruciales para el examen (aunque no indispensables), por ejemplo, <strong>hashcat</strong> y <strong>evil-winrm</strong> no me funcionaron.</p>
+<p>Había leído por ahí en otras reviews que les pasó lo mismo, por lo que deberás tener cuidado y siempre tener una herramienta alternativa.</p>
+<p>Para el caso de los recursos para la post explotación del <strong>AD</strong>, se me hizo un revoltijo la forma en la que las guardaron, ya que tienes que buscar las únicas que te enseñaron a usar entre un montón de directorios que tienen otras herramientas que no tocamos en el curso.</p>
+<p>Por último, debo decir que varias veces se cayó el <strong>servidor de Guacamole</strong> que ocupa el laboratorio, lo que hizo que perdiera bastante tiempo del examen.</p>
+<h2 id="Consejos">Algunos Consejos y Links de Apoyo</h2>
+<p>Como has visto, hay muchas irregularidades dentro del examen, pero nada que te impida pasarlo.</p>
+<p>Estos son algunos consejos que te puedo dar para que se te haga más fácil el examen:</p>
+<ul>
+<li>
+<p><strong>Consejo 1:</strong> Recuerda que <strong>NO ES UNA CTF</strong>, es un entorno que te pondrá retos si no tienes cuidado con las herramientas que utilices.</p>
+</li>
+<li>
+<p><strong>Consejo 2:</strong> Igual que en el <strong>eJPT</strong>, no es necesario que vulneres al 100% las máquinas que te toquen, solamente te puedes enfocar en responder las preguntas y listo.</p>
+</li>
+<li>
+<p><strong>Consejo 3:</strong> Solo te diré esto, nada de <strong>Password Spraying</strong>, no pierdas tu tiempo con esto.</p>
+</li>
+<li>
+<p><strong>Consejo 4:</strong> Te recomiendo mucho realizar <strong>máquinas de HTB enfocadas en AD</strong>, ya que las técnicas que llegues a utilizar, se pueden aplicar a entornos <strong>AD</strong> reales y la mayoría de las máquinas del examen son tipo <strong>AD</strong>.</p>
+</li>
+<li>
+<p><strong>Consejo 5:</strong> Ubica bien los recursos que vas a utilizar dentro del revoltijo de recursos y herramientas que te dan y ponlos en un solo directorio para su rápido acceso. Esto evitará que pierdas mucho tiempo buscando entre directorios el recurso o herramienta que necesites.</p>
+</li>
+<li>
+<p><strong>Consejo 6:</strong> Más que un consejo, es un mega tip, ya que la siguiente declaración es una total mentira:</p>
+</li>
+</ul>
+<p align="center">
+<img src="/assets/images/resenia-ecppt/Captura3.png">
+</p>
+<ul>
+<li>
+<p><strong>Consejo 7:</strong> Ocupar estos wordlists te ayudará bastante a ahorrar tiempo (algunos los traduje para que queden como pistas, pero creo que se entiende bien a cuáles me refiero):</p>
+<ul>
+<li><em>mesesotes.txt</em></li>
+<li><em>temporadas del año.txt</em></li>
+<li><em>corporaciones_comunes.txt</em></li>
+<li><em>chato10000.txt</em></li>
+<li><em>rockyou.txt</em></li>
+</ul>
+</li>
+<li>
+<p><strong>Consejo 8:</strong> Sigue el orden que quieras para responder las preguntas, pues muchas de estas te pueden dar una idea de lo que tienes que hacer, al igual que con el <strong>examen del eJPT</strong>.</p>
+</li>
+<li>
+<p><strong>Consejo 9:</strong> Toma nota constantemente de lo que vayas encontrando, ya que si se te llega a trabar el laboratorio o a caer el <strong>servidor de Guacamole</strong>, es posible que las terminales que tenías abiertas se hayan limpiado, por lo que si habías encontrado algo y lo dejaste para anotarlo después, se eliminó de tu terminal y lo debes volver a encontrar.</p>
+</li>
+<li>
+<p><strong>Consejo 10:</strong> Toma descansos para estirar el cuerpo y relajarte, en mi caso me sirvió para pensar fuera de la caja y recordar otras formas de vulnerar una máquina <strong>AD</strong>.</p>
+</li>
+<li>
+<p><strong>Consejo 11:</strong> Ten cuidado con reiniciar el laboratorio. Había leído que esto puede provocar que elimine, cambie o mueva ciertos archivos necesarios para responder preguntas del examen. Por esta razón, no reinicie mi laboratorio.</p>
+</li>
+<li>
+<p><strong>Consejo 12:</strong> Estos son algunos módulos de <strong>HTB Academy</strong> que te pueden ayudar para estudiar:</p>
+<ul>
+<li><a href="https://academy.hackthebox.com/course/preview/introduction-to-active-directory" target="_blank">Introduction to Active Directory</a></li>
+<li><a href="https://academy.hackthebox.com/course/preview/active-directory-enumeration--attacks" target="_blank">Active Directory Enumeration &amp; Attacks</a></li>
+</ul>
+</li>
+<li>
+<p><strong>Consejo 13:</strong> Ten paciencia y no te desesperes, las 24 horas son más que suficientes para acabar el examen.</p>
+</li>
+<li>
+<p><strong>Consejo 14:</strong> Tómate todo el tiempo del examen si es necesario (obviamente envía antes tus respuestas, ya que si no lo haces, tu examen se cancela), por ejemplo, yo me tome 23 horas para realizarlo y así pude obtener y responder varias preguntas, que de no haber esperado, seguramente no habría pasado el examen.</p>
+</li>
+</ul>
+<p>Por último, te quiero compartir las herramientas que utilicé (omití algunas, ya que pueden ser mucho spoiler del examen):</p>
+<ul>
+<li><em>nmap</em></li>
+<li><em>dig</em></li>
+<li><em>smbclient</em></li>
+<li><em>hydra</em></li>
+<li><em>metasploit (hta_server y handler)</em></li>
+<li><em>ssh</em></li>
+<li><em>wpscan</em></li>
+<li><em>netstat</em></li>
+<li><em>crackmapexec</em></li>
+<li><em>impacket-GetNPUsers</em></li>
+<li><em>rpcclient</em></li>
+<li><em>xfreerdp</em></li>
+<li><em>kerbrute</em></li>
+<li><em>PowerView.ps1</em></li>
+<li><em>PowerUp.ps1</em></li>
+<li><em>mimikatz.exe y ps1</em></li>
+<li><em>ldapsearch</em></li>
+<li><em>Meterpreter: getsystem, kiwi</em></li>
+<li><em>BloodHound</em></li>
+<li><em>neo4j</em></li>
+<li><em>bloodhoun-python</em></li>
+<li><em>GTFOBins</em></li>
+</ul>
+<p>Eso es todo lo que puedo decir.</p>
+<p>¡MUCHA SUERTE Y ÉXITO EN TU EXAMEN!</p>
+<p align="center">
+<img src="/assets/images/resenia-ecppt/certificacion_eCPPTv3.png">
+</p>
+
+
+    
+    <h2 id="links-de-investigacion">Links de investigación</h2>
+    <ul>
+      <li><a href="https://security.ine.com/certifications/ecppt-certification/" target="_blank" rel="noopener noreferrer">https://security.ine.com/certifications/ecppt-certification/</a></li><li><a href="https://academy.hackthebox.com/course/preview/introduction-to-active-directory" target="_blank" rel="noopener noreferrer">https://academy.hackthebox.com/course/preview/introduction-to-active-directory</a></li><li><a href="https://academy.hackthebox.com/course/preview/active-directory-enumeration--attacks" target="_blank" rel="noopener noreferrer">https://academy.hackthebox.com/course/preview/active-directory-enumeration--attacks</a></li>
+    </ul>
+    
+  </div>
+
+  
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  
+  <a class="post-nav-link post-nav-prev" href="http://localhost:1313/htb-writeup-sauna/">
+    <span class="post-nav-label">← Anterior</span>
+    <span class="post-nav-title">Sauna - Hack The Box</span>
+  </a>
+  
+  
+  <a class="post-nav-link post-nav-next" href="http://localhost:1313/vulnhub-writeup-aragog/">
+    <span class="post-nav-label">Siguiente →</span>
+    <span class="post-nav-title">Aragog - VulnHub</span>
+  </a>
+  
+</nav>
+
+
+
+</article>
+
+  </main>
+  <footer class="site-footer">
+  <div class="wrap">
+    <p>&copy; 2026 BerserkWings · México
+       · <a href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </p>
+  </div>
+</footer>
+
+  
+
+
+<a href="#indice" class="back-to-top" id="backToTop" aria-label="Volver al índice">&uarr;</a>
+
+
+<script src="/js/main.min.15ff80349759f71df793ae28568ef0a6a9c3eb6efe99c9e96bad1d9236a26c31.js" integrity="sha256-Ff&#43;ANJdZ9x33k64oVo7wpqnD627&#43;mcnpa60dkjaibDE=" defer></script>
+
+</body>
+</html>

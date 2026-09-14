@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hacking WiFi - Análisis de Entorno · BerserkWings - Hacking Ético</title>
+<meta name="description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'self';
+               img-src 'self';
+               style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+               font-src 'self' https://fonts.gstatic.com;
+               script-src 'self' ;
+               connect-src 'self' ;
+               object-src 'none';
+               base-uri 'self';
+               form-action 'self';
+               upgrade-insecure-requests;">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+<link rel="canonical" href="http://localhost:1313/WiFi-Notes2/">
+<link rel="icon" href="/assets/images/favicon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/main.min.b51fce260bd224cda026ea0223adf133e0ce779edbb6c14d513c3f101c33a9ff.css" integrity="sha256-tR/OJgvSJM2gJuoCI63xM&#43;DOd57btsFNUTw/EBwzqf8=">
+
+
+<meta property="og:title" content="Hacking WiFi - Análisis de Entorno">
+<meta property="og:description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="http://localhost:1313/assets/images/Wifi-notes/WifiHacker.png">
+
+
+
+</head>
+<body>
+  <header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      
+      <img class="brand-logo" src="http://localhost:1313/assets/images/masthead.png" alt="BerserkWings">
+      
+    </a>
+    <nav class="main-nav">
+      
+        <a href="/" >Inicio</a>
+      
+        <a href="/posts/" >Writeups</a>
+      
+        <a href="/categories/" >Categorías</a>
+      
+        <a href="/tags/" >Etiquetas</a>
+      
+        <a href="/buscador/" >Buscador</a>
+      
+        <a href="/acerca-de-mi/" >Acerca de mí</a>
+      
+    </nav>
+  </div>
+</header>
+
+  <main>
+    
+<canvas class="hero-matrix-bg hero-matrix-bg--dim" id="heroMatrixBg" aria-hidden="true"></canvas>
+<article class="post" id="top">
+  
+
+
+
+
+<aside class="side-profile">
+  <img class="side-avatar" src="http://localhost:1313/assets/images/avatar.png" alt="BerserkWings">
+  <div class="side-name">BerserkWings</div>
+  <div class="side-tagline">Aspirante a Pentester · CTF Player</div>
+
+  
+  <div class="side-platforms">
+    <span class="side-platform-badge">HTB: BerserkWings</span>
+    <span class="side-platform-badge">THL: BerserkWings</span>
+  </div>
+  
+
+  <div class="side-contact">
+    <span class="side-meta">📍 México</span>
+    
+    <a class="side-meta-link" href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">🔗 GitHub</a>
+    
+  </div>
+
+  
+  <div class="side-posts">
+    <div class="side-post-cards">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/WiFi-Notes3/">
+          <span class="side-post-card-title">Hacking WiFi</span>
+          <span class="side-post-card-platform">Ataques para Obtener Handshake</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/htb-writeup-knife/">
+          <span class="side-post-card-title">Knife</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <div class="side-post-card is-current">
+          <span class="side-post-card-title">Hacking WiFi</span>
+          <span class="side-post-card-platform">Análisis de Entorno</span>
+        </div>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/htb-writeup-scriptkiddie/">
+          <span class="side-post-card-title">ScriptKiddie</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/htb-writeup-delivery/">
+          <span class="side-post-card-title">Delivery</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </a>
+        
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  
+
+  
+
+  
+
+
+</aside>
+
+
+  
+  
+  
+
+  <header class="post-header">
+    
+    <div class="post-meta">Hacking Wi-Fi / Infosec</div>
+    
+    <h1>Hacking WiFi - Análisis de Entorno</h1>
+    <div class="post-meta">9 May 2023 · 10 min de lectura</div>
+  </header>
+
+  
+  <img class="post-cover" src="http://localhost:1313/assets/images/Wifi-notes/WifiHacker.png" alt="Hacking WiFi - Análisis de Entorno">
+  
+
+  
+  <p class="post-lead">En esta ocasión, vamos a realizar un análisis de entorno para saber que redes puede captar nuestra tarjeta de red, además vamos a realizar varios ejercicios como filtrado de entorno, captura de evidencias y el que se me hizo más interesante, capturar un handshake.</p>
+  
+
+  
+  <details class="post-tools">
+    <summary>🛠 Herramientas utilizadas</summary>
+
+    
+      
+      <ul><li><code>Internet Wi-Fi</code></li><li><code>Tarjeta de Red</code></li><li><code>airdump-ng</code></li><li><code>celular</code></li></ul>
+    
+  </details>
+  
+
+  
+  <details class="toc" id="indice" open>
+    <summary>📑 Índice</summary>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Entorno">Análisis de Entorno</a>
+      <ul>
+        <li><a href="#Entorno2">Analizando Entorno con Airodump</a>
+          <ul>
+            <li><a href="#Primera">Tabla Superior del Escaneo - Redes Disponibles</a></li>
+            <li><a href="#Segunda">Tabla Inferior del Escaneo - Clientes Conectados</a></li>
+          </ul>
+        </li>
+        <li><a href="#Filtrado">Filtros con airodump-ng</a></li>
+        <li><a href="#Datos">Exportación de Evidencias</a></li>
+        <li><a href="#Hand">Obteniendo un Handshake</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </details>
+  <aside class="side-toc">
+    <div class="side-toc-header">📑 Índice</div>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Entorno">Análisis de Entorno</a>
+      <ul>
+        <li><a href="#Entorno2">Analizando Entorno con Airodump</a>
+          <ul>
+            <li><a href="#Primera">Tabla Superior del Escaneo - Redes Disponibles</a></li>
+            <li><a href="#Segunda">Tabla Inferior del Escaneo - Clientes Conectados</a></li>
+          </ul>
+        </li>
+        <li><a href="#Filtrado">Filtros con airodump-ng</a></li>
+        <li><a href="#Datos">Exportación de Evidencias</a></li>
+        <li><a href="#Hand">Obteniendo un Handshake</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </aside>
+  
+
+  <div class="post-content">
+    <h2 id="Entorno">Análisis de Entorno</h2>
+<h3 id="Entorno2">Analizando Entorno con Airodump</h3>
+<p><strong>IMPORTANTE</strong></p>
+<p>Recuerda que antes de empezar, debes poner el <strong>modo monitor</strong> y de preferencia <strong>falsifica la MAC</strong>. Esta información la tienes en mi blog.</p>
+<hr>
+<p>Para comenzar con el escaneo, utilizaremos la herramienta <strong>airodump-ng</strong>, si quieres cancelar el escaneo solo presiona <strong>ctrl+c</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>airodump-ng wlan0
+</span></span></code></pre></div><p>Una vez que lo realices, verás como empieza a hacer el reconocimiento:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>airodump-ng wlan0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> CH  <span style="color:#ae81ff">6</span> <span style="color:#f92672">][</span> Elapsed: <span style="color:#ae81ff">6</span> s <span style="color:#f92672">][</span> 2023-05-09 14:21                                                                                            
+</span></span><span style="display:flex;"><span>                                                                                                                                      
+</span></span><span style="display:flex;"><span> BSSID              PWR  Beacons    <span style="color:#75715e">#Data, #/s  CH   MB   ENC CIPHER  AUTH ESSID                                                      </span>
+</span></span><span style="display:flex;"><span>                                                                                                                                      
+</span></span><span style="display:flex;"><span> **:**:**:**:**:**  -93        <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">0</span>    <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">11</span>  <span style="color:#ae81ff">130</span>   WPA2 CCMP   PSK  Wifi_Salon                                     
+</span></span><span style="display:flex;"><span> **:**:**:**:**:**  -84        <span style="color:#ae81ff">2</span>        <span style="color:#ae81ff">0</span>    <span style="color:#ae81ff">0</span>   <span style="color:#ae81ff">6</span>  <span style="color:#ae81ff">270</span>   WPA2 CCMP   PSK  Wifi_Vecino2                                        
+</span></span><span style="display:flex;"><span> **:**:**:**:**:**  -93        <span style="color:#ae81ff">2</span>        <span style="color:#ae81ff">0</span>    <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">11</span>  <span style="color:#ae81ff">540</span>   WPA2 CCMP   PSK  no me robes                                                
+</span></span><span style="display:flex;"><span> **:**:**:**:**:**  -83        <span style="color:#ae81ff">3</span>        <span style="color:#ae81ff">1</span>    <span style="color:#ae81ff">0</span>   <span style="color:#ae81ff">9</span>  <span style="color:#ae81ff">130</span>   WPA2 CCMP   PSK  Wifi_Vecino3                                             
+</span></span><span style="display:flex;"><span>                                                                                                                                      
+</span></span><span style="display:flex;"><span> BSSID              STATION            PWR   Rate    Lost    Frames  Notes  Probes                                                    
+</span></span><span style="display:flex;"><span>                                                                                                                                      
+</span></span><span style="display:flex;"><span> **:**:**:**:**:**  **:**:**:**:**:**  -94    <span style="color:#ae81ff">0</span> - 1e     <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">1</span>                                                                   
+</span></span><span style="display:flex;"><span> **:**:**:**:**:**  **:**:**:**:**:**   -1   24e- <span style="color:#ae81ff">0</span>      <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">5</span>                                                                   
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">(</span>not associated<span style="color:#f92672">)</span>   **:**:**:**:**:**  -86    <span style="color:#ae81ff">0</span> - <span style="color:#ae81ff">1</span>      <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">2</span>                                                                   
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">(</span>not associated<span style="color:#f92672">)</span>   **:**:**:**:**:**  -94    <span style="color:#ae81ff">0</span> - <span style="color:#ae81ff">1</span>      <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">1</span>                                                                   
+</span></span><span style="display:flex;"><span>Quitting...
+</span></span></code></pre></div><p>Este es un escaneo del entorno que ha capturado nuestra <strong>tarjeta de red</strong>, pero para ir por partes vamos a partir el resultado a la mitad para poder explicar cada punto con mejor detalle.</p>
+<h4 id="Primera">Tabla Superior del Escaneo - Redes Disponibles</h4>
+<p>Información de las redes Wi-Fi detectadas, incluyendo el nivel de señal, el cifrado, y otros detalles importantes.</p>
+<p>Esta se relaciona con los <strong>puntos de acceso o AP (Access Point)</strong> en inglés.</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Access Point</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>Los AP o WAP (Access Point o Wireless Access Point) son conocidos por establecer una conexión inalámbrica entre equipos y pueden formar una red inalámbrica externa (local o internet) para interconectar dispositivos móviles o tarjetas de red inalámbricas. Esta red inalámbrica se llama WLAN (Wireless local área network) y se usa para reducir las conexiones cableadas. Ofrece conexión en diferentes lugares y no solo donde se encuentra un router. Permite a su vez, ampliar la presencia de la conexión de Internet a otras zonas y mantener una conexión estable sin intervenciones.</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>Ejemplo de la tabla superior:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>CH  <span style="color:#ae81ff">6</span> <span style="color:#f92672">][</span> Elapsed: <span style="color:#ae81ff">6</span> s <span style="color:#f92672">][</span> 2023-05-09 14:21                                                                                            
+</span></span><span style="display:flex;"><span>                                                                                                                                      
+</span></span><span style="display:flex;"><span> BSSID              PWR  Beacons    <span style="color:#75715e">#Data, #/s  CH   MB   ENC CIPHER  AUTH ESSID                                                      </span>
+</span></span><span style="display:flex;"><span>                                                                                                                                      
+</span></span><span style="display:flex;"><span> **:**:**:**:**:**  -93        <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">0</span>    <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">11</span>  <span style="color:#ae81ff">130</span>   WPA2 CCMP   PSK  Wifi_Salon                                     
+</span></span><span style="display:flex;"><span> **:**:**:**:**:**  -84        <span style="color:#ae81ff">2</span>        <span style="color:#ae81ff">0</span>    <span style="color:#ae81ff">0</span>   <span style="color:#ae81ff">6</span>  <span style="color:#ae81ff">270</span>   WPA2 CCMP   PSK  Wifi_Vecino                                        
+</span></span><span style="display:flex;"><span> **:**:**:**:**:**  -93        <span style="color:#ae81ff">2</span>        <span style="color:#ae81ff">0</span>    <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">11</span>  <span style="color:#ae81ff">540</span>   WPA2 CCMP   PSK  no me robes
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Columnas</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>CH</em></td>
+					<td>Es el canal por el que opera la red, Airodump-ng revisa distintos canales por los que pase la red para encontrar APs, a esto se le llama channel hopping.</td>
+			</tr>
+			<tr>
+					<td><em>BSSID</em></td>
+					<td>Dirección MAC del punto de acceso (AP).</td>
+			</tr>
+			<tr>
+					<td><em>PWR</em></td>
+					<td>Es la potencia de la señal recibida por la tarjeta de red desde el AP. Valores más cercanos a 0 (menos negativos) indican mejor señal, es decir, si es mayor la señal quiere decir que estamos más cerca del AP, si dice -1 es que no admite informes de nivel de señal.</td>
+			</tr>
+			<tr>
+					<td><em>Beacons</em></td>
+					<td>Número de paquetes enviados por el AP para anunciar su presencia a dispositivos cercanos, el número indica cuántos beacons se han recibido.</td>
+			</tr>
+			<tr>
+					<td><em>Data, #/s</em></td>
+					<td>Número de paquetes de datos capturados y el número de paquetes por segundo.</td>
+			</tr>
+			<tr>
+					<td><em>MB</em></td>
+					<td>Velocidad máxima de datos en Mbps permitida por AP.</td>
+			</tr>
+			<tr>
+					<td><em>ENC</em></td>
+					<td>Cifrado detectado en la red, ej. WPA, WPA2, OPN(redes públicas/abiertas). Normalmente ya todos indicarian WPA2.</td>
+			</tr>
+			<tr>
+					<td><em>CIPHER</em></td>
+					<td>Tipo de cifrado usado en la red, es normal encontrarse CCPM (un estándar de cifrado más seguro), TKIP, WEB40, etc.</td>
+			</tr>
+			<tr>
+					<td><em>AUTH</em></td>
+					<td>Protocolo de autenticación empleado por la red, puede ser PSK (Pre-Shared Key) o Enterprise.</td>
+			</tr>
+			<tr>
+					<td><em>ESSID</em></td>
+					<td>Nombre de la red inalámbrica (es mejor aplicar filtros por este que usando el BSSID), también se le conoce como SSID.</td>
+			</tr>
+	</tbody>
+</table>
+<h4 id="Segunda">Tabla Inferior del Escaneo - Clientes Conectados</h4>
+<p>Información sobre los clientes conectados a estas redes, como su <strong>dirección MAC</strong> y la fuerza de su señal.</p>
+<p>Ejemplo de la tabla inferior:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>BSSID              STATION            PWR   Rate    Lost    Frames  Notes  Probes                                                    
+</span></span><span style="display:flex;"><span>                                                                                                                                      
+</span></span><span style="display:flex;"><span> **:**:**:**:**:**  **:**:**:**:**:**  -94    <span style="color:#ae81ff">0</span> - 1e     <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">1</span>                                                                   
+</span></span><span style="display:flex;"><span> **:**:**:**:**:**  **:**:**:**:**:**   -1   24e- <span style="color:#ae81ff">0</span>      <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">5</span>
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Columnas</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>STATION</em></td>
+					<td>Dirección MAC del cliente conectado al AP (BSSID). Si vemos el mensaje “not asociated” es porque el dispositivo no esta conectado a ningún AP, pero puede estar enviando solicitudes de Probes para redes que recuerda el cliente.</td>
+			</tr>
+			<tr>
+					<td><em>Rate</em></td>
+					<td>La velocidad de transmisión de datos entre el AP y el cliente.</td>
+			</tr>
+			<tr>
+					<td><em>Lost</em></td>
+					<td>Número de paquetes perdidos en la comunicación entre el cliente y el AP.</td>
+			</tr>
+			<tr>
+					<td><em>Frames</em></td>
+					<td>Número de tramas/paquetes capturadas entre el cliente y el AP.</td>
+			</tr>
+			<tr>
+					<td><em>Notes</em></td>
+					<td>Notas adicionales del cliente (no siempre se usa).</td>
+			</tr>
+			<tr>
+					<td><em>Probes</em></td>
+					<td>Probes muestra las solicitudes de búsqueda de redes que emite el cliente, es decir, si el cliente está buscando activamente redes (escanear), aquí aparecerán los nombres de las redes que está buscando. Aquí se efectua el ataque evilTwin, por ejemplo, si te conectas a la red de un amigo y luego te vuelves a conectar, ya no te pedirá contraseña ósea que pide un Probes Request y se da un Probes Response.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Hay demasiadas respuestas por parte del escaneo, lo que debemos hacer es un filtrado para enfocarnos en una sola red.</p>
+<h3 id="Filtrado">Filtros con airodump-ng</h3>
+<p>Digamos que queremos enfocarnos en un solo canal, pues solamente con el <strong>parámetro -c</strong> agregamos el canal que queremos que solamente se analice:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span> airodump-ng -c <span style="color:#ae81ff">11</span> wlan0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> CH <span style="color:#ae81ff">11</span> <span style="color:#f92672">][</span> Elapsed: <span style="color:#ae81ff">6</span> s <span style="color:#f92672">][</span> 2023-05-09 15:07                                                                                            
+</span></span><span style="display:flex;"><span>                                                                                                                                      
+</span></span><span style="display:flex;"><span> BSSID              PWR RXQ  Beacons    <span style="color:#75715e">#Data, #/s  CH   MB   ENC CIPHER  AUTH ESSID                                                  </span>
+</span></span><span style="display:flex;"><span>                                                                                                                                      
+</span></span><span style="display:flex;"><span> **:**:**:**:**:**  -93   <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">3</span>        <span style="color:#ae81ff">0</span>    <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">11</span>  <span style="color:#ae81ff">540</span>   WPA2 CCMP   PSK  no me robes                                            
+</span></span><span style="display:flex;"><span> **:**:**:**:**:**  -92   <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">0</span>    <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">10</span>  <span style="color:#ae81ff">360</span>   WPA2 CCMP   PSK  Wifi_Salon                                                  
+</span></span><span style="display:flex;"><span> **:**:**:**:**:**  -93   <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">1</span>        <span style="color:#ae81ff">1</span>    <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">11</span>  <span style="color:#ae81ff">130</span>   WPA2 CCMP   PSK  Wifi_Vecino                                       
+</span></span><span style="display:flex;"><span> **:**:**:**:**:**  -93   <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">4</span>        <span style="color:#ae81ff">0</span>    <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">11</span>  <span style="color:#ae81ff">130</span>   WPA2 CCMP   PSK  Wifi_Vecino2
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>BSSID              STATION            PWR   Rate    Lost    Frames  Notes  Probes                                                    
+</span></span><span style="display:flex;"><span>                                                                                                                                      
+</span></span><span style="display:flex;"><span> **:**:**:**:**:**  **:**:**:**:**:**  -82    <span style="color:#ae81ff">0</span> - 1e     <span style="color:#ae81ff">3</span>        <span style="color:#ae81ff">2</span>                                                                   
+</span></span><span style="display:flex;"><span> **:**:**:**:**:**  **:**:**:**:**:**   -1    1e- <span style="color:#ae81ff">0</span>      <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">1</span>                                                                   
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">(</span>not associated<span style="color:#f92672">)</span>   **:**:**:**:**:**  -94    <span style="color:#ae81ff">0</span> - <span style="color:#ae81ff">1</span>      <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">1</span> 
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Aunque puede variar, pues pueden aparecer algunos canales que no especificamos, pero principalmente si aparecerá el que queremos.</p>
+<p>Ahora si queremos enfocarnos en solo una red, utilizaremos el parámetro <strong>&ndash;essid</strong>.</p>
+<p>Vamos a capturar solamente una red por su nombre, esto se puede hacer también con la <strong>MAC</strong>, con el parámetro <strong>&ndash;bssid</strong>, pero es mucho mejor utilizar el nombre de la red:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>airodump-ng -c <span style="color:#ae81ff">11</span> --essid Wifi_Salon wlan0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>CH <span style="color:#ae81ff">11</span> <span style="color:#f92672">][</span> Elapsed: <span style="color:#ae81ff">6</span> s <span style="color:#f92672">][</span> 2023-05-09 15:20                                                                                            
+</span></span><span style="display:flex;"><span>                                                                                                                                      
+</span></span><span style="display:flex;"><span> BSSID              PWR RXQ  Beacons    <span style="color:#75715e">#Data, #/s  CH   MB   ENC CIPHER  AUTH ESSID                                                  </span>
+</span></span><span style="display:flex;"><span>                                                                                                                                      
+</span></span><span style="display:flex;"><span> **:**:**:**:**:**  -54  <span style="color:#ae81ff">81</span>       <span style="color:#ae81ff">72</span>        <span style="color:#ae81ff">4</span>    <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">11</span>  <span style="color:#ae81ff">130</span>   WPA2 CCMP   PSK  Wifi_Salon                                         
+</span></span><span style="display:flex;"><span>                                                                                                                                     
+</span></span><span style="display:flex;"><span> BSSID              STATION            PWR   Rate    Lost    Frames  Notes  Probes                                                    
+</span></span><span style="display:flex;"><span>                                                                                                                                      
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">(</span>not associated<span style="color:#f92672">)</span>   **:**:**:**:**:**  -85    <span style="color:#ae81ff">0</span> - <span style="color:#ae81ff">6</span>      <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">3</span>         Wifi_Padre                                         
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">(</span>not associated<span style="color:#f92672">)</span>   **:**:**:**:**:**  -84    <span style="color:#ae81ff">0</span> - <span style="color:#ae81ff">1</span>      <span style="color:#ae81ff">7</span>        <span style="color:#ae81ff">4</span>                                                                   
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">(</span>not associated<span style="color:#f92672">)</span>   **:**:**:**:**:**  -90    <span style="color:#ae81ff">0</span> - <span style="color:#ae81ff">1</span>      <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">1</span>                                                                   
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Excelente, ya sabemos como enfocarnos en una sola red, pero ¿Y las evidencias de lo que estamos haciendo?</p>
+<p>Vamos a guardar la captura en un archivo para después poder utilizarla en lo que necesitemos.</p>
+<h3 id="Datos">Exportación de Evidencias</h3>
+<p>Necesitamos capturar evidencia de los escaneos, porque de esta manera podremos extraer las contraseñas, pues estas estarán cifradas dependiendo del cifrado que nos muestre el escaneo. Por eso es supernecesario exportar evidencias.</p>
+<p>Para hacerlo, simplemente agregamos el parámetro <strong>-w</strong> y ponemos un nombre para el archivo, además, puedes crear un directorio que almacene los archivos que genere la captura:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>airodump-ng -c <span style="color:#ae81ff">11</span> -w Captura --essid Wifi_Salon wlan0
+</span></span><span style="display:flex;"><span>15:42:56  Created capture file <span style="color:#e6db74">&#34;Captura-01.cap&#34;</span>.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>CH <span style="color:#ae81ff">11</span> <span style="color:#f92672">][</span> Elapsed: <span style="color:#ae81ff">42</span> s <span style="color:#f92672">][</span> 2023-05-09 15:43                                                                                           
+</span></span><span style="display:flex;"><span>                                                                                                                                      
+</span></span><span style="display:flex;"><span> BSSID              PWR RXQ  Beacons    <span style="color:#75715e">#Data, #/s  CH   MB   ENC CIPHER  AUTH ESSID                                                  </span>
+</span></span><span style="display:flex;"><span>                                                                                                                                      
+</span></span><span style="display:flex;"><span> **:**:**:**:**:**  -53 <span style="color:#ae81ff">100</span>      <span style="color:#ae81ff">367</span>       <span style="color:#ae81ff">74</span>    <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">11</span>  <span style="color:#ae81ff">130</span>   WPA2 CCMP   PSK  Wifi_Salon                                         
+</span></span><span style="display:flex;"><span>                                                                                                                                      
+</span></span><span style="display:flex;"><span> BSSID              STATION            PWR   Rate    Lost    Frames  Notes  Probes                                                    
+</span></span><span style="display:flex;"><span>                                                                                                                                      
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">(</span>not associated<span style="color:#f92672">)</span>   **:**:**:**:**:**  -84    <span style="color:#ae81ff">0</span> - <span style="color:#ae81ff">1</span>      <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">1</span>                                                                   
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">(</span>not associated<span style="color:#f92672">)</span>   **:**:**:**:**:**  -68    <span style="color:#ae81ff">0</span> - <span style="color:#ae81ff">1</span>      <span style="color:#ae81ff">3</span>        <span style="color:#ae81ff">6</span>                                                                   
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">(</span>not associated<span style="color:#f92672">)</span>   **:**:**:**:**:**  -70    <span style="color:#ae81ff">0</span> - <span style="color:#ae81ff">1</span>      <span style="color:#ae81ff">3</span>        <span style="color:#ae81ff">6</span> 
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Nos menciona que se creó el archivo <strong>Captura</strong>, podemos ver qué archivos se crearon en nuestro directorio:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ls -la          
+</span></span><span style="display:flex;"><span>total <span style="color:#ae81ff">648</span>
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">2</span> root root   <span style="color:#ae81ff">4096</span> may  <span style="color:#ae81ff">9</span> 15:42 .
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">4</span> root root   <span style="color:#ae81ff">4096</span> may  <span style="color:#ae81ff">9</span> 15:38 ..
+</span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">120201</span> may  <span style="color:#ae81ff">9</span> 15:43 Captura-01.cap
+</span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> root root   <span style="color:#ae81ff">2901</span> may  <span style="color:#ae81ff">9</span> 15:43 Captura-01.csv
+</span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> root root    <span style="color:#ae81ff">595</span> may  <span style="color:#ae81ff">9</span> 15:43 Captura-01.kismet.csv
+</span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> root root  <span style="color:#ae81ff">51849</span> may  <span style="color:#ae81ff">9</span> 15:43 Captura-01.kismet.netxml
+</span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">470746</span> may  <span style="color:#ae81ff">9</span> 15:43 Captura-01.log.csv
+</span></span></code></pre></div><p>Vemos varios archivos, pero el que nos interesa es este: <strong>Captura-01.cap</strong>, pues aquí es donde estará la contraseña encriptada de la red.</p>
+<p>Mientras el escaneo continúe, el peso de ese archivo seguirá creciendo.</p>
+<p>Para obtener la contraseña, utilizaremos la herramienta <strong>aircrack</strong>, lo importante sería que nosotros obtuviéramos un <strong>handshake</strong> para que la captura del cifrado funcione.</p>
+<hr>
+<p><strong>IMPORTANTÍSIMO</strong></p>
+<p>Es muy importante que si quieres practicar esto, lo hagas desde tu propio internet.</p>
+<p>Puedes utilizar tu red y un dispositivo como tu celular para simular un <strong>AP</strong> y con eso practicar la captura de data y así puedas obtener un <strong>handshake</strong>.</p>
+<hr>
+<h3 id="Hand">Obteniendo un Handshake</h3>
+<p>Cuando nos conectamos a una <strong>red Wi-Fi</strong>, se produce lo que se conoce como un <strong>“handshake” (apretón de manos)</strong> entre el <strong>punto de acceso (AP)</strong> y el <strong>cliente (nuestro dispositivo)</strong>. El punto de acceso suele ser un router, una terminal móvil en modo de punto de acceso, o cualquier otro dispositivo que actúe como <strong>AP</strong>. Durante este handshake, se lleva a cabo un intercambio de información criptográfica que permite generar las claves que se utilizarán para cifrar la comunicación entre el cliente y el AP.</p>
+<p>Podríamos decir que para capturar el <strong>handshake</strong>, tendríamos que esperar hasta que alguien se conecte a la red. Pues no es así.</p>
+<p>Hay muchas formas de obtener el <strong>handshake</strong> mediante distintos ataques:</p>
+<ul>
+<li><em>Ataque de Desautenticación Dirigido</em></li>
+<li><em>Ataque de Desautenticación Global</em></li>
+<li><em>Ataque de Falsa Autenticación</em></li>
+<li><em>CTS Frame Attack</em></li>
+<li>etc&hellip;</li>
+</ul>
+<p>Vamos a probar varios de estos ataques en los siguientes blogs.</p>
+<p>Hagamos una prueba, para hacerla deberás usar tu celular y tu red.</p>
+<p>Has lo siguiente:</p>
+<ul>
+<li>
+<p>Desconecta tu celular de la red, solo desconéctalo, no le quites la contraseña.</p>
+</li>
+<li>
+<p>Has un escaneo aplicando un filtro para que solo aparezca tu red, deja el escaneo activo.</p>
+</li>
+<li>
+<p>Observa que no aparece ningún aviso de <strong>handshake</strong>:</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>airodump-ng -c <span style="color:#ae81ff">11</span> -w Captura --essid Wifi_Salon wlan0
+</span></span><span style="display:flex;"><span>22:00:52  Created capture file <span style="color:#e6db74">&#34;Captura-02.cap&#34;</span>.
+</span></span><span style="display:flex;"><span> CH <span style="color:#ae81ff">11</span> <span style="color:#f92672">][</span> Elapsed: <span style="color:#ae81ff">1</span> min <span style="color:#f92672">][</span> 2023-05-09 22:02                                                       
+</span></span><span style="display:flex;"><span> BSSID              PWR RXQ  Beacons    <span style="color:#75715e">#Data, #/s  CH   MB   ENC CIPHER  AUTH ESSID                                                                                                                                                                                        </span>
+</span></span><span style="display:flex;"><span> 34:53:D2:7B:5D:28  -57  <span style="color:#ae81ff">81</span>      <span style="color:#ae81ff">769</span>      <span style="color:#ae81ff">253</span>    <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">11</span>  <span style="color:#ae81ff">130</span>   WPA2 CCMP   PSK  Wifi_Salon                                         
+</span></span><span style="display:flex;"><span> BSSID              STATION            PWR   Rate    Lost    Frames  Notes  Probes                                                                                                                                                                                          
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">(</span>not associated<span style="color:#f92672">)</span>   **:**:**:**:**:**  -90    <span style="color:#ae81ff">0</span> - <span style="color:#ae81ff">1</span>      <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">1</span>         Wifi_Vecino                                             
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">(</span>not associated<span style="color:#f92672">)</span>   **:**:**:**:**:**  -86    <span style="color:#ae81ff">0</span> - <span style="color:#ae81ff">1</span>      <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><ul>
+<li>Conecta tu celular a la red y vuelve a observar el escaneo, debería no solo aparecer el mensaje <strong>handshake</strong> sino que aparecerá junto a una <strong>MAC</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>airodump-ng -c <span style="color:#ae81ff">11</span> -w Captura --essid Wifi_Salon wlan0
+</span></span><span style="display:flex;"><span>22:00:52  Created capture file <span style="color:#e6db74">&#34;Captura-02.cap&#34;</span>.
+</span></span><span style="display:flex;"><span> CH <span style="color:#ae81ff">11</span> <span style="color:#f92672">][</span> Elapsed: <span style="color:#ae81ff">1</span> min <span style="color:#f92672">][</span> 2023-05-09 22:02 <span style="color:#f92672">][</span> WPA handshake: **:**:**:**:**:**                                                      
+</span></span><span style="display:flex;"><span> BSSID              PWR RXQ  Beacons    <span style="color:#75715e">#Data, #/s  CH   MB   ENC CIPHER  AUTH ESSID                                                                                                                                                                                        </span>
+</span></span><span style="display:flex;"><span> **:**:**:**:**:**  -57  <span style="color:#ae81ff">81</span>      <span style="color:#ae81ff">769</span>      <span style="color:#ae81ff">253</span>    <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">11</span>  <span style="color:#ae81ff">130</span>   WPA2 CCMP   PSK  Wifi_Salon                                         
+</span></span><span style="display:flex;"><span> BSSID              STATION            PWR   Rate    Lost    Frames  Notes  Probes                                                                                                                                                                                          
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">(</span>not associated<span style="color:#f92672">)</span>   **:**:**:**:**:**  -90    <span style="color:#ae81ff">0</span> - <span style="color:#ae81ff">1</span>      <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">1</span>         Wifi_Vecino                                             
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">(</span>not associated<span style="color:#f92672">)</span>   **:**:**:**:**:**  -86    <span style="color:#ae81ff">0</span> - <span style="color:#ae81ff">1</span>      <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span> **:**:**:**:**:**  MAC:DE:MI:CEL:XD   -21   24e-24      <span style="color:#ae81ff">2</span>      <span style="color:#ae81ff">120</span>  EAPOL  Wifi_Salon                                            
+</span></span><span style="display:flex;"><span> **:**:**:**:**:**  **:**:**:**:**:**  -62    1e- 1e     <span style="color:#ae81ff">1</span>       <span style="color:#ae81ff">76</span>
+</span></span></code></pre></div><p>La MAC que aparece en el <strong>handshake</strong> es del <strong>AP</strong> al que nos conectamos.</p>
+<ul>
+<li>Si buscas algo en internet o ves un video, verás que los <strong>frames</strong> aumentan, esto quiere decir, que el dispositivo está en uso.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span> <span style="color:#f92672">(</span>not associated<span style="color:#f92672">)</span>   **:**:**:**:**:**  -86    <span style="color:#ae81ff">0</span> - <span style="color:#ae81ff">1</span>      <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span> **:**:**:**:**:**  MAC:DE:MI:CEL:XD   -21   24e-24      <span style="color:#ae81ff">2</span>      <span style="color:#ae81ff">780</span>  EAPOL  Wifi_Salon                                            
+</span></span><span style="display:flex;"><span> **:**:**:**:**:**  **:**:**:**:**:**  -62    1e- 1e     <span style="color:#ae81ff">1</span>       <span style="color:#ae81ff">76</span>
+</span></span></code></pre></div><p>Y listo, ya tenemos una <strong>handshake</strong> capturada en un archivo. La idea ahora, es usar <strong>aircrack-ng</strong> para tratar de obtener la contraseña, pero eso lo dejaremos para otra ocasión, lo que me interesa, es explorar todos los ataques posibles, antes de obtener la contraseña cifrada.</p>
+
+
+    
+    <h2 id="links-de-investigacion">Links de investigación</h2>
+    <ul>
+      <li><a href="https://www.aircrack-ng.org/doku.php?id=airodump-ng" target="_blank" rel="noopener noreferrer">https://www.aircrack-ng.org/doku.php?id=airodump-ng</a></li><li><a href="https://www.nsit.com.co/ap-access-point-que-son-y-para-que-se-utilizan/" target="_blank" rel="noopener noreferrer">https://www.nsit.com.co/ap-access-point-que-son-y-para-que-se-utilizan/</a></li>
+    </ul>
+    
+  </div>
+
+  
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  
+  <a class="post-nav-link post-nav-prev" href="http://localhost:1313/htb-writeup-scriptkiddie/">
+    <span class="post-nav-label">← Anterior</span>
+    <span class="post-nav-title">ScriptKiddie - Hack The Box</span>
+  </a>
+  
+  
+  <a class="post-nav-link post-nav-next" href="http://localhost:1313/htb-writeup-knife/">
+    <span class="post-nav-label">Siguiente →</span>
+    <span class="post-nav-title">Knife - Hack The Box</span>
+  </a>
+  
+</nav>
+
+
+
+</article>
+
+  </main>
+  <footer class="site-footer">
+  <div class="wrap">
+    <p>&copy; 2026 BerserkWings · México
+       · <a href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </p>
+  </div>
+</footer>
+
+  
+
+
+<a href="#indice" class="back-to-top" id="backToTop" aria-label="Volver al índice">&uarr;</a>
+
+
+<script src="/js/main.min.15ff80349759f71df793ae28568ef0a6a9c3eb6efe99c9e96bad1d9236a26c31.js" integrity="sha256-Ff&#43;ANJdZ9x33k64oVo7wpqnD627&#43;mcnpa60dkjaibDE=" defer></script>
+
+</body>
+</html>

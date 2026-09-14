@@ -1,0 +1,36 @@
+{{ define "main" }}
+<canvas class="hero-matrix-bg" id="heroMatrixBg" aria-hidden="true"></canvas>
+{{ partial "sidebar-profile.html" . }}
+<div class="wrap post-content" id="top" style="margin-top:2.5rem; max-width: 58rem;">
+
+  <h1>{{ .Title }}</h1>
+
+  <div class="about-ascii-wrap">
+    <div class="ascii-avatar about-ascii-avatar" data-char-width="2" role="img" aria-label="{{ .Site.Params.nickname }}">
+      <pre class="ascii-output about-ascii" aria-hidden="true"></pre>
+      <img class="ascii-source about-avatar" src="{{ .Params.photo | absURL }}" alt="{{ .Site.Params.nickname }}">
+    </div>
+  </div>
+
+  {{ .Content }}
+
+  {{ with .Params.certifications }}
+  <h2 id="certificaciones-adquiridas">Certificaciones adquiridas</h2>
+  <p class="post-meta">Haz clic en una certificación para verla en grande y escanear su código QR de verificación.</p>
+  <div class="cert-carousel" id="certCarousel">
+    <div class="cert-track">
+      {{ range $i, $c := . }}
+      <div class="cert-slide{{ if eq $i 0 }} is-active{{ end }}">
+        <img src="{{ $c.image | absURL }}" alt="{{ $c.name }}" loading="lazy">
+        <div class="cert-slide-name">{{ $c.name }}</div>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+  <div class="cert-lightbox" id="certLightbox">
+    <img id="certLightboxImg" alt="">
+  </div>
+  {{ end }}
+
+</div>
+{{ end }}

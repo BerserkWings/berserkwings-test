@@ -1,0 +1,95 @@
+baseURL = "https://berserkwings.github.io/"
+locale = "es-MX"
+timeZone = "America/Mexico_City"
+title = "BerserkWings - Hacking Ético"
+paginate = 8
+enableRobotsTXT = true
+summarylength = 40
+
+disablePathToLower = true
+
+buildFuture = true
+
+# --- Índice de búsqueda propio (JSON generado por Hugo) ---
+[outputs]
+  home = ["HTML", "RSS", "SearchIndex"]
+
+[mediaTypes."application/json"]
+  suffixes = ["json"]
+
+[outputFormats.SearchIndex]
+  mediaType = "application/json"
+  baseName = "search-index"
+  isPlainText = true
+  notAlternative = true
+
+[markup.goldmark.renderer]
+  unsafe = true # necesario porque tus writeups usan HTML embebido (tablas, <p align>, etc.)
+
+[markup.tableOfContents]
+  startLevel = 2
+  endLevel = 4
+  ordered = false
+
+[markup.highlight]
+  noClasses = true
+  style = "monokai"
+  lineNos = false
+
+[taxonomies]
+  category = "categories"
+  tag = "tags"
+
+[permalinks]
+  posts = "/:slug/"
+
+[params]
+  nickname       = "BerserkWings"
+  tagline        = "Aspirante a Pentester · CTF Player"
+  welcome        = "Sean bienvenidos a mi biblioteca, donde podrás encontrar <strong>WriteUps</strong> de máquinas de <strong>HackTheBox</strong>, <strong>TheHackersLabs</strong>, etc. Además, encontrarás algunas notas propias para que agregues a tus notas de aprendizaje y artículos interesantes sobre ataques o certificaciones que puedes realizar."
+  description    = "Writeups de ciberseguridad, CTFs, Active Directory y certificaciones."
+  location       = "México"
+  avatar         = "/assets/images/avatar.png"
+  # Logo del header (junto al nombre). 
+  logo           = "/assets/images/masthead.png"
+  github         = "https://github.com/BerserkWings"
+  htb_username   = "BerserkWings"
+  htb_logo       = "/assets/images/htb_logo.svg"
+  thl_username   = "BerserkWings"
+  thl_logo       = "/assets/images/thehackerlabs.jpeg"
+  # --- Donaciones ---
+  buymeacoffee_username = ""
+  # --- Analítica (opcional, GA4 en vez de la Universal Analytics vieja) ---
+  ga4_id = ""
+  # --- Comentarios: desactivados a propósito, igual que en el blog actual ---
+  comments_enabled = false
+
+[[menu.main]]
+  name   = "Inicio"
+  url    = "/"
+  weight = 10
+
+[[menu.main]]
+  name   = "Writeups"
+  url    = "/posts/"
+  weight = 20
+
+[[menu.main]]
+  name   = "Categorías"
+  url    = "/categories/"
+  weight = 30
+
+[[menu.main]]
+  name   = "Etiquetas"
+  url    = "/tags/"
+  weight = 40
+
+[[menu.main]]
+  name   = "Buscador"
+  url    = "/buscador/"
+  weight = 50
+
+[[menu.main]]
+  name   = "Acerca de mí"
+  url    = "/acerca-de-mi/"
+  weight = 60

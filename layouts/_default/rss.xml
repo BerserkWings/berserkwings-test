@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>{{ .Site.Title }}</title>
+    <link>{{ .Permalink }}</link>
+    <description>{{ .Site.Params.description }}</description>
+    <generator>Hugo</generator>
+    <language>{{ .Site.Language.Locale | default "es-mx" }}</language>
+    <lastBuildDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" }}</lastBuildDate>
+    <atom:link href="{{ .Permalink }}" rel="self" type="application/rss+xml" />
+    {{- $posts := where .Site.RegularPages "Type" "posts" }}
+    {{- $posts = sort $posts "Date" "desc" }}
+    {{- range first 20 $posts }}
+    {{- $unlockDate := "" }}
+    {{- with .Params.unlock_date }}{{ $unlockDate = time.AsTime . }}{{ end }}
+    {{- $isLocked := and $unlockDate (gt $unlockDate now) }}
+    <item>
+      <title>{{ .Title }}</title>
+      <link>{{ .Permalink }}</link>
+      <pubDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" }}</pubDate>
+      <guid>{{ .Permalink }}</guid>
+      <description>{{ if $isLocked }}🔒 Próximamente. Se desbloquea el {{ $unlockDate.Format "2 January 2006" }}.{{ else }}{{ .Params.excerpt | default .Summary | plainify }}{{ end }}</description>
+    </item>
+    {{- end }}
+  </channel>
+</rss>

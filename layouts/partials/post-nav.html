@@ -1,0 +1,29 @@
+{{ $allPosts := where .Site.RegularPages "Type" "posts" }}
+{{ $allPosts = sort $allPosts "Date" "desc" }}
+{{ $idx := -1 }}
+{{ range $i, $p := $allPosts }}{{ if eq $p.Permalink $.Permalink }}{{ $idx = $i }}{{ end }}{{ end }}
+
+{{ if ge $idx 0 }}
+{{ $prev := "" }}
+{{ $next := "" }}
+{{ if lt (add $idx 1) (len $allPosts) }}{{ $prev = index $allPosts (add $idx 1) }}{{ end }}
+{{ if gt $idx 0 }}{{ $next = index $allPosts (sub $idx 1) }}{{ end }}
+{{ if or $prev $next }}
+<nav class="post-nav">
+  {{ if $prev }}
+  <a class="post-nav-link post-nav-prev" href="{{ $prev.Permalink }}">
+    <span class="post-nav-label">← Anterior</span>
+    <span class="post-nav-title">{{ $prev.Title }}</span>
+  </a>
+  {{ else }}
+  <span class="post-nav-empty"></span>
+  {{ end }}
+  {{ if $next }}
+  <a class="post-nav-link post-nav-next" href="{{ $next.Permalink }}">
+    <span class="post-nav-label">Siguiente →</span>
+    <span class="post-nav-title">{{ $next.Title }}</span>
+  </a>
+  {{ end }}
+</nav>
+{{ end }}
+{{ end }}

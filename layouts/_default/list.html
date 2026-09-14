@@ -1,0 +1,18 @@
+{{ define "main" }}
+<canvas class="hero-matrix-bg" id="heroMatrixBg" aria-hidden="true"></canvas>
+{{ partial "sidebar-profile.html" . }}
+<div class="wrap" style="margin-top:2.5rem;">
+  <h1>{{ .Title }}</h1>
+  {{ if .Content }}<div class="post-content">{{ .Content }}</div>{{ end }}
+
+  <div style="margin-top:1.5rem;">
+    {{ $filtered := .Pages }}
+    {{ $paginator := .Paginate $filtered }}
+    {{ range $paginator.Pages }}
+    {{ partial "post-card.html" . }}
+    {{ end }}
+  </div>
+
+  {{ partial "pagination.html" . }}
+</div>
+{{ end }}

@@ -1,0 +1,58 @@
+{{ $allPosts := where .Site.RegularPages "Type" "posts" }}
+{{ $allPosts = sort $allPosts "Date" "desc" }}
+{{ $idx := -1 }}
+{{ range $i, $p := $allPosts }}{{ if eq $p.Permalink $.Permalink }}{{ $idx = $i }}{{ end }}{{ end }}
+
+<aside class="side-profile">
+  <img class="side-avatar" src="{{ .Site.Params.avatar | absURL }}" alt="{{ .Site.Params.nickname }}">
+  <div class="side-name">{{ .Site.Params.nickname }}</div>
+  <div class="side-tagline">{{ .Site.Params.tagline }}</div>
+
+  {{ if or .Site.Params.htb_username .Site.Params.thl_username }}
+  <div class="side-platforms">
+    {{ with .Site.Params.htb_username }}<span class="side-platform-badge">HTB: {{ . }}</span>{{ end }}
+    {{ with .Site.Params.thl_username }}<span class="side-platform-badge">THL: {{ . }}</span>{{ end }}
+  </div>
+  {{ end }}
+
+  <div class="side-contact">
+    <span class="side-meta">📍 {{ .Site.Params.location }}</span>
+    {{ if .Site.Params.github }}
+    <a class="side-meta-link" href="{{ .Site.Params.github }}" target="_blank" rel="noopener noreferrer">🔗 GitHub</a>
+    {{ end }}
+  </div>
+
+  {{ if ge $idx 0 }}
+  <div class="side-posts">
+    <div class="side-post-cards">
+      {{ range $i, $p := $allPosts }}
+        {{ if and (ge $i (sub $idx 2)) (le $i (add $idx 2)) }}
+        {{ $parts := split $p.Title " - " }}
+        {{ $machine := index $parts 0 }}
+        {{ $platform := "" }}
+        {{ if gt (len $parts) 1 }}{{ $platform = index $parts 1 }}{{ end }}
+        {{ if eq $i $idx }}
+        <div class="side-post-card is-current">
+          <span class="side-post-card-title">{{ $machine }}</span>
+          {{ with $platform }}<span class="side-post-card-platform">{{ . }}</span>{{ end }}
+        </div>
+        {{ else }}
+        <a class="side-post-card" href="{{ $p.Permalink }}">
+          <span class="side-post-card-title">{{ $machine }}</span>
+          {{ with $platform }}<span class="side-post-card-platform">{{ . }}</span>{{ end }}
+        </a>
+        {{ end }}
+        {{ end }}
+      {{ end }}
+    </div>
+  </div>
+  {{ end }}
+
+  {{ if and (or (eq .Kind "section") (eq .Kind "term") (eq .Kind "taxonomy")) (ne .Section "tags") }}
+  <div class="side-posts">
+    <a class="side-cta-button" href="/writeups/todos/">📚 Mostrar todos los writeups</a>
+  </div>
+  {{ end }}
+
+  {{ partial "buymeacoffee-compact.html" . }}
+</aside>

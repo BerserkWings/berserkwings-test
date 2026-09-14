@@ -1,0 +1,16 @@
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      {{ if .Site.Params.logo }}
+      <img class="brand-logo" src="{{ .Site.Params.logo | absURL }}" alt="{{ .Site.Params.nickname }}">
+      {{ else }}
+      {{ .Site.Params.nickname }}<span class="dot">_</span>
+      {{ end }}
+    </a>
+    <nav class="main-nav">
+      {{ range .Site.Menus.main }}
+        <a href="{{ .URL }}" {{ if eq $.RelPermalink .URL }}class="is-active"{{ end }}>{{ .Name }}</a>
+      {{ end }}
+    </nav>
+  </div>
+</header>

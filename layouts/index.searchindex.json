@@ -1,0 +1,45 @@
+{{- $items := slice -}}
+ 
+{{- $posts := where .Site.RegularPages "Type" "posts" -}}
+{{- range $posts -}}
+  {{- $unlockDate := "" -}}
+  {{- with .Params.unlock_date -}}{{- $unlockDate = time.AsTime . -}}{{- end -}}
+  {{- $isLocked := and $unlockDate (gt $unlockDate now) -}}
+  {{- $excerptText := "" -}}
+  {{- $tagsValue := slice -}}
+  {{- if $isLocked -}}
+    {{- $excerptText = printf "🔒 Próximamente. Se desbloquea el %s." ($unlockDate.Format "2 January 2006") -}}
+  {{- else -}}
+    {{- $excerptText = (.Params.excerpt | default .Summary | plainify | truncate 160) -}}
+    {{- $tagsValue = (.Params.tags | default (slice)) -}}
+  {{- end -}}
+  {{- $items = $items | append (dict
+        "type" "post"
+        "title" .Title
+        "url" .RelPermalink
+        "excerpt" $excerptText
+        "date" (.Date.Format "2 January 2006")
+        "tags" $tagsValue
+        "categories" (.Params.categories | default (slice))
+      ) -}}
+{{- end -}}
+ 
+{{- range $term, $weightedPages := .Site.Taxonomies.categories -}}
+  {{- $items = $items | append (dict
+        "type" "category"
+        "title" $weightedPages.Page.Title
+        "url" $weightedPages.Page.RelPermalink
+        "count" (len $weightedPages)
+      ) -}}
+{{- end -}}
+ 
+{{- range $term, $weightedPages := .Site.Taxonomies.tags -}}
+  {{- $items = $items | append (dict
+        "type" "tag"
+        "title" $weightedPages.Page.Title
+        "url" $weightedPages.Page.RelPermalink
+        "count" (len $weightedPages)
+      ) -}}
+{{- end -}}
+ 
+{{- $items | jsonify -}}

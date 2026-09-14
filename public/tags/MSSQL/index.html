@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MSSQL · BerserkWings - Hacking Ético</title>
+<meta name="description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'self';
+               img-src 'self';
+               style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+               font-src 'self' https://fonts.gstatic.com;
+               script-src 'self' ;
+               connect-src 'self' ;
+               object-src 'none';
+               base-uri 'self';
+               form-action 'self';
+               upgrade-insecure-requests;">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+<link rel="canonical" href="http://localhost:1313/tags/MSSQL/">
+<link rel="icon" href="/assets/images/favicon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/main.min.b51fce260bd224cda026ea0223adf133e0ce779edbb6c14d513c3f101c33a9ff.css" integrity="sha256-tR/OJgvSJM2gJuoCI63xM&#43;DOd57btsFNUTw/EBwzqf8=">
+
+
+<meta property="og:title" content="MSSQL">
+<meta property="og:description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+<meta property="og:type" content="website">
+
+
+
+
+</head>
+<body>
+  <header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      
+      <img class="brand-logo" src="http://localhost:1313/assets/images/masthead.png" alt="BerserkWings">
+      
+    </a>
+    <nav class="main-nav">
+      
+        <a href="/" >Inicio</a>
+      
+        <a href="/posts/" >Writeups</a>
+      
+        <a href="/categories/" >Categorías</a>
+      
+        <a href="/tags/" >Etiquetas</a>
+      
+        <a href="/buscador/" >Buscador</a>
+      
+        <a href="/acerca-de-mi/" >Acerca de mí</a>
+      
+    </nav>
+  </div>
+</header>
+
+  <main>
+    
+<canvas class="hero-matrix-bg" id="heroMatrixBg" aria-hidden="true"></canvas>
+
+
+
+
+
+<aside class="side-profile">
+  <img class="side-avatar" src="http://localhost:1313/assets/images/avatar.png" alt="BerserkWings">
+  <div class="side-name">BerserkWings</div>
+  <div class="side-tagline">Aspirante a Pentester · CTF Player</div>
+
+  
+  <div class="side-platforms">
+    <span class="side-platform-badge">HTB: BerserkWings</span>
+    <span class="side-platform-badge">THL: BerserkWings</span>
+  </div>
+  
+
+  <div class="side-contact">
+    <span class="side-meta">📍 México</span>
+    
+    <a class="side-meta-link" href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">🔗 GitHub</a>
+    
+  </div>
+
+  
+
+  
+
+  
+
+
+</aside>
+
+<div class="wrap" style="margin-top:2.5rem;">
+  <h1>MSSQL</h1>
+  
+
+  <div style="margin-top:1.5rem;">
+    
+    
+    
+    <a class="post-card post-card-with-image" href="http://localhost:1313/htb-writeup-eighteen/">
+  <div class="post-card-body">
+    <div class="post-card-meta">30 November 2025 · HackTheBox, Easy Machine</div>
+    <h2>Eighteen - Hack The Box</h2>
+    
+    
+    
+    <p>Esta fue una máquina sencilla al principio y al final se vuelve bastante complicada. Después de analizar los escaneos, vamos directamente a revisar la página web, pero al no encontrar algo útil, nos …</p>
+    
+    <div class="tag-marquee">
+      <div class="tag-marquee-track">
+        <span class="tag-pill">Windows</span><span class="tag-pill">Active Directory</span><span class="tag-pill">MSSQL</span><span class="tag-pill">WinRM</span><span class="tag-pill">Web Enumeration</span><span class="tag-pill">Fuzzing</span><span class="tag-pill">MSSQL Enumeration</span><span class="tag-pill">Cracking Hash</span><span class="tag-pill">Cracking PBKDF2 Hash</span><span class="tag-pill">Password Spraying</span><span class="tag-pill">RIDs Brute Force</span><span class="tag-pill">Tunneling SOCKS5</span><span class="tag-pill">BadSuccessor Attack</span><span class="tag-pill">Privesc - BadSuccessor Attack</span><span class="tag-pill">OSCP Style</span>
+      </div>
+    </div>
+    
+    
+  </div>
+  
+  <span class="post-card-thumb-wrap">
+    <img class="post-card-thumb" src="http://localhost:1313/assets/images/htb-writeup-eighteen/eighteen.png" alt="Eighteen - Hack The Box" loading="lazy">
+  </span>
+  
+</a>
+
+    
+    <a class="post-card post-card-with-image" href="http://localhost:1313/htb-writeup-signed/">
+  <div class="post-card-body">
+    <div class="post-card-meta">18 October 2025 · HackTheBox, Medium Machine</div>
+    <h2>Signed - Hack The Box</h2>
+    
+    
+    
+    <p>Esta fue una máquina bastante complicada y talachuda. Después de analizar los escaneos y de solo ver el puerto 1433 abierto, que es el servicio MSSQL, comprobamos la credencial dada y lo enumeramos. …</p>
+    
+    <div class="tag-marquee">
+      <div class="tag-marquee-track">
+        <span class="tag-pill">Windows</span><span class="tag-pill">Active Directory</span><span class="tag-pill">MSSQL</span><span class="tag-pill">MSSQL Enumeration</span><span class="tag-pill">NTLM Relay Attack</span><span class="tag-pill">Cracking Hash</span><span class="tag-pill">Cracking NTLM Hash</span><span class="tag-pill">Silver Ticket Attack</span><span class="tag-pill">Enabling xp_cmdshell(RCE)</span><span class="tag-pill">Reverse Shell with nx.exe Binary</span><span class="tag-pill">Arbitrary File Read</span><span class="tag-pill">Enabling OPENROWSET(BULK) Function On MSSQL (Arbitrary File Read)</span><span class="tag-pill">Reading PowerShell Command History</span><span class="tag-pill">Plaintext Password</span><span class="tag-pill">Privesc - Reading PowerShell Command History</span><span class="tag-pill">Reverse Shell with RunasCs Binary</span><span class="tag-pill">Privesc - Reverse Shell with RunasCs Binary</span><span class="tag-pill">OSCP Style</span>
+      </div>
+    </div>
+    
+    
+  </div>
+  
+  <span class="post-card-thumb-wrap">
+    <img class="post-card-thumb" src="http://localhost:1313/assets/images/htb-writeup-signed/signed.png" alt="Signed - Hack The Box" loading="lazy">
+  </span>
+  
+</a>
+
+    
+    <a class="post-card post-card-with-image" href="http://localhost:1313/htb-writeup-darkZero/">
+  <div class="post-card-body">
+    <div class="post-card-meta">11 October 2025 · HackTheBox, Hard Machine</div>
+    <h2>DarkZero - Hack The Box</h2>
+    
+    
+    
+    <p>Esta fue una máquina bastante complicada. Después de analizar los escaneos y de probar las credenciales que nos dieron, nos enfocamos en el servicio MSSQL, siendo aquí donde encontramos un Linked …</p>
+    
+    <div class="tag-marquee">
+      <div class="tag-marquee-track">
+        <span class="tag-pill">Windows</span><span class="tag-pill">Active Directory</span><span class="tag-pill">RPC</span><span class="tag-pill">DNS</span><span class="tag-pill">SMB</span><span class="tag-pill">LDAP</span><span class="tag-pill">MSSQL</span><span class="tag-pill">DNS Enumeration</span><span class="tag-pill">RPC Enumeration</span><span class="tag-pill">MSSQL Enumeration</span><span class="tag-pill">Abusing Linked Server On MSSQL</span><span class="tag-pill">Enabling xp_cmdshell (RCE)</span><span class="tag-pill">Abusing xp_cmdshell To Load Reverse Shell</span><span class="tag-pill">Windows Kernel Elevation of Privilege Vulnerability (CVE-2024-30088)</span><span class="tag-pill">CVE-2024-30088</span><span class="tag-pill">Reverse Port Forwarding</span><span class="tag-pill">Pivoting</span><span class="tag-pill">Capturing Ticket Granting Ticket (TGT) with Rubeus</span><span class="tag-pill">Pass-the-Ticket (PtT)</span><span class="tag-pill">Dumping LSA Secrets</span><span class="tag-pill">Privesc - Pass-the-Ticket (PtT)</span><span class="tag-pill">Privesc - Dumping LSA Secrets</span><span class="tag-pill">OSCP Style</span><span class="tag-pill">Metasploit Framework</span>
+      </div>
+    </div>
+    
+    
+  </div>
+  
+  <span class="post-card-thumb-wrap">
+    <img class="post-card-thumb" src="http://localhost:1313/assets/images/htb-writeup-darkzero/darkzero.png" alt="DarkZero - Hack The Box" loading="lazy">
+  </span>
+  
+</a>
+
+    
+    <a class="post-card post-card-with-image" href="http://localhost:1313/THL-writeup-accounting/">
+  <div class="post-card-body">
+    <div class="post-card-meta">7 March 2025 · TheHackerLabs, Easy Machine</div>
+    <h2>Accounting - TheHackerLabs</h2>
+    
+    
+    
+    <p>Una máquina que te puede sorprender si te confías. Después de analizar los escaneos, descubrimos una página web activa, descubrimos que no es necesario loguearnos en el servicio SMB para listar los …</p>
+    
+    <div class="tag-marquee">
+      <div class="tag-marquee-track">
+        <span class="tag-pill">Windows</span><span class="tag-pill">SMB</span><span class="tag-pill">MSSQL</span><span class="tag-pill">CONTPAQi</span><span class="tag-pill">Fuzzing</span><span class="tag-pill">Information Leakage</span><span class="tag-pill">SMB Enumeration</span><span class="tag-pill">Weak Credential Storage</span><span class="tag-pill">Remote Command Execution (RCE)</span><span class="tag-pill">Enabling xp_cmdshell (RCE)</span><span class="tag-pill">Privesc - Enabling xp_cmdshell (RCE)</span><span class="tag-pill">OSCP Style</span>
+      </div>
+    </div>
+    
+    
+  </div>
+  
+  <span class="post-card-thumb-wrap">
+    <img class="post-card-thumb" src="http://localhost:1313/assets/images/THL-writeup-accounting/accounting.jpg" alt="Accounting - TheHackerLabs" loading="lazy">
+  </span>
+  
+</a>
+
+    
+    <a class="post-card post-card-with-image" href="http://localhost:1313/htb-writeup-manager/">
+  <div class="post-card-body">
+    <div class="post-card-meta">12 October 2024 · HackTheBox, Medium Machine</div>
+    <h2>Manager - Hack The Box</h2>
+    
+    
+    
+    <p>Esta fue una máquina no tan difícil como esperaba, pero interesante en la forma de escalar privilegios. Empezamos por analizar la página web activa, pero al no encontrar nada útil, pasamos a enumerar …</p>
+    
+    <div class="tag-marquee">
+      <div class="tag-marquee-track">
+        <span class="tag-pill">Windows</span><span class="tag-pill">Active Directory</span><span class="tag-pill">DNS</span><span class="tag-pill">Kerberos</span><span class="tag-pill">RPC</span><span class="tag-pill">LDAP</span><span class="tag-pill">MSSQL</span><span class="tag-pill">Web Enumeration</span><span class="tag-pill">Kerberos Enumeration</span><span class="tag-pill">Password Brute Force</span><span class="tag-pill">RPC Enumeration</span><span class="tag-pill">LDAP Enumeration</span><span class="tag-pill">RID Cycling Attack</span><span class="tag-pill">MSSQL Enumeration</span><span class="tag-pill">Abusign MSSQL with xp_dirtree</span><span class="tag-pill">Information Leakage</span><span class="tag-pill">AD Enumeration (adPEAS)</span><span class="tag-pill">BloodHound and SharpHound Enumeration</span><span class="tag-pill">Abusing ADCS (SubCA Template)</span><span class="tag-pill">Privesc - ESC7 technique</span><span class="tag-pill">OSCP Style</span>
+      </div>
+    </div>
+    
+    
+  </div>
+  
+  <span class="post-card-thumb-wrap">
+    <img class="post-card-thumb" src="http://localhost:1313/assets/images/htb-writeup-manager/Manager.png" alt="Manager - Hack The Box" loading="lazy">
+  </span>
+  
+</a>
+
+    
+    <a class="post-card post-card-with-image" href="http://localhost:1313/htb-writeup-scrambled/">
+  <div class="post-card-body">
+    <div class="post-card-meta">2 October 2024 · HackTheBox, Medium Machine</div>
+    <h2>Scrambled - Hack The Box</h2>
+    
+    
+    
+    <p>Esta es una máquina que nos reta a probar varias formas de poder ganar acceso, pues por un ataque que sufrieron, se desactivó la autenticación NTLM, lo que nos complica la forma de explotar la …</p>
+    
+    <div class="tag-marquee">
+      <div class="tag-marquee-track">
+        <span class="tag-pill">Windows</span><span class="tag-pill">Active Directory</span><span class="tag-pill">SMB</span><span class="tag-pill">LDAP</span><span class="tag-pill">Kerberos</span><span class="tag-pill">MSSQL</span><span class="tag-pill">Information Leakage</span><span class="tag-pill">Fuzzing</span><span class="tag-pill">Kerberos Enumeration</span><span class="tag-pill">LDAP Enumeration</span><span class="tag-pill">SMB Enumeration</span><span class="tag-pill">Password Brute Force</span><span class="tag-pill">Kerberoasting Attack</span><span class="tag-pill">Cracking Hash</span><span class="tag-pill">Silver Ticket Attack</span><span class="tag-pill">MSSQL Enumeration</span><span class="tag-pill">Enabling xp_cmdshell (RCE)</span><span class="tag-pill">User Pivoting</span><span class="tag-pill">Binary Analysis</span><span class="tag-pill">DLL Analysis</span><span class="tag-pill">Analysis with DNSpy</span><span class="tag-pill">Deserialization Attack</span><span class="tag-pill">Privesc - Deserialization Attack</span><span class="tag-pill">OSCP Style</span>
+      </div>
+    </div>
+    
+    
+  </div>
+  
+  <span class="post-card-thumb-wrap">
+    <img class="post-card-thumb" src="http://localhost:1313/assets/images/htb-writeup-scrambled/Scrambled.png" alt="Scrambled - Hack The Box" loading="lazy">
+  </span>
+  
+</a>
+
+    
+  </div>
+
+  
+
+</div>
+
+  </main>
+  <footer class="site-footer">
+  <div class="wrap">
+    <p>&copy; 2026 BerserkWings · México
+       · <a href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </p>
+  </div>
+</footer>
+
+  
+
+<script src="/js/main.min.15ff80349759f71df793ae28568ef0a6a9c3eb6efe99c9e96bad1d9236a26c31.js" integrity="sha256-Ff&#43;ANJdZ9x33k64oVo7wpqnD627&#43;mcnpa60dkjaibDE=" defer></script>
+
+</body>
+</html>

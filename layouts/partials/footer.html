@@ -1,0 +1,7 @@
+<footer class="site-footer">
+  <div class="wrap">
+    <p>&copy; {{ now.Format "2006" }} {{ .Site.Params.nickname }} · {{ .Site.Params.location }}
+      {{ if .Site.Params.github }} · <a href="{{ .Site.Params.github }}" target="_blank" rel="noopener noreferrer">GitHub</a>{{ end }}
+    </p>
+  </div>
+</footer>

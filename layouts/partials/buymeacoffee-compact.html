@@ -1,0 +1,6 @@
+{{ $user := .Site.Params.buymeacoffee_username }}
+{{ if $user }}
+<a class="bmac-compact" href="https://www.buymeacoffee.com/{{ $user }}" target="_blank" rel="noopener noreferrer">
+  ☕ Invitar un café
+</a>
+{{ end }}

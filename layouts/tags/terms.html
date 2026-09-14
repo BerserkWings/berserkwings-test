@@ -1,0 +1,49 @@
+{{ define "main" }}
+<canvas class="hero-matrix-bg" id="heroMatrixBg" aria-hidden="true"></canvas>
+{{ partial "sidebar-profile.html" . }}
+<div class="wrap" style="margin-top:2.5rem;">
+  <h1>Etiquetas</h1>
+  <p class="post-meta">Ordenadas de la más usada a la menos usada.</p>
+
+  {{ $recounted := slice }}
+  {{ range .Data.Terms.Alphabetical }}
+    {{ $termPage := .Page }}
+    {{ $visiblePages := slice }}
+    {{ range $termPage.Pages }}
+      {{ $unlockDate := "" }}
+      {{ with .Params.unlock_date }}{{ $unlockDate = time.AsTime . }}{{ end }}
+      {{ if not (and $unlockDate (gt $unlockDate now)) }}
+        {{ $visiblePages = $visiblePages | append . }}
+      {{ end }}
+    {{ end }}
+    {{ if gt (len $visiblePages) 0 }}
+      {{ $recounted = $recounted | append (dict "Page" $termPage "Count" (len $visiblePages)) }}
+    {{ end }}
+  {{ end }}
+  {{ $sorted := sort $recounted "Count" "desc" }}
+  {{ $visibleCount := 40 }}
+
+  <div class="tag-cloud">
+    {{ range first $visibleCount $sorted }}
+      {{ $termPage := .Page }}
+      <a class="tag-cloud-pill" href="{{ $termPage.Permalink }}">
+        {{ $termPage.Title }} <span class="tag-cloud-count">{{ .Count }}</span>
+      </a>
+    {{ end }}
+  </div>
+
+  {{ if gt (len $sorted) $visibleCount }}
+  <details class="tag-cloud-more">
+    <summary>Mostrar todas las etiquetas ({{ sub (len $sorted) $visibleCount }} más)</summary>
+    <div class="tag-cloud" style="margin-top:1rem;">
+      {{ range after $visibleCount $sorted }}
+        {{ $termPage := .Page }}
+        <a class="tag-cloud-pill" href="{{ $termPage.Permalink }}">
+          {{ $termPage.Title }} <span class="tag-cloud-count">{{ .Count }}</span>
+        </a>
+      {{ end }}
+    </div>
+  </details>
+  {{ end }}
+</div>
+{{ end }}

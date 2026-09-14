@@ -1,0 +1,25 @@
+{{ define "main" }}
+<canvas class="hero-matrix-bg" id="heroMatrixBg" aria-hidden="true"></canvas>
+{{ partial "sidebar-profile.html" . }}
+<div class="wrap" style="margin-top:2.5rem;">
+  <h1>Categorías</h1>
+  <div class="term-grid">
+    {{ range .Data.Terms.Alphabetical }}
+      {{ $termPage := .Page }}
+      {{ $count := .Count }}
+      {{ $pages := $termPage.Pages }}
+      <a class="term-card" href="{{ $termPage.Permalink }}">
+        <h2>{{ $termPage.Title }}</h2>
+        <div class="term-card-count">{{ $count }} publicaci{{ if eq $count 1 }}ón{{ else }}ones{{ end }}</div>
+        {{ with $pages }}
+          {{ $latest := index . 0 }}
+          <div class="term-card-latest">
+            <span class="term-card-latest-label">Última:</span>
+            {{ $latest.Title }} · {{ $latest.Date.Format "2 January 2006" }}
+          </div>
+        {{ end }}
+      </a>
+    {{ end }}
+  </div>
+</div>
+{{ end }}

